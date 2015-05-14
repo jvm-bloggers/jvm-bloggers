@@ -1,12 +1,19 @@
-*.class
+# Intellij IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# MacOS Specific
+.DS_Store
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Maven stuff
+target/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Logs
+*.log
+
+# Do not persist application-prod.properties
+application-prod.properties
+
+
