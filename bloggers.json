@@ -1,0 +1,21 @@
+{
+	"bloggers": [
+		{
+			"name": "Tomasz Dziurko",
+			"rss": "http://tomaszdziurko.pl/feed/",
+			"twitter": "@TomaszDziurko"
+		},
+		{
+			"name": "Adam Warski",
+			"rss": "http://www.warski.org/blog/feed/",
+			"twitter": "@AdamWarski"
+		},
+		{
+			"name": "Tomek Nurkiewicz",
+			"rss": "http://www.nurkiewicz.com/feeds/posts/default?alt=rss",
+			"twitter": "@tnurkiewicz"	
+		}
+	]
+		
+
+}
