@@ -183,11 +183,6 @@
 			"rss": "http://blog.dragonia.org.pl/feeds/posts/default",
 		},
 		{
-			"name": "Espeo",
-			"rss": "http://www.espeo.pl/blog/feed/",
-			"company": "yes"
-		},
-		{
 			"name": "Konrad Malawski",
 			"rss": "http://www.blog.project13.pl/index.php/feed/",
 			"twitter": "@ktosopl"
@@ -303,12 +298,6 @@
 			"name": "Paweł Szulc",
 			"rss": "http://www.rabbitonweb.com/feed/",
 			"twitter": "@rabbitonweb"
-		},
-		{
-			"name": "Allegro Tech",
-			"rss": "http://allegrotech.io/feed",
-			"twitter": "@AllegroTechBlog",
-			"company": "yes"
 		},
 		{
 			"name": "Bartek Szulc",
@@ -471,9 +460,9 @@
 			"twitter": "@okorczak"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Dariusz Łuksza",
+			"rss": "http://luksza.org/feed/atom/",
+			"twitter": "@dluksza"
 		},
 		{
 			"name": "",
