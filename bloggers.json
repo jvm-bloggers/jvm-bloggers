@@ -193,64 +193,67 @@
 			"twitter": "@ktosopl"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Przemysław Bielicki",
+			"rss": "http://blog.bielu.com/feeds/posts/default",
+			"twitter": "@pbielicki"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Sebastian Malaca",
+			"rss": "http://letstalkaboutjava.blogspot.com/feeds/posts/default",
+			"twitter": "@sebastianmalaca"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Mariusz Prowaźnik",
+			"rss": "http://www.prowaznik.pl/feeds/posts/default",
+			"twitter": "@mprowaznik"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Matt Harasymczuk",
+			"rss": "http://www.mattagile.com/feeds/posts/default",
+			"twitter": "@MattAgile"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Krzysztof Kędziorski",
+			"rss": "http://blog.kedziorski.pl/feed/"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Pietrowski",
+			"rss": "http://feeds.feedburner.com/PragmaticProgrammerIssues",
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Sebastian Malaca",
+			"rss": "http://sebastian-malaca.blogspot.com/feeds/posts/default",
+			"twitter": "@sebastianmalaca"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Tomek Bujok",
+			"rss": "http://www.reficio.org/feed/",
+			"twitter": "@tombujok"
 		},
 		{
-			"name": "",
+			"name": "Michał Gruca",
 			"rss": "",
-			"twitter": ""
+			"twitter": "@michalgruca"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Marcin Pieciukiewicz",
+			"rss": "http://blog.mpieciukiewicz.pl/feeds/posts/default",
+			"twitter": "@marpiec"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Michał Piotrowski",
+			"rss": "https://chlebik.wordpress.com/feed",
+			"twitter": "@Chlebosz"
 		},
 		{
-			"name": "",
-			"rss": "",
-			"twitter": ""
+			"name": "Arek Borek",
+			"rss": "http://arekborek.blogspot.com/feeds/posts/default",
+			"twitter": "@arekborek"
+		},
+		{
+			"name": "Adam Dudczak",
+			"rss": "http://feeds.feedburner.com/adudczak",
+			"twitter": "@maneo"
 		},
 		{
 			"name": "",
