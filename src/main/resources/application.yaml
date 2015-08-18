@@ -1,0 +1,6 @@
+info:
+  app:
+    name: JVM Bloggers
+    description: Application to spread info about polish blogging JVM Developers
+
+spring.jpa.hibernate.ddl-auto: validate

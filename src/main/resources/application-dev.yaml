@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jvm_bloggers
+    username: jvm_bloggers
+    password: jvm_bloggers
+    driver: org.postgresql.Driver
+    test-on-borrow: true
+    validation-query: SELECT 1
