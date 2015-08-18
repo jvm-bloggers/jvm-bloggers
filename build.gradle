@@ -35,15 +35,20 @@ repositories {
 
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-devtools"
+    compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile("org.postgresql:postgresql:9.4-1201-jdbc41")
-    compile("org.flywaydb:flyway-core")
+
+    // Utils and helpers
+    compile "org.projectlombok:lombok:1.16.0"
+
+    // Database related
+    compile "org.postgresql:postgresql:9.4-1201-jdbc41"
+    compile "org.flywaydb:flyway-core"
 
     // Test dependencies
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
