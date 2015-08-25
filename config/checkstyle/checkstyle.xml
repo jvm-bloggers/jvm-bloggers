@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE:OFF"/>
+        <property name="onCommentFormat" value="CHECKSTYLE:ON"/>
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="serialVersionUID"/>
+        <property name="message" value="No serialVersionUID declaration allowed"/>
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="printStacktrace()"/>
+        <property name="message" value="Stacktrace printing is not allowed"/>
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="System.out.println()"/>
+        <property name="message" value="System.out.println() is not allowed"/>
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="org.drools.core.util.StringUtils"/>
+        <property name="message" value="StringUtils from Drools is used."/>
+    </module>
+
+    <module name="FileLength">
+        <property name="max" value="2000"/>
+    </module>
+
+    <module name="FileTabCharacter" />
+
+    <module name="TreeWalker">
+        <module name="FileContentsHolder"/>
+        <module name="EmptyBlock"/>
+        <module name="LeftCurly" />
+        <module name="RightCurly" />
+        <module name="NeedBraces" />
+        <module name="AvoidNestedBlocks" />
+
+        <!-- Coding -->
+        <module name="EqualsHashCode"/>
+        <module name="EmptyStatement"/>
+        <module name="InnerAssignment"/>
+        <module name="StringLiteralEquality"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="DefaultComesLast"/>
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine"/>
+        <module name="DeclarationOrder"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="IllegalThrows"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="UnnecessaryParentheses" />
+        <module name="HiddenField">
+            <property name="tokens" value="VARIABLE_DEF"/>
+        </module>
+        <module name="NestedTryDepth">
+             <property name="max" value="1"/>
+        </module>
+        <module name="NestedIfDepth">
+             <property name="max" value="2"/>
+        </module>
+        <module name="NestedForDepth">
+             <property name="max" value="2"/>
+        </module>
+
+        <!-- Class design -->
+        <module name="ThrowsCount">
+            <property name="max" value="2"/>
+        </module>
+        <module name="InnerTypeLast"/>
+        <module name="VisibilityModifier">
+            <property name="packageAllowed" value="true" />
+        </module>
+
+        <!-- Annotations -->
+        <module name="MissingOverride"/>
+        <module name="SuppressWarnings">
+            <property name="format" value="^serial$|^unused$"/>
+        </module>
+
+        <!-- Imports -->
+        <module name="RedundantImport" />
+        <module name="UnusedImports" />
+
+        <module name="AvoidStarImport">
+            <property name="allowStaticMemberImports" value="true"/>
+        </module>
+
+        <module name="TodoComment">
+            <property name="format" value="TODO|FIXME"/>
+        </module>
+
+        <!-- Metrics -->
+
+        <!-- Misc -->
+        <module name="UpperEll" />
+        <module name="ArrayTypeStyle" />
+        <module name="OuterTypeFilename" />
+        <module name="Indentation" />
+
+        <!-- Modifiers -->
+        <module name="ModifierOrder" />
+        <module name="RedundantModifier" />
+
+        <!-- Naming -->
+        <module name="AbstractClassName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- Sizes -->
+        <module name="OuterTypeNumber">
+            <property name="max" value="1"/>
+        </module>
+        <module name="MethodLength">
+            <property name="max" value="100"/>
+        </module>
+        <module name="AnonInnerLength">
+            <property name="max" value="20"/>
+        </module>
+        <module name="LineLength">
+            <property name="max" value="150"/>
+        </module>
+
+        <!-- Whitespaces -->
+        <module name="MethodParamPad" />
+        <module name="WhitespaceAround" />
+        <module name="WhitespaceAfter" />
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
+        </module>
+        <module name="NoWhitespaceBefore" />
+        <module name="OperatorWrap" />
+        <module name="ParenPad" />
+        <module name="TypecastParenPad" />
+
+        <module name="MissingSwitchDefault"/>
+        <module name="FallThrough"/>
+    </module>
+</module>

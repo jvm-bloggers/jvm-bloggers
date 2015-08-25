@@ -45,11 +45,14 @@ dependencies {
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"
-    compile "org.flywaydb:flyway-core"
+    compile 'org.liquibase:liquibase-core:3.3.1'
 
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'org.codehaus.groovy:groovy:2.3.8'
+    runtime 'com.h2database:h2'
+
 }
 
 checkstyle {
