@@ -17,10 +17,13 @@ import java.util.Optional;
 public class BloggersDataFetcher {
 
     private final Optional<URL> urlOptional;
+    private final BloggersDataUpdater bloggersDataUpdater;
 
     @Autowired
-    public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString) {
+    public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
+                               BloggersDataUpdater bloggersDataUpdater) {
         urlOptional = convertToUrl(bloggersDataUrlString);
+        this.bloggersDataUpdater = bloggersDataUpdater;
     }
 
     private Optional<URL> convertToUrl(String urlString)  {
@@ -40,7 +43,7 @@ public class BloggersDataFetcher {
         try {
             ObjectMapper mapper = new ObjectMapper();
             BloggersData bloggers = mapper.readValue(urlOptional.get(), BloggersData.class);
-            log.info("Size = " + bloggers.getBloggers().size());
+            bloggersDataUpdater.updateData(bloggers);
         } catch (IOException e) {
             log.error("Exception during parse process", e);
         }

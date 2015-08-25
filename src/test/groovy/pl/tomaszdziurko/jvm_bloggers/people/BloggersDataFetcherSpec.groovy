@@ -8,7 +8,7 @@ class BloggersDataFetcherSpec extends Specification {
         given:
             String urlString = "invalid"
         when:
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString)
+            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, Stub(BloggersDataUpdater))
         then:
             !fetcher.urlOptional.isPresent()
     }
@@ -17,7 +17,7 @@ class BloggersDataFetcherSpec extends Specification {
         given:
             String urlString = "http://google.com"
         when:
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString)
+            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, Stub(BloggersDataUpdater))
         then:
             fetcher.urlOptional.isPresent()
             fetcher.urlOptional.get().host == "google.com"
