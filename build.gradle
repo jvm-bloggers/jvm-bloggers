@@ -35,13 +35,20 @@ repositories {
 
 
 dependencies {
+    // Spring Boot stuff
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-devtools"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-actuator"
 
+    // Logic
+    compile 'com.typesafe.akka:akka-actor_2.10:2.3.12'
+    compile 'com.typesafe.akka:akka-slf4j_2.10:2.3.12'
+
+
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.0"
+    compile 'com.google.guava:guava:18.0'
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"

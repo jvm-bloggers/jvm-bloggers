@@ -11,4 +11,5 @@ public class JvmBloggersApplication {
     public static void main(String[] args) {
         SpringApplication.run(JvmBloggersApplication.class, args);
     }
+
 }
