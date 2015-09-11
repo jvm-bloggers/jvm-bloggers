@@ -23,7 +23,11 @@ public class RssCheckingActor extends AbstractActor {
                 SyndFeed feed = input.build(new XmlReader(new URL(rssLink.getUrl())));
                 feed.getEntries().size();
                 List<SyndEntry> posts = feed.getEntries();
-                posts.forEach(post -> postStoringActor.tell(post, self()));
+                posts.forEach(post -> {
+                        RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
+                        postStoringActor.tell(msg, self());
+                    }
+                );
             }
         ).build());
     }

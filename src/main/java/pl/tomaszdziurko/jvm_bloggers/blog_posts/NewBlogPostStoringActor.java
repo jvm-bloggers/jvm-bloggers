@@ -6,20 +6,45 @@ import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 import com.sun.syndication.feed.synd.SyndEntry;
 import lombok.extern.slf4j.Slf4j;
+import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
+import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Optional;
 
 @Slf4j
 public class NewBlogPostStoringActor extends AbstractActor {
 
-    public NewBlogPostStoringActor() {
-        receive(ReceiveBuilder.match(SyndEntry.class, blogPost -> {
-                log.info("blog post " + blogPost.getLink());
+    private BlogPostRepository blogPostRepository;
 
+    public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
+        this.blogPostRepository = blogPostRepository;
+
+        receive(ReceiveBuilder.match(RssEntryWithAuthor.class, rssEntry -> {
+                Optional<BlogPost> existingPost = blogPostRepository.findByUrl(rssEntry.getRssEntry().getLink());
+                if (!existingPost.isPresent()) {
+                    storeNewBlogPost(rssEntry);
+                } else {
+                    log.debug("Existing post found, skipping save");
+                }
             }
         ).build());
     }
 
+    private void storeNewBlogPost(RssEntryWithAuthor rssEntry) {
+        SyndEntry postInRss = rssEntry.getRssEntry();
+        LocalDateTime publishedDate = postInRss.getPublishedDate().toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
+        BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getAuthor(), postInRss.getLink(), publishedDate);
+        blogPostRepository.save(newBlogPost);
+        log.info("Stored new post '{}' with id {}", newBlogPost.getTitle(), newBlogPost.getId());
+    }
 
-    public static Props props() {
-        return Props.create(NewBlogPostStoringActor.class);
+    public static Props props(BlogPostRepository blogPostRepository) {
+        return Props.create(NewBlogPostStoringActor.class, () -> {
+                return new NewBlogPostStoringActor(blogPostRepository);
+            }
+        );
     }
 }
