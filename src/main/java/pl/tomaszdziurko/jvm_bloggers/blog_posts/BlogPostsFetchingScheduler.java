@@ -19,7 +19,7 @@ public class BlogPostsFetchingScheduler {
     }
 
     @Scheduled(fixedRate = TimeConstants.ONE_HOUR)
-    public void fetchBloggersData() {
+    public void checkRssForNewBlogPosts() {
         log.info("Starting scheduler: fetching blog posts");
         blogPostsFetcher.refreshPosts();
     }
