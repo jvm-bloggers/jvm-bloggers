@@ -29,4 +29,37 @@
     </changeSet>
 
 
+    <changeSet id="002-create-blog-post-table" author="tomasz.dziurko">
+
+        <createSequence sequenceName="BLOG_POST_SEQ"/>
+
+        <createTable tableName="blog_post">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="UID" type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="URL" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PUBLISHED_DATE" type="timestamp without timezone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTHOR_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addUniqueConstraint tableName="BLOG_POST" columnNames="UID" constraintName="BLOG_POST_UID_UNIQUE"/>
+        <addUniqueConstraint tableName="BLOG_POST" columnNames="URL" constraintName="BLOG_POST_URL_UNIQUE"/>
+
+        <addForeignKeyConstraint baseTableName="BLOG_POST" baseColumnNames="AUTHOR_ID" constraintName="BLOG_POST_TO_AUTHOR" referencedTableName="PERSON" referencedColumnNames="ID"/>
+    </changeSet>
+
+
 </databaseChangeLog>
