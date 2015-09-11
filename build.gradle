@@ -44,6 +44,7 @@ dependencies {
     // Logic
     compile 'com.typesafe.akka:akka-actor_2.10:2.3.12'
     compile 'com.typesafe.akka:akka-slf4j_2.10:2.3.12'
+    compile 'rome:rome:1.0'
 
 
     // Utils and helpers

@@ -1,20 +1,34 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
 import lombok.extern.slf4j.Slf4j;
+
+import java.net.URL;
+import java.util.List;
 
 @Slf4j
 public class RssCheckingActor extends AbstractActor {
 
-    public RssCheckingActor() {
-        receive(ReceiveBuilder.match(RssLink.class, rssLink ->
-                log.info("Received " + rssLink.getUrl())
+    public RssCheckingActor(ActorRef postStoringActor) {
+        SyndFeedInput input = new SyndFeedInput();
+
+        receive(ReceiveBuilder.match(RssLink.class, rssLink -> {
+                SyndFeed feed = input.build(new XmlReader(new URL(rssLink.getUrl())));
+                feed.getEntries().size();
+                List<SyndEntry> posts = feed.getEntries();
+                posts.forEach(post -> postStoringActor.tell(post, self()));
+            }
         ).build());
     }
 
-    public static Props props() {
-        return Props.create(RssCheckingActor.class, RssCheckingActor::new);
+    public static Props props(ActorRef postStoringActor) {
+        return Props.create(RssCheckingActor.class, () -> new RssCheckingActor(postStoringActor));
     }
 }
