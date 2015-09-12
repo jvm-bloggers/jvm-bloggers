@@ -20,16 +20,24 @@ public class RssCheckingActor extends AbstractActor {
         SyndFeedInput input = new SyndFeedInput();
 
         receive(ReceiveBuilder.match(RssLink.class, rssLink -> {
-                SyndFeed feed = input.build(new XmlReader(new URL(rssLink.getUrl())));
-                feed.getEntries().size();
-                List<SyndEntry> posts = feed.getEntries();
-                posts.forEach(post -> {
-                        RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
-                        postStoringActor.tell(msg, self());
-                    }
-                );
+                executeAction(postStoringActor, input, rssLink);
             }
         ).build());
+    }
+
+    private void executeAction(ActorRef postStoringActor, SyndFeedInput input, RssLink rssLink) {
+        try {
+            SyndFeed feed = input.build(new XmlReader(new URL(rssLink.getUrl())));
+            feed.getEntries().size();
+            List<SyndEntry> posts = feed.getEntries();
+            posts.forEach(post -> {
+                    RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
+                    postStoringActor.tell(msg, self());
+                }
+            );
+        } catch (Exception e) {
+            log.error("Exception for rss from {} ({}): {} ", rssLink.getOwner().getName(), rssLink.getUrl(), e.getMessage());
+        }
     }
 
     public static Props props(ActorRef postStoringActor) {
