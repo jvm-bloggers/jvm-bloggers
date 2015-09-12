@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "person")
@@ -32,10 +33,14 @@ public class Person {
     @Column(name = "TWITTER", nullable = true, length = 100)
     private String twitter;
 
-    public Person(String name, String rss, String twitter) {
+    @Column(name = "DATE_ADDED", nullable = false)
+    private LocalDateTime dateAdded;
+
+    public Person(String name, String rss, String twitter, LocalDateTime dateAdded) {
         this.name = name;
         this.rss = rss;
         this.twitter = twitter;
+        this.dateAdded = dateAdded;
     }
 
 }

@@ -2,10 +2,12 @@ package pl.tomaszdziurko.jvm_bloggers.people;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggerEntry;
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggersData;
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class BloggersDataUpdater {
 
     private PersonRepository personRepository;
+    private NowProvider nowProvider;
 
     @Autowired
-    public BloggersDataUpdater(PersonRepository personRepository) {
+    public BloggersDataUpdater(PersonRepository personRepository, NowProvider nowProvider) {
         this.personRepository = personRepository;
+        this.nowProvider = nowProvider;
     }
 
     public void updateData(BloggersData data) {
@@ -32,7 +36,7 @@ public class BloggersDataUpdater {
     }
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
-        Optional<Person> existingBloggerByRss = personRepository.findByRss(bloggerEntry.getRss());
+        Optional<Person> existingBloggerByRss = personRepository.findByRssIgnoreCase(bloggerEntry.getRss());
 
         if (existingBloggerByRss.isPresent()) {
             if (!isEqual(existingBloggerByRss.get(), bloggerEntry)) {
@@ -43,7 +47,8 @@ public class BloggersDataUpdater {
                 updateSummary.recordUpdated();
             }
         } else {
-            Person newPerson = new Person(bloggerEntry.getName(), bloggerEntry.getRss().toLowerCase(), bloggerEntry.getTwitter());
+            Person newPerson = new Person(bloggerEntry.getName(), StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()),
+                bloggerEntry.getTwitter(), nowProvider.now());
             personRepository.save(newPerson);
             updateSummary.recordCreated();
         }
@@ -51,7 +56,7 @@ public class BloggersDataUpdater {
 
     protected boolean isEqual(Person person, BloggerEntry bloggerEntry) {
         return Objects.equals(person.getName(), bloggerEntry.getName())
-            && Objects.equals(person.getRss(), bloggerEntry.getRss())
+            && StringUtils.equalsIgnoreCase(person.getRss(), bloggerEntry.getRss())
             && Objects.equals(person.getTwitter(), bloggerEntry.getTwitter());
     }
 

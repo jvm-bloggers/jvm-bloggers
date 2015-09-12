@@ -61,5 +61,14 @@
         <addForeignKeyConstraint baseTableName="BLOG_POST" baseColumnNames="AUTHOR_ID" constraintName="BLOG_POST_TO_AUTHOR" referencedTableName="PERSON" referencedColumnNames="ID"/>
     </changeSet>
 
+    <changeSet id="003-added-date-in-person-table" author="tomasz.dziurko">
+        <addColumn tableName="person">
+            <column name="DATE_ADDED" type="timestamp without timezone">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+
 
 </databaseChangeLog>

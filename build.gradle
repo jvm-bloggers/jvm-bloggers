@@ -50,6 +50,7 @@ dependencies {
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.0"
     compile 'com.google.guava:guava:18.0'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"
@@ -61,6 +62,7 @@ dependencies {
     testCompile 'cglib:cglib-nodep:2.2.2'
     testCompile 'org.codehaus.groovy:groovy:2.3.8'
     runtime 'com.h2database:h2'
+
 
 }
 
