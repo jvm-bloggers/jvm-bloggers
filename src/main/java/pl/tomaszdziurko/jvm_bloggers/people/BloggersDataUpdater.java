@@ -37,20 +37,29 @@ public class BloggersDataUpdater {
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
         Optional<Person> existingBloggerByRss = personRepository.findByRssIgnoreCase(bloggerEntry.getRss());
+        Optional<Person> existingBloggerByName = personRepository.findByNameIgnoreCase(bloggerEntry.getName());
 
         if (existingBloggerByRss.isPresent()) {
-            if (!isEqual(existingBloggerByRss.get(), bloggerEntry)) {
-                Person person = existingBloggerByRss.get();
-                person.setName(bloggerEntry.getName());
-                person.setTwitter(bloggerEntry.getTwitter());
-                personRepository.save(person);
-                updateSummary.recordUpdated();
-            }
+            Person bloggerWithSameRss = existingBloggerByRss.get();
+            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameRss);
+        } else if (existingBloggerByName.isPresent()) {
+            Person bloggerWithSameName = existingBloggerByName.get();
+            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameName);
         } else {
             Person newPerson = new Person(bloggerEntry.getName(), StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()),
                 bloggerEntry.getTwitter(), nowProvider.now());
             personRepository.save(newPerson);
             updateSummary.recordCreated();
+        }
+    }
+
+    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry, UpdateSummary updateSummary, Person existingBlogger) {
+        if (!isEqual(existingBlogger, bloggerEntry)) {
+            existingBlogger.setName(bloggerEntry.getName());
+            existingBlogger.setTwitter(bloggerEntry.getTwitter());
+            existingBlogger.setRss(bloggerEntry.getRss());
+            personRepository.save(existingBlogger);
+            updateSummary.recordUpdated();
         }
     }
 

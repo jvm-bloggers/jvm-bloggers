@@ -39,8 +39,9 @@ class BloggersDataUpdaterSpec extends Specification {
             String rss = "newRSS"
             BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
             personRepository.findByRssIgnoreCase(rss) >> Optional.empty()
+            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
-            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(5)
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
             1 * personRepository.save(_ as Person)
@@ -54,7 +55,7 @@ class BloggersDataUpdaterSpec extends Specification {
             BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
             personRepository.findByRssIgnoreCase(rss) >> Optional.of(new Person(entry.name, entry.rss, entry.twitter, LocalDateTime.now()))
         when:
-            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(5)
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
             0 * personRepository.save(_ as Person)
@@ -68,10 +69,42 @@ class BloggersDataUpdaterSpec extends Specification {
             BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
             personRepository.findByRssIgnoreCase(rss) >> Optional.of(new Person(entry.name, "oldRSS", entry.twitter, LocalDateTime.now()))
         when:
-            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(5)
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
             1 * personRepository.save(_ as Person)
+            summary.createdEntries == 0
+            summary.updatedEntries == 1
+    }
+
+    def "Should update existing person if only name was changed but rss is the same"() {
+        given:
+            String newName = "newName"
+            Person existingPerson = new Person("oldName", "existingRSS", "twitter", LocalDateTime.now())
+            BloggerEntry entry = new BloggerEntry(newName, existingPerson.rss, existingPerson.twitter)
+            personRepository.findByRssIgnoreCase(entry.rss) >> Optional.of(existingPerson)
+            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            1 * personRepository.save({ it.name == newName && it.rss == existingPerson.rss && it.twitter == existingPerson.twitter} )
+            summary.createdEntries == 0
+            summary.updatedEntries == 1
+    }
+
+    def "Should update existing person if only rss was changed but name is the same"() {
+        given:
+            String newRss = "newRss"
+            Person existingPerson = new Person("A Name", "existingRSS", "twitter", LocalDateTime.now())
+            BloggerEntry entry = new BloggerEntry(existingPerson.name, newRss, existingPerson.twitter)
+            personRepository.findByRssIgnoreCase(entry.rss) >> Optional.empty()
+            personRepository.findByNameIgnoreCase(entry.name) >> Optional.of(existingPerson)
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            1 * personRepository.save({ it.name == existingPerson.name && it.rss == newRss && it.twitter == existingPerson.twitter} )
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }

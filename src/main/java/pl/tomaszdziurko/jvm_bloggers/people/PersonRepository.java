@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Optional<Person> findByRssIgnoreCase(String rss);
+    Optional<Person> findByNameIgnoreCase(String name);
 }
