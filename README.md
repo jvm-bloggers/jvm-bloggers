@@ -1,5 +1,5 @@
 # JVM Bloggers
-    Never miss any blog post from developers around JVM in Poland
+    Never miss any blog post from developers around JVM in Poland!
 
 ## Overview
 Goal of this project is to gather information about every developer writing about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
