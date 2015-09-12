@@ -12,6 +12,7 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
@@ -35,7 +36,8 @@ public class NewBlogPostStoringActor extends AbstractActor {
 
     private void storeNewBlogPost(RssEntryWithAuthor rssEntry) {
         SyndEntry postInRss = rssEntry.getRssEntry();
-        LocalDateTime publishedDate = postInRss.getPublishedDate().toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
+        Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
+        LocalDateTime publishedDate = dateToStore.toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
         BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getAuthor(), postInRss.getLink(), publishedDate);
         blogPostRepository.save(newBlogPost);
         log.info("Stored new post '{}' with id {}", newBlogPost.getTitle(), newBlogPost.getId());
