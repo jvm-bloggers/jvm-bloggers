@@ -13,7 +13,8 @@ target/
 # Logs
 *.log
 
-# Do not persist application-prod.properties
+# Do not persist application-prod file
 application-prod.properties
+application-prod.yaml
 
 
