@@ -40,7 +40,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
         LocalDateTime publishedDate = dateToStore.toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
         BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getAuthor(), postInRss.getLink(), publishedDate);
         blogPostRepository.save(newBlogPost);
-        log.info("Stored new post '{}' with id {}", newBlogPost.getTitle(), newBlogPost.getId());
+        log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getAuthor().getName()) ;
     }
 
     public static Props props(BlogPostRepository blogPostRepository) {
