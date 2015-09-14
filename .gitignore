@@ -7,8 +7,9 @@
 # MacOS Specific
 .DS_Store
 
-# Maven stuff
+# Build stuff
 target/
+build/
 
 # Logs
 *.log
