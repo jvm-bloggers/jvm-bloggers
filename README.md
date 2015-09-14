@@ -1,10 +1,10 @@
 # JVM Bloggers
-    Never miss any blog post from developers around JVM in Poland!
+    Never miss any blog post from developers around JVM in Poland :)
 
 ## Overview
-Goal of this project is to gather information about every developer writing about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
+Goal of this project is to gather information about every developer blogging about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
 
-I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by informing developers in Poland about new blog posts.
+I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by helping blog authors to reach wider audience.
 
 ##### Your blog is missing? 
 Please create a Pull Request adding it to [bloggers.json](https://github.com/tdziurko/jvm-bloggers/blob/master/bloggers.json) and that's all. Once it is merged, you are on the list!
