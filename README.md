@@ -26,8 +26,8 @@ Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, runni
 
 ## Contributing
 
-Wanna help? Please let me know (create an issue, comment on existing one so we don't duplicate work). This is a community driven open source project, so every help is appreciated!
+Wanna help? Please let me know (create an issue, comment on existing one so we don't duplicate work). This is a community driven open source project, so any help is appreciated!
 
 #### Contact
 
-If you need direct contact, you can reach JVM Bloggers project at Mail from Google: jvmbloggers (at) (you know what).(you know what too) :)
+If you need direct contact, you can reach JVM Bloggers project at GMail: jvmbloggers (at) (you know what).(you know what too) :)
