@@ -17,11 +17,8 @@ class BlogSummaryMailGeneratorSpec extends Specification {
     def "Should populate template with posts data"() {
         given:
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
-        when:
-            String mail = blogSummaryMailGenerator.generateSummaryMail(newPosts, 7)
-        then:
-            mail != null
-            noExceptionThrown()
+        expect:
+            blogSummaryMailGenerator.generateSummaryMail(newPosts, 7) != null
     }
 
 
