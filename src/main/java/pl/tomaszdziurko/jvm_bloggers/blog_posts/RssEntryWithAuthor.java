@@ -8,8 +8,8 @@ import pl.tomaszdziurko.jvm_bloggers.people.Person;
 @Getter
 public class RssEntryWithAuthor {
 
-    private Person author;
-    private SyndEntry rssEntry;
+    private final Person author;
+    private final SyndEntry rssEntry;
 
     public RssEntryWithAuthor(Person author, SyndEntry rssEntry) {
         Preconditions.checkArgument(author != null, "Author can not be bull");

@@ -11,7 +11,7 @@ import pl.tomaszdziurko.jvm_bloggers.TimeConstants;
 @Slf4j
 public class BlogPostsFetchingScheduler {
 
-    private BlogPostsFetcher blogPostsFetcher;
+    private final BlogPostsFetcher blogPostsFetcher;
 
     @Autowired
     public BlogPostsFetchingScheduler(BlogPostsFetcher blogPostsFetcher) {

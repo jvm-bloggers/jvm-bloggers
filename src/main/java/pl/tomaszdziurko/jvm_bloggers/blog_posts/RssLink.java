@@ -5,7 +5,7 @@ import pl.tomaszdziurko.jvm_bloggers.people.Person;
 
 public class RssLink {
 
-    private Person person;
+    private final Person person;
 
     public RssLink(Person person) {
         Preconditions.checkArgument(person != null, "Person can not be bull");

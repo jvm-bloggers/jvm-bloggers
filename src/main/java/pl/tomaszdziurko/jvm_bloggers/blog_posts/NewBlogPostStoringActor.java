@@ -18,7 +18,7 @@ import java.util.Optional;
 @Slf4j
 public class NewBlogPostStoringActor extends AbstractActor {
 
-    private BlogPostRepository blogPostRepository;
+    private final BlogPostRepository blogPostRepository;
 
     public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
         this.blogPostRepository = blogPostRepository;
