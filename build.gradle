@@ -51,6 +51,7 @@ dependencies {
     compile "org.projectlombok:lombok:1.16.0"
     compile 'com.google.guava:guava:18.0'
     compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.antlr:ST4:4.0.7'
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"
@@ -59,6 +60,7 @@ dependencies {
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'org.spockframework:spock-spring:0.7-groovy-2.0'
     testCompile 'cglib:cglib-nodep:2.2.2'
     testCompile 'org.codehaus.groovy:groovy:2.3.8'
     runtime 'com.h2database:h2'
