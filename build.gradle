@@ -72,7 +72,7 @@ checkstyle {
     toolVersion = "6.5"
 }
 
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+wrapper {
+    gradleVersion "2.7"
 }
+
