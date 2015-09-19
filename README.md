@@ -1,7 +1,7 @@
 # JVM Bloggers
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/tdziurko/jvm-bloggers.svg?branch=master)](https://travis-ci.org/tdziurko/jvm-bloggers)
+[![Build Status](https://travis-ci.org/tdziurko/jvm-bloggers.svg?branch=master)](https://travis-ci.org/tdziurko/jvm-bloggers)  [![Coverage Status](https://coveralls.io/repos/tdziurko/jvm-bloggers/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdziurko/jvm-bloggers?branch=master)
 
 ## Overview
 Goal of this project is to gather information about every developer blogging about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
