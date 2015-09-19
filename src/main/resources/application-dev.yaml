@@ -6,3 +6,10 @@ spring:
     driver: org.postgresql.Driver
     test-on-borrow: true
     validation-query: SELECT 1
+
+mails.to.send.weekly.summary: tdziurko
+
+# Sendgrid Configuration
+sendgrid:
+  apiKey: "ENC(RWnXWOykAzWQcKi5pKKYhT4m+CLDtzXIh2NJZgv36gnJg+KA+QK4N33sFnoylTUkQb5y+qFn1iMdhBnoGEVl9/nVkFo1oyVW9f34QbJQdsk=)"
+  fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"

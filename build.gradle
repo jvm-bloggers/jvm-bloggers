@@ -20,7 +20,7 @@ apply plugin: 'checkstyle'
 
 jar {
     baseName = 'jvm-bloggers'
-    version = '0.0.1-SNAPSHOT'
+    version = '0.1.0'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -40,6 +40,8 @@ dependencies {
     compile "org.springframework.boot:spring-boot-devtools"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.2'
+
 
     // Logic
     compile 'com.typesafe.akka:akka-actor_2.10:2.3.12'
@@ -65,7 +67,6 @@ dependencies {
     testCompile 'cglib:cglib-nodep:2.2.2'
     testCompile 'org.codehaus.groovy:groovy:2.3.8'
     runtime 'com.h2database:h2'
-
 
 }
 
