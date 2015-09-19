@@ -9,20 +9,32 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 @Slf4j
 public class BlogSummaryMailSender {
 
-    private BlogPostRepository blogPostRepository;
-    private BlogSummaryMailGenerator mailGenerator;
-    private NowProvider nowProvider;
+    public static final String MAIL_SUMMARY_TITLE = "[JVM Bloggers] Nowe wpisy na polskich blogach, ";
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private final BlogPostRepository blogPostRepository;
+    private final BlogSummaryMailGenerator mailGenerator;
+    private final SendGridMailSender mailSender;
+    private final NewsletterRecipientsProvider newsletterRecipientsProvider;
+    private final NowProvider nowProvider;
 
     @Autowired
-    public BlogSummaryMailSender(BlogPostRepository blogPostRepository, BlogSummaryMailGenerator blogSummaryMailGenerator, NowProvider nowProvider) {
+    public BlogSummaryMailSender(BlogPostRepository blogPostRepository,
+                                 BlogSummaryMailGenerator blogSummaryMailGenerator,
+                                 SendGridMailSender sendGridMailSender,
+                                 NewsletterRecipientsProvider newsletterRecipientsProvider,
+                                 NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;
         this.mailGenerator = blogSummaryMailGenerator;
+        this.mailSender = sendGridMailSender;
+        this.newsletterRecipientsProvider = newsletterRecipientsProvider;
         this.nowProvider = nowProvider;
     }
 
@@ -31,5 +43,13 @@ public class BlogSummaryMailSender {
         List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
         String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, numberOfDaysBackInThePast);
         log.info("Mail content = \n" + mailTemplate);
+        newsletterRecipientsProvider.getRecipients().stream().forEach(recipient ->
+            mailSender.sendEmail(recipient, MAIL_SUMMARY_TITLE + getTodayDateAsString(), mailTemplate)
+        );
+
+    }
+
+    private String getTodayDateAsString() {
+        return nowProvider.now().format(FORMATTER);
     }
 }
