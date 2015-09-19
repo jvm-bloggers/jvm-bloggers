@@ -18,7 +18,7 @@ public class BloggersDataFetchingScheduler {
         this.bloggersDataFetcher = bloggersDataFetcher;
     }
 
-    @Scheduled(fixedRate = TimeConstants.THIRTY_MINUTES)
+    @Scheduled(cron = TimeConstants.EVERY_FRIDAY_AT_12_OCLOCK)
     public void fetchBloggersData() {
         log.info("Starting scheduler: bloggers data refresh");
         bloggersDataFetcher.refreshData();
