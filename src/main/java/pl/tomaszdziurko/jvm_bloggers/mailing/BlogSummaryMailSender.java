@@ -30,6 +30,6 @@ public class BlogSummaryMailSender {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(0).withMinute(0).withSecond(0).withNano(0);
         List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
         String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, numberOfDaysBackInThePast);
-        log.info("Mail content = \n" + mailTemplate );
+        log.info("Mail content = \n" + mailTemplate);
     }
 }
