@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BloggersDataUpdater {
 
-    private PersonRepository personRepository;
-    private NowProvider nowProvider;
+    private final PersonRepository personRepository;
+    private final NowProvider nowProvider;
 
     @Autowired
     public BloggersDataUpdater(PersonRepository personRepository, NowProvider nowProvider) {

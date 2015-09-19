@@ -14,10 +14,10 @@ import java.util.List;
 @Component
 public class BlogPostsFetcher {
 
-    private PersonRepository personRepository;
-    private BlogPostRepository blogPostRepository;
-    private ActorRef rssCheckingActor;
-    private ActorRef blogPostStoringActor;
+    private final PersonRepository personRepository;
+    private final BlogPostRepository blogPostRepository;
+    private final ActorRef rssCheckingActor;
+    private final ActorRef blogPostStoringActor;
 
     @Autowired
     public BlogPostsFetcher(ActorSystem actorSystem, PersonRepository personRepository, BlogPostRepository blogPostRepository) {
