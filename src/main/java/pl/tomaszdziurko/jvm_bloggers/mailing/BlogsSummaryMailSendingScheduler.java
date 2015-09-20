@@ -19,7 +19,7 @@ public class BlogsSummaryMailSendingScheduler {
         this.blogSummaryMailSender = blogSummaryMailSender;
     }
 
-    @Scheduled(fixedRate = TimeConstants.THIRTY_MINUTES)
+    @Scheduled(cron = TimeConstants.EVERY_FRIDAY_AT_12_OCLOCK)
     public void sendBlogsSummaryEmails() {
         log.info("Starting scheduler: sending blogs summary");
         blogSummaryMailSender.sendSummary(TWO_WEEKS_BACK_IN_THE_PAST);
