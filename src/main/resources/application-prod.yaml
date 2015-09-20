@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: TODO
+    username: TODO
+    password: TODO
+    driver: org.postgresql.Driver
+    test-on-borrow: true
+    validation-query: SELECT 1
+
+mails.to.send.weekly.summary: "ENC(CwoHVu2Mmv+Ufx9xxMiHB3eA+dRX7GzEL9jWHiXXIuQURfnAiWw/6qHrDDFcfF9z+mIrLZE+QB5u2HUjbu4gu51ZbQHh6g9O61kW/+hrKGdVgKRlCd3az5hvyz7soodPkHc+RPnntGqM3CIUj2fNjol4ZvGpnAd/K4QCbcxJTkWQmKAQL7Y+XzL9s2SQOuCQrsZQXJ3oQTzK3lxHskwFbdQmghM9d4z/6odcd3LcFa5XSz3RIvmzH/IOi6Ew56RL9nIg6QQ4+ekx18QRaJLXfQ7f4YMkLNnpfCDfOVaSJnPPLKssKqthXW5Nu3/4a6W0NOlajpOHOwatl5SlQb/re1MFEmPo98MP)"
+
+# Sendgrid Configuration
+sendgrid:
+  apiKey: "ENC(RWnXWOykAzWQcKi5pKKYhT4m+CLDtzXIh2NJZgv36gnJg+KA+QK4N33sFnoylTUkQb5y+qFn1iMdhBnoGEVl9/nVkFo1oyVW9f34QbJQdsk=)"
+  fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
