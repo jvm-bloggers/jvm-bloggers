@@ -20,6 +20,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'application'
 
 jar {
     baseName = 'jvm-bloggers'
@@ -87,6 +88,8 @@ jacocoTestReport {
 tasks.coveralls {
     dependsOn 'check'
 }
+
+task stage(dependsOn: ['clean', 'installApp'])
 
 wrapper {
     gradleVersion "2.7"
