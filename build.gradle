@@ -89,7 +89,9 @@ tasks.coveralls {
     dependsOn 'check'
 }
 
-task stage(dependsOn: ['clean', 'build'])
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
 
 wrapper {
     gradleVersion "2.7"
