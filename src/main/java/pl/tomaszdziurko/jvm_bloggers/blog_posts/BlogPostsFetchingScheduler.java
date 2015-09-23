@@ -18,7 +18,7 @@ public class BlogPostsFetchingScheduler {
         this.blogPostsFetcher = blogPostsFetcher;
     }
 
-    @Scheduled(fixedRate = TimeConstants.ONE_HOUR)
+    @Scheduled(cron = TimeConstants.EVERY_FULL_HOUR_10_23)
     public void checkRssForNewBlogPosts() {
         log.info("Starting scheduler: fetching blog posts");
         blogPostsFetcher.refreshPosts();
