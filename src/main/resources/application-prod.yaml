@@ -7,7 +7,7 @@ spring:
     test-on-borrow: true
     validation-query: SELECT 1
 
-mails.to.send.weekly.summary: "ENC(CwoHVu2Mmv+Ufx9xxMiHB3eA+dRX7GzEL9jWHiXXIuQURfnAiWw/6qHrDDFcfF9z+mIrLZE+QB5u2HUjbu4gu51ZbQHh6g9O61kW/+hrKGdVgKRlCd3az5hvyz7soodPkHc+RPnntGqM3CIUj2fNjol4ZvGpnAd/K4QCbcxJTkWQmKAQL7Y+XzL9s2SQOuCQrsZQXJ3oQTzK3lxHskwFbdQmghM9d4z/6odcd3LcFa5XSz3RIvmzH/IOi6Ew56RL9nIg6QQ4+ekx18QRaJLXfQ7f4YMkLNnpfCDfOVaSJnPPLKssKqthXW5Nu3/4a6W0NOlajpOHOwatl5SlQb/re1MFEmPo98MP)"
+mails.to.send.weekly.summary: "ENC(m4xA9XBJNnQZJxFrDfPOxRFy4x+3nc9PcLqEB9XG4HoynTPfydWADmP9FAiqzCVEziEYErFcq6a8Vdpo3CEtgXk7pkZw+GPXrqhW+EDM4MJCfCSVyQwzrBf8caFA+qUOXxp9QVNsa61ZtJivjRIj7d01ADcDVmHf564iJaifOPirA9wB1GLhRL9r4TtPQygSXMDl8ZoInkUdQnBlCCLDGspvg/ezL5THnwiDYcXIQyYDbblzWJmAQYsoK3hwyisyTX5LCjHiaf8FHkx+FFMVk0du8T6yrXsuUsUhR+JwM2lZ3+JXvHV+V+wnI3piQCyNAkxveTCG5OifXWMIEfoRWCSV3sz3OkLCyRoUIz42tRe31FJIBbRWtaNeK8dZ8LhzKbh3XXWwcoU=)"
 
 # Sendgrid Configuration
 sendgrid:
