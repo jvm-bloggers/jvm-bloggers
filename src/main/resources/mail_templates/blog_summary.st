@@ -9,7 +9,7 @@ $newPosts: {post|
 <br/>
 -- <br/>
 Miłej lektury,<br/>
-Projekt JVM Bloggers v. 0.1.0<br/>
+Projekt JVM Bloggers v. 0.2.0<br/>
 <a href="https://github.com/tdziurko/jvm-bloggers/">Fork me on GitHub</a><br/>
 
 
