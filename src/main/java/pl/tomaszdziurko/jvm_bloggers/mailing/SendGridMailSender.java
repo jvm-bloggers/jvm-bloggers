@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @Slf4j
 public class SendGridMailSender {
@@ -28,9 +30,9 @@ public class SendGridMailSender {
         SendGrid.Email email = prepareEmail(recipientAddress, subject, htmlContent);
         try {
             SendGrid.Response response = sendgrid.send(email);
-            log.info(response.getMessage());
+            log.info("Sending mail '{}' to {}: " +  response.getMessage(), email.getSubject(), Arrays.toString(email.getToNames()));
         } catch (SendGridException e) {
-            log.error("Error when sending email to  " + recipientAddress + ", msg = " + e.getMessage(), e);
+            log.error("Error when sending email to  " + Arrays.toString(email.getToNames()) + ", msg = " + e.getMessage(), e);
         }
     }
 
