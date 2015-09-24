@@ -32,7 +32,7 @@ public class SendGridMailSender {
             SendGrid.Response response = sendgrid.send(email);
             log.info("Sending mail '{}' to {}: " +  response.getMessage(), email.getSubject(), Arrays.toString(email.getToNames()));
         } catch (SendGridException e) {
-            log.error("Error when sending email to  " + Arrays.toString(email.getToNames()) + ", msg = " + e.getMessage(), e);
+            log.error("Error when sending email to  " + Arrays.toString(email.getTos()) + ", msg = " + e.getMessage(), e);
         }
     }
 
