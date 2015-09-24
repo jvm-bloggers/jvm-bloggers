@@ -11,7 +11,7 @@ import pl.tomaszdziurko.jvm_bloggers.TimeConstants;
 @Slf4j
 public class BlogsSummaryMailSendingScheduler {
 
-    public static final int TWO_WEEKS_BACK_IN_THE_PAST = 14;
+    public static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_MAILING = 7;
     private BlogSummaryMailSender blogSummaryMailSender;
 
     @Autowired
@@ -22,6 +22,6 @@ public class BlogsSummaryMailSendingScheduler {
     @Scheduled(cron = TimeConstants.EVERY_FRIDAY_AT_12_OCLOCK)
     public void sendBlogsSummaryEmails() {
         log.info("Starting scheduler: sending blogs summary");
-        blogSummaryMailSender.sendSummary(TWO_WEEKS_BACK_IN_THE_PAST);
+        blogSummaryMailSender.sendSummary(DAYS_IN_THE_PAST_TO_INCLUDE_IN_MAILING);
     }
 }
