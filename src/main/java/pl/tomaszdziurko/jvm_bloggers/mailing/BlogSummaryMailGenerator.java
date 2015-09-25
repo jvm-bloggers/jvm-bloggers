@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
+import pl.tomaszdziurko.jvm_bloggers.people.Person;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,13 +28,14 @@ public class BlogSummaryMailGenerator {
         this.blogsSummaryTemplate = blogsSummaryTemplate;
     }
 
-    public String generateSummaryMail(List<BlogPost> posts, int numberOfDaysBackInThePast) {
+    public String generateSummaryMail(List<BlogPost> posts, List<Person> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(blogsSummaryTemplate.getInputStream(), "UTF-8"));
             String templateContent =  Joiner.on("\n").join(bufferedReader.lines().collect(Collectors.toList()));
             StringTemplate template = new StringTemplate(templateContent);
             template.setAttribute("days", numberOfDaysBackInThePast);
             template.setAttribute("newPosts", posts.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+            template.setAttribute("newBlogs", blogsAddedSinceLastNewsletter);
             return template.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
