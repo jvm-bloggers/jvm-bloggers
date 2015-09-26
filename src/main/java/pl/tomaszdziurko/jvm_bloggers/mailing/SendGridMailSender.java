@@ -16,21 +16,20 @@ public class SendGridMailSender {
 
     public static final String FROM_NAME = "JVM Bloggers";
 
-    private final String sendGridApiKey;
+    private SendGrid sendgrid;
     private final String senderAddress;
 
     @Autowired
-    public SendGridMailSender(@Value("${sendgrid.apiKey}") String sendGridApiKey, @Value("${sendgrid.fromEmail}") String senderAddress) {
-        this.sendGridApiKey = sendGridApiKey;
+    public SendGridMailSender(SendGrid sendgrid, @Value("${sendgrid.fromEmail}") String senderAddress) {
+        this.sendgrid = sendgrid;
         this.senderAddress = senderAddress;
     }
 
     public void sendEmail(String recipientAddress, String subject, String htmlContent) {
-        SendGrid sendgrid = new SendGrid(sendGridApiKey);
         SendGrid.Email email = prepareEmail(recipientAddress, subject, htmlContent);
         try {
             SendGrid.Response response = sendgrid.send(email);
-            log.info("Sending mail '{}' to {}: " +  response.getMessage(), email.getSubject(), Arrays.toString(email.getToNames()));
+            log.info("Sending mail '{}' to {}: " +  response.getMessage(), email.getSubject(), Arrays.toString(email.getTos()));
         } catch (SendGridException e) {
             log.error("Error when sending email to  " + Arrays.toString(email.getTos()) + ", msg = " + e.getMessage(), e);
         }
