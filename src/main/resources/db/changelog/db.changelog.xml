@@ -83,5 +83,21 @@
         <modifyDataType tableName="person" columnName="JSON_ID" newDataType="bigint"/>
     </changeSet>
 
+    <changeSet id="006-create-mailing-address-table" author="tomasz.dziurko">
+
+        <createSequence sequenceName="MAILING_ADDRESS_SEQ"/>
+
+        <createTable tableName="mailing_address">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="mailing_address" columnNames="address" constraintName="MAILING_ADDRESS_ADDRESS_UNIQUE"/>
+    </changeSet>
+
 
 </databaseChangeLog>
