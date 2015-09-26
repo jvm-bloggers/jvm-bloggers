@@ -49,12 +49,19 @@ public class BlogSummaryMailSender {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(0).withMinute(0).withSecond(0).withNano(0);
         List<Person> blogsAddedSinceLastNewsletter = personRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
-        String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
-        log.info("Mail content = \n" + mailTemplate);
+        if (newBlogPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
+            log.warn("There are no new posts nor new blogs added for last {} days !!!", numberOfDaysBackInThePast);
+            return;
+        }
+
         List<MailingAddress> mailingAddresses = mailingAddressRepository.findAll();
         if (mailingAddresses.isEmpty()) {
             log.warn("No e-mails in database to send Blog Summary !!!");
+            return;
         }
+
+        String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
+        log.info("Mail content = \n" + mailTemplate);
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient ->
             mailSender.sendEmail(recipient, MAIL_SUMMARY_TITLE + getTodayDateAsString(), mailTemplate)
         );
