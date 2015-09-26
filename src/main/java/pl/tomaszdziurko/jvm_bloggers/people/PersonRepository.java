@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    Optional<Person> findByRssIgnoreCase(String rss);
     Optional<Person> findByNameIgnoreCase(String name);
+    Optional<Person> findByJsonId(Long jsonId);
 
     List<Person> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 }

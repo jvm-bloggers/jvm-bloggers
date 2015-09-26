@@ -23,5 +23,10 @@ class BloggersDataFetcherSpec extends Specification {
             fetcher.urlOptional.get().host == "google.com"
     }
 
+    def "Should properly load entry from bloggers.json"() {
+
+
+    }
+
 
 }

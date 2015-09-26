@@ -24,6 +24,9 @@ public class Person {
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "JSON_ID")
+    private Long jsonId;
+
     @Column(name = "NAME", nullable = false, length = 250)
     private String name;
 
@@ -36,7 +39,8 @@ public class Person {
     @Column(name = "DATE_ADDED", nullable = false)
     private LocalDateTime dateAdded;
 
-    public Person(String name, String rss, String twitter, LocalDateTime dateAdded) {
+    public Person(Long jsonId, String name, String rss, String twitter, LocalDateTime dateAdded) {
+        this.jsonId = jsonId;
         this.name = name;
         this.rss = rss;
         this.twitter = twitter;

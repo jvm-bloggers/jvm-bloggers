@@ -23,22 +23,23 @@ class BloggersDataUpdaterSpec extends Specification {
             isEqual == expectedResult
         where:
             person                                                    | bloggerEntry                               | expectedResult
-            new Person("name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | true
-            new Person("Xame", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | false
-            new Person("name", "Xss", "twitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | false
-            new Person("name", "rss", "Xwitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | false
-            new Person("namX", "rsX", "twitteX", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | false
-            new Person("name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", null)      | false
-            new Person("name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(null, "rss", "twitter")   | false
-            new Person("name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry("name", null, "twitter")  | false
-            new Person("name", "RSS", "twitter", LocalDateTime.now()) | new BloggerEntry("name", "rss", "twitter") | true
+            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | true
+            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(2L, "name", "rss", "twitter") | false
+            new Person(1L, "Xame", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
+            new Person(1L, "name", "Xss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
+            new Person(1L, "name", "rss", "Xwitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
+            new Person(1L, "namX", "rsX", "twitteX", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
+            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", null)      | false
+            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, null, "rss", "twitter")   | false
+            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", null, "twitter")  | false
+            new Person(1L, "name", "RSS", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | true
     }
 
-    def "Should insert new Person for entry with new rss"() {
+    def "Should insert new Person for entry with new json_id"() {
         given:
-            String rss = "newRSS"
-            BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
-            personRepository.findByRssIgnoreCase(rss) >> Optional.empty()
+            Long jsonId = 2207L
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
+            personRepository.findByJsonId(jsonId) >> Optional.empty()
             personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
@@ -51,9 +52,10 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should not update data if equal record already exists in DB"() {
         given:
-            String rss = "existingRSS"
-            BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
-            personRepository.findByRssIgnoreCase(rss) >> Optional.of(new Person(entry.name, entry.rss, entry.twitter, LocalDateTime.now()))
+            Long jsonId = 2207L
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
+            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, entry.rss, entry.twitter, LocalDateTime.now()))
+            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -65,9 +67,10 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should update data if data in entry data differs a bit from record in DB"() {
         given:
-            String rss = "existingRSS"
-            BloggerEntry entry = new BloggerEntry("name", rss, "twitter")
-            personRepository.findByRssIgnoreCase(rss) >> Optional.of(new Person(entry.name, "oldRSS", entry.twitter, LocalDateTime.now()))
+            Long jsonId = 2207L
+            String rss = "newRssAddress"
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", rss, "twitter")
+            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, "oldRSS", entry.twitter, LocalDateTime.now()))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -77,34 +80,20 @@ class BloggersDataUpdaterSpec extends Specification {
             summary.updatedEntries == 1
     }
 
-    def "Should update existing person if only name was changed but rss is the same"() {
+    def "Should update existing person if only name was changed"() {
         given:
+            Long jsonId = 2207L
             String newName = "newName"
-            Person existingPerson = new Person("oldName", "existingRSS", "twitter", LocalDateTime.now())
-            BloggerEntry entry = new BloggerEntry(newName, existingPerson.rss, existingPerson.twitter)
-            personRepository.findByRssIgnoreCase(entry.rss) >> Optional.of(existingPerson)
+            Person existingPerson = new Person(jsonId, "oldName", "existingRSS", "twitter", LocalDateTime.now())
+            BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter)
+            personRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
             personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
-            1 * personRepository.save({ it.name == newName && it.rss == existingPerson.rss && it.twitter == existingPerson.twitter} )
-            summary.createdEntries == 0
-            summary.updatedEntries == 1
-    }
-
-    def "Should update existing person if only rss was changed but name is the same"() {
-        given:
-            String newRss = "newRss"
-            Person existingPerson = new Person("A Name", "existingRSS", "twitter", LocalDateTime.now())
-            BloggerEntry entry = new BloggerEntry(existingPerson.name, newRss, existingPerson.twitter)
-            personRepository.findByRssIgnoreCase(entry.rss) >> Optional.empty()
-            personRepository.findByNameIgnoreCase(entry.name) >> Optional.of(existingPerson)
-        when:
-            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
-            bloggersDataUpdater.updateSingleEntry(entry, summary)
-        then:
-            1 * personRepository.save({ it.name == existingPerson.name && it.rss == newRss && it.twitter == existingPerson.twitter} )
+            1 * personRepository.save({it.jsonId == jsonId && it.name == newName && it.rss == existingPerson.rss &&
+                    it.twitter == existingPerson.twitter} )
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }

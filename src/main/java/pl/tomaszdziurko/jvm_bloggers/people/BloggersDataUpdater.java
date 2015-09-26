@@ -36,18 +36,18 @@ public class BloggersDataUpdater {
     }
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
-        Optional<Person> existingBloggerByRss = personRepository.findByRssIgnoreCase(bloggerEntry.getRss());
+        Optional<Person> existingBloggerByJsonId = personRepository.findByJsonId(bloggerEntry.getJsonId());
         Optional<Person> existingBloggerByName = personRepository.findByNameIgnoreCase(bloggerEntry.getName());
 
-        if (existingBloggerByRss.isPresent()) {
-            Person bloggerWithSameRss = existingBloggerByRss.get();
-            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameRss);
+        if (existingBloggerByJsonId.isPresent()) {
+            Person bloggerWithSameJsonId = existingBloggerByJsonId.get();
+            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
         } else if (existingBloggerByName.isPresent()) {
             Person bloggerWithSameName = existingBloggerByName.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameName);
         } else {
-            Person newPerson = new Person(bloggerEntry.getName(), StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()),
-                bloggerEntry.getTwitter(), nowProvider.now());
+            Person newPerson = new Person(bloggerEntry.getJsonId(), bloggerEntry.getName(),
+                StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()), bloggerEntry.getTwitter(), nowProvider.now());
             personRepository.save(newPerson);
             updateSummary.recordCreated();
         }
@@ -55,6 +55,7 @@ public class BloggersDataUpdater {
 
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry, UpdateSummary updateSummary, Person existingBlogger) {
         if (!isEqual(existingBlogger, bloggerEntry)) {
+            existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setName(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
@@ -65,6 +66,7 @@ public class BloggersDataUpdater {
 
     protected boolean isEqual(Person person, BloggerEntry bloggerEntry) {
         return Objects.equals(person.getName(), bloggerEntry.getName())
+            && Objects.equals(person.getJsonId(), bloggerEntry.getJsonId())
             && StringUtils.equalsIgnoreCase(person.getRss(), bloggerEntry.getRss())
             && Objects.equals(person.getTwitter(), bloggerEntry.getTwitter());
     }

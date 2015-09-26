@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BloggerEntry {
+    private Long jsonId;
     private String name;
     private String rss;
     private String twitter;
@@ -11,9 +12,11 @@ public class BloggerEntry {
     public BloggerEntry() {
     }
 
-    public BloggerEntry(String name, String rss, String twitter) {
+    public BloggerEntry(Long jsonId, String name, String rss, String twitter) {
+        this.jsonId = jsonId;
         this.name = name;
         this.rss = rss;
         this.twitter = twitter;
     }
+
 }
