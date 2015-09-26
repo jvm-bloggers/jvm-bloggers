@@ -14,6 +14,10 @@ class BlogSummaryMailGeneratorSpec extends Specification {
     @Autowired
     BlogSummaryMailGenerator blogSummaryMailGenerator
 
+    def setupSpec() {
+        System.setProperty("jasypt.encryptor.password", "password")
+    }
+
     def "Should populate template with posts data"() {
         given:
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
@@ -26,6 +30,7 @@ class BlogSummaryMailGeneratorSpec extends Specification {
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
             List<Person> newBlogs = [stubPerson("John Travoltowski", "http://example.com")]
             String mail =""
+
 
         when:
             mail = blogSummaryMailGenerator.generateSummaryMail(newPosts,newBlogs,  7)
