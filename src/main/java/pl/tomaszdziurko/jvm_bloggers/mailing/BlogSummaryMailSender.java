@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
+import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
+import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
 import pl.tomaszdziurko.jvm_bloggers.people.Person;
 import pl.tomaszdziurko.jvm_bloggers.people.PersonRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
@@ -25,7 +27,7 @@ public class BlogSummaryMailSender {
     private final PersonRepository personRepository;
     private final BlogSummaryMailGenerator mailGenerator;
     private final SendGridMailSender mailSender;
-    private final NewsletterRecipientsProvider newsletterRecipientsProvider;
+    private final MailingAddressRepository mailingAddressRepository;
     private final NowProvider nowProvider;
 
     @Autowired
@@ -33,13 +35,13 @@ public class BlogSummaryMailSender {
                                  PersonRepository personRepository,
                                  BlogSummaryMailGenerator blogSummaryMailGenerator,
                                  SendGridMailSender sendGridMailSender,
-                                 NewsletterRecipientsProvider newsletterRecipientsProvider,
+                                 MailingAddressRepository mailingAddressRepository,
                                  NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;
         this.personRepository = personRepository;
         this.mailGenerator = blogSummaryMailGenerator;
         this.mailSender = sendGridMailSender;
-        this.newsletterRecipientsProvider = newsletterRecipientsProvider;
+        this.mailingAddressRepository = mailingAddressRepository;
         this.nowProvider = nowProvider;
     }
 
@@ -49,7 +51,11 @@ public class BlogSummaryMailSender {
         List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
         String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
         log.info("Mail content = \n" + mailTemplate);
-        newsletterRecipientsProvider.getRecipients().stream().forEach(recipient ->
+        List<MailingAddress> mailingAddresses = mailingAddressRepository.findAll();
+        if (mailingAddresses.isEmpty()) {
+            log.warn("No e-mails in database to send Blog Summary !!!");
+        }
+        mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient ->
             mailSender.sendEmail(recipient, MAIL_SUMMARY_TITLE + getTodayDateAsString(), mailTemplate)
         );
 

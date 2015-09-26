@@ -7,8 +7,6 @@ spring:
     test-on-borrow: true
     validation-query: SELECT 1
 
-mails.to.send.weekly.summary: "ENC(m4xA9XBJNnQZJxFrDfPOxRFy4x+3nc9PcLqEB9XG4HoynTPfydWADmP9FAiqzCVEziEYErFcq6a8Vdpo3CEtgXk7pkZw+GPXrqhW+EDM4MJCfCSVyQwzrBf8caFA+qUOXxp9QVNsa61ZtJivjRIj7d01ADcDVmHf564iJaifOPirA9wB1GLhRL9r4TtPQygSXMDl8ZoInkUdQnBlCCLDGspvg/ezL5THnwiDYcXIQyYDbblzWJmAQYsoK3hwyisyTX5LCjHiaf8FHkx+FFMVk0du8T6yrXsuUsUhR+JwM2lZ3+JXvHV+V+wnI3piQCyNAkxveTCG5OifXWMIEfoRWCSV3sz3OkLCyRoUIz42tRe31FJIBbRWtaNeK8dZ8LhzKbh3XXWwcoU=)"
-
 # Sendgrid Configuration
 sendgrid:
   apiKey: "ENC(RWnXWOykAzWQcKi5pKKYhT4m+CLDtzXIh2NJZgv36gnJg+KA+QK4N33sFnoylTUkQb5y+qFn1iMdhBnoGEVl9/nVkFo1oyVW9f34QbJQdsk=)"
