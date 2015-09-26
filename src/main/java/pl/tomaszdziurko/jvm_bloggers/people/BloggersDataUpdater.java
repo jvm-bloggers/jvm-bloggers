@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository;
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggerEntry;
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggersData;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;

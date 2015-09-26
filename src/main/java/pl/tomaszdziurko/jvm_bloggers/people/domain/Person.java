@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.people;
+package pl.tomaszdziurko.jvm_bloggers.people.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

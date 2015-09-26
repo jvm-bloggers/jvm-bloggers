@@ -1,5 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.people
 
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification

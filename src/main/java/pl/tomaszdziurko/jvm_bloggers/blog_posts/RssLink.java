@@ -1,7 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
 import com.google.common.base.Preconditions;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
 
 public class RssLink {
 

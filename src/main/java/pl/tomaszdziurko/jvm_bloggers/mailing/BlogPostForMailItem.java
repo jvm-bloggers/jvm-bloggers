@@ -2,7 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import lombok.Data;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
 
 
 @Data

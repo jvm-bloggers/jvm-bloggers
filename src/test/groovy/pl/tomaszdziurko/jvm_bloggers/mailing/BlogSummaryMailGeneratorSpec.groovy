@@ -5,7 +5,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
-import pl.tomaszdziurko.jvm_bloggers.people.Person
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
 import spock.lang.Specification
 
 @ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)

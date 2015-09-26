@@ -8,8 +8,8 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
-import pl.tomaszdziurko.jvm_bloggers.people.PersonRepository;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;

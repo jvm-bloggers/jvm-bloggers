@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
 
 import java.io.BufferedReader;
 import java.io.IOException;

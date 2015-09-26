@@ -3,7 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 import com.google.common.base.Preconditions;
 import com.sun.syndication.feed.synd.SyndEntry;
 import lombok.Getter;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
 
 @Getter
 public class RssEntryWithAuthor {

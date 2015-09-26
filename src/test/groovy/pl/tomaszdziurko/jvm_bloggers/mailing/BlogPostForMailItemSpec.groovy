@@ -1,7 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
-import pl.tomaszdziurko.jvm_bloggers.people.Person
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
 import spock.lang.Specification
 
 class BlogPostForMailItemSpec extends Specification {

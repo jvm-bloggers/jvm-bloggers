@@ -3,7 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tomaszdziurko.jvm_bloggers.people.Person;
+import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
