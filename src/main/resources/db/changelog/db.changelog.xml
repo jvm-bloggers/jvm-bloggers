@@ -79,5 +79,9 @@
 
     </changeSet>
 
+    <changeSet id="005-change-column-type-of-json-id-in-person-table" author="tomasz.dziurko">
+        <modifyDataType tableName="person" columnName="JSON_ID" newDataType="bigint"/>
+    </changeSet>
+
 
 </databaseChangeLog>
