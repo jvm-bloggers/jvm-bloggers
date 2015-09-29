@@ -99,5 +99,13 @@
         <addUniqueConstraint tableName="mailing_address" columnNames="address" constraintName="MAILING_ADDRESS_ADDRESS_UNIQUE"/>
     </changeSet>
 
+    <changeSet id="007-added-blog-homepage-in-person-table" author="michal.karolik">
+        <addColumn tableName="person">
+            <column name="HOMEPAGE" type="varchar(250)" defaultValue="">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

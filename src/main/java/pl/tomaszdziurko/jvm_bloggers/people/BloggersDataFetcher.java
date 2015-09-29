@@ -4,49 +4,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggersData;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
 
 @Component
 @Slf4j
 public class BloggersDataFetcher {
 
-    private final Optional<URL> urlOptional;
+    private final Optional<Resource> resourceOptional;
     private final BloggersDataUpdater bloggersDataUpdater;
 
     @Autowired
-    public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
+    public BloggersDataFetcher(@Value("${bloggers.data.file.url}") Resource resource,
                                BloggersDataUpdater bloggersDataUpdater) {
-        urlOptional = convertToUrl(bloggersDataUrlString);
+        log.info("Bloggers resource = '{}' ", resource.getDescription());
+        resourceOptional = convertToFile(resource);
         this.bloggersDataUpdater = bloggersDataUpdater;
     }
 
-    private Optional<URL> convertToUrl(String urlString)  {
-        try {
-            return Optional.of(new URL(urlString));
-        } catch (MalformedURLException e) {
-            log.error("Invalid URL " + urlString);
+    private Optional<Resource> convertToFile(Resource resource)  {
+        if (!resource.exists()) {
+            log.error("Invalid file path {}", resource);
             return Optional.empty();
+        } else {
+            return Optional.of(resource);
         }
     }
 
     public void refreshData() {
-        if (!urlOptional.isPresent()) {
-            log.warn("No valid URL specified. Skipping.");
+
+        if (!resourceOptional.isPresent()) {
+            log.warn("No valid File path specified. Skipping.");
         }
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            BloggersData bloggers = mapper.readValue(urlOptional.get(), BloggersData.class);
+            BloggersData bloggers = mapper.readValue(resourceOptional.get().getURL(), BloggersData.class);
+            log.debug("Bloggers from file:  {}", bloggers);
             bloggersDataUpdater.updateData(bloggers);
         } catch (IOException e) {
             log.error("Exception during parse process", e);
         }
     }
-
 }

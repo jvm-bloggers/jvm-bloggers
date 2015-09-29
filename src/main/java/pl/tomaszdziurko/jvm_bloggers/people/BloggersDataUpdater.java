@@ -49,7 +49,8 @@ public class BloggersDataUpdater {
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameName);
         } else {
             Person newPerson = new Person(bloggerEntry.getJsonId(), bloggerEntry.getName(),
-                StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()), bloggerEntry.getTwitter(), nowProvider.now());
+                    StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()),  bloggerEntry.getHomepage(),
+                    bloggerEntry.getTwitter(), nowProvider.now());
             personRepository.save(newPerson);
             updateSummary.recordCreated();
         }
@@ -61,6 +62,7 @@ public class BloggersDataUpdater {
             existingBlogger.setName(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
+            existingBlogger.setHomepage(bloggerEntry.getHomepage());
             personRepository.save(existingBlogger);
             updateSummary.recordUpdated();
         }
@@ -70,7 +72,8 @@ public class BloggersDataUpdater {
         return Objects.equals(person.getName(), bloggerEntry.getName())
             && Objects.equals(person.getJsonId(), bloggerEntry.getJsonId())
             && StringUtils.equalsIgnoreCase(person.getRss(), bloggerEntry.getRss())
-            && Objects.equals(person.getTwitter(), bloggerEntry.getTwitter());
+            && Objects.equals(person.getTwitter(), bloggerEntry.getTwitter())
+            && StringUtils.equalsIgnoreCase(person.getHomepage(), bloggerEntry.getHomepage());
     }
 
     @Getter

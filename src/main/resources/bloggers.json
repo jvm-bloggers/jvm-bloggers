@@ -4,633 +4,740 @@
       "jsonId": 1,
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.pl/feed/",
+      "homepage": "http://tomaszdziurko.pl/",
       "twitter": "@TomaszDziurko"
     },
     {
       "jsonId": 2,
       "name": "Adam Warski",
       "rss": "http://www.warski.org/blog/feed/",
+      "homepage": "http://www.warski.org/blog/",
       "twitter": "@AdamWarski"
     },
     {
       "jsonId": 3,
       "name": "Tomek Nurkiewicz",
       "rss": "http://www.nurkiewicz.com/feeds/posts/default?alt=rss",
+      "homepage": "http://www.nurkiewicz.com/",
       "twitter": "@tnurkiewicz"
     },
     {
       "jsonId": 4,
       "name": "Marcin Stachniuk",
       "rss": "http://feeds.feedburner.com/MarcinStachniukBlog",
+      "homepage": "http://mstachniuk.blogspot.com/",
       "twitter": "@MarcinStachniuk"
     },
     {
       "jsonId": 5,
       "name": "Marcin Grzejszczak",
       "rss": "http://toomuchcoding.blogspot.com/feeds/posts/default",
+      "homepage": "http://toomuchcoding.blogspot.com",
       "twitter": "@MGrzejszczak"
     },
     {
       "jsonId": 6,
       "name": "Konrad Garus",
       "rss": "http://squirrel.pl/blog/feed/",
+      "homepage": "http://squirrel.pl/",
       "twitter": "@trzmiel"
     },
     {
       "jsonId": 7,
       "name": "Kasia Mrowca",
       "rss": "http://www.mrowcakasia.eu/feeds/posts/default?alt=rss",
+      "homepage": "http://www.mrowcakasia.eu/",
       "twitter": "@MrowcaKasia"
     },
     {
       "jsonId": 8,
       "name": "Bartek Zdanowski",
       "rss": "http://bartekzdanowski.blogspot.com/feeds/posts/default",
+      "homepage": "http://bartekzdanowski.blogspot.com/",
       "twitter": "@bartekzdanowski"
     },
     {
       "jsonId": 9,
       "name": "Jakub Marchwicki",
       "rss": "http://jakub.marchwicki.pl/feed",
+      "homepage": "http://jakub.marchwicki.pl",
       "twitter": "@kubem"
     },
     {
       "jsonId": 10,
       "name": "Piotr Prądzyński",
       "rss": "http://prondzyn.com/blog/feed/",
+      "homepage": "http://prondzyn.com/",
       "twitter": "@prondzyn"
     },
     {
       "jsonId": 11,
       "name": "Piotr Buda",
       "rss": "http://feeds.feedburner.com/SoftwareDevelopmentRamblings",
+      "homepage": "http://www.piotrbuda.me",
       "twitter": "@piotrbuda"
     },
     {
       "jsonId": 12,
       "name": "Krzysztof Ciesielski",
       "rss": "https://abstractionextraction.wordpress.com/feed/",
+      "homepage": "https://abstractionextraction.wordpress.com/",
       "twitter": "@kpciesielski"
     },
     {
       "jsonId": 13,
       "name": "Krzysztof Grajek",
       "rss": "http://www.softwarepassion.com/feed/",
+      "homepage": "http://www.softwarepassion.com/",
       "twitter": "@grajo"
     },
     {
       "jsonId": 14,
       "name": "Jarek Kijanowski",
       "rss": "http://kijanowski.eu/atom.xml",
+      "homepage": "http://kijanowski.eu/",
       "twitter": "@jkijanowski"
     },
     {
       "jsonId": 15,
       "name": "Daniel Kos",
       "rss": "http://blog.digitalsoftware.pl/feed/",
+      "homepage": "http://blog.digitalsoftware.pl/",
       "twitter": "@unodgs"
     },
     {
       "jsonId": 16,
       "name": "Jan Kowalski",
       "rss": "http://blog.jankowalski.pl/feed",
+      "homepage": "http://blog.jankowalski.pl/",
       "twitter": "@hanskoff"
     },
     {
       "jsonId": 17,
       "name": "Marcin Kubala",
       "rss": "https://marcinkubala.wordpress.com/feed",
+      "homepage": "https://marcinkubala.wordpress.com/feed",
       "twitter": "@marcin_kubala"
     },
     {
       "jsonId": 18,
       "name": "Łukasz Lenart",
       "rss": "http://dailylog.lenart.org.pl/feed/",
+      "homepage": "http://dailylog.lenart.org.pl/",
       "twitter": "@lukaszlenart"
     },
     {
       "jsonId": 19,
       "name": "Michał Ostruszka",
       "rss": "http://michalostruszka.pl/atom.xml",
+      "homepage": "http://michalostruszka.pl/",
       "twitter": "@mostruszka"
     },
     {
       "jsonId": 20,
       "name": "Paweł Stawicki",
       "rss": "http://pawelstawicki.blogspot.com/feeds/posts/default",
+      "homepage": "http://pawelstawicki.blogspot.com/",
       "twitter": "@pawelstawicki"
     },
     {
       "jsonId": 21,
       "name": "Tomek Szymański",
       "rss": "http://szimano.org/feed/",
+      "homepage": "http://szimano.org/",
       "twitter": "@szimano"
     },
     {
       "jsonId": 22,
       "name": "Andrzej Ludwikowski",
-      "rss": "http://aludwikowski.blogspot.com/feeds/posts/default"
+      "rss": "http://aludwikowski.blogspot.com/feeds/posts/default",
+      "homepage": "http://aludwikowski.blogspot.com/"
     },
     {
       "jsonId": 23,
       "name": "Michał Bartyzel",
       "rss": "http://mbartyzel.blogspot.com/feeds/posts/default",
+      "homepage": "http://mbartyzel.blogspot.com/",
       "twitter": "@MichalBartyzel"
     },
     {
       "jsonId": 24,
       "name": "Jacek Laskowski",
       "rss": "http://jlaskowski.blogspot.com/feeds/posts/default",
+      "homepage": "http://jlaskowski.blogspot.com/",
       "twitter": "@jaceklaskowski"
     },
     {
       "jsonId": 25,
       "name": "Bartek Kuczyński",
       "rss": "http://koziolekweb.pl/feed/",
+      "homepage": "http://koziolekweb.pl/",
       "twitter": "@koziolek"
     },
     {
       "jsonId": 26,
       "name": "Grzegorz Dziemidowicz",
-      "rss": "http://agilesurfing.pl/feed/"
+      "rss": "http://agilesurfing.pl/feed/",
+      "homepage": "http://agilesurfing.pl/"
     },
     {
       "jsonId": 27,
       "name": "Szczepan Faber",
       "rss": "http://blog.mockito.org/feeds/posts/default",
+      "homepage": "http://blog.mockito.org/",
       "twitter": "@szczepiq"
     },
     {
       "jsonId": 28,
       "name": "Sławek Sobótka",
-      "rss": "http://art-of-software.blogspot.com/feeds/posts/default"
+      "rss": "http://art-of-software.blogspot.com/feeds/posts/default",
+      "homepage": "http://art-of-software.blogspot.com/"
     },
     {
       "jsonId": 29,
       "name": "Tomek Kaczanowski",
       "rss": "http://kaczanowscy.pl/tomek/rss.xml",
+      "homepage": "http://kaczanowscy.pl/tomek/",
       "twitter": "@tkaczanowski"
     },
     {
       "jsonId": 30,
       "name": "Jakub Nabrdalik",
       "rss": "http://blog.solidcraft.eu/feeds/posts/default",
+      "homepage": "http://blog.solidcraft.eu/",
       "twitter": "@jnabrdalik"
     },
     {
       "jsonId": 31,
       "name": "Paweł Włodarski",
       "rss": "http://pawelwlodarski.blogspot.com/feeds/posts/default",
+      "homepage": "http://pawelwlodarski.blogspot.com/",
       "twitter": "@PawelWlodarski"
     },
     {
       "jsonId": 32,
       "name": "Mariusz Sieraczkiewicz",
       "rss": "http://msieraczkiewicz.blogspot.com/feeds/posts/default",
+      "homepage": "http://msieraczkiewicz.blogspot.com/",
       "twitter": "@ms_bnsit_pl"
     },
     {
       "jsonId": 33,
       "name": "Jacek Pospychala",
       "rss": "http://jacekonthings.blogspot.com/feeds/posts/default",
+      "homepage": "http://jacekonthings.blogspot.com/",
       "twitter": "@jpospychala"
     },
     {
       "jsonId": 34,
       "name": "Bartek Andrzejczak",
       "rss": "http://bandrzejczak.com/atom.xml",
+      "homepage": "http://bandrzejczak.com/",
       "twitter": "@baandrzejczak"
     },
     {
       "jsonId": 35,
       "name": "Szymon Stępniak",
       "rss": "http://zdyscyplinowany.pl/feed/",
+      "homepage": "http://zdyscyplinowany.pl/",
       "twitter": "@wololock"
     },
     {
       "jsonId": 36,
       "name": "Łukasz Rybka",
-      "rss": "http://blog.dragonia.org.pl/feeds/posts/default"
+      "rss": "http://blog.dragonia.org.pl/feeds/posts/default",
+      "homepage": "http://blog.dragonia.org.pl/"
     },
     {
       "jsonId": 37,
       "name": "Konrad Malawski",
       "rss": "http://www.blog.project13.pl/index.php/feed/",
+      "homepage": "http://www.blog.project13.pl/",
       "twitter": "@ktosopl"
     },
     {
       "jsonId": 38,
       "name": "Przemysław Bielicki",
       "rss": "http://blog.bielu.com/feeds/posts/default",
+      "homepage": "http://blog.bielu.com/",
       "twitter": "@pbielicki"
     },
     {
       "jsonId": 39,
       "name": "Sebastian Malaca",
       "rss": "http://letstalkaboutjava.blogspot.com/feeds/posts/default",
+      "homepage": "http://letstalkaboutjava.blogspot.com/",
       "twitter": "@sebastianmalaca"
     },
     {
       "jsonId": 40,
       "name": "Mariusz Prowaźnik",
       "rss": "http://www.prowaznik.pl/feeds/posts/default",
+      "homepage": "http://www.prowaznik.pl/",
       "twitter": "@mprowaznik"
     },
     {
       "jsonId": 41,
       "name": "Matt Harasymczuk",
       "rss": "http://www.mattagile.com/feeds/posts/default",
+      "homepage": "http://www.mattagile.com/",
       "twitter": "@MattAgile"
     },
     {
       "jsonId": 42,
       "name": "Krzysztof Kędziorski",
-      "rss": "http://blog.kedziorski.pl/feed/"
+      "rss": "http://blog.kedziorski.pl/feed/",
+      "homepage": "http://blog.kedziorski.pl/"
     },
     {
       "jsonId": 43,
       "name": "Pietrowski",
-      "rss": "http://feeds.feedburner.com/PragmaticProgrammerIssues"
+      "rss": "http://feeds.feedburner.com/PragmaticProgrammerIssues",
+      "homepage": "http://pietrowski.info/"
     },
     {
       "jsonId": 44,
       "name": "Tomek Bujok",
       "rss": "http://www.reficio.org/feed/",
+      "homepage": "http://www.reficio.org/",
       "twitter": "@tombujok"
     },
     {
       "jsonId": 45,
       "name": "Marcin Pieciukiewicz",
       "rss": "http://blog.mpieciukiewicz.pl/feeds/posts/default",
+      "homepage": "http://blog.mpieciukiewicz.pl/",
       "twitter": "@marpiec"
     },
     {
       "jsonId": 46,
       "name": "Michał Piotrowski",
       "rss": "https://chlebik.wordpress.com/feed",
+      "homepage": "https://chlebik.wordpress.com/",
       "twitter": "@Chlebosz"
     },
     {
       "jsonId": 47,
       "name": "Arek Borek",
       "rss": "http://arekborek.blogspot.com/feeds/posts/default",
+      "homepage": "http://arekborek.blogspot.com/",
       "twitter": "@arekborek"
     },
     {
       "jsonId": 48,
       "name": "Adam Dudczak",
       "rss": "http://feeds.feedburner.com/adudczak",
+      "homepage": "http://dudczak.info/",
       "twitter": "@maneo"
     },
     {
       "jsonId": 49,
       "name": "Bartek Kowalczyk",
       "rss": "http://dzawowo.blogspot.com/feeds/posts/default",
+      "homepage": "http://dzawowo.blogspot.com/",
       "twitter": "@bkowalczyk"
     },
     {
       "jsonId": 50,
       "name": "Jakub Kubryński",
       "rss": "http://www.kubrynski.com/feeds/posts/default",
+      "homepage": "http://www.kubrynski.com/",
       "twitter": "@jkubrynski"
     },
     {
       "jsonId": 51,
       "name": "Marcin Jasion",
       "rss": "http://blog.mjasion.pl/feeds/posts/default",
+      "homepage": "http://blog.mjasion.pl/",
       "twitter": "@marcinjasion"
     },
     {
       "jsonId": 52,
       "name": "Bolesław Dawidowicz",
       "rss": "http://bdawidowicz.blogspot.com/feeds/posts/default",
+      "homepage": "http://bdawidowicz.blogspot.com/",
       "twitter": "@bdawidowicz"
     },
     {
       "jsonId": 53,
       "name": "Marcin Zajączkowski",
       "rss": "https://solidsoft.wordpress.com/feed/",
+      "homepage": "https://solidsoft.wordpress.com/",
       "twitter": "@solidsoftblog"
     },
     {
       "jsonId": 54,
       "name": "Dominik Przybysz",
       "rss": "http://przybyszd.blogspot.com/feeds/posts/default",
+      "homepage": "http://przybyszd.blogspot.com/",
       "twitter": "@alien11689"
     },
     {
       "jsonId": 55,
       "name": "Piotr Turski",
-      "rss": "http://blog.piotrturski.net/feeds/posts/default"
+      "rss": "http://blog.piotrturski.net/feeds/posts/default",
+      "homepage": "http://blog.piotrturski.net/"
     },
     {
       "jsonId": 56,
       "name": "Krzysztof Siejkowski",
       "rss": "http://culturalcoder.com/rss",
+      "homepage": "http://culturalcoder.com/",
       "twitter": "@_siejkowski"
     },
     {
       "jsonId": 57,
       "name": "Jarosław Pałka",
       "rss": "https://geekyprimitives.wordpress.com/feed/",
+      "homepage": "https://geekyprimitives.wordpress.com/",
       "twitter": "@j_palka"
     },
     {
       "jsonId": 58,
       "name": "Paweł Szulc",
       "rss": "http://www.rabbitonweb.com/feed/",
+      "homepage": "http://www.rabbitonweb.com/",
       "twitter": "@rabbitonweb"
     },
     {
       "jsonId": 59,
       "name": "Bartek Szulc",
       "rss": "https://bart.qa/feed.xml",
+      "homepage": "https://bart.qa/",
       "twitter": "@BartSzulc"
     },
     {
       "jsonId": 60,
       "name": "Piotr Oktaba",
       "rss": "http://octosblog.com/feed/rss/",
+      "homepage": "http://octosblog.com/",
       "twitter": "@poktaba"
     },
     {
       "jsonId": 61,
       "name": "Dariusz Stefański",
       "rss": "http://dst.github.io/feed",
+      "homepage": "http://dst.github.io/",
       "twitter": "@dastefanski"
     },
     {
       "jsonId": 62,
       "name": "Piotr Dyraga",
       "rss": "http://www.ontheserverside.com/atom.xml",
+      "homepage": "http://www.ontheserverside.com/",
       "twitter": "@piotrdyraga"
     },
     {
       "jsonId": 63,
       "name": "Tomek Borek",
       "rss": "https://lafkblogs.wordpress.com/feed/",
+      "homepage": "https://lafkblogs.wordpress.com/",
       "twitter": "@LAFK_pl"
     },
     {
       "jsonId": 64,
       "name": "Michał Płachta",
       "rss": "http://michalplachta.com/feed",
+      "homepage": "http://michalplachta.com/",
       "twitter": "@miciek"
     },
     {
       "jsonId": 65,
       "name": "Maciej Biłas",
       "rss": "http://maciejb.me/feed/",
+      "homepage": "http://maciejb.me/",
       "twitter": "@maciejb"
     },
     {
       "jsonId": 66,
       "name": "Marcin Cylke",
       "rss": "http://marcin.cylke.com.pl/atom.xml",
+      "homepage": "http://marcin.cylke.com.pl/",
       "twitter": "@zygm0nt"
     },
     {
       "jsonId": 67,
       "name": "Rafał Nowak",
       "rss": "http://www.rnowak.info/feeds/posts/default",
+      "homepage": "http://www.rnowak.info/",
       "twitter": "@RNowak3"
     },
     {
       "jsonId": 68,
       "name": "Michał Chmielarz",
       "rss": "http://www.devthoughts.pl/feed/",
+      "homepage": "http://www.devthoughts.pl/",
       "twitter": "@mchmielu"
     },
     {
       "jsonId": 69,
       "name": "Michał Lipski",
       "rss": "https://devyard.wordpress.com/feed/",
+      "homepage": "https://devyard.wordpress.com/",
       "twitter": "@milipski"
     },
     {
       "jsonId": 70,
       "name": "Jan Ziniewicz",
       "rss": "https://medium.com/feed/@jan______",
+      "homepage": "https://medium.com/@jan______/",
       "twitter": "@jan______"
     },
     {
       "jsonId": 71,
       "name": "Piotr Modzelewski",
       "rss": "http://petermodzelewski.blogspot.com/feeds/posts/default",
+      "homepage": "http://petermodzelewski.blogspot.com/",
       "twitter": "@pmodzelewski"
     },
     {
       "jsonId": 72,
       "name": "Piotr Piotrowski",
       "rss": "http://www.piotrovski.com/feeds/posts/default",
+      "homepage": "http://www.piotrovski.com/",
       "twitter": "@amad3us"
     },
     {
       "jsonId": 73,
       "name": "Tomasz Kaczmarzyk",
       "rss": "http://blog.kaczmarzyk.net/rss/",
+      "homepage": "http://blog.kaczmarzyk.net/",
       "twitter": "@tkaczmarzyk"
     },
     {
       "jsonId": 74,
       "name": "Marcin Malinowski",
       "rss": "https://orientman.wordpress.com/feed/",
+      "homepage": "https://orientman.wordpress.com/",
       "twitter": "@orientman"
     },
     {
       "jsonId": 75,
       "name": "Szymon Pobiega",
       "rss": "http://simon-says-architecture.com/feed/",
+      "homepage": "http://simon-says-architecture.com/",
       "twitter": "@SzymonPobiega"
     },
     {
       "jsonId": 76,
       "name": "Tomek Grobel",
       "rss": "http://blog.tomekgrobel.com/feed/",
+      "homepage": "http://blog.tomekgrobel.com/",
       "twitter": "@tgrobel"
     },
     {
       "jsonId": 77,
       "name": "Henryk Konsek",
       "rss": "http://henryk-konsek.blogspot.com/feeds/posts/default",
+      "homepage": "http://henryk-konsek.blogspot.com/",
       "twitter": "@hekonsek"
     },
     {
       "jsonId": 78,
       "name": "Maciej Walkowiak",
       "rss": "http://feeds.feedburner.com/maciejwalkowiakpl",
+      "homepage": "http://maciejwalkowiak.pl/blog/",
       "twitter": "@maciejwalkowiak"
     },
     {
       "jsonId": 79,
       "name": "Jarosław Bajak",
       "rss": "https://workarounddeveloper.wordpress.com/feed/",
+      "homepage": "https://workarounddeveloper.wordpress.com/",
       "twitter": "@jbajak"
     },
     {
       "jsonId": 80,
       "name": "Paweł Kaczor",
       "rss": "http://pkaczor.blogspot.com/feeds/posts/default",
+      "homepage": "http://pkaczor.blogspot.com/",
       "twitter": "@Newion"
     },
     {
       "jsonId": 81,
       "name": "Piotr Nowicki",
       "rss": "http://piotrnowicki.com/feed.xml",
+      "homepage": "http://piotrnowicki.com/",
       "twitter": "@p_nowicki"
     },
     {
       "jsonId": 82,
       "name": "Maria Skrzypek",
       "rss": "http://blog.swinka-programistka.pl/feeds/posts/default",
+      "homepage": "http://blog.swinka-programistka.pl/",
       "twitter": "@mmskrzyp"
     },
     {
       "jsonId": 83,
       "name": "Rafał Borowiec",
       "rss": "http://blog.codeleak.pl/feeds/posts/default?alt=rss",
+      "homepage": "http://blog.codeleak.pl/",
       "twitter": "@kolorobot"
     },
     {
       "jsonId": 84,
       "name": "Krzysztof Daniel",
       "rss": "http://eclipseandlinux.blogspot.com/feeds/posts/default",
+      "homepage": "http://eclipseandlinux.blogspot.com/",
       "twitter": "@kda"
     },
     {
       "jsonId": 85,
       "name": "Marcin Białoń",
       "rss": "http://bialon.net//index.xml",
+      "homepage": "http://bialon.net/",
       "twitter": "@mbialon"
     },
     {
       "jsonId": 86,
       "name": "Grzegorz Rożniecki",
       "rss": "http://xaerxess.pl/atom.xml",
+      "homepage": "http://xaerxess.pl",
       "twitter": "@xaerxess"
     },
     {
       "jsonId": 87,
       "name": "Jacek Milewski",
       "rss": "https://looksok.wordpress.com/feed/",
+      "homepage": "https://looksok.wordpress.com/",
       "twitter": "@yacekmm"
     },
     {
       "jsonId": 88,
       "name": "Michał Jaśtak",
       "rss": "http://vard-lokkur.blogspot.com/feeds/posts/default",
+      "homepage": "http://vard-lokkur.blogspot.com/",
       "twitter": "@vardlokkur"
     },
     {
       "jsonId": 89,
       "name": "Damian Błażejewski",
       "rss": "http://blog.dblazejewski.com/feeds/posts/default",
+      "homepage": "http://blog.dblazejewski.com/",
       "twitter": "@damian_bl"
     },
     {
       "jsonId": 90,
       "name": "Oskar Korczak",
       "rss": "http://oskarkorczak.blogspot.com/feeds/posts/default",
+      "homepage": "http://oskarkorczak.blogspot.com/",
       "twitter": "@okorczak"
     },
     {
       "jsonId": 91,
       "name": "Dariusz Łuksza",
       "rss": "http://luksza.org/feed/atom/",
+      "homepage": "http://luksza.org/",
       "twitter": "@dluksza"
     },
     {
       "jsonId": 92,
       "name": "Justyna Walkowska",
-      "rss": "http://namiekko.pl/feed/"
+      "rss": "http://namiekko.pl/feed/",
+      "homepage": "http://namiekko.pl/"
     },
     {
       "jsonId": 93,
       "name": "Łukasz Żuchowski",
       "rss": "http://zuchos.com/atom.xml",
+      "homepage": "http://zuchos.com/",
       "twitter": "@Zuchos"
     },
     {
       "jsonId": 94,
       "name": "Krzysztof Urman",
       "rss": "http://qrman.github.io/feed",
+      "homepage": "http://qrman.github.io/",
       "twitter": "@krzysztof_urman"
     },
     {
       "jsonId": 95,
       "name": "Krzysztof Chudy",
-      "rss": "http://najavie.pl/rss"
+      "rss": "http://najavie.pl/rss",
+      "homepage": "http://najavie.pl/rss"
     },
     {
       "jsonId": 96,
       "name": "Łukasz Konopski",
       "rss": "http://lkonopski.blogspot.com/feeds/posts/default",
+      "homepage": "http://lkonopski.blogspot.com/",
       "twitter": "@K0N0PSKI"
     },
     {
       "jsonId": 97,
       "name": "Ola Kunysz",
       "rss": "http://5months-5apps.blogspot.com/feeds/posts/default",
+      "homepage": "http://5months-5apps.blogspot.com/",
       "twitter": "@OlaWaliczek"
     },
     {
       "jsonId": 98,
       "name": "Jacek Kunicki",
       "rss": "http://blog.kunicki.org/atom.xml",
+      "homepage": "http://blog.kunicki.org/",
       "twitter": "@rucek"
     },
     {
       "jsonId": 99,
       "name": "Piotr Pietrzak",
       "rss": "http://www.pietrzak.me/feeds/posts/default",
+      "homepage": "http://www.pietrzak.me/",
       "twitter": "@approdorix"
     },
     {
       "jsonId": 100,
       "name": "Krzysztof Sobkowiak",
       "rss": "http://krzysztof-sobkowiak.net/feed",
+      "homepage": "http://krzysztof-sobkowiak.net/",
       "twitter": "@ksobkowiak"
     },
     {
       "jsonId": 101,
       "name": "Jakub Kozłowski",
       "rss": "https://medium.com/feed/@kubukoz",
+      "homepage": "https://medium.com/@kubukoz/",
       "twitter": "@kubukoz"
     },
     {
       "jsonId": 102,
       "name": "Paweł Szulc",
       "rss": "http://www.rabbitonweb.com/feed/",
+      "homepage": "http://www.rabbitonweb.com/",
       "twitter": "@rabbitonweb"
     },
     {
       "jsonId": 103,
       "name": "Michał Płachta",
       "rss": "http://michalplachta.com/feed",
+      "homepage": "http://michalplachta.com/",
       "twitter": "@miciek"
     },
     {
       "jsonId": 104,
       "name": "",
       "rss": "",
+      "homepage":"",
       "twitter": ""
     },
     {
       "jsonId": 105,
       "name": "",
       "rss": "",
+      "homepage":"",
       "twitter": ""
     },
     {
       "jsonId": 106,
       "name": "",
       "rss": "",
+      "homepage":"",
       "twitter": ""
     },
     {
       "jsonId": 107,
       "name": "",
       "rss": "",
+      "homepage":"",
       "twitter": ""
     }
   ]

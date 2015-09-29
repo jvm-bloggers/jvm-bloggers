@@ -33,16 +33,20 @@ public class Person {
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
 
+    @Column(name = "HOMEPAGE", unique = true, nullable = false, length = 250)
+    private String homepage;
+
     @Column(name = "TWITTER", nullable = true, length = 100)
     private String twitter;
 
     @Column(name = "DATE_ADDED", nullable = false)
     private LocalDateTime dateAdded;
 
-    public Person(Long jsonId, String name, String rss, String twitter, LocalDateTime dateAdded) {
+    public Person(Long jsonId, String name, String rss, String homepage, String twitter, LocalDateTime dateAdded) {
         this.jsonId = jsonId;
         this.name = name;
         this.rss = rss;
+        this.homepage = homepage;
         this.twitter = twitter;
         this.dateAdded = dateAdded;
     }

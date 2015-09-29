@@ -11,3 +11,5 @@ spring:
 sendgrid:
   apiKey: "ENC(RWnXWOykAzWQcKi5pKKYhT4m+CLDtzXIh2NJZgv36gnJg+KA+QK4N33sFnoylTUkQb5y+qFn1iMdhBnoGEVl9/nVkFo1oyVW9f34QbJQdsk=)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+
+bloggers.data.file.url: classpath:bloggers.json
