@@ -700,17 +700,17 @@
     },
     {
       "jsonId": 102,
-      "name": "",
-      "rss": "",
-      "homepage":"",
-      "twitter": ""
+      "name": "Paweł Szulc",
+      "rss": "http://www.rabbitonweb.com/feed/",
+      "homepage": "http://www.rabbitonweb.com/",
+      "twitter": "@rabbitonweb"
     },
     {
       "jsonId": 103,
-      "name": "",
-      "rss": "",
-      "homepage":"",
-      "twitter": ""
+      "name": "Michał Płachta",
+      "rss": "http://michalplachta.com/feed",
+      "homepage": "http://michalplachta.com/",
+      "twitter": "@miciek"
     },
     {
       "jsonId": 104,
