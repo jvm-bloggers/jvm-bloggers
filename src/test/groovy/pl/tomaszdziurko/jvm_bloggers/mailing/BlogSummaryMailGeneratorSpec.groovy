@@ -20,40 +20,40 @@ class BlogSummaryMailGeneratorSpec extends Specification {
 
     def "Should populate template with posts data"() {
         given:
-            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
+            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com/particularPost", "Piotr Nowak")]
         expect:
             blogSummaryMailGenerator.generateSummaryMail(newPosts,[],  7) != null
     }
 
     def "Should populate template with posts/blog data when new blogs found"() {
         given:
-            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
-            List<Person> newBlogs = [stubPerson("John Travoltowski", "http://example.com")]
+            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "John Travoltowski")]
+            List<Person> newBlogs = [stubPerson("John Travoltowski", "http://example.com/rss", "http://example.com/")]
             String mail =""
-
 
         when:
             mail = blogSummaryMailGenerator.generateSummaryMail(newPosts,newBlogs,  7)
 
         then:
             mail != null
-            mail.contains("<a href=\"http://example.com\">John Travoltowski</a><br/>")
+            mail.contains("<a href=\"http://example.com/\">John Travoltowski</a><br/>")
     }
 
-    private stubBlogPost(String title, String url, String authorName) {
+    private stubBlogPost(String title, String postUrl, String authorName) {
         return Stub(BlogPost) {
             getTitle() >> title
-            getUrl() >> url
+            getUrl() >> postUrl
             getAuthor() >> Stub(Person) {
                 getName() >> authorName
                 getTwitter() >> null
             }
         }
     }
-    private stubPerson(String authorName, String rss) {
+    private stubPerson(String authorName, String rss, String homepage) {
         return Stub(Person) {
             getName() >> authorName
             getRss() >> rss
+            getHomepage() >> homepage
         }
     }
 }

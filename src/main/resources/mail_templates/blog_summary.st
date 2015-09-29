@@ -11,7 +11,7 @@ $newPosts: {post|
 $if(newBlogs)$
 Miło nam poinformować, że od tej pory będziemy Was także informować o postach na blogach: <br/><br/>
 $newBlogs: {blog|
- - <a href="$blog.rss$">$blog.name$</a><br/>
+ - <a href="$blog.homepage$">$blog.name$</a><br/>
 }$
 $endif$
 -- <br/>

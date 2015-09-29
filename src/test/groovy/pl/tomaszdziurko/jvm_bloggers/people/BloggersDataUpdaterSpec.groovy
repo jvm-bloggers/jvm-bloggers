@@ -25,22 +25,22 @@ class BloggersDataUpdaterSpec extends Specification {
             isEqual == expectedResult
         where:
             person                                                    | bloggerEntry                               | expectedResult
-            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | true
-            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(2L, "name", "rss", "twitter") | false
-            new Person(1L, "Xame", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
-            new Person(1L, "name", "Xss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
-            new Person(1L, "name", "rss", "Xwitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
-            new Person(1L, "namX", "rsX", "twitteX", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | false
-            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", null)      | false
-            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, null, "rss", "twitter")   | false
-            new Person(1L, "name", "rss", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", null, "twitter")  | false
-            new Person(1L, "name", "RSS", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "twitter") | true
+            new Person(1L, "name", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | true
+            new Person(1L, "name", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(2L, "name", "rss", "homepage", "twitter") | false
+            new Person(1L, "Xame", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | false
+            new Person(1L, "name", "Xss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | false
+            new Person(1L, "name", "rss", "homepage", "Xwitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | false
+            new Person(1L, "namX", "rsX", "homepage", "twitteX", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | false
+            new Person(1L, "name", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", null)      | false
+            new Person(1L, "name", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, null, "rss", "homepage", "twitter")   | false
+            new Person(1L, "name", "rss", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", null, "homepage", "twitter")  | false
+            new Person(1L, "name", "RSS", "homepage", "twitter", LocalDateTime.now()) | new BloggerEntry(1L, "name", "rss", "homepage", "twitter") | true
     }
 
     def "Should insert new Person for entry with new json_id"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "homepage", "twitter")
             personRepository.findByJsonId(jsonId) >> Optional.empty()
             personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
@@ -55,8 +55,8 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should not update data if equal record already exists in DB"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
-            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, entry.rss, entry.twitter, LocalDateTime.now()))
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "homepage", "twitter")
+            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, entry.rss, entry.homepage, entry.twitter, LocalDateTime.now()))
             personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
@@ -71,8 +71,8 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             String rss = "newRssAddress"
-            BloggerEntry entry = new BloggerEntry(jsonId, "name", rss, "twitter")
-            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, "oldRSS", entry.twitter, LocalDateTime.now()))
+            BloggerEntry entry = new BloggerEntry(jsonId, "name", rss, "homepage", "twitter")
+            personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, "oldRSS", entry.homepage, entry.twitter, LocalDateTime.now()))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -86,8 +86,8 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             String newName = "newName"
-            Person existingPerson = new Person(jsonId, "oldName", "existingRSS", "twitter", LocalDateTime.now())
-            BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter)
+            Person existingPerson = new Person(jsonId, "oldName", "existingRSS", "homepage", "twitter", LocalDateTime.now())
+            BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.homepage, existingPerson.twitter)
             personRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
             personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:

@@ -9,7 +9,7 @@ class BloggerEntrySpec extends Specification {
     def "Should accept json from bloggers.json as input data during parse process"() {
         given:
             ObjectMapper mapper = new ObjectMapper()
-            File json = new File("bloggers.json")
+            File json = new File("src/main/resources/bloggers.json")
         when:
             BloggersData bloggers = mapper.readValue(json, BloggersData.class);
         then:

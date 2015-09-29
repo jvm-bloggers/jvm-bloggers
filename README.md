@@ -9,7 +9,7 @@ Goal of this project is to gather information about every developer blogging abo
 I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by helping blog authors to reach wider audience.
 
 ##### Your blog is missing? 
-Please create a Pull Request adding it to [bloggers.json](https://github.com/tdziurko/jvm-bloggers/blob/master/bloggers.json) and that's all. Once it is merged, you are on the list!
+Please create a Pull Request adding it to [bloggers.json](https://github.com/tdziurko/jvm-bloggers/blob/master/src/main/resources/bloggers.json) and that's all. Once it is merged, you are on the list!
 
 ## Roadmap
 
