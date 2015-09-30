@@ -49,7 +49,7 @@ public class BloggersDataUpdater {
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameName);
         } else {
             Person newPerson = new Person(bloggerEntry.getJsonId(), bloggerEntry.getName(),
-                StringUtils.lowerCase(bloggerEntry.getRss().toLowerCase()), bloggerEntry.getTwitter(), nowProvider.now());
+                StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(), nowProvider.now());
             personRepository.save(newPerson);
             updateSummary.recordCreated();
         }
