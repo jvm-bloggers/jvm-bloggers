@@ -51,12 +51,11 @@ public class BlogSummaryMailGenerator {
 
     private Map<Person, String> getPersonToBlogHomepage(List<Person> blogsAddedSinceLastNewsletter) {
         SyndFeedInput syndFeedInput = new SyndFeedInput();
-        Map<Person, String> personToBlogHomepage = blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
+
+        return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
                         Function.identity(),
                         person->getBlogHomepageFromRss(person.getRss(), syndFeedInput))
         );
-
-        return personToBlogHomepage;
     }
 
     private String getBlogHomepageFromRss(String rss, SyndFeedInput syndFeedInput) {
