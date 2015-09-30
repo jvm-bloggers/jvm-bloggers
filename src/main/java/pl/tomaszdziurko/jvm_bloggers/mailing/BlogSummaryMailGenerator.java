@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BlogSummaryMailGenerator {
 
-    private Resource blogsSummaryTemplate;
+    private final Resource blogsSummaryTemplate;
 
     @Autowired
     public BlogSummaryMailGenerator(@Value("classpath:mail_templates/blog_summary.st") Resource blogsSummaryTemplate) {

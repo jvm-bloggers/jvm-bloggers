@@ -16,7 +16,7 @@ public class SendGridMailSender {
 
     public static final String FROM_NAME = "JVM Bloggers";
 
-    private SendGrid sendgrid;
+    private final SendGrid sendgrid;
     private final String senderAddress;
 
     @Autowired
