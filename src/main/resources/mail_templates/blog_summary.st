@@ -9,7 +9,7 @@ $newPosts: {post|
 <br/>
 
 $if(personToBlogHomepage)$
-Miło nam poinformować, że od tej pory będziemy Was także informować o postach na blogach: <br/><br/>
+Nowo dodane blogi: <br/><br/>
 $personToBlogHomepage.keys: { key |
  - <a href="$personToBlogHomepage.(key)$">$key.name$</a><br/>
 }$
