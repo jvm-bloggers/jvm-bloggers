@@ -8,10 +8,10 @@ $newPosts: {post|
 <br/>
 <br/>
 
-$if(newBlogs)$
+$if(personToBlogHomepage)$
 Miło nam poinformować, że od tej pory będziemy Was także informować o postach na blogach: <br/><br/>
-$newBlogs: {blog|
- - <a href="$blog.rss$">$blog.name$</a><br/>
+$personToBlogHomepage.keys: { key |
+ - <a href="$personToBlogHomepage.(key)$">$key.name$</a><br/>
 }$
 $endif$
 -- <br/>
