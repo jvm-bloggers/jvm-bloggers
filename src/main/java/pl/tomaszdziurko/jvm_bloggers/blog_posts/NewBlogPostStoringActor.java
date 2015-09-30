@@ -8,6 +8,7 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
+import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;
@@ -37,7 +38,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
     private void storeNewBlogPost(RssEntryWithAuthor rssEntry) {
         SyndEntry postInRss = rssEntry.getRssEntry();
         Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
-        LocalDateTime publishedDate = dateToStore.toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
+        LocalDateTime publishedDate = DateTimeUtilities.convertDateToLocalDateTime(dateToStore);
         BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getAuthor(), postInRss.getLink(), publishedDate);
         blogPostRepository.save(newBlogPost);
         log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getAuthor().getName());

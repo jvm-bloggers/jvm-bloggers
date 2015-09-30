@@ -70,6 +70,7 @@ dependencies {
     testCompile 'org.spockframework:spock-spring:0.7-groovy-2.0'
     testCompile 'cglib:cglib-nodep:2.2.2'
     testCompile 'org.codehaus.groovy:groovy:2.3.8'
+    testCompile 'com.typesafe.akka:akka-testkit_2.10:2.3.12'
     runtime 'com.h2database:h2'
 
 }
