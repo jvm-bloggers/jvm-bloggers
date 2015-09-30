@@ -18,12 +18,6 @@ class SendGridMailSenderSpec extends Specification {
             String recipient = "recipient"
             String subject = "Example subject"
             String htmlContent = "Example message"
-            SendGrid.Email email = new SendGrid.Email()
-            email.addTo(recipient)
-            email.setFrom(SENDER_ADDRESS)
-            email.setFromName(SendGridMailSender.FROM_NAME)
-            email.setSubject(subject)
-            email.setHtml(htmlContent)
         when:
             mailSender.sendEmail(recipient, subject, htmlContent)
         then:
