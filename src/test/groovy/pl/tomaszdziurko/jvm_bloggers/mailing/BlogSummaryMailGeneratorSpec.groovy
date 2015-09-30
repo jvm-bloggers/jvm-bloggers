@@ -20,7 +20,7 @@ class BlogSummaryMailGeneratorSpec extends Specification {
 
     def "Should populate template with posts data"() {
         given:
-            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
+            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com/postUrl", "Piotr Nowak")]
         expect:
             blogSummaryMailGenerator.generateSummaryMail(newPosts,[],  7) != null
     }
@@ -28,7 +28,10 @@ class BlogSummaryMailGeneratorSpec extends Specification {
     def "Should populate template with posts/blog data when new blogs found"() {
         given:
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
-            List<Person> newBlogs = [stubPerson("John Travoltowski", "http://example.com")]
+            List<Person> newBlogs = [
+                    stubPerson("Tomasz Dziurko", "http://tomaszdziurko.pl/feed/"),
+                    stubPerson("Tomasz Nurkiewicz", "http://www.nurkiewicz.com/feeds/posts/default?alt=rss"),
+            ]
             String mail =""
 
 
@@ -37,7 +40,8 @@ class BlogSummaryMailGeneratorSpec extends Specification {
 
         then:
             mail != null
-            mail.contains("<a href=\"http://example.com\">John Travoltowski</a><br/>")
+            mail.contains("<a href=\"http://tomaszdziurko.pl/\">Tomasz Dziurko</a><br/>")
+            mail.contains("<a href=\"http://www.nurkiewicz.com/\">Tomasz Nurkiewicz</a><br/>")
     }
 
     private stubBlogPost(String title, String url, String authorName) {
