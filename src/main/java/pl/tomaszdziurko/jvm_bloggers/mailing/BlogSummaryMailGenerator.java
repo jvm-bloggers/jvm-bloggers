@@ -59,12 +59,12 @@ public class BlogSummaryMailGenerator {
         return personToBlogHomepage;
     }
 
-    private String getBlogHomepageFromRss(String rss, SyndFeedInput syndFeedInput){
+    private String getBlogHomepageFromRss(String rss, SyndFeedInput syndFeedInput) {
         String homePageUrl = "";
         try {
             SyndFeed feed = syndFeedInput.build(new XmlReader(new URL(rss)));
             homePageUrl = feed.getLink();
-        } catch (FeedException| IOException e) {
+        } catch (FeedException | IOException e) {
             e.printStackTrace();
         }
         return homePageUrl;
