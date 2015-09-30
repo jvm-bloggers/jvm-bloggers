@@ -65,7 +65,7 @@ public class BlogSummaryMailGenerator {
             SyndFeed feed = syndFeedInput.build(new XmlReader(new URL(rss)));
             homePageUrl = feed.getLink();
         } catch (FeedException | IOException e) {
-            e.printStackTrace();
+            log.error("Issue while discovering blog homepage from blog rss ='{}'", rss);
         }
         return homePageUrl;
     }
