@@ -16,19 +16,17 @@ import java.util.List;
 @Slf4j
 public class RssCheckingActor extends AbstractActor {
 
-    public RssCheckingActor(ActorRef postStoringActor) {
-        SyndFeedInput input = new SyndFeedInput();
-
+    public RssCheckingActor(ActorRef postStoringActor, SyndFeedInput input) {
         receive(ReceiveBuilder.match(RssLink.class, rssLink -> {
                 executeAction(postStoringActor, input, rssLink);
             }
         ).build());
     }
 
+    @SuppressWarnings("unchecked")
     private void executeAction(ActorRef postStoringActor, SyndFeedInput input, RssLink rssLink) {
         try {
             SyndFeed feed = input.build(new XmlReader(new URL(rssLink.getUrl())));
-            feed.getEntries().size();
             List<SyndEntry> posts = feed.getEntries();
             posts.forEach(post -> {
                     RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
@@ -40,7 +38,7 @@ public class RssCheckingActor extends AbstractActor {
         }
     }
 
-    public static Props props(ActorRef postStoringActor) {
-        return Props.create(RssCheckingActor.class, () -> new RssCheckingActor(postStoringActor));
+    public static Props props(ActorRef postStoringActor, SyndFeedInput input) {
+        return Props.create(RssCheckingActor.class, () -> new RssCheckingActor(postStoringActor, input));
     }
 }
