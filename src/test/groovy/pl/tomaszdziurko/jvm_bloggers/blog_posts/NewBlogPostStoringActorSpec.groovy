@@ -15,20 +15,22 @@ import spock.lang.Subject
 
 class NewBlogPostStoringActorSpec extends Specification {
 
-    ActorSystem system
     BlogPostRepository blogPostRepository
     JavaTestKit testProbe
 
     @Subject
     ActorRef blogPostingActor
 
-
     def setup() {
-        system = ActorSystem.create("test")
+        ActorSystem system = ActorSystem.create("test")
         testProbe = new JavaTestKit(system);
         blogPostRepository = Mock(BlogPostRepository)
         Props props = NewBlogPostStoringActor.props(blogPostRepository)
         blogPostingActor = system.actorOf(props, "blogPostingActor")
+    }
+
+    def cleanup() {
+        testProbe.system.shutdown()
     }
 
     def "Should persist new blog post"() {
