@@ -58,7 +58,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'org.antlr:ST4:4.0.7'
-    compile 'com.sendgrid:sendgrid-java:2.2.2'
+    compile 'org.glassfish.jersey.core:jersey-client:2.21'
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"

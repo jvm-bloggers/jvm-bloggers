@@ -26,7 +26,7 @@ public class BlogSummaryMailSender {
     private final BlogPostRepository blogPostRepository;
     private final PersonRepository personRepository;
     private final BlogSummaryMailGenerator mailGenerator;
-    private final SendGridMailSender mailSender;
+    private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
     private final NowProvider nowProvider;
 
@@ -34,7 +34,7 @@ public class BlogSummaryMailSender {
     public BlogSummaryMailSender(BlogPostRepository blogPostRepository,
                                  PersonRepository personRepository,
                                  BlogSummaryMailGenerator blogSummaryMailGenerator,
-                                 SendGridMailSender sendGridMailSender,
+                                 MailSender sendGridMailSender,
                                  MailingAddressRepository mailingAddressRepository,
                                  NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;

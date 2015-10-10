@@ -7,7 +7,7 @@ spring:
     test-on-borrow: true
     validation-query: SELECT 1
 
-# Sendgrid Configuration
-sendgrid:
-  apiKey: "ENC(RWnXWOykAzWQcKi5pKKYhT4m+CLDtzXIh2NJZgv36gnJg+KA+QK4N33sFnoylTUkQb5y+qFn1iMdhBnoGEVl9/nVkFo1oyVW9f34QbJQdsk=)"
+# Mail Configuration
+mailing:
+  apiKey: "ENC(u+1+9wseBKqW0dNE7IY2pe5ObMHpQX7pFQnNbCMJKVXFthwD5J+38xq6YSQg9JyC)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"

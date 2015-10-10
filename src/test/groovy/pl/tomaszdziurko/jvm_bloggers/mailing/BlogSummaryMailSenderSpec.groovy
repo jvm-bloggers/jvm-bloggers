@@ -15,11 +15,11 @@ class BlogSummaryMailSenderSpec extends Specification {
     BlogPostRepository blogPostRepository = Mock(BlogPostRepository)
     PersonRepository personRepository = Mock(PersonRepository)
     BlogSummaryMailGenerator blogSummaryMailGenerator = Stub(BlogSummaryMailGenerator)
-    SendGridMailSender sendGridMailSender = Mock(SendGridMailSender)
+    MailSender mailSender = Mock(MailSender)
     MailingAddressRepository mailingAddressRepository = Mock(MailingAddressRepository)
 
     @Subject
-    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(blogPostRepository, personRepository, blogSummaryMailGenerator, sendGridMailSender, mailingAddressRepository, new NowProvider())
+    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(blogPostRepository, personRepository, blogSummaryMailGenerator, mailSender, mailingAddressRepository, new NowProvider())
 
 
     def "Should not send any mail for empty MailingAddress DB table"() {
@@ -30,7 +30,7 @@ class BlogSummaryMailSenderSpec extends Specification {
         when:
             summaryMailSender.sendSummary(10)
         then:
-            0 * sendGridMailSender.sendEmail(_, _, _)
+            0 * mailSender.sendEmail(_, _, _)
     }
 
     def "Should send two emails for two records in MailingAddress when there are some new blog posts"() {
@@ -41,7 +41,7 @@ class BlogSummaryMailSenderSpec extends Specification {
         when:
             summaryMailSender.sendSummary(10)
         then:
-            2 * sendGridMailSender.sendEmail(_, _, _)
+            2 * mailSender.sendEmail(_, _, _)
     }
 
     def "Should send two emails for two records in MailingAddress when there are some new blogs added"() {
@@ -52,7 +52,7 @@ class BlogSummaryMailSenderSpec extends Specification {
         when:
             summaryMailSender.sendSummary(10)
         then:
-            2 * sendGridMailSender.sendEmail(_, _, _)
+            2 * mailSender.sendEmail(_, _, _)
     }
 
     def "Should not send anything when there are no new blogs nor new blog posts"() {
@@ -63,7 +63,7 @@ class BlogSummaryMailSenderSpec extends Specification {
         when:
             summaryMailSender.sendSummary(10)
         then:
-            0 * sendGridMailSender.sendEmail(_, _, _)
+            0 * mailSender.sendEmail(_, _, _)
     }
 
 

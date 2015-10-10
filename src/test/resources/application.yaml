@@ -2,7 +2,7 @@ liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
 bloggers.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/master/bloggers.json
 
-# Sendgrid Configuration
-sendgrid:
-  apiKey: "test"
-  fromEmail: "test@cc.pl"
+# Mail Configuration
+mailing:
+  apiKey: "apiKey"
+  fromEmail: "example@example.com"
