@@ -1,7 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import spock.lang.Specification
 
 class BlogPostForMailItemSpec extends Specification {
@@ -9,9 +9,9 @@ class BlogPostForMailItemSpec extends Specification {
     def "Should store author name as a label if twitter account is missing"() {
         given:
             String name = "Jan Kowalski"
-            Person author = stubAuthorWith(name, null)
+            Blog author = stubAuthorWith(name, null)
             BlogPost post = Stub(BlogPost) {
-                getAuthor() >> author
+                getBlog() >> author
             }
         when:
             BlogPostForMailItem blogPostForMailItem = new BlogPostForMailItem(post)
@@ -23,9 +23,9 @@ class BlogPostForMailItemSpec extends Specification {
         given:
             String name = "Jan Kowalski"
             String twitter = "@JanKowalski"
-            Person author = stubAuthorWith(name, twitter)
+            Blog author = stubAuthorWith(name, twitter)
             BlogPost post = Stub(BlogPost) {
-                getAuthor() >> author
+                getBlog() >> author
             }
         when:
             BlogPostForMailItem blogPostForMailItem = new BlogPostForMailItem(post)
@@ -34,8 +34,8 @@ class BlogPostForMailItemSpec extends Specification {
     }
 
     private stubAuthorWith(String name, String twitterHandler) {
-        return Stub(Person) {
-            getName() >> name
+        return Stub(Blog) {
+            getAuthor() >> name
             getTwitter() >> twitterHandler
         }
     }

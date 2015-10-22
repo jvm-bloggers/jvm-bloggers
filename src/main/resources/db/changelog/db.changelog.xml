@@ -99,5 +99,16 @@
         <addUniqueConstraint tableName="mailing_address" columnNames="address" constraintName="MAILING_ADDRESS_ADDRESS_UNIQUE"/>
     </changeSet>
 
+    <changeSet id="007-rename-table-person-to-blog" author="Tomasz.Dziurko">
+        <renameTable oldTableName="person" newTableName="blog"/>
+    </changeSet>
+
+    <changeSet id="008-rename-name-column-to-author-in-blog--and-blog-post-tables" author="Tomasz.Dziurko">
+        <renameColumn tableName="blog" oldColumnName="name" newColumnName="author"/>
+
+        <renameColumn tableName="blog_post" oldColumnName="author_id" newColumnName="blog_id"/>
+
+    </changeSet>
+
 
 </databaseChangeLog>

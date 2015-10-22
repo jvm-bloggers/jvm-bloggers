@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.io.BufferedReader;
@@ -35,7 +35,7 @@ public class BlogSummaryMailGenerator {
         this.syndFeedFactory = syndFeedFactory;
     }
 
-    public String generateSummaryMail(List<BlogPost> posts, List<Person> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
+    public String generateSummaryMail(List<BlogPost> posts, List<Blog> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(blogsSummaryTemplate.getInputStream(), "UTF-8"));
             String templateContent =  Joiner.on("\n").join(bufferedReader.lines().collect(Collectors.toList()));
@@ -49,7 +49,7 @@ public class BlogSummaryMailGenerator {
         }
     }
 
-    private Map<Person, String> getPersonToBlogHomepage(List<Person> blogsAddedSinceLastNewsletter) {
+    private Map<Blog, String> getPersonToBlogHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
                         Function.identity(),
                         person->getBlogHomepageFromRss(person.getRss()))

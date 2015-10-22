@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.people
+package pl.tomaszdziurko.jvm_bloggers.blogs
 
 import spock.lang.Specification
 

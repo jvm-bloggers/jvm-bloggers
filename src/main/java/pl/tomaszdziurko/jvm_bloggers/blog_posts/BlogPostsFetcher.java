@@ -6,8 +6,8 @@ import akka.routing.RoundRobinPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.List;
 @Component
 public class BlogPostsFetcher {
 
-    private final PersonRepository personRepository;
+    private final BlogRepository blogRepository;
     private final BlogPostRepository blogPostRepository;
     private final ActorRef rssCheckingActor;
     private final ActorRef blogPostStoringActor;
 
     @Autowired
-    public BlogPostsFetcher(ActorSystem actorSystem, PersonRepository personRepository,
+    public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
                             BlogPostRepository blogPostRepository, SyndFeedProducer syndFeedFactory) {
-        this.personRepository = personRepository;
+        this.blogRepository = blogRepository;
         this.blogPostRepository = blogPostRepository;
         blogPostStoringActor = actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
@@ -31,7 +31,7 @@ public class BlogPostsFetcher {
     }
 
     public void refreshPosts() {
-        List<Person> people = personRepository.findAll();
+        List<Blog> people = blogRepository.findAll();
         people.stream().forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
     }
 }

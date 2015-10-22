@@ -11,7 +11,7 @@ $newPosts: {post|
 $if(personToBlogHomepage)$
 Nowo dodane blogi: <br/><br/>
 $personToBlogHomepage.keys: { key |
- - <a href="$personToBlogHomepage.(key)$">$key.name$</a><br/>
+ - <a href="$personToBlogHomepage.(key)$">$key.author$</a><br/>
 }$
 $endif$
 -- <br/>

@@ -1,14 +1,14 @@
-package pl.tomaszdziurko.jvm_bloggers.people;
+package pl.tomaszdziurko.jvm_bloggers.blogs;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository;
-import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggerEntry;
-import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggersData;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
+import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry;
+import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggersData;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.util.List;
@@ -20,12 +20,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BloggersDataUpdater {
 
-    private final PersonRepository personRepository;
+    private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
 
     @Autowired
-    public BloggersDataUpdater(PersonRepository personRepository, NowProvider nowProvider) {
-        this.personRepository = personRepository;
+    public BloggersDataUpdater(BlogRepository blogRepository, NowProvider nowProvider) {
+        this.blogRepository = blogRepository;
         this.nowProvider = nowProvider;
     }
 
@@ -38,35 +38,35 @@ public class BloggersDataUpdater {
     }
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
-        Optional<Person> existingBloggerByJsonId = personRepository.findByJsonId(bloggerEntry.getJsonId());
+        Optional<Blog> existingBloggerByJsonId = blogRepository.findByJsonId(bloggerEntry.getJsonId());
 
         if (existingBloggerByJsonId.isPresent()) {
-            Person bloggerWithSameJsonId = existingBloggerByJsonId.get();
+            Blog bloggerWithSameJsonId = existingBloggerByJsonId.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
         } else {
-            Person newPerson = new Person(bloggerEntry.getJsonId(), bloggerEntry.getName(),
+            Blog newBlog = new Blog(bloggerEntry.getJsonId(), bloggerEntry.getName(),
                 StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(), nowProvider.now());
-            personRepository.save(newPerson);
+            blogRepository.save(newBlog);
             updateSummary.recordCreated();
         }
     }
 
-    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry, UpdateSummary updateSummary, Person existingBlogger) {
+    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry, UpdateSummary updateSummary, Blog existingBlogger) {
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
-            existingBlogger.setName(bloggerEntry.getName());
+            existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
-            personRepository.save(existingBlogger);
+            blogRepository.save(existingBlogger);
             updateSummary.recordUpdated();
         }
     }
 
-    protected boolean isEqual(Person person, BloggerEntry bloggerEntry) {
-        return Objects.equals(person.getName(), bloggerEntry.getName())
-            && Objects.equals(person.getJsonId(), bloggerEntry.getJsonId())
-            && StringUtils.equalsIgnoreCase(person.getRss(), bloggerEntry.getRss())
-            && Objects.equals(person.getTwitter(), bloggerEntry.getTwitter());
+    protected boolean isEqual(Blog blog, BloggerEntry bloggerEntry) {
+        return Objects.equals(blog.getAuthor(), bloggerEntry.getName())
+            && Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
+            && StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
+            && Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter());
     }
 
     @Getter

@@ -8,8 +8,8 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.PersonRepository;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ public class BlogSummaryMailSender {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final BlogPostRepository blogPostRepository;
-    private final PersonRepository personRepository;
+    private final BlogRepository blogRepository;
     private final BlogSummaryMailGenerator mailGenerator;
     private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
@@ -32,13 +32,13 @@ public class BlogSummaryMailSender {
 
     @Autowired
     public BlogSummaryMailSender(BlogPostRepository blogPostRepository,
-                                 PersonRepository personRepository,
+                                 BlogRepository blogRepository,
                                  BlogSummaryMailGenerator blogSummaryMailGenerator,
                                  MailSender sendGridMailSender,
                                  MailingAddressRepository mailingAddressRepository,
                                  NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;
-        this.personRepository = personRepository;
+        this.blogRepository = blogRepository;
         this.mailGenerator = blogSummaryMailGenerator;
         this.mailSender = sendGridMailSender;
         this.mailingAddressRepository = mailingAddressRepository;
@@ -47,7 +47,7 @@ public class BlogSummaryMailSender {
 
     public void sendSummary(int numberOfDaysBackInThePast) {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        List<Person> blogsAddedSinceLastNewsletter = personRepository.findByDateAddedAfter(publishedDate);
+        List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
         if (newBlogPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
             log.warn("There are no new posts nor new blogs added for last {} days !!!", numberOfDaysBackInThePast);

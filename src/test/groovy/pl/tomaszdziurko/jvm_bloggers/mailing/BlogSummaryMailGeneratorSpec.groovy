@@ -5,7 +5,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import spock.lang.Specification
 
 @ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)
@@ -28,7 +28,7 @@ class BlogSummaryMailGeneratorSpec extends Specification {
     def "Should populate template with posts/blog data when new blogs found"() {
         given:
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
-            List<Person> newBlogs = [
+            List<Blog> newBlogs = [
                     stubPerson("Tomasz Dziurko", "http://tomaszdziurko.pl/feed/"),
                     stubPerson("Tomasz Nurkiewicz", "http://www.nurkiewicz.com/feeds/posts/default?alt=rss"),
             ]
@@ -48,15 +48,15 @@ class BlogSummaryMailGeneratorSpec extends Specification {
         return Stub(BlogPost) {
             getTitle() >> title
             getUrl() >> url
-            getAuthor() >> Stub(Person) {
-                getName() >> authorName
+            getBlog() >> Stub(Blog) {
+                getAuthor() >> authorName
                 getTwitter() >> null
             }
         }
     }
     private stubPerson(String authorName, String rss) {
-        return Stub(Person) {
-            getName() >> authorName
+        return Stub(Blog) {
+            getAuthor() >> authorName
             getRss() >> rss
         }
     }

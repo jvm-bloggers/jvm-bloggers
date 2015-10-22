@@ -3,7 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,13 +42,13 @@ public class BlogPost {
     private LocalDateTime publishedDate;
 
     @ManyToOne
-    @JoinColumn(name = "AUTHOR_ID", nullable = false)
-    private Person author;
+    @JoinColumn(name = "BLOG_ID", nullable = false)
+    private Blog blog;
 
-    public BlogPost(String title, Person author, String url, LocalDateTime publishedDate) {
+    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate) {
         this.uid = UUID.randomUUID().toString();
         this.title = title;
-        this.author = author;
+        this.blog = blog;
         this.url = url;
         this.publishedDate = publishedDate;
     }

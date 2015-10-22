@@ -2,7 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import lombok.Data;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
 
 @Data
@@ -15,14 +15,14 @@ class BlogPostForMailItem {
     public BlogPostForMailItem(BlogPost blogPost) {
         this.title = blogPost.getTitle();
         this.url = blogPost.getUrl();
-        this.authorLabel = determineAuthorLabel(blogPost.getAuthor());
+        this.authorLabel = determineAuthorLabel(blogPost.getBlog());
     }
 
-    private String determineAuthorLabel(Person blogger) {
+    private String determineAuthorLabel(Blog blogger) {
         if (blogger.getTwitter() != null) {
-            return "<a href=\"https://twitter.com/" + blogger.getTwitter().substring(1) + "\">" + blogger.getName() + "</a>";
+            return "<a href=\"https://twitter.com/" + blogger.getTwitter().substring(1) + "\">" + blogger.getAuthor() + "</a>";
         } else {
-            return blogger.getName();
+            return blogger.getAuthor();
         }
     }
 

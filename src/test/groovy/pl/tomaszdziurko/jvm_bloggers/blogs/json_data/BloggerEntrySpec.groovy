@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.people.json_data
+package pl.tomaszdziurko.jvm_bloggers.blogs.json_data
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import spock.lang.Specification

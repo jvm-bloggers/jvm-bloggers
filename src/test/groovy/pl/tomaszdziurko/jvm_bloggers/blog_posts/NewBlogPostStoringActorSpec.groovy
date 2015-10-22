@@ -7,7 +7,7 @@ import akka.testkit.JavaTestKit
 import com.sun.syndication.feed.synd.SyndEntry
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
@@ -38,7 +38,7 @@ class NewBlogPostStoringActorSpec extends Specification {
             String postUrl = "a link"
             String postTitle = "Title"
             SyndEntry entry = mockSyndEntry(postUrl, postTitle)
-            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Person), entry)
+            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
             blogPostRepository.findByUrl(postUrl) >> Optional.empty()
         when:
             blogPostingActor.tell(message, ActorRef.noSender())
@@ -52,7 +52,7 @@ class NewBlogPostStoringActorSpec extends Specification {
             String postUrl = "a link"
             String postTitle = "Title"
             SyndEntry entry = mockSyndEntry(postUrl, postTitle)
-            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Person), entry)
+            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
             blogPostRepository.findByUrl(postUrl) >> Optional.of(Stub(BlogPost))
         when:
             blogPostingActor.tell(message, ActorRef.noSender())
@@ -67,7 +67,7 @@ class NewBlogPostStoringActorSpec extends Specification {
             String postTitle = "Title"
             Date updatedDate = new Date().minus(1)
             SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, updatedDate)
-            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Person), entry)
+            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
             blogPostRepository.findByUrl(postUrl) >> Optional.empty()
         when:
             blogPostingActor.tell(message, ActorRef.noSender())

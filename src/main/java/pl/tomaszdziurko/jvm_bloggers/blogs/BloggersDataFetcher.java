@@ -1,11 +1,11 @@
-package pl.tomaszdziurko.jvm_bloggers.people;
+package pl.tomaszdziurko.jvm_bloggers.blogs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import pl.tomaszdziurko.jvm_bloggers.people.json_data.BloggersData;
+import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggersData;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

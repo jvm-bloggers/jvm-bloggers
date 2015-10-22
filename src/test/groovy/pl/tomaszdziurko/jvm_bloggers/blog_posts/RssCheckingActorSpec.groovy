@@ -6,7 +6,7 @@ import akka.actor.Props
 import akka.testkit.JavaTestKit
 import com.sun.syndication.feed.synd.SyndEntry
 import com.sun.syndication.feed.synd.SyndFeed
-import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
@@ -36,7 +36,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
         when:
-            rssCheckingActor.tell(new RssLink(new Person(name: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(new Blog(author: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
         then:
             testProbe.expectMsgClass(RssEntryWithAuthor)
     }
@@ -45,7 +45,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
         when:
-            rssCheckingActor.tell(new RssLink(new Person(name: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(new Blog(author: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
         then:
             testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }

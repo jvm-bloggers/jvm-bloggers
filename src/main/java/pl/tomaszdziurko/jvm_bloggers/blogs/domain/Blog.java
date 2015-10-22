@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.people.domain;
+package pl.tomaszdziurko.jvm_bloggers.blogs.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +13,10 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "person")
+@Table(name = "blog")
 @Data
 @NoArgsConstructor
-public class Person {
+public class Blog {
 
     @Id
     @GeneratedValue(generator = "PERSON_SEQ", strategy = GenerationType.SEQUENCE)
@@ -27,8 +27,8 @@ public class Person {
     @Column(name = "JSON_ID")
     private Long jsonId;
 
-    @Column(name = "NAME", nullable = false, length = 250)
-    private String name;
+    @Column(name = "AUTHOR", nullable = false, length = 250)
+    private String author;
 
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
@@ -39,9 +39,9 @@ public class Person {
     @Column(name = "DATE_ADDED", nullable = false)
     private LocalDateTime dateAdded;
 
-    public Person(Long jsonId, String name, String rss, String twitter, LocalDateTime dateAdded) {
+    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded) {
         this.jsonId = jsonId;
-        this.name = name;
+        this.author = author;
         this.rss = rss;
         this.twitter = twitter;
         this.dateAdded = dateAdded;

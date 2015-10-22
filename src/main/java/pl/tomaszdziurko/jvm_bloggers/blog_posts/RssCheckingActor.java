@@ -32,7 +32,7 @@ public class RssCheckingActor extends AbstractActor {
                 }
             );
         } catch (Exception e) {
-            log.error("Exception for rss from {} ({}): {} ", rssLink.getOwner().getName(), rssLink.getUrl(), e.getMessage());
+            log.error("Exception for rss from {} ({}): {} ", rssLink.getOwner().getAuthor(), rssLink.getUrl(), e.getMessage());
         }
     }
 
