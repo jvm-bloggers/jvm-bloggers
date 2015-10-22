@@ -6,9 +6,8 @@ import akka.actor.Props
 import akka.testkit.JavaTestKit
 import com.sun.syndication.feed.synd.SyndEntry
 import com.sun.syndication.feed.synd.SyndFeed
-import com.sun.syndication.io.SyndFeedInput
-import com.sun.syndication.io.XmlReader
 import pl.tomaszdziurko.jvm_bloggers.people.domain.Person
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
@@ -16,7 +15,7 @@ import spock.lang.Subject
 class RssCheckingActorSpec extends Specification {
 
     JavaTestKit testProbe
-    SyndFeedInput syncFeedInput
+    SyndFeedProducer syndFeedProducer
 
     @Subject
     ActorRef rssCheckingActor
@@ -24,8 +23,8 @@ class RssCheckingActorSpec extends Specification {
     def setup() {
         ActorSystem system = ActorSystem.create("test")
         testProbe = new JavaTestKit(system);
-        syncFeedInput = Mock(SyndFeedInput)
-        Props props = RssCheckingActor.props(testProbe.getRef(), syncFeedInput)
+        syndFeedProducer = Mock(SyndFeedProducer)
+        Props props = RssCheckingActor.props(testProbe.getRef(), syndFeedProducer)
         rssCheckingActor = system.actorOf(props, "rssCheckingActor")
     }
 
@@ -35,7 +34,7 @@ class RssCheckingActorSpec extends Specification {
 
     def "Should send message about new posts to postStoringActor"() {
         given:
-            mockFeedToReturnNumberOfPosts(syncFeedInput, 1)
+            mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
         when:
             rssCheckingActor.tell(new RssLink(new Person(name: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
         then:
@@ -44,17 +43,17 @@ class RssCheckingActorSpec extends Specification {
 
     def "Should not send any message about new posts to postStoringActor when there are no posts in the feed "() {
         given:
-            mockFeedToReturnNumberOfPosts(syncFeedInput, 0)
+            mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
         when:
             rssCheckingActor.tell(new RssLink(new Person(name: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
         then:
             testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }
 
-    private void mockFeedToReturnNumberOfPosts(SyndFeedInput input, int numberOfPosts) {
+    private void mockFeedToReturnNumberOfPosts(SyndFeedProducer factory, int numberOfPosts) {
         SyndFeed syndFeedMock = Mock(SyndFeed)
         syndFeedMock.getEntries() >> mockEntries(numberOfPosts)
-        input.build(_ as XmlReader) >> syndFeedMock
+        factory.createFor(_ as String) >> syndFeedMock
     }
 
     List<SyndEntry> mockEntries(int size) {

@@ -3,9 +3,6 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.google.common.base.Joiner;
 import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.FeedException;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +11,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.people.domain.Person;
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -29,10 +26,13 @@ import java.util.stream.Collectors;
 public class BlogSummaryMailGenerator {
 
     private final Resource blogsSummaryTemplate;
+    private final SyndFeedProducer syndFeedFactory;
 
     @Autowired
-    public BlogSummaryMailGenerator(@Value("classpath:mail_templates/blog_summary.st") Resource blogsSummaryTemplate) {
+    public BlogSummaryMailGenerator(@Value("classpath:mail_templates/blog_summary.st") Resource blogsSummaryTemplate,
+                                    SyndFeedProducer syndFeedFactory) {
         this.blogsSummaryTemplate = blogsSummaryTemplate;
+        this.syndFeedFactory = syndFeedFactory;
     }
 
     public String generateSummaryMail(List<BlogPost> posts, List<Person> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
@@ -50,23 +50,15 @@ public class BlogSummaryMailGenerator {
     }
 
     private Map<Person, String> getPersonToBlogHomepage(List<Person> blogsAddedSinceLastNewsletter) {
-        SyndFeedInput syndFeedInput = new SyndFeedInput();
-
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
                         Function.identity(),
-                        person->getBlogHomepageFromRss(person.getRss(), syndFeedInput))
+                        person->getBlogHomepageFromRss(person.getRss()))
         );
     }
 
-    private String getBlogHomepageFromRss(String rss, SyndFeedInput syndFeedInput) {
-        String homePageUrl = "";
-        try {
-            SyndFeed feed = syndFeedInput.build(new XmlReader(new URL(rss)));
-            homePageUrl = feed.getLink();
-        } catch (FeedException | IOException e) {
-            log.error("Issue while discovering blog homepage from blog rss ='{}'", rss);
-        }
-        return homePageUrl;
+    private String getBlogHomepageFromRss(String rss) {
+        SyndFeed syndFeed = syndFeedFactory.createFor(rss);
+        return syndFeed.getLink();
     }
 
 }
