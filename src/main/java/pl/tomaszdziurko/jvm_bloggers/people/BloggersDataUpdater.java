@@ -39,14 +39,10 @@ public class BloggersDataUpdater {
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
         Optional<Person> existingBloggerByJsonId = personRepository.findByJsonId(bloggerEntry.getJsonId());
-        Optional<Person> existingBloggerByName = personRepository.findByNameIgnoreCase(bloggerEntry.getName());
 
         if (existingBloggerByJsonId.isPresent()) {
             Person bloggerWithSameJsonId = existingBloggerByJsonId.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
-        } else if (existingBloggerByName.isPresent()) {
-            Person bloggerWithSameName = existingBloggerByName.get();
-            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameName);
         } else {
             Person newPerson = new Person(bloggerEntry.getJsonId(), bloggerEntry.getName(),
                 StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(), nowProvider.now());

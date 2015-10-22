@@ -42,7 +42,6 @@ class BloggersDataUpdaterSpec extends Specification {
             Long jsonId = 2207L
             BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
             personRepository.findByJsonId(jsonId) >> Optional.empty()
-            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -57,7 +56,6 @@ class BloggersDataUpdaterSpec extends Specification {
             Long jsonId = 2207L
             BloggerEntry entry = new BloggerEntry(jsonId, "name", "rss", "twitter")
             personRepository.findByJsonId(jsonId) >> Optional.of(new Person(entry.jsonId, entry.name, entry.rss, entry.twitter, LocalDateTime.now()))
-            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -89,7 +87,6 @@ class BloggersDataUpdaterSpec extends Specification {
             Person existingPerson = new Person(jsonId, "oldName", "existingRSS", "twitter", LocalDateTime.now())
             BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter)
             personRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
-            personRepository.findByNameIgnoreCase(entry.name) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
