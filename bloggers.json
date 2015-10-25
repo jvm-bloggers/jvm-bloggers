@@ -620,6 +620,12 @@
       "name": "Paweł Włodarski",
       "rss": "http://usethiscode.blogspot.com/feeds/posts/default",
       "twitter": "@PawelWlodarski"
-    }
+    },
+    {
+      "jsonId": 108,
+      "name": "Piotr Wittchen",
+      "rss": "http://blog.wittchen.biz.pl/feed/",
+      "twitter": "@piotr_wittchen"
+    }    
   ]
 }
