@@ -626,6 +626,11 @@
       "name": "Piotr Wittchen",
       "rss": "http://blog.wittchen.biz.pl/feed/",
       "twitter": "@piotr_wittchen"
-    }    
+    },
+    {
+      "jsonId": 109,
+      "name": "JavaCzyHerbata.pl",
+      "rss": "http://javaczyherbata.pl/feed/"
+    }
   ]
 }
