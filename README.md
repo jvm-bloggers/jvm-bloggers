@@ -6,6 +6,8 @@
 ## Overview
 Goal of this project is to gather information about every developer blogging about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
 
+Every Friday at 12am application is sending a newsletter with all new blog posts from last 7 days. Currently newsletter is sent to  Java User Groups in Poland. If you want to have your group or personal e-mail added, please contact me (address below).
+
 I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by helping blog authors to reach wider audience.
 
 ##### Your blog is missing? 
