@@ -150,11 +150,6 @@
       "twitter": "@koziolek"
     },
     {
-      "jsonId": 26,
-      "name": "Grzegorz Dziemidowicz",
-      "rss": "http://agilesurfing.pl/feed/"
-    },
-    {
       "jsonId": 27,
       "name": "Szczepan Faber",
       "rss": "http://blog.mockito.org/feeds/posts/default",
@@ -340,12 +335,6 @@
       "name": "Paweł Szulc",
       "rss": "http://www.rabbitonweb.com/feed/",
       "twitter": "@rabbitonweb"
-    },
-    {
-      "jsonId": 59,
-      "name": "Bartek Szulc",
-      "rss": "https://bart.qa/feed.xml",
-      "twitter": "@BartSzulc"
     },
     {
       "jsonId": 60,
