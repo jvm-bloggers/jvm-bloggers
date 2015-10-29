@@ -620,6 +620,11 @@
       "jsonId": 109,
       "name": "JavaCzyHerbata.pl",
       "rss": "http://javaczyherbata.pl/feed/"
+    },
+    {
+      "jsonId": 110,
+      "name": "spc",
+      "rss": "http://spacanowski.github.io/feed"
     }
   ]
 }
