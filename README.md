@@ -6,7 +6,7 @@
 ## Overview
 Goal of this project is to gather information about every developer blogging about JVM related technologies in Poland, no matter if he is oldschool Java fanboy, fancy Scala lover or niche Gosu expert.
 
-Every Friday at 12am application is sending a newsletter with all new blog posts from last 7 days. Currently newsletter is sent to  Java User Groups in Poland. If you want to have your group or personal e-mail added, please contact me (address below).
+Every Friday at 12am application sends a newsletter with all new blog posts from last 7 days. Currently newsletter is sent to  Java User Groups in Poland. If you want to have your group or personal e-mail added, please contact me (address below).
 
 I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by helping blog authors to reach wider audience.
 
@@ -26,7 +26,7 @@ Please create a Pull Request adding it to [bloggers.json](https://github.com/tdz
 
 ## Technical details
 
-Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. So far it is deployed on my home server but there are plans to move it to more reliable location (Heroku, AWS or something similar).
+Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a Heroku.
 
 ## Contributing
 
