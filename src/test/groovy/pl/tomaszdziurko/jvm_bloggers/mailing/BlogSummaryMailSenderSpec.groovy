@@ -17,9 +17,11 @@ class BlogSummaryMailSenderSpec extends Specification {
     BlogSummaryMailGenerator blogSummaryMailGenerator = Stub(BlogSummaryMailGenerator)
     MailSender mailSender = Mock(MailSender)
     MailingAddressRepository mailingAddressRepository = Mock(MailingAddressRepository)
+    IssueNumberRetriever issueNumberRetriever = Mock(IssueNumberRetriever)
 
     @Subject
-    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(blogPostRepository, personRepository, blogSummaryMailGenerator, mailSender, mailingAddressRepository, new NowProvider())
+    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(blogPostRepository, personRepository, blogSummaryMailGenerator, mailSender,
+            mailingAddressRepository, issueNumberRetriever, new NowProvider())
 
 
     def "Should not send any mail for empty MailingAddress DB table"() {
