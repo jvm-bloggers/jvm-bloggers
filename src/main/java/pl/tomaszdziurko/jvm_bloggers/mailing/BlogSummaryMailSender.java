@@ -20,7 +20,8 @@ import java.util.List;
 @Slf4j
 public class BlogSummaryMailSender {
 
-    public static final String MAIL_SUMMARY_TITLE = "[JVM Bloggers] Nowe wpisy na polskich blogach, ";
+    public static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
+    public static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final BlogPostRepository blogPostRepository;
@@ -28,6 +29,7 @@ public class BlogSummaryMailSender {
     private final BlogSummaryMailGenerator mailGenerator;
     private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
+    private final IssueNumberRetriever issueNumberRetriever;
     private final NowProvider nowProvider;
 
     @Autowired
@@ -36,12 +38,14 @@ public class BlogSummaryMailSender {
                                  BlogSummaryMailGenerator blogSummaryMailGenerator,
                                  MailSender sendGridMailSender,
                                  MailingAddressRepository mailingAddressRepository,
+                                 IssueNumberRetriever issueNumberRetriever,
                                  NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;
         this.blogRepository = blogRepository;
         this.mailGenerator = blogSummaryMailGenerator;
         this.mailSender = sendGridMailSender;
         this.mailingAddressRepository = mailingAddressRepository;
+        this.issueNumberRetriever = issueNumberRetriever;
         this.nowProvider = nowProvider;
     }
 
@@ -62,10 +66,17 @@ public class BlogSummaryMailSender {
 
         String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
         log.info("Mail content = \n" + mailTemplate);
-        mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient ->
-            mailSender.sendEmail(recipient, MAIL_SUMMARY_TITLE + getTodayDateAsString(), mailTemplate)
+        String issueTitle = prepareIssueTitle();
+        mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
+                mailSender.sendEmail(recipient, issueTitle, mailTemplate);
+            }
         );
 
+    }
+
+    private String prepareIssueTitle() {
+        long issueNumber = issueNumberRetriever.getNextIssueNumber();
+        return MAIL_SUMMARY_TITLE_PREFIX + issueNumber + MAIL_SUMMARY_TITLE_POSTIFX + getTodayDateAsString();
     }
 
     private String getTodayDateAsString() {

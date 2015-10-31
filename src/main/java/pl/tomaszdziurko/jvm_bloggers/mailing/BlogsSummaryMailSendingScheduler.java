@@ -12,7 +12,7 @@ import pl.tomaszdziurko.jvm_bloggers.TimeConstants;
 public class BlogsSummaryMailSendingScheduler {
 
     public static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_MAILING = 7;
-    private BlogSummaryMailSender blogSummaryMailSender;
+    private final BlogSummaryMailSender blogSummaryMailSender;
 
     @Autowired
     public BlogsSummaryMailSendingScheduler(BlogSummaryMailSender blogSummaryMailSender) {

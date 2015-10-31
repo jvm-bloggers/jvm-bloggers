@@ -110,5 +110,9 @@
 
     </changeSet>
 
+    <changeSet id="009-add-sequence-to-store-issue-number" author="Tomasz.Dziurko">
+        <createSequence sequenceName="MAILING_ISSUE_NUMBER_SEQ" startValue="8" incrementBy="1" />
+    </changeSet>
+
 
 </databaseChangeLog>
