@@ -24,9 +24,9 @@ public class SyndFeedProducer {
             SyndFeedInput syndFeedInput = new SyndFeedInput();
             URLConnection urlConnection = new URL(rssUrl).openConnection();
             urlConnection.addRequestProperty("User-Agent", FAKE_USER_AGENT);
-            InputStream inputStream = urlConnection.getInputStream();
-            SyndFeed feed = syndFeedInput.build(new XmlReader(inputStream));
-            return feed;
+            try (InputStream inputStream = urlConnection.getInputStream()) {
+                return syndFeedInput.build(new XmlReader(inputStream));
+            }
         } catch (IOException | FeedException e) {
             throw new RuntimeException(e);
         }
