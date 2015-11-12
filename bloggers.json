@@ -625,6 +625,12 @@
       "jsonId": 110,
       "name": "spacanowski",
       "rss": "http://spacanowski.github.io/feed"
+    },
+    {
+      "jsonId": 111,
+      "name": "Jacek Laskowski",
+      "rss": "https://medium.com/feed/@jaceklaskowski",
+      "twitter": "@jaceklaskowski"
     }
   ]
 }
