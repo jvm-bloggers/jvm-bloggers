@@ -631,6 +631,12 @@
       "name": "Jacek Laskowski",
       "rss": "https://medium.com/feed/@jaceklaskowski",
       "twitter": "@jaceklaskowski"
+    },
+    {
+      "jsonId": 112,
+      "name": "Michał Lewandowski",
+      "rss": "http://blog.klkl.pl/feeds/posts/default",
+      "twitter": "@lewandm4"
     }
   ]
 }
