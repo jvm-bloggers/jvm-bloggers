@@ -26,7 +26,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should not send any mail for empty MailingAddress DB table"() {
         given:
-            blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
             personRepository.findByDateAddedAfter(_) >> [Mock(Blog)]
             mailingAddressRepository.findAll() >>  []
         when:
@@ -37,7 +37,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should send two emails for two records in MailingAddress when there are some new blog posts"() {
         given:
-            blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
             personRepository.findByDateAddedAfter(_) >> []
             mailingAddressRepository.findAll() >>  [new MailingAddress("email@email.com"), new MailingAddress("email2@email2.com")]
         when:
@@ -48,7 +48,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should send two emails for two records in MailingAddress when there are some new blogs added"() {
         given:
-            blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(_) >> []
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> []
             personRepository.findByDateAddedAfter(_) >> [Mock(Blog)]
             mailingAddressRepository.findAll() >>  [new MailingAddress("email@email.com"), new MailingAddress("email2@email2.com")]
         when:
@@ -59,7 +59,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should not send anything when there are no new blogs nor new blog posts"() {
         given:
-            blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(_) >> []
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> []
             personRepository.findByDateAddedAfter(_) >> []
             mailingAddressRepository.findAll() >>  [new MailingAddress("email@email.com"), new MailingAddress("email2@email2.com")]
         when:

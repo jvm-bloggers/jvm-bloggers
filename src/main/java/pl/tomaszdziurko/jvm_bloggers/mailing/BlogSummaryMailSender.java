@@ -52,8 +52,8 @@ public class BlogSummaryMailSender {
     public void sendSummary(int numberOfDaysBackInThePast) {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(0).withMinute(0).withSecond(0).withNano(0);
         List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
-        List<BlogPost> newBlogPosts = blogPostRepository.findByPublishedDateAfterOrderByPublishedDateAsc(publishedDate);
-        if (newBlogPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
+        List<BlogPost> newApprovedBlogPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
+        if (newApprovedBlogPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
             log.warn("There are no new posts nor new blogs added for last {} days !!!", numberOfDaysBackInThePast);
             return;
         }
@@ -64,7 +64,7 @@ public class BlogSummaryMailSender {
             return;
         }
 
-        String mailTemplate = mailGenerator.generateSummaryMail(newBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
+        String mailTemplate = mailGenerator.generateSummaryMail(newApprovedBlogPosts, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
         log.info("Mail content = \n" + mailTemplate);
         String issueTitle = prepareIssueTitle();
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
