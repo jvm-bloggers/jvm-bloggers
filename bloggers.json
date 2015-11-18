@@ -637,6 +637,18 @@
       "name": "Michał Lewandowski",
       "rss": "http://blog.klkl.pl/feeds/posts/default",
       "twitter": "@lewandm4"
+    },
+    {
+      "jsonId": 113,
+      "name": "Dawid Kublik",
+      "rss": "http://dkublik.github.io/feed.xml",
+      "twitter": "@dawidkublik"
+    },
+    {
+      "jsonId": 114,
+      "name": "Jakub Pilimon",
+      "rss": "http://pillopl.github.io/feed.xml",
+      "twitter": "@jakubpilimon"
     }
   ]
 }
