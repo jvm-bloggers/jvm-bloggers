@@ -114,5 +114,12 @@
         <createSequence sequenceName="MAILING_ISSUE_NUMBER_SEQ" startValue="8" incrementBy="1" />
     </changeSet>
 
+    <changeSet id="010-add-approved-column-to-blog-post-table" author="Tomasz.Dziurko">
+        <addColumn tableName="blog_post">
+            <column name="approved" type="boolean" defaultValueBoolean="true" >
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

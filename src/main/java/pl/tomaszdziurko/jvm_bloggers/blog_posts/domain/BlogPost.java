@@ -41,6 +41,9 @@ public class BlogPost {
     @Column(name = "PUBLISHED_DATE", nullable = false)
     private LocalDateTime publishedDate;
 
+    @Column(name = "APPROVED", nullable = false)
+    private boolean approved;
+
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;
@@ -51,5 +54,6 @@ public class BlogPost {
         this.blog = blog;
         this.url = url;
         this.publishedDate = publishedDate;
+        this.approved = true;
     }
 }
