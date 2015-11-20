@@ -655,6 +655,12 @@
       "name": "Piotr Korlaga",
       "rss": "https://dobrypoczatek.wordpress.com/feed",
       "twitter": "@piotrkorlaga"
+    },
+    {
+      "jsonId": 116,
+      "name": "Karol Kaliński",
+      "rss": "http://karolkalinski.github.io/feed.xml",
+      "twitter": "@kalinskikarol"
     }
   ]
 }
