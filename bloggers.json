@@ -649,6 +649,12 @@
       "name": "Jakub Pilimon",
       "rss": "http://pillopl.github.io/feed.xml",
       "twitter": "@jakubpilimon"
+    },
+    {
+      "jsonId": 115,
+      "name": "Piotr Korlaga",
+      "rss": "https://dobrypoczatek.wordpress.com/feed",
+      "twitter": "@piotrkorlaga"
     }
   ]
 }
