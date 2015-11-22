@@ -3,7 +3,7 @@ Witajcie <br/><br/><br/>
 
 Poniżej lista nowych postów z ostatnich $days$ dni na blogach polskich programistów JVM:<br/><br/>
 $newPosts: {post|
- - <a href="$post.url$">$post.title$</a> od $post.authorLabel$<br/>
+ - <a href="$post.url$">$post.title$</a> by $post.authorLabel$<br/>
 }$
 <br/>
 <br/>
