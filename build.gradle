@@ -24,7 +24,7 @@ apply plugin: 'application'
 
 jar {
     baseName = 'jvm-bloggers'
-    version = '0.2.0'
+    version = '0.4.0'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
