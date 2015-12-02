@@ -37,9 +37,10 @@ public class NewBlogPostStoringActor extends AbstractActor {
         SyndEntry postInRss = rssEntry.getRssEntry();
         Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
         LocalDateTime publishedDate = DateTimeUtilities.convertDateToLocalDateTime(dateToStore);
-        BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getAuthor(), postInRss.getLink(), publishedDate);
+        BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getBlog(), postInRss.getLink(), publishedDate,
+            rssEntry.getBlog().isPersonal());
         blogPostRepository.save(newBlogPost);
-        log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getAuthor().getAuthor());
+        log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getBlog().getAuthor());
     }
 
     public static Props props(BlogPostRepository blogPostRepository) {

@@ -49,11 +49,15 @@ public class BlogPost {
     private Blog blog;
 
     public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate) {
+        this(title, blog, url, publishedDate, true);
+    }
+
+    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate, boolean approved) {
         this.uid = UUID.randomUUID().toString();
         this.title = title;
         this.blog = blog;
         this.url = url;
         this.publishedDate = publishedDate;
-        this.approved = true;
+        this.approved = approved;
     }
 }

@@ -8,13 +8,13 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 @Getter
 public class RssEntryWithAuthor {
 
-    private final Blog author;
+    private final Blog blog;
     private final SyndEntry rssEntry;
 
-    public RssEntryWithAuthor(Blog author, SyndEntry rssEntry) {
-        Preconditions.checkArgument(author != null, "Author can not be bull");
+    public RssEntryWithAuthor(Blog blog, SyndEntry rssEntry) {
+        Preconditions.checkArgument(blog != null, "Blog can not be null");
         Preconditions.checkArgument(rssEntry != null, "Rss entry can not be null");
-        this.author = author;
+        this.blog = blog;
         this.rssEntry = rssEntry;
     }
 

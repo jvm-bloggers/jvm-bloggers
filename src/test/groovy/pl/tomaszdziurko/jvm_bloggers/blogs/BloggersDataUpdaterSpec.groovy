@@ -2,7 +2,6 @@ package pl.tomaszdziurko.jvm_bloggers.blogs
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
@@ -16,10 +15,10 @@ import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 
 class BloggersDataUpdaterSpec extends Specification {
 
-    BlogRepository personRepository = Mock(BlogRepository)
+    BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(personRepository, new NowProvider())
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider())
 
     @Unroll
     def "Should check equality of Person and BloggerEntry"() {
@@ -46,12 +45,12 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             BloggerEntry entry = new BloggerEntry(jsonId, "blog", "rss", "twitter")
-            personRepository.findByJsonId(jsonId) >> Optional.empty()
+            blogRepository.findByJsonId(jsonId) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
-            1 * personRepository.save(_ as Blog)
+            1 * blogRepository.save(_ as Blog)
             summary.createdEntries == 1
             summary.updatedEntries == 0
     }
@@ -60,12 +59,12 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             BloggerEntry entry = new BloggerEntry(jsonId, "blog", "rss", "twitter", PERSONAL)
-            personRepository.findByJsonId(jsonId) >> Optional.of(new Blog(entry.jsonId, entry.name, entry.rss, entry.twitter, LocalDateTime.now(), PERSONAL))
+            blogRepository.findByJsonId(jsonId) >> Optional.of(new Blog(entry.jsonId, entry.name, entry.rss, entry.twitter, LocalDateTime.now(), PERSONAL))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
-            0 * personRepository.save(_ as Blog)
+            0 * blogRepository.save(_ as Blog)
             summary.createdEntries == 0
             summary.updatedEntries == 0
     }
@@ -75,12 +74,12 @@ class BloggersDataUpdaterSpec extends Specification {
             Long jsonId = 2207L
             String rss = "newRssAddress"
             BloggerEntry entry = new BloggerEntry(jsonId, "blog", rss, "twitter", PERSONAL)
-            personRepository.findByJsonId(jsonId) >> Optional.of(new Blog(entry.jsonId, entry.name, "oldRSS", entry.twitter, LocalDateTime.now(), PERSONAL))
+            blogRepository.findByJsonId(jsonId) >> Optional.of(new Blog(entry.jsonId, entry.name, "oldRSS", entry.twitter, LocalDateTime.now(), PERSONAL))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
-            1 * personRepository.save(_ as Blog)
+            1 * blogRepository.save(_ as Blog)
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }
@@ -91,12 +90,12 @@ class BloggersDataUpdaterSpec extends Specification {
             String newName = "newAuthor"
             Blog existingPerson = new Blog(jsonId, "oldAuthor", "existingRSS", "twitter", LocalDateTime.now(), COMPANY)
             BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter, COMPANY)
-            personRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
+            blogRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
         then:
-            1 * personRepository.save({
+            1 * blogRepository.save({
                 it.jsonId == jsonId && it.author == newName && it.rss == existingPerson.rss &&
                         it.twitter == existingPerson.twitter
             })

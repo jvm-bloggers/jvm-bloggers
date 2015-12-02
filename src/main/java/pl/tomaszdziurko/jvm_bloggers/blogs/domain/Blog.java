@@ -54,4 +54,8 @@ public class Blog {
         this.blogType = blogType;
     }
 
+    public boolean isPersonal() {
+        return BlogType.PERSONAL == blogType;
+    }
+
 }
