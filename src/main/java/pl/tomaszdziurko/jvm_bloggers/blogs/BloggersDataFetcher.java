@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggersData;
 
 import java.io.IOException;
@@ -16,13 +17,16 @@ import java.util.Optional;
 @Slf4j
 public class BloggersDataFetcher {
 
-    private final Optional<URL> urlOptional;
+    private final Optional<URL> bloggersUrlOptional;
+    private final Optional<URL> companiesUrlOptional;
     private final BloggersDataUpdater bloggersDataUpdater;
 
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
+                               @Value("${companies.data.file.url}") String companiesDataUrlString,
                                BloggersDataUpdater bloggersDataUpdater) {
-        urlOptional = convertToUrl(bloggersDataUrlString);
+        bloggersUrlOptional = convertToUrl(bloggersDataUrlString);
+        companiesUrlOptional = convertToUrl(companiesDataUrlString);
         this.bloggersDataUpdater = bloggersDataUpdater;
     }
 
@@ -36,16 +40,21 @@ public class BloggersDataFetcher {
     }
 
     public void refreshData() {
-        if (!urlOptional.isPresent()) {
-            log.warn("No valid URL specified. Skipping.");
-        }
+        refreshBloggersDataFor(bloggersUrlOptional, BlogType.PERSONAL);
+        refreshBloggersDataFor(companiesUrlOptional, BlogType.COMPANY);
+    }
 
+    private void refreshBloggersDataFor(Optional<URL> blogsDataUrl, BlogType blogType) {
+        if (!blogsDataUrl.isPresent()) {
+            log.warn("No valid URL specified for {}. Skipping.", blogType);
+        }
         try {
             ObjectMapper mapper = new ObjectMapper();
-            BloggersData bloggers = mapper.readValue(urlOptional.get(), BloggersData.class);
+            BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
+            bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
             bloggersDataUpdater.updateData(bloggers);
         } catch (IOException e) {
-            log.error("Exception during parse process", e);
+            log.error("Exception during parse process for {}", blogType, e);
         }
     }
 
