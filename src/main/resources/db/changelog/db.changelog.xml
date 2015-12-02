@@ -122,4 +122,14 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="011-add-blog-type-column-to-blog-table" author="Tomasz.Dziurko">
+        <addColumn tableName="blog">
+            <column name="blog_type" type="varchar(30)" defaultValue="PERSONAL" >
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <dropDefaultValue tableName="blog" columnName="blog_type"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,12 +41,17 @@ public class Blog {
     @Column(name = "DATE_ADDED", nullable = false)
     private LocalDateTime dateAdded;
 
-    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded) {
+    @Column(name = "BLOG_TYPE", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private BlogType blogType;
+
+    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType blogType) {
         this.jsonId = jsonId;
         this.author = author;
         this.rss = rss;
         this.twitter = twitter;
         this.dateAdded = dateAdded;
+        this.blogType = blogType;
     }
 
 }

@@ -1,0 +1,35 @@
+{
+  "bloggers": [
+    {
+      "jsonId": 10002,
+      "name": "TouK",
+      "rss": "https://touk.pl/blog/feed/",
+      "twitter": "@touk_pl"
+    },
+    {
+      "jsonId": 10003,
+      "name": "Goyello",
+      "rss": "http://blog.goyello.com/pl/feed/",
+      "twitter": "@goyello"
+    },
+    {
+      "jsonId": 10004,
+      "name": "Pragmatists",
+      "rss": "http://pragmatists.pl/blog/feed/",
+      "twitter": "@pragmatists"
+    },
+    {
+      "jsonId": 10005,
+      "name": "Allegro.Tech",
+      "rss": "http://allegro.tech/feed.xml",
+      "twitter": "@AllegroTechBlog"
+    },
+    {
+      "jsonId": 10006,
+      "name": "ScalaC",
+      "rss": "http://blog.scalac.io/feeds/index.xml",
+      "twitter": "@scalac_io"
+    }
+
+  ]
+}
