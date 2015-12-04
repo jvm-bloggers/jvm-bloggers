@@ -471,7 +471,7 @@
     {
       "jsonId": 82,
       "name": "Maria Skrzypek",
-      "rss": "http://blog.swinka-programistka.pl/feeds/posts/default",
+      "rss": "http://blog.swinka-programistka.pl/rss",
       "twitter": "@mmskrzyp"
     },
     {
@@ -661,6 +661,18 @@
       "name": "Karol Kaliński",
       "rss": "http://karolkalinski.github.io/feed.xml",
       "twitter": "@kalinskikarol"
+    },
+    {
+      "jsonId": 117,
+      "name": "Jakub Dzikowski",
+      "rss": "http://dzikowski.github.io/feed"
+    },
+    {
+      "jsonId": 118,
+      "name": "Tomasz Kaczmarczyk",
+      "rss": "http://blog.kaczmarzyk.net/rss/",
+      "twitter": "@tkaczmarzyk"
     }
+
   ]
 }
