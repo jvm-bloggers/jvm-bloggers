@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.mailing
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
@@ -26,7 +27,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should not send any mail for empty MailingAddress DB table"() {
         given:
-            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [stubBlogPost()]
             personRepository.findByDateAddedAfter(_) >> [Mock(Blog)]
             mailingAddressRepository.findAll() >>  []
         when:
@@ -37,7 +38,7 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     def "Should send two emails for two records in MailingAddress when there are some new blog posts"() {
         given:
-            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [Mock(BlogPost)]
+            blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(_) >> [stubBlogPost()]
             personRepository.findByDateAddedAfter(_) >> []
             mailingAddressRepository.findAll() >>  [new MailingAddress("email@email.com"), new MailingAddress("email2@email2.com")]
         when:
@@ -66,6 +67,14 @@ class BlogSummaryMailSenderSpec extends Specification {
             summaryMailSender.sendSummary(10)
         then:
             0 * mailSender.sendEmail(_, _, _)
+    }
+
+    private BlogPost stubBlogPost() {
+        BlogPost post = Stub(BlogPost)
+        Blog blog = Stub(Blog)
+        blog.getBlogType() >> BlogType.PERSONAL
+        post.getBlog() >> blog
+        return post
     }
 
 

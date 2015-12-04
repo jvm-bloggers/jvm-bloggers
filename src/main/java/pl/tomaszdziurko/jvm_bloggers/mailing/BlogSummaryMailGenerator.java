@@ -35,24 +35,27 @@ public class BlogSummaryMailGenerator {
         this.syndFeedFactory = syndFeedFactory;
     }
 
-    public String generateSummaryMail(List<BlogPost> posts, List<Blog> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
+    public String generateSummaryMail(List<BlogPost> postsFromPersonalBlogs,
+                                      List<BlogPost> postsFromCompanies,
+                                      List<Blog> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(blogsSummaryTemplate.getInputStream(), "UTF-8"));
             String templateContent =  Joiner.on("\n").join(bufferedReader.lines().collect(Collectors.toList()));
             StringTemplate template = new StringTemplate(templateContent);
             template.setAttribute("days", numberOfDaysBackInThePast);
-            template.setAttribute("newPosts", posts.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
-            template.setAttribute("personToBlogHomepage", getPersonToBlogHomepage(blogsAddedSinceLastNewsletter));
+            template.setAttribute("newPosts", postsFromPersonalBlogs.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+            template.setAttribute("newPostsFromCompanies", postsFromCompanies.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+            template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
             return template.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Map<Blog, String> getPersonToBlogHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
+    private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
                         Function.identity(),
-                        person->getBlogHomepageFromRss(person.getRss()))
+                        blog->getBlogHomepageFromRss(blog.getRss()))
         );
     }
 

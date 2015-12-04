@@ -1,17 +1,37 @@
 Witajcie <br/><br/><br/>
 
 
-Poniżej lista nowych postów z ostatnich $days$ dni na blogach polskich programistów JVM:<br/><br/>
+W tym wydaniu debiutuje nowa funkcjonalność: blogi firmowe. Posty z nich są moderowane, więc ryzyko nadmiernego marketingu powinno być minimalne :)
+<br/>
+<br/>
+Jak zwykle czekam na feedback i uwagi czego brakuje.
+<br/>
+<br/>
+
+Poniżej lista nowych postów z ostatnich $days$ dni.<br/><br/>
+
+$if(newPosts)$
+Wpisy programistów:<br/>
 $newPosts: {post|
  - <a href="$post.url$">$post.title$</a> by $post.authorLabel$<br/>
 }$
 <br/>
 <br/>
+$endif$
 
-$if(personToBlogHomepage)$
-Nowo dodane blogi: <br/><br/>
-$personToBlogHomepage.keys: { key |
- - <a href="$personToBlogHomepage.(key)$">$key.author$</a><br/>
+$if(newPostsFromCompanies)$
+Wpisy z blogów firmowych:<br/>
+$newPostsFromCompanies: {post|
+ - <a href="$post.url$">$post.title$</a> by $post.authorLabel$<br/>
+}$
+<br/>
+<br/>
+$endif$
+
+$if(blogsWithHomePage)$
+Nowo dodane blogi: <br/>
+$blogsWithHomePage.keys: { key |
+ - <a href="$blogsWithHomePage.(key)$">$key.author$</a><br/>
 }$
 $endif$
 -- <br/>

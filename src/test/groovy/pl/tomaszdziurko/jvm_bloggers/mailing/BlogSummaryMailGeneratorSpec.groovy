@@ -18,30 +18,55 @@ class BlogSummaryMailGeneratorSpec extends Specification {
         System.setProperty("jasypt.encryptor.password", "password")
     }
 
-    def "Should populate template with posts data"() {
+    def "Should populate template with data"() {
         given:
             List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com/postUrl", "Piotr Nowak")]
-        expect:
-            blogSummaryMailGenerator.generateSummaryMail(newPosts,[],  7) != null
-    }
-
-    def "Should populate template with posts/blog data when new blogs found"() {
-        given:
-            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com", "Piotr Nowak")]
+            List<BlogPost> companiesPosts = [stubBlogPost("New blog post from company", "http://softwaremill.com/post", "SoftwareMill")]
             List<Blog> newBlogs = [
                     stubPerson("Tomasz Dziurko", "http://tomaszdziurko.pl/feed/"),
                     stubPerson("Tomasz Nurkiewicz", "http://www.nurkiewicz.com/feeds/posts/default?alt=rss"),
             ]
-            String mail =""
-
-
         when:
-            mail = blogSummaryMailGenerator.generateSummaryMail(newPosts,newBlogs,  7)
-
+            String mail = blogSummaryMailGenerator.generateSummaryMail(newPosts, companiesPosts, newBlogs,  7)
         then:
             mail != null
+            mail.contains("Wpisy programistów")
+            mail.contains(newPosts.get(0).url)
+            mail.contains("Wpisy z blogów firmowych")
+            mail.contains(companiesPosts.get(0).url)
+            mail.contains("Nowo dodane blogi")
             mail.contains("<a href=\"http://tomaszdziurko.pl/\">Tomasz Dziurko</a><br/>")
             mail.contains("<a href=\"http://www.nurkiewicz.com/\">Tomasz Nurkiewicz</a><br/>")
+    }
+
+    def "Should hide personal blogs section when there are no new personal posts"() {
+        given:
+            List<BlogPost> companiesPosts = [stubBlogPost("New blog post from company", "http://softwaremill.com/post", "SoftwareMill")]
+        when:
+            String mail = blogSummaryMailGenerator.generateSummaryMail([], companiesPosts, [],  7)
+        then:
+            mail != null
+            !mail.contains("Wpisy programistów")
+    }
+
+    def "Should hide companies blogs section when there are no new company posts"() {
+        given:
+            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com/postUrl", "Piotr Nowak")]
+        when:
+            String mail = blogSummaryMailGenerator.generateSummaryMail(newPosts, [], [],  7)
+        then:
+            mail != null
+            !mail.contains("Wpisy z blogów firmowych")
+    }
+
+    def "Should hide new blogs section when there are no new blogs"() {
+        given:
+            List<BlogPost> newPosts = [stubBlogPost("New blog post", "http://example.com/postUrl", "Piotr Nowak")]
+        when:
+            String mail = blogSummaryMailGenerator.generateSummaryMail(newPosts, [], [],  7)
+        then:
+            mail != null
+            !mail.contains("Nowo dodane blogi")
     }
 
     private stubBlogPost(String title, String url, String authorName) {
