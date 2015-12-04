@@ -18,7 +18,7 @@ public class BlogsSummaryMailSendingScheduler {
         this.blogSummaryMailSender = blogSummaryMailSender;
     }
 
-    @Scheduled(cron = "0 30 14 * * FRI")
+    @Scheduled(cron = "0 0 15 * * FRI")
     public void sendBlogsSummaryEmails() {
         log.info("Starting scheduler: sending blogs summary");
         blogSummaryMailSender.sendSummary(DAYS_IN_THE_PAST_TO_INCLUDE_IN_MAILING);
