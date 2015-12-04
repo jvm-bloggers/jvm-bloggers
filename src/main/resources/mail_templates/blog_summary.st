@@ -1,7 +1,7 @@
 Witajcie <br/><br/><br/>
 
 
-W tym wydaniu debiutuje nowa funkcjonalność: blogi firmowe. Posty z nich są moderowane, więc ryzyko nadmiernego marketingu powinno być minimalne :)
+Dzisiaj z małym opóźnieniem. Ale w tym wydaniu debiutuje nowa funkcjonalność: blogi firmowe. Posty z nich są moderowane, więc ryzyko nadmiernego marketingu powinno być minimalne :)
 <br/>
 Jak zwykle czekam na feedback i uwagi czego brakuje.
 <br/>
