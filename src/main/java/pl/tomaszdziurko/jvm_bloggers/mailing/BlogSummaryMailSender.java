@@ -55,7 +55,7 @@ public class BlogSummaryMailSender {
     }
 
     public void sendSummary(int numberOfDaysBackInThePast) {
-        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(14).withMinute(20).withSecond(0).withNano(0);
+        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(11).withMinute(00).withSecond(0).withNano(0);
         List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newApprovedPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
         if (newApprovedPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
