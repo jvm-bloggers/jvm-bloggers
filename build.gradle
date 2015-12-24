@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
     }
 }
 
@@ -21,6 +22,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'application'
+apply plugin: 'docker'
 
 jar {
     baseName = 'jvm-bloggers'
@@ -91,6 +93,21 @@ jacocoTestReport {
 tasks.coveralls {
     dependsOn 'check'
 }
+
+group = 'springio'
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
 
 
 task stage(dependsOn: ['build', 'clean'])
