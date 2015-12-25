@@ -1,5 +1,8 @@
-Witajcie <br/><br/><br/>
+Witajcie Świątecznie<br/><br/><br/>
 
+
+Z okazji trwaących Świąt życzę Wam czystego kodu, prawdziwie zielonych buildów oraz samych<br/>
+wartościowych blog postów.<br/><br/>
 
 Poniżej lista nowych postów z ostatnich $days$ dni.<br/><br/>
 
