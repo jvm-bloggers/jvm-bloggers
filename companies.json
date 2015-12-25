@@ -1,6 +1,12 @@
 {
   "bloggers": [
     {
+      "jsonId": 10002,
+      "name": "TouK",
+      "rss": "http://touk.pl/blog/feed/",
+      "twitter": "@touk_pl"
+    },
+    {
       "jsonId": 10003,
       "name": "Goyello",
       "rss": "http://blog.goyello.com/pl/feed/",
