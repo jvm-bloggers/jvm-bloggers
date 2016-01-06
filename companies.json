@@ -35,6 +35,12 @@
       "name": "ScalaC",
       "rss": "http://blog.scalac.io/feeds/index.xml",
       "twitter": "@scalac_io"
+    },
+    {
+      "jsonId": 10007,
+      "name": "Spring Blog",
+      "rss": "http://spring.io/blog.atom",
+      "twitter": "@springcentral"
     }
 
   ]
