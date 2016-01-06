@@ -1,6 +1,18 @@
 {
   "bloggers": [
     {
+      "jsonId": 10001,
+      "name": "SoftwareMill",
+      "rss": "https://softwaremill.com/feed.xml",
+      "twitter": "@softwaremill"
+    },
+    {
+      "jsonId": 10002,
+      "name": "TouK",
+      "rss": "http://touk.pl/blog/feed/",
+      "twitter": "@touk_pl"
+    },
+    {
       "jsonId": 10003,
       "name": "Goyello",
       "rss": "http://blog.goyello.com/pl/feed/",
@@ -23,6 +35,12 @@
       "name": "ScalaC",
       "rss": "http://blog.scalac.io/feeds/index.xml",
       "twitter": "@scalac_io"
+    },
+    {
+      "jsonId": 10007,
+      "name": "Spring Blog",
+      "rss": "http://spring.io/blog.atom",
+      "twitter": "@springcentral"
     }
 
   ]
