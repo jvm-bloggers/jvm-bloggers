@@ -94,7 +94,7 @@ tasks.coveralls {
     dependsOn 'check'
 }
 
-group = 'springio'
+group = 'tdziurko'
 
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
