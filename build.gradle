@@ -100,6 +100,7 @@ task buildDocker(type: Docker, dependsOn: build) {
     push = true
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')
+    tagVersion = jar.version + '-' + getTimestampWithGitHash()
     doFirst {
         copy {
             from jar
@@ -108,7 +109,13 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
-
+String getTimestampWithGitHash() {
+    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
+    String cmd = "git log --pretty=format:%h -n 1"
+    def proc = cmd.execute()
+    proc.waitFor()
+    return timeStamp + '-' + proc.in.text
+}
 
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
