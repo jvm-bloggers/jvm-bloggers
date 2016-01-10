@@ -43,6 +43,15 @@ __Planned__
 
 Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a Heroku.
 
+## Running locally with Docker
+
+1. You need a PostgreSQL database, name: jvm_bloggers, user/pass: jvm_bloggers/jvm_bloggers
+2. If you have Docker running please execute:
+
+
+    docker run -p 8080:8080 --add-host=database:<your_local_db_host> -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:latest
+
+
 ## Contributing
 
 Wanna help? Please let me know (create an issue, comment on existing one so we don't duplicate work). This is a community driven open source project, so any help is appreciated!
