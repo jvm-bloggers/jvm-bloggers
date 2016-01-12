@@ -678,6 +678,12 @@
       "name": "Tomek (TJ) Janczewski",
       "rss": "http://www.3pio.pl/?tempskin=_atom",
       "twitter": "@tjancz"
+    },
+    {
+      "jsonId": 120,
+      "name": "Mateusz Gajdzik",
+      "rss": "http://mgajdzik.com/feed/",
+      "twitter": "@mgajdzik"
     }
   ]
 }
