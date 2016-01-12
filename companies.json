@@ -41,6 +41,12 @@
       "name": "Spring Blog",
       "rss": "http://spring.io/blog.atom",
       "twitter": "@springcentral"
+    },
+    {
+      "jsonId": 10008,
+      "name": "Virtus Lab",
+      "rss": "http://virtuslab.com/blog/feed/",
+      "twitter": "@VirtusLab"
     }
 
   ]
