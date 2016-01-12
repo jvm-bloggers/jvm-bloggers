@@ -47,6 +47,12 @@
       "name": "Virtus Lab",
       "rss": "http://virtuslab.com/blog/feed/",
       "twitter": "@VirtusLab"
+    },
+    {
+      "jsonId": 10009,
+      "name": "Pragmatic Coders",
+      "rss": "http://pragmaticcoders.com/blog/feed/",
+      "twitter": "@pragmaticcoders"
     }
 
   ]
