@@ -44,6 +44,7 @@ dependencies {
     // Spring Boot stuff
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
     compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.2'
 
 
