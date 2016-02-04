@@ -2,7 +2,9 @@ Witajcie<br/><br/><br/>
 
 
 Varia:<br/>
- - trwają Call 4 Papers na dwie polskie konferencje: <a href="http://scalar-conf.com/">Scalar</a> (do 31 stycznia) oraz <a href="http://2016.geecon.org/">GeeCON</a> (do 19 lutego), zachęcam do wysyłania zgłoszeń<br/>
+ - trwają Call 4 Papers na następujące konferencje: <a href="http://2016.geecon.org/">GeeCON</a> (do 19 lutego),
+ <a href="http://2016.4developers.org.pl/">4Developers</a> (do 22 lutego) oraz
+ <a href="http://devcrowd.pl/">DevCrowd</a> (do 1 marca), zachęcam do wysyłania zgłoszeń i dzielenia się wiedzą :)<br/>
 
 <br/><br/>
 Poniżej lista nowych postów z ostatnich $days$ dni.<br/><br/>
