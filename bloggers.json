@@ -696,6 +696,12 @@
       "name": "Jakub Pilch",
       "rss": "http://num3ersrun.blogspot.com/feeds/posts/default",
       "twitter": "@3yakuya"
+    },
+    {
+      "jsonId": 123,
+      "name": "Łukasz Indykiewicz",
+      "rss": "http://lukeindykiewicz.com/blog/index.xml",
+      "twitter": "@lukeindykiewicz"
     }
   ]
 }
