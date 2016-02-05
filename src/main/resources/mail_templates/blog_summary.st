@@ -7,6 +7,7 @@ Varia:<br/>
 -- <a href="http://2016.4developers.org.pl/">4Developers</a> (do 22 lutego)<br/>
 -- <a href="http://devcrowd.pl/">DevCrowd</a> (do 1 marca)<br/>
 -- <a href="http://warsaw.gr8days.pl/#/">Gr8Day Warsaw</a><br/>
+-- <a href="http://chamberconf.pl/">ChamberConf</a><br/> (do 14 lutego)
 Zachęcam do wysyłania zgłoszeń i dzielenia się wiedzą :)<br/><br/>
 - bloguj regularnie i wygraj m.in. legendarne krzesło <b>Aeron</b>, równie legendarną klawiaturę <b>Das Keyboard</b> albo konsolę XBox! O co chodzi?<br/>
 Jeden z bardziej znanych programistów ze świata .Net-a Maciej Aniserowicz ogłasza konkurs, który polega na regularnym blogowaniu o swoim (już istniejącym lub dopiero startującym)
