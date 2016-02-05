@@ -5,6 +5,9 @@ Varia:<br/>
  - trwają Call 4 Papers na następujące konferencje: <a href="http://2016.geecon.org/">GeeCON</a> (do 19 lutego),
  <a href="http://2016.4developers.org.pl/">4Developers</a> (do 22 lutego) oraz
  <a href="http://devcrowd.pl/">DevCrowd</a> (do 1 marca), zachęcam do wysyłania zgłoszeń i dzielenia się wiedzą :)<br/>
+ - bloguj regularnie i wygraj m.in. legendarne krzesło <b>Aeron</b>, równie legendarną klawiaturę <b>Das Keyboard</b> albo konsolę XBox! O co chodzi?<br/>
+ Jeden z bardziej znanych programistów ze świata .Net-a Maciej Aniserowicz ogłasza konkurs, który polega na regularnym blogowaniu o swoim (już istniejącym lub dopiero startującym)
+ projekcie open source. Więcej szczegółów oraz pełna lista nagród na stronie <a href="http://www.maciejaniserowicz.com/daj-sie-poznac/">Daj Się Poznać 2016</a>. Zachęcam do udziału!
 
 <br/><br/>
 Poniżej lista nowych postów z ostatnich $days$ dni.<br/><br/>
