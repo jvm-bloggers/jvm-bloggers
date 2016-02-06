@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminHomePage;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
@@ -33,7 +33,7 @@ public class LoginPage extends WebPage {
 
                 if (roles.hasRole(Roles.ADMIN)) {
                     UserSession.get().loginAs(login, roles);
-                    setResponsePage(AdminHomePage.class);
+                    setResponsePage(AdminDashboardPage.class);
                 } else {
                     log.info("Incorrect login or password");
                 }
