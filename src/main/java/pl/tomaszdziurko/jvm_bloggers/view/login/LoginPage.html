@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
->
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
 <head>
 </head>
 <body>
@@ -12,24 +11,20 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="panel-title">JVM Bloggers: Please Sign In</h3>
+                            <h1 class="panel-title">JVM Bloggers: Login</h1>
                         </div>
                         <div class="panel-body">
-                            <form role="form">
+                            <form wicket:id="loginForm" role="form">
                                 <fieldset>
+                                    <div wicket:id="feedbackPanel"/>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                        <input wicket:id="login" class="form-control" placeholder="login" name="email" type="text" autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                        </label>
+                                        <input wicket:id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
-                                    <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                    <input wicket:id="submit" type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
                                 </fieldset>
                             </form>
                         </div>
