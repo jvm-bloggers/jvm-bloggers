@@ -460,7 +460,7 @@
       "jsonId": 80,
       "name": "Paweł Kaczor",
       "rss": "http://pkaczor.blogspot.com/feeds/posts/default",
-      "twitter": "@Newion"
+      "twitter": "@PavelKaczor"
     },
     {
       "jsonId": 81,
@@ -684,6 +684,24 @@
       "name": "Mateusz Gajdzik",
       "rss": "http://mgajdzik.com/feed/",
       "twitter": "@mgajdzik"
+    },
+    {
+      "jsonId": 121,
+      "name": "Michał Przybylak",
+      "rss": "http://www.mprzybylak.pl/feed/",
+      "twitter": "@mprzybylak"
+    },
+    {
+      "jsonId": 122,
+      "name": "Jakub Pilch",
+      "rss": "http://num3ersrun.blogspot.com/feeds/posts/default",
+      "twitter": "@3yakuya"
+    },
+    {
+      "jsonId": 123,
+      "name": "Łukasz Indykiewicz",
+      "rss": "http://lukeindykiewicz.com/blog/index.xml",
+      "twitter": "@lukeindykiewicz"
     }
   ]
 }
