@@ -3,20 +3,20 @@ package pl.tomaszdziurko.jvm_bloggers.view.login;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.devutils.stateless.StatelessComponent;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import pl.tomaszdziurko.jvm_bloggers.view.BasePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminHomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
 @StatelessComponent
 @Slf4j
-public class LoginPage extends BasePage {
+public class LoginPage extends WebPage {
 
     private String login;
     private String password;

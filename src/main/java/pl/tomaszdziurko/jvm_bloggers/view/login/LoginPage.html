@@ -2,38 +2,81 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>JVM Bloggers</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->ß
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="_custom/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-
-    <wicket:extend>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="login-panel panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">JVM Bloggers: Login</h1>
-                        </div>
-                        <div class="panel-body">
-                            <form wicket:id="loginForm" role="form">
-                                <fieldset>
-                                    <div wicket:id="feedbackPanel"/>
-                                    <div class="form-group">
-                                        <input wicket:id="login" class="form-control" placeholder="login" name="email" type="text" autofocus>
-                                    </div>
-                                    <div class="form-group">
-                                        <input wicket:id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
-                                    </div>
-                                    <!-- Change this to a button or input when using this as a form -->
-                                    <input wicket:id="submit" type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
-                                </fieldset>
-                            </form>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">JVM Bloggers: Login</h1>
+                    </div>
+                    <div class="panel-body">
+                        <form wicket:id="loginForm" role="form">
+                            <fieldset>
+                                <div wicket:id="feedbackPanel"/>
+                                <div class="form-group">
+                                    <input wicket:id="login" class="form-control" placeholder="login" name="email" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input wicket:id="password" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input wicket:id="submit" type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </wicket:extend>
+
+    <!-- jQuery -->
+    <script src="jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/sb-admin-2.js"></script>
 
 </body>
 </html>
