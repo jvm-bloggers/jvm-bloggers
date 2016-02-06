@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pl.tomaszdziurko.jvm_bloggers.view.HomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
 import pl.tomaszdziurko.jvm_bloggers.view.login.LoginPage;
 import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
@@ -31,6 +32,7 @@ public class JvmBloggersApplication extends WicketBootWebApplication {
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         mountPage("login", LoginPage.class);
         mountPage("admin", AdminDashboardPage.class);
+        mountPage("admin-mailing", MailingPage.class);
     }
 
     @Override
