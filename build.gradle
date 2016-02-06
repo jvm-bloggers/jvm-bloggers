@@ -39,6 +39,10 @@ repositories {
     maven { url "https://repo.spring.io/milestone" }
 }
 
+ext {
+    wicketVersion = '7.1.0'
+}
+
 
 dependencies {
     // Spring Boot stuff
@@ -56,7 +60,8 @@ dependencies {
 
     // View
     compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:0.0.7'
-    compile 'org.apache.wicket:wicket-devutils:7.1.0'
+    compile "org.apache.wicket:wicket-devutils:$wicketVersion"
+    compile "org.apache.wicket:wicket-auth-roles:$wicketVersion"
 
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.0"
