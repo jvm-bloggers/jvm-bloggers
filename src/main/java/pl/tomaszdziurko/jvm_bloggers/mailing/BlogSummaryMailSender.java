@@ -29,8 +29,6 @@ public class BlogSummaryMailSender {
     public static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private final BlogPostRepository blogPostRepository;
-    private final BlogRepository blogRepository;
     private final BlogSummaryMailGenerator mailGenerator;
     private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
@@ -38,15 +36,11 @@ public class BlogSummaryMailSender {
     private final NowProvider nowProvider;
 
     @Autowired
-    public BlogSummaryMailSender(BlogPostRepository blogPostRepository,
-                                 BlogRepository blogRepository,
-                                 BlogSummaryMailGenerator blogSummaryMailGenerator,
+    public BlogSummaryMailSender(BlogSummaryMailGenerator blogSummaryMailGenerator,
                                  MailSender sendGridMailSender,
                                  MailingAddressRepository mailingAddressRepository,
                                  IssueNumberRetriever issueNumberRetriever,
                                  NowProvider nowProvider) {
-        this.blogPostRepository = blogPostRepository;
-        this.blogRepository = blogRepository;
         this.mailGenerator = blogSummaryMailGenerator;
         this.mailSender = sendGridMailSender;
         this.mailingAddressRepository = mailingAddressRepository;
@@ -55,30 +49,17 @@ public class BlogSummaryMailSender {
     }
 
     public void sendSummary(int numberOfDaysBackInThePast) {
-        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(11).withMinute(00).withSecond(0).withNano(0);
-        List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
-        List<BlogPost> newApprovedPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
-        if (newApprovedPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
-            log.warn("There are no new posts nor new blogs added for last {} days !!!", numberOfDaysBackInThePast);
-            return;
-        }
-
-        Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts.stream().collect(Collectors.groupingBy(it -> it.getBlog().getBlogType()));
-
         List<MailingAddress> mailingAddresses = mailingAddressRepository.findAll();
         if (mailingAddresses.isEmpty()) {
             log.warn("No e-mails in database to send Blog Summary !!!");
             return;
         }
 
-        List<BlogPost> newPostsFromPersonalBlogs = newBlogPostsByType.getOrDefault(BlogType.PERSONAL, EMPTY_LIST);
-        List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, EMPTY_LIST);
-        String mailTemplate = mailGenerator.generateSummaryMail(newPostsFromPersonalBlogs,
-            newPostsfromCompanies, blogsAddedSinceLastNewsletter, numberOfDaysBackInThePast);
-        log.info("Mail content = \n" + mailTemplate);
+        String mailContent = mailGenerator.prepareMailContent(numberOfDaysBackInThePast);
+        log.info("Mail content = \n" + mailContent);
         String issueTitle = prepareIssueTitle();
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
-                mailSender.sendEmail(recipient, issueTitle, mailTemplate);
+                mailSender.sendEmail(recipient, issueTitle, mailContent);
             }
         );
 
