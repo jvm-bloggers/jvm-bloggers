@@ -59,9 +59,11 @@ dependencies {
     compile 'rome:rome:1.0'
 
     // View
-    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:0.0.7'
+    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:0.0.9'
     compile "org.apache.wicket:wicket-devutils:$wicketVersion"
     compile "org.apache.wicket:wicket-auth-roles:$wicketVersion"
+    compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:$wicketVersion"
+    compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
 
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.0"
