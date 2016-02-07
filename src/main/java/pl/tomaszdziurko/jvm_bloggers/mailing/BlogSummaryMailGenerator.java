@@ -1,21 +1,18 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 
-import com.google.common.base.Joiner;
 import com.sun.syndication.feed.synd.SyndFeed;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
+import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
+import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -25,31 +22,27 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BlogSummaryMailGenerator {
 
-    private final Resource blogsSummaryTemplate;
     private final SyndFeedProducer syndFeedFactory;
+    private final SettingRepository settingRepository;
 
     @Autowired
-    public BlogSummaryMailGenerator(@Value("classpath:mail_templates/blog_summary.st") Resource blogsSummaryTemplate,
+    public BlogSummaryMailGenerator(SettingRepository settingRepository,
                                     SyndFeedProducer syndFeedFactory) {
-        this.blogsSummaryTemplate = blogsSummaryTemplate;
+        this.settingRepository = settingRepository;
         this.syndFeedFactory = syndFeedFactory;
     }
 
     public String generateSummaryMail(List<BlogPost> postsFromPersonalBlogs,
                                       List<BlogPost> postsFromCompanies,
                                       List<Blog> blogsAddedSinceLastNewsletter, int numberOfDaysBackInThePast) {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(blogsSummaryTemplate.getInputStream(), "UTF-8"));
-            String templateContent =  Joiner.on("\n").join(bufferedReader.lines().collect(Collectors.toList()));
-            StringTemplate template = new StringTemplate(templateContent);
-            template.setAttribute("days", numberOfDaysBackInThePast);
-            template.setAttribute("newPosts", postsFromPersonalBlogs.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
-            template.setAttribute("newPostsFromCompanies", postsFromCompanies.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
-            template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
-            return template.toString();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Setting mailingTemplate = settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
+        String templateContent =  mailingTemplate.getValue();
+        StringTemplate template = new StringTemplate(templateContent);
+        template.setAttribute("days", numberOfDaysBackInThePast);
+        template.setAttribute("newPosts", postsFromPersonalBlogs.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+        template.setAttribute("newPostsFromCompanies", postsFromCompanies.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+        template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
+        return template.toString();
     }
 
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {

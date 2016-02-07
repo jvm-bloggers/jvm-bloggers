@@ -132,4 +132,27 @@
         <dropDefaultValue tableName="blog" columnName="blog_type"/>
     </changeSet>
 
+    <changeSet id="012-create-setting-table" author="Tomasz.Dziurko">
+
+        <createSequence sequenceName="SETTING_SEQ"/>
+
+        <createTable tableName="setting">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="value" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="013-store-mailing-template-in-setting-table" author="Tomasz.Dziurko">
+        <sqlFile path="insert_mailing_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
 </databaseChangeLog>
