@@ -5,13 +5,13 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
 
-public abstract class BaseAdminPage extends WebPage {
+public abstract class AbstractAdminPage extends WebPage {
 
-    public BaseAdminPage() {
+    public AbstractAdminPage() {
         initializeElements();
     }
 
-    public BaseAdminPage(PageParameters parameters) {
+    public AbstractAdminPage(PageParameters parameters) {
         super(parameters);
         initializeElements();
     }

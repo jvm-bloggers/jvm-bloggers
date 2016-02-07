@@ -4,5 +4,5 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 
 @AuthorizeInstantiation(Roles.ADMIN)
-public class AdminDashboardPage extends BaseAdminPage {
+public class AdminDashboardPage extends AbstractAdminPage {
 }
