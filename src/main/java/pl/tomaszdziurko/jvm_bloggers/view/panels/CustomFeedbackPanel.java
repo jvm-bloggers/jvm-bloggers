@@ -6,16 +6,19 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 public class CustomFeedbackPanel extends FeedbackPanel {
 
-    final static String COMMON_FEEDBACK_CSS_CLASS = "feedbackPanelItem";
+    private static final String COMMON_FEEDBACK_CSS_CLASS = "feedbackPanelItem";
 
     public CustomFeedbackPanel(String id) {
         super(id);
+        setOutputMarkupId(true);
+        setOutputMarkupPlaceholderTag(true);
     }
 
     public CustomFeedbackPanel(String id, IFeedbackMessageFilter filter) {
         super(id, filter);
+        setOutputMarkupId(true);
+        setOutputMarkupPlaceholderTag(true);
     }
-
 
     @Override
     protected String getCSSClass(FeedbackMessage message) {
