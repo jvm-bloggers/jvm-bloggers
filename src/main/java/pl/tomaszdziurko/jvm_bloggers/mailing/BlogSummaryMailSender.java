@@ -4,22 +4,12 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.EMPTY_LIST;
 
 @Component
 @Slf4j

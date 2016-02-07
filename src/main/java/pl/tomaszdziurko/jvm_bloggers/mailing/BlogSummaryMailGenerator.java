@@ -11,8 +11,6 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
-import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
-import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
 import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
 import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
 import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
@@ -31,11 +29,16 @@ import static java.util.Collections.EMPTY_LIST;
 @Slf4j
 public class BlogSummaryMailGenerator {
 
-    private final SyndFeedProducer syndFeedFactory;
-    private final SettingRepository settingRepository;
-    private final BlogRepository blogRepository;
-    private final BlogPostRepository blogPostRepository;
-    private final NowProvider nowProvider;
+    private BlogRepository blogRepository;
+    private BlogPostRepository blogPostRepository;
+    private SettingRepository settingRepository;
+    private NowProvider nowProvider;
+    private SyndFeedProducer syndFeedFactory;
+
+    // This constructor exists only to make Wicket @SpringBean work for Spring beans with constructor injection using @Autowired
+    public BlogSummaryMailGenerator() {
+
+    }
 
     @Autowired
     public BlogSummaryMailGenerator(BlogRepository blogRepository,
