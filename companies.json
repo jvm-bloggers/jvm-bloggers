@@ -53,6 +53,12 @@
       "name": "Pragmatic Coders",
       "rss": "http://pragmaticcoders.com/blog/feed/",
       "twitter": "@pragmaticcoders"
+    },
+    {
+      "jsonId": 10010,
+      "name": "Sii",
+      "rss": "http://blogersii.pl/feed/",
+      "twitter": "@Sii_Polska"
     }
 
   ]
