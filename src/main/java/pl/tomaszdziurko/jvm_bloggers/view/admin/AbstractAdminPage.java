@@ -21,6 +21,7 @@ public abstract class AbstractAdminPage extends WebPage {
     }
 
     private void initializeLeftPanel() {
+        add(new BookmarkablePageLink<AdminDashboardPage>("adminHomePage", AdminDashboardPage.class));
         add(new BookmarkablePageLink<AdminDashboardPage>("dashboardLink", AdminDashboardPage.class));
         add(new BookmarkablePageLink<AdminDashboardPage>("mailingLink", MailingPage.class));
     }
