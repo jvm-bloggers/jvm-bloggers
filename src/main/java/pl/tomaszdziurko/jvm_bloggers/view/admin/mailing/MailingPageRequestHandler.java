@@ -39,4 +39,8 @@ public class MailingPageRequestHandler {
         mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
         return testMailAddress.getValue();
     }
+
+    public String loadDefaultMailingTemplate() {
+        return settingRepository.findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
+    }
 }

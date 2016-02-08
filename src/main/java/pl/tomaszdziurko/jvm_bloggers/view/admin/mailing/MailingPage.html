@@ -27,7 +27,7 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-info">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> Mailing Template editor
                     </div>
@@ -38,11 +38,17 @@
                             <div wicket:id="toolbar"></div>
                             <div wicket:id="wysiwyg"></div>
                             <br/>
-                            <div class="form-group text-right">
-                                <button wicket:id="saveButton" type="submit" class="btn btn-primary">Save</button>
-                                <button wicket:id="previewButton" type="button" class="btn btn-success">Preview</button>
-                                <div wicket:id="mailingPreviewModal"></div>
-                                <button wicket:id="sendTestMailButton" type="button" class="btn btn-info">Send test e-mail</button>
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                    <button wicket:id="resetMailingTemplateButton" type="button" class="btn btn-warning">Reset template</button>
+                                </div>
+                                <div class="col-md-9"></div>
+                                <div class="col-md-2">
+                                    <button wicket:id="saveButton" type="submit" class="btn btn-primary">Save</button>
+                                    <button wicket:id="previewButton" type="button" class="btn btn-success">Preview</button>
+                                    <div wicket:id="mailingPreviewModal"></div>
+                                    <button wicket:id="sendTestMailButton" type="button" class="btn btn-info">Send test e-mail</button>
+                                </div>
                             </div>
                         </form>
                     </div>

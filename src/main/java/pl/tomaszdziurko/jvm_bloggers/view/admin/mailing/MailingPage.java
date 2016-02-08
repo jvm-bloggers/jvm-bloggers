@@ -27,6 +27,7 @@ public class MailingPage extends AbstractAdminPage {
     @SpringBean
     private MailingPageRequestHandler requestHandler;
     private final CustomFeedbackPanel feedback;
+    private final WysiwygEditor editor;
 
     public MailingPage() {
         feedback = new CustomFeedbackPanel("feedback");
@@ -37,10 +38,10 @@ public class MailingPage extends AbstractAdminPage {
         add(mailingTemplateForm);
 
         DefaultWysiwygToolbar toolbar = new DefaultWysiwygToolbar("toolbar");
-        final WysiwygEditor editor = new WysiwygEditor("wysiwyg", new PropertyModel<>(mailingTemplateForm.getModel(), "value"), toolbar);
+        editor = new WysiwygEditor("wysiwyg", new PropertyModel<>(mailingTemplateForm.getModel(), "value"), toolbar);
+        editor.setOutputMarkupId(true);
         mailingTemplateForm.add(toolbar, editor);
 
-        // Buttons //
         AjaxButton saveButton = new AjaxButton("saveButton", mailingTemplateForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -53,8 +54,25 @@ public class MailingPage extends AbstractAdminPage {
         };
         mailingTemplateForm.add(saveButton);
 
+        addResetTemplateButton(mailingTemplateForm);
+
         addPreviewTemplateModal(mailingTemplateForm);
         addSendTestMailButton(mailingTemplateForm);
+    }
+
+    private void addResetTemplateButton(Form<Setting> mailingTemplateForm) {
+        AjaxButton resetTemplateButton = new AjaxButton("resetMailingTemplateButton", mailingTemplateForm) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                String defaultMailingTemplate = requestHandler.loadDefaultMailingTemplate();
+                Setting mailingTemplate = (Setting) mailingTemplateForm.getDefaultModel().getObject();
+                mailingTemplate.setValue(defaultMailingTemplate);
+                warn("Mailing template reset to default value. To persist changes please click 'Save' button");
+                target.add(feedback);
+                target.add(editor);
+            }
+        };
+        mailingTemplateForm.add(resetTemplateButton);
     }
 
     private void addPreviewTemplateModal(final Form<Setting> mailingTemplateForm) {

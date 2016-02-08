@@ -161,5 +161,9 @@
         </sql>
     </changeSet>
 
+    <changeSet id="015-store-default-mailing-template-in-setting-table" author="Tomasz.Dziurko">
+        <sqlFile path="insert_default_mailing_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
 </databaseChangeLog>
