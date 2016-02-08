@@ -8,7 +8,6 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -25,8 +24,12 @@ public class MailingPage extends AbstractAdminPage {
     @SpringBean
     private SettingRepository settingRepository;
 
+    @SpringBean
+    private MailingPageRequestHandler requestHandler;
+    private final CustomFeedbackPanel feedback;
+
     public MailingPage() {
-        final CustomFeedbackPanel feedback = new CustomFeedbackPanel("feedback");
+        feedback = new CustomFeedbackPanel("feedback");
         add(feedback);
 
         Form<Setting> mailingTemplateForm = new Form<>("mailingTemplateForm", new MailingTemplateModel(settingRepository));
@@ -50,10 +53,8 @@ public class MailingPage extends AbstractAdminPage {
         };
         mailingTemplateForm.add(saveButton);
 
-        Button sendTestMailButton = new Button("sendTestMailButton");
-        mailingTemplateForm.add(sendTestMailButton);
-
         addPreviewTemplateModal(mailingTemplateForm);
+        addSendTestMailButton(mailingTemplateForm);
     }
 
     private void addPreviewTemplateModal(final Form<Setting> mailingTemplateForm) {
@@ -72,6 +73,18 @@ public class MailingPage extends AbstractAdminPage {
             }
         };
         mailingTemplateForm.add(previewButton);
+    }
+
+    private void addSendTestMailButton(Form<Setting> mailingTemplateForm) {
+        AjaxButton sendTestMailButton = new AjaxButton("sendTestMailButton", mailingTemplateForm) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                requestHandler.sendTestEmail();
+                success("Test email sent!");
+                target.add(feedback);
+            }
+        };
+        mailingTemplateForm.add(sendTestMailButton);
     }
 
 }

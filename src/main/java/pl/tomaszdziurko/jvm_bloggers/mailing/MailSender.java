@@ -20,8 +20,12 @@ public class MailSender {
 
     public static final String FROM_NAME = "JVM Bloggers";
 
-    private final String senderAddress;
+    private String senderAddress;
     private Client mailingRestClient;
+
+    public MailSender() {
+
+    }
 
     @Autowired
     public MailSender(Client mailingRestClient, @Value("${mailing.fromEmail}") String senderAddress) {
