@@ -153,6 +153,13 @@
     <changeSet id="013-store-mailing-template-in-setting-table" author="Tomasz.Dziurko">
         <sqlFile path="insert_mailing_template.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <changeSet id="014-store-email-to-send-test-mail" author="Tomasz.Dziurko">
+        <sql>
+            INSERT INTO setting(id, name, value)
+            VALUES (nextval('setting_seq'), 'TEST_EMAIL', 'your-test-email-goes-here');
+        </sql>
+    </changeSet>
 
 
 </databaseChangeLog>
