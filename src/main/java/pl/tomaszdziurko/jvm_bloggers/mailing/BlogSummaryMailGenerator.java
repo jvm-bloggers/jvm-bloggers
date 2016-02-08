@@ -35,7 +35,7 @@ public class BlogSummaryMailGenerator {
     private NowProvider nowProvider;
     private SyndFeedProducer syndFeedFactory;
 
-    // This constructor exists only to make Wicket @SpringBean work for Spring beans with constructor injection using @Autowired
+//    This constructor exists only to make Wicket @SpringBean work for Spring beans with constructor injection using @Autowired
     public BlogSummaryMailGenerator() {
 
     }
