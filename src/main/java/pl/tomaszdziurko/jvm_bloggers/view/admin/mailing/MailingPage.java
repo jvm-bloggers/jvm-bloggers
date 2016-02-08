@@ -98,7 +98,7 @@ public class MailingPage extends AbstractAdminPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 String testEmailRecipient = requestHandler.sendTestEmail();
-                success("Test email sent to " + testEmailRecipient +"!");
+                success("Test email sent to " + testEmailRecipient + "!");
                 target.add(feedback);
             }
         };

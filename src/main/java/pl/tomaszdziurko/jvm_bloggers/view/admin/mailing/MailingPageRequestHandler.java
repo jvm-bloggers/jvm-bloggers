@@ -25,7 +25,10 @@ public class MailingPageRequestHandler {
     }
 
     @Autowired
-    public MailingPageRequestHandler(BlogSummaryMailGenerator blogSummaryMailGenerator, MailSender mailSender, SettingRepository settingRepository, NowProvider nowProvider) {
+    public MailingPageRequestHandler(BlogSummaryMailGenerator blogSummaryMailGenerator,
+                                     MailSender mailSender,
+                                     SettingRepository settingRepository,
+                                     NowProvider nowProvider) {
         this.blogSummaryMailGenerator = blogSummaryMailGenerator;
         this.mailSender = mailSender;
         this.settingRepository = settingRepository;
