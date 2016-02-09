@@ -41,8 +41,8 @@ public class BlogPost {
     @Column(name = "PUBLISHED_DATE", nullable = false)
     private LocalDateTime publishedDate;
 
-    @Column(name = "APPROVED", nullable = false)
-    private boolean approved;
+    @Column(name = "APPROVED", nullable = true)
+    private Boolean approved;
 
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
@@ -52,7 +52,7 @@ public class BlogPost {
         this(title, blog, url, publishedDate, true);
     }
 
-    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate, boolean approved) {
+    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate, Boolean approved) {
         this.uid = UUID.randomUUID().toString();
         this.title = title;
         this.blog = blog;

@@ -165,5 +165,8 @@
         <sqlFile path="insert_default_mailing_template.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="016-approved-in-blog-posts-can-be-null-value" author="Tomasz.Dziurko">
+        <dropNotNullConstraint tableName="BLOG_POST" columnName="APPROVED" columnDataType="boolean"/>
+    </changeSet>
 
 </databaseChangeLog>

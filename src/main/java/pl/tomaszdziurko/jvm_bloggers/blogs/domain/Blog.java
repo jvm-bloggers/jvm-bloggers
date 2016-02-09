@@ -58,4 +58,12 @@ public class Blog {
         return BlogType.PERSONAL == blogType;
     }
 
+    public Boolean getDefaultApprovedValue() {
+        if (isPersonal()) {
+            return Boolean.TRUE;
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -38,7 +38,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
         Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
         LocalDateTime publishedDate = DateTimeUtilities.convertDateToLocalDateTime(dateToStore);
         BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getBlog(), postInRss.getLink(), publishedDate,
-            rssEntry.getBlog().isPersonal());
+            rssEntry.getBlog().getDefaultApprovedValue());
         blogPostRepository.save(newBlogPost);
         log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getBlog().getAuthor());
     }
