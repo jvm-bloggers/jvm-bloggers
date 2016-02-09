@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAuthenticator {
 
+    public static final String JASYPT_PROPERTY_KEY = "jasypt.encryptor.password";
+
     public Roles getRolesForUser(String login, String password) {
-        String jasyptPassword = System.getProperty("jasypt.encryptor.password");
+        String jasyptPassword = System.getProperty(JASYPT_PROPERTY_KEY, System.getenv(JASYPT_PROPERTY_KEY));
 
         if (jasyptPassword.equals(password)) {
             return new Roles(Roles.ADMIN);
