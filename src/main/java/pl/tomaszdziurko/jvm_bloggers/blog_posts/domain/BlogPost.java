@@ -60,4 +60,22 @@ public class BlogPost {
         this.publishedDate = publishedDate;
         this.approved = approved;
     }
+
+    public boolean isApproved() {
+        return Boolean.TRUE.equals(approved);
+    }
+
+    public boolean isRejected() {
+        return Boolean.FALSE.equals(approved);
+    }
+
+    public String getApprovalState() {
+        if (approved == null) {
+            return " -- ";
+        } else if (approved) {
+            return "Approved";
+        } else {
+            return "Rejected";
+        }
+    }
 }

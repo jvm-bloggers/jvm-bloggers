@@ -28,5 +28,6 @@ public abstract class AbstractAdminPage extends WebPage {
         add(new BookmarkablePageLink<AdminDashboardPage>("mailingLink", MailingPage.class));
         add(new BookmarkablePageLink<AdminDashboardPage>("moderationLink", ModerationPage.class));
 
-        add(new DebugBar("debug"));    }
+        add(new DebugBar("debug"));
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import pl.tomaszdziurko.jvm_bloggers.view.HomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage;
 import pl.tomaszdziurko.jvm_bloggers.view.login.LoginPage;
 import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
@@ -35,6 +36,7 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
         mountPage("login", LoginPage.class);
         mountPage("admin", AdminDashboardPage.class);
         mountPage("admin-mailing", MailingPage.class);
+        mountPage("admin-moderation", ModerationPage.class);
     }
 
     @Override
