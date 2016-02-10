@@ -14,3 +14,8 @@ mailing:
 
 # Wicket configuration
 wicket.core.settings.general.runtime-configuration: development
+wicket.core.settings.debug.development-utilities-enabled: true
+wicket.core.settings.debug.enabled: true
+wicket.core.settings.debug.developmentUtilitiesEnabled: true
+wicket.core.settings.debug.ajaxDebugModeEnabled: true
+wicket.core.settings.debug.componentUseCheck: true
