@@ -11,3 +11,6 @@ spring:
 mailing:
   apiKey: "ENC(u+1+9wseBKqW0dNE7IY2pe5ObMHpQX7pFQnNbCMJKVXFthwD5J+38xq6YSQg9JyC)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+
+# Wicket configuration
+wicket.core.settings.general.runtime-configuration: development
