@@ -33,9 +33,10 @@ public class LoginPage extends WebPage {
 
                 if (roles.hasRole(Roles.ADMIN)) {
                     UserSession.get().loginAs(login, roles);
-                    setResponsePage(AdminDashboardPage.class);
+                    continueToOriginalDestination();
                 } else {
-                    log.info("Incorrect login or password");
+                    log.warn("Invalid login credentials");
+                    error("Incorrect login or password");
                 }
             }
         };
