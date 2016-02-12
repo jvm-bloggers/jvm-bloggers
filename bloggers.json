@@ -714,6 +714,12 @@
       "name": "Piotr Prądzyński",
       "rss": "http://solved.fyi/feed/",
       "twitter": "@prondzyn"
+    },
+    {
+      "jsonId": 126,
+      "name": "Piotr Jarzemski",
+      "rss": "http://kazuhiro.github.io/feed.xml",
+      "twitter": "@kh1ramatsu"
     }
   ]
 }
