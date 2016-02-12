@@ -28,28 +28,51 @@ __Done__
 1. Send weekly e-mail about latest blog posts to JUG mailing lists
 2. Add technical blogs from Polish companies
 3. Add moderation to discard off-topic content
+4. Write some admin panel to manage moderation. etc.
 
 __Planned__
 
-1. Write some admin panel to manage moderation. etc.
-2. Send information about new blog posts using Twitter and Facebook profiles
-3. Count clicks to find most popular articles and promote them
-4. Fetch data about number of comments in articles
-5. Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
-6. Maybe export the idea another country? :)
-7. .... this is a place for __YOUR__ idea :)
+* Send information about new blog posts using Twitter and Facebook profiles
+* Count clicks to find most popular articles and promote them
+* Fetch data about number of comments in articles
+* Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
+*  Maybe export the idea to another country? :)
+* .... this is a place for __YOUR__ idea :)
 
 ## Technical details
 
 Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a Heroku.
 
+## Running locally:
+
+Step 1: You need a PostgreSQL database, name: jvm_bloggers, user/pass: jvm_bloggers/jvm_bloggers
+
+Step 2: Execute
+
+
+    /gradlew  -Djasypt.encryptor.password=<ANY_PASSWORD> -Dspring.profiles.active=dev bootRun
+    
+Step 3: Open [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and ANY_PASSWORD
+
+Step 4: Your local database is probably empty so you need either wait for Schedulers (BloggersDataFetchingScheduler and BlogPostsFetchingScheduler) to fetch data or change @Scheduler annotation in these classes so they execute earlier.
+
+**NOTE** Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
+
+    
 ## Running locally with Docker
 
-1. You need a PostgreSQL database, name: jvm_bloggers, user/pass: jvm_bloggers/jvm_bloggers
-2. If you have Docker running please execute:
+Step 1: Replace 'localhost' in application-dev.properties with 'database'
 
 
-    docker run -p 8080:8080 --add-host=database:<your_local_db_host> -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:latest
+    url: jdbc:postgresql://database:5432/jvm_bloggers
+    
+         
+Step 2: Then if you have Docker running please execute:
+
+
+    docker run -p 8080:8080 --add-host=database:<your_local_db_host> -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:<TAG>
+    
+where TAG is one from https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/ or any tag of your local image repository.      
 
 
 ## Contributing
