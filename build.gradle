@@ -121,6 +121,10 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
+bootRun {
+    systemProperties = System.properties
+}
+
 String getTimestampWithGitHash() {
     String timeStamp = new Date().format('yyyyMMdd-HHmmss')
     String cmd = "git log --pretty=format:%h -n 1"
