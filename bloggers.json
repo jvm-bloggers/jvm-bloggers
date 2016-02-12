@@ -702,6 +702,18 @@
       "name": "Łukasz Indykiewicz",
       "rss": "http://lukeindykiewicz.com/blog/index.xml",
       "twitter": "@lukeindykiewicz"
+    },
+    {
+      "jsonId": 124,
+      "name": "Piotr Prądzyński",
+      "rss": "http://programistanaswoim.pl/feed/",
+      "twitter": "@prondzyn"
+    },
+    {
+      "jsonId": 125,
+      "name": "Piotr Prądzyński",
+      "rss": "http://solved.fyi/feed/",
+      "twitter": "@prondzyn"
     }
   ]
 }
