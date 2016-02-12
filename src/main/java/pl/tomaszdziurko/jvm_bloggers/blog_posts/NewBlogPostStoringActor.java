@@ -27,7 +27,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
                 if (!existingPost.isPresent()) {
                     storeNewBlogPost(rssEntry);
                 } else {
-                    log.debug("Existing post found, skipping save");
+                    log.trace("Existing post found, skipping save");
                 }
             }
         ).build());
