@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -10,6 +11,7 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 
+@Slf4j
 public class ModerationActionPanel extends Panel {
 
     @SpringBean
@@ -19,39 +21,41 @@ public class ModerationActionPanel extends Panel {
         super(id);
 
         AjaxButton acceptPost = new AjaxButton("acceptPost", moderationForm) {
+
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                log.debug("Accept clicked");
                 BlogPost blogPost = blogPostModel.getObject();
                 blogPost.setApproved(true);
+                long start = System.currentTimeMillis();
                 blogPostRepository.save(blogPost);
+                long stop = System.currentTimeMillis();
+                log.debug("Persist approved post execution time = " + (stop - start)  + " ms");
                 getSession().success("Blog post '" +  blogPost.getTitle() + "' accepted!");
                 target.add(moderationForm);
                 target.add(feedback);
             }
-
-            @Override
-            public boolean isVisible() {
-                return !blogPostModel.getObject().isApproved();
-            }
         };
+        acceptPost.setVisible(!blogPostModel.getObject().isApproved());
         add(acceptPost);
 
         AjaxButton rejectPost = new AjaxButton("rejectPost", moderationForm) {
+
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                log.debug("Reject clicked");
                 BlogPost blogPost = blogPostModel.getObject();
                 blogPost.setApproved(false);
+                long start = System.currentTimeMillis();
                 blogPostRepository.save(blogPost);
+                long stop = System.currentTimeMillis();
+                log.debug("Persist rejected post execution time = " + (stop - start)  + " ms");
                 getSession().success("Blog post '" +  blogPost.getTitle() + "' rejected!");
                 target.add(moderationForm);
                 target.add(feedback);
             }
-
-            @Override
-            public boolean isVisible() {
-                return !blogPostModel.getObject().isRejected();
-            }
         };
+        rejectPost.setVisible(!blogPostModel.getObject().isRejected());
         add(rejectPost);
     }
 

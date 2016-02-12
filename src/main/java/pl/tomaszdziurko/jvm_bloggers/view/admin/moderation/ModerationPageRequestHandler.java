@@ -26,17 +26,25 @@ public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
         this.blogPostRepository = blogPostRepository;
     }
 
-
     @Override
     public Iterator<? extends BlogPost> iterator(long first, long count) {
+        log.debug("Refreshing data, first {}, count {}", first, count);
         int page =  Long.valueOf(first / ModerationPage.BLOG_POSTS_PER_PAGE).intValue();
         int countInt = Long.valueOf(count).intValue();
-        return blogPostRepository.findLatestPosts(new PageRequest(page, countInt)).iterator();
+        long start = System.currentTimeMillis();
+        Iterator<BlogPost> iterator = blogPostRepository.findLatestPosts(new PageRequest(page, countInt)).iterator();
+        long stop = System.currentTimeMillis();
+        log.debug("Iterator() execution time = " + (stop - start)  + " ms");
+        return iterator;
     }
 
     @Override
     public long size() {
-        return blogPostRepository.count();
+        long start = System.currentTimeMillis();
+        long count = blogPostRepository.count();
+        long stop = System.currentTimeMillis();
+        log.debug("Size() execution time = " + (stop - start)  + " ms");
+        return count;
     }
 
     @Override
