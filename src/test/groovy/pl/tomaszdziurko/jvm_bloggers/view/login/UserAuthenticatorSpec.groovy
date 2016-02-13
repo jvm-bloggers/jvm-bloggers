@@ -6,12 +6,18 @@ import spock.lang.Subject
 
 class UserAuthenticatorSpec extends Specification {
 
+    static String PASSWORD = "secretPassword";
+
     @Subject
-    UserAuthenticator authenticator = new UserAuthenticator();
+    UserAuthenticator authenticator = new UserAuthenticator()
+
+    def setupSpec() {
+        System.setProperty("jasypt.encryptor.password", PASSWORD);
+    }
 
     def "Should return ADMIN role if password is correct"() {
         given:
-            String password = "password"
+            String password = PASSWORD
         when:
             Roles roles = authenticator.getRolesForUser("any", password)
         then:
