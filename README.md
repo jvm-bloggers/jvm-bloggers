@@ -43,34 +43,40 @@ __Planned__
 
 Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a Heroku.
 
-## Running locally:
+## Local development setup
 
-Step 1: You need a PostgreSQL database, name: jvm_bloggers, user/pass: jvm_bloggers/jvm_bloggers
+#### Step 1: 
 
-Step 2: Execute
+You need a PostgreSQL database (name: `jvm_bloggers`, user/pass: `jvm_bloggers`/`jvm_bloggers`). The easiest and recommended way is to run it as docker container:
+
+	docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -d postgres
+
+#### Step 2:
+
+Execute Gradle `bootRun` task:
+
+    ./gradlew  -Djasypt.encryptor.password=<SECRET_PASSWORD> -Dspring.profiles.active=dev -Ddatabase.host=<JVM_BLOGGERS_DB_HOST_ADDRESS> bootRun
+
+**NOTE**:If the `jvm_bloggers` database is running on _localhost_ then `database.host` property can be omitted (it will be assumed to be _localhost_ by default).
 
 
-    /gradlew  -Djasypt.encryptor.password=<ANY_PASSWORD> -Dspring.profiles.active=dev bootRun
-    
-Step 3: Open [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and ANY_PASSWORD
+#### Step 3:
 
-Step 4: Your local database is probably empty so you need either wait for Schedulers (BloggersDataFetchingScheduler and BlogPostsFetchingScheduler) to fetch data or change @Scheduler annotation in these classes so they execute earlier.
+Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and `<SECRET_PASSWORD>` (the password provided in the previous step)
 
-**NOTE** Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
+**NOTE:** Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-    
+#### Step 4:
+
+Your local database is probably empty so you need either wait 10 minutes for Schedulers (`BloggersDataFetchingScheduler` and `BlogPostsFetchingScheduler`) to fetch data or change `@Scheduled` annotation in these classes so they execute earlier (eg. `@Scheduled(fixedDelay = 1000)`))
+
+#### Step 5:
+
+To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
+
 ## Running locally with Docker
 
-Step 1: Replace 'localhost' in application-dev.properties with 'database'
-
-
-    url: jdbc:postgresql://database:5432/jvm_bloggers
-    
-         
-Step 2: Then if you have Docker running please execute:
-
-
-    docker run -p 8080:8080 --add-host=database:<your_local_db_host> -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:<TAG>
+    docker run -p 8080:8080 --add-host=jvm_bloggers_db:<JVM_BLOGGERS_DB_HOST_ADDRESS> -e database.host=jvm_bloggers_db -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:<TAG>
     
 where TAG is one from https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/ or any tag of your local image repository.      
 
