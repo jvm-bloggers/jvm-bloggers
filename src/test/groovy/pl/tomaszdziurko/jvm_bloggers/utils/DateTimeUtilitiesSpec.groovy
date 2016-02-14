@@ -21,7 +21,7 @@ class DateTimeUtilitiesSpec extends Specification {
             LocalDateTime.of(2016, 2, 9, 10, 10)  | 4
             LocalDateTime.of(2016, 2, 10, 10, 10) | 5
             LocalDateTime.of(2016, 2, 11, 10, 10) | 6
-            LocalDateTime.of(2016, 2, 12, 10, 10) | 0
+            LocalDateTime.of(2016, 2, 12, 10, 10) | 7
             LocalDateTime.of(2016, 2, 13, 10, 10) | 1
             LocalDateTime.of(2016, 2, 14, 10, 10) | 2
             LocalDateTime.of(2016, 2, 15, 10, 10) | 3

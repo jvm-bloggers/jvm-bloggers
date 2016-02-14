@@ -15,7 +15,7 @@ public class DateTimeUtilities {
         int dateDayOfWeek = date.getDayOfWeek().getValue();
         int fridayDayOfWeek = DayOfWeek.FRIDAY.getValue();
 
-        if (dateDayOfWeek >= fridayDayOfWeek) {
+        if (dateDayOfWeek > fridayDayOfWeek) {
             return dateDayOfWeek - fridayDayOfWeek;
         } else {
             return 7 - (fridayDayOfWeek - dateDayOfWeek);
