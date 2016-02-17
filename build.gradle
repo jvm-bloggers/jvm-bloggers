@@ -17,6 +17,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
@@ -137,7 +138,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion "2.7"
+    gradleVersion "2.11"
 }
 
 sourceSets.main.resources.srcDir 'src/main/java'
