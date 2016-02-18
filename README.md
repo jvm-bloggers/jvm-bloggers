@@ -1,9 +1,8 @@
 # JVM Bloggers
 
-[![Join the chat at https://gitter.im/tdziurko/jvm-bloggers](https://badges.gitter.im/tdziurko/jvm-bloggers.svg)](https://gitter.im/tdziurko/jvm-bloggers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/tdziurko/jvm-bloggers.svg?branch=master)](https://travis-ci.org/tdziurko/jvm-bloggers)  [![Coverage Status](https://coveralls.io/repos/tdziurko/jvm-bloggers/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdziurko/jvm-bloggers?branch=master)
+[![Build Status](https://travis-ci.org/tdziurko/jvm-bloggers.svg?branch=master)](https://travis-ci.org/tdziurko/jvm-bloggers)  [![Coverage Status](https://coveralls.io/repos/tdziurko/jvm-bloggers/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdziurko/jvm-bloggers?branch=master)  [![Join the chat at https://gitter.im/tdziurko/jvm-bloggers](https://badges.gitter.im/tdziurko/jvm-bloggers.svg)](https://gitter.im/tdziurko/jvm-bloggers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Overview
 Goal of this project is to gather information about every developer or company blogging about JVM related technologies in Poland, no matter if he is an oldschool 
