@@ -50,7 +50,7 @@ Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, runni
 
 You need a PostgreSQL database (name: `jvm_bloggers`, user/pass: `jvm_bloggers`/`jvm_bloggers`). The easiest and recommended way is to run it as docker container:
 
-	docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -d postgres
+	docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -p 5432:5432 -d postgres
 
 #### Step 2:
 
