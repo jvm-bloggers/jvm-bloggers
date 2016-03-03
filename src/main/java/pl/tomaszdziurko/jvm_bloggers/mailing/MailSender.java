@@ -36,7 +36,7 @@ public class MailSender {
     public void sendEmail(String recipientAddress, String subject, String htmlContent) {
         Form form = prepareEmail(recipientAddress, subject, htmlContent);
         WebTarget webTarget = mailingRestClient.
-            target("https://api.mailgun.net/v3/sandbox39e973e89c1a44afbf5fa6358787d0bb.mailgun.org").
+            target("https://api.mailgun.net/v3/jvm-bloggers.com").
             path("messages");
         log.info("Sending mail " + form.asMap().values().toString());
 
