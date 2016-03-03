@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -19,8 +18,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 
 import java.time.format.DateTimeFormatter;
 
-
-@Slf4j
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {
 

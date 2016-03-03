@@ -1,7 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.mailing;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.BlogSummaryMailGenerator;
@@ -13,7 +12,6 @@ import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 @Component
-@Slf4j
 public class MailingPageRequestHandler {
 
     private MailSender mailSender;
