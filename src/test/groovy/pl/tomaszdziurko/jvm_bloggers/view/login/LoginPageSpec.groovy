@@ -8,22 +8,17 @@ import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.util.ReflectionTestUtils
 import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication
+import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
 import spock.lang.Specification
 
-@ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)
-class LoginPageSpec extends Specification {
 
-    static String PASSWORD = "superSecretPassword"
+class LoginPageSpec extends SpringContextAwareSpecification {
 
     private WicketTester tester
 
     @Autowired
     private WebApplication wicketApplication
-
-    def setupSpec() {
-        System.setProperty("jasypt.encryptor.password", PASSWORD);
-    }
 
     def setup() {
         // This is a workaround for problems with Spring Boot and WicketTester
