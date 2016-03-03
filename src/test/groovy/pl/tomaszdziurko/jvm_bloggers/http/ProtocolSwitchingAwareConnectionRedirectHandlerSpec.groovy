@@ -1,4 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.http
+
 import pl.tomaszdziurko.jvm_bloggers.http.ProtocolSwitchingAwareConnectionRedirectHandler.TooManyRedirectsException
 import spock.lang.Specification
 import spock.lang.Subject
@@ -14,8 +15,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should proceed if no redirect"() {
         given:
-            @Subject
-            def tested = new ProtocolSwitchingAwareConnectionRedirectHandler();
+            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler();
         when:
             def conn = tested.handle(httpConnection, null)
         then:
@@ -24,8 +24,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should handle redirect between protocols"() {
         given:
-            @Subject
-            def tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
+            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
         and:
             def redirectLocation = "https://redirect.location"
             httpConnection.getURL() >> new URL("http://redirected.url")
@@ -41,8 +40,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
     
     def "Should throw exception when redirect limit reached"() {
         given:
-            @Subject
-            def tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
         and:
             def redirectLocation = "https://redirect.location"
             httpConnection.getURL() >> new URL("http://redirected.url")
@@ -55,6 +53,15 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
             TooManyRedirectsException e = thrown()
     }
 
+    def "Should throw NPE on null connection parameter"() {
+        given:
+            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+        when:
+            tested.handle(null, null)
+        then:
+            NullPointerException e = thrown()
+    }
+    
     private def commonInteractions() {
         with(httpConnection) {
             1 * setRequestProperty("header", "value 1")
