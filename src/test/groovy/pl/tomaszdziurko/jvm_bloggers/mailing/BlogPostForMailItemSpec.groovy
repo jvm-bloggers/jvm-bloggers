@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing
 
+import java.text.SimpleDateFormat
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import spock.lang.Specification
@@ -31,6 +32,19 @@ class BlogPostForMailItemSpec extends Specification {
             BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
         then:
             blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
+    }
+    
+    def "Should build URL with default UTM parameters"() {
+        given:
+            Blog author = stubAuthorWith("Jan Kowalski", "@JanKowalski")
+            BlogPost post = Stub(BlogPost) {
+                getBlog() >> author
+                getUrl() >> "http://www.blog.pl"
+            }
+        when:
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withDefaultUTMParameters().build()
+        then:
+            blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvmbloggers&utm_medium=newsletter&utm_campaign=jvmbloggers#" + new SimpleDateFormat("yyyy-mm-dd").format(new Date());
     }
 
     private stubAuthorWith(String name, String twitterHandler) {

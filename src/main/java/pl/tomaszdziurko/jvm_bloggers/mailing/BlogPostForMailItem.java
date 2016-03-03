@@ -81,7 +81,7 @@ class BlogPostForMailItem {
                 UTMParametrsConstants.UTM_CAMPAING_KEY,
                 String.format(
                     "%s#%s", UTM_SOURCE,
-                    new SimpleDateFormat("YYYY-MM-DD").format(new Date())
+                    new SimpleDateFormat("yyyy-mm-dd").format(new Date())
                 )
             );
             
@@ -89,9 +89,9 @@ class BlogPostForMailItem {
         }
         
         public BlogPostForMailItem build() {
-            Preconditions.checkState(instance.title != null, "Tittle cannot not be null");
-            Preconditions.checkState(instance.url != null, "Url cannot not be null");
-            Preconditions.checkState(instance.authorLabel != null, "Author cannot not be null");
+            Preconditions.checkState(instance.title != null, "Tittle cannot be null");
+            Preconditions.checkState(instance.url != null, "Url cannot be null");
+            Preconditions.checkState(instance.authorLabel != null, "Author cannot be null");
             
             return instance;
         }

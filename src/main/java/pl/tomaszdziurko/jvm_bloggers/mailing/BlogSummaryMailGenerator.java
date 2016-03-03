@@ -71,12 +71,12 @@ public class BlogSummaryMailGenerator {
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(
             blogPost -> {
-                return BlogPostForMailItem.builder().from(blogPost).build();
+                return BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build();
             }
         ).collect(Collectors.toList()));
         template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(
             blogPost -> {
-                return BlogPostForMailItem.builder().from(blogPost).build();
+                return BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build();
             }
         ).collect(Collectors.toList()));
         template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
@@ -86,7 +86,7 @@ public class BlogSummaryMailGenerator {
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
             Function.identity(),
-            blog -> getBlogHomepageFromRss(blog.getRss()))
+                        blog->getBlogHomepageFromRss(blog.getRss()))
         );
     }
 
