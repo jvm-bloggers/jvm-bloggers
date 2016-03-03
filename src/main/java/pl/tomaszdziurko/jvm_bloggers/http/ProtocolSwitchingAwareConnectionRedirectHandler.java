@@ -9,7 +9,9 @@ import java.util.Map;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.jcip.annotations.ThreadSafe;
 
@@ -27,6 +29,7 @@ import net.jcip.annotations.ThreadSafe;
  */
 @ThreadSafe
 @Slf4j
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@VisibleForTesting))
 public class ProtocolSwitchingAwareConnectionRedirectHandler {
 
     @VisibleForTesting
@@ -36,12 +39,6 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
 
     private static final int REDIRECT_LIMIT = 20;
     private final int redirectLimit;
-
-    @VisibleForTesting
-    ProtocolSwitchingAwareConnectionRedirectHandler(int redirectLimit) {
-        this.redirectLimit = redirectLimit;
-        
-    }
 
     public ProtocolSwitchingAwareConnectionRedirectHandler() {
         this(REDIRECT_LIMIT);
