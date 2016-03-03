@@ -214,6 +214,12 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-#Netbeans
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
 .nb-gradle/
 
