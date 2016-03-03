@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
-
 import com.sun.syndication.feed.synd.SyndFeed;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
@@ -42,10 +41,10 @@ public class BlogSummaryMailGenerator {
 
     @Autowired
     public BlogSummaryMailGenerator(BlogRepository blogRepository,
-                                    BlogPostRepository blogPostRepository,
-                                    SettingRepository settingRepository,
-                                    NowProvider nowProvider,
-                                    SyndFeedProducer syndFeedFactory) {
+        BlogPostRepository blogPostRepository,
+        SettingRepository settingRepository,
+        NowProvider nowProvider,
+        SyndFeedProducer syndFeedFactory) {
         this.blogRepository = blogRepository;
         this.blogPostRepository = blogPostRepository;
         this.settingRepository = settingRepository;
@@ -67,19 +66,27 @@ public class BlogSummaryMailGenerator {
         List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, EMPTY_LIST);
 
         Setting mailingTemplate = settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
-        String templateContent =  mailingTemplate.getValue();
+        String templateContent = mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
-        template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
-        template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+        template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(
+            blogPost -> {
+                return BlogPostForMailItem.builder().from(blogPost).build();
+            }
+        ).collect(Collectors.toList()));
+        template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(
+            blogPost -> {
+                return BlogPostForMailItem.builder().from(blogPost).build();
+            }
+        ).collect(Collectors.toList()));
         template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
         return template.toString();
     }
 
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
-                        Function.identity(),
-                        blog->getBlogHomepageFromRss(blog.getRss()))
+            Function.identity(),
+            blog -> getBlogHomepageFromRss(blog.getRss()))
         );
     }
 

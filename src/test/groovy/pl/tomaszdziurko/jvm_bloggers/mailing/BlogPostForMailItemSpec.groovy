@@ -14,7 +14,7 @@ class BlogPostForMailItemSpec extends Specification {
                 getBlog() >> author
             }
         when:
-            BlogPostForMailItem blogPostForMailItem = new BlogPostForMailItem(post)
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
         then:
             blogPostForMailItem.authorLabel == name
     }
@@ -28,7 +28,7 @@ class BlogPostForMailItemSpec extends Specification {
                 getBlog() >> author
             }
         when:
-            BlogPostForMailItem blogPostForMailItem = new BlogPostForMailItem(post)
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
         then:
             blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
     }

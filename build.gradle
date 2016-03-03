@@ -72,6 +72,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'org.antlr:ST4:4.0.7'
     compile 'org.glassfish.jersey.core:jersey-client:2.21'
+    compile 'org.valid4j:valid4j:0.5.0'
 
     // Database related
     compile "org.postgresql:postgresql:9.4-1201-jdbc41"
