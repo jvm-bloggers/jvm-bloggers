@@ -71,18 +71,17 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
             // handle redirect between different protocols
             final int responseCode = conn.getResponseCode();
             switch (responseCode) {
-            case HttpURLConnection.HTTP_MOVED_PERM:
-            case HttpURLConnection.HTTP_MOVED_TEMP:
-                conn = handleRedirect(conn);
-                redirectCounter = incrementRedirectCounterOrThrow((HttpURLConnection) urlConnection, redirectCounter);
-                continue;
+                case HttpURLConnection.HTTP_MOVED_PERM:
+                case HttpURLConnection.HTTP_MOVED_TEMP:
+                    conn = handleRedirect(conn);
+                    redirectCounter = incrementRedirectCounterOrThrow((HttpURLConnection) urlConnection, redirectCounter);
+                    continue;
+                default:
+                    return conn;
             }
-
-            break;
 
         } while (true);
 
-        return conn;
     }
 
     private int incrementRedirectCounterOrThrow(HttpURLConnection httpConnection, int redirectCounter)
@@ -105,10 +104,10 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
 
     private void setupHeaders(HttpURLConnection conn, Map<String, List<String>> headers) {
         headers.entrySet().forEach(header -> {
-            header.getValue().forEach(value -> {
-                conn.setRequestProperty(header.getKey(), value);
+                header.getValue().forEach(value -> {
+                        conn.setRequestProperty(header.getKey(), value);
+                    });
             });
-        });
     }
 
     private HttpURLConnection handleRedirect(HttpURLConnection conn) throws IOException {
@@ -123,9 +122,9 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         return (HttpURLConnection) redirectUrl.openConnection();
     }
 
-    @SuppressWarnings("serial")
     private static final class TooManyRedirectsException extends IOException {
-        public TooManyRedirectsException(URL url) {
+
+        private TooManyRedirectsException(URL url) {
             super("Too many redirects occurred trying to open url: " + url);
         }
     }
