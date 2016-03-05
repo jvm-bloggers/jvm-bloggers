@@ -41,10 +41,10 @@ public class BlogSummaryMailGenerator {
 
     @Autowired
     public BlogSummaryMailGenerator(BlogRepository blogRepository,
-        BlogPostRepository blogPostRepository,
-        SettingRepository settingRepository,
-        NowProvider nowProvider,
-        SyndFeedProducer syndFeedFactory) {
+                                    BlogPostRepository blogPostRepository,
+                                    SettingRepository settingRepository,
+                                    NowProvider nowProvider,
+                                    SyndFeedProducer syndFeedFactory) {
         this.blogRepository = blogRepository;
         this.blogPostRepository = blogPostRepository;
         this.settingRepository = settingRepository;
@@ -66,7 +66,7 @@ public class BlogSummaryMailGenerator {
         List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, EMPTY_LIST);
 
         Setting mailingTemplate = settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
-        String templateContent = mailingTemplate.getValue();
+        String templateContent =  mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(
@@ -85,7 +85,7 @@ public class BlogSummaryMailGenerator {
 
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
-            Function.identity(),
+                        Function.identity(),
                         blog->getBlogHomepageFromRss(blog.getRss()))
         );
     }

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import lombok.Getter;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.tomaszdziurko.jvm_bloggers.UTMParametrsConstants;
+import pl.tomaszdziurko.jvm_bloggers.UTMParameters;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
@@ -75,10 +75,9 @@ class BlogPostForMailItem {
         }
         
         public Builder withDefaultUTMParameters() {
-            withUrlParameter(UTMParametrsConstants.UTM_SOURCE_KEY, UTM_SOURCE);
-            withUrlParameter(UTMParametrsConstants.UTM_MEDIUM_KEY, UTM_MEDIUM);
-            withUrlParameter(
-                UTMParametrsConstants.UTM_CAMPAING_KEY,
+            withUrlParameter(UTMParameters.UTM_SOURCE_KEY, UTM_SOURCE);
+            withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
+            withUrlParameter(UTMParameters.UTM_CAMPAING_KEY,
                 String.format(
                     "%s#%s", UTM_SOURCE,
                     new SimpleDateFormat("yyyy-mm-dd").format(new Date())
