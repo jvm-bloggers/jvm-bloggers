@@ -4,17 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication
+import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification;
 import spock.lang.Specification
 
-@ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)
-class MailingAddressRepositorySpec extends Specification {
+
+class MailingAddressRepositorySpec extends SpringContextAwareSpecification {
 
     @Autowired
     MailingAddressRepository mailingAddressRepository
-
-    def setupSpec() {
-        System.setProperty("jasypt.encryptor.password", "password")
-    }
 
     def "Should persist MailingAddress"() {
         given:

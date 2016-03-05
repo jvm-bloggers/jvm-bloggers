@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.EMPTY_LIST;
+import static java.util.Collections.emptyList;
 
 @Component
 @Slf4j
@@ -63,8 +63,8 @@ public class BlogSummaryMailGenerator {
 
         Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts.stream().collect(Collectors.groupingBy(it -> it.getBlog().getBlogType()));
 
-        List<BlogPost> newPostsFromPersonalBlogs = newBlogPostsByType.getOrDefault(BlogType.PERSONAL, EMPTY_LIST);
-        List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, EMPTY_LIST);
+        List<BlogPost> newPostsFromPersonalBlogs = newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
+        List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
 
         Setting mailingTemplate = settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
         String templateContent =  mailingTemplate.getValue();

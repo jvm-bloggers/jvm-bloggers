@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.devutils.stateless.StatelessComponent;
@@ -19,7 +18,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 import javax.servlet.http.HttpServletRequest;
 
 @StatelessComponent
-@Slf4j
 public class LoginPage extends WebPage {
 
     public static final String LOGIN_FORM_ID = "loginForm";
@@ -67,7 +65,7 @@ public class LoginPage extends WebPage {
 
         CustomFeedbackPanel feedbackPanel = new CustomFeedbackPanel("feedbackPanel");
         loginForm.add(feedbackPanel);
-        RequiredTextField loginField = new RequiredTextField(LOGIN_FIELD_ID);
+        RequiredTextField<String> loginField = new RequiredTextField<>(LOGIN_FIELD_ID);
         loginForm.add(loginField);
         PasswordTextField passwordField = new PasswordTextField(PASSWORD_FIELD_ID);
         loginForm.add(passwordField);

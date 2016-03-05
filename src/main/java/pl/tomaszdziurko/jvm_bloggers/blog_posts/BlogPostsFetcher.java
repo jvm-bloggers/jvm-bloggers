@@ -16,7 +16,6 @@ import java.util.List;
 public class BlogPostsFetcher {
 
     private final BlogRepository blogRepository;
-    private final BlogPostRepository blogPostRepository;
     private final ActorRef rssCheckingActor;
     private final ActorRef blogPostStoringActor;
 
@@ -24,7 +23,6 @@ public class BlogPostsFetcher {
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
                             BlogPostRepository blogPostRepository, SyndFeedProducer syndFeedFactory) {
         this.blogRepository = blogRepository;
-        this.blogPostRepository = blogPostRepository;
         blogPostStoringActor = actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
             .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
