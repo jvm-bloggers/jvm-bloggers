@@ -9,7 +9,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.admin.counters.NewPostsCounterModel;
 public class AdminDashboardPage extends AbstractAdminPage {
 
     public AdminDashboardPage() {
-        Label postsSinceLastPublicationLabel = new Label("postsSinceLastPublication", new NewPostsCounterModel());
-        add(postsSinceLastPublicationLabel);
+        add(new Label("postsSinceLastPublication", new NewPostsCounterModel()));
     }
 }

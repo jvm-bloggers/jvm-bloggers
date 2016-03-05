@@ -22,7 +22,7 @@ public class NewPostsCounterModel extends AbstractReadOnlyModel<Integer> {
 
     @Override
     public Integer getObject() {
-        LocalDateTime lastPublicationDate = DateTimeUtilities.lastPublicationDate(nowProvider);
+        LocalDateTime lastPublicationDate = DateTimeUtilities.lastPublicationDate(nowProvider.now());
         return blogPostRepository.countByPublishedDateAfter(lastPublicationDate);
     }
 }

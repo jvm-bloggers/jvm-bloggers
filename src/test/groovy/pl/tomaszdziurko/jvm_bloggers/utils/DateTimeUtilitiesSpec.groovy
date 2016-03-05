@@ -28,14 +28,10 @@ class DateTimeUtilitiesSpec extends Specification {
     }
 
     @Unroll
-    def "should return last friday at 12 o'clock before #date"(LocalDateTime date, LocalDateTime expectedDate) {
-        given:
-            def nowProviderMock = Mock(NowProvider)
-            nowProviderMock.now() >> date
-        when:
-            LocalDateTime lastFriday = DateTimeUtilities.lastPublicationDate(nowProviderMock)
-        then:
-            lastFriday == expectedDate
+    def "Should return last Friday at 12 o'clock before #date"(LocalDateTime date, LocalDateTime expectedDate) {
+
+        expect:
+            DateTimeUtilities.lastPublicationDate(date) == expectedDate
         where:
             date                                 | expectedDate
             LocalDateTime.of(2016, 3, 5, 19, 20) | LocalDateTime.of(2016, 3, 4, 12, 0)
