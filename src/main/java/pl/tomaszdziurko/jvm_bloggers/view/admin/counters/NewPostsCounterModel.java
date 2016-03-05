@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.admin;
+package pl.tomaszdziurko.jvm_bloggers.view.admin.counters;
 
 import java.time.LocalDateTime;
 import org.apache.wicket.injection.Injector;
@@ -8,10 +8,7 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
-/**
- * @author Mateusz Urbański <matek2305@gmail.com>
- */
-public class DashboardNewPostsCounterModel extends AbstractReadOnlyModel<Integer> {
+public class NewPostsCounterModel extends AbstractReadOnlyModel<Integer> {
 
     @SpringBean
     private BlogPostRepository blogPostRepository;
@@ -19,7 +16,7 @@ public class DashboardNewPostsCounterModel extends AbstractReadOnlyModel<Integer
     @SpringBean
     private NowProvider nowProvider;
 
-    public DashboardNewPostsCounterModel() {
+    public NewPostsCounterModel() {
         Injector.get().inject(this);
     }
 
