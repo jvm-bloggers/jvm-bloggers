@@ -50,7 +50,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
             tested.handle(httpConnection, REQUEST_HEADERS)
         then:
             interaction{ commonInteractions() }
-            TooManyRedirectsException e = thrown()
+            thrown(TooManyRedirectsException)
     }
 
     def "Should throw NPE on null connection parameter"() {
@@ -60,6 +60,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
             tested.handle(null, null)
         then:
             NullPointerException e = thrown()
+            e.message.contains("urlConnection")
     }
     
     private def commonInteractions() {

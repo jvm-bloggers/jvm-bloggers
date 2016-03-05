@@ -22,10 +22,10 @@ import net.jcip.annotations.ThreadSafe;
  * switching between protocols. From security considerations
  * {@link java.net.HttpURLConnection} redirection logic does not allow for such
  * cases but only for redirection within the same protocol. This handler is a
- * custom workaround for that case. 
+ * custom workaround for that case.
  * 
- * @author Marcin Kłopotek
- *
+ *  @author Marcin Kłopotek
+ * 
  */
 @ThreadSafe
 @Slf4j
@@ -62,11 +62,10 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         int redirectCounter = 0;
 
         do {
-
             setupConnection(conn, headers);
 
-            // handle redirect between different protocols
             final int responseCode = conn.getResponseCode();
+            // handle redirect between different protocols
             switch (responseCode) {
                 case HttpURLConnection.HTTP_MOVED_PERM:
                 case HttpURLConnection.HTTP_MOVED_TEMP:
@@ -112,7 +111,6 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         conn.disconnect();
 
         final String location = conn.getHeaderField(LOCATION_HEADER);
-
         final URL redirectUrl = new URL(location);
 
         log.debug("Redirect URL: {}", redirectUrl);
