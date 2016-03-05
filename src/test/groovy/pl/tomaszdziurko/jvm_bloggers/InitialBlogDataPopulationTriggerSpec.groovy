@@ -13,10 +13,10 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
     def BlogPostRepository blogPostRepository = Mock()
     def BloggersDataFetchingScheduler bloggersDataFetchingScheduler = Mock();
     def BlogPostsFetchingScheduler blogPostsFetchingScheduler = Mock();
-    
+
     @Subject
     def InitialBlogDataPopulationTrigger tested = new InitialBlogDataPopulationTrigger(blogRepository, blogPostRepository, bloggersDataFetchingScheduler, blogPostsFetchingScheduler)
-    
+
     def "Should trigger bloggers data population if there is no data"() {
         given:
             1 * blogRepository.count() >> 0
@@ -39,4 +39,4 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
             0 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
     }
 
-    }
+}
