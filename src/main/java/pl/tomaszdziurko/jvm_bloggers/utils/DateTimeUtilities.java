@@ -22,4 +22,9 @@ public class DateTimeUtilities {
         }
     }
 
+    public static LocalDateTime lastMailingDate(NowProvider nowProvider) {
+        LocalDateTime currentDate = nowProvider.now();
+        int daysSinceLastFriday = daysBetweenDateAndLastFriday(currentDate);
+        return currentDate.minusDays(daysSinceLastFriday).withHour(12).withMinute(0);
+    }
 }

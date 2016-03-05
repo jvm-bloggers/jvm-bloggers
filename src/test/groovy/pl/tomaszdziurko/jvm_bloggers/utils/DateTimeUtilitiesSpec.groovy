@@ -27,4 +27,19 @@ class DateTimeUtilitiesSpec extends Specification {
             LocalDateTime.of(2016, 2, 15, 10, 10) | 3
     }
 
+    @Unroll
+    def "should return #expectedDate for #date"(LocalDateTime date, LocalDateTime expectedDate) {
+        given:
+            def nowProviderMock = Mock(NowProvider)
+            nowProviderMock.now() >> date
+        when:
+            LocalDateTime lastFriday = DateTimeUtilities.lastMailingDate(nowProviderMock)
+        then:
+            lastFriday == expectedDate
+        where:
+            date                                 | expectedDate
+            LocalDateTime.of(2016, 3, 5, 19, 20) | LocalDateTime.of(2016, 3, 4, 12, 0)
+            LocalDateTime.of(2016, 3, 4, 11, 20) | LocalDateTime.of(2016, 2, 26, 12, 0)
+
+    }
 }
