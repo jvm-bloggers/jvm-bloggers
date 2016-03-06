@@ -4,6 +4,7 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.client.Client;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Component
+@Profile({"prod", "stage"})
 @Slf4j
 public class MailgunSender implements MailSender {
 
