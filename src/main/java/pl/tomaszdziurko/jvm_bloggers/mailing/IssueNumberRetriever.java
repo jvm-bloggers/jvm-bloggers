@@ -11,10 +11,14 @@ import java.sql.Statement;
 @Service
 public class IssueNumberRetriever {
 
-    public static final String GET_NEXTVALUE_FROM_ISSUE_NUMBER_SEQUENCE = "select nextval('MAILING_ISSUE_NUMBER_SEQ') as issue";
+    private static final String GET_NEXTVALUE_FROM_ISSUE_NUMBER_SEQUENCE = "select nextval('MAILING_ISSUE_NUMBER_SEQ') as issue";
+    private static final String GET_CURRENT_FROM_ISSUE_NUMBER_SEQUENCE = "select last_value as issue from MAILING_ISSUE_NUMBER_SEQ";
 
-    private final DataSource dataSource;
+    private DataSource dataSource;
 
+    //Required byc Wicked when injected using @SpringBean
+    public IssueNumberRetriever() { }
+    
     @Autowired
     public IssueNumberRetriever(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -24,6 +28,17 @@ public class IssueNumberRetriever {
         try {
             Statement statement = dataSource.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(GET_NEXTVALUE_FROM_ISSUE_NUMBER_SEQUENCE);
+            resultSet.next();
+            return resultSet.getLong("issue");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public long getCurrentIssueNumber() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(GET_CURRENT_FROM_ISSUE_NUMBER_SEQUENCE);
             resultSet.next();
             return resultSet.getLong("issue");
         } catch (SQLException e) {

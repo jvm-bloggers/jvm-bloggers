@@ -10,11 +10,15 @@ import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.LocalDateTime;
+import pl.tomaszdziurko.jvm_bloggers.mailing.IssueNumberRetriever;
 
 public class MailingTemplatePreviewPanel extends Panel {
 
     @SpringBean
     private BlogSummaryMailGenerator blogSummaryMailGenerator;
+    
+    @SpringBean
+    private IssueNumberRetriever issueNumberRetriever;
 
     @SpringBean
     private NowProvider nowProvider;
@@ -28,8 +32,9 @@ public class MailingTemplatePreviewPanel extends Panel {
             protected String load() {
                 LocalDateTime now = nowProvider.now();
                 int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(now);
-                String mailContent = blogSummaryMailGenerator.prepareMailContent(daysSinceLastFriday);
-                return mailContent;
+                return blogSummaryMailGenerator.prepareMailContent(
+                    daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
+                );
             }
         });
         templatePreview.setEscapeModelStrings(false);

@@ -1,8 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.google.common.base.Preconditions;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import lombok.Getter;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.tomaszdziurko.jvm_bloggers.UTMParameters;
@@ -19,6 +17,7 @@ class BlogPostForMailItem {
     private String title;
     private String url;
     private String authorLabel;
+    private Long issueNumber;
 
     public static Builder builder() {
         return new Builder();
@@ -50,6 +49,11 @@ class BlogPostForMailItem {
             return this;
         }
         
+        public Builder withIssueNumber(long issueNumber) {
+            instance.issueNumber = issueNumber;
+            return this;
+        }
+        
         public Builder withUrlParameter(String name, String value) {
             Preconditions.checkState(
                 instance.url != null,
@@ -65,13 +69,16 @@ class BlogPostForMailItem {
         }
         
         public Builder withDefaultUTMParameters() {
+            Preconditions.checkState(
+                instance.issueNumber != null,
+                "Could not set default UTM parameters. Missing issueNumber."
+            );
+            
             withUrlParameter(UTMParameters.UTM_SOURCE_KEY, UTM_SOURCE);
             withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
-            withUrlParameter(UTMParameters.UTM_CAMPAING_KEY,
-                String.format(
-                    "%s#%s", UTM_CAMPAING,
-                    new SimpleDateFormat("yyyy-mm-dd").format(new Date())
-                )
+            withUrlParameter(
+                UTMParameters.UTM_CAMPAING_KEY,
+                String.format("%s#%s", UTM_CAMPAING, instance.issueNumber)
             );
             
             return this;

@@ -41,10 +41,11 @@ class BlogPostForMailItemSpec extends Specification {
                 getBlog() >> author
                 getUrl() >> "http://www.blog.pl"
             }
+            long issueNumber = 13;
         when:
-            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withDefaultUTMParameters().build()
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withIssueNumber(issueNumber).withDefaultUTMParameters().build()
         then:
-            blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvm-bloggers.com&utm_medium=newsletter&utm_campaign=jvm-bloggers#" + new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+            blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvm-bloggers.com&utm_medium=newsletter&utm_campaign=jvm-bloggers#" + issueNumber
     }
 
     private stubAuthorWith(String name, String twitterHandler) {

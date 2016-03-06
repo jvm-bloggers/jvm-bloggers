@@ -45,9 +45,10 @@ public class BlogSummaryMailSender {
             return;
         }
 
-        String mailContent = mailGenerator.prepareMailContent(numberOfDaysBackInThePast);
+        long issueNumber = issueNumberRetriever.getNextIssueNumber();
+        String mailContent = mailGenerator.prepareMailContent(numberOfDaysBackInThePast, issueNumber);
         log.info("Mail content = \n" + mailContent);
-        String issueTitle = prepareIssueTitle();
+        String issueTitle = prepareIssueTitle(issueNumber);
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
                 mailSender.sendEmail(recipient, issueTitle, mailContent);
             }
@@ -55,8 +56,7 @@ public class BlogSummaryMailSender {
 
     }
 
-    private String prepareIssueTitle() {
-        long issueNumber = issueNumberRetriever.getNextIssueNumber();
+    private String prepareIssueTitle(long issueNumber) {
         return MAIL_SUMMARY_TITLE_PREFIX + issueNumber + MAIL_SUMMARY_TITLE_POSTIFX + getTodayDateAsString();
     }
 

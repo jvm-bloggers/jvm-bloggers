@@ -52,7 +52,7 @@ public class BlogSummaryMailGenerator {
         this.syndFeedFactory = syndFeedFactory;
     }
 
-    public String prepareMailContent(int numberOfDaysBackInThePast) {
+    public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(11).withMinute(00).withSecond(0).withNano(0);
         List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newApprovedPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
@@ -70,10 +70,12 @@ public class BlogSummaryMailGenerator {
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(
-            blogPost -> BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build()
+            blogPost -> BlogPostForMailItem.builder().from(blogPost)
+                .withIssueNumber(issueNumber).withDefaultUTMParameters().build()
         ).collect(Collectors.toList()));
         template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(
-            blogPost -> BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build()
+            blogPost -> BlogPostForMailItem.builder().from(blogPost)
+                .withIssueNumber(issueNumber).withDefaultUTMParameters().build()
         ).collect(Collectors.toList()));
         template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
         return template.toString();
