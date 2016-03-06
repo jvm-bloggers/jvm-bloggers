@@ -33,8 +33,8 @@ __Done__
 
 __Planned__
 
-* Send information about new blog posts using Twitter and Facebook profiles
-* Count clicks to find most popular articles and promote them
+* Publish global RSS feed with all blog posts
+* Create website with all newsletter (latest and old ones)
 * Fetch data about number of comments in articles
 * Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
 *  Maybe export the idea to another country? :)
@@ -81,10 +81,20 @@ To import the project into IDE first execute `./gradlew eclipse` or `./gradlew i
     
 where TAG is one from https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/ or any tag of your local image repository.      
 
-
 ## Contributing
 
-Wanna help? Please let me know (create an issue, comment on existing one so we don't duplicate work). This is a community driven open source project, so any help is appreciated!
+Wanna help? Please let me know, you can simply:
+
+* join [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
+* write an e-mail to GMail: jvmbloggers (at) (you know what).com :)
+* create an issue or comment on existing one 
+
+**Important:** 
+
+1. Before coding please comment on issue that you will be working on so we do not duplicate efforts :)
+2. PR with code clenups are also welcome :)
+
+This is a community driven open source project, so any help is appreciated!
 
 #### Contact
 
