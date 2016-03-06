@@ -9,13 +9,13 @@ import spock.lang.Subject
 
 class InitialBlogDataPopulationTriggerSpec extends Specification {
 
-    def BlogRepository blogRepository = Mock()
-    def BlogPostRepository blogPostRepository = Mock()
-    def BloggersDataFetchingScheduler bloggersDataFetchingScheduler = Mock();
-    def BlogPostsFetchingScheduler blogPostsFetchingScheduler = Mock();
+    BlogRepository blogRepository = Mock()
+    BlogPostRepository blogPostRepository = Mock()
+    BloggersDataFetchingScheduler bloggersDataFetchingScheduler = Mock();
+    BlogPostsFetchingScheduler blogPostsFetchingScheduler = Mock();
 
     @Subject
-    def InitialBlogDataPopulationTrigger tested = new InitialBlogDataPopulationTrigger(blogRepository, blogPostRepository, bloggersDataFetchingScheduler, blogPostsFetchingScheduler)
+    InitialBlogDataPopulationTrigger tested = new InitialBlogDataPopulationTrigger(blogRepository, blogPostRepository, bloggersDataFetchingScheduler, blogPostsFetchingScheduler)
 
     def "Should trigger bloggers data population if there is no data"() {
         given:
