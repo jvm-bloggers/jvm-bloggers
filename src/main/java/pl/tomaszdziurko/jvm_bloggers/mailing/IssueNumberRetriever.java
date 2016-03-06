@@ -11,12 +11,12 @@ import java.sql.Statement;
 @Service
 public class IssueNumberRetriever {
 
-    private static final String GET_NEXTVALUE_FROM_ISSUE_NUMBER_SEQUENCE = "select nextval('MAILING_ISSUE_NUMBER_SEQ') as issue";
-    private static final String GET_CURRENT_FROM_ISSUE_NUMBER_SEQUENCE = "select last_value as issue from MAILING_ISSUE_NUMBER_SEQ";
+    private static final String GET_NEXT_VALUE_FROM_ISSUE_NUMBER_SEQUENCE = "select nextval('MAILING_ISSUE_NUMBER_SEQ') as issue";
+    private static final String GET_CURRENT_VALUE_FROM_ISSUE_NUMBER_SEQUENCE = "select last_value as issue from MAILING_ISSUE_NUMBER_SEQ";
 
     private DataSource dataSource;
 
-    //Required byc Wicked when injected using @SpringBean
+    //Required by Wicket when injected using @SpringBean
     public IssueNumberRetriever() { }
     
     @Autowired
@@ -27,7 +27,7 @@ public class IssueNumberRetriever {
     public long getNextIssueNumber() {
         try {
             Statement statement = dataSource.getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_NEXTVALUE_FROM_ISSUE_NUMBER_SEQUENCE);
+            ResultSet resultSet = statement.executeQuery(GET_NEXT_VALUE_FROM_ISSUE_NUMBER_SEQUENCE);
             resultSet.next();
             return resultSet.getLong("issue");
         } catch (SQLException e) {
@@ -38,7 +38,7 @@ public class IssueNumberRetriever {
     public long getCurrentIssueNumber() {
         try {
             Statement statement = dataSource.getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(GET_CURRENT_FROM_ISSUE_NUMBER_SEQUENCE);
+            ResultSet resultSet = statement.executeQuery(GET_CURRENT_VALUE_FROM_ISSUE_NUMBER_SEQUENCE);
             resultSet.next();
             return resultSet.getLong("issue");
         } catch (SQLException e) {

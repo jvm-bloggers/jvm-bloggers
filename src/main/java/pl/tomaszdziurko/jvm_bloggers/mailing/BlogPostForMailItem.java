@@ -76,8 +76,7 @@ class BlogPostForMailItem {
             
             withUrlParameter(UTMParameters.UTM_SOURCE_KEY, UTM_SOURCE);
             withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
-            withUrlParameter(
-                UTMParameters.UTM_CAMPAING_KEY,
+            withUrlParameter(UTMParameters.UTM_CAMPAIGN_KEY,
                 String.format("%s#%s", UTM_CAMPAING, instance.issueNumber)
             );
             

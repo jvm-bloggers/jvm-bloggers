@@ -12,5 +12,5 @@ public class UTMParameters {
     
     public static final String UTM_MEDIUM_KEY = "utm_medium";
     
-    public static final String UTM_CAMPAING_KEY = "utm_campaign";
+    public static final String UTM_CAMPAIGN_KEY = "utm_campaign";
 }
