@@ -21,4 +21,6 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     int countByPublishedDateAfter(LocalDateTime publishedDate);
 
+    int countByApprovedIsNull();
+
 }
