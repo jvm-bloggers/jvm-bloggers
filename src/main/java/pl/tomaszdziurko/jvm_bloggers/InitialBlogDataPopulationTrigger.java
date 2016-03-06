@@ -16,6 +16,8 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
  * Initializes database with bloggers and posts data if database is empty.
  * Usually for the first time application starts.
  * 
+ * @author Marcin Kłopotek
+ * 
  */
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
