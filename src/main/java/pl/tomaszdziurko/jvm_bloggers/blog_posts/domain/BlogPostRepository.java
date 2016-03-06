@@ -19,4 +19,6 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     @Query("from BlogPost bp order by bp.publishedDate desc")
     List<BlogPost> findLatestPosts(Pageable page);
 
+    int countByPublishedDateAfter(LocalDateTime publishedDate);
+
 }

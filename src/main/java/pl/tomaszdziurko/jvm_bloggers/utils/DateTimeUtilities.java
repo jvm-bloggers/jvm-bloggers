@@ -22,4 +22,8 @@ public class DateTimeUtilities {
         }
     }
 
+    public static LocalDateTime lastPublicationDate(LocalDateTime currentDate) {
+        int daysSinceLastFriday = daysBetweenDateAndLastFriday(currentDate);
+        return currentDate.minusDays(daysSinceLastFriday).withHour(12).withMinute(0);
+    }
 }
