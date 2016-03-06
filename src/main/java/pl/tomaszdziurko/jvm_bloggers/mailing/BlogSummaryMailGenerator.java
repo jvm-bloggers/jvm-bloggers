@@ -70,14 +70,10 @@ public class BlogSummaryMailGenerator {
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(
-            blogPost -> {
-                return BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build();
-            }
+            blogPost -> BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build()
         ).collect(Collectors.toList()));
         template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(
-            blogPost -> {
-                return BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build();
-            }
+            blogPost -> BlogPostForMailItem.builder().from(blogPost).withDefaultUTMParameters().build()
         ).collect(Collectors.toList()));
         template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
         return template.toString();

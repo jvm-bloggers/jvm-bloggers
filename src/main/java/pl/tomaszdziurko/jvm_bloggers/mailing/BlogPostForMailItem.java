@@ -9,39 +9,29 @@ import pl.tomaszdziurko.jvm_bloggers.UTMParameters;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
-/**
- * {@link BlogPost} representation for email newsletter template purpose.
- */
 @Getter
 class BlogPostForMailItem {
     
-    private static final String UTM_SOURCE = "jvmbloggers";
+    private static final String UTM_SOURCE = "jvm-bloggers.com";
+    private static final String UTM_CAMPAING = "jvm-bloggers";
     private static final String UTM_MEDIUM = "newsletter";
     
     private String title;
     private String url;
     private String authorLabel;
 
-    /**
-     * Returns internal builder.
-     * 
-     * @return builder
-     */
     public static Builder builder() {
         return new Builder();
     }
     
-    /**
-     * Builder for {@link BlogPostForMailItem}
-     */
     public static class Builder {
 
         private final BlogPostForMailItem instance = new BlogPostForMailItem();
 
         public Builder from(BlogPost blogPost) {
-            instance.title = blogPost.getTitle();
-            instance.url = blogPost.getUrl();
-            instance.authorLabel = determineAuthorLabel(blogPost.getBlog());
+            withTitle(blogPost.getTitle());
+            withUrl(blogPost.getUrl());
+            withAuthorLabel(blogPost.getBlog());
             return this;
         }
         
@@ -79,7 +69,7 @@ class BlogPostForMailItem {
             withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
             withUrlParameter(UTMParameters.UTM_CAMPAING_KEY,
                 String.format(
-                    "%s#%s", UTM_SOURCE,
+                    "%s#%s", UTM_CAMPAING,
                     new SimpleDateFormat("yyyy-mm-dd").format(new Date())
                 )
             );

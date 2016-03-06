@@ -44,7 +44,7 @@ class BlogPostForMailItemSpec extends Specification {
         when:
             BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withDefaultUTMParameters().build()
         then:
-            blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvmbloggers&utm_medium=newsletter&utm_campaign=jvmbloggers#" + new SimpleDateFormat("yyyy-mm-dd").format(new Date());
+            blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvm-bloggers.com&utm_medium=newsletter&utm_campaign=jvm-bloggers#" + new SimpleDateFormat("yyyy-mm-dd").format(new Date());
     }
 
     private stubAuthorWith(String name, String twitterHandler) {
