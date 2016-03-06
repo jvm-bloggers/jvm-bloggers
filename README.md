@@ -69,10 +69,6 @@ Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill 
 
 #### Step 4:
 
-Your local database is probably empty so you need either wait 10 minutes for Schedulers (`BloggersDataFetchingScheduler` and `BlogPostsFetchingScheduler`) to fetch data or change `@Scheduled` annotation in these classes so they execute earlier (eg. `@Scheduled(fixedDelay = 1000)`))
-
-#### Step 5:
-
 To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
 
 ## Running locally with Docker
