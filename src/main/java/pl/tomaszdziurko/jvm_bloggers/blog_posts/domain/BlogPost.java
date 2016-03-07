@@ -29,6 +29,8 @@ import java.util.UUID;
 @Builder
 public class BlogPost {
 
+    public static final int MAX_DESCRIPTION_LENGTH = 4096;
+
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "BLOG_POST_SEQ", sequenceName = "BLOG_POST_SEQ", allocationSize = 1)
@@ -40,6 +42,9 @@ public class BlogPost {
 
     @Column(name = "TITLE", nullable = false, length = 250)
     private String title;
+
+    @Column(name = "DESCRIPTION", length = MAX_DESCRIPTION_LENGTH)
+    private String description;
 
     @Column(name = "URL", unique = true, nullable = false, length = 500)
     private String url;

@@ -169,4 +169,10 @@
         <dropNotNullConstraint tableName="BLOG_POST" columnName="APPROVED" columnDataType="boolean"/>
     </changeSet>
 
+    <changeSet id="017-added-DESCRIPTION-column-to-BLOG_POST-table" author="Marcin Kłopotek">
+        <addColumn tableName="blog_post">
+            <column name="DESCRIPTION" type="varchar(4096)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
