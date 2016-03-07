@@ -127,6 +127,10 @@ bootRun {
     systemProperties = System.properties
 }
 
+test {
+    systemProperty "file.encoding", "utf-8"
+}
+
 String getTimestampWithGitHash() {
     String timeStamp = new Date().format('yyyyMMdd-HHmmss')
     String cmd = "git log --pretty=format:%h -n 1"
