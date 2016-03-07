@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
-
 import com.sun.syndication.feed.synd.SyndFeed;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
@@ -53,7 +52,7 @@ public class BlogSummaryMailGenerator {
         this.syndFeedFactory = syndFeedFactory;
     }
 
-    public String prepareMailContent(int numberOfDaysBackInThePast) {
+    public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(11).withMinute(00).withSecond(0).withNano(0);
         List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newApprovedPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
@@ -70,10 +69,20 @@ public class BlogSummaryMailGenerator {
         String templateContent =  mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
-        template.setAttribute("newPosts", newPostsFromPersonalBlogs.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
-        template.setAttribute("newPostsFromCompanies", newPostsfromCompanies.stream().map(BlogPostForMailItem::new).collect(Collectors.toList()));
+        template.setAttribute("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
+        template.setAttribute("newPostsFromCompanies", toMailItems(newPostsfromCompanies, issueNumber));
         template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
         return template.toString();
+    }
+    
+    private List<BlogPostForMailItem> toMailItems(List<BlogPost> newPosts, long issueNumber) {
+        return newPosts.stream().map(blogPost -> 
+            BlogPostForMailItem.builder()
+                .from(blogPost)
+                .withIssueNumber(issueNumber)
+                .withDefaultUTMParameters()
+                .build()
+        ).collect(Collectors.toList());
     }
 
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {

@@ -1,29 +1,106 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
-import lombok.Data;
+import com.google.common.base.Preconditions;
+import lombok.Getter;
+import org.springframework.web.util.UriComponentsBuilder;
+import pl.tomaszdziurko.jvm_bloggers.UTMParameters;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
-
-@Data
+@Getter
 class BlogPostForMailItem {
-
+    
+    private static final String UTM_SOURCE = "jvm-bloggers.com";
+    private static final String UTM_CAMPAING = "jvm-bloggers";
+    private static final String UTM_MEDIUM = "newsletter";
+    
     private String title;
     private String url;
     private String authorLabel;
+    private Long issueNumber;
 
-    public BlogPostForMailItem(BlogPost blogPost) {
-        this.title = blogPost.getTitle();
-        this.url = blogPost.getUrl();
-        this.authorLabel = determineAuthorLabel(blogPost.getBlog());
+    public static Builder builder() {
+        return new Builder();
     }
+    
+    public static class Builder {
 
-    private String determineAuthorLabel(Blog blogger) {
-        if (blogger.getTwitter() != null) {
-            return "<a href=\"https://twitter.com/" + blogger.getTwitter().substring(1) + "\">" + blogger.getAuthor() + "</a>";
-        } else {
-            return blogger.getAuthor();
+        private final BlogPostForMailItem instance = new BlogPostForMailItem();
+
+        public Builder from(BlogPost blogPost) {
+            withTitle(blogPost.getTitle());
+            withUrl(blogPost.getUrl());
+            withAuthorLabel(blogPost.getBlog());
+            return this;
+        }
+        
+        public Builder withTitle(String title) {
+            instance.title = title;
+            return this;
+        }
+
+        public Builder withUrl(String url) {
+            instance.url = url;
+            return this;
+        }
+        
+        public Builder withAuthorLabel(Blog blog) {
+            instance.authorLabel = determineAuthorLabel(blog);
+            return this;
+        }
+        
+        public Builder withIssueNumber(long issueNumber) {
+            instance.issueNumber = issueNumber;
+            return this;
+        }
+        
+        public Builder withUrlParameter(String name, String value) {
+            Preconditions.checkState(
+                instance.url != null,
+                "Url could not be null. Please set url first"
+            );
+            
+            instance.url = UriComponentsBuilder
+                .fromHttpUrl(instance.url)
+                .queryParam(name, value)
+                .build().toString();
+            
+            return this;
+        }
+        
+        public Builder withDefaultUTMParameters() {
+            Preconditions.checkState(
+                instance.issueNumber != null,
+                "Could not set default UTM parameters. Missing issueNumber."
+            );
+            
+            withUrlParameter(UTMParameters.UTM_SOURCE_KEY, UTM_SOURCE);
+            withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
+            withUrlParameter(UTMParameters.UTM_CAMPAIGN_KEY,
+                String.format("%s#%s", UTM_CAMPAING, instance.issueNumber)
+            );
+            
+            return this;
+        }
+        
+        public BlogPostForMailItem build() {
+            Preconditions.checkState(instance.title != null, "Tittle cannot be null");
+            Preconditions.checkState(instance.url != null, "Url cannot be null");
+            Preconditions.checkState(instance.authorLabel != null, "Author cannot be null");
+            
+            return instance;
+        }
+
+        private String determineAuthorLabel(Blog blogger) {
+            if (blogger.getTwitter() != null) {
+                return String.format(
+                    "<a href=\"https://twitter.com/%s\">%s</a>", 
+                    blogger.getTwitter().substring(1),
+                    blogger.getAuthor()
+                );
+            } else {
+                return blogger.getAuthor();
+            }
         }
     }
-
 }
