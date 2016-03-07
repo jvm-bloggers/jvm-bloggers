@@ -90,7 +90,7 @@ dependencies {
 }
 
 checkstyle {
-    toolVersion = "6.5"
+    toolVersion = "6.16.1"
 }
 
 jacoco {
