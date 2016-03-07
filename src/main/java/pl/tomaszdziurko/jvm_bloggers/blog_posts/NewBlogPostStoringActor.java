@@ -1,20 +1,24 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
+import static com.google.common.base.MoreObjects.firstNonNull;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
+
 import com.sun.syndication.feed.synd.SyndEntry;
+
+import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
+@ExtensionMethod(DateTimeUtilities.class)
 public class NewBlogPostStoringActor extends AbstractActor {
 
     private final BlogPostRepository blogPostRepository;
@@ -35,10 +39,14 @@ public class NewBlogPostStoringActor extends AbstractActor {
 
     private void storeNewBlogPost(RssEntryWithAuthor rssEntry) {
         SyndEntry postInRss = rssEntry.getRssEntry();
-        Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
-        LocalDateTime publishedDate = DateTimeUtilities.convertDateToLocalDateTime(dateToStore);
-        BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getBlog(), postInRss.getLink(), publishedDate,
-            rssEntry.getBlog().getDefaultApprovedValue());
+        Date dateToStore = firstNonNull(postInRss.getPublishedDate(), postInRss.getUpdatedDate());
+        BlogPost newBlogPost = BlogPost.builder()
+                .title(postInRss.getTitle())
+                .url(postInRss.getLink())
+                .publishedDate(dateToStore.convertDateToLocalDateTime())
+                .approved(rssEntry.getBlog().getDefaultApprovedValue())
+                .blog(rssEntry.getBlog())
+                .build();
         blogPostRepository.save(newBlogPost);
         log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getBlog().getAuthor());
     }
