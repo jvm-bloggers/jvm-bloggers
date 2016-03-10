@@ -4,6 +4,8 @@ package pl.tomaszdziurko.jvm_bloggers;
 import akka.actor.ActorSystem;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,8 +17,7 @@ public class JvmBloggersConfiguration {
 
     @Bean
     public ActorSystem getActorSystem() {
-        ActorSystem system = ActorSystem.create("jvm-bloggers-akka");
-        return system;
+        return ActorSystem.create("jvm-bloggers-akka");
     }
 
     @Bean
@@ -33,4 +34,8 @@ public class JvmBloggersConfiguration {
         return client;
     }
 
+    @Bean
+    public CacheManager cacheManager() {
+        return new GuavaCacheManager();
+    }
 }
