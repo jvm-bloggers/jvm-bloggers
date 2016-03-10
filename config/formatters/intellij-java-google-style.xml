@@ -1,10 +1,3 @@
-<!--
-
-File downloaded from https://github.com/google/styleguide/pull/75/files (original formatter for IDEA with some
-additional fixes for IDEA 14/15.
-
--->
-
 <code_scheme name="GoogleStyle">
     <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
     <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
@@ -153,6 +146,8 @@ additional fixes for IDEA 14/15.
             <package name="libcore" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="libsvm" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="lombok" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="lti" withSubpackages="true" static="false" />
             <emptyLine />
