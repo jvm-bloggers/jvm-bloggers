@@ -2,13 +2,18 @@ package pl.tomaszdziurko.jvm_bloggers.utils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
+
+import static pl.tomaszdziurko.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
 public class DateTimeUtilities {
 
-    public static LocalDateTime convertDateToLocalDateTime(Date date) {
-        return date.toInstant().atZone(ZoneId.of(NowProvider.ZONE_NAME)).toLocalDateTime();
+    public static LocalDateTime toLocalDateTime(Date date) {
+        return date.toInstant().atZone(DEFAULT_ZONE).toLocalDateTime();
+    }
+
+    public static Date toDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(DEFAULT_ZONE).toInstant());
     }
 
     public static int daysBetweenDateAndLastFriday(LocalDateTime date) {

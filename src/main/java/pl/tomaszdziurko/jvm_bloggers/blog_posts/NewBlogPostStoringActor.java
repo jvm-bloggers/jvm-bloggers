@@ -39,7 +39,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
         return BlogPost.builder()
                 .title(postInRss.getTitle())
                 .url(postInRss.getLink())
-                .publishedDate(DateTimeUtilities.convertDateToLocalDateTime(dateToStore))
+                .publishedDate(DateTimeUtilities.toLocalDateTime(dateToStore))
                 .approved(rssEntry.getBlog().getDefaultApprovedValue())
                 .blog(rssEntry.getBlog())
                 .build();
