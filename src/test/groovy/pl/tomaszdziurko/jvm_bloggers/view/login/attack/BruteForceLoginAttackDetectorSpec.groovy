@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login
+package pl.tomaszdziurko.jvm_bloggers.view.login.attack
 
 import spock.lang.Specification
 
@@ -55,6 +55,4 @@ class BruteForceLoginAttackDetectorSpec extends Specification {
         then:
             !detector.isItBruteForceAttack(ipAddress)
     }
-
-
 }
