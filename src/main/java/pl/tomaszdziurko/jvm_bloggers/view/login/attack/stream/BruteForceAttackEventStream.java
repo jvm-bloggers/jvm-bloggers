@@ -5,22 +5,26 @@ import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
-import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
+/**
+ * @author Adam Dec
+ * @since 0.7.0
+ */
 public class BruteForceAttackEventStream {
 
-   private final PublishSubject<BruteForceAttackEvent> inputSubject;
+   private final Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject;
    private final Observable<Pair<String, String>> observable;
 
-   public BruteForceAttackEventStream(PublishSubject<BruteForceAttackEvent> inputSubject,
+   public BruteForceAttackEventStream(Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject,
                                       Observable<Pair<String, String>> observable) {
-      this.inputSubject = inputSubject;
+      this.subject = subject;
       this.observable = observable;
    }
 
    public void publish(BruteForceAttackEvent event) {
-      if (inputSubject.hasObservers()) {
-         inputSubject.onNext(event);
+      if (subject.hasObservers()) {
+         subject.onNext(event);
       }
    }
 
@@ -29,26 +33,6 @@ public class BruteForceAttackEventStream {
    }
 
    public void terminate() {
-      inputSubject.onCompleted();
-   }
-
-   public static class Builder {
-
-      private PublishSubject<BruteForceAttackEvent> inputSubject;
-      private Observable<Pair<String, String>> observable;
-
-      public Builder withInputSubject(PublishSubject<BruteForceAttackEvent> inputSubject) {
-         this.inputSubject = inputSubject;
-         return this;
-      }
-
-      public Builder withObservable(Observable<Pair<String, String>> observable) {
-         this.observable = observable;
-         return this;
-      }
-
-      public BruteForceAttackEventStream build() {
-         return new BruteForceAttackEventStream(inputSubject, observable);
-      }
+      subject.onCompleted();
    }
 }

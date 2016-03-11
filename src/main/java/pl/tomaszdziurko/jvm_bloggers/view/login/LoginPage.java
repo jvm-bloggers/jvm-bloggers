@@ -52,7 +52,7 @@ public class LoginPage extends WebPage {
             if (bruteForceAttackDetected) {
                error("Incorrect login or password [BruteForce attack was detected]");
                bruteForceAttackEventStreamFactory.build(clientAddress)
-                  .publish(BruteForceAttackEvent.builder().clientAddress(clientAddress).build());
+                  .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
                return;
             }
             tryToLoginUser(clientAddress);

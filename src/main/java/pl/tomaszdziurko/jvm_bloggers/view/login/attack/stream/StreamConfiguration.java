@@ -7,6 +7,10 @@ import rx.Scheduler;
 import rx.schedulers.Schedulers;
 import rx.schedulers.TestScheduler;
 
+/**
+ * @author Adam Dec
+ * @since 0.7.0
+ */
 @Configuration
 public class StreamConfiguration {
 

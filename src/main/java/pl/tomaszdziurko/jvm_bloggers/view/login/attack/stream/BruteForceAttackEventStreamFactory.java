@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Adam Dec
+ * @since 0.7.0
+ */
 @Slf4j
 @Component
 public class BruteForceAttackEventStreamFactory {
@@ -27,8 +31,7 @@ public class BruteForceAttackEventStreamFactory {
    public static final int MAILING_TIME_THROTTLE_IN_MINUTES = 1;
    private static final int INITIAL_CAPACITY = 1024;
 
-
-   private final ConcurrentMap<String, BruteForceAttackEventStream> observableMap = new ConcurrentHashMap<>(INITIAL_CAPACITY);
+   private final ConcurrentMap<String, BruteForceAttackEventStream> streamMap = new ConcurrentHashMap<>(INITIAL_CAPACITY);
    private final MailSender mailSender;
    private final BruteForceAttackMailGenerator bruteForceAttackMailGenerator;
    private final Scheduler scheduler;
@@ -41,13 +44,13 @@ public class BruteForceAttackEventStreamFactory {
    }
 
    public BruteForceAttackEventStream build(String clientAddress) {
-      return observableMap.computeIfAbsent(clientAddress, key -> {
+      return streamMap.computeIfAbsent(clientAddress, key -> {
          final PublishSubject<BruteForceAttackEvent> subject = PublishSubject.create();
          final Observable<Pair<String, String>> observable = subject.sample(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES, scheduler)
             .map(this::buildTuple)
             .observeOn(Schedulers.io())
             .onBackpressureLatest();
-         final BruteForceAttackEventStream stream = new BruteForceAttackEventStream.Builder().withInputSubject(subject).withObservable(observable).build();
+         final BruteForceAttackEventStream stream = new BruteForceAttackEventStream(subject, observable);
          stream.subscribe(new BruteForceLoginAttackMailSubscriber(mailSender));
          return stream;
       });
@@ -55,9 +58,9 @@ public class BruteForceAttackEventStreamFactory {
 
    @PreDestroy
    public void destroy() {
-      observableMap.forEach((k, v) -> {
-         log.debug("Terminating stream for clientAddress={}", k);
-         v.terminate();
+      streamMap.forEach((ipAddress, stream) -> {
+         log.debug("Terminating stream for ipAddress={}", ipAddress);
+         stream.terminate();
       });
    }
 
@@ -65,7 +68,7 @@ public class BruteForceAttackEventStreamFactory {
       final String mailContent = bruteForceAttackMailGenerator.prepareMailContent(event);
       log.info("Mail content\n{}", mailContent);
 
-      final String mailTitle = bruteForceAttackMailGenerator.prepareEmailTitle(event);
+      final String mailTitle = bruteForceAttackMailGenerator.prepareMailTitle(event);
       log.info("Mail title\n{}", mailTitle);
 
       return new ImmutablePair<String, String>(mailTitle, mailContent);

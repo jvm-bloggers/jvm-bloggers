@@ -5,6 +5,10 @@ import org.apache.commons.lang3.tuple.Pair;
 import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender;
 import rx.Subscriber;
 
+/**
+ * @author Adam Dec
+ * @since 0.7.0
+ */
 @Slf4j
 public class BruteForceLoginAttackMailSubscriber extends Subscriber<Pair<String, String>> {
 
