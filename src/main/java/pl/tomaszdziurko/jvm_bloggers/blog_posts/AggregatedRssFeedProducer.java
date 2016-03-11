@@ -32,13 +32,14 @@ import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 @Slf4j
 public class AggregatedRssFeedProducer {
 
+    public static final String RSS_CACHE = "Aggregated RSS feed cache";
+    
     @VisibleForTesting
     static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
     @VisibleForTesting
     static final String FEED_TITLE = "JVMBloggers";
     @VisibleForTesting
     static final String FEED_TYPE = "atom_1.0";
-    static final String RSS_CACHE = "Aggregated RSS feed cache";
 
     private static final String UTM_MEDIUM = "RSS";
 

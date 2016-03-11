@@ -10,6 +10,7 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@EntityListeners(BlogPostEntityListener.class)
 public class BlogPost {
 
     public static final int MAX_DESCRIPTION_LENGTH = 4096;
