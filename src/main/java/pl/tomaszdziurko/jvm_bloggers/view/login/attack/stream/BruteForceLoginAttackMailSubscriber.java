@@ -34,11 +34,11 @@ public class BruteForceLoginAttackMailSubscriber extends Subscriber<Pair<String,
 
    @Override
    public void onCompleted() {
-      this.unsubscribe();
+      unsubscribe();
    }
 
    @Override
    public void onError(Throwable error) {
-      log.error("Could not send mail due to error {}", error);
+      log.error("Could not send e-mail due to error {}", error);
    }
 }
