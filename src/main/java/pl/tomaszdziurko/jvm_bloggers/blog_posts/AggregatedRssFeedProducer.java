@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
+import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 
 @Service
 @CacheConfig(cacheNames = AggregatedRssFeedProducer.RSS_CACHE)
@@ -38,6 +39,8 @@ public class AggregatedRssFeedProducer {
     @VisibleForTesting
     static final String FEED_TYPE = "atom_1.0";
     static final String RSS_CACHE = "Aggregated RSS feed cache";
+
+    private static final String UTM_MEDIUM = "RSS";
 
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
@@ -70,7 +73,7 @@ public class AggregatedRssFeedProducer {
     private SyndEntry toRssEntry(BlogPost post) {
         final SyndEntry rssEntry = new SyndEntryImpl();
         rssEntry.setTitle(post.getTitle());
-        rssEntry.setLink(post.getUrl());
+        rssEntry.setLink(addUtmComponents(post.getUrl()));
         rssEntry.setAuthor(post.getBlog().getAuthor());
         rssEntry.setPublishedDate(toDate(post.getPublishedDate()));
 
@@ -83,4 +86,15 @@ public class AggregatedRssFeedProducer {
 
         return rssEntry;
     }
+
+    private String addUtmComponents(String url) {
+        final String campaign = String.format("RSS@%s",
+                toDate(nowProvider.now()).toString().replace(" ", "-"));
+        return UriUtmComponentsBuilder.fromHttpUrl(url)
+                .withSource(UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE)
+                .withMedium(UTM_MEDIUM)
+                .withCampaign(campaign)
+                .build();
+    }
+
 }

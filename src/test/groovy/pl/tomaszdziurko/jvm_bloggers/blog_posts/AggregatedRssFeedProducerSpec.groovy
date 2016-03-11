@@ -1,30 +1,25 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts
 
-import akka.actor.ActorRef
-import akka.actor.ActorSystem
-import akka.actor.Props
-import akka.testkit.JavaTestKit
-import lombok.experimental.ExtensionMethod
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 import java.time.LocalDateTime
 
-import com.sun.syndication.feed.synd.SyndContent
-import com.sun.syndication.feed.synd.SyndEntry
-import com.sun.syndication.feed.synd.SyndFeed
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
 
+import com.sun.syndication.feed.synd.SyndFeed
+
 class AggregatedRssFeedProducerSpec extends Specification {
 
+    def EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS@"
     def DESCRIPTION = "description"
     def TITLE = "title"
-    def URL = "url"
+    def URL = "http://blogPostUrl"
     def AUTHOR = "author"
     def DATE = new NowProvider().now()
 
@@ -44,28 +39,30 @@ class AggregatedRssFeedProducerSpec extends Specification {
         when:
             SyndFeed feed = rssProducer.getRss()
         then:
+            def date = toDate(DATE)
+            def campaignDate = date.toString().replace(" ", "-")
             feed.feedType == AggregatedRssFeedProducer.FEED_TYPE
             feed.title == AggregatedRssFeedProducer.FEED_TITLE
             feed.title == AggregatedRssFeedProducer.FEED_TITLE
             feed.description == AggregatedRssFeedProducer.FEED_DESCRIPTION
-            feed.publishedDate == DateTimeUtilities.toDate(DATE)
+            feed.publishedDate == date
             feed.entries.size() == 2
         and:
             with (feed.entries[0]) {
-                link == URL
+                link == URL + EXPECTED_UTM_SUBSTRING + campaignDate
                 title == TITLE
                 author == AUTHOR
                 description.value == DESCRIPTION
-                publishedDate == DateTimeUtilities.toDate(DATE)
+                publishedDate == date
                 author == AUTHOR
             }
         and:
             with (feed.entries[1]) {
-                link == URL
+                link == URL + EXPECTED_UTM_SUBSTRING + campaignDate
                 title == TITLE
                 author == AUTHOR
                 description == null
-                publishedDate == DateTimeUtilities.toDate(DATE)
+                publishedDate == date
                 author == AUTHOR
             }
 

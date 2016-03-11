@@ -1,17 +1,17 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
+import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
+import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
+
 import com.google.common.base.Preconditions;
 import lombok.Getter;
-import org.springframework.web.util.UriComponentsBuilder;
-import pl.tomaszdziurko.jvm_bloggers.UTMParameters;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 
 @Getter
 class BlogPostForMailItem {
     
-    private static final String UTM_SOURCE = "jvm-bloggers.com";
-    private static final String UTM_CAMPAING = "jvm-bloggers";
     private static final String UTM_MEDIUM = "newsletter";
     
     private String title;
@@ -54,31 +54,17 @@ class BlogPostForMailItem {
             return this;
         }
         
-        public Builder withUrlParameter(String name, String value) {
-            Preconditions.checkState(
-                instance.url != null,
-                "Url could not be null. Please set url first"
-            );
-            
-            instance.url = UriComponentsBuilder
-                .fromHttpUrl(instance.url)
-                .queryParam(name, value)
-                .build().toString();
-            
-            return this;
-        }
-        
         public Builder withDefaultUTMParameters() {
             Preconditions.checkState(
                 instance.issueNumber != null,
                 "Could not set default UTM parameters. Missing issueNumber."
             );
             
-            withUrlParameter(UTMParameters.UTM_SOURCE_KEY, UTM_SOURCE);
-            withUrlParameter(UTMParameters.UTM_MEDIUM_KEY, UTM_MEDIUM);
-            withUrlParameter(UTMParameters.UTM_CAMPAIGN_KEY,
-                String.format("%s#%s", UTM_CAMPAING, instance.issueNumber)
-            );
+            instance.url = UriUtmComponentsBuilder.fromHttpUrl(instance.url)
+                .withSource(DEFAULT_UTM_SOURCE)
+                .withMedium(UTM_MEDIUM)
+                .withCampaign(String.format("%s#%s", DEFAULT_UTM_CAMPAING, instance.issueNumber))
+                .build();
             
             return this;
         }
