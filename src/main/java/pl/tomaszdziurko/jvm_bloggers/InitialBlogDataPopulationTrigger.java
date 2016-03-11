@@ -3,6 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
  *
  */
 @Component
+@Profile("!test")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class InitialBlogDataPopulationTrigger {
