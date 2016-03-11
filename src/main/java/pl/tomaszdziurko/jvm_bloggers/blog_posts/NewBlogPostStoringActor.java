@@ -9,7 +9,6 @@ import akka.japi.pf.ReceiveBuilder;
 import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 
-import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
@@ -20,7 +19,6 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
-@ExtensionMethod({DateTimeUtilities.class, StringUtils.class})
 public class NewBlogPostStoringActor extends AbstractActor {
 
     public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
@@ -41,7 +39,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
         return BlogPost.builder()
                 .title(postInRss.getTitle())
                 .url(postInRss.getLink())
-                .publishedDate(dateToStore.convertDateToLocalDateTime())
+                .publishedDate(DateTimeUtilities.convertDateToLocalDateTime(dateToStore))
                 .approved(rssEntry.getBlog().getDefaultApprovedValue())
                 .blog(rssEntry.getBlog())
                 .build();
@@ -49,7 +47,8 @@ public class NewBlogPostStoringActor extends AbstractActor {
 
     private void updateDescription(BlogPost blogPost, SyndContent descriptionContent) {
         if (descriptionContent != null) {
-            final String description = descriptionContent.getValue().abbreviate(BlogPost.MAX_DESCRIPTION_LENGTH);
+            String description = descriptionContent.getValue();
+            description = StringUtils.abbreviate(description, BlogPost.MAX_DESCRIPTION_LENGTH);
             blogPost.setDescription(description);
         }
     }
