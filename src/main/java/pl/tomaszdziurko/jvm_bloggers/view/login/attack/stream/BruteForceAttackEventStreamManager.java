@@ -11,7 +11,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent;
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator;
 import rx.Observable;
 import rx.Scheduler;
-import rx.internal.operators.UnicastSubject;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 
@@ -28,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class BruteForceAttackEventStreamFactory {
+public class BruteForceAttackEventStreamManager {
 
     @VisibleForTesting
     public static final int MAILING_TIME_THROTTLE_IN_MINUTES = 1;
@@ -49,8 +48,9 @@ public class BruteForceAttackEventStreamFactory {
      * Builds and event stream which will emit items on predefined sampling time, event is mapped to Tuple and published to subscribers.
      * <ul>
      * <li>Please note that we are using a map of streams here to have dedicated streams per IP address.</li>
-     * <li>Please note that onBackpressureLatest() seems to be redundant here but it is left only for case when our subscriber will consume slower than we produce.
-     * Potentially from stream point of view I can reason about subscribers and their behaviors. Still not convinced? Consider it as a safe check ;)</li>
+     * <li>Please note that onBackpressureLatest() seems to be redundant here but it is left only for case when our
+     * subscriber will consume slower than we produce. Potentially from stream point of view I can reason about
+     * subscribers and their behaviors. Still not convinced? Consider it as a safe check ;)</li>
      * </ul>
      *
      * @param clientAddress An IP address of the user that tries to attack us :)
@@ -58,27 +58,27 @@ public class BruteForceAttackEventStreamFactory {
      */
     public BruteForceAttackEventStream build(final String clientAddress) {
         return streamMap.computeIfAbsent(clientAddress, key -> {
-            final PublishSubject<BruteForceAttackEvent> subject = PublishSubject.create();
-            final Observable<Pair<String, String>> observable = subject.sample(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES, scheduler)
-                    .map(this::buildTuple)
-                    .observeOn(Schedulers.io())
-                    .onBackpressureLatest();
-            final BruteForceAttackEventStream stream = new BruteForceAttackEventStream(subject, observable);
-            stream.subscribe(new BruteForceLoginAttackMailSubscriber(mailSender));
-            return stream;
-        });
+                final PublishSubject<BruteForceAttackEvent> subject = PublishSubject.create();
+                final Observable<Pair<String, String>> observable = subject.sample(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES, scheduler)
+                        .map(this::buildTuple)
+                        .observeOn(Schedulers.io())
+                        .onBackpressureLatest();
+                final BruteForceAttackEventStream stream = new BruteForceAttackEventStream(subject, observable);
+                stream.subscribe(new BruteForceLoginAttackMailSubscriber(mailSender));
+                return stream;
+            });
     }
 
     @PreDestroy
     public void destroy() {
         streamMap.forEach((ipAddress, stream) -> {
-            stream.terminate();
-            log.debug("Terminated stream for ipAddress={}", ipAddress);
-        });
+                stream.terminate();
+                log.debug("Terminated stream for ipAddress={}", ipAddress);
+            });
         streamMap.clear();
     }
 
-    private final Pair<String, String> buildTuple(final BruteForceAttackEvent event) {
+    private Pair<String, String> buildTuple(final BruteForceAttackEvent event) {
         final String mailContent = bruteForceAttackMailGenerator.prepareMailContent(event);
         log.debug("Mail content\n{}", mailContent);
 

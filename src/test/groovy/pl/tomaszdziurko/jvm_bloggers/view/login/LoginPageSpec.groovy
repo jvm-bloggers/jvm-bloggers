@@ -9,13 +9,13 @@ import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailPostAction
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
-import pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamFactory
+import pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamManager
 import rx.schedulers.TestScheduler
 
 import java.lang.Void as Should
 import java.util.concurrent.TimeUnit
 
-import static pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamFactory.MAILING_TIME_THROTTLE_IN_MINUTES
+import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
 
 class LoginPageSpec extends SpringContextAwareSpecification {
 

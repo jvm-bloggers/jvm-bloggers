@@ -14,15 +14,15 @@ import rx.schedulers.TestScheduler;
 @Configuration
 public class StreamConfiguration {
 
-   @Bean
-   @Profile({"!test"})
-   public Scheduler scheduler() {
-      return Schedulers.computation();
-   }
+    @Bean
+    @Profile({"!test"})
+    public Scheduler scheduler() {
+        return Schedulers.computation();
+    }
 
-   @Bean
-   @Profile({"test"})
-   public Scheduler testScheduler() {
-      return new TestScheduler();
-   }
+    @Bean
+    @Profile({"test"})
+    public Scheduler testScheduler() {
+        return new TestScheduler();
+    }
 }

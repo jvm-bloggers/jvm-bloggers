@@ -15,30 +15,30 @@ import rx.subjects.Subject;
  */
 public class BruteForceAttackEventStream {
 
-   private final Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject;
-   private final Observable<Pair<String, String>> observable;
+    private final Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject;
+    private final Observable<Pair<String, String>> observable;
 
-   public BruteForceAttackEventStream(Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject,
-                                      Observable<Pair<String, String>> observable) {
-      this.subject = subject;
-      this.observable = observable;
-   }
+    public BruteForceAttackEventStream(Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject,
+                                       Observable<Pair<String, String>> observable) {
+        this.subject = subject;
+        this.observable = observable;
+    }
 
-   public void publish(BruteForceAttackEvent event) {
-      if (subject.hasObservers()) {
-         subject.onNext(event);
-      }
-   }
+    public void publish(BruteForceAttackEvent event) {
+        if (subject.hasObservers()) {
+            subject.onNext(event);
+        }
+    }
 
-   public Subscription subscribe(Observer<Pair<String, String>> observer) {
-      return observable.subscribe(observer);
-   }
+    public Subscription subscribe(Observer<Pair<String, String>> observer) {
+        return observable.subscribe(observer);
+    }
 
-   public void terminate() {
-      subject.onCompleted();
-   }
+    public void terminate() {
+        subject.onCompleted();
+    }
 
-   public boolean isTerminated() {
-       return !subject.hasObservers();
-   }
+    public boolean isTerminated() {
+        return !subject.hasObservers();
+    }
 }

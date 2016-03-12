@@ -1,11 +1,8 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.util.ReflectionTestUtils
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailPostAction
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
-import pl.tomaszdziurko.jvm_bloggers.mailing.MailPostAction
-import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator
 import rx.Scheduler
@@ -14,18 +11,18 @@ import spock.lang.Specification
 import java.lang.Void as Should
 import java.util.concurrent.TimeUnit
 
-import static pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamFactory.MAILING_TIME_THROTTLE_IN_MINUTES
+import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
 
 /**
  * @author Adam Dec
  * @since 0.7.0
  */
-class BruteForceAttackEventStreamFactorySpec extends Specification {
+class BruteForceAttackEventStreamManagerSpec extends Specification {
 
     LogMailSender mailSender;
     LogMailPostAction logMailPostAction;
     Scheduler scheduler;
-    BruteForceAttackEventStreamFactory factory;
+    BruteForceAttackEventStreamManager factory;
 
     def setup() {
         logMailPostAction = new LogMailPostAction();
@@ -36,7 +33,7 @@ class BruteForceAttackEventStreamFactorySpec extends Specification {
         scheduler = new TestScheduler()
 
         // Close your eyes! :D
-        factory = new BruteForceAttackEventStreamFactory()
+        factory = new BruteForceAttackEventStreamManager()
         ReflectionTestUtils.setField(factory, "mailSender", mailSender)
         ReflectionTestUtils.setField(factory, "bruteForceAttackMailGenerator", bruteForceAttackMailGenerator)
         ReflectionTestUtils.setField(factory, "scheduler", scheduler)

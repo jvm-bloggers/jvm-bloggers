@@ -10,20 +10,20 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogMailSender implements MailSender {
 
-   private final MailPostAction mailPostAction;
+    private final MailPostAction mailPostAction;
 
-   @Autowired
-   public LogMailSender(MailPostAction mailPostAction) {
-      this.mailPostAction = mailPostAction;
-   }
+    @Autowired
+    public LogMailSender(MailPostAction mailPostAction) {
+        this.mailPostAction = mailPostAction;
+    }
 
-   @Override
-   public void sendEmail(String recipientAddress, String subject, String htmlContent) {
-      log.debug("Sending email to '{}'\nSubject: {}\n{}", recipientAddress, subject, htmlContent);
-      mailPostAction.postAction();
-   }
+    @Override
+    public void sendEmail(String recipientAddress, String subject, String htmlContent) {
+        log.debug("Sending email to '{}'\nSubject: {}\n{}", recipientAddress, subject, htmlContent);
+        mailPostAction.postAction();
+    }
 
-   public MailPostAction getMailPostAction() {
-      return mailPostAction;
-   }
+    public MailPostAction getMailPostAction() {
+        return mailPostAction;
+    }
 }

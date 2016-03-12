@@ -11,5 +11,5 @@ import lombok.Data;
 @Builder
 public class BruteForceAttackEvent {
 
-   private final String ipAddress;
+    private final String ipAddress;
 }
