@@ -8,6 +8,8 @@ import rx.Subscription;
 import rx.subjects.Subject;
 
 /**
+ * The main synchronization point between Subject, Observable & Subscriber.
+ *
  * @author Adam Dec
  * @since 0.7.0
  */
