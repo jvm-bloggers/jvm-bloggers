@@ -30,7 +30,6 @@ public class LoginPage extends WebPage {
    public static final String PASSWORD_FIELD_ID = "password";
    public static final String FORM_SUBMIT_ID = "submit";
 
-
    private String login;
    private String password;
 
@@ -47,19 +46,19 @@ public class LoginPage extends WebPage {
       StatelessForm<LoginPage> loginForm = new StatelessForm<LoginPage>(LOGIN_FORM_ID, new CompoundPropertyModel<>(this)) {
          @Override
          protected void onSubmit() {
-            String clientAddress = getClientAddress();
-            boolean bruteForceAttackDetected = bruteForceLoginAttackDetector.isItBruteForceAttack(clientAddress);
+            final String clientAddress = getClientAddress();
+            final boolean bruteForceAttackDetected = bruteForceLoginAttackDetector.isItBruteForceAttack(clientAddress);
             if (bruteForceAttackDetected) {
                error("Incorrect login or password [BruteForce attack was detected]");
                bruteForceAttackEventStreamFactory.build(clientAddress)
-                  .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
+                 .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
                return;
             }
             tryToLoginUser(clientAddress);
          }
 
          private void tryToLoginUser(String clientAddress) {
-            Roles roles = userAuthenticator.getRolesForUser(login, password);
+            final Roles roles = userAuthenticator.getRolesForUser(login, password);
             if (roles.hasRole(Roles.ADMIN)) {
                UserSession.get().loginAs(login, roles);
                if (RestartResponseAtInterceptPageException.getOriginalUrl() != null) {

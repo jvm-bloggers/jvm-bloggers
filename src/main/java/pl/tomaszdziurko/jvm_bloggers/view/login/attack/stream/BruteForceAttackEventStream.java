@@ -35,4 +35,8 @@ public class BruteForceAttackEventStream {
    public void terminate() {
       subject.onCompleted();
    }
+
+   public boolean isTerminated() {
+       return !subject.hasObservers();
+   }
 }
