@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
  * For field based DI say big "Thank You" to Apache Wicket ;)
  *
  * @author Adam Dec
- * @since 0.7.0
  */
 @Slf4j
 @Component

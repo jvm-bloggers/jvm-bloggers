@@ -1,7 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream
 
 import org.springframework.test.util.ReflectionTestUtils
-import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailPostAction
+import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator
@@ -15,17 +15,16 @@ import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTE
 
 /**
  * @author Adam Dec
- * @since 0.7.0
  */
 class BruteForceAttackEventStreamManagerSpec extends Specification {
 
     LogMailSender mailSender;
-    LogMailPostAction logMailPostAction;
+    LogMailSenderPostAction logMailPostAction;
     Scheduler scheduler;
     BruteForceAttackEventStreamManager factory;
 
     def setup() {
-        logMailPostAction = new LogMailPostAction();
+        logMailPostAction = new LogMailSenderPostAction();
         mailSender = new LogMailSender(logMailPostAction)
         BruteForceAttackMailGenerator bruteForceAttackMailGenerator = Mock(BruteForceAttackMailGenerator)
         bruteForceAttackMailGenerator.prepareMailContent(_) >> "A"
@@ -61,7 +60,7 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
         scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
 
         then:
-        mailSender.getMailPostAction().awaitAction();
+        mailSender.getLogMailSenderPostAction().awaitAction();
     }
 
     Should "Send an email only three times"() {
@@ -80,7 +79,7 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
         }
 
         then:
-        mailSender.getMailPostAction().awaitAction()
+        mailSender.getLogMailSenderPostAction().awaitAction()
     }
 
     Should "Terminate all streams on destroy"() {

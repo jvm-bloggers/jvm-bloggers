@@ -7,7 +7,6 @@ import rx.Subscriber;
 
 /**
  * @author Adam Dec
- * @since 0.7.0
  */
 @Slf4j
 public class BruteForceLoginAttackMailSubscriber extends Subscriber<Pair<String, String>> {

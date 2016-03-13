@@ -6,7 +6,7 @@ import org.apache.wicket.util.tester.WicketTester
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.util.ReflectionTestUtils
 import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
-import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailPostAction
+import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamManager
@@ -31,7 +31,7 @@ class LoginPageSpec extends SpringContextAwareSpecification {
     private TestScheduler scheduler;
 
     @Autowired
-    private LogMailPostAction logMailPostAction;
+    private LogMailSenderPostAction logMailPostAction;
 
     def setup() {
         // This is a workaround for problems with Spring Boot and WicketTester
@@ -102,7 +102,7 @@ class LoginPageSpec extends SpringContextAwareSpecification {
         then:
         tester.assertErrorMessages("Incorrect login or password [BruteForce attack was detected]")
         tester.assertRenderedPage(LoginPage.class)
-        logMailSender.getMailPostAction().awaitAction();
+        logMailSender.getLogMailSenderPostAction().awaitAction();
         scheduler.triggerActions()
     }
 }

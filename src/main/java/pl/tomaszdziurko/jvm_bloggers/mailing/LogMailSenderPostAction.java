@@ -10,13 +10,12 @@ import java.util.concurrent.CountDownLatch;
  * The main purpose of this class is to act as synchronisation barrier between multiple threads. <br/>
  * The very perfect usage for that is when emails was sent and we want to know how many.
  *
- * @see pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
  * @author Adam Dec
- * @since 0.7.0
+ * @see pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
  */
 @Component
 @Profile({"dev", "test"})
-public class LogMailPostAction implements MailPostAction {
+public class LogMailSenderPostAction {
 
     private CountDownLatch countDownLatch;
 
@@ -24,12 +23,10 @@ public class LogMailPostAction implements MailPostAction {
         this.countDownLatch = new CountDownLatch(actionCount);
     }
 
-    @Override
     public void postAction() {
         countDownLatch.countDown();
     }
 
-    @Override
     public void awaitAction() {
         try {
             countDownLatch.await();

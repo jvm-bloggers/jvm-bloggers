@@ -12,7 +12,6 @@ import java.lang.Void as Should
 
 /**
  * @author Adam Dec
- * @since 0.7.0
  */
 class BruteForceAttackEventStreamSpec extends Specification {
 

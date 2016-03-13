@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LogMailSender implements MailSender {
 
-    private final MailPostAction mailPostAction;
+    private final LogMailSenderPostAction logMailSenderPostAction;
 
     @Override
     public void sendEmail(String recipientAddress, String subject, String htmlContent) {
         log.debug("Sending email to '{}'\nSubject: {}\n{}", recipientAddress, subject, htmlContent);
-        mailPostAction.postAction();
+        logMailSenderPostAction.postAction();
     }
 }

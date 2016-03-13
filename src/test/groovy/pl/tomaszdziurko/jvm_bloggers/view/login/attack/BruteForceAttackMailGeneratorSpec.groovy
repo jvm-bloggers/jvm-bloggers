@@ -9,7 +9,6 @@ import java.time.Month
 
 /**
  * @author Adam Dec
- * @since 0.7.0
  */
 class BruteForceAttackMailGeneratorSpec extends Specification {
 

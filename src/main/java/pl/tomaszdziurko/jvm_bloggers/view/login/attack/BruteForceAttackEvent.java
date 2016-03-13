@@ -5,7 +5,6 @@ import lombok.Data;
 
 /**
  * @author Adam Dec
- * @since 0.7.0
  */
 @Data
 @Builder
