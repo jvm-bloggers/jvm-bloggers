@@ -8,7 +8,7 @@ public class RssLink {
     private final Blog blog;
 
     public RssLink(Blog blog) {
-        Preconditions.checkArgument(blog != null, "Person can not be bull");
+        Preconditions.checkArgument(blog != null, "Person can not be null");
         Preconditions.checkArgument(blog.getRss() != null, "Rss link can not be null");
         this.blog = blog;
     }

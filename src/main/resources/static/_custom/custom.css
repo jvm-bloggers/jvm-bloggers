@@ -45,3 +45,9 @@
 .feedbackPanelERROR hr {
     border-top-color: #e4b9c0;
 }
+
+/* Highlighted blog post row styling */
+
+tr.highlighted-post > td:first-child > span {
+    font-weight: bold;
+}
