@@ -109,7 +109,7 @@
         <module name="CatchParameterName">
             <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
             <message key="name.invalidPattern"
-                     value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
+                     value="Catch parameter name ''{0}'' must match pattern ''{1}''. I can''t be a simple ''e''"/>
         </module>
         <module name="LocalVariableName">
             <property name="tokens" value="VARIABLE_DEF"/>
@@ -160,7 +160,7 @@
         <module name="VariableDeclarationUsageDistance"/>
         <module name="CustomImportOrder">
             <property name="sortImportsInGroupAlphabetically" value="true"/>
-            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"/>
+            <property name="customImportOrderRules" value="THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###STATIC"/>
         </module>
         <module name="MethodParamPad"/>
         <module name="OperatorWrap">
