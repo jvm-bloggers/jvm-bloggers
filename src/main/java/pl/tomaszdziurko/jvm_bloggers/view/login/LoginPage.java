@@ -75,7 +75,7 @@ public class LoginPage extends WebPage {
 
         CustomFeedbackPanel feedbackPanel = new CustomFeedbackPanel("feedbackPanel");
         loginForm.add(feedbackPanel);
-        RequiredTextField loginField = new RequiredTextField(LOGIN_FIELD_ID);
+        RequiredTextField<String> loginField = new RequiredTextField(LOGIN_FIELD_ID);
         loginForm.add(loginField);
         PasswordTextField passwordField = new PasswordTextField(PASSWORD_FIELD_ID);
         loginForm.add(passwordField);
