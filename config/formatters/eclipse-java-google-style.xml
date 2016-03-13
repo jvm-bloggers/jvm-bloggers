@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
 <!--
 
 File downloaded from https://github.com/google/styleguide/blob/gh-pages/eclipse-java-google-style.xml
 
 -->
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <profiles version="13">
     <profile kind="CodeFormatterProfile" name="GoogleStyle" version="13">
         <setting id="org.eclipse.jdt.core.formatter.comment.insert_new_line_before_root_tags" value="insert"/>
