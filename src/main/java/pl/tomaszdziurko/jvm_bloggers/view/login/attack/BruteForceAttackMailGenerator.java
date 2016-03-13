@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
 
 import com.google.common.base.Preconditions;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BruteForceAttackMailGenerator {
 
     private static final String TIME = "Time";
@@ -24,11 +26,6 @@ public class BruteForceAttackMailGenerator {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     private final NowProvider nowProvider;
-
-    @Autowired
-    public BruteForceAttackMailGenerator(NowProvider nowProvider) {
-        this.nowProvider = nowProvider;
-    }
 
     public String prepareMailContent(BruteForceAttackEvent bruteForceAttackEvent) {
         Preconditions.checkNotNull(bruteForceAttackEvent, "BruteForceAttackEvent can not be null");
