@@ -70,6 +70,10 @@ public class BlogPost {
         return Boolean.FALSE.equals(approved);
     }
 
+    public boolean isNotModerated() {
+        return approved == null;
+    }
+
     public String getApprovalState() {
         if (approved == null) {
             return " -- ";
