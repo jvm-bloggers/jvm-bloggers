@@ -45,6 +45,9 @@ public class Blog {
     @Enumerated(value = EnumType.STRING)
     private BlogType blogType;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active;
+
     public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType blogType) {
         this.jsonId = jsonId;
         this.author = author;
@@ -52,6 +55,7 @@ public class Blog {
         this.twitter = twitter;
         this.dateAdded = dateAdded;
         this.blogType = blogType;
+        this.active = true;
     }
 
     public boolean isPersonal() {
