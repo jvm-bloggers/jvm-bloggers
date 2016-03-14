@@ -23,10 +23,8 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
     Should "Should request 1 element from emitter on start"() {
         given:
             Observable<Pair<String, String>> observable = Observable.from(new ImmutablePair<String, String>("A", "B"))
-
         when:
             observable.subscribe(subscriber)
-
         then:
             1 * mailSender.sendEmail(_, _, _)
     }
@@ -34,10 +32,8 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
     Should "Should get 2nd element from emitter on next"() {
         given:
             Observable<Pair<String, String>> observable = Observable.from([new ImmutablePair<String, String>("A", "B"), new ImmutablePair<String, String>("C", "D")])
-
         when:
             observable.subscribe(subscriber)
-
         then:
             2 * mailSender.sendEmail(_, _, _)
     }
@@ -47,10 +43,8 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
             Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B")).map({
                 throw new RuntimeException();
             });
-
         when:
             observable.subscribe(subscriber)
-
         then:
             0 * mailSender.sendEmail(_, _, _)
     }
@@ -58,10 +52,8 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
     Should "Should unsubscribe when Observable calls onCompleted"() {
         given:
             Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B"));
-
         when:
             observable.subscribe(subscriber)
-
         then:
             subscriber.isUnsubscribed()
     }
