@@ -5,7 +5,6 @@ import org.apache.commons.lang3.tuple.Pair
 import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender
 import rx.Observable
 import spock.lang.Specification
-import java.lang.Void as Should
 
 /**
  * @author Adam Dec
@@ -20,7 +19,7 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
         subscriber = new BruteForceLoginAttackMailSubscriber(mailSender, "admin@pjug.pl")
     }
 
-    Should "Should request 1 element from emitter on start"() {
+    def "Should request 1 element from emitter on start"() {
         given:
             Observable<Pair<String, String>> observable = Observable.from(new ImmutablePair<String, String>("A", "B"))
         when:
@@ -29,7 +28,7 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
             1 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Should get 2nd element from emitter on next"() {
+    def "Should get 2nd element from emitter on next"() {
         given:
             Observable<Pair<String, String>> observable = Observable.from([new ImmutablePair<String, String>("A", "B"), new ImmutablePair<String, String>("C", "D")])
         when:
@@ -38,7 +37,7 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
             2 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Should log when exception is thrown"() {
+    def "Should log when exception is thrown"() {
         given:
             Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B")).map({
                 throw new RuntimeException();
@@ -49,7 +48,7 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
             0 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Should unsubscribe when Observable calls onCompleted"() {
+    def "Should unsubscribe when Observable calls onCompleted"() {
         given:
             Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B"));
         when:

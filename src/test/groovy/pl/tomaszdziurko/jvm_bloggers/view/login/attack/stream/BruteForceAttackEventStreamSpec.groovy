@@ -3,12 +3,10 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream
 import org.apache.commons.lang3.tuple.Pair
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent
 import rx.Observable
-import rx.Observer
 import rx.observers.TestSubscriber
 import rx.subjects.Subject
 import spock.lang.Specification
 
-import java.lang.Void as Should
 
 /**
  * @author Adam Dec
@@ -26,7 +24,7 @@ class BruteForceAttackEventStreamSpec extends Specification {
         stream = new BruteForceAttackEventStream(subject, observable)
     }
 
-    Should "Should not publish BruteForceAttackEvent to observers"() {
+    def "Should not publish BruteForceAttackEvent to observers"() {
         given:
             subject.hasObservers() >> false
             BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
@@ -38,7 +36,7 @@ class BruteForceAttackEventStreamSpec extends Specification {
             0 * subject.onNext(_)
     }
 
-    Should "Should publish BruteForceAttackEvent to observers"() {
+    def "Should publish BruteForceAttackEvent to observers"() {
         given:
             subject.hasObservers() >> true
             BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
@@ -50,7 +48,7 @@ class BruteForceAttackEventStreamSpec extends Specification {
             1 * subject.onNext(_)
     }
 
-    Should "Should subscribe observer to observable"() {
+    def "Should subscribe observer to observable"() {
         given:
             TestSubscriber observer = new TestSubscriber()
 
@@ -61,7 +59,7 @@ class BruteForceAttackEventStreamSpec extends Specification {
             observer.assertCompleted()
     }
 
-    Should "Should terminate stream"() {
+    def "Should terminate stream"() {
         when:
             stream.terminate()
 
