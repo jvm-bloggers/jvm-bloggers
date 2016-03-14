@@ -14,10 +14,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "setting")
+@Table(name = "metadata")
 @Data
 @NoArgsConstructor
-public class Setting implements Serializable {
+public class Metadata implements Serializable {
 
     @Id
     @GeneratedValue(generator = "SETTING_SEQ", strategy = GenerationType.SEQUENCE)
@@ -30,7 +30,7 @@ public class Setting implements Serializable {
     @Column(name = "value", nullable = false, length = 2500)
     private String value;
 
-    public Setting(String name, String value) {
+    public Metadata(String name, String value) {
         this.name = name;
         this.value = value;
     }

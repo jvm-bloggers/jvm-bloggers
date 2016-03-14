@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.BlogSummaryMailGenerator;
 import pl.tomaszdziurko.jvm_bloggers.mailing.IssueNumberRetriever;
 import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender;
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.settings.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
@@ -18,7 +18,7 @@ public class MailingPageRequestHandler {
     private MailSender mailSender;
     private BlogSummaryMailGenerator blogSummaryMailGenerator;
     private NowProvider nowProvider;
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
     private IssueNumberRetriever issueNumberRetriever;
 
     public MailingPageRequestHandler() {
@@ -27,12 +27,12 @@ public class MailingPageRequestHandler {
     @Autowired
     public MailingPageRequestHandler(BlogSummaryMailGenerator blogSummaryMailGenerator,
                                      MailSender mailSender,
-                                     SettingRepository settingRepository,
+                                     MetadataRepository metadataRepository,
                                      IssueNumberRetriever issueNumberRetriever,
                                      NowProvider nowProvider) {
         this.blogSummaryMailGenerator = blogSummaryMailGenerator;
         this.mailSender = mailSender;
-        this.settingRepository = settingRepository;
+        this.metadataRepository = metadataRepository;
         this.issueNumberRetriever = issueNumberRetriever;
         
         this.nowProvider = nowProvider;
@@ -43,13 +43,14 @@ public class MailingPageRequestHandler {
         String mailContent = blogSummaryMailGenerator.prepareMailContent(
             daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
         );
-        Setting testMailAddress = settingRepository.findByName(SettingKeys.ADMIN_EMAIL.toString());
+        Metadata testMailAddress = metadataRepository
+                .findByName(MetadataKeys.TEST_EMAIL.toString());
         mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
         return testMailAddress.getValue();
     }
 
     public String loadDefaultMailingTemplate() {
-        return settingRepository
-            .findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
+        return metadataRepository
+                .findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
     }
 }

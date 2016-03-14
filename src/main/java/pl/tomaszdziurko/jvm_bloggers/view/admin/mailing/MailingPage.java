@@ -14,8 +14,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 
@@ -27,7 +27,8 @@ public class MailingPage extends AbstractAdminPage {
     private final CustomFeedbackPanel feedback;
     private final WysiwygEditor editor;
     @SpringBean
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
+
     @SpringBean
     private MailingPageRequestHandler requestHandler;
 
@@ -35,8 +36,8 @@ public class MailingPage extends AbstractAdminPage {
         feedback = new CustomFeedbackPanel("feedback");
         add(feedback);
 
-        Form<Setting> mailingTemplateForm = new Form<>("mailingTemplateForm",
-            new MailingTemplateModel(settingRepository));
+        Form<Metadata> mailingTemplateForm = new Form<>("mailingTemplateForm",
+                new MailingTemplateModel(metadataRepository));
         mailingTemplateForm.setOutputMarkupId(true);
         add(mailingTemplateForm);
 
@@ -49,9 +50,9 @@ public class MailingPage extends AbstractAdminPage {
         AjaxButton saveButton = new AjaxButton("saveButton", mailingTemplateForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                Setting setting = (Setting) form.getModelObject();
-                log.info("value = " + setting.getValue());
-                settingRepository.save(setting);
+                Metadata metadata = (Metadata) form.getModelObject();
+                log.info("value = " + metadata.getValue());
+                metadataRepository.save(metadata);
                 success("Mail template saved successfully");
                 target.add(feedback);
             }
@@ -64,26 +65,25 @@ public class MailingPage extends AbstractAdminPage {
         addSendTestMailButton(mailingTemplateForm);
     }
 
-    private void addResetTemplateButton(Form<Setting> mailingTemplateForm) {
+    private void addResetTemplateButton(Form<Metadata> mailingTemplateForm) {
         AjaxButton resetTemplateButton =
-            new AjaxButton("resetMailingTemplateButton", mailingTemplateForm) {
-                @Override
-                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                    String defaultMailingTemplate = requestHandler.loadDefaultMailingTemplate();
-                    Setting
-                        mailingTemplate =
-                        (Setting) mailingTemplateForm.getDefaultModel().getObject();
-                    mailingTemplate.setValue(defaultMailingTemplate);
-                    warn("Mailing template reset to default value. To persist changes please click "
+                new AjaxButton("resetMailingTemplateButton", mailingTemplateForm) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                String defaultMailingTemplate = requestHandler.loadDefaultMailingTemplate();
+                Metadata mailingTemplate =
+                        (Metadata) mailingTemplateForm.getDefaultModel().getObject();
+                mailingTemplate.setValue(defaultMailingTemplate);
+                warn("Mailing template reset to default value. To persist changes please click "
                         + "'Save' button");
-                    target.add(feedback);
-                    target.add(editor);
-                }
-            };
+                target.add(feedback);
+                target.add(editor);
+            }
+        };
         mailingTemplateForm.add(resetTemplateButton);
     }
 
-    private void addPreviewTemplateModal(final Form<Setting> mailingTemplateForm) {
+    private void addPreviewTemplateModal(final Form<Metadata> mailingTemplateForm) {
         ModalWindow mailingPreviewModalWindow = new ModalWindow("mailingPreviewModal");
         mailingTemplateForm.add(mailingPreviewModalWindow);
 
@@ -101,7 +101,7 @@ public class MailingPage extends AbstractAdminPage {
         mailingTemplateForm.add(previewButton);
     }
 
-    private void addSendTestMailButton(Form<Setting> mailingTemplateForm) {
+    private void addSendTestMailButton(Form<Metadata> mailingTemplateForm) {
         AjaxButton sendTestMailButton = new AjaxButton("sendTestMailButton", mailingTemplateForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

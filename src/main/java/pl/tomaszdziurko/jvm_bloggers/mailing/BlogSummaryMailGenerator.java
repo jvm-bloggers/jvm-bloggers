@@ -16,9 +16,9 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.settings.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
@@ -36,7 +36,7 @@ public class BlogSummaryMailGenerator {
 
     private BlogRepository blogRepository;
     private BlogPostRepository blogPostRepository;
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
     private NowProvider nowProvider;
     private SyndFeedProducer syndFeedFactory;
 
@@ -49,12 +49,12 @@ public class BlogSummaryMailGenerator {
     @Autowired
     public BlogSummaryMailGenerator(BlogRepository blogRepository,
                                     BlogPostRepository blogPostRepository,
-                                    SettingRepository settingRepository,
+                                    MetadataRepository metadataRepository,
                                     NowProvider nowProvider,
                                     SyndFeedProducer syndFeedFactory) {
         this.blogRepository = blogRepository;
         this.blogPostRepository = blogPostRepository;
-        this.settingRepository = settingRepository;
+        this.metadataRepository = metadataRepository;
         this.nowProvider = nowProvider;
         this.syndFeedFactory = syndFeedFactory;
     }
@@ -82,9 +82,9 @@ public class BlogSummaryMailGenerator {
         List<BlogPost> newPostsfromCompanies =
             newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
 
-        Setting mailingTemplate = settingRepository
-            .findByName(SettingKeys.MAILING_TEMPLATE.toString());
-        String templateContent = mailingTemplate.getValue();
+        Metadata mailingTemplate = metadataRepository
+                .findByName(MetadataKeys.MAILING_TEMPLATE.toString());
+        String templateContent =  mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
