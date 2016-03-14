@@ -16,8 +16,8 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 public class BloggersDataFetchingScheduler {
 
     private final BloggersDataFetcher bloggersDataFetcher;
-    private MetadataRepository metadataRepository;
-    private NowProvider nowProvider;
+    private final MetadataRepository metadataRepository;
+    private final NowProvider nowProvider;
 
     @Autowired
     public BloggersDataFetchingScheduler(BloggersDataFetcher bloggersDataFetcher,

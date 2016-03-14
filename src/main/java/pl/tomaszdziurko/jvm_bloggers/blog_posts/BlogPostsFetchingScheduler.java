@@ -16,8 +16,8 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 public class BlogPostsFetchingScheduler {
 
     private final BlogPostsFetcher blogPostsFetcher;
-    private MetadataRepository metadataRepository;
-    private NowProvider nowProvider;
+    private final MetadataRepository metadataRepository;
+    private final NowProvider nowProvider;
 
     @Autowired
     public BlogPostsFetchingScheduler(BlogPostsFetcher blogPostsFetcher,
