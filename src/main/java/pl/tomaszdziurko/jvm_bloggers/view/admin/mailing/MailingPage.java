@@ -13,9 +13,8 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 

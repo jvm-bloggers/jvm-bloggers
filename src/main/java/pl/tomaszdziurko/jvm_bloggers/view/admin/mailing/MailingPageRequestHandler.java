@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.BlogSummaryMailGenerator;
 import pl.tomaszdziurko.jvm_bloggers.mailing.IssueNumberRetriever;
 import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender;
-import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 

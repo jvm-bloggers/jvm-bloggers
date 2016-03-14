@@ -1,9 +1,9 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.mailing;
 
 import org.apache.wicket.model.LoadableDetachableModel;
-import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 
 class MailingTemplateModel extends LoadableDetachableModel<Metadata> {
 

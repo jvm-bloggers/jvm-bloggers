@@ -16,9 +16,9 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
-import pl.tomaszdziurko.jvm_bloggers.settings.Metadata;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.MetadataRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 

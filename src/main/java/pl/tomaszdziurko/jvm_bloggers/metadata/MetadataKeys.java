@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.settings;
+package pl.tomaszdziurko.jvm_bloggers.metadata;
 
 public enum MetadataKeys {
 
