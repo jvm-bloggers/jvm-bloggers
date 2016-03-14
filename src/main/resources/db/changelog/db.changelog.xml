@@ -182,4 +182,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="019-fix-not-needed-ADMIN_EMAIL-key-in-SETTING-table" author="Tomasz.Dziurko">
+        <sql>
+            delete from setting where name = 'ADMIN_EMAIL';
+        </sql>
+        <sql>
+            update setting set name = 'ADMIN_EMAIL' where name = 'TEST_EMAIL';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

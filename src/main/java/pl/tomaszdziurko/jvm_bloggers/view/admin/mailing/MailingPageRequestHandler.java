@@ -43,7 +43,7 @@ public class MailingPageRequestHandler {
         String mailContent = blogSummaryMailGenerator.prepareMailContent(
             daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
         );
-        Setting testMailAddress = settingRepository.findByName(SettingKeys.TEST_EMAIL.toString());
+        Setting testMailAddress = settingRepository.findByName(SettingKeys.ADMIN_EMAIL.toString());
         mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
         return testMailAddress.getValue();
     }
