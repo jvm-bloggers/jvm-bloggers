@@ -2,7 +2,9 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -22,8 +24,8 @@ public class BruteForceLoginAttackDetector {
 
     public BruteForceLoginAttackDetector(long duration, TimeUnit timeUnit) {
         invalidLoginAttemptsCounter = CacheBuilder
-                .newBuilder()
-                .expireAfterWrite(duration, timeUnit).build();
+            .newBuilder()
+            .expireAfterWrite(duration, timeUnit).build();
     }
 
     public synchronized void recordInvalidLoginAttempt(String clientAddress) {
@@ -38,7 +40,8 @@ public class BruteForceLoginAttackDetector {
 
     public synchronized boolean isItBruteForceAttack(String clientAddress) {
         Integer invalidLoginCounter = invalidLoginAttemptsCounter.getIfPresent(clientAddress);
-        boolean bruteForceAttackDetected = invalidLoginCounter != null && invalidLoginCounter >= MAX_INVALID_LOGIN_ATTEMPTS_PER_IP_ADDRESS;
+        boolean bruteForceAttackDetected = invalidLoginCounter != null
+            && invalidLoginCounter >= MAX_INVALID_LOGIN_ATTEMPTS_PER_IP_ADDRESS;
         if (bruteForceAttackDetected) {
             log.warn("Brute force attack detected from {}", clientAddress);
         }

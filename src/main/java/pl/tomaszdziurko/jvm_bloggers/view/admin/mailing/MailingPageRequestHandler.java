@@ -49,6 +49,7 @@ public class MailingPageRequestHandler {
     }
 
     public String loadDefaultMailingTemplate() {
-        return settingRepository.findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
+        return settingRepository
+            .findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
     }
 }

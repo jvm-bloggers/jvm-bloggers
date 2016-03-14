@@ -1,7 +1,9 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream;
 
 import org.apache.commons.lang3.tuple.Pair;
+
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -17,8 +19,9 @@ public class BruteForceAttackEventStream {
     private final Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject;
     private final Observable<Pair<String, String>> observable;
 
-    public BruteForceAttackEventStream(Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject,
-                                       Observable<Pair<String, String>> observable) {
+    public BruteForceAttackEventStream(
+        Subject<BruteForceAttackEvent, BruteForceAttackEvent> subject,
+        Observable<Pair<String, String>> observable) {
         this.subject = subject;
         this.observable = observable;
     }

@@ -14,7 +14,8 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     Optional<BlogPost> findByUrl(String url);
 
-    List<BlogPost> findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(LocalDateTime publishedDate);
+    List<BlogPost> findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(
+        LocalDateTime publishedDate);
 
     List<BlogPost> findByApprovedTrueOrderByPublishedDateDesc();
 

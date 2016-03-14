@@ -2,8 +2,10 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
@@ -46,7 +48,8 @@ public class BlogSummaryMailSender {
         }
 
         long issueNumber = issueNumberRetriever.getNextIssueNumber();
-        String mailContent = mailGenerator.prepareMailContent(numberOfDaysBackInThePast, issueNumber);
+        String mailContent = mailGenerator
+            .prepareMailContent(numberOfDaysBackInThePast, issueNumber);
         log.info("Mail content = \n" + mailContent);
         String issueTitle = prepareIssueTitle(issueNumber);
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
@@ -57,7 +60,8 @@ public class BlogSummaryMailSender {
     }
 
     private String prepareIssueTitle(long issueNumber) {
-        return MAIL_SUMMARY_TITLE_PREFIX + issueNumber + MAIL_SUMMARY_TITLE_POSTIFX + getTodayDateAsString();
+        return MAIL_SUMMARY_TITLE_PREFIX + issueNumber + MAIL_SUMMARY_TITLE_POSTIFX
+            + getTodayDateAsString();
     }
 
     private String getTodayDateAsString() {

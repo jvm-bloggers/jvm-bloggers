@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * The main purpose of this class is to act as synchronisation barrier between multiple threads. <br/>
+ * The main purpose of this class is to act as synchronisation barrier between
+ * multiple threads. <br/>
  * Example usage for that is when emails was sent and we want to know how many.
  *
  * @author Adam Dec
@@ -30,6 +31,7 @@ public class LogMailSenderPostAction {
         try {
             countDownLatch.await();
         } catch (InterruptedException ignored) {
+            // do nothing
         }
     }
 }

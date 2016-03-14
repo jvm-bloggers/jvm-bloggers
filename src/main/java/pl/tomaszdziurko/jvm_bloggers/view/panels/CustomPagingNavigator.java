@@ -10,7 +10,9 @@ public class CustomPagingNavigator extends PagingNavigator {
         super(id, pageable);
     }
 
-    public CustomPagingNavigator(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
+    public CustomPagingNavigator(String id, IPageable pageable,
+                                 IPagingLabelProvider labelProvider) {
         super(id, pageable, labelProvider);
     }
 }
+

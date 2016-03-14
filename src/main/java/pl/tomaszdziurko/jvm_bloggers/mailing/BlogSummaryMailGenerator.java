@@ -1,10 +1,13 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.sun.syndication.feed.synd.SyndFeed;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
@@ -34,7 +37,8 @@ public class BlogSummaryMailGenerator {
     private NowProvider nowProvider;
     private SyndFeedProducer syndFeedFactory;
 
-//    This constructor exists only to make Wicket @SpringBean work for Spring beans with constructor injection using @Autowired
+    // This constructor exists only to make Wicket @SpringBean work for Spring beans
+    // with constructor injection using @Autowired
     public BlogSummaryMailGenerator() {
 
     }
@@ -53,42 +57,55 @@ public class BlogSummaryMailGenerator {
     }
 
     public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
-        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast).withHour(11).withMinute(00).withSecond(0).withNano(0);
-        List<Blog> blogsAddedSinceLastNewsletter = blogRepository.findByDateAddedAfter(publishedDate);
-        List<BlogPost> newApprovedPosts = blogPostRepository.findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
+        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast)
+            .withHour(11)
+            .withMinute(0)
+            .withSecond(0).withNano(0);
+        List<Blog> blogsAddedSinceLastNewsletter =
+            blogRepository.findByDateAddedAfter(publishedDate);
+        List<BlogPost> newApprovedPosts = blogPostRepository
+                .findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
         if (newApprovedPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
-            log.warn("There are no new posts nor new blogs added for last {} days !!!", numberOfDaysBackInThePast);
+            log.warn("There are no new posts nor new blogs added for last {} days !!!",
+                numberOfDaysBackInThePast);
         }
 
-        Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts.stream().collect(Collectors.groupingBy(it -> it.getBlog().getBlogType()));
+        Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts
+            .stream()
+            .collect(Collectors.groupingBy(it -> it.getBlog().getBlogType()));
 
-        List<BlogPost> newPostsFromPersonalBlogs = newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
-        List<BlogPost> newPostsfromCompanies = newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
+        List<BlogPost> newPostsFromPersonalBlogs =
+            newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
+        List<BlogPost> newPostsfromCompanies =
+            newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
 
-        Setting mailingTemplate = settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
-        String templateContent =  mailingTemplate.getValue();
+        Setting mailingTemplate = settingRepository
+            .findByName(SettingKeys.MAILING_TEMPLATE.toString());
+        String templateContent = mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
-        template.setAttribute("newPostsFromCompanies", toMailItems(newPostsfromCompanies, issueNumber));
-        template.setAttribute("blogsWithHomePage", getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
+        template.setAttribute("newPostsFromCompanies",
+            toMailItems(newPostsfromCompanies, issueNumber));
+        template.setAttribute("blogsWithHomePage",
+            getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
         return template.toString();
     }
-    
+
     private List<BlogPostForMailItem> toMailItems(List<BlogPost> newPosts, long issueNumber) {
-        return newPosts.stream().map(blogPost -> 
+        return newPosts.stream().map(blogPost ->
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)
-                .withDefaultUTMParameters()
+                .withDefaultUtmParameters()
                 .build()
         ).collect(Collectors.toList());
     }
 
     private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
-                        Function.identity(),
-                        blog->getBlogHomepageFromRss(blog.getRss()))
+            Function.identity(),
+            blog -> getBlogHomepageFromRss(blog.getRss()))
         );
     }
 

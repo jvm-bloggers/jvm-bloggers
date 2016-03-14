@@ -3,6 +3,8 @@ package pl.tomaszdziurko.jvm_bloggers.blogs.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "blog")
@@ -45,7 +46,8 @@ public class Blog {
     @Enumerated(value = EnumType.STRING)
     private BlogType blogType;
 
-    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType blogType) {
+    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded,
+                BlogType blogType) {
         this.jsonId = jsonId;
         this.author = author;
         this.rss = rss;
