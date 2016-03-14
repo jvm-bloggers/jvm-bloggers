@@ -1,6 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
 
-import com.google.common.base.Preconditions;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.stringtemplate.StringTemplate;
@@ -26,18 +26,14 @@ public class BruteForceAttackMailGenerator {
 
     private final NowProvider nowProvider;
 
-    public String prepareMailContent(BruteForceAttackEvent bruteForceAttackEvent) {
-        Preconditions.checkNotNull(bruteForceAttackEvent, "BruteForceAttackEvent can not be null");
-
+    public String prepareMailContent(@NonNull BruteForceAttackEvent bruteForceAttackEvent) {
         final StringTemplate template = new StringTemplate(ATTACK_BRUTE_FORCE_MAIL_TEMPLATE);
         template.setAttribute(IP_ADDRESS, bruteForceAttackEvent.getIpAddress());
         template.setAttribute(TIME, nowProvider.now().format(FORMATTER));
         return template.toString();
     }
 
-    public String prepareMailTitle(BruteForceAttackEvent bruteForceAttackEvent) {
-        Preconditions.checkNotNull(bruteForceAttackEvent, "BruteForceAttackEvent can not be null");
-
+    public String prepareMailTitle(@NonNull BruteForceAttackEvent bruteForceAttackEvent) {
         final StringTemplate template = new StringTemplate(DEFAULT_EMAIL_TITLE);
         template.setAttribute(IP_ADDRESS, bruteForceAttackEvent.getIpAddress());
         return template.toString();

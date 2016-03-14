@@ -26,46 +26,46 @@ class BruteForceAttackEventStreamSpec extends Specification {
         stream = new BruteForceAttackEventStream(subject, observable)
     }
 
-    Should "Not publish BruteForceAttackEvent to observers"() {
+    Should "Should not publish BruteForceAttackEvent to observers"() {
         given:
-        subject.hasObservers() >> false
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
+            subject.hasObservers() >> false
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
 
         when:
-        stream.publish(event)
+            stream.publish(event)
 
         then:
-        0 * subject.onNext(_)
+            0 * subject.onNext(_)
     }
 
-    Should "Publish BruteForceAttackEvent to observers"() {
+    Should "Should publish BruteForceAttackEvent to observers"() {
         given:
-        subject.hasObservers() >> true
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
+            subject.hasObservers() >> true
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
 
         when:
-        stream.publish(event)
+            stream.publish(event)
 
         then:
-        1 * subject.onNext(_)
+            1 * subject.onNext(_)
     }
 
-    Should "Subscribe observer to observable"() {
+    Should "Should subscribe observer to observable"() {
         given:
-        TestSubscriber observer = new TestSubscriber()
+            TestSubscriber observer = new TestSubscriber()
 
         when:
-        stream.subscribe(observer)
+            stream.subscribe(observer)
 
         then:
-        observer.assertCompleted()
+            observer.assertCompleted()
     }
 
-    Should "Terminate stream"() {
+    Should "Should terminate stream"() {
         when:
-        stream.terminate()
+            stream.terminate()
 
         then:
-        1 * subject.onCompleted()
+            1 * subject.onCompleted()
     }
 }

@@ -3,7 +3,6 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
-import java.lang.Void as Should
 import java.time.LocalDateTime
 import java.time.Month
 
@@ -21,93 +20,93 @@ class BruteForceAttackMailGeneratorSpec extends Specification {
         bruteForceAttackMailGenerator = new BruteForceAttackMailGenerator(nowProvider)
     }
 
-    Should "Not prepare mail content due to null BruteForceAttackEvent"() {
+    def "Should not prepare mail content due to null BruteForceAttackEvent"() {
         given:
-        BruteForceAttackEvent event = null;
+            BruteForceAttackEvent event = null;
 
         when:
-        bruteForceAttackMailGenerator.prepareMailContent(event)
+            bruteForceAttackMailGenerator.prepareMailContent(event)
 
         then:
-        NullPointerException ex = thrown()
-        ex.message.equals("BruteForceAttackEvent can not be null")
+            NullPointerException ex = thrown()
+            ex.message.equals("bruteForceAttackEvent")
     }
 
-    Should "Prepare mail content with null IP address"() {
+    def "Should prepare mail content with null IP address"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress(null).build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress(null).build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailContent(event)
+            String content = bruteForceAttackMailGenerator.prepareMailContent(event)
 
         then:
-        content.equals("Brute Force attack detected from IP:  at 12:00:00")
+            content.equals("Brute Force attack detected from IP:  at 12:00:00")
     }
 
-    Should "Prepare mail content with blank IP address"() {
+    def "Should prepare mail content with blank IP address"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("").build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("").build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailContent(event)
+            String content = bruteForceAttackMailGenerator.prepareMailContent(event)
 
         then:
-        content.equals("Brute Force attack detected from IP:  at 12:00:00")
+            content.equals("Brute Force attack detected from IP:  at 12:00:00")
     }
 
-    Should "Prepare mail content"() {
+    def "Should prepare mail content"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailContent(event)
+            String content = bruteForceAttackMailGenerator.prepareMailContent(event)
 
         then:
-        content.equals("Brute Force attack detected from IP: 127.0.0.1 at 12:00:00")
+            content.equals("Brute Force attack detected from IP: 127.0.0.1 at 12:00:00")
     }
 
-    Should "Not prepare mail title due to null BruteForceAttackEvent"() {
+    def "Should not prepare mail title due to null BruteForceAttackEvent"() {
         given:
-        BruteForceAttackEvent event = null
+            BruteForceAttackEvent event = null
 
         when:
-        bruteForceAttackMailGenerator.prepareMailTitle(event)
+            bruteForceAttackMailGenerator.prepareMailTitle(event)
 
         then:
-        NullPointerException ex = thrown()
-        ex.message.equals("BruteForceAttackEvent can not be null")
+            NullPointerException ex = thrown()
+            ex.message.equals("bruteForceAttackEvent")
     }
 
-    Should "Prepare mail title with null IP address"() {
+    def "Should prepare mail title with null IP address"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress(null).build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress(null).build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
+            String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
 
         then:
-        content.equals("Brute force attack detected for ")
+            content.equals("Brute force attack detected for ")
     }
 
-    Should "Prepare mail title with blank IP address"() {
+    def "Should prepare mail title with blank IP address"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("").build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("").build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
+            String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
 
         then:
-        content.equals("Brute force attack detected for ")
+            content.equals("Brute force attack detected for ")
     }
 
-    Should "Prepare mail title"() {
+    def "Should prepare mail title"() {
         given:
-        BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
+            BruteForceAttackEvent event = new BruteForceAttackEvent.BruteForceAttackEventBuilder().ipAddress("127.0.0.1").build();
 
         when:
-        String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
+            String content = bruteForceAttackMailGenerator.prepareMailTitle(event)
 
         then:
-        content.equals("Brute force attack detected for 127.0.0.1")
+            content.equals("Brute force attack detected for 127.0.0.1")
     }
 }

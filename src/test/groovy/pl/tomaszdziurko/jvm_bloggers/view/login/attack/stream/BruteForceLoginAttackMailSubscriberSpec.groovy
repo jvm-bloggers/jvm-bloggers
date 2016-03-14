@@ -17,52 +17,52 @@ class BruteForceLoginAttackMailSubscriberSpec extends Specification {
 
     def setup() {
         mailSender = Mock(MailSender)
-        subscriber = new BruteForceLoginAttackMailSubscriber(mailSender)
+        subscriber = new BruteForceLoginAttackMailSubscriber(mailSender, "admin@pjug.pl")
     }
 
-    Should "Request 1 element from emitter on start"() {
+    Should "Should request 1 element from emitter on start"() {
         given:
-        Observable<Pair<String, String>> observable = Observable.from(new ImmutablePair<String, String>("A", "B"))
+            Observable<Pair<String, String>> observable = Observable.from(new ImmutablePair<String, String>("A", "B"))
 
         when:
-        observable.subscribe(subscriber)
+            observable.subscribe(subscriber)
 
         then:
-        1 * mailSender.sendEmail(_, _, _)
+            1 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Get 2nd element from emitter on next"() {
+    Should "Should get 2nd element from emitter on next"() {
         given:
-        Observable<Pair<String, String>> observable = Observable.from([new ImmutablePair<String, String>("A", "B"), new ImmutablePair<String, String>("C", "D")])
+            Observable<Pair<String, String>> observable = Observable.from([new ImmutablePair<String, String>("A", "B"), new ImmutablePair<String, String>("C", "D")])
 
         when:
-        observable.subscribe(subscriber)
+            observable.subscribe(subscriber)
 
         then:
-        2 * mailSender.sendEmail(_, _, _)
+            2 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Log when exception is thrown"() {
+    Should "Should log when exception is thrown"() {
         given:
-        Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B")).map({
-            throw new RuntimeException();
-        });
+            Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B")).map({
+                throw new RuntimeException();
+            });
 
         when:
-        observable.subscribe(subscriber)
+            observable.subscribe(subscriber)
 
         then:
-        0 * mailSender.sendEmail(_, _, _)
+            0 * mailSender.sendEmail(_, _, _)
     }
 
-    Should "Unsubscribe when Observable calls onCompleted"() {
+    Should "Should unsubscribe when Observable calls onCompleted"() {
         given:
-        Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B"));
+            Observable<Pair<String, String>> observable = Observable.just(new ImmutablePair<String, String>("A", "B"));
 
         when:
-        observable.subscribe(subscriber)
+            observable.subscribe(subscriber)
 
         then:
-        subscriber.isUnsubscribed()
+            subscriber.isUnsubscribed()
     }
 }

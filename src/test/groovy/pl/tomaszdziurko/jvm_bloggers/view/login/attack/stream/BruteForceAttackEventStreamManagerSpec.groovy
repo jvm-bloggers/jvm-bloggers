@@ -3,12 +3,14 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream
 import org.springframework.test.util.ReflectionTestUtils
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
+import pl.tomaszdziurko.jvm_bloggers.settings.Setting
+import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys
+import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator
 import rx.Scheduler
 import rx.schedulers.TestScheduler
 import spock.lang.Specification
-import java.lang.Void as Should
 import java.util.concurrent.TimeUnit
 
 import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
@@ -21,77 +23,103 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
     LogMailSender mailSender;
     LogMailSenderPostAction logMailPostAction;
     Scheduler scheduler;
-    BruteForceAttackEventStreamManager factory;
+    SettingRepository settingRepository;
+    BruteForceAttackEventStreamManager manager;
 
     def setup() {
         logMailPostAction = new LogMailSenderPostAction();
         mailSender = new LogMailSender(logMailPostAction)
+        settingRepository = Mock(SettingRepository);
         BruteForceAttackMailGenerator bruteForceAttackMailGenerator = Mock(BruteForceAttackMailGenerator)
         bruteForceAttackMailGenerator.prepareMailContent(_) >> "A"
         bruteForceAttackMailGenerator.prepareMailTitle(_) >> "B"
         scheduler = new TestScheduler()
 
         // Close your eyes! :D
-        factory = new BruteForceAttackEventStreamManager()
-        ReflectionTestUtils.setField(factory, "mailSender", mailSender)
-        ReflectionTestUtils.setField(factory, "bruteForceAttackMailGenerator", bruteForceAttackMailGenerator)
-        ReflectionTestUtils.setField(factory, "scheduler", scheduler)
+        manager = new BruteForceAttackEventStreamManager()
+        ReflectionTestUtils.setField(manager, "mailSender", mailSender)
+        ReflectionTestUtils.setField(manager, "bruteForceAttackMailGenerator", bruteForceAttackMailGenerator)
+        ReflectionTestUtils.setField(manager, "scheduler", scheduler)
+        ReflectionTestUtils.setField(manager, "settingRepository", settingRepository)
     }
 
-    Should "Build BruteForceAttackEventStream for given clientAddress only once"() {
+    def "Should throw Runtime exception when ADMIN_EMAIL setting is not found"() {
         given:
-        String clientAddress = "127.0.0.1"
+            settingRepository.findByName(_) >> null
 
         when:
-        BruteForceAttackEventStream eventStream = factory.build(clientAddress)
+            manager.init()
 
         then:
-        eventStream == factory.build(clientAddress)
+            RuntimeException ex = thrown()
+            ex.message.equals(SettingKeys.ADMIN_EMAIL.toString() + " not found in Setting table")
     }
 
-    Should "Send an email"() {
+    def "Should return admin email setting"() {
         given:
-        logMailPostAction.init(1)
-        String clientAddress = "127.0.0.1"
-        BruteForceAttackEventStream eventStream = factory.build(clientAddress)
+            settingRepository.findByName(_) >> new Setting(SettingKeys.ADMIN_EMAIL.toString(), "admin@jvmbloggers.pl")
 
         when:
-        eventStream.publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
-        scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
+            manager.init()
 
         then:
-        mailSender.getLogMailSenderPostAction().awaitAction();
+            ReflectionTestUtils.getField(manager, "adminEmailAddress") == "admin@jvmbloggers.pl"
     }
 
-    Should "Send an email only three times"() {
+    def "Should build BruteForceAttackEventStream for given clientAddress only once"() {
         given:
-        logMailPostAction.init(3)
-        String clientAddress = "127.0.0.1"
-        BruteForceAttackEventStream eventStream = factory.build(clientAddress)
-        int counter = 1
+            String clientAddress = "127.0.0.1"
 
         when:
-        (1..19).each {
+            BruteForceAttackEventStream eventStream = manager.createEventStreamFor(clientAddress)
+
+        then:
+            eventStream == manager.createEventStreamFor(clientAddress)
+    }
+
+    def "Should send an email"() {
+        given:
+            logMailPostAction.actionsToWaitOn(1)
+            String clientAddress = "127.0.0.1"
+            BruteForceAttackEventStream eventStream = manager.createEventStreamFor(clientAddress)
+
+        when:
             eventStream.publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
-            if (it.intValue() % 5 == 0) {
-                scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES * (counter++), TimeUnit.MINUTES);
-            }
-        }
+            scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
 
         then:
-        mailSender.getLogMailSenderPostAction().awaitAction()
+            mailSender.getLogMailSenderPostAction().awaitActions();
     }
 
-    Should "Terminate all streams on destroy"() {
+    def "Should send an email only three times"() {
         given:
-        String clientAddress = "127.0.0.1"
-        BruteForceAttackEventStream eventStream = factory.build(clientAddress)
+            logMailPostAction.actionsToWaitOn(3)
+            String clientAddress = "127.0.0.1"
+            BruteForceAttackEventStream eventStream = manager.createEventStreamFor(clientAddress)
+            int counter = 1
 
         when:
-        factory.destroy();
-        scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
+            (1..19).each {
+                eventStream.publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
+                if (it.intValue() % 5 == 0) {
+                    scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES * (counter++), TimeUnit.MINUTES);
+                }
+            }
 
         then:
-        eventStream.isTerminated()
+            mailSender.getLogMailSenderPostAction().awaitActions()
+    }
+
+    def "Should terminate all streams on destroy"() {
+        given:
+            String clientAddress = "127.0.0.1"
+            BruteForceAttackEventStream eventStream = manager.createEventStreamFor(clientAddress)
+
+        when:
+            manager.destroy();
+            scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
+
+        then:
+            eventStream.isTerminated()
     }
 }

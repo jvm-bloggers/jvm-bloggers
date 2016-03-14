@@ -49,9 +49,7 @@ public class LoginPage extends WebPage {
                 final String clientAddress = getClientAddress();
                 final boolean bruteForceAttackDetected = bruteForceLoginAttackDetector.isItBruteForceAttack(clientAddress);
                 if (bruteForceAttackDetected) {
-                    error("Incorrect login or password [BruteForce attack was detected]");
-                    bruteForceAttackEventStreamManager.build(clientAddress)
-                            .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
+                    handleBruteForceAttack(clientAddress);
                     return;
                 }
                 tryToLoginUser(clientAddress);
@@ -75,13 +73,19 @@ public class LoginPage extends WebPage {
 
         CustomFeedbackPanel feedbackPanel = new CustomFeedbackPanel("feedbackPanel");
         loginForm.add(feedbackPanel);
-        RequiredTextField<String> loginField = new RequiredTextField(LOGIN_FIELD_ID);
+        RequiredTextField<String> loginField = new RequiredTextField<>(LOGIN_FIELD_ID);
         loginForm.add(loginField);
         PasswordTextField passwordField = new PasswordTextField(PASSWORD_FIELD_ID);
         loginForm.add(passwordField);
         Button loginButton = new Button(FORM_SUBMIT_ID);
         loginForm.add(loginButton);
         add(loginForm);
+    }
+
+    private void handleBruteForceAttack(final String clientAddress) {
+        error("Incorrect login or password [BruteForce attack was detected]");
+        bruteForceAttackEventStreamManager.createEventStreamFor(clientAddress)
+                .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
     }
 
     private String getClientAddress() {
