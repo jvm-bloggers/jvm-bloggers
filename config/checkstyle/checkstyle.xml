@@ -27,6 +27,10 @@
         <property name="eachLine" value="true"/>
     </module>
 
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+    </module>
+
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
@@ -196,6 +200,5 @@
             <property name="exceptionVariableName" value="expected"/>
         </module>
         <module name="CommentsIndentation"/>
-        <module name="NewlineAtEndOfFile"/>
     </module>
 </module>
