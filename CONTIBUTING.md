@@ -27,20 +27,20 @@
 
 * Avoid Javadocs where possible. Comments should be used only when REALLY needed, prefer better naming and clean code over bloated Javadocs.
 
-* @author tag shouldn't be placed in test classes unless class is a utility/helper class and not a pure test class
+* `@author` tag shouldn't be placed in test classes unless class is a utility/helper class and not a pure test class
 
-* @since is not needed as we do not have public API
+* `@since` is not needed as we do not have public API
 
 * Always provide a test to your change
 
  
 ## Testing
   
-* We use Spock as a base testing framework
+* We use [Spock](http://spockframework.github.io/spock/docs/1.0/index.html) as a base testing framework
 
-* Notation for test classes is `YourClassNameSpec`
+* Notation for test classes is `YourClassNameSpec` ([example](https://github.com/tdziurko/jvm-bloggers/blob/master/src/test/groovy/pl/tomaszdziurko/jvm_bloggers/utils/DateTimeUtilitiesSpec.groovy#L8))
 
-* Notation for test methods is `def "Should do something"`
+* Notation for test methods is `def "Should do something"` ([example](https://github.com/tdziurko/jvm-bloggers/blob/master/src/test/groovy/pl/tomaszdziurko/jvm_bloggers/InitialBlogDataPopulationTriggerSpec.groovy#L20))
 
 * Each section after label `given/when/then` should have indentation one level deeper than label itself
   
@@ -49,8 +49,13 @@
 
 ## Commit guidelines
 
+* Do not forget to run `./gradlew check` before the commit. Green unit tests under IDE (or `./gradlew test`) does not guarantee the commit will pass CI. `check` task will additionally (among unit tests) run [checkstyle](http://checkstyle.sourceforge.net/) plugin against source code base.
+
 * Try to add issue number in each commit message `Adds new entity class and liquibase script, #123`
 
 * One (preferably last or final) commit should have `fixes #123` or `closes #123` so after merging Pull Request corresponding issue will be closed by GitHub (see more datails in [this article](https://github.com/blog/1386-closing-issues-via-commit-messages))
 
 
+## Reviewing and merging
+
+* If code review has been done and the PR has been successfully merged then [delete the PR branch](https://help.github.com/articles/deleting-unused-branches/) using _Delete branch_ button at the bottom of given PR page.
