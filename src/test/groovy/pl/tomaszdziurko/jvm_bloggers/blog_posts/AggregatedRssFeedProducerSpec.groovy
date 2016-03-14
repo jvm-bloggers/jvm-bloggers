@@ -16,7 +16,7 @@ import com.sun.syndication.feed.synd.SyndFeed
 
 class AggregatedRssFeedProducerSpec extends Specification {
 
-    def EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS@"
+    def EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS"
     def DESCRIPTION = "description"
     def TITLE = "title"
     def URL = "http://blogPostUrl"
@@ -49,7 +49,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             feed.entries.size() == 2
         and:
             with (feed.entries[0]) {
-                link == URL + EXPECTED_UTM_SUBSTRING + campaignDate
+                link == URL + EXPECTED_UTM_SUBSTRING
                 title == TITLE
                 author == AUTHOR
                 description.value == DESCRIPTION
@@ -58,7 +58,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             }
         and:
             with (feed.entries[1]) {
-                link == URL + EXPECTED_UTM_SUBSTRING + campaignDate
+                link == URL + EXPECTED_UTM_SUBSTRING
                 title == TITLE
                 author == AUTHOR
                 description == null

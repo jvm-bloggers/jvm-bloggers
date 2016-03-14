@@ -33,7 +33,7 @@ import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
-    
+
     @VisibleForTesting
     static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
     @VisibleForTesting
@@ -42,6 +42,7 @@ public class AggregatedRssFeedProducer {
     static final String FEED_TYPE = "atom_1.0";
 
     private static final String UTM_MEDIUM = "RSS";
+    private static final String UTM_CAMPAIGN = "RSS";
 
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
@@ -50,7 +51,7 @@ public class AggregatedRssFeedProducer {
     public SyndFeed getRss() {
 
         final StopWatch stopWatch = new StopWatch();
-        log.debug("Building agregated RSS feed...");
+        log.debug("Building aggregated RSS feed...");
         stopWatch.start();
 
         final List<BlogPost> approvedPosts = blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc();
@@ -66,7 +67,7 @@ public class AggregatedRssFeedProducer {
         feed.setEntries(feedItems);
 
         stopWatch.stop();
-        log.debug("Total {} feed entries produced in {}ms", feedItems.size(), stopWatch.getTotalTimeMillis());
+        log.info("Total {} feed entries produced in {}ms", feedItems.size(), stopWatch.getTotalTimeMillis());
 
         return feed;
     }
@@ -89,12 +90,10 @@ public class AggregatedRssFeedProducer {
     }
 
     private String addUtmComponents(String url) {
-        final String campaign = String.format("RSS@%s",
-                toDate(nowProvider.now()).toString().replace(" ", "-"));
         return UriUtmComponentsBuilder.fromHttpUrl(url)
                 .withSource(UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE)
                 .withMedium(UTM_MEDIUM)
-                .withCampaign(campaign)
+                .withCampaign(UTM_CAMPAIGN)
                 .build();
     }
 
