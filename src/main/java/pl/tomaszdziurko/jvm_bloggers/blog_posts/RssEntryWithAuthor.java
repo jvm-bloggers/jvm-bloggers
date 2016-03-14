@@ -1,21 +1,17 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
-import com.google.common.base.Preconditions;
 import com.sun.syndication.feed.synd.SyndEntry;
-import lombok.Getter;
+
+import lombok.Data;
+import lombok.NonNull;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
-@Getter
+@Data
 public class RssEntryWithAuthor {
 
+    @NonNull
     private final Blog blog;
+    @NonNull
     private final SyndEntry rssEntry;
-
-    public RssEntryWithAuthor(Blog blog, SyndEntry rssEntry) {
-        Preconditions.checkArgument(blog != null, "Blog can not be null");
-        Preconditions.checkArgument(rssEntry != null, "Rss entry can not be null");
-        this.blog = blog;
-        this.rssEntry = rssEntry;
-    }
 
 }

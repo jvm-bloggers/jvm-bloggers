@@ -1,46 +1,56 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
+import static com.google.common.base.MoreObjects.firstNonNull;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
+
+import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
+
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Optional;
+
+import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class NewBlogPostStoringActor extends AbstractActor {
 
-    private final BlogPostRepository blogPostRepository;
-
     public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
-        this.blogPostRepository = blogPostRepository;
-
         receive(ReceiveBuilder.match(RssEntryWithAuthor.class, rssEntry -> {
-                Optional<BlogPost> existingPost = blogPostRepository.findByUrl(rssEntry.getRssEntry().getLink());
-                if (!existingPost.isPresent()) {
-                    storeNewBlogPost(rssEntry);
-                } else {
-                    log.trace("Existing post found, skipping save");
-                }
-            }
-        ).build());
+                BlogPost blogPost = blogPostRepository
+                    .findByUrl(rssEntry.getRssEntry().getLink())
+                    .orElseGet(() -> createBlogPost(rssEntry));
+                updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
+                blogPostRepository.save(blogPost);
+            }).build()
+        );
     }
 
-    private void storeNewBlogPost(RssEntryWithAuthor rssEntry) {
+    private BlogPost createBlogPost(RssEntryWithAuthor rssEntry) {
         SyndEntry postInRss = rssEntry.getRssEntry();
-        Date dateToStore = postInRss.getPublishedDate() != null ? postInRss.getPublishedDate() : postInRss.getUpdatedDate();
-        LocalDateTime publishedDate = DateTimeUtilities.convertDateToLocalDateTime(dateToStore);
-        BlogPost newBlogPost = new BlogPost(postInRss.getTitle(), rssEntry.getBlog(), postInRss.getLink(), publishedDate,
-            rssEntry.getBlog().getDefaultApprovedValue());
-        blogPostRepository.save(newBlogPost);
-        log.info("Stored new post '{}' with id {} by {}", newBlogPost.getTitle(), newBlogPost.getId(), rssEntry.getBlog().getAuthor());
+        Date dateToStore = firstNonNull(postInRss.getPublishedDate(), postInRss.getUpdatedDate());
+        log.info("Creating new post '{}' by {}", postInRss.getTitle(), rssEntry.getBlog().getAuthor());
+        return BlogPost.builder()
+                .title(postInRss.getTitle())
+                .url(postInRss.getLink())
+                .publishedDate(DateTimeUtilities.toLocalDateTime(dateToStore))
+                .approved(rssEntry.getBlog().getDefaultApprovedValue())
+                .blog(rssEntry.getBlog())
+                .build();
+    }
+
+    private void updateDescription(BlogPost blogPost, SyndContent descriptionContent) {
+        if (descriptionContent != null) {
+            String description = descriptionContent.getValue();
+            description = StringUtils.abbreviate(description, BlogPost.MAX_DESCRIPTION_LENGTH);
+            blogPost.setDescription(description);
+        }
     }
 
     public static Props props(BlogPostRepository blogPostRepository) {

@@ -169,7 +169,13 @@
         <dropNotNullConstraint tableName="BLOG_POST" columnName="APPROVED" columnDataType="boolean"/>
     </changeSet>
 
-    <changeSet id="017-store-email-to-send-admin-mail" author="Adam.Dec">
+    <changeSet id="017-added-DESCRIPTION-column-to-BLOG_POST-table" author="Marcin Kłopotek">
+        <addColumn tableName="blog_post">
+            <column name="DESCRIPTION" type="varchar(4096)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="018-store-email-to-send-admin-mail" author="Adam.Dec">
         <sql>
             INSERT INTO setting(id, name, value)
             VALUES (nextval('setting_seq'), 'ADMIN_EMAIL', 'your-admin-email-goes-here');

@@ -1,12 +1,16 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,14 +18,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "blog_post")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+@EntityListeners(BlogPostEntityListener.class)
 public class BlogPost {
+
+    public static final int MAX_DESCRIPTION_LENGTH = 4096;
 
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
@@ -30,10 +40,13 @@ public class BlogPost {
     private Long id;
 
     @Column(name = "UID", unique = true, nullable = false)
-    private String uid;
+    private final String uid = UUID.randomUUID().toString();
 
     @Column(name = "TITLE", nullable = false, length = 250)
     private String title;
+
+    @Column(name = "DESCRIPTION", length = MAX_DESCRIPTION_LENGTH)
+    private String description;
 
     @Column(name = "URL", unique = true, nullable = false, length = 500)
     private String url;
@@ -47,19 +60,6 @@ public class BlogPost {
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;
-
-    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate) {
-        this(title, blog, url, publishedDate, true);
-    }
-
-    public BlogPost(String title, Blog blog, String url, LocalDateTime publishedDate, Boolean approved) {
-        this.uid = UUID.randomUUID().toString();
-        this.title = title;
-        this.blog = blog;
-        this.url = url;
-        this.publishedDate = publishedDate;
-        this.approved = approved;
-    }
 
     public boolean isApproved() {
         return Boolean.TRUE.equals(approved);

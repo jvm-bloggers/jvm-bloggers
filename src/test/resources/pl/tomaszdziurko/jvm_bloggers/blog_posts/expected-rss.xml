@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title>JVMBloggers</title>
+  <subtitle>JVMBloggers aggregated feed</subtitle>
+  <updated>1970-01-01T00:00:00Z</updated>
+  <dc:date>1970-01-01T00:00:00Z</dc:date>
+  <entry>
+    <title>postTitle</title>
+    <link rel="alternate" href="postUrl" />
+    <author>
+      <name>postAuthor</name>
+    </author>
+    <updated>1970-01-01T00:00:00Z</updated>
+    <published>1970-01-01T00:00:00Z</published>
+    <summary>postDescription</summary>
+    <dc:creator>postAuthor</dc:creator>
+    <dc:date>1970-01-01T00:00:00Z</dc:date>
+  </entry>
+</feed>
+

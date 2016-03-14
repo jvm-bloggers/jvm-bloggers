@@ -1,0 +1,30 @@
+package pl.tomaszdziurko.jvm_bloggers.blog_posts;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sun.syndication.io.SyndFeedOutput;
+
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+
+@RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class BlogPostsController {
+
+    private final AggregatedRssFeedProducer rssProducer;
+
+    @SneakyThrows
+    @RequestMapping("/pl/rss")
+    public void getRss(HttpServletResponse response, PrintWriter writer) {
+        response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
+        new SyndFeedOutput().output(rssProducer.getRss(), writer);
+    }
+
+}
