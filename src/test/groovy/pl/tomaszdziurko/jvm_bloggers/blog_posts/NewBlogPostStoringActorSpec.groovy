@@ -87,7 +87,7 @@ class NewBlogPostStoringActorSpec extends Specification {
             1 * blogPostRepository.save({
                     it.url == postUrl &&
                     it.title == postTitle &&
-                    it.publishedDate == DateTimeUtilities.convertDateToLocalDateTime(updatedDate)
+                    it.publishedDate == DateTimeUtilities.toLocalDateTime(updatedDate)
             })
     }
 

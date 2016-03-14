@@ -9,6 +9,7 @@ import org.apache.wicket.devutils.stateless.StatelessChecker;
 import org.apache.wicket.markup.html.WebPage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pl.tomaszdziurko.jvm_bloggers.view.HomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
@@ -19,6 +20,7 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableCaching
 @EnableEncryptableProperties
 @WicketSpringBootApplication
 public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
