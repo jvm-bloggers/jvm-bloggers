@@ -67,8 +67,9 @@ dependencies {
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
 
     // Utils and helpers
-    compile "org.projectlombok:lombok:1.16.0"
+    compile "org.projectlombok:lombok:1.16.8"
     compile 'com.google.guava:guava:18.0'
+    compile 'io.reactivex:rxjava:1.1.1'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'org.antlr:ST4:4.0.7'
     compile 'org.glassfish.jersey.core:jersey-client:2.21'
