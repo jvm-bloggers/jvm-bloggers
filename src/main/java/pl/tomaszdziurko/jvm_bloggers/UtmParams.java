@@ -6,7 +6,7 @@ package pl.tomaszdziurko.jvm_bloggers;
  * @see <a href="https://en.wikipedia.org/wiki/UTM_parameters">UTM Parameters</a>
  * @author cslysy &lt;jakub.sprega@gmail.com&gt;
  */
-public class UtmParameters {
+public class UtmParams {
     
     public static final String UTM_SOURCE_KEY = "utm_source";
     
