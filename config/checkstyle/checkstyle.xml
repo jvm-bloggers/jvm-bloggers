@@ -27,6 +27,11 @@
         <property name="eachLine" value="true"/>
     </module>
 
+    <module name="RegexpMultiline">
+        <property name="format" value="(?s:\r\n.*)"/>
+        <property name="message" value="Do not use Windows line endings"/>
+    </module>
+
     <module name="NewlineAtEndOfFile">
         <property name="lineSeparator" value="lf"/>
     </module>
