@@ -35,6 +35,9 @@
 
 * Always provide a test to your change
 
+* Avoid one-time variable. If you decide to use it, be prepared to explain the reason behind 
+
+
  
 ## Testing
   
