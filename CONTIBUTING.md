@@ -19,6 +19,8 @@
 
 * Before coding please comment on issue that you will be working on it.
 
+* Tag the issue with the yellow `In progress` label if you start working on it.
+
 * Before coding think if you know everything you need and ask for a clarification when you are not sure about something (especially about "functional" requirements)
  
  
