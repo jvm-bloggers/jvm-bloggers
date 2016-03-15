@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<head></head>
+
+<body>
+
+<wicket:extend>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Blogs</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer">
+                            <tr>
+                                <th>Title</th>
+                                <th class="text-center" >Author</th>
+                                <th>Link</th>
+                                <th class="text-center">Date published</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                            <tr wicket:id="blogsDataView" class="gradeA">
+                                <td><span wicket:id="author">[author]</span></td>
+                                <td><span wicket:id="rss">[rss]</span></td>
+                                <td><span wicket:id="twitter">[twitter]</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            <!-- /.col-lg-8 -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</wicket:extend>
+
+</body>
+</html>
