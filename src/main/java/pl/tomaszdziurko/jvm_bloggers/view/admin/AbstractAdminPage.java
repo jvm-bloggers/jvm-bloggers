@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin;
 
+import java.time.format.DateTimeFormatter;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -9,6 +10,8 @@ import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage;
 
 public abstract class AbstractAdminPage extends WebPage {
+
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public AbstractAdminPage() {
         initializeElements();

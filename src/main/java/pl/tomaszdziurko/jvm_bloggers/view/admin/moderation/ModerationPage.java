@@ -16,14 +16,10 @@ import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 
-import java.time.format.DateTimeFormatter;
-
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {
 
     public static final long BLOG_POSTS_PER_PAGE = 15;
-
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @SpringBean
     private ModerationPageRequestHandler requestHandler;

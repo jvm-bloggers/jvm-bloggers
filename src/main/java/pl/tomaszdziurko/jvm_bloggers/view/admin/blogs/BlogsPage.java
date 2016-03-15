@@ -9,6 +9,7 @@ import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
+import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>.
@@ -22,12 +23,14 @@ public class BlogsPage extends AbstractAdminPage {
     private BlogsPageRequestHandler requestHandler;
 
     public BlogsPage() {
-        add(new BlogsDataView("blogsDataView", requestHandler, BLOGS_PER_PAGE));
+        BlogsDataView blogsDataView = new BlogsDataView("blogsDataView", requestHandler, BLOGS_PER_PAGE);
+        add(blogsDataView);
+        add(new CustomPagingNavigator("navigator", blogsDataView));
     }
 
     private static class BlogsDataView extends DataView<Blog> {
 
-        public BlogsDataView(String id, IDataProvider<Blog> dataProvider, long itemsPerPage) {
+        private BlogsDataView(String id, IDataProvider<Blog> dataProvider, long itemsPerPage) {
             super(id, dataProvider, itemsPerPage);
         }
 
@@ -37,6 +40,8 @@ public class BlogsPage extends AbstractAdminPage {
             item.add(new Label("author", blog.getAuthor()));
             item.add(new Label("rss", blog.getRss()));
             item.add(new Label("twitter", blog.getTwitter()));
+            item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_FORMATTER)));
+            item.add(new Label("status", blog.getStatus()));
         }
     }
 }

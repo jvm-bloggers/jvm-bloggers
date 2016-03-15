@@ -70,4 +70,8 @@ public class Blog {
         }
     }
 
+    public String getStatus() {
+        return active ? "Active" : "Deactivated";
+    }
+
 }
