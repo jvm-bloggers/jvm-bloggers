@@ -2,9 +2,9 @@ package pl.tomaszdziurko.jvm_bloggers.utils;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static pl.tomaszdziurko.jvm_bloggers.UtmParameters.UTM_CAMPAIGN_KEY;
-import static pl.tomaszdziurko.jvm_bloggers.UtmParameters.UTM_MEDIUM_KEY;
-import static pl.tomaszdziurko.jvm_bloggers.UtmParameters.UTM_SOURCE_KEY;
+import static pl.tomaszdziurko.jvm_bloggers.UtmParams.UTM_CAMPAIGN_KEY;
+import static pl.tomaszdziurko.jvm_bloggers.UtmParams.UTM_MEDIUM_KEY;
+import static pl.tomaszdziurko.jvm_bloggers.UtmParams.UTM_SOURCE_KEY;
 
 public class UriUtmComponentsBuilder {
 
