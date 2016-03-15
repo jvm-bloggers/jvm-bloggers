@@ -1,16 +1,15 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.rometools.rome.feed.synd.SyndFeed;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
@@ -30,8 +29,10 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 
-@Component
 @Slf4j
+@Component
+@NoArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogSummaryMailGenerator {
 
     private BlogRepository blogRepository;
@@ -39,25 +40,6 @@ public class BlogSummaryMailGenerator {
     private MetadataRepository metadataRepository;
     private NowProvider nowProvider;
     private SyndFeedProducer syndFeedFactory;
-
-    // This constructor exists only to make Wicket @SpringBean work for Spring beans
-    // with constructor injection using @Autowired
-    public BlogSummaryMailGenerator() {
-
-    }
-
-    @Autowired
-    public BlogSummaryMailGenerator(BlogRepository blogRepository,
-                                    BlogPostRepository blogPostRepository,
-                                    MetadataRepository metadataRepository,
-                                    NowProvider nowProvider,
-                                    SyndFeedProducer syndFeedFactory) {
-        this.blogRepository = blogRepository;
-        this.blogPostRepository = blogPostRepository;
-        this.metadataRepository = metadataRepository;
-        this.nowProvider = nowProvider;
-        this.syndFeedFactory = syndFeedFactory;
-    }
 
     public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
         LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast)

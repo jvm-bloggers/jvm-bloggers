@@ -1,6 +1,8 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.mailing;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.BlogSummaryMailGenerator;
@@ -13,6 +15,8 @@ import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 @Component
+@NoArgsConstructor
+@AllArgsConstructor(onConstructor = @_(@Autowired))
 public class MailingPageRequestHandler {
 
     private MailSender mailSender;
@@ -20,23 +24,6 @@ public class MailingPageRequestHandler {
     private NowProvider nowProvider;
     private MetadataRepository metadataRepository;
     private IssueNumberRetriever issueNumberRetriever;
-
-    public MailingPageRequestHandler() {
-    }
-
-    @Autowired
-    public MailingPageRequestHandler(BlogSummaryMailGenerator blogSummaryMailGenerator,
-                                     MailSender mailSender,
-                                     MetadataRepository metadataRepository,
-                                     IssueNumberRetriever issueNumberRetriever,
-                                     NowProvider nowProvider) {
-        this.blogSummaryMailGenerator = blogSummaryMailGenerator;
-        this.mailSender = mailSender;
-        this.metadataRepository = metadataRepository;
-        this.issueNumberRetriever = issueNumberRetriever;
-        
-        this.nowProvider = nowProvider;
-    }
 
     public String sendTestEmail() {
         int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(nowProvider.now());

@@ -12,8 +12,8 @@ import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
-@Component
 @Slf4j
+@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BloggersDataFetchingScheduler {
 
