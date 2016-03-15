@@ -37,7 +37,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 aBlogPost(6, LocalDateTime.of(2016, 1, 6, 12, 00), NOT_MODERATED, blog)
             ]
 
-            blogPosts.each { blogPost -> blogPostRepository.save(blogPost) }
+            blogPostRepository.save(blogPosts)
         when:
             def latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
         then:
