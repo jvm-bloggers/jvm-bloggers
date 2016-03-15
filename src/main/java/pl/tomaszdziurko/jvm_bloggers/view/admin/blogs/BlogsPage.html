@@ -24,23 +24,28 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer">
-                            <tr>
-                                <th>Author</th>
-                                <th>RSS</th>
-                                <th>Twitter</th>
-                                <th>Date added</th>
-                                <th>Status</th>
-                            </tr>
-                            <tr wicket:id="blogsDataView" class="gradeA">
-                                <td><span wicket:id="author">[author]</span></td>
-                                <td><a href="" wicket:id="rss" target="_blank">[rss]</a></td>=
-                                <td><a href="" wicket:id="twitter" target="_blank"></a></td>=
-                                <td><span wicket:id="dateAdded">[dateAdded]</span></td>
-                                <td><span wicket:id="status">[status]</span></td>
-                            </tr>
-                        </table>
-                        <span wicket:id="navigator">[dataview navigator]</span>
+                        <div wicket:id="feedback"></div>
+                        <form wicket:id="blogDataForm">
+                            <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer">
+                                <tr>
+                                    <th>Author</th>
+                                    <th>RSS</th>
+                                    <th>Twitter</th>
+                                    <th>Date added</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                <tr wicket:id="blogsDataView" class="gradeA">
+                                    <td><span wicket:id="author">[author]</span></td>
+                                    <td><a href="" wicket:id="rss" target="_blank">[rss]</a></td>=
+                                    <td><a href="" wicket:id="twitter" target="_blank"></a></td>=
+                                    <td><span wicket:id="dateAdded">[dateAdded]</span></td>
+                                    <td><span wicket:id="status">[status]</span></td>
+                                    <td class="text-center"><span wicket:id="actions">[actions]</span></td>
+                                </tr>
+                            </table>
+                            <span wicket:id="navigator">[dataview navigator]</span>
+                        </form>
                     </div>
                     <!-- /.panel-body -->
                 </div>

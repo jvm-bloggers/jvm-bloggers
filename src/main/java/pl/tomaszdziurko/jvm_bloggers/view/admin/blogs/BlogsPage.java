@@ -3,6 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.view.admin.blogs;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -10,6 +11,7 @@ import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
+import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 
 /**
@@ -23,13 +25,22 @@ public class BlogsPage extends AbstractAdminPage {
     @SpringBean
     private BlogsPageRequestHandler requestHandler;
 
+    private final CustomFeedbackPanel feedbackPanel;
+    private final Form<?> form;
+
     public BlogsPage() {
+        this.feedbackPanel = new CustomFeedbackPanel("feedback");
+        this.form = new Form<>("blogDataForm");
+
+        add(feedbackPanel);
+
         BlogsDataView blogsDataView = new BlogsDataView("blogsDataView", requestHandler, BLOGS_PER_PAGE);
-        add(blogsDataView);
-        add(new CustomPagingNavigator("navigator", blogsDataView));
+        form.add(blogsDataView);
+        form.add(new CustomPagingNavigator("navigator", blogsDataView));
+        add(form);
     }
 
-    private static class BlogsDataView extends DataView<Blog> {
+    private class BlogsDataView extends DataView<Blog> {
 
         private BlogsDataView(String id, IDataProvider<Blog> dataProvider, long itemsPerPage) {
             super(id, dataProvider, itemsPerPage);
@@ -43,6 +54,7 @@ public class BlogsPage extends AbstractAdminPage {
             item.add(new ExternalLink("twitter", blog.getTwitterUrl(), blog.getTwitter()));
             item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_FORMATTER)));
             item.add(new Label("status", blog.getStatus()));
+            item.add(new BlogActionPanel("actions", form, item.getModel(), feedbackPanel));
         }
     }
 }
