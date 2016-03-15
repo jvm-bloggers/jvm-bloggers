@@ -10,7 +10,6 @@ class MailingTemplateModel extends LoadableDetachableModel<Metadata> {
     private MetadataRepository metadataRepository;
 
     public MailingTemplateModel(MetadataRepository metadataRepository) {
-        super();
         this.metadataRepository = metadataRepository;
     }
 
