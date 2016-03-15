@@ -1,8 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "blog")
@@ -74,4 +73,7 @@ public class Blog {
         return active ? "Active" : "Deactivated";
     }
 
+    public String getTwitterUrl() {
+        return getTwitter() != null ? "https://twitter.com/" + getTwitter() : null;
+    }
 }

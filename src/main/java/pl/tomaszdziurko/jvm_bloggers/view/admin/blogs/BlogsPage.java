@@ -3,6 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.view.admin.blogs;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -38,8 +39,8 @@ public class BlogsPage extends AbstractAdminPage {
         protected void populateItem(Item<Blog> item) {
             Blog blog = item.getModelObject();
             item.add(new Label("author", blog.getAuthor()));
-            item.add(new Label("rss", blog.getRss()));
-            item.add(new Label("twitter", blog.getTwitter()));
+            item.add(new ExternalLink("rss", blog.getRss(), blog.getRss()));
+            item.add(new ExternalLink("twitter", blog.getTwitterUrl(), blog.getTwitter()));
             item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_FORMATTER)));
             item.add(new Label("status", blog.getStatus()));
         }
