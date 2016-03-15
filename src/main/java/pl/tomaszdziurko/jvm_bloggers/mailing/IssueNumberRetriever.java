@@ -1,9 +1,10 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
 
 @Repository
 public class IssueNumberRetriever {
@@ -11,7 +12,8 @@ public class IssueNumberRetriever {
     private JdbcTemplate jdbcTemplate;
 
     //Required by Wicket when injected using @SpringBean
-    public IssueNumberRetriever() { }
+    public IssueNumberRetriever() {
+    }
 
     @Autowired
     public IssueNumberRetriever(DataSource dataSource) {

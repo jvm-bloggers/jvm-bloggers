@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -28,7 +29,8 @@ public class MailgunSender implements MailSender {
     }
 
     @Autowired
-    public MailgunSender(Client mailingRestClient, @Value("${mailing.fromEmail}") String senderAddress) {
+    public MailgunSender(Client mailingRestClient,
+                         @Value("${mailing.fromEmail}") String senderAddress) {
         this.mailingRestClient = mailingRestClient;
         this.senderAddress = senderAddress;
     }
@@ -36,9 +38,9 @@ public class MailgunSender implements MailSender {
     @Override
     public void sendEmail(String recipientAddress, String subject, String htmlContent) {
         Form form = prepareEmail(recipientAddress, subject, htmlContent);
-        WebTarget webTarget = mailingRestClient.
-            target("https://api.mailgun.net/v3/jvm-bloggers.com").
-            path("messages");
+        WebTarget webTarget = mailingRestClient
+            .target("https://api.mailgun.net/v3/jvm-bloggers.com")
+            .path("messages");
         log.info("Sending mail " + form.asMap().values().toString());
 
         Invocation.Builder invocationBuilder;

@@ -1,12 +1,14 @@
 package pl.tomaszdziurko.jvm_bloggers.utils;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
 @Converter(autoApply = true)
-public class LocalDateTimeToTimestampConverter implements AttributeConverter<LocalDateTime, Timestamp> {
+public class LocalDateTimeToTimestampConverter
+    implements AttributeConverter<LocalDateTime, Timestamp> {
 
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attribute) {

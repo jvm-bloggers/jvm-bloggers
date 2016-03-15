@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers;
 
 
 import akka.actor.ActorSystem;
+
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -25,11 +26,11 @@ public class JvmBloggersConfiguration {
         final Client client = ClientBuilder.newClient();
 
         HttpAuthenticationFeature authFeature;
-        authFeature = HttpAuthenticationFeature.
-            basicBuilder().
-            nonPreemptive().
-            credentials("api", malingApiKey).
-            build();
+        authFeature = HttpAuthenticationFeature
+            .basicBuilder()
+            .nonPreemptive()
+            .credentials("api", malingApiKey)
+            .build();
         client.register(authFeature);
         return client;
     }

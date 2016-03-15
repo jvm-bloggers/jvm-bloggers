@@ -2,9 +2,11 @@ package pl.tomaszdziurko.jvm_bloggers.blogs;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry;
@@ -30,28 +32,35 @@ public class BloggersDataUpdater {
     }
 
     public void updateData(BloggersData data) {
-        List<BloggerEntry> entries = data.getBloggers().stream().filter(entry -> entry.getRss().length() > 0).collect(Collectors.toList());
+        List<BloggerEntry> entries = data.getBloggers().stream()
+            .filter(entry -> entry.getRss().length() > 0)
+            .collect(Collectors.toList());
         UpdateSummary updateSummary = new UpdateSummary(entries.size());
         entries.stream().forEach(entry -> updateSingleEntry(entry, updateSummary));
-        log.info("Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}", updateSummary.numberOfEntries,
+        log.info("Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}",
+            updateSummary.numberOfEntries,
             updateSummary.updatedEntries, updateSummary.createdEntries);
     }
 
     protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
-        Optional<Blog> existingBloggerByJsonId = blogRepository.findByJsonId(bloggerEntry.getJsonId());
+        Optional<Blog> existingBloggerByJsonId =
+            blogRepository.findByJsonId(bloggerEntry.getJsonId());
 
         if (existingBloggerByJsonId.isPresent()) {
             Blog bloggerWithSameJsonId = existingBloggerByJsonId.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
         } else {
             Blog newBlog = new Blog(bloggerEntry.getJsonId(), bloggerEntry.getName(),
-                StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(), nowProvider.now(), bloggerEntry.getBlogType());
+                StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(),
+                nowProvider.now(), bloggerEntry.getBlogType());
             blogRepository.save(newBlog);
             updateSummary.recordCreated();
         }
     }
 
-    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry, UpdateSummary updateSummary, Blog existingBlogger) {
+    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
+                                                    UpdateSummary updateSummary,
+                                                    Blog existingBlogger) {
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());

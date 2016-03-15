@@ -20,7 +20,8 @@ public class MailingAddress {
 
     @Id
     @GeneratedValue(generator = "MAILING_ADDRESS_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "MAILING_ADDRESS_SEQ", sequenceName = "MAILING_ADDRESS_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "MAILING_ADDRESS_SEQ", sequenceName = "MAILING_ADDRESS_SEQ",
+        allocationSize = 1)
     private Long id;
 
     @Column(name = "address", unique = true, nullable = false, length = 250)

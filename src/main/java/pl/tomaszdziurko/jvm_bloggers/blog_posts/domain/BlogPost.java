@@ -6,7 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +23,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 @Entity
 @Table(name = "blog_post")
 @Data
@@ -33,14 +34,14 @@ public class BlogPost {
 
     public static final int MAX_DESCRIPTION_LENGTH = 4096;
 
+    @Column(name = "UID", unique = true, nullable = false)
+    private final String uid = UUID.randomUUID().toString();
+
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "BLOG_POST_SEQ", sequenceName = "BLOG_POST_SEQ", allocationSize = 1)
     @Column(name = "ID")
     private Long id;
-
-    @Column(name = "UID", unique = true, nullable = false)
-    private final String uid = UUID.randomUUID().toString();
 
     @Column(name = "TITLE", nullable = false, length = 250)
     private String title;

@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing
 
-import java.text.SimpleDateFormat
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import spock.lang.Specification
@@ -43,7 +42,7 @@ class BlogPostForMailItemSpec extends Specification {
             }
             long issueNumber = 13;
         when:
-            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withIssueNumber(issueNumber).withDefaultUTMParameters().build()
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).withIssueNumber(issueNumber).withDefaultUtmParameters().build()
         then:
             blogPostForMailItem.url == "http://www.blog.pl?utm_source=jvm-bloggers.com&utm_medium=newsletter&utm_campaign=jvm-bloggers#" + issueNumber
     }
