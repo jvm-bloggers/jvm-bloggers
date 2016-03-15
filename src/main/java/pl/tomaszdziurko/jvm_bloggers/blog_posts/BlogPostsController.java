@@ -1,6 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
-import com.sun.syndication.io.SyndFeedOutput;
+import com.rometools.rome.io.SyndFeedOutput;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

@@ -1,6 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
-import com.sun.syndication.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndFeed;
 
 import lombok.extern.slf4j.Slf4j;
 
