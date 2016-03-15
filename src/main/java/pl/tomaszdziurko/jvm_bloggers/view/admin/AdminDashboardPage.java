@@ -15,6 +15,7 @@ public class AdminDashboardPage extends AbstractAdminPage {
         add(new Label("postsSinceLastPublication", new NewPostsCounterModel()));
         add(new Label("postsWaitingForModeration", new PostsWaitingForModerationCounterModel()));
 
-        add(new BookmarkablePageLink<ModerationPage>("moderationDetailsLink", ModerationPage.class));
+        add(new BookmarkablePageLink<ModerationPage>(
+                "moderationDetailsLink", ModerationPage.class));
     }
 }
