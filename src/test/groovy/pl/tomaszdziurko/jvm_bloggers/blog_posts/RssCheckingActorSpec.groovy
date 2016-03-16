@@ -36,7 +36,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
         when:
-            rssCheckingActor.tell(new RssLink(new Blog(author: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(Blog.builder().author("Tomasz Dziurko").rss("http://tomaszdziurko.pl/feed/").build()), ActorRef.noSender())
         then:
             testProbe.expectMsgClass(RssEntryWithAuthor)
     }
@@ -45,7 +45,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
         when:
-            rssCheckingActor.tell(new RssLink(new Blog(author: "Tomasz Dziurko", rss: "http://tomaszdziurko.pl/feed/")), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(Blog.builder().author("Tomasz Dziurko").rss("http://tomaszdziurko.pl/feed/").build()), ActorRef.noSender())
         then:
             testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }
