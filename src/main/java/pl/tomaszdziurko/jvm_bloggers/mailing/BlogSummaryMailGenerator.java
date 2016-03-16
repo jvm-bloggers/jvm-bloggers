@@ -91,7 +91,7 @@ public class BlogSummaryMailGenerator {
         template.setAttribute("newPostsFromCompanies",
             toMailItems(newPostsfromCompanies, issueNumber));
         template.setAttribute("blogsWithHomePage",
-            getBlogAndItsHomepage(blogsAddedSinceLastNewsletter));
+            getBlogAndItsHomePage(blogsAddedSinceLastNewsletter));
         return template.toString();
     }
 
@@ -105,20 +105,20 @@ public class BlogSummaryMailGenerator {
         ).collect(Collectors.toList());
     }
 
-    private Map<Blog, HomepageUrl> getBlogAndItsHomepage(
+    private Map<Blog, HomePageUrl> getBlogAndItsHomePage(
         List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream()
             .map(blog -> Pair.of(blog,
-                new HomepageUrl(getBlogHomepageFromRss(blog.getRss()))))
+                new HomePageUrl(getBlogHomePageFromRss(blog.getRss()))))
             .collect(Collectors.toMap(Pair::getLeft, Pair::getRight)
             );
     }
 
-    private Optional<String> getBlogHomepageFromRss(String rss) {
+    private Optional<String> getBlogHomePageFromRss(String rss) {
         return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
     }
 
-    public static class HomepageUrl {
+    public static class HomePageUrl {
 
         @Getter
         private final String url;
@@ -126,7 +126,7 @@ public class BlogSummaryMailGenerator {
         @Getter
         private final boolean isAvailable;
 
-        private HomepageUrl(Optional<String> optUrlString) {
+        private HomePageUrl(Optional<String> optUrlString) {
             isAvailable = optUrlString.isPresent();
             url = optUrlString.orElse(StringUtils.EMPTY);
         }
