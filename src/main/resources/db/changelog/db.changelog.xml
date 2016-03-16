@@ -191,4 +191,8 @@
         </sql>
     </changeSet>
 
+    <changeSet id="020-update-mailing-templates-with-new-homepage-links-handling" author="Dawid.Pura">
+        <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

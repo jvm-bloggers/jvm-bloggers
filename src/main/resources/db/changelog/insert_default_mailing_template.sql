@@ -27,11 +27,7 @@ $endif$
 $if(blogsWithHomePage)$
 Nowo dodane blogi: <br/>
 $blogsWithHomePage.keys: { key |
-$if(blogsWithHomePage.(key).available)$
-- <a href="$blogsWithHomePage.(key).url$">$key.author$</a><br/>
-$else$
-- $key.author$ <br/>
-$endif$
+- <a href="$blogsWithHomePage.(key)$">$key.author$</a><br/>
 }$
 $endif$
 -- <br/>
