@@ -64,3 +64,7 @@
 ## Reviewing and merging
 
 * If code review has been done and the PR has been successfully merged then [delete the PR branch](https://help.github.com/articles/deleting-unused-branches/) using _Delete branch_ button at the bottom of given PR page.
+
+* After successfull merge the issue given PR referes to should be automatically closed (if you conformed to [commit guidelines](https://github.com/tdziurko/jvm-bloggers/blob/master/CONTIBUTING.md#commit-guidelines) ealier). If it was not closed automatically by merge commit then close the related issue manually.
+
+* Finally remove the yellow `in progress` label from the closed issue.
