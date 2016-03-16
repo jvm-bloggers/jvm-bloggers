@@ -24,7 +24,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 import javax.servlet.http.HttpServletRequest;
 
 @StatelessComponent
-@Slf4j
 public class LoginPage extends WebPage {
 
     public static final String LOGIN_FORM_ID = "loginForm";
