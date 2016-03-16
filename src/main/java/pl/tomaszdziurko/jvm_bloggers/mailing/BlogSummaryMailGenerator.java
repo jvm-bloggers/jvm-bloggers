@@ -2,9 +2,12 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.rometools.rome.feed.synd.SyndFeed;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.antlr.stringtemplate.StringTemplate;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +25,7 @@ import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
@@ -64,7 +67,7 @@ public class BlogSummaryMailGenerator {
         List<Blog> blogsAddedSinceLastNewsletter =
             blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newApprovedPosts = blogPostRepository
-                .findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
+            .findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
         if (newApprovedPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
             log.warn("There are no new posts nor new blogs added for last {} days !!!",
                 numberOfDaysBackInThePast);
@@ -102,16 +105,32 @@ public class BlogSummaryMailGenerator {
         ).collect(Collectors.toList());
     }
 
-    private Map<Blog, String> getBlogAndItsHomepage(List<Blog> blogsAddedSinceLastNewsletter) {
-        return blogsAddedSinceLastNewsletter.stream().collect(Collectors.toMap(
-            Function.identity(),
-            blog -> getBlogHomepageFromRss(blog.getRss()))
-        );
+    private Map<Blog, HomepageUrl> getBlogAndItsHomepage(
+        List<Blog> blogsAddedSinceLastNewsletter) {
+        return blogsAddedSinceLastNewsletter.stream()
+            .map(blog -> Pair.of(blog,
+                new HomepageUrl(getBlogHomepageFromRss(blog.getRss()))))
+            .collect(Collectors.toMap(Pair::getLeft, Pair::getRight)
+            );
     }
 
-    private String getBlogHomepageFromRss(String rss) {
-        SyndFeed syndFeed = syndFeedFactory.createFor(rss);
-        return syndFeed.getLink();
+    private Optional<String> getBlogHomepageFromRss(String rss) {
+        return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
+    }
+
+    public static class HomepageUrl {
+
+        @Getter
+        private final String url;
+
+        @Getter
+        private final boolean isAvailable;
+
+        private HomepageUrl(Optional<String> optUrlString) {
+            isAvailable = optUrlString.isPresent();
+            url = optUrlString.orElse(StringUtils.EMPTY);
+        }
+
     }
 
 }

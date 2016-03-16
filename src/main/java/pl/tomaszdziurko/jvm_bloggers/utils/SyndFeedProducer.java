@@ -3,24 +3,28 @@ package pl.tomaszdziurko.jvm_bloggers.utils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
 import lombok.Cleanup;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.http.ProtocolSwitchingAwareConnectionRedirectHandler;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
+@Slf4j
 public class SyndFeedProducer {
 
     public static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
@@ -29,17 +33,19 @@ public class SyndFeedProducer {
     private final ProtocolSwitchingAwareConnectionRedirectHandler redirectHandler =
         new ProtocolSwitchingAwareConnectionRedirectHandler();
 
-    @SneakyThrows
-    public SyndFeed createFor(String rssUrl) {
+    public Optional<SyndFeed> createFor(String rssUrl) {
         URLConnection urlConnection = null;
         try {
             urlConnection = new URL(rssUrl).openConnection();
             final Map<String, List<String>> headers =
-                ImmutableMap.of("User-Agent", ImmutableList.of(FAKE_USER_AGENT));
+                    ImmutableMap.of("User-Agent", ImmutableList.of(FAKE_USER_AGENT));
             urlConnection = redirectHandler.handle(urlConnection, headers);
             @Cleanup
             final InputStream inputStream = urlConnection.getInputStream();
-            return new SyndFeedInput().build(new XmlReader(inputStream));
+            return Optional.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+        } catch (IOException | FeedException ex) {
+            log.warn("Error during fetching RSS {} url", rssUrl,  ex);
+            return Optional.empty();
         } finally {
             IOUtils.close(urlConnection);
         }

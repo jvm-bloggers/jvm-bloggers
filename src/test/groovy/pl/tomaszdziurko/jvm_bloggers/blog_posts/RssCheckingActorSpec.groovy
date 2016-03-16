@@ -53,7 +53,7 @@ class RssCheckingActorSpec extends Specification {
     private void mockFeedToReturnNumberOfPosts(SyndFeedProducer factory, int numberOfPosts) {
         SyndFeed syndFeedMock = Mock(SyndFeed)
         syndFeedMock.getEntries() >> mockEntries(numberOfPosts)
-        factory.createFor(_ as String) >> syndFeedMock
+        factory.createFor(_ as String) >> Optional.of(syndFeedMock)
     }
 
     List<SyndEntry> mockEntries(int size) {
