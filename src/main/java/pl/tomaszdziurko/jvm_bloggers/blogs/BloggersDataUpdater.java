@@ -50,10 +50,14 @@ public class BloggersDataUpdater {
             Blog bloggerWithSameJsonId = existingBloggerByJsonId.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
         } else {
-            Blog newBlog = new Blog(bloggerEntry.getJsonId(), bloggerEntry.getName(),
-                StringUtils.lowerCase(bloggerEntry.getRss()), bloggerEntry.getTwitter(),
-                nowProvider.now(), bloggerEntry.getBlogType());
-            blogRepository.save(newBlog);
+            blogRepository.save(Blog.builder()
+                    .jsonId(bloggerEntry.getJsonId())
+                    .author(bloggerEntry.getName())
+                    .rss(StringUtils.lowerCase(bloggerEntry.getRss()))
+                    .twitter(bloggerEntry.getTwitter())
+                    .dateAdded(nowProvider.now())
+                    .blogType(bloggerEntry.getBlogType())
+                    .build());
             updateSummary.recordCreated();
         }
     }

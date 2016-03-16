@@ -16,7 +16,6 @@ import java.time.format.DateTimeFormatter;
  * @author Adam Dec
  */
 @Component
-@Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BruteForceAttackMailGenerator {
 
