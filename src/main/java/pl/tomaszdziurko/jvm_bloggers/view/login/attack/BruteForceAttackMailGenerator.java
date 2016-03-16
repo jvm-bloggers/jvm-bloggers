@@ -2,7 +2,6 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

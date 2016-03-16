@@ -1,7 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.devutils.stateless.StatelessComponent;
