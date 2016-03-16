@@ -2,7 +2,6 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import java.time.format.DateTimeFormatter;
  * @author Adam Dec
  */
 @Component
-@Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BruteForceAttackMailGenerator {
 

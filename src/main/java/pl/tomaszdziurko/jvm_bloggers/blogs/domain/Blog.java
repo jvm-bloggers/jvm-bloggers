@@ -1,5 +1,8 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "blog")
 @Data
-@NoArgsConstructor
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Blog {
 
     @Id
@@ -27,7 +32,7 @@ public class Blog {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "JSON_ID")
+    @Column(nullable = false, name = "JSON_ID")
     private Long jsonId;
 
     @Column(name = "AUTHOR", nullable = false, length = 250)
@@ -36,7 +41,7 @@ public class Blog {
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
 
-    @Column(name = "TWITTER", nullable = true, length = 100)
+    @Column(name = "TWITTER", length = 100)
     private String twitter;
 
     @Column(name = "DATE_ADDED", nullable = false)
@@ -45,16 +50,6 @@ public class Blog {
     @Column(name = "BLOG_TYPE", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private BlogType blogType;
-
-    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded,
-                BlogType blogType) {
-        this.jsonId = jsonId;
-        this.author = author;
-        this.rss = rss;
-        this.twitter = twitter;
-        this.dateAdded = dateAdded;
-        this.blogType = blogType;
-    }
 
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
