@@ -57,7 +57,7 @@ dependencies {
     // Logic
     compile 'com.typesafe.akka:akka-actor_2.10:2.3.12'
     compile 'com.typesafe.akka:akka-slf4j_2.10:2.3.12'
-    compile 'rome:rome:1.0'
+    compile 'com.rometools:rome:1.5.1'
 
     // View
     compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:0.0.9'

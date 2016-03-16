@@ -1,18 +1,16 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts
 
-import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
-
-import java.time.LocalDateTime
-
+import com.rometools.rome.feed.synd.SyndFeed
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
-import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
 
-import com.sun.syndication.feed.synd.SyndFeed
+import java.time.LocalDateTime
+
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 class AggregatedRssFeedProducerSpec extends Specification {
 
