@@ -19,7 +19,7 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     List<BlogPost> findByApprovedTrueOrderByPublishedDateDesc();
 
-    @Query("from BlogPost bp order by bp.publishedDate desc")
+    @Query("from BlogPost bp order by bp.approved nulls first, bp.publishedDate desc")
     List<BlogPost> findLatestPosts(Pageable page);
 
     int countByPublishedDateAfter(LocalDateTime publishedDate);
