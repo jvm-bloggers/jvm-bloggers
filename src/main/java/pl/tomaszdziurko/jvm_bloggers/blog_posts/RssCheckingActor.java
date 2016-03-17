@@ -5,11 +5,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
-
-import java.util.List;
 
 public class RssCheckingActor extends AbstractActor {
 
@@ -31,7 +27,7 @@ public class RssCheckingActor extends AbstractActor {
             feed.getEntries().forEach(post -> {
                 RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
                 postStoringActor.tell(msg, self());
-            });
+            })
         );
     }
 }
