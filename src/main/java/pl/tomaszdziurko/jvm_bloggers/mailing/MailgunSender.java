@@ -41,7 +41,7 @@ public class MailgunSender implements MailSender {
         WebTarget webTarget = mailingRestClient
             .target("https://api.mailgun.net/v3/jvm-bloggers.com")
             .path("messages");
-        log.info("Sending mail " + form.asMap().values().toString());
+        log.info("Sending mail '{}' to {}", subject, recipientAddress);
 
         Invocation.Builder invocationBuilder;
         invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);

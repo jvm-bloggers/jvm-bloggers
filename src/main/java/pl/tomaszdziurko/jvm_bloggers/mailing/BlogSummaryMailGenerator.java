@@ -60,10 +60,12 @@ public class BlogSummaryMailGenerator {
     }
 
     public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
-        LocalDateTime publishedDate = nowProvider.now().minusDays(numberOfDaysBackInThePast)
+        LocalDateTime publishedDate = nowProvider.now()
+            .minusDays(numberOfDaysBackInThePast)
             .withHour(11)
             .withMinute(0)
-            .withSecond(0).withNano(0);
+            .withSecond(0)
+            .withNano(0);
         List<Blog> blogsAddedSinceLastNewsletter =
             blogRepository.findByDateAddedAfter(publishedDate);
         List<BlogPost> newApprovedPosts = blogPostRepository
