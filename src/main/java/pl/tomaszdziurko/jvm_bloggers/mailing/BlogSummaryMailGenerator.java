@@ -108,10 +108,8 @@ public class BlogSummaryMailGenerator {
     private Map<Blog, HomePageUrl> getBlogAndItsHomePage(
         List<Blog> blogsAddedSinceLastNewsletter) {
         return blogsAddedSinceLastNewsletter.stream()
-            .map(blog -> Pair.of(blog,
-                new HomePageUrl(getBlogHomePageFromRss(blog.getRss()))))
-            .collect(Collectors.toMap(Pair::getLeft, Pair::getRight)
-            );
+            .map(blog -> Pair.of(blog, new HomePageUrl(getBlogHomePageFromRss(blog.getRss()))))
+            .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
     }
 
     private Optional<String> getBlogHomePageFromRss(String rss) {
