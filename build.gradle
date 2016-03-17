@@ -27,7 +27,7 @@ apply plugin: 'docker'
 
 jar {
     baseName = 'jvm-bloggers'
-    version = '0.7.0'
+    version = '0.8.0'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
