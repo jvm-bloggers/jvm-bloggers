@@ -5,16 +5,8 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndFeed;
-
-import lombok.extern.slf4j.Slf4j;
-
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
-import java.util.List;
-
-@Slf4j
 public class RssCheckingActor extends AbstractActor {
 
     public RssCheckingActor(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory) {
@@ -29,20 +21,13 @@ public class RssCheckingActor extends AbstractActor {
             () -> new RssCheckingActor(postStoringActor, syndFeedFactory));
     }
 
-    @SuppressWarnings("unchecked")
     private void executeAction(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory,
                                RssLink rssLink) {
-        try {
-            SyndFeed feed = syndFeedFactory.createFor(rssLink.getUrl());
-            List<SyndEntry> posts = feed.getEntries();
-            posts.forEach(post -> {
-                    RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
-                    postStoringActor.tell(msg, self());
-                }
-            );
-        } catch (Exception exception) {
-            log.error("Exception for rss from {} ({}): {} ", rssLink.getOwner().getAuthor(),
-                rssLink.getUrl(), exception.getMessage());
-        }
+        syndFeedFactory.createFor(rssLink.getUrl()).ifPresent(feed ->
+            feed.getEntries().forEach(post -> {
+                RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
+                postStoringActor.tell(msg, self());
+            })
+        );
     }
 }
