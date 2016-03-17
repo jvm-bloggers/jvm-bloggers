@@ -64,8 +64,7 @@ public class BlogSummaryMailGenerator {
         List<BlogPost> newPostsfromCompanies =
             newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
 
-        Metadata mailingTemplate = metadataRepository
-                .findByName(MetadataKeys.MAILING_TEMPLATE.toString());
+        Metadata mailingTemplate = metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
         String templateContent =  mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);

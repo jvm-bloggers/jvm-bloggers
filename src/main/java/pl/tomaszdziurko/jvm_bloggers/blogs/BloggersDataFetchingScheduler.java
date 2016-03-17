@@ -26,7 +26,7 @@ public class BloggersDataFetchingScheduler {
         log.info("Starting scheduler: bloggers data refresh");
         bloggersDataFetcher.refreshData();
         final Metadata dateOfLastFetch = metadataRepository
-                .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOGGERS.toString());
+                .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOGGERS);
         dateOfLastFetch.setValue(nowProvider.now().toString());
         metadataRepository.save(dateOfLastFetch);
     }

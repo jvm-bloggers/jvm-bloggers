@@ -16,7 +16,7 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 @Component
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor = @_(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MailingPageRequestHandler {
 
     private MailSender mailSender;
@@ -31,13 +31,12 @@ public class MailingPageRequestHandler {
             daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
         );
         Metadata testMailAddress = metadataRepository
-                .findByName(MetadataKeys.TEST_EMAIL.toString());
+                .findByName(MetadataKeys.ADMIN_EMAIL);
         mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
         return testMailAddress.getValue();
     }
 
     public String loadDefaultMailingTemplate() {
-        return metadataRepository
-                .findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
+        return metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
     }
 }

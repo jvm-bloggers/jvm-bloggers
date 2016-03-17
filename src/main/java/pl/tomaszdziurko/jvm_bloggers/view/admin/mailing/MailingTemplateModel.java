@@ -15,6 +15,6 @@ class MailingTemplateModel extends LoadableDetachableModel<Metadata> {
 
     @Override
     protected Metadata load() {
-        return metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE.toString());
+        return metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
     }
 }
