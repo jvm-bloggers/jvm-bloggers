@@ -7,13 +7,10 @@ import akka.japi.pf.ReceiveBuilder;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 
-import lombok.extern.slf4j.Slf4j;
-
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.util.List;
 
-@Slf4j
 public class RssCheckingActor extends AbstractActor {
 
     public RssCheckingActor(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory) {
@@ -28,7 +25,6 @@ public class RssCheckingActor extends AbstractActor {
             () -> new RssCheckingActor(postStoringActor, syndFeedFactory));
     }
 
-    @SuppressWarnings("unchecked")
     private void executeAction(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory,
                                RssLink rssLink) {
         syndFeedFactory.createFor(rssLink.getUrl()).ifPresent(feed -> {
