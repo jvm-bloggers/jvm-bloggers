@@ -27,13 +27,11 @@ public class RssCheckingActor extends AbstractActor {
 
     private void executeAction(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory,
                                RssLink rssLink) {
-        syndFeedFactory.createFor(rssLink.getUrl()).ifPresent(feed -> {
-                List<SyndEntry> posts = feed.getEntries();
-                posts.forEach(post -> {
-                    RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
-                    postStoringActor.tell(msg, self());
-                });
-            }
+        syndFeedFactory.createFor(rssLink.getUrl()).ifPresent(feed ->
+            feed.getEntries().forEach(post -> {
+                RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
+                postStoringActor.tell(msg, self());
+            });
         );
     }
 }
