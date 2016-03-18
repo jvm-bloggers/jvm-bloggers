@@ -8,9 +8,9 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "(final Boolean approved, final String expectedState) {
         given:
-            def blogPost = new BlogPost(approved: approved)
+            final BlogPost blogPost = new BlogPost(approved: approved)
         when:
-            def approvalState = blogPost.getApprovalState()
+            final String approvalState = blogPost.getApprovalState()
         then:
             approvalState == expectedState
         where:
@@ -23,9 +23,9 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return #expected when isModerated called for post with approved = #approved"(final Boolean approved, final boolean expected) {
         given:
-            def blogPost = new BlogPost(approved: approved)
+            final BlogPost blogPost = new BlogPost(approved: approved)
         when:
-            def isModerated = blogPost.isModerated()
+            final boolean isModerated = blogPost.isModerated()
         then:
             isModerated == expected
         where:
@@ -38,9 +38,9 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return #expected when isNotModerated called for post with approved = #approved"(final Boolean approved, final boolean expected) {
         given:
-            def blogPost = new BlogPost(approved: approved)
+            final BlogPost  blogPost = new BlogPost(approved: approved)
         when:
-            def isNotModerated = blogPost.isNotModerated()
+            final boolean isNotModerated = blogPost.isNotModerated()
         then:
             isNotModerated == expected
         where:

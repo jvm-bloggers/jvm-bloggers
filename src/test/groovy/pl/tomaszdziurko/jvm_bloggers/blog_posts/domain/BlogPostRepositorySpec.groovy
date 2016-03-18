@@ -25,9 +25,9 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     def "Should order latest posts by moderation and publication date"() {
         given:
-            def blog = aBlog()
+            final Blog blog = aBlog()
 
-            def blogPosts = [
+            final List<BlogPost> blogPosts = [
                 aBlogPost(1, LocalDateTime.of(2016, 1, 1, 12, 00), REJECTED, blog),
                 aBlogPost(2, LocalDateTime.of(2016, 1, 4, 12, 00), REJECTED, blog),
                 aBlogPost(3, LocalDateTime.of(2016, 1, 2, 12, 00), APPROVED, blog),
@@ -38,7 +38,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
             blogPostRepository.save(blogPosts)
         when:
-            def latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
+            final List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
         then:
             // not moderated posts first ...
             latestPosts[0].isNotModerated()
@@ -57,8 +57,9 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     }
 
     private Blog aBlog() {
-        def blog = new Blog(jsonId: 1L, author: "Top Blogger", rss: "http://topblogger.pl/", dateAdded: LocalDateTime.now(), blogType: PERSONAL)
-        return blogRepository.save(blog)
+        return blogRepository.save(
+                new Blog(jsonId: 1L, author: "Top Blogger", rss: "http://topblogger.pl/",
+                         dateAdded: LocalDateTime.now(), blogType: PERSONAL))
     }
 
     private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate, final Boolean approved, final Blog blog) {
