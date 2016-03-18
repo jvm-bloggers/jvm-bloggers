@@ -7,6 +7,13 @@
 
 * Not sure which issue pick? Please check those labelled as ["For newcomers"](https://github.com/tdziurko/jvm-bloggers/issues?q=is%3Aissue+is%3Aopen+label%3A%22For+newcomers%22)
 
+## Local git configuration
+
+Contributors must configure local repository after cloning by executing the command from the cloned root directory:
+
+	git config --local include.path ../.gitconfig
+
+This will configure cloned repository according to project standards. Note that it will not alter your global or system git configuration, it will only modify `.git/config` file located in the cloned root directory. This is required to run checkstyle task properly (required by [commit guidelines](https://github.com/tdziurko/jvm-bloggers/blob/master/CONTRIBUTING.md#commit-guidelines)).
 
 ## Code formatting
 
