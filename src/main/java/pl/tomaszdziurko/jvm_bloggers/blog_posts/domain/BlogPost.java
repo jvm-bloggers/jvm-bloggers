@@ -70,6 +70,10 @@ public class BlogPost {
         return Boolean.FALSE.equals(approved);
     }
 
+    public boolean isModerated() {
+        return approved != null;
+    }
+
     public boolean isNotModerated() {
         return approved == null;
     }

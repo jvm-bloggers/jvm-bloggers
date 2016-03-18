@@ -11,7 +11,6 @@ import java.time.LocalDateTime
 
 import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 
-@ActiveProfiles("test")
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     static NOT_MODERATED = null
@@ -41,16 +40,19 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         when:
             def latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
         then:
+            // not moderated posts first ...
             latestPosts[0].isNotModerated()
             latestPosts[1].isNotModerated()
             latestPosts[0].getPublishedDate().isAfter(latestPosts[1].getPublishedDate())
 
-            latestPosts[2].isRejected()
-            latestPosts[3].isRejected()
-            latestPosts[2].getPublishedDate().isAfter(latestPosts[3].getPublishedDate())
+            // ... then moderated ones ordered by published date regardless of an approval
+            latestPosts[2].isModerated()
+            latestPosts[3].isModerated()
+            latestPosts[4].isModerated()
+            latestPosts[5].isModerated()
 
-            latestPosts[4].isApproved()
-            latestPosts[5].isApproved()
+            latestPosts[2].getPublishedDate().isAfter(latestPosts[3].getPublishedDate())
+            latestPosts[3].getPublishedDate().isAfter(latestPosts[4].getPublishedDate())
             latestPosts[4].getPublishedDate().isAfter(latestPosts[5].getPublishedDate())
     }
 
