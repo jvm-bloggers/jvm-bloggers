@@ -11,6 +11,7 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 
+import java.io.Serializable;
 import java.util.function.Consumer;
 
 import static java.lang.String.format;
@@ -25,7 +26,7 @@ public class BlogActionPanel extends Panel {
     private final CustomFeedbackPanel feedbackPanel;
 
     public BlogActionPanel(
-            String id, Form<?> form, IModel<Blog> blogModel, CustomFeedbackPanel feedbackPanel) {
+        String id, Form<?> form, IModel<Blog> blogModel, CustomFeedbackPanel feedbackPanel) {
 
         super(id);
         this.form = form;
@@ -37,21 +38,23 @@ public class BlogActionPanel extends Panel {
     }
 
     private AjaxButton createActivateBlogButton() {
-        AjaxButton activate = createBlogActionButton("activateBlog", b -> b.setActive(true),
-                format("'%s' blog activated", blogModel.getObject().getAuthor()));
+        AjaxButton activate = createBlogActionButton("activateBlog",
+            (Consumer<Blog> & Serializable) b -> b.setActive(true),
+            format("'%s' blog activated", blogModel.getObject().getAuthor()));
         activate.setVisible(!blogModel.getObject().isActive());
         return activate;
     }
 
     private AjaxButton createDeactivateBlogButton() {
-        AjaxButton deactivate = createBlogActionButton("deactivateBlog", b -> b.setActive(false),
-                format("'%s' blog deactivated", blogModel.getObject().getAuthor()));
+        AjaxButton deactivate = createBlogActionButton("deactivateBlog",
+            (Consumer<Blog> & Serializable) b -> b.setActive(false),
+            format("'%s' blog deactivated", blogModel.getObject().getAuthor()));
         deactivate.setVisible(blogModel.getObject().isActive());
         return deactivate;
     }
 
     private AjaxButton createBlogActionButton(
-            String id, Consumer<Blog> blogAction, String successMessage) {
+        String id, Consumer<Blog> blogAction, String successMessage) {
 
         return new AjaxButton(id, form) {
 
