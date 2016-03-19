@@ -24,6 +24,6 @@ public class BlogModel extends LoadableDetachableModel<Blog> {
 
     @Override
     protected Blog load() {
-        return blogRepository.getOne(blogId);
+        return blogRepository.findOne(blogId);
     }
 }
