@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain;
 
 
+import com.google.common.annotations.VisibleForTesting;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -70,12 +71,9 @@ public class BlogPost {
         return Boolean.FALSE.equals(approved);
     }
 
-    public boolean isModerated() {
+    @VisibleForTesting
+    boolean isModerated() {
         return approved != null;
-    }
-
-    public boolean isNotModerated() {
-        return approved == null;
     }
 
     public String getApprovalState() {

@@ -41,8 +41,8 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
         then:
             // not moderated posts first ...
-            latestPosts[0].isNotModerated()
-            latestPosts[1].isNotModerated()
+            !latestPosts[0].isModerated()
+            !latestPosts[1].isModerated()
             latestPosts[0].getPublishedDate().isAfter(latestPosts[1].getPublishedDate())
 
             // ... then moderated ones ordered by published date regardless of an approval
@@ -58,11 +58,23 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     private Blog aBlog() {
         return blogRepository.save(
-                new Blog(jsonId: 1L, author: "Top Blogger", rss: "http://topblogger.pl/",
-                         dateAdded: LocalDateTime.now(), blogType: PERSONAL))
+                Blog.builder()
+                        .jsonId(1L)
+                        .author("Top Blogger")
+                        .rss("http://topblogger.pl/")
+                        .dateAdded(LocalDateTime.now())
+                        .blogType(PERSONAL)
+                        .build());
     }
 
-    private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate, final Boolean approved, final Blog blog) {
-        return new BlogPost(publishedDate: publishedDate, approved: approved, blog: blog, title: "title" + index, url: "url" + index)
+    private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate,
+                               final Boolean approved, final Blog blog) {
+        return BlogPost.builder()
+                .publishedDate(publishedDate)
+                .approved(approved)
+                .blog(blog)
+                .title("title" + index)
+                .url("url" + index)
+                .build();
     }
 }
