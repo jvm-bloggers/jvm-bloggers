@@ -17,7 +17,9 @@ public class ModerationActionPanel extends Panel {
     @SpringBean
     private BlogPostRepository blogPostRepository;
 
-    public ModerationActionPanel(String id, Form<Void> moderationForm, CustomFeedbackPanel feedback, IModel<? extends BlogPost> blogPostModel) {
+    public ModerationActionPanel(String id, Form<Void> moderationForm,
+                                 CustomFeedbackPanel feedback,
+                                 IModel<? extends BlogPost> blogPostModel) {
         super(id);
 
         AjaxButton acceptPost = new AjaxButton("acceptPost", moderationForm) {

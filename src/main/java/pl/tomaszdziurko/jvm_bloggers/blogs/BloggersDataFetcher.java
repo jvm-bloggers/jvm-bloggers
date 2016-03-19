@@ -1,10 +1,13 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggersData;
 
@@ -30,10 +33,10 @@ public class BloggersDataFetcher {
         this.bloggersDataUpdater = bloggersDataUpdater;
     }
 
-    private Optional<URL> convertToUrl(String urlString)  {
+    private Optional<URL> convertToUrl(String urlString) {
         try {
             return Optional.of(new URL(urlString));
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException exception) {
             log.error("Invalid URL " + urlString);
             return Optional.empty();
         }
@@ -53,8 +56,8 @@ public class BloggersDataFetcher {
             BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
             bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
             bloggersDataUpdater.updateData(bloggers);
-        } catch (IOException e) {
-            log.error("Exception during parse process for {}", blogType, e);
+        } catch (IOException exception) {
+            log.error("Exception during parse process for {}", blogType, exception);
         }
     }
 

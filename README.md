@@ -84,11 +84,13 @@ Wanna help? Please let me know, you can simply:
 * join [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
 * write an e-mail to GMail: jvmbloggers (at) (you know what).com :)
 * create an issue or comment on existing one 
+* for more details please read our [Contribution guide](CONTRIBUTING.md)
+
 
 **Important:** 
 
 1. Before coding please comment on issue that you will be working on so we do not duplicate efforts :)
-2. PR with code clenups are also welcome :)
+2. PR with code cleanups are also welcome :)
 
 This is a community driven open source project, so any help is appreciated!
 

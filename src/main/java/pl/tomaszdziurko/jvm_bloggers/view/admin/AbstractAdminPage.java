@@ -11,7 +11,8 @@ import pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage;
 
 public abstract class AbstractAdminPage extends WebPage {
 
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    public static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public AbstractAdminPage() {
         initializeElements();
@@ -27,12 +28,16 @@ public abstract class AbstractAdminPage extends WebPage {
     }
 
     private void initializeLeftPanel() {
-        add(new BookmarkablePageLink<AdminDashboardPage>("adminHomePage", AdminDashboardPage.class));
-        add(new BookmarkablePageLink<AdminDashboardPage>("dashboardLink", AdminDashboardPage.class));
-        add(new BookmarkablePageLink<AdminDashboardPage>("mailingLink", MailingPage.class));
-        add(new BookmarkablePageLink<AdminDashboardPage>("moderationLink", ModerationPage.class));
-        add(new BookmarkablePageLink<AdminDashboardPage>("blogsLink", BlogsPage.class));
-
+        add(new BookmarkablePageLink<AdminDashboardPage>("adminHomePage",
+                AdminDashboardPage.class));
+        add(new BookmarkablePageLink<AdminDashboardPage>("dashboardLink",
+                AdminDashboardPage.class));
+        add(new BookmarkablePageLink<AdminDashboardPage>("mailingLink",
+                MailingPage.class));
+        add(new BookmarkablePageLink<AdminDashboardPage>("moderationLink",
+                ModerationPage.class));
+        add(new BookmarkablePageLink<AdminDashboardPage>("blogsLink",
+                BlogsPage.class));
         add(new DebugBar("debug"));
     }
 }

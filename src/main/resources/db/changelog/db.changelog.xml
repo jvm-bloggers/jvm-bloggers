@@ -175,7 +175,27 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="018-added-ACTIVE-column-to-BLOG-table" author="Mateusz Urbański">
+    <changeSet id="018-store-email-to-send-admin-mail" author="Adam.Dec">
+        <sql>
+            INSERT INTO setting(id, name, value)
+            VALUES (nextval('setting_seq'), 'ADMIN_EMAIL', 'your-admin-email-goes-here');
+        </sql>
+    </changeSet>
+
+    <changeSet id="019-fix-not-needed-ADMIN_EMAIL-key-in-SETTING-table" author="Tomasz.Dziurko">
+        <sql>
+            delete from setting where name = 'ADMIN_EMAIL';
+        </sql>
+        <sql>
+            update setting set name = 'ADMIN_EMAIL' where name = 'TEST_EMAIL';
+        </sql>
+    </changeSet>
+
+    <changeSet id="020-update-mailing-templates-with-new-homepage-links-handling" author="Dawid.Pura">
+        <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="021-added-ACTIVE-column-to-BLOG-table" author="Mateusz Urbański">
         <addColumn tableName="blog">
             <column name="ACTIVE" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>

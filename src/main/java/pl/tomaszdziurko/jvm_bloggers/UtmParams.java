@@ -4,9 +4,9 @@ package pl.tomaszdziurko.jvm_bloggers;
  * UTM (Urchin Traffic Monitor) URL query parameter identifiers.
  * 
  * @see <a href="https://en.wikipedia.org/wiki/UTM_parameters">UTM Parameters</a>
- * @author cslysy <jakub.sprega@gmail.com>
+ * @author cslysy &lt;jakub.sprega@gmail.com&gt;
  */
-public class UTMParameters {
+public class UtmParams {
     
     public static final String UTM_SOURCE_KEY = "utm_source";
     

@@ -1,18 +1,18 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
-import java.io.PrintWriter;
+import com.rometools.rome.io.SyndFeedOutput;
 
-import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.syndication.io.SyndFeedOutput;
+import java.io.PrintWriter;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

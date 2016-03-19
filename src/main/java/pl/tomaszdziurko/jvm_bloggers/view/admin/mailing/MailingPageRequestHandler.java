@@ -43,12 +43,13 @@ public class MailingPageRequestHandler {
         String mailContent = blogSummaryMailGenerator.prepareMailContent(
             daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
         );
-        Setting testMailAddress = settingRepository.findByName(SettingKeys.TEST_EMAIL.toString());
+        Setting testMailAddress = settingRepository.findByName(SettingKeys.ADMIN_EMAIL.toString());
         mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
         return testMailAddress.getValue();
     }
 
     public String loadDefaultMailingTemplate() {
-        return settingRepository.findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
+        return settingRepository
+            .findByName(SettingKeys.DEFAULT_MAILING_TEMPLATE.toString()).getValue();
     }
 }

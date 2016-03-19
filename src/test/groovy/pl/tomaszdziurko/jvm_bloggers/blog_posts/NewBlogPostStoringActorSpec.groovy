@@ -4,9 +4,8 @@ import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Props
 import akka.testkit.JavaTestKit
-
-import com.sun.syndication.feed.synd.SyndContent
-import com.sun.syndication.feed.synd.SyndEntry
+import com.rometools.rome.feed.synd.SyndContent
+import com.rometools.rome.feed.synd.SyndEntry
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog

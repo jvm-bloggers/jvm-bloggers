@@ -1,18 +1,14 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts
 
-import javax.servlet.http.HttpServletResponse
-
+import com.rometools.rome.feed.synd.SyndContentImpl
+import com.rometools.rome.feed.synd.SyndEntryImpl
+import com.rometools.rome.feed.synd.SyndFeedImpl
 import org.apache.commons.io.IOUtils
-import org.mockito.internal.util.io.IOUtil
 import org.springframework.http.MediaType
-
 import spock.lang.Specification
 import spock.lang.Subject
 
-import com.sun.syndication.feed.synd.SyndContentImpl
-import com.sun.syndication.feed.synd.SyndEntry
-import com.sun.syndication.feed.synd.SyndEntryImpl
-import com.sun.syndication.feed.synd.SyndFeedImpl
+import javax.servlet.http.HttpServletResponse
 
 class BlogPostsControllerSpec extends Specification {
 

@@ -10,13 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "blog")
 @Data
-@NoArgsConstructor
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Blog {
 
     @Id
@@ -25,7 +30,7 @@ public class Blog {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "JSON_ID")
+    @Column(nullable = false, name = "JSON_ID")
     private Long jsonId;
 
     @Column(name = "AUTHOR", nullable = false, length = 250)
@@ -34,7 +39,7 @@ public class Blog {
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
 
-    @Column(name = "TWITTER", nullable = true, length = 100)
+    @Column(name = "TWITTER", length = 100)
     private String twitter;
 
     @Column(name = "DATE_ADDED", nullable = false)

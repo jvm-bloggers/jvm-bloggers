@@ -1,10 +1,14 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
+import com.google.common.annotations.VisibleForTesting;
+import com.rometools.rome.feed.synd.SyndContentImpl;
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndEntryImpl;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndFeedImpl;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -12,19 +16,16 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.sun.syndication.feed.synd.SyndContentImpl;
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndEntryImpl;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.feed.synd.SyndFeedImpl;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 
 @Service
 @CacheConfig(cacheNames = AggregatedRssFeedProducer.RSS_CACHE)
@@ -54,10 +55,11 @@ public class AggregatedRssFeedProducer {
         log.debug("Building aggregated RSS feed...");
         stopWatch.start();
 
-        final List<BlogPost> approvedPosts = blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc();
+        final List<BlogPost> approvedPosts =
+            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc();
         final List<SyndEntry> feedItems = approvedPosts.stream()
-                .map(this::toRssEntry)
-                .collect(Collectors.toList());
+            .map(this::toRssEntry)
+            .collect(Collectors.toList());
 
         final SyndFeed feed = new SyndFeedImpl();
         feed.setFeedType(FEED_TYPE);
@@ -67,7 +69,8 @@ public class AggregatedRssFeedProducer {
         feed.setEntries(feedItems);
 
         stopWatch.stop();
-        log.info("Total {} feed entries produced in {}ms", feedItems.size(), stopWatch.getTotalTimeMillis());
+        log.info("Total {} feed entries produced in {}ms", feedItems.size(),
+            stopWatch.getTotalTimeMillis());
 
         return feed;
     }
@@ -91,10 +94,10 @@ public class AggregatedRssFeedProducer {
 
     private String addUtmComponents(String url) {
         return UriUtmComponentsBuilder.fromHttpUrl(url)
-                .withSource(UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE)
-                .withMedium(UTM_MEDIUM)
-                .withCampaign(UTM_CAMPAIGN)
-                .build();
+            .withSource(UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE)
+            .withMedium(UTM_MEDIUM)
+            .withCampaign(UTM_CAMPAIGN)
+            .build();
     }
 
 }

@@ -40,10 +40,12 @@ public class ModerationPage extends AbstractAdminPage {
                 BlogPost post = item.getModelObject();
                 item.add(new Label("title", post.getTitle()));
                 item.add(new Label("author", post.getBlog().getAuthor()));
-                item.add(new ExternalLink("link", post.getUrl(), StringUtils.abbreviate(post.getUrl(), 90)));
+                item.add(new ExternalLink("link",
+                    post.getUrl(), StringUtils.abbreviate(post.getUrl(), 90)));
                 item.add(new Label("date", post.getPublishedDate().format(DATE_FORMATTER)));
                 item.add(new Label("approved", post.getApprovalState()));
-                item.add(new ModerationActionPanel("actionPanel", moderationForm, feedback, item.getModel()));
+                item.add(new ModerationActionPanel("actionPanel", moderationForm,
+                    feedback, item.getModel()));
                 addEvenOddRowStyling(item);
             }
         };
