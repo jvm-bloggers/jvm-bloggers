@@ -5,11 +5,11 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.stringtemplate.v4.ST;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
@@ -33,6 +33,8 @@ import static java.util.Collections.emptyList;
 @Component
 @Slf4j
 public class BlogSummaryMailGenerator {
+
+    private static final char TEMPLATE_DELIMITER = '$';
 
     private BlogRepository blogRepository;
     private BlogPostRepository blogPostRepository;
@@ -87,14 +89,14 @@ public class BlogSummaryMailGenerator {
         Setting mailingTemplate = settingRepository
             .findByName(SettingKeys.MAILING_TEMPLATE.toString());
         String templateContent = mailingTemplate.getValue();
-        StringTemplate template = new StringTemplate(templateContent);
-        template.setAttribute("days", numberOfDaysBackInThePast);
-        template.setAttribute("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
-        template.setAttribute("newPostsFromCompanies",
+        ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
+        template.add("days", numberOfDaysBackInThePast);
+        template.add("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
+        template.add("newPostsFromCompanies",
             toMailItems(newPostsfromCompanies, issueNumber));
-        template.setAttribute("blogsWithHomePage",
+        template.add("blogsWithHomePage",
             getBlogAndItsHomePage(blogsAddedSinceLastNewsletter));
-        return template.toString();
+        return template.render();
     }
 
     private List<BlogPostForMailItem> toMailItems(List<BlogPost> newPosts, long issueNumber) {
