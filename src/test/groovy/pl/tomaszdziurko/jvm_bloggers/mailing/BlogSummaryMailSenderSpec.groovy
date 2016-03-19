@@ -12,13 +12,20 @@ class BlogSummaryMailSenderSpec extends Specification {
     MailSender mailSender = Mock(MailSender)
     MailingAddressRepository mailingAddressRepository = Mock(MailingAddressRepository)
     IssueNumberRetriever issueNumberRetriever = Mock(IssueNumberRetriever)
+    MailingSleepIntervalProvider mailingSleepIntervalProvider = Mock(MailingSleepIntervalProvider)
 
     @Subject
-    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(blogSummaryMailGenerator, mailSender,
-            mailingAddressRepository, issueNumberRetriever, new NowProvider())
+    BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(
+            blogSummaryMailGenerator,
+            mailSender,
+            mailingAddressRepository,
+            issueNumberRetriever,
+            mailingSleepIntervalProvider,
+            new NowProvider())
 
     def setup() {
         blogSummaryMailGenerator.prepareMailContent(_) >> "Some generated mail content"
+        mailingSleepIntervalProvider.getSleepingInterval() >> SleepInterval.NO_SLEEPING
     }
 
     def "Should not send any mail for empty MailingAddress DB table"() {
