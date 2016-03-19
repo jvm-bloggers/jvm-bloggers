@@ -69,8 +69,4 @@ public class Blog {
     public String getStatus() {
         return active ? "Active" : "Deactivated";
     }
-
-    public String getTwitterUrl() {
-        return getTwitter() != null ? "https://twitter.com/" + getTwitter() : null;
-    }
 }

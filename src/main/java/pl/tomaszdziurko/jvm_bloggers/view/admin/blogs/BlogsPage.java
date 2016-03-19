@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.blogs;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -43,12 +44,19 @@ public class BlogsPage extends AbstractAdminPage {
             protected void populateItem(Item<Blog> item) {
                 Blog blog = item.getModelObject();
                 item.add(new Label("author", blog.getAuthor()));
+                item.add(createTwitterLink(blog));
                 item.add(new ExternalLink("rss", blog.getRss(), blog.getRss()));
-                item.add(new ExternalLink("twitter", blog.getTwitterUrl(), blog.getTwitter()));
                 item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_FORMATTER)));
                 item.add(new Label("status", blog.getStatus()));
                 item.add(new BlogActionPanel("actions", form, item.getModel(), feedbackPanel));
             }
         };
+    }
+
+    private ExternalLink createTwitterLink(Blog blog) {
+        ExternalLink externalLink = new ExternalLink("twitterLink",
+            "https://twitter.com/" + blog.getTwitter(), blog.getTwitter());
+        externalLink.setVisible(StringUtils.isNotBlank(blog.getTwitter()));
+        return externalLink;
     }
 }
