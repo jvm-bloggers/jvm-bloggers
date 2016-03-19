@@ -6,9 +6,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 
-/**
- * @author Mateusz Urbański <matek2305@gmail.com>.
- */
 public class BlogModel extends LoadableDetachableModel<Blog> {
 
     @SpringBean

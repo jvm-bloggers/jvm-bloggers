@@ -1,6 +1,13 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,11 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "blog")
@@ -51,16 +53,6 @@ public class Blog {
 
     @Column(name = "ACTIVE", nullable = false)
     private boolean active;
-
-    public Blog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType blogType) {
-        this.jsonId = jsonId;
-        this.author = author;
-        this.rss = rss;
-        this.twitter = twitter;
-        this.dateAdded = dateAdded;
-        this.blogType = blogType;
-        this.active = true;
-    }
 
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
