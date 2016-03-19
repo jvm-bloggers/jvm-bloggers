@@ -10,9 +10,9 @@ class BlogSummaryMailSenderSpec extends Specification {
 
     BlogSummaryMailGenerator blogSummaryMailGenerator = Stub(BlogSummaryMailGenerator)
     MailSender mailSender = Mock(MailSender)
-    MailingAddressRepository mailingAddressRepository = Mock(MailingAddressRepository)
-    IssueNumberRetriever issueNumberRetriever = Mock(IssueNumberRetriever)
-    MailingSleepIntervalProvider mailingSleepIntervalProvider = Mock(MailingSleepIntervalProvider)
+    MailingAddressRepository mailingAddressRepository = Stub(MailingAddressRepository)
+    IssueNumberRetriever issueNumberRetriever = Stub(IssueNumberRetriever)
+    MailingSleepIntervalProvider mailingSleepIntervalProvider = Stub(MailingSleepIntervalProvider)
 
     @Subject
     BlogSummaryMailSender summaryMailSender = new BlogSummaryMailSender(
