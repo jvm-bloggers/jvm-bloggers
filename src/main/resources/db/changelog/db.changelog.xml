@@ -195,4 +195,21 @@
         <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="021-rename-table-setting-to-metadata" author="Jonatan.Borkowski">
+        <renameTable oldTableName="setting" newTableName="metadata"/>
+        <sql>
+            ALTER SEQUENCE SETTING_SEQ RENAME TO METADATA_SEQ;
+        </sql>
+    </changeSet>
+
+    <changeSet id="022-store-dates-of-last-fetching" author="Jonatan.Borkowski">
+        <sql>
+            INSERT INTO metadata(id, name, value)
+            VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOGGERS', '1970-01-01T00:00:00.000');
+
+            INSERT INTO metadata(id, name, value)
+            VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOG_POSTS', '1970-01-01T00:00:00.000');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

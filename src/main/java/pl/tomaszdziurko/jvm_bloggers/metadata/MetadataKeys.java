@@ -1,0 +1,15 @@
+package pl.tomaszdziurko.jvm_bloggers.metadata;
+
+public interface MetadataKeys {
+
+    String MAILING_TEMPLATE = "MAILING_TEMPLATE";
+
+    String ADMIN_EMAIL = "ADMIN_EMAIL";
+
+    String DEFAULT_MAILING_TEMPLATE = "DEFAULT_MAILING_TEMPLATE";
+
+    String DATE_OF_LAST_FETCHING_BLOGGERS = "DATE_OF_LAST_FETCHING_BLOGGERS";
+
+    String DATE_OF_LAST_FETCHING_BLOG_POSTS = "DATE_OF_LAST_FETCHING_BLOG_POSTS";
+
+}
