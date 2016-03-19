@@ -197,9 +197,8 @@
 
     <changeSet id="021-rename-table-setting-to-metadata" author="Jonatan.Borkowski">
         <renameTable oldTableName="setting" newTableName="metadata"/>
-        <sql>
-            ALTER SEQUENCE SETTING_SEQ RENAME TO METADATA_SEQ;
-        </sql>
+        <dropSequence sequenceName="SETTING_SEQ"/>
+        <createSequence sequenceName="METADATA_SEQ" startValue="4" incrementBy="1" />
     </changeSet>
 
     <changeSet id="022-store-dates-of-last-fetching" author="Jonatan.Borkowski">
