@@ -5,9 +5,12 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
+import java.util.Optional;
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime
 
@@ -19,7 +22,7 @@ class BloggersDataUpdaterSpec extends Specification {
     BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider())
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), mockSyndFeedProducer(""))
 
     @Unroll
     def "Should check equality of Person and BloggerEntry"() {
@@ -105,14 +108,15 @@ class BloggersDataUpdaterSpec extends Specification {
     }
 
     def buildBlog(Long jsonId, String author, String rss, String twitter) {
-        buildBlog(jsonId, author, rss, twitter, LocalDateTime.now(), PERSONAL)
+        buildBlog(jsonId, author, rss, StringUtils.EMPTY, twitter, LocalDateTime.now(), PERSONAL)
     }
 
-    def buildBlog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType type) {
+    def buildBlog(Long jsonId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
         return Blog.builder()
             .jsonId(jsonId)
             .author(author)
             .rss(rss)
+            .url(url)
             .twitter(twitter)
             .dateAdded(LocalDateTime.now())
             .blogType(type)
@@ -121,5 +125,11 @@ class BloggersDataUpdaterSpec extends Specification {
     
     def buildBloggerEntry(Long jsonId, String author, String rss, String twitter, BlogType type) {
         return new BloggerEntry(jsonId, author, rss, twitter, type)
+    }
+    
+    def mockSyndFeedProducer(String rssUrl) {
+        SyndFeedProducer producer = Spy(SyndFeedProducer);
+        producer.urlFromRss(_) >> Optional.of(rssUrl)
+        return producer
     }
 }

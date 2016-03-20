@@ -1,6 +1,5 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs;
 
-import com.rometools.rome.feed.synd.SyndFeed;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +58,9 @@ public class BloggersDataUpdater {
                     .jsonId(bloggerEntry.getJsonId())
                     .author(bloggerEntry.getName())
                     .rss(StringUtils.lowerCase(bloggerEntry.getRss()))
-                    .url(blogUrlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY))
+                    .url(syndFeedFactory.urlFromRss(
+                        bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
+                    )
                     .twitter(bloggerEntry.getTwitter())
                     .dateAdded(nowProvider.now())
                     .blogType(bloggerEntry.getBlogType())
@@ -72,7 +73,7 @@ public class BloggersDataUpdater {
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
         bloggerEntry.setUrl(
-            blogUrlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
+            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
         );
         
         if (!isEqual(existingBlogger, bloggerEntry)) {
@@ -94,10 +95,6 @@ public class BloggersDataUpdater {
             && StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl())
             && Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
             && Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter());
-    }
-    
-    public Optional<String> blogUrlFromRss(String rss) {
-        return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
     }
 
     @Getter
