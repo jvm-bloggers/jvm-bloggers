@@ -3,9 +3,9 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream
 import org.springframework.test.util.ReflectionTestUtils
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator
 import rx.Scheduler
@@ -15,7 +15,6 @@ import spock.lang.Specification
 import java.util.concurrent.TimeUnit
 
 import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
-
 /**
  * @author Adam Dec
  */
@@ -24,13 +23,13 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
     LogMailSender mailSender;
     LogMailSenderPostAction logMailPostAction;
     Scheduler scheduler;
-    SettingRepository settingRepository;
+    MetadataRepository metadataRepository;
     BruteForceAttackEventStreamManager manager;
 
     def setup() {
         logMailPostAction = new LogMailSenderPostAction();
         mailSender = new LogMailSender(logMailPostAction)
-        settingRepository = Mock(SettingRepository);
+        metadataRepository = Mock(MetadataRepository);
         BruteForceAttackMailGenerator bruteForceAttackMailGenerator = Mock(BruteForceAttackMailGenerator)
         bruteForceAttackMailGenerator.prepareMailContent(_) >> "A"
         bruteForceAttackMailGenerator.prepareMailTitle(_) >> "B"
@@ -41,22 +40,22 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
         ReflectionTestUtils.setField(manager, "mailSender", mailSender)
         ReflectionTestUtils.setField(manager, "bruteForceAttackMailGenerator", bruteForceAttackMailGenerator)
         ReflectionTestUtils.setField(manager, "scheduler", scheduler)
-        ReflectionTestUtils.setField(manager, "settingRepository", settingRepository)
+        ReflectionTestUtils.setField(manager, "metadataRepository", metadataRepository)
     }
 
-    def "Should throw Runtime exception when ADMIN_EMAIL setting is not found"() {
+    def "Should throw Runtime exception when ADMIN_EMAIL metadata is not found"() {
         given:
-            settingRepository.findByName(_) >> null
+            metadataRepository.findByName(_) >> null
         when:
             manager.init()
         then:
             RuntimeException ex = thrown()
-            ex.message.equals(SettingKeys.ADMIN_EMAIL.toString() + " not found in Setting table")
+            ex.message.equals(MetadataKeys.ADMIN_EMAIL + " not found in Metadata table")
     }
 
-    def "Should return admin email setting"() {
+    def "Should return admin email"() {
         given:
-            settingRepository.findByName(_) >> new Setting(SettingKeys.ADMIN_EMAIL.toString(), "admin@jvmbloggers.pl")
+            metadataRepository.findByName(_) >> new Metadata(MetadataKeys.ADMIN_EMAIL, "admin@jvmbloggers.pl")
         when:
             manager.init()
         then:

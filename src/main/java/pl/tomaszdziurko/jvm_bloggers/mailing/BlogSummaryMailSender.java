@@ -13,8 +13,6 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -23,12 +21,12 @@ public class BlogSummaryMailSender {
     public static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
     public static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public static final int BASE_DELAY_IN_SECONDS = 120;
 
     private final BlogSummaryMailGenerator mailGenerator;
     private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
     private final IssueNumberRetriever issueNumberRetriever;
+    private final MailingSleepIntervalProvider mailingSleepIntervalProvider;
     private final NowProvider nowProvider;
 
     @Autowired
@@ -36,11 +34,13 @@ public class BlogSummaryMailSender {
                                  MailSender sendGridMailSender,
                                  MailingAddressRepository mailingAddressRepository,
                                  IssueNumberRetriever issueNumberRetriever,
+                                 MailingSleepIntervalProvider mailingSleepIntervalProvider,
                                  NowProvider nowProvider) {
         this.mailGenerator = blogSummaryMailGenerator;
         this.mailSender = sendGridMailSender;
         this.mailingAddressRepository = mailingAddressRepository;
         this.issueNumberRetriever = issueNumberRetriever;
+        this.mailingSleepIntervalProvider = mailingSleepIntervalProvider;
         this.nowProvider = nowProvider;
     }
 
@@ -65,11 +65,9 @@ public class BlogSummaryMailSender {
 
     @SneakyThrows
     private void sleepForABit() {
-        Random random = new Random();
-        int randomDelay = random.nextInt(120);
-        int sleepTimeInSeconds = BASE_DELAY_IN_SECONDS + randomDelay;
-        log.info("Sleeping for {}s ", sleepTimeInSeconds);
-        Thread.sleep(TimeUnit.SECONDS.toMillis(sleepTimeInSeconds));
+        SleepInterval sleepingInterval = mailingSleepIntervalProvider.getSleepingInterval();
+        log.info("Sleeping for {}s", sleepingInterval.asSeconds());
+        Thread.sleep(sleepingInterval.asMilliseconds());
     }
 
     private String prepareIssueTitle(long issueNumber) {

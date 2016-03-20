@@ -1,24 +1,23 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.rometools.rome.feed.synd.SyndFeed;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
@@ -30,34 +29,17 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 
-@Component
 @Slf4j
+@Component
+@NoArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogSummaryMailGenerator {
 
     private BlogRepository blogRepository;
     private BlogPostRepository blogPostRepository;
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
     private NowProvider nowProvider;
     private SyndFeedProducer syndFeedFactory;
-
-    // This constructor exists only to make Wicket @SpringBean work for Spring beans
-    // with constructor injection using @Autowired
-    public BlogSummaryMailGenerator() {
-
-    }
-
-    @Autowired
-    public BlogSummaryMailGenerator(BlogRepository blogRepository,
-                                    BlogPostRepository blogPostRepository,
-                                    SettingRepository settingRepository,
-                                    NowProvider nowProvider,
-                                    SyndFeedProducer syndFeedFactory) {
-        this.blogRepository = blogRepository;
-        this.blogPostRepository = blogPostRepository;
-        this.settingRepository = settingRepository;
-        this.nowProvider = nowProvider;
-        this.syndFeedFactory = syndFeedFactory;
-    }
 
     public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
         LocalDateTime publishedDate = nowProvider.now()
@@ -84,9 +66,8 @@ public class BlogSummaryMailGenerator {
         List<BlogPost> newPostsfromCompanies =
             newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
 
-        Setting mailingTemplate = settingRepository
-            .findByName(SettingKeys.MAILING_TEMPLATE.toString());
-        String templateContent = mailingTemplate.getValue();
+        Metadata mailingTemplate = metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
+        String templateContent =  mailingTemplate.getValue();
         StringTemplate template = new StringTemplate(templateContent);
         template.setAttribute("days", numberOfDaysBackInThePast);
         template.setAttribute("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));

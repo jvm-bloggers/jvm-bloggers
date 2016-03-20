@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender;
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent;
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator;
 
@@ -53,7 +53,7 @@ public class BruteForceAttackEventStreamManager {
     private Scheduler scheduler;
 
     @Autowired
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
 
     private String adminEmailAddress;
 
@@ -88,13 +88,13 @@ public class BruteForceAttackEventStreamManager {
 
     @PostConstruct
     public void init() {
-        final Setting adminEmailAddressSetting =
-            settingRepository.findByName(SettingKeys.ADMIN_EMAIL.toString());
-        if (adminEmailAddressSetting == null) {
+        final Metadata adminEmailAddressMetadata =
+            metadataRepository.findByName(MetadataKeys.ADMIN_EMAIL);
+        if (adminEmailAddressMetadata == null) {
             throw new RuntimeException(
-                SettingKeys.ADMIN_EMAIL.toString() + " not found in Setting table");
+                MetadataKeys.ADMIN_EMAIL + " not found in Metadata table");
         }
-        this.adminEmailAddress = adminEmailAddressSetting.getValue();
+        this.adminEmailAddress = adminEmailAddressMetadata.getValue();
         log.debug("AdminEmailAddress={}", adminEmailAddress);
     }
 
