@@ -1,21 +1,20 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.mailing;
 
 import org.apache.wicket.model.LoadableDetachableModel;
-import pl.tomaszdziurko.jvm_bloggers.settings.Setting;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingKeys;
-import pl.tomaszdziurko.jvm_bloggers.settings.SettingRepository;
+import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 
-class MailingTemplateModel extends LoadableDetachableModel<Setting> {
+class MailingTemplateModel extends LoadableDetachableModel<Metadata> {
 
-    private SettingRepository settingRepository;
+    private MetadataRepository metadataRepository;
 
-    public MailingTemplateModel(SettingRepository settingRepository) {
-        super();
-        this.settingRepository = settingRepository;
+    public MailingTemplateModel(MetadataRepository metadataRepository) {
+        this.metadataRepository = metadataRepository;
     }
 
     @Override
-    protected Setting load() {
-        return settingRepository.findByName(SettingKeys.MAILING_TEMPLATE.toString());
+    protected Metadata load() {
+        return metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
     }
 }
