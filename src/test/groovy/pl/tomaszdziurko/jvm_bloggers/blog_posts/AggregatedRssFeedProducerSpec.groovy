@@ -36,13 +36,13 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     def "Should produce aggregated RSS feed"() {
         given:
-            def blogPost1 = mockBlogPost(UID_1, DESCRIPTION, TITLE, URL, AUTHOR, DATE)
-            def blogPost2 = mockBlogPost(UID_2, null, TITLE, URL, AUTHOR, DATE)
+            BlogPost blogPost1 = mockBlogPost(UID_1, DESCRIPTION, TITLE, URL, AUTHOR, DATE)
+            BlogPost blogPost2 = mockBlogPost(UID_2, null, TITLE, URL, AUTHOR, DATE)
             1 * blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc() >> [blogPost1, blogPost2]
         when:
             SyndFeed feed = rssProducer.getRss(REQUEST_URL)
         then:
-            def date = toDate(DATE)
+            Date date = toDate(DATE)
             with (feed) {
                 links[0].rel == "self"
                 links[0].href == REQUEST_URL

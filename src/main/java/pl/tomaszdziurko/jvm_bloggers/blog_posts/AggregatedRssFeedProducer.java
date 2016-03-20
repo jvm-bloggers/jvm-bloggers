@@ -6,6 +6,7 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
+import com.rometools.rome.feed.synd.SyndLink;
 import com.rometools.rome.feed.synd.SyndLinkImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -102,7 +103,7 @@ public class AggregatedRssFeedProducer {
     }
 
     private SyndFeed buildFeed(final List<SyndEntry> feedItems, String requestedUrlString) {
-        final SyndLinkImpl feedLink = new SyndLinkImpl();
+        final SyndLink feedLink = new SyndLinkImpl();
         feedLink.setRel(SELF_REL);
         feedLink.setHref(requestedUrlString);
         final SyndFeed feed = new SyndFeedImpl();
