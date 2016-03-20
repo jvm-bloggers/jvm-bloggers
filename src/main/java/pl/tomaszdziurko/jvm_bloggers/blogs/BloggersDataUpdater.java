@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs;
 
+import com.rometools.rome.feed.synd.SyndFeed;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,6 +13,7 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggersData;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,11 +26,14 @@ public class BloggersDataUpdater {
 
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
+    private final SyndFeedProducer syndFeedFactory;
 
     @Autowired
-    public BloggersDataUpdater(BlogRepository blogRepository, NowProvider nowProvider) {
+    public BloggersDataUpdater(BlogRepository blogRepository, NowProvider nowProvider,
+        SyndFeedProducer syndFeedFactory) {
         this.blogRepository = blogRepository;
         this.nowProvider = nowProvider;
+        this.syndFeedFactory = syndFeedFactory;
     }
 
     public void updateData(BloggersData data) {
@@ -54,6 +59,7 @@ public class BloggersDataUpdater {
                     .jsonId(bloggerEntry.getJsonId())
                     .author(bloggerEntry.getName())
                     .rss(StringUtils.lowerCase(bloggerEntry.getRss()))
+                    .url(blogUrlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY))
                     .twitter(bloggerEntry.getTwitter())
                     .dateAdded(nowProvider.now())
                     .blogType(bloggerEntry.getBlogType())
@@ -65,12 +71,17 @@ public class BloggersDataUpdater {
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
+        bloggerEntry.setUrl(
+            blogUrlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
+        );
+        
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
             existingBlogger.setBlogType(bloggerEntry.getBlogType());
+            existingBlogger.setUrl(bloggerEntry.getUrl());
             blogRepository.save(existingBlogger);
             updateSummary.recordUpdated();
         }
@@ -80,8 +91,13 @@ public class BloggersDataUpdater {
         return Objects.equals(blog.getAuthor(), bloggerEntry.getName())
             && Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
             && StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
+            && StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl())
             && Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
             && Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter());
+    }
+    
+    public Optional<String> blogUrlFromRss(String rss) {
+        return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
     }
 
     @Getter

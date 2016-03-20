@@ -191,8 +191,10 @@
         </sql>
     </changeSet>
 
-    <changeSet id="020-update-mailing-templates-with-new-homepage-links-handling" author="Dawid.Pura">
-        <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
+    <changeSet id="020-add-url-column-into-blog-table" author="Jakub.Sprega">
+        <addColumn tableName="blog">
+            <column name="URL" type="varchar(250)"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

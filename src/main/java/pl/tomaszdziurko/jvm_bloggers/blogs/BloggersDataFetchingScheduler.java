@@ -20,7 +20,7 @@ public class BloggersDataFetchingScheduler {
 
     @Scheduled(cron = TimeConstants.EVERY_EIGHT_AM_AND_PM)
     public void fetchBloggersData() {
-        log.info("Starting scheduler: bloggers data refresh");
+        log.info("Starting scheduler: bloggers data refresh. This may take a while.");
         bloggersDataFetcher.refreshData();
     }
 }

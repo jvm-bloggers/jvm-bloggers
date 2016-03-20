@@ -13,6 +13,7 @@ public class BloggerEntry {
     private Long jsonId;
     private String name;
     private String rss;
+    private String url;
     private String twitter;
     private BlogType blogType;
 
