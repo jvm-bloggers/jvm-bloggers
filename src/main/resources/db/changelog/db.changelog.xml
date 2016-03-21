@@ -191,10 +191,8 @@
         </sql>
     </changeSet>
 
-    <changeSet id="020-add-url-column-into-blog-table" author="Jakub.Sprega">
-        <addColumn tableName="blog">
-            <column name="URL" type="varchar(250)"/>
-        </addColumn>
+    <changeSet id="020-update-mailing-templates-with-new-homepage-links-handling" author="Dawid.Pura">
+        <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <changeSet id="021-rename-table-setting-to-metadata" author="Jonatan.Borkowski">
@@ -211,6 +209,12 @@
             INSERT INTO metadata(id, name, value)
             VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOG_POSTS', '1970-01-01T00:00:00.000');
         </sql>
+    </changeSet>
+    
+    <changeSet id="023-add-url-column-into-blog-table" author="Jakub.Sprega">
+        <addColumn tableName="blog">
+            <column name="URL" type="varchar(250)"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

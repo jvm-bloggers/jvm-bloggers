@@ -22,7 +22,7 @@ class BloggersDataUpdaterSpec extends Specification {
     BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), mockSyndFeedProducer(""))
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer())
 
     @Unroll
     def "Should check equality of Person and BloggerEntry"() {
@@ -106,6 +106,26 @@ class BloggersDataUpdaterSpec extends Specification {
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }
+    
+    def "Should update existing blog if url was changed"() {
+        given:
+            Long jsonId = 2207L
+            Blog blog = buildBlog(
+                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                "twitter", LocalDateTime.now(), PERSONAL
+            )
+            BloggerEntry entry = new BloggerEntry(
+                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+            )
+            blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            1 * blogRepository.save({
+                it.url = "http://new.blog.pl"
+            })
+    }
 
     def buildBlog(Long jsonId, String author, String rss, String twitter) {
         buildBlog(jsonId, author, rss, StringUtils.EMPTY, twitter, LocalDateTime.now(), PERSONAL)
@@ -127,9 +147,10 @@ class BloggersDataUpdaterSpec extends Specification {
         return new BloggerEntry(jsonId, author, rss, twitter, type)
     }
     
-    def mockSyndFeedProducer(String rssUrl) {
+    def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
-        producer.urlFromRss(_) >> Optional.of(rssUrl)
+        producer.urlFromRss(StringUtils.EMPTY) >> Optional.of(StringUtils.EMPTY)
+        producer.urlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
         return producer
     }
 }
