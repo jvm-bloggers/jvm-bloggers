@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +42,7 @@ public class Blog {
     private String rss;
     
     @Column(name = "URL", unique = true, length = 250)
-    private String url = StringUtils.EMPTY;
+    private String url;
 
     @Column(name = "TWITTER", length = 100)
     private String twitter;

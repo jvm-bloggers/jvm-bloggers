@@ -128,7 +128,7 @@ class BloggersDataUpdaterSpec extends Specification {
     }
 
     def buildBlog(Long jsonId, String author, String rss, String twitter) {
-        buildBlog(jsonId, author, rss, StringUtils.EMPTY, twitter, LocalDateTime.now(), PERSONAL)
+        buildBlog(jsonId, author, rss, null, twitter, LocalDateTime.now(), PERSONAL)
     }
 
     def buildBlog(Long jsonId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
@@ -149,7 +149,7 @@ class BloggersDataUpdaterSpec extends Specification {
     
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
-        producer.urlFromRss(StringUtils.EMPTY) >> Optional.of(StringUtils.EMPTY)
+        producer.urlFromRss("") >> Optional.empty()
         producer.urlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
         return producer
     }

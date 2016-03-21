@@ -59,7 +59,7 @@ public class BloggersDataUpdater {
                     .author(bloggerEntry.getName())
                     .rss(StringUtils.lowerCase(bloggerEntry.getRss()))
                     .url(syndFeedFactory.urlFromRss(
-                        bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
+                        bloggerEntry.getRss()).orElse(null)
                     )
                     .twitter(bloggerEntry.getTwitter())
                     .dateAdded(nowProvider.now())
@@ -73,7 +73,7 @@ public class BloggersDataUpdater {
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
         bloggerEntry.setUrl(
-            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(StringUtils.EMPTY)
+            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(null)
         );
         
         if (!isEqual(existingBlogger, bloggerEntry)) {
