@@ -3,28 +3,18 @@ package pl.tomaszdziurko.jvm_bloggers.view.panels;
 import lombok.RequiredArgsConstructor;
 
 import org.apache.wicket.markup.html.navigation.paging.IPageable;
-import org.apache.wicket.model.IModel;
-
-import java.io.Serializable;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 
 @RequiredArgsConstructor
-public class CustomPageLinkModel implements IModel<String>, Serializable {
+public class CustomPageLinkModel extends AbstractReadOnlyModel<String> {
 
-    protected final IPageable pageable;
-    protected final long pageNumber;
+    private final IPageable pageable;
+    private final long pageNumber;
     private final String css;
 
     @Override
     public String getObject() {
         return isEnabled() ? css : "";
-    }
-
-    @Override
-    public void setObject(String object) {
-    }
-
-    @Override
-    public void detach() {
     }
 
     public boolean isEnabled() {
