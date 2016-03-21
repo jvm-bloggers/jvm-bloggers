@@ -26,8 +26,6 @@ import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.STAGE;
 @Slf4j
 public class MailgunSender implements MailSender {
 
-    private static final long DELAY_BETWEEN_MAIL_SENDING_IN_SECONDS = 240;
-
     private Client mailingRestClient;
     private RateLimiter rateLimiter;
     private String senderAddress;
@@ -38,10 +36,11 @@ public class MailgunSender implements MailSender {
 
     @Autowired
     public MailgunSender(Client mailingRestClient,
-                         @Value("${mailing.fromEmail}") String senderAddress) {
+                         @Value("${mailing.fromEmail}") String senderAddress,
+                         @Value("${mailing.throttleDelayInSeconds}") long throttleTimeInSeconds) {
         this.mailingRestClient = mailingRestClient;
         this.senderAddress = senderAddress;
-        this.rateLimiter = RateLimiter.create(1.0 / DELAY_BETWEEN_MAIL_SENDING_IN_SECONDS);
+        this.rateLimiter = RateLimiter.create(1.0 / throttleTimeInSeconds);
     }
 
     @Override
