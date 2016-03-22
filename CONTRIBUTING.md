@@ -5,7 +5,7 @@
 
 * Please use our [Gitter chat room](https://gitter.im/tdziurko/jvm-bloggers) full of helpful people :)
 
-* Not sure which issue pick? Please check those labelled as ["For newcomers"](https://github.com/tdziurko/jvm-bloggers/issues?q=is%3Aissue+is%3Aopen+label%3A%22For+newcomers%22)
+* Not sure which issue pick? Please check those labelled as ["For newcomers"](https://github.com/tdziurko/jvm-bloggers/issues?q=is%3Aissue+is%3Aopen+label%3A%22For+newcomers%22).
 
 ## Local git configuration
 
@@ -17,7 +17,7 @@ This will configure cloned repository according to project standards. Note that 
 
 ## Code formatting
 
-* Please use code formatters for your IDE (at this moment IntelliJ and Eclipse are supported). Files to import in your IDE are located in `/formatters` dir
+* Please use code formatters for your IDE (at this moment IntelliJ and Eclipse are supported). Files to import to your IDE are located in [`/formatters`](https://github.com/tdziurko/jvm-bloggers/tree/master/config/formatters) directory. See [IDE Configuration](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/How-to.md) tips for details.
 
 * Avoid reformatting code that is not affected by your changes, this will make diff of your PR much more concise
 
@@ -26,7 +26,7 @@ This will configure cloned repository according to project standards. Note that 
 
 * Before coding please comment on issue that you will be working on it.
 
-* Tag the issue with the yellow `In progress` label if you start working on it.
+* Tag the issue with the yellow `In progress` label if you start working on it ([collaborators](https://help.github.com/articles/permission-levels-for-a-user-account-repository/#collaborator-access-on-a-repository-owned-by-a-user-account) only).
 
 * Before coding think if you know everything you need and ask for a clarification when you are not sure about something (especially about "functional" requirements)
  
@@ -56,7 +56,7 @@ This will configure cloned repository according to project standards. Note that 
 
 * Each section after label `given/when/then` should have indentation one level deeper than label itself
   
-* For consistency we use static typing in favour of `def`
+* Do **not** use `def` for local variables declaration in `.groovy` files, we use static typing instead
 
 
 ## Commit guidelines
@@ -74,4 +74,4 @@ This will configure cloned repository according to project standards. Note that 
 
 * After successfull merge the issue given PR referes to should be automatically closed (if you conformed to [commit guidelines](https://github.com/tdziurko/jvm-bloggers/blob/master/CONTIBUTING.md#commit-guidelines) ealier). If it was not closed automatically by merge commit then close the related issue manually.
 
-* Finally remove the yellow `in progress` label from the closed issue.
+* Finally remove the yellow `in progress` label from the closed issue ([collaborators](https://help.github.com/articles/permission-levels-for-a-user-account-repository/#collaborator-access-on-a-repository-owned-by-a-user-account) only).

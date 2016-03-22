@@ -1,17 +1,17 @@
-# Installation tips
+# IDE configuration tips
 
 
-## Formatter for IntelliJ IDEA
+## IntelliJ IDEA formatter
 
-1. Copy intellij-java-google-style.xml into your config/codestyles folder in your IntelliJ settings folder. 
+1. Copy [`intellij-java-google-style.xml`](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/intellij-java-google-style.xml) into your `config/codestyles` folder in your _IntelliJ IDEA_ settings folder. 
 
-2. Under Settings/Code Style select the "GoogleStyle" as current code style for the project.
+2. Under `Settings > Code Style` select the _GoogleStyle_ as current code style for the project.
 
-**Tip** You can create a symbolic link from formatter file in jvm-bloggers project directory to the config/codestyles directory. Still you need to restart IDEA to see the changes.
+**Tip:** You can create a symbolic link to formatter file in _jvm-bloggers_ project directory from the `config/codestyles` directory. Still you need to restart _IDEA_ to see the changes.
 
-## Formatter for Eclipse
+## Eclipse formatter
 
-1. Under Window/Preferences select Java/Code Style/Formatter. Import the settings file by selecting Import.
+1. Under `File > Import` select `Preferences` and press `Next >` button. Then form _Import Preferences_ dialog `Browse` for the [`eclipse-java-google-style.epf`](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/eclipse-java-google-style.epf) file and import it by pressing `Finish`.
 
-## Formatter for NetBean
-Unfortunately there is no formatter for NetBeans with Google Java Style. You can try to use [Eclipse Java Code Formatter Integration for NetBeans](http://plugins.netbeans.org/plugin/50877/eclipse-code-formatter-for-java).
+## NetBeans formatter
+Unfortunately there is no formatter for _NetBeans_ with Google Java Style. You can try to use [Eclipse Java Code Formatter Integration for NetBeans](http://plugins.netbeans.org/plugin/50877/eclipse-code-formatter-for-java).
