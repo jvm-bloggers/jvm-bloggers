@@ -10,6 +10,8 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+import javax.servlet.http.HttpServletRequest;
+
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 class AggregatedRssFeedProducerSpec extends Specification {
@@ -20,6 +22,9 @@ class AggregatedRssFeedProducerSpec extends Specification {
     def URL = "http://blogPostUrl"
     def AUTHOR = "author"
     def DATE = new NowProvider().now()
+    def UID_1 = UUID.randomUUID().toString()
+    def UID_2 = UUID.randomUUID().toString()
+    def REQUEST_URL = "http://jvm-bloggers.com/rss"
 
     BlogPostRepository blogPostRepository = Mock()
     NowProvider nowProvider = Stub() {
@@ -31,20 +36,23 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     def "Should produce aggregated RSS feed"() {
         given:
-            def blogPost1 = mockBlogPost(DESCRIPTION, TITLE, URL, AUTHOR, DATE)
-            def blogPost2 = mockBlogPost(null, TITLE, URL, AUTHOR, DATE)
+            BlogPost blogPost1 = mockBlogPost(UID_1, DESCRIPTION, TITLE, URL, AUTHOR, DATE)
+            BlogPost blogPost2 = mockBlogPost(UID_2, null, TITLE, URL, AUTHOR, DATE)
             1 * blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc() >> [blogPost1, blogPost2]
         when:
-            SyndFeed feed = rssProducer.getRss()
+            SyndFeed feed = rssProducer.getRss(REQUEST_URL)
         then:
-            def date = toDate(DATE)
-            def campaignDate = date.toString().replace(" ", "-")
-            feed.feedType == AggregatedRssFeedProducer.FEED_TYPE
-            feed.title == AggregatedRssFeedProducer.FEED_TITLE
-            feed.title == AggregatedRssFeedProducer.FEED_TITLE
-            feed.description == AggregatedRssFeedProducer.FEED_DESCRIPTION
-            feed.publishedDate == date
-            feed.entries.size() == 2
+            Date date = toDate(DATE)
+            with (feed) {
+                links[0].rel == "self"
+                links[0].href == REQUEST_URL
+                feedType == AggregatedRssFeedProducer.FEED_TYPE
+                uri == AggregatedRssFeedProducer.FEED_TITLE
+                title == AggregatedRssFeedProducer.FEED_TITLE
+                description == AggregatedRssFeedProducer.FEED_DESCRIPTION
+                publishedDate == date
+                entries.size() == 2
+            }
         and:
             with (feed.entries[0]) {
                 link == URL + EXPECTED_UTM_SUBSTRING
@@ -66,11 +74,12 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     }
 
-    def mockBlogPost(String description, String title, String url, String author, LocalDateTime date) {
+    def mockBlogPost(String uid, String description, String title, String url, String author, LocalDateTime date) {
         BlogPost blogPost = Mock()
         1 * blogPost.getDescription() >> description
         1 * blogPost.getTitle() >> title
         1 * blogPost.getUrl() >> url
+        1 * blogPost.getUid() >> uid 
         Blog blog = Mock()
         blog.getAuthor() >> author
         1 * blogPost.getBlog() >> blog
