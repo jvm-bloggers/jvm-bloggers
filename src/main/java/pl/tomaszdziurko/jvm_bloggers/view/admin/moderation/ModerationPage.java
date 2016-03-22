@@ -11,10 +11,13 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
+
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
 
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {

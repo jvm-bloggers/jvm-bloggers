@@ -53,8 +53,8 @@ public class BlogActionPanel extends Panel {
         return deactivate;
     }
 
-    private AjaxButton createBlogActionButton(
-        String id, Consumer<Blog> blogAction, String successMessage) {
+    private AjaxButton createBlogActionButton(String id, Consumer<Blog> blogAction,
+                                              String successMessage) {
 
         return new AjaxButton(id, form) {
 

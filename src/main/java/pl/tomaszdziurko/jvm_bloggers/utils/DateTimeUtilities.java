@@ -2,11 +2,15 @@ package pl.tomaszdziurko.jvm_bloggers.utils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static pl.tomaszdziurko.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
 public class DateTimeUtilities {
+
+    public static final DateTimeFormatter DATE_FORMATTER =
+        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public static LocalDateTime toLocalDateTime(Date date) {
         return date.toInstant().atZone(DEFAULT_ZONE).toLocalDateTime();
