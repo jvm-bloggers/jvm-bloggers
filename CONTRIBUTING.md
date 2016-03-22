@@ -13,11 +13,11 @@ Contributors must configure local repository after cloning by executing the comm
 
 	git config --local include.path ../.gitconfig
 
-This will configure cloned repository according to project standards. Note that it will not alter your global or system git configuration, it will only modify `.git/config` file located in the cloned root directory. This is required to run checkstyle task properly (required by [commit guidelines](https://github.com/tdziurko/jvm-bloggers/blob/master/CONTRIBUTING.md#commit-guidelines)).
+This will configure cloned repository according to project standards. Note that it will not alter your global or system git configuration, it will only modify `.git/config` file located in the cloned root directory. This is required to run checkstyle task properly (required by [commit guidelines](#commit-guidelines)).
 
 ## Code formatting
 
-* Please use code formatters for your IDE (at this moment IntelliJ and Eclipse are supported). Files to import to your IDE are located in [`/formatters`](https://github.com/tdziurko/jvm-bloggers/tree/master/config/formatters) directory. See [IDE Configuration](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/How-to.md) tips for details.
+* Please use code formatters for your IDE (at this moment IntelliJ and Eclipse are supported). Files to import to your IDE are located in [`/formatters`](config/formatters) directory. See [IDE Configuration](config/formatters/How-to.md) tips for details.
 
 * Avoid reformatting code that is not affected by your changes, this will make diff of your PR much more concise
 
@@ -50,9 +50,9 @@ This will configure cloned repository according to project standards. Note that 
   
 * We use [Spock](http://spockframework.github.io/spock/docs/1.0/index.html) as a base testing framework
 
-* Notation for test classes is `YourClassNameSpec` ([example](https://github.com/tdziurko/jvm-bloggers/blob/master/src/test/groovy/pl/tomaszdziurko/jvm_bloggers/utils/DateTimeUtilitiesSpec.groovy#L8))
+* Notation for test classes is `YourClassNameSpec` ([example](src/test/groovy/pl/tomaszdziurko/jvm_bloggers/utils/DateTimeUtilitiesSpec.groovy#L8))
 
-* Notation for test methods is `def "Should do something"` ([example](https://github.com/tdziurko/jvm-bloggers/blob/master/src/test/groovy/pl/tomaszdziurko/jvm_bloggers/InitialBlogDataPopulationTriggerSpec.groovy#L20))
+* Notation for test methods is `def "Should do something"` ([example](src/test/groovy/pl/tomaszdziurko/jvm_bloggers/InitialBlogDataPopulationTriggerSpec.groovy#L20))
 
 * Each section after label `given/when/then` should have indentation one level deeper than label itself
   
@@ -72,6 +72,6 @@ This will configure cloned repository according to project standards. Note that 
 
 * If code review has been done and the PR has been successfully merged then [delete the PR branch](https://help.github.com/articles/deleting-unused-branches/) using _Delete branch_ button at the bottom of given PR page.
 
-* After successfull merge the issue given PR referes to should be automatically closed (if you conformed to [commit guidelines](https://github.com/tdziurko/jvm-bloggers/blob/master/CONTIBUTING.md#commit-guidelines) ealier). If it was not closed automatically by merge commit then close the related issue manually.
+* After successfull merge the issue given PR referes to should be automatically closed (if you conformed to [commit guidelines](#commit-guidelines) ealier). If it was not closed automatically by merge commit then close the related issue manually.
 
 * Finally remove the yellow `in progress` label from the closed issue ([collaborators](https://help.github.com/articles/permission-levels-for-a-user-account-repository/#collaborator-access-on-a-repository-owned-by-a-user-account) only).

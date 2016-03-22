@@ -3,7 +3,7 @@
 
 ## IntelliJ IDEA formatter
 
-1. Copy [`intellij-java-google-style.xml`](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/intellij-java-google-style.xml) into your `config/codestyles` folder in your _IntelliJ IDEA_ settings folder. 
+1. Copy [`intellij-java-google-style.xml`](https://github.com/tdziurko/jvm-bloggers/blob/master/config/formatters/intellij-java-google-style.xml) into your `config/codestyles` folder in your _IntelliJ IDEA_ settings folder.
 
 2. Under `Settings > Code Style` select the _GoogleStyle_ as current code style for the project.
 
