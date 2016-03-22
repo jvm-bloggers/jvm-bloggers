@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
+
 @Component
-@Profile({"dev", "test"})
+@Profile(value = {DEV, TEST})
 @Slf4j
 @Getter
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

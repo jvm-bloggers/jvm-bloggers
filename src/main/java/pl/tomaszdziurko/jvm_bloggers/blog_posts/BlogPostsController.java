@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -22,9 +23,13 @@ public class BlogPostsController {
 
     @SneakyThrows
     @RequestMapping("/pl/rss")
-    public void getRss(HttpServletResponse response, PrintWriter writer) {
+    public void getRss(HttpServletRequest request, HttpServletResponse response,
+            PrintWriter writer) {
         response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
-        new SyndFeedOutput().output(rssProducer.getRss(), writer);
+        new SyndFeedOutput().output(
+            rssProducer.getRss(request.getRequestURL().toString()),
+            writer
+        );
     }
 
 }
