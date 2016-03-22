@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.blogs;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,19 +22,12 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BloggersDataUpdater {
 
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
-
-    @Autowired
-    public BloggersDataUpdater(BlogRepository blogRepository, NowProvider nowProvider,
-        SyndFeedProducer syndFeedFactory) {
-        this.blogRepository = blogRepository;
-        this.nowProvider = nowProvider;
-        this.syndFeedFactory = syndFeedFactory;
-    }
 
     public void updateData(BloggersData data) {
         List<BloggerEntry> entries = data.getBloggers().stream()
