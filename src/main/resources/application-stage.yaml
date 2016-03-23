@@ -11,6 +11,7 @@ spring:
 mailing:
   apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+  throttleDelayInSeconds: 1
 
 # Wicket configuration
 wicket.core.settings.general.runtime-configuration: development

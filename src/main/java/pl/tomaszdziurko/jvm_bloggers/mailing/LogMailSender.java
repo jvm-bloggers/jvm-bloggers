@@ -12,7 +12,7 @@ import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
 
 @Component
-@Profile(value = {DEV, TEST})
+@Profile({DEV, TEST})
 @Slf4j
 @Getter
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

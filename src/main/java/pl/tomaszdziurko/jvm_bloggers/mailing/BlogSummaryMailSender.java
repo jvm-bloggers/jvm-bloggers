@@ -1,7 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 
-import lombok.SneakyThrows;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogSummaryMailSender {
 
     public static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
@@ -26,23 +27,7 @@ public class BlogSummaryMailSender {
     private final MailSender mailSender;
     private final MailingAddressRepository mailingAddressRepository;
     private final IssueNumberRetriever issueNumberRetriever;
-    private final MailingSleepIntervalProvider mailingSleepIntervalProvider;
     private final NowProvider nowProvider;
-
-    @Autowired
-    public BlogSummaryMailSender(BlogSummaryMailGenerator blogSummaryMailGenerator,
-                                 MailSender sendGridMailSender,
-                                 MailingAddressRepository mailingAddressRepository,
-                                 IssueNumberRetriever issueNumberRetriever,
-                                 MailingSleepIntervalProvider mailingSleepIntervalProvider,
-                                 NowProvider nowProvider) {
-        this.mailGenerator = blogSummaryMailGenerator;
-        this.mailSender = sendGridMailSender;
-        this.mailingAddressRepository = mailingAddressRepository;
-        this.issueNumberRetriever = issueNumberRetriever;
-        this.mailingSleepIntervalProvider = mailingSleepIntervalProvider;
-        this.nowProvider = nowProvider;
-    }
 
     public void sendSummary(int numberOfDaysBackInThePast) {
         List<MailingAddress> mailingAddresses = mailingAddressRepository.findAll();
@@ -58,16 +43,8 @@ public class BlogSummaryMailSender {
         String issueTitle = prepareIssueTitle(issueNumber);
         mailingAddresses.stream().map(MailingAddress::getAddress).forEach(recipient -> {
                 mailSender.sendEmail(recipient, issueTitle, mailContent);
-                sleepForABit();
             }
         );
-    }
-
-    @SneakyThrows
-    private void sleepForABit() {
-        SleepInterval sleepingInterval = mailingSleepIntervalProvider.getSleepingInterval();
-        log.info("Sleeping for {}s", sleepingInterval.asSeconds());
-        Thread.sleep(sleepingInterval.asMilliseconds());
     }
 
     private String prepareIssueTitle(long issueNumber) {
