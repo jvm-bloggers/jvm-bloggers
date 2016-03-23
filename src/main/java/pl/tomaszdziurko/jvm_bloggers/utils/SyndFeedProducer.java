@@ -50,4 +50,8 @@ public class SyndFeedProducer {
             IOUtils.close(urlConnection);
         }
     }
+    
+    public Optional<String> urlFromRss(String rss) {
+        return createFor(rss).map(SyndFeed::getLink);
+    }
 }

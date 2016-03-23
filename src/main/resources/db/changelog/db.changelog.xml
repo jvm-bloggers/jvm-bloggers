@@ -210,5 +210,11 @@
             VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOG_POSTS', '1970-01-01T00:00:00.000');
         </sql>
     </changeSet>
+    
+    <changeSet id="023-add-url-column-into-blog-table" author="Jakub.Sprega">
+        <addColumn tableName="blog">
+            <column name="URL" type="varchar(250)"/>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
