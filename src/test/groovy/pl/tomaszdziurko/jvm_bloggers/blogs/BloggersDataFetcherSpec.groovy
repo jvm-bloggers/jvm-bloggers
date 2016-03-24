@@ -4,28 +4,28 @@ import spock.lang.Specification
 
 class BloggersDataFetcherSpec extends Specification {
 
-    def "Should store empty optional when url is not valid"() {
+    def "Should not throw exception during fetching when url is not valid"() {
         given:
             String urlString = "invalid"
             String urlString2 = "invalid"
-        when:
             BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
+        when:
+            fetcher.refreshData()
         then:
-            !fetcher.bloggersUrlOptional.isPresent()
-            !fetcher.companiesUrlOptional.isPresent()
+            notThrown Exception
     }
 
-    def "Should store valid URL with valid input"() {
+    def "Should update bloggers data from valid url"(){
         given:
-            String urlString = "http://google.com"
-            String urlString2 = "http://facebook.com"
+            String urlString = getClass().getResource("bloggers.json").toExternalForm()
+            String urlString2 = getClass().getResource("companies.json").toExternalForm()
+            BloggersDataUpdater bloggersDataUpdater = Mock(BloggersDataUpdater)
+            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2,  bloggersDataUpdater)
         when:
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
+            fetcher.refreshData()
         then:
-            fetcher.bloggersUrlOptional.isPresent()
-            fetcher.bloggersUrlOptional.get().host == "google.com"
-            fetcher.companiesUrlOptional.isPresent()
-            fetcher.companiesUrlOptional.get().host == "facebook.com"
+            1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
+            1 * bloggersDataUpdater.updateData({ it.bloggers.size == 2 })
     }
 
 }
