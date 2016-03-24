@@ -15,12 +15,12 @@ class BloggersDataFetcherSpec extends Specification {
             notThrown Exception
     }
 
-    def "Should update bloggers data from valid url"(){
+    def "Should update bloggers data from valid url"() {
         given:
             String urlString = getClass().getResource("bloggers.json").toExternalForm()
             String urlString2 = getClass().getResource("companies.json").toExternalForm()
             BloggersDataUpdater bloggersDataUpdater = Mock(BloggersDataUpdater)
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2,  bloggersDataUpdater)
+            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, bloggersDataUpdater)
         when:
             fetcher.refreshData()
         then:
