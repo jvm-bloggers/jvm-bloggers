@@ -44,6 +44,7 @@ This will configure cloned repository according to project standards. Note that 
 
 * Avoid one-time variable. If you decide to use it, be prepared to explain the reason behind 
 
+* Wicket html files representing Pages and Components should be placed in `src/main/java` directory next to corresponding Java classes, other web-related files (css, images, etc.) should land in `src/main/resources` 
 
  
 ## Testing
@@ -57,6 +58,8 @@ This will configure cloned repository according to project standards. Note that 
 * Each section after label `given/when/then` should have indentation one level deeper than label itself
   
 * Do **not** use `def` for local variables declaration in `.groovy` files, we use static typing instead
+
+* Object under test should be marked with `@Subject` annotation from Spock
 
 
 ## Commit guidelines
