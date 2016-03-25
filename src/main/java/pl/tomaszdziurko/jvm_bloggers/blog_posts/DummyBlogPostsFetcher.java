@@ -10,7 +10,7 @@ import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
  * @author Adam Dec
  */
 @Component
-@Profile({DEV, TEST})
+@Profile({TEST})
 public class DummyBlogPostsFetcher implements BlogPostsFetcher {
 
     private volatile boolean refreshed;
