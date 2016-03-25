@@ -11,7 +11,6 @@ import java.time.LocalDateTime
 
 import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 
-@ActiveProfiles("test")
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     static NOT_MODERATED = null
@@ -26,9 +25,9 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     def "Should order latest posts by moderation and publication date"() {
         given:
-            def blog = aBlog()
+            Blog blog = aBlog()
 
-            def blogPosts = [
+            List<BlogPost> blogPosts = [
                 aBlogPost(1, LocalDateTime.of(2016, 1, 1, 12, 00), REJECTED, blog),
                 aBlogPost(2, LocalDateTime.of(2016, 1, 4, 12, 00), REJECTED, blog),
                 aBlogPost(3, LocalDateTime.of(2016, 1, 2, 12, 00), APPROVED, blog),
@@ -39,27 +38,43 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
             blogPostRepository.save(blogPosts)
         when:
-            def latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
+            List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
         then:
-            latestPosts[0].isNotModerated()
-            latestPosts[1].isNotModerated()
+            // not moderated posts first ...
+            !latestPosts[0].isModerated()
+            !latestPosts[1].isModerated()
             latestPosts[0].getPublishedDate().isAfter(latestPosts[1].getPublishedDate())
 
-            latestPosts[2].isRejected()
-            latestPosts[3].isRejected()
-            latestPosts[2].getPublishedDate().isAfter(latestPosts[3].getPublishedDate())
+            // ... then moderated ones ordered by published date regardless of an approval
+            latestPosts[2].isModerated()
+            latestPosts[3].isModerated()
+            latestPosts[4].isModerated()
+            latestPosts[5].isModerated()
 
-            latestPosts[4].isApproved()
-            latestPosts[5].isApproved()
+            latestPosts[2].getPublishedDate().isAfter(latestPosts[3].getPublishedDate())
+            latestPosts[3].getPublishedDate().isAfter(latestPosts[4].getPublishedDate())
             latestPosts[4].getPublishedDate().isAfter(latestPosts[5].getPublishedDate())
     }
 
     private Blog aBlog() {
-        def blog = new Blog(jsonId: 1L, author: "Top Blogger", rss: "http://topblogger.pl/", dateAdded: LocalDateTime.now(), blogType: PERSONAL)
-        return blogRepository.save(blog)
+        return blogRepository.save(
+                Blog.builder()
+                        .jsonId(1L)
+                        .author("Top Blogger")
+                        .rss("http://topblogger.pl/")
+                        .dateAdded(LocalDateTime.now())
+                        .blogType(PERSONAL)
+                        .build());
     }
 
-    private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate, final Boolean approved, final Blog blog) {
-        return new BlogPost(publishedDate: publishedDate, approved: approved, blog: blog, title: "title" + index, url: "url" + index)
+    private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate,
+                               final Boolean approved, final Blog blog) {
+        return BlogPost.builder()
+                .publishedDate(publishedDate)
+                .approved(approved)
+                .blog(blog)
+                .title("title" + index)
+                .url("url" + index)
+                .build();
     }
 }

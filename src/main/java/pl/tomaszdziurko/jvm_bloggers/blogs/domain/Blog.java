@@ -40,6 +40,9 @@ public class Blog {
 
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
+    
+    @Column(name = "URL", unique = true, length = 250)
+    private String url;
 
     @Column(name = "TWITTER", length = 100)
     private String twitter;

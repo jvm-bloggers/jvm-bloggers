@@ -5,9 +5,12 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
+import java.util.Optional;
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime
 
@@ -19,7 +22,7 @@ class BloggersDataUpdaterSpec extends Specification {
     BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider())
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer())
 
     @Unroll
     def "Should check equality of Person and BloggerEntry"() {
@@ -103,16 +106,37 @@ class BloggersDataUpdaterSpec extends Specification {
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }
-
-    def buildBlog(Long jsonId, String author, String rss, String twitter) {
-        buildBlog(jsonId, author, rss, twitter, LocalDateTime.now(), PERSONAL)
+    
+    def "Should update existing blog if url was changed"() {
+        given:
+            Long jsonId = 2207L
+            Blog blog = buildBlog(
+                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                "twitter", LocalDateTime.now(), PERSONAL
+            )
+            BloggerEntry entry = new BloggerEntry(
+                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+            )
+            blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            1 * blogRepository.save({
+                it.url = "http://new.blog.pl"
+            })
     }
 
-    def buildBlog(Long jsonId, String author, String rss, String twitter, LocalDateTime dateAdded, BlogType type) {
+    def buildBlog(Long jsonId, String author, String rss, String twitter) {
+        buildBlog(jsonId, author, rss, null, twitter, LocalDateTime.now(), PERSONAL)
+    }
+
+    def buildBlog(Long jsonId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
         return Blog.builder()
             .jsonId(jsonId)
             .author(author)
             .rss(rss)
+            .url(url)
             .twitter(twitter)
             .dateAdded(LocalDateTime.now())
             .blogType(type)
@@ -121,5 +145,12 @@ class BloggersDataUpdaterSpec extends Specification {
     
     def buildBloggerEntry(Long jsonId, String author, String rss, String twitter, BlogType type) {
         return new BloggerEntry(jsonId, author, rss, twitter, type)
+    }
+    
+    def spySyndFeedProducer() {
+        SyndFeedProducer producer = Spy(SyndFeedProducer);
+        producer.urlFromRss("") >> Optional.empty()
+        producer.urlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
+        return producer
     }
 }

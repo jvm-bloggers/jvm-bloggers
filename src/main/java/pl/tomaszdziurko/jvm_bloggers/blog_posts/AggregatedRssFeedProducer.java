@@ -6,6 +6,8 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
+import com.rometools.rome.feed.synd.SyndLink;
+import com.rometools.rome.feed.synd.SyndLinkImpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,8 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
+    private static final String RSS_CACHE_KEY = "'rss_cache_key'";
+    private static final String SELF_REL = "self";
 
     @VisibleForTesting
     static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
@@ -45,11 +50,12 @@ public class AggregatedRssFeedProducer {
     private static final String UTM_MEDIUM = "RSS";
     private static final String UTM_CAMPAIGN = "RSS";
 
+
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
 
-    @Cacheable
-    public SyndFeed getRss() {
+    @Cacheable(key = RSS_CACHE_KEY)
+    public SyndFeed getRss(String requestedUrlString) {
 
         final StopWatch stopWatch = new StopWatch();
         log.debug("Building aggregated RSS feed...");
@@ -61,12 +67,7 @@ public class AggregatedRssFeedProducer {
             .map(this::toRssEntry)
             .collect(Collectors.toList());
 
-        final SyndFeed feed = new SyndFeedImpl();
-        feed.setFeedType(FEED_TYPE);
-        feed.setTitle(FEED_TITLE);
-        feed.setDescription(FEED_DESCRIPTION);
-        feed.setPublishedDate(toDate(nowProvider.now()));
-        feed.setEntries(feedItems);
+        final SyndFeed feed = buildFeed(feedItems, requestedUrlString);
 
         stopWatch.stop();
         log.info("Total {} feed entries produced in {}ms", feedItems.size(),
@@ -81,6 +82,7 @@ public class AggregatedRssFeedProducer {
         rssEntry.setLink(addUtmComponents(post.getUrl()));
         rssEntry.setAuthor(post.getBlog().getAuthor());
         rssEntry.setPublishedDate(toDate(post.getPublishedDate()));
+        rssEntry.setUri(post.getUid());
 
         final String description = post.getDescription();
         if (isNotBlank(description)) {
@@ -98,6 +100,21 @@ public class AggregatedRssFeedProducer {
             .withMedium(UTM_MEDIUM)
             .withCampaign(UTM_CAMPAIGN)
             .build();
+    }
+
+    private SyndFeed buildFeed(final List<SyndEntry> feedItems, String requestedUrlString) {
+        final SyndLink feedLink = new SyndLinkImpl();
+        feedLink.setRel(SELF_REL);
+        feedLink.setHref(requestedUrlString);
+        final SyndFeed feed = new SyndFeedImpl();
+        feed.setUri(FEED_TITLE);
+        feed.setTitle(FEED_TITLE);
+        feed.setFeedType(FEED_TYPE);
+        feed.setDescription(FEED_DESCRIPTION);
+        feed.setLinks(Arrays.asList(feedLink));
+        feed.setPublishedDate(toDate(nowProvider.now()));
+        feed.setEntries(feedItems);
+        return feed;
     }
 
 }

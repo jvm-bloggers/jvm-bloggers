@@ -16,9 +16,9 @@ I want to promote blogging as the best way to share knowledge and learn from you
 ##### Your blog is missing? 
 Please create a Pull Request adding it to
  
-* [bloggers.json](https://github.com/tdziurko/jvm-bloggers/blob/master/bloggers.json) for personal blogs
+* [bloggers.json](bloggers.json) for personal blogs
 
-* [companies.json](https://github.com/tdziurko/jvm-bloggers/blob/master/companies.json) for company blogs
+* [companies.json](companies.json) for company blogs
 
 and that's all. Once it is merged, you are on the list!
  

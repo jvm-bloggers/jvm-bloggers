@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.settings;
+package pl.tomaszdziurko.jvm_bloggers.metadata;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +14,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "setting")
+@Table(name = "metadata")
 @Data
 @NoArgsConstructor
-public class Setting implements Serializable {
+public class Metadata implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "SETTING_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "SETTING_SEQ", sequenceName = "SETTING_SEQ", allocationSize = 1)
+    @GeneratedValue(generator = "METADATA_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "METADATA_SEQ", sequenceName = "METADATA_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "name", unique = true, nullable = false, length = 100)
@@ -30,8 +30,9 @@ public class Setting implements Serializable {
     @Column(name = "value", nullable = false, length = 2500)
     private String value;
 
-    public Setting(String name, String value) {
+    public Metadata(String name, String value) {
         this.name = name;
         this.value = value;
     }
+
 }
