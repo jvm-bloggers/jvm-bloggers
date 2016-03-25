@@ -3,7 +3,6 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
 
 /**

@@ -15,9 +15,9 @@ import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
 
 import java.util.List;
 
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.STAGE;
-import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 
 @Profile({PRODUCTION, STAGE, DEV})
 @Component

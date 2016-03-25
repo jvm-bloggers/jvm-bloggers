@@ -17,9 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.STAGE;
-import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 
 @Profile({PRODUCTION, STAGE, DEV})
 @Component
