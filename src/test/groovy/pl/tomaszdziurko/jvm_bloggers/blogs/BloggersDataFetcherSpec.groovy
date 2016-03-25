@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class BloggersDataFetcherSpec extends Specification {
 
-    def "Should not throw exception during fetching when url is not valid"() {
+    def "Should not throw exception when url is not valid"() {
         given:
             String urlString = "invalid"
             String urlString2 = "invalid"
