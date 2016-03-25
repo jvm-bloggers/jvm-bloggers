@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -28,9 +29,6 @@ public class BlogPostItemPopulator {
     @Autowired
     private NowProvider nowProvider;
 
-    @Autowired
-    private AttributeModifierWrapper attributeModifierWrapper;
-
     public void populateItem(final Item<BlogPost> item, final Form<Void> moderationForm,
                              final CustomFeedbackPanel feedbackPanel) {
         final BlogPost post = item.getModelObject();
@@ -53,11 +51,11 @@ public class BlogPostItemPopulator {
     }
 
     private void addEvenOddRowStyling(final Item<BlogPost> item) {
-        item.add(attributeModifierWrapper.append("class",
+        item.add(AttributeModifier.append("class",
                 (item.getIndex() % 2 == 1) ? "even" : "odd"));
     }
 
     private void addHighlightedRowStyling(final Item<BlogPost> item) {
-        item.add(attributeModifierWrapper.append("class", "highlighted-post"));
+        item.add(AttributeModifier.append("class", "highlighted-post"));
     }
 }

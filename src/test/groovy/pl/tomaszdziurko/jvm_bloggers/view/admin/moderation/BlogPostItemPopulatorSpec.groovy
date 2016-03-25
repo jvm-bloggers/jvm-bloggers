@@ -1,5 +1,6 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation
 
+import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.repeater.Item
 import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.util.tester.WicketTester
@@ -26,16 +27,11 @@ class BlogPostItemPopulatorSpec extends SpringContextAwareSpecification {
     @Subject
     private BlogPostItemPopulator blogPostItemPopulator = new BlogPostItemPopulator()
 
-    private AttributeModifierWrapper attributeModifierWrapper;
-
     def setup() {
         NowProvider nowProvider = Stub(NowProvider) {
             now() >> SATURDAY_19TH_12_00
         }
         ReflectionTestUtils.setField(blogPostItemPopulator, "nowProvider", nowProvider)
-
-        attributeModifierWrapper = Spy(AttributeModifierWrapper)
-        ReflectionTestUtils.setField(blogPostItemPopulator, "attributeModifierWrapper", attributeModifierWrapper)
 
         // This is a workaround for problems with Spring Boot and WicketTester
         // https://issues.apache.org/jira/browse/WICKET-6053 and
@@ -51,7 +47,11 @@ class BlogPostItemPopulatorSpec extends SpringContextAwareSpecification {
         when:
             blogPostItemPopulator.populateItem(item, null, null)
         then:
-            1 * attributeModifierWrapper.append("class", "highlighted-post")
+            item.getBehaviors(AttributeAppender).any { isHighlighted(it) }
+    }
+
+    private boolean isHighlighted(AttributeAppender attributeAppender) {
+        return attributeAppender.getAttribute() == "class" && attributeAppender.replaceModel.getObject() == "highlighted-post"
     }
 
     private BlogPost createBlogPostPublishedOn(LocalDateTime publicationDate) {
@@ -65,8 +65,7 @@ class BlogPostItemPopulatorSpec extends SpringContextAwareSpecification {
     }
 
     private Item<BlogPost> createBlogPostItem(BlogPost blogPost) {
-        BlogPostModel blogPostModel = new BlogPostModel(blogPost)
-        return new Item<>("itemId", 1, blogPostModel)
+        return new Item<>("itemId", 1, new BlogPostModel(blogPost))
     }
 
     def "Should not highlight post not going in newsletter"() {
@@ -76,6 +75,6 @@ class BlogPostItemPopulatorSpec extends SpringContextAwareSpecification {
         when:
             blogPostItemPopulator.populateItem(item, null, null)
         then:
-            0 * attributeModifierWrapper.append("class", "highlighted-post")
+            !(item.getBehaviors(AttributeAppender).any { isHighlighted(it) })
     }
 }
