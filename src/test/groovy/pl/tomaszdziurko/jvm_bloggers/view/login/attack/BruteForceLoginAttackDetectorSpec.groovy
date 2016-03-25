@@ -50,7 +50,7 @@ class BruteForceLoginAttackDetectorSpec extends Specification {
             (1..3).each {
                 detector.recordInvalidLoginAttempt(ipAddress)
             }
-            sleep(1001)
+            sleep(1500)
             detector.recordInvalidLoginAttempt(ipAddress)
         then:
             !detector.isItBruteForceAttack(ipAddress)

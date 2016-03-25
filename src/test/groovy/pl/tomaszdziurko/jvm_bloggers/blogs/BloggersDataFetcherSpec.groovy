@@ -9,7 +9,7 @@ class BloggersDataFetcherSpec extends Specification {
             String urlString = "invalid"
             String urlString2 = "invalid"
         when:
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
+            UrlBloggersDataFetcher fetcher = new UrlBloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
         then:
             !fetcher.bloggersUrlOptional.isPresent()
             !fetcher.companiesUrlOptional.isPresent()
@@ -20,7 +20,7 @@ class BloggersDataFetcherSpec extends Specification {
             String urlString = "http://google.com"
             String urlString2 = "http://facebook.com"
         when:
-            BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
+            UrlBloggersDataFetcher fetcher = new UrlBloggersDataFetcher(urlString, urlString2, Stub(BloggersDataUpdater))
         then:
             fetcher.bloggersUrlOptional.isPresent()
             fetcher.bloggersUrlOptional.get().host == "google.com"
