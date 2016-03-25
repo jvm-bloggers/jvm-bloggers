@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
 
+/**
+ * @author Adam Dec
+ */
 @Component
 @Profile({DEV, TEST})
 public class DummyBloggersDataFetcher implements BloggersDataFetcher {

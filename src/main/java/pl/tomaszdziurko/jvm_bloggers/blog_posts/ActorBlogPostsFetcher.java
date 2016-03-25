@@ -17,8 +17,9 @@ import java.util.List;
 
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.STAGE;
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 
-@Profile({PRODUCTION, STAGE})
+@Profile({PRODUCTION, STAGE, DEV})
 @Component
 public class ActorBlogPostsFetcher implements BlogPostsFetcher {
 

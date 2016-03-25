@@ -19,8 +19,9 @@ import java.util.Optional;
 
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.STAGE;
+import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 
-@Profile({PRODUCTION, STAGE})
+@Profile({PRODUCTION, STAGE, DEV})
 @Component
 @Slf4j
 public class UrlBloggersDataFetcher implements BloggersDataFetcher {
