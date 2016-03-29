@@ -58,6 +58,7 @@ public class BloggersDataUpdater {
                     .twitter(bloggerEntry.getTwitter())
                     .dateAdded(nowProvider.now())
                     .blogType(bloggerEntry.getBlogType())
+                    .active(true)
                     .build());
             updateSummary.recordCreated();
         }

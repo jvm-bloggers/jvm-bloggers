@@ -7,13 +7,13 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 
-import java.time.format.DateTimeFormatter;
-
 import static org.apache.commons.lang3.StringUtils.abbreviate;
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.lastPublicationDate;
 
 /**
@@ -21,8 +21,6 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.lastPublicat
  */
 @Component
 public class BlogPostItemPopulator {
-    private static final DateTimeFormatter DATE_FORMATTER
-            = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private static final String ACTION_PANEL_WICKET_ID = "actionPanel";
 
