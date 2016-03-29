@@ -3,6 +3,9 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 import spock.lang.Specification
 import spock.lang.Unroll
 
+import java.time.LocalDateTime
+import java.time.Month
+
 class BlogPostSpec extends Specification {
 
     @Unroll
@@ -38,4 +41,21 @@ class BlogPostSpec extends Specification {
             false    || true
             null     || false
     }
+
+    @Unroll
+    def "Should return whether post is going in newsletter"() {
+        given:
+            BlogPost blogPost = BlogPost.builder()
+                .publishedDate(postPublicationDate)
+                .build();
+        when:
+            boolean inNewsletter = blogPost.isGoingInNewsletter(lastNewsletterDate)
+        then:
+            inNewsletter == expected
+        where:
+            postPublicationDate                             || lastNewsletterDate                              || expected
+            LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || true
+            LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 21, 12, 00) || false
+    }
+
 }

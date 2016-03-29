@@ -85,4 +85,8 @@ public class BlogPost {
             return "Rejected";
         }
     }
+
+    public boolean isGoingInNewsletter(final LocalDateTime lastPublicationDate) {
+        return publishedDate.isAfter(lastPublicationDate);
+    }
 }

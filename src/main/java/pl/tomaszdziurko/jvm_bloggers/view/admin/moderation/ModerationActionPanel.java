@@ -19,7 +19,8 @@ public class ModerationActionPanel extends Panel {
 
     public ModerationActionPanel(String id, Form<Void> moderationForm,
                                  CustomFeedbackPanel feedback,
-                                 IModel<? extends BlogPost> blogPostModel) {
+                                 IModel<? extends BlogPost> blogPostModel,
+                                 boolean panelIsDisabled) {
         super(id);
 
         AjaxButton acceptPost = new AjaxButton("acceptPost", moderationForm) {
@@ -39,6 +40,7 @@ public class ModerationActionPanel extends Panel {
             }
         };
         acceptPost.setVisible(!blogPostModel.getObject().isApproved());
+        acceptPost.setEnabled(!panelIsDisabled);
         add(acceptPost);
 
         AjaxButton rejectPost = new AjaxButton("rejectPost", moderationForm) {
@@ -58,6 +60,7 @@ public class ModerationActionPanel extends Panel {
             }
         };
         rejectPost.setVisible(!blogPostModel.getObject().isRejected());
+        rejectPost.setEnabled(!panelIsDisabled);
         add(rejectPost);
     }
 
