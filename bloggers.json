@@ -726,6 +726,12 @@
       "name": "Michal Gellert",
       "rss": "http://michalgellert.blogspot.com/feeds/posts/default",
       "twitter": "@MichalGellert"
+    },
+    {
+      "jsonId": 128,
+      "name": "Grzegorz Gajos",
+      "rss": "http://ggajos.com/rss.xml",
+      "twitter": "@ggajos"
     }
   ]
 }
