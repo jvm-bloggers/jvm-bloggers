@@ -15,9 +15,7 @@ import spock.lang.Specification
 import java.util.concurrent.TimeUnit
 
 import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
-/**
- * @author Adam Dec
- */
+
 class BruteForceAttackEventStreamManagerSpec extends Specification {
 
     LogMailSender mailSender;
@@ -27,20 +25,14 @@ class BruteForceAttackEventStreamManagerSpec extends Specification {
     BruteForceAttackEventStreamManager manager;
 
     def setup() {
-        logMailPostAction = new LogMailSenderPostAction();
-        mailSender = new LogMailSender(logMailPostAction)
-        metadataRepository = Mock(MetadataRepository);
-        BruteForceAttackMailGenerator bruteForceAttackMailGenerator = Mock(BruteForceAttackMailGenerator)
-        bruteForceAttackMailGenerator.prepareMailContent(_) >> "A"
-        bruteForceAttackMailGenerator.prepareMailTitle(_) >> "B"
-        scheduler = new TestScheduler()
-
-        // Close your eyes! :D
-        manager = new BruteForceAttackEventStreamManager()
-        ReflectionTestUtils.setField(manager, "mailSender", mailSender)
-        ReflectionTestUtils.setField(manager, "bruteForceAttackMailGenerator", bruteForceAttackMailGenerator)
-        ReflectionTestUtils.setField(manager, "scheduler", scheduler)
-        ReflectionTestUtils.setField(manager, "metadataRepository", metadataRepository)
+        manager = new BruteForceAttackEventStreamManager(
+            mailSender = new LogMailSender(logMailPostAction = new LogMailSenderPostAction()),
+            Mock(BruteForceAttackMailGenerator) {
+                prepareMailTitle(_) >> "mail title"
+                prepareMailContent(_) >> "mail content"
+            },
+            scheduler = new TestScheduler(),
+            metadataRepository = Mock(MetadataRepository))
     }
 
     def "Should throw Runtime exception when ADMIN_EMAIL metadata is not found"() {
