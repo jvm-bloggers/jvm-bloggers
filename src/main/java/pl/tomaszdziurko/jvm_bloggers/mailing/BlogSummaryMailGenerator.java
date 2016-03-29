@@ -1,10 +1,12 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.rometools.rome.feed.synd.SyndFeed;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,14 +70,18 @@ public class BlogSummaryMailGenerator {
             newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
         List<BlogPost> newPostsfromCompanies =
             newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
+        List<BlogPost> newVideoPosts =
+            newBlogPostsByType.getOrDefault(BlogType.VIDEOS, emptyList());
 
         Metadata mailingTemplate = metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
-        String templateContent =  mailingTemplate.getValue();
+        String templateContent = mailingTemplate.getValue();
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
         template.add("days", numberOfDaysBackInThePast);
         template.add("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
         template.add("newPostsFromCompanies",
             toMailItems(newPostsfromCompanies, issueNumber));
+        template.add("newVideoPosts",
+            toMailItems(newVideoPosts, issueNumber));
         template.add("blogsWithHomePage",
             getBlogAndItsHomePage(blogsAddedSinceLastNewsletter));
         return template.render();

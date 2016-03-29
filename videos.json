@@ -1,0 +1,28 @@
+{
+  "bloggers": [
+    {
+      "jsonId": 20001,
+      "name": "Trójmiasto JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCU5x5RmlIUUTyZIQKZkXHUw",
+      "twitter": "@JUGTricity"
+    },
+    {
+      "jsonId": 20002,
+      "name": "Warszawa JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2coGyxf5x_CzJ3l4F-N-Sw",
+      "twitter": "@warszawajug"
+    },
+    {
+      "jsonId": 20003,
+      "name": "Łódź JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCS5yGVNI9HfkGz9EngOLqIQ",
+      "twitter": "@juglodz"
+    },
+    {
+      "jsonId": 20004,
+      "name": "Toruń JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLuHypXd9ODOivs7gRpxNZg",
+      "twitter": "@TorunJUG"
+    }
+  ]s
+}

@@ -48,29 +48,13 @@ public class BloggersDataUpdater {
             Blog bloggerWithSameJsonId = existingBloggerByJsonId.get();
             updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
         } else {
-            blogRepository.save(Blog.builder()
-                    .jsonId(bloggerEntry.getJsonId())
-                    .author(bloggerEntry.getName())
-                    .rss(StringUtils.lowerCase(bloggerEntry.getRss()))
-                    .url(syndFeedFactory.urlFromRss(
-                        bloggerEntry.getRss()).orElse(null)
-                    )
-                    .twitter(bloggerEntry.getTwitter())
-                    .dateAdded(nowProvider.now())
-                    .blogType(bloggerEntry.getBlogType())
-                    .active(true)
-                    .build());
-            updateSummary.recordCreated();
+            createNewBlogger(bloggerEntry, updateSummary);
         }
     }
 
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
-        bloggerEntry.setUrl(
-            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(null)
-        );
-        
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
@@ -81,6 +65,24 @@ public class BloggersDataUpdater {
             blogRepository.save(existingBlogger);
             updateSummary.recordUpdated();
         }
+    }
+
+    private void createNewBlogger(BloggerEntry bloggerEntry,
+                                  UpdateSummary updateSummary) {
+        Blog newBlog = Blog.builder()
+            .jsonId(bloggerEntry.getJsonId())
+            .author(bloggerEntry.getName())
+            .rss(bloggerEntry.getRss())
+            .url(syndFeedFactory.urlFromRss(
+                bloggerEntry.getRss()).orElse(null)
+            )
+            .twitter(bloggerEntry.getTwitter())
+            .dateAdded(nowProvider.now())
+            .blogType(bloggerEntry.getBlogType())
+            .active(true)
+            .build();
+        blogRepository.save(newBlog);
+        updateSummary.recordCreated();
     }
 
     protected boolean isEqual(Blog blog, BloggerEntry bloggerEntry) {

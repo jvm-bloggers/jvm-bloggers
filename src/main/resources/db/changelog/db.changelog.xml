@@ -225,4 +225,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="023-add-videos-blogs-to-template" author="Jacek.Jackowiak">
+        <sqlFile path="add_video_blogs_to_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
