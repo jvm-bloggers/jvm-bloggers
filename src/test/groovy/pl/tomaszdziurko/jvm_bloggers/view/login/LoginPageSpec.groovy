@@ -57,8 +57,8 @@ class LoginPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should redirect to Admin Dashboard after successful login"() {
         given:
-            def login = "login"
-            def pass = "pass"
+            String login = "login"
+            String pass = "pass"
             userAuthenticator.getRolesForUser(login, pass) >> adminRoles
         when:
             tester.startPage(LoginPage.class)
