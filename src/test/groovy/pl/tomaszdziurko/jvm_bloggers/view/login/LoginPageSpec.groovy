@@ -1,51 +1,70 @@
 package pl.tomaszdziurko.jvm_bloggers.view.login
 
-import org.apache.wicket.protocol.http.WebApplication
+import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.util.tester.FormTester
-import org.apache.wicket.util.tester.WicketTester
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.util.ReflectionTestUtils
-import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
-import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
+
+import pl.tomaszdziurko.jvm_bloggers.MockSpringContextAwareSpecification
+import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSender
+import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
+import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
+import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackMailGenerator
+import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamManager
+
 import rx.schedulers.TestScheduler
 
 import java.util.concurrent.TimeUnit
 
-import static BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
+import static pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamManager.MAILING_TIME_THROTTLE_IN_MINUTES
 
-class LoginPageSpec extends SpringContextAwareSpecification {
+class LoginPageSpec extends MockSpringContextAwareSpecification {
 
-    private WicketTester tester
+    LogMailSenderPostAction logMailPostAction = new LogMailSenderPostAction()
 
-    @Autowired
-    private WebApplication wicketApplication
+    LogMailSender logMailSender = new LogMailSender(logMailPostAction)
 
-    @Autowired
-    private LogMailSender logMailSender;
+    TestScheduler scheduler = new TestScheduler()
 
-    @Autowired
-    private TestScheduler scheduler;
+    UserAuthenticator userAuthenticator = Stub()
 
-    @Autowired
-    private LogMailSenderPostAction logMailPostAction;
+    Roles adminRoles = Stub() {
+        hasRole(Roles.ADMIN) >> true
+    }
 
-    def setup() {
-        // This is a workaround for problems with Spring Boot and WicketTester
-        // https://issues.apache.org/jira/browse/WICKET-6053 and
-        // https://github.com/MarcGiffing/wicket-spring-boot/issues/31
-        ReflectionTestUtils.setField(wicketApplication, "name", null)
-        tester = new WicketTester(wicketApplication)
+    Roles notAdminRoles = Stub() {
+        hasRole(Roles.ADMIN) >> false
+    }
+
+    def void setupContext() {
+        NowProvider nowProvider = new NowProvider()
+        addBean(nowProvider)
+        addBean(userAuthenticator)
+        addBean(new BruteForceLoginAttackDetector())
+        addBean(new BruteForceAttackEventStreamManager(
+                    logMailSender,
+                    new BruteForceAttackMailGenerator(nowProvider),
+                    scheduler,
+                    Stub(MetadataRepository) {
+                        findByName(_) >> "mail"
+                    }
+                )
+            )
+        addBean(Mock(BlogPostRepository))
     }
 
     def "Should redirect to Admin Dashboard after successful login"() {
+        given:
+            String login = "login"
+            String pass = "pass"
+            userAuthenticator.getRolesForUser(login, pass) >> adminRoles
         when:
             tester.startPage(LoginPage.class)
             FormTester formTester = tester.newFormTester(LoginPage.LOGIN_FORM_ID)
-            formTester.setValue(LoginPage.LOGIN_FIELD_ID, "Any User")
-            formTester.setValue(LoginPage.PASSWORD_FIELD_ID, PASSWORD)
+            formTester.setValue(LoginPage.LOGIN_FIELD_ID, login)
+            formTester.setValue(LoginPage.PASSWORD_FIELD_ID, pass)
             formTester.submit(LoginPage.FORM_SUBMIT_ID)
         then:
             tester.assertNoErrorMessage()
@@ -53,6 +72,8 @@ class LoginPageSpec extends SpringContextAwareSpecification {
     }
 
     def "Should reject incorrect password"() {
+        given:
+            userAuthenticator.getRolesForUser(_, _) >> notAdminRoles
         when:
             tester.startPage(LoginPage.class)
             FormTester formTester = tester.newFormTester(LoginPage.LOGIN_FORM_ID)
@@ -65,6 +86,8 @@ class LoginPageSpec extends SpringContextAwareSpecification {
     }
 
     def "Should not try to login after brute force attack was detected"() {
+        given:
+            userAuthenticator.getRolesForUser(_, _) >> notAdminRoles
         when:
             (1..4).each {
                 tester.startPage(LoginPage.class)
@@ -80,6 +103,7 @@ class LoginPageSpec extends SpringContextAwareSpecification {
 
     def "Should not send e-mail more than twice after multiple brute force attack were detected"() {
         given:
+            userAuthenticator.getRolesForUser(_, _) >> notAdminRoles
             logMailPostAction.actionsToWaitOn(2)
         when:
             (1..10).each {
@@ -90,15 +114,15 @@ class LoginPageSpec extends SpringContextAwareSpecification {
                 formTester.submit(LoginPage.FORM_SUBMIT_ID)
 
                 if (it.intValue() == 5) {
-                    scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES);
+                    scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES, TimeUnit.MINUTES)
                 } else if (it.intValue() == 10) {
-                    scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES * 2, TimeUnit.MINUTES);
+                    scheduler.advanceTimeTo(MAILING_TIME_THROTTLE_IN_MINUTES * 2, TimeUnit.MINUTES)
                 }
             }
         then:
             tester.assertErrorMessages("Incorrect login or password [BruteForce attack was detected]")
             tester.assertRenderedPage(LoginPage.class)
-            logMailSender.getLogMailSenderPostAction().awaitActions();
+            logMailSender.getLogMailSenderPostAction().awaitActions()
             scheduler.triggerActions()
     }
 }

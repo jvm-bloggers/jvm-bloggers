@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -33,27 +34,22 @@ import javax.annotation.PreDestroy;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BruteForceAttackEventStreamManager {
 
     @VisibleForTesting
     public static final int MAILING_TIME_THROTTLE_IN_MINUTES = 1;
 
-    private static final int INITIAL_CAPACITY = 256;
-
     private final ConcurrentMap<String, BruteForceAttackEventStream> streamMap =
-        new ConcurrentHashMap<>(INITIAL_CAPACITY);
+        new ConcurrentHashMap<>();
 
-    @Autowired
-    private MailSender mailSender;
+    private final MailSender mailSender;
 
-    @Autowired
-    private BruteForceAttackMailGenerator bruteForceAttackMailGenerator;
+    private final BruteForceAttackMailGenerator bruteForceAttackMailGenerator;
 
-    @Autowired
-    private Scheduler scheduler;
+    private final Scheduler scheduler;
 
-    @Autowired
-    private MetadataRepository metadataRepository;
+    private final MetadataRepository metadataRepository;
 
     private String adminEmailAddress;
 
