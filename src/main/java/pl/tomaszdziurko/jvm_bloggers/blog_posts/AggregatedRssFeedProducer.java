@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import com.rometools.rome.feed.synd.SyndContentImpl;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
@@ -12,9 +13,12 @@ import com.rometools.rome.feed.synd.SyndLinkImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -37,7 +41,6 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
-    private static final String RSS_CACHE_KEY = "'rss_cache_key'";
     private static final String SELF_REL = "self";
 
     @VisibleForTesting
@@ -54,20 +57,36 @@ public class AggregatedRssFeedProducer {
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
 
-    @Cacheable(key = RSS_CACHE_KEY)
-    public SyndFeed getRss(String requestedUrlString) {
+    /**
+     * Generates aggregated RSS feed for all or given <tt>limit</tt> of approved blog posts.
+     *
+     * @param feedUrl Value of the <tt>{@literal <link rel=self/>}</tt> element
+     *     of the generated feed. It identifies the URL of the web site associated
+     *     with the generated feed. Cannot be <tt>null</tt> nor empty.
+     *
+     * @param limit Upper limit of RSS entries count in the generated feed. If equal or less
+     *     than zero then all approved blog posts will be generated.
+     *
+     * @return Aggregated RSS feed for approved blog posts ordered by publication date
+     */
+    @Cacheable
+    public SyndFeed getRss(String feedUrl, int limit) {
+
+        Preconditions.checkArgument(
+            StringUtils.isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
 
         final StopWatch stopWatch = new StopWatch();
         log.debug("Building aggregated RSS feed...");
         stopWatch.start();
 
+        final Pageable pageRequest = new PageRequest(0, limit > 0 ? limit : Integer.MAX_VALUE);
         final List<BlogPost> approvedPosts =
-            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc();
+            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc(pageRequest);
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .map(this::toRssEntry)
             .collect(Collectors.toList());
 
-        final SyndFeed feed = buildFeed(feedItems, requestedUrlString);
+        final SyndFeed feed = buildFeed(feedItems, feedUrl);
 
         stopWatch.stop();
         log.info("Total {} feed entries produced in {}ms", feedItems.size(),
