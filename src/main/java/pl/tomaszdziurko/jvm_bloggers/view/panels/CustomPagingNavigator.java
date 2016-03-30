@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.navigation.paging.IPageable;
 import org.apache.wicket.markup.html.navigation.paging.IPagingLabelProvider;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.model.Model;
 
 public class CustomPagingNavigator extends PagingNavigator {
 
@@ -27,10 +28,11 @@ public class CustomPagingNavigator extends PagingNavigator {
             @Override
             protected LoopItem newItem(int iteration) {
                 final LoopItem item = super.newItem(iteration);
-
                 final long pageIdx = getStartIndex() + iteration;
-                item.add(new AttributeModifier("class", new CustomPageLinkModel(pageable,
-                    pageIdx, "active")));
+
+                if (pageable.getCurrentPage() == pageIdx) {
+                    item.add(new AttributeModifier("class", Model.of("active")));
+                }
 
                 return item;
             }
