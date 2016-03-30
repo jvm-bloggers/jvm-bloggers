@@ -126,6 +126,26 @@ class BloggersDataUpdaterSpec extends Specification {
                 it.url = "http://new.blog.pl"
             })
     }
+    
+    def "Should not update existing blog url if new address could not be retrieved"() {
+        given:
+            Long jsonId = 2207L
+            Blog blog = buildBlog(
+                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                "twitter", LocalDateTime.now(), PERSONAL
+            )
+            BloggerEntry entry = new BloggerEntry(
+                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+            )
+            blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            0 * blogRepository.save({
+                it.url = ""
+            })
+    }
 
     def buildBlog(Long jsonId, String author, String rss, String twitter) {
         buildBlog(jsonId, author, rss, null, twitter, LocalDateTime.now(), PERSONAL)
