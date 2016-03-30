@@ -17,6 +17,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -68,7 +70,7 @@ public class AggregatedRssFeedProducer {
      * @return Aggregated RSS feed for approved blog posts ordered by publication date
      */
     @Cacheable
-    public SyndFeed getRss(String feedUrl, long limit) {
+    public SyndFeed getRss(String feedUrl, int limit) {
 
         Preconditions.checkArgument(
             StringUtils.isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
@@ -77,11 +79,11 @@ public class AggregatedRssFeedProducer {
         log.debug("Building aggregated RSS feed...");
         stopWatch.start();
 
+        final Pageable pageRequest = new PageRequest(0, limit > 0 ? limit : Integer.MAX_VALUE);
         final List<BlogPost> approvedPosts =
-            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc();
+            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc(pageRequest);
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .map(this::toRssEntry)
-            .limit(limit > 0 ? limit : Long.MAX_VALUE)
             .collect(Collectors.toList());
 
         final SyndFeed feed = buildFeed(feedItems, feedUrl);

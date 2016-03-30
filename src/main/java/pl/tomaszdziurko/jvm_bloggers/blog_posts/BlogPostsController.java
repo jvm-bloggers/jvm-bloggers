@@ -28,8 +28,8 @@ public class BlogPostsController {
     @SneakyThrows
     @RequestMapping("/pl/rss")
     public void getRss(HttpServletRequest request, HttpServletResponse response,
-        PrintWriter writer, @RequestParam(required = false) Long limit,
-        @Value("${generated.rss.entries.limit}") long defaultLimit) {
+        PrintWriter writer, @RequestParam(required = false) Integer limit,
+        @Value("${generated.rss.entries.limit}") int defaultLimit) {
         limit = firstNonNull(limit, defaultLimit);
         response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
         new SyndFeedOutput().output(

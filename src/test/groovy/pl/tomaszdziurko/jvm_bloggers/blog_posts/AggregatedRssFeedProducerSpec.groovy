@@ -1,12 +1,14 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts
 
 import com.rometools.rome.feed.synd.SyndFeed
+import org.springframework.data.domain.Pageable
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
@@ -16,25 +18,30 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 class AggregatedRssFeedProducerSpec extends Specification {
 
-    def EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS"
-    def DESCRIPTION = "description"
-    def TITLE_1 = "title_1"
-    def TITLE_2 = "title_2"
-    def URL_1 = "http://blogPostUrl_1"
-    def URL_2 = "http://blogPostUrl_2"
-    def AUTHOR_1 = "author_1"
-    def AUTHOR_2 = "author_2"
-    def DATE = new NowProvider().now()
-    def UID_1 = UUID.randomUUID().toString()
-    def UID_2 = UUID.randomUUID().toString()
-    def REQUEST_URL = "http://jvm-bloggers.com/rss"
+    String EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS"
+    String DESCRIPTION = "description"
+    String TITLE_1 = "title_1"
+    String TITLE_2 = "title_2"
+    String URL_1 = "http://blogPostUrl_1"
+    String URL_2 = "http://blogPostUrl_2"
+    String AUTHOR_1 = "author_1"
+    String AUTHOR_2 = "author_2"
+    LocalDateTime DATE = new NowProvider().now()
+    String UID_1 = UUID.randomUUID().toString()
+    String UID_2 = UUID.randomUUID().toString()
+    String REQUEST_URL = "http://jvm-bloggers.com/rss"
 
     BlogPostRepository blogPostRepository = Stub() {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
         BlogPost blogPost2 = stubBlogPost(UID_2, null, TITLE_2, URL_2, AUTHOR_2, DATE)
-        findByApprovedTrueOrderByPublishedDateDesc() >> [blogPost1, blogPost2]
+        findByApprovedTrueOrderByPublishedDateDesc(_) >> { args ->
+            Pageable pageable = args[0]
+            List<BlogPost> blogposts = [blogPost1, blogPost2]
+            int limit = Math.min(blogposts.size(), pageable.pageSize)
+            return blogposts.subList(0, limit)
+        }
     }
-    
+
     NowProvider nowProvider = Stub() {
         now() >> DATE
     }
@@ -107,7 +114,8 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     }
 
-    def "Should throw IAE on blank feedUrl parameter"() {
+    @Unroll
+    def "Should throw IAE on invalid feedUrl = [#blankFeedUrl]"() {
         when:
             rssProducer.getRss(blankFeedUrl, 1)
         then:
