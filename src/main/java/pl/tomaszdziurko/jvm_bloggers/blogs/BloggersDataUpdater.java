@@ -55,6 +55,9 @@ public class BloggersDataUpdater {
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
+        bloggerEntry.setUrl(
+            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(null)
+        );
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());

@@ -31,7 +31,15 @@ UPDATE metadata SET value = 'Witajcie<br><br><br>
  - <a href="$post.url$">$post.title$</a> by $post.authorLabel$<br>
  }$
  <br>
- <br>$endif$ $if(newVideoPosts)$ Wpisy z wideo blogów:<br>$newVideoPosts: {post| -&nbsp;<a href="http://localhost:8080/$post.url$">$post.title$</a>&nbsp;by $post.authorLabel$<br>}$&nbsp;<br>
+ <br>
+ $endif$
+
+ $if(newVideoPosts)$
+ Wpisy z wideo blogów:<br>
+ $newVideoPosts: {post|
+ - <a href="$post.url$">$post.title$</a> by $post.authorLabel$<br>
+ }$
+ <br>
  <br>
  $endif$
 
