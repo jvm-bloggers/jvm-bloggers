@@ -1,0 +1,10 @@
+{
+  "bloggers": [
+    {
+      "jsonId": 1,
+      "name": "Tomasz Dziurko",
+      "rss": "http://tomaszdziurko.pl/feed/",
+      "twitter": "@TomaszDziurko"
+    }
+  ]
+}

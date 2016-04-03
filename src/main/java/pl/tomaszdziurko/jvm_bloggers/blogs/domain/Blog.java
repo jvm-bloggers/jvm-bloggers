@@ -54,6 +54,9 @@ public class Blog {
     @Enumerated(value = EnumType.STRING)
     private BlogType blogType;
 
+    @Column(name = "ACTIVE", nullable = false)
+    private boolean active;
+
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
     }
@@ -66,4 +69,7 @@ public class Blog {
         }
     }
 
+    public String getStatus() {
+        return active ? "Active" : "Deactivated";
+    }
 }

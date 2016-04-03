@@ -17,7 +17,7 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     List<BlogPost> findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(
         LocalDateTime publishedDate);
 
-    List<BlogPost> findByApprovedTrueOrderByPublishedDateDesc();
+    List<BlogPost> findByApprovedTrueOrderByPublishedDateDesc(Pageable page);
 
     @Query("from BlogPost bp order by "
            + "case when bp.approved is null then 0 else 1 end, "

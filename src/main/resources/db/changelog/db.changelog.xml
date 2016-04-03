@@ -217,4 +217,12 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="024-added-ACTIVE-column-to-BLOG-table" author="Mateusz Urbański">
+        <addColumn tableName="blog">
+            <column name="ACTIVE" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

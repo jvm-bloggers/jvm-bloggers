@@ -23,6 +23,7 @@ public class BloggersDataFetcher {
     private final Optional<URL> bloggersUrlOptional;
     private final Optional<URL> companiesUrlOptional;
     private final BloggersDataUpdater bloggersDataUpdater;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
@@ -48,16 +49,16 @@ public class BloggersDataFetcher {
     }
 
     private void refreshBloggersDataFor(Optional<URL> blogsDataUrl, BlogType blogType) {
-        if (!blogsDataUrl.isPresent()) {
+        if (blogsDataUrl.isPresent()) {
+            try {
+                BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
+                bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
+                bloggersDataUpdater.updateData(bloggers);
+            } catch (IOException exception) {
+                log.error("Exception during parse process for {}", blogType, exception);
+            }
+        } else {
             log.warn("No valid URL specified for {}. Skipping.", blogType);
-        }
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
-            bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
-            bloggersDataUpdater.updateData(bloggers);
-        } catch (IOException exception) {
-            log.error("Exception during parse process for {}", blogType, exception);
         }
     }
 
