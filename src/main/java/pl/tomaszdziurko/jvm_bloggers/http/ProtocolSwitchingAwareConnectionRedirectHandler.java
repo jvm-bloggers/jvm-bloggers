@@ -70,10 +70,8 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
             switch (responseCode) {
                 case HttpURLConnection.HTTP_MOVED_PERM:
                 case HttpURLConnection.HTTP_MOVED_TEMP:
-                    conn = handleRedirect(conn);
-                    redirectCounter = incrementRedirectCounterOrThrow(
-                        (HttpURLConnection) urlConnection,
-                        redirectCounter);
+                    conn = handleRedirect(conn, headers);
+                    redirectCounter = incrementRedirectCounterOrThrow(conn, redirectCounter);
                     continue;
                 default:
                     return conn;
@@ -110,7 +108,8 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         });
     }
 
-    private HttpURLConnection handleRedirect(HttpURLConnection conn) throws IOException {
+    private HttpURLConnection handleRedirect(HttpURLConnection conn,
+                                             Map<String, List<String>> headers) throws IOException {
         log.debug("Handling redirect for url: {} ", conn.getURL());
         conn.disconnect();
 
@@ -118,7 +117,9 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         final URL redirectUrl = new URL(location);
 
         log.debug("Redirect URL: {}", redirectUrl);
-        return (HttpURLConnection) redirectUrl.openConnection();
+        HttpURLConnection redirectedConnection = (HttpURLConnection) redirectUrl.openConnection();
+        setupConnection(redirectedConnection, headers);
+        return redirectedConnection;
     }
 
     private static final class TooManyRedirectsException extends IOException {

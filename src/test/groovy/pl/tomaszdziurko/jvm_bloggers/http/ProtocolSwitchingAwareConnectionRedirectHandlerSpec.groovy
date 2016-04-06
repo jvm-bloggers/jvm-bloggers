@@ -31,9 +31,12 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
             httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_TEMP
             httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
         when:
-            tested.handle(httpConnection, REQUEST_HEADERS)
+            HttpURLConnection redirected = tested.handle(httpConnection, REQUEST_HEADERS)
         then:
-            interaction{ commonInteractions() }
+            interaction{
+                commonInteractions(httpConnection)
+                commonInteractions(redirected)
+            }
             UnknownHostException e = thrown()
             redirectLocation.contains(e.message)
     }
@@ -49,8 +52,8 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
         when:
             tested.handle(httpConnection, REQUEST_HEADERS)
         then:
-            interaction{ commonInteractions() }
-            thrown(TooManyRedirectsException)
+            interaction{ commonInteractions(httpConnection) }
+            thrown TooManyRedirectsException
     }
 
     def "Should throw NPE on null connection parameter"() {
@@ -63,8 +66,8 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
             e.message.contains("urlConnection")
     }
     
-    private def commonInteractions() {
-        with(httpConnection) {
+    private def commonInteractions(HttpURLConnection connection) {
+        with(connection) {
             1 * setRequestProperty("header", "value 1")
             1 * setRequestProperty("header", "value 2")
             1 * setInstanceFollowRedirects(true)
