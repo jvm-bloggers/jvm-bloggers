@@ -738,6 +738,12 @@
       "name": "Grzegorz Poznachowski",
       "rss": "http://blog.poznachowski.pl/atom.xml",
       "twitter": "@poznachowski"
+    },
+    {
+      "jsonId": 130,
+      "name": "Konrad 'ktoso' Malawski",
+      "rss": "http://kto.so/rss",
+      "twitter": "@ktosopl"
     }
   ]
 }
