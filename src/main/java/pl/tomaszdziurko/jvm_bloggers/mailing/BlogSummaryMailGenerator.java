@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
@@ -99,7 +100,7 @@ public class BlogSummaryMailGenerator {
     }
 
     private Optional<String> getBlogHomePageFromRss(String rss) {
-        return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
+        return syndFeedFactory.urlFromRss(rss);
     }
 
     public static class HomePageUrl {
