@@ -229,4 +229,8 @@
         <sqlFile path="update_default_mailing_template_url_from_blog_entity.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="026-fix-metatada-value-problem" author="Tomasz.Dziurko">
+        <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(2500)"/>
+    </changeSet>
+
 </databaseChangeLog>
