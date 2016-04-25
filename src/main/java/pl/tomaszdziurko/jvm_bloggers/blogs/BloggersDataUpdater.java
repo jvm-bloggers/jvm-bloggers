@@ -56,8 +56,9 @@ public class BloggersDataUpdater {
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
         bloggerEntry.setUrl(
-            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(null)
+            syndFeedFactory.validUrlFromRss(bloggerEntry.getRss()).orElse(existingBlogger.getUrl())
         );
+        
         if (!isEqual(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
@@ -76,7 +77,7 @@ public class BloggersDataUpdater {
             .jsonId(bloggerEntry.getJsonId())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())
-            .url(syndFeedFactory.urlFromRss(
+            .url(syndFeedFactory.validUrlFromRss(
                 bloggerEntry.getRss()).orElse(null)
             )
             .twitter(bloggerEntry.getTwitter())

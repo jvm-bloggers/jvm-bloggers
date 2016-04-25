@@ -6,16 +6,10 @@ import lombok.Getter;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
-import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
-
-import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
-import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
 
 @Getter
 class BlogPostForMailItem {
-
-    private static final String UTM_MEDIUM = "newsletter";
-
+    
     private String title;
     private String url;
     private String authorLabel;
@@ -53,21 +47,6 @@ class BlogPostForMailItem {
 
         public Builder withIssueNumber(long issueNumber) {
             instance.issueNumber = issueNumber;
-            return this;
-        }
-
-        public Builder withDefaultUtmParameters() {
-            Preconditions.checkState(
-                instance.issueNumber != null,
-                "Could not set default UTM parameters. Missing issueNumber."
-            );
-
-            instance.url = UriUtmComponentsBuilder.fromHttpUrl(instance.url)
-                .withSource(DEFAULT_UTM_SOURCE)
-                .withMedium(UTM_MEDIUM)
-                .withCampaign(String.format("%s#%s", DEFAULT_UTM_CAMPAING, instance.issueNumber))
-                .build();
-
             return this;
         }
 

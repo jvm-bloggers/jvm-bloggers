@@ -224,8 +224,16 @@
             </column>
         </addColumn>
     </changeSet>
+    
+    <changeSet id="025-update-mailing-templates-new-blog-url-comes-from-blog-entity" author="Jakub.Sprega">
+        <sqlFile path="update_default_mailing_template_url_from_blog_entity.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
-    <changeSet id="023-add-videos-blogs-to-template" author="Jacek.Jackowiak">
+    <changeSet id="026-fix-metatada-value-problem" author="Tomasz.Dziurko">
+        <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(2500)"/>
+    </changeSet>
+
+    <changeSet id="027-add-videos-blogs-to-template" author="Jacek.Jackowiak">
         <sqlFile path="add_video_blogs_to_template.sql" relativeToChangelogFile="true"/>
     </changeSet>
 

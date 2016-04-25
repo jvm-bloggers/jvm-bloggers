@@ -5,12 +5,10 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
-import java.util.Optional;
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime
 
@@ -126,6 +124,26 @@ class BloggersDataUpdaterSpec extends Specification {
                 it.url = "http://new.blog.pl"
             })
     }
+    
+    def "Should not update existing blog url if new address could not be retrieved"() {
+        given:
+            Long jsonId = 2207L
+            Blog blog = buildBlog(
+                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                "twitter", LocalDateTime.now(), PERSONAL
+            )
+            BloggerEntry entry = new BloggerEntry(
+                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+            )
+            blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            0 * blogRepository.save({
+                it.url = ""
+            })
+    }
 
     def buildBlog(Long jsonId, String author, String rss, String twitter) {
         buildBlog(jsonId, author, rss, null, twitter, LocalDateTime.now(), PERSONAL)
@@ -149,8 +167,8 @@ class BloggersDataUpdaterSpec extends Specification {
     
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
-        producer.urlFromRss("") >> Optional.empty()
-        producer.urlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
+        producer.validUrlFromRss("") >> Optional.empty()
+        producer.validUrlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
         return producer
     }
 }

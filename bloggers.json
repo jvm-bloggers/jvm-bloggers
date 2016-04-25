@@ -732,6 +732,24 @@
       "name": "Grzegorz Gajos",
       "rss": "http://ggajos.com/rss.xml",
       "twitter": "@ggajos"
+    },
+    {
+      "jsonId": 129,
+      "name": "Grzegorz Poznachowski",
+      "rss": "http://blog.poznachowski.pl/atom.xml",
+      "twitter": "@poznachowski"
+    },
+    {
+      "jsonId": 130,
+      "name": "Jakub Spręga",
+      "rss": "http://cslysy.github.io/feed.xml",
+      "twitter": "@cslysy"
+    },
+    {
+      "jsonId": 131,
+      "name": "Konrad 'ktoso' Malawski",
+      "rss": "http://kto.so/rss",
+      "twitter": "@ktosopl"
     }
   ]
 }
