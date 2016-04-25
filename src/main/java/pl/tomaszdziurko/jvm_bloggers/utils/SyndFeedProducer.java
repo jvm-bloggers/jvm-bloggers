@@ -27,7 +27,9 @@ public class SyndFeedProducer {
 
     public static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
         + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36";
-    private static final UrlValidator URL_VALIDATOR = new UrlValidator(new String[]{"http", "https"});
+    private static final UrlValidator URL_VALIDATOR = new UrlValidator(
+        new String[]{"http", "https"}
+    );
 
 
     private final ProtocolSwitchingAwareConnectionRedirectHandler redirectHandler =
