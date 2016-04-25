@@ -5,12 +5,10 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
-import java.util.Optional;
+import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime
 
@@ -169,8 +167,8 @@ class BloggersDataUpdaterSpec extends Specification {
     
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
-        producer.urlFromRss("") >> Optional.empty()
-        producer.urlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
+        producer.validUrlFromRss("") >> Optional.empty()
+        producer.validUrlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
         return producer
     }
 }
