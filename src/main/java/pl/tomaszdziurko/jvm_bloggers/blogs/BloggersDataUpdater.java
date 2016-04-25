@@ -68,7 +68,7 @@ public class BloggersDataUpdater {
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
         bloggerEntry.setUrl(
-            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(null)
+            syndFeedFactory.urlFromRss(bloggerEntry.getRss()).orElse(existingBlogger.getUrl())
         );
         
         if (!isEqual(existingBlogger, bloggerEntry)) {

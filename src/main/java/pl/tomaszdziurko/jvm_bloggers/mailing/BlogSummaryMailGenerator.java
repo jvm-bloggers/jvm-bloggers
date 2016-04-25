@@ -1,12 +1,10 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
-import com.rometools.rome.feed.synd.SyndFeed;
+import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
@@ -20,15 +18,17 @@ import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
-import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer;
+import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
+import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
+import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
+
 
 @Slf4j
 @Component
@@ -37,12 +37,12 @@ import static java.util.Collections.emptyList;
 public class BlogSummaryMailGenerator {
 
     private static final char TEMPLATE_DELIMITER = '$';
+    private static final String UTM_MEDIUM = "newsletter";
 
     private BlogRepository blogRepository;
     private BlogPostRepository blogPostRepository;
     private MetadataRepository metadataRepository;
     private NowProvider nowProvider;
-    private SyndFeedProducer syndFeedFactory;
 
     public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
         LocalDateTime publishedDate = nowProvider.now()
@@ -73,48 +73,38 @@ public class BlogSummaryMailGenerator {
         String templateContent =  mailingTemplate.getValue();
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
         template.add("days", numberOfDaysBackInThePast);
-        template.add("newPosts", toMailItems(newPostsFromPersonalBlogs, issueNumber));
+        template.add("newPosts", postsToMailItems(newPostsFromPersonalBlogs, issueNumber));
         template.add("newPostsFromCompanies",
-            toMailItems(newPostsfromCompanies, issueNumber));
-        template.add("blogsWithHomePage",
-            getBlogAndItsHomePage(blogsAddedSinceLastNewsletter));
+            postsToMailItems(newPostsfromCompanies, issueNumber));
+        template.add("newlyAddedBlogs",
+            blogsToMailItems(blogsAddedSinceLastNewsletter, issueNumber));
         return template.render();
     }
 
-    private List<BlogPostForMailItem> toMailItems(List<BlogPost> newPosts, long issueNumber) {
+    private List<BlogPostForMailItem> postsToMailItems(List<BlogPost> newPosts, long issueNumber) {
         return newPosts.stream().map(blogPost ->
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)
-                .withDefaultUtmParameters()
+                .withUrl(urlWithUtmParameters(blogPost.getUrl(), issueNumber))
                 .build()
         ).collect(Collectors.toList());
     }
 
-    private Map<Blog, HomePageUrl> getBlogAndItsHomePage(
-        List<Blog> blogsAddedSinceLastNewsletter) {
-        return blogsAddedSinceLastNewsletter.stream()
-            .map(blog -> Pair.of(blog, new HomePageUrl(getBlogHomePageFromRss(blog.getRss()))))
-            .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
+    private List<Blog> blogsToMailItems(List<Blog> blogs, long issueNumber) {
+        return blogs.stream()
+            .filter(blog -> !Strings.isNullOrEmpty(blog.getUrl()))
+            .map(blog -> {
+                blog.setUrl(urlWithUtmParameters(blog.getUrl(), issueNumber));
+                return blog;
+            }).collect(Collectors.toList());
     }
 
-    private Optional<String> getBlogHomePageFromRss(String rss) {
-        return syndFeedFactory.createFor(rss).map(SyndFeed::getLink);
+    private String urlWithUtmParameters(String url, long issueNumber) {
+        return UriUtmComponentsBuilder.fromHttpUrl(url)
+            .withSource(DEFAULT_UTM_SOURCE)
+            .withMedium(UTM_MEDIUM)
+            .withCampaign(String.format("%s#%s", DEFAULT_UTM_CAMPAING, issueNumber))
+            .build();
     }
-
-    public static class HomePageUrl {
-
-        @Getter
-        private final String url;
-
-        @Getter
-        private final boolean isAvailable;
-
-        private HomePageUrl(Optional<String> optUrlString) {
-            isAvailable = optUrlString.isPresent();
-            url = optUrlString.orElse(StringUtils.EMPTY);
-        }
-
-    }
-
 }

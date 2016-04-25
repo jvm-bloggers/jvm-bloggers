@@ -224,5 +224,9 @@
             </column>
         </addColumn>
     </changeSet>
+    
+    <changeSet id="025-update-mailing-templates-new-blog-url-comes-from-blog-entity" author="Jakub.Sprega">
+        <sqlFile path="update_default_mailing_template_url_from_blog_entity.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
