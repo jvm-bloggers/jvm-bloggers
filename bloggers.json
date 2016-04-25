@@ -744,6 +744,12 @@
       "name": "Jakub Spręga",
       "rss": "http://cslysy.github.io/feed.xml",
       "twitter": "@cslysy"
+    },
+    {
+      "jsonId": 131,
+      "name": "Konrad 'ktoso' Malawski",
+      "rss": "http://kto.so/rss",
+      "twitter": "@ktosopl"
     }
   ]
 }
