@@ -22,15 +22,18 @@ public class BloggersDataFetcher {
 
     private final Optional<URL> bloggersUrlOptional;
     private final Optional<URL> companiesUrlOptional;
+    private final Optional<URL> videosUrlOptional;
     private final BloggersDataUpdater bloggersDataUpdater;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
+                               @Value("${youtube.data.file.url}") String videosDataUrlString,
                                BloggersDataUpdater bloggersDataUpdater) {
         bloggersUrlOptional = convertToUrl(bloggersDataUrlString);
         companiesUrlOptional = convertToUrl(companiesDataUrlString);
+        videosUrlOptional = convertToUrl(videosDataUrlString);
         this.bloggersDataUpdater = bloggersDataUpdater;
     }
 
@@ -46,6 +49,7 @@ public class BloggersDataFetcher {
     public void refreshData() {
         refreshBloggersDataFor(bloggersUrlOptional, BlogType.PERSONAL);
         refreshBloggersDataFor(companiesUrlOptional, BlogType.COMPANY);
+        refreshBloggersDataFor(videosUrlOptional, BlogType.VIDEOS);
     }
 
     private void refreshBloggersDataFor(Optional<URL> blogsDataUrl, BlogType blogType) {

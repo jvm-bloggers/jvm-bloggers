@@ -20,6 +20,8 @@ Please create a Pull Request adding it to
 
 * [companies.json](companies.json) for company blogs
 
+* [videos.json](videos.json) for video blogs
+
 and that's all. Once it is merged, you are on the list!
  
 ## Roadmap

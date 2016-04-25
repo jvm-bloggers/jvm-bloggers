@@ -233,4 +233,8 @@
         <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(2500)"/>
     </changeSet>
 
+    <changeSet id="027-add-videos-blogs-to-template" author="Jacek.Jackowiak">
+        <sqlFile path="add_video_blogs_to_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
