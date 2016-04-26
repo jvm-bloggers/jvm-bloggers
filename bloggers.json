@@ -750,6 +750,12 @@
       "name": "Konrad 'ktoso' Malawski",
       "rss": "http://kto.so/rss",
       "twitter": "@ktosopl"
+    },
+    {
+      "jsonId": 132,
+      "name": "Piotr Jagielski",
+      "rss": "http://overtone-recipes.github.io/feed.xml",
+      "twitter": "@pjagielski"
     }
   ]
 }
