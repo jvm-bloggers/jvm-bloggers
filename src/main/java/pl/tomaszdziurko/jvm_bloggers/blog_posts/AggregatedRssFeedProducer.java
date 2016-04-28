@@ -9,10 +9,8 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
 import com.rometools.rome.feed.synd.SyndLink;
 import com.rometools.rome.feed.synd.SyndLinkImpl;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -21,11 +19,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
-
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
+import pl.tomaszdziurko.jvm_bloggers.utils.Validators;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,8 +39,6 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
-    private static final String SELF_REL = "self";
-
     @VisibleForTesting
     static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
     @VisibleForTesting
@@ -50,6 +46,7 @@ public class AggregatedRssFeedProducer {
     @VisibleForTesting
     static final String FEED_TYPE = "atom_1.0";
 
+    private static final String SELF_REL = "self";
     private static final String UTM_MEDIUM = "RSS";
     private static final String UTM_CAMPAIGN = "RSS";
 
@@ -83,9 +80,9 @@ public class AggregatedRssFeedProducer {
         final List<BlogPost> approvedPosts =
             blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc(pageRequest);
         final List<SyndEntry> feedItems = approvedPosts.stream()
+            .filter(it -> Validators.isUrlValid(it.getUrl()))
             .map(this::toRssEntry)
             .collect(Collectors.toList());
-
         final SyndFeed feed = buildFeed(feedItems, feedUrl);
 
         stopWatch.stop();

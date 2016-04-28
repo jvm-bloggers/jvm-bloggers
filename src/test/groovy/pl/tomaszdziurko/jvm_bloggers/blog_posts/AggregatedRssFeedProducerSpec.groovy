@@ -22,21 +22,24 @@ class AggregatedRssFeedProducerSpec extends Specification {
     String DESCRIPTION = "description"
     String TITLE_1 = "title_1"
     String TITLE_2 = "title_2"
-    String URL_1 = "http://blogPostUrl_1"
-    String URL_2 = "http://blogPostUrl_2"
+    String URL_1 = "http://blogPostUrl-1.com"
+    String URL_2 = "http://blogPostUrl-2.com"
+    String INVALID_URL = "http://invalid-url"
     String AUTHOR_1 = "author_1"
     String AUTHOR_2 = "author_2"
     LocalDateTime DATE = new NowProvider().now()
     String UID_1 = UUID.randomUUID().toString()
     String UID_2 = UUID.randomUUID().toString()
+    String UID_3 = UUID.randomUUID().toString()
     String REQUEST_URL = "http://jvm-bloggers.com/rss"
 
     BlogPostRepository blogPostRepository = Stub() {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
         BlogPost blogPost2 = stubBlogPost(UID_2, null, TITLE_2, URL_2, AUTHOR_2, DATE)
+        BlogPost blogPost3 = stubBlogPost(UID_3, null, TITLE_2, INVALID_URL, AUTHOR_2, DATE)
         findByApprovedTrueOrderByPublishedDateDesc(_) >> { args ->
             Pageable pageable = args[0]
-            List<BlogPost> blogposts = [blogPost1, blogPost2]
+            List<BlogPost> blogposts = [blogPost1, blogPost2, blogPost3]
             int limit = Math.min(blogposts.size(), pageable.pageSize)
             return blogposts.subList(0, limit)
         }
@@ -49,7 +52,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
     @Subject
     AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider)
 
-    def "Should produce aggregated RSS feed with all entries"() {
+    def "Should produce aggregated RSS feed with all entries having valid url"() {
         when:
             SyndFeed feed = rssProducer.getRss(REQUEST_URL, 0)
         then:
@@ -111,7 +114,6 @@ class AggregatedRssFeedProducerSpec extends Specification {
                 publishedDate == date
                 author == AUTHOR_1
             }
-
     }
 
     @Unroll
