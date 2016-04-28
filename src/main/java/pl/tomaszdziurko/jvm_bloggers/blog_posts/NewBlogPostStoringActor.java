@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
+import pl.tomaszdziurko.jvm_bloggers.utils.Validators;
 
 import java.util.Date;
 
@@ -25,11 +26,20 @@ public class NewBlogPostStoringActor extends AbstractActor {
     public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
         receive(ReceiveBuilder.match(RssEntryWithAuthor.class,
             rssEntry -> {
-                BlogPost blogPost = blogPostRepository
-                    .findByUrl(rssEntry.getRssEntry().getLink())
-                    .orElseGet(() -> createBlogPost(rssEntry));
-                updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
-                blogPostRepository.save(blogPost);
+
+                if (Validators.isUrlValid(rssEntry.getRssEntry().getLink())) {
+                    BlogPost blogPost = blogPostRepository
+                        .findByUrl(rssEntry.getRssEntry().getLink())
+                        .orElseGet(() -> createBlogPost(rssEntry));
+                    updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
+                    blogPostRepository.save(blogPost);
+                } else {
+                    log.info(
+                        "Detected blog post with invalid link {}. Skipping DB operation",
+                        rssEntry.getRssEntry().getLink()
+                    );
+                }
+
             }).build()
         );
     }

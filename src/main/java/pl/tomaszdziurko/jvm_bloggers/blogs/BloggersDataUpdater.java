@@ -3,11 +3,9 @@ package pl.tomaszdziurko.jvm_bloggers.blogs;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry;
@@ -55,20 +53,26 @@ public class BloggersDataUpdater {
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
-        bloggerEntry.setUrl(
-            syndFeedFactory.validUrlFromRss(bloggerEntry.getRss()).orElse(existingBlogger.getUrl())
-        );
-        
-        if (!isEqual(existingBlogger, bloggerEntry)) {
+
+        Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
+        validBlogUrl.ifPresent(bloggerEntry::setUrl);
+
+        if (somethingChangedInBloggerData(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
             existingBlogger.setBlogType(bloggerEntry.getBlogType());
-            existingBlogger.setUrl(bloggerEntry.getUrl());
+            if (bloggerEntry.getUrl() != null) {
+                existingBlogger.setUrl(bloggerEntry.getUrl());
+            }
             blogRepository.save(existingBlogger);
             updateSummary.recordUpdated();
         }
+    }
+
+    private Optional<String> extractValidBlogUrlFromFeed(String rss) {
+        return syndFeedFactory.validUrlFromRss(rss);
     }
 
     private void createNewBlogger(BloggerEntry bloggerEntry,
@@ -89,13 +93,19 @@ public class BloggersDataUpdater {
         updateSummary.recordCreated();
     }
 
-    protected boolean isEqual(Blog blog, BloggerEntry bloggerEntry) {
-        return Objects.equals(blog.getAuthor(), bloggerEntry.getName())
-            && Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
-            && StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
-            && StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl())
-            && Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
-            && Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter());
+    protected boolean somethingChangedInBloggerData(Blog blog, BloggerEntry bloggerEntry) {
+        return !Objects.equals(blog.getAuthor(), bloggerEntry.getName())
+            || !Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
+            || !StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
+            || !Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
+            || !Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter())
+            || urlFromRssIsValidAndDifferentThanExistingOne(blog, bloggerEntry);
+    }
+
+    private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
+                                                                 BloggerEntry bloggerEntry) {
+        return bloggerEntry.getUrl() != null
+            && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
     }
 
     @Getter

@@ -3,11 +3,12 @@ package pl.tomaszdziurko.jvm_bloggers.blogs.json_data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class BloggerEntry {
 
     private Long jsonId;

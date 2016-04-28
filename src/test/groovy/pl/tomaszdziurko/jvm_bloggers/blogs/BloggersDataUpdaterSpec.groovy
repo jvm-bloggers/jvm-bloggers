@@ -2,7 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.blogs
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
@@ -23,30 +23,88 @@ class BloggersDataUpdaterSpec extends Specification {
     BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer())
 
     @Unroll
-    def "Should check equality of Person and BloggerEntry"() {
+    def "Should detect that BloggerEntry is different than corresponding Blog"() {
         when:
-            boolean isEqual = bloggersDataUpdater.isEqual(person, bloggerEntry)
+            boolean somethingChanged = bloggersDataUpdater.somethingChangedInBloggerData(person, bloggerEntry)
         then:
-            isEqual == expectedResult
+            somethingChanged == expectedResult
         where:
-            person                                    | bloggerEntry                                              | expectedResult
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | true
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(1L, "blog", "rss", "twitter", COMPANY)  | false
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(2L, "blog", "rss", "twitter", PERSONAL) | false
-            buildBlog(1L, "Author", "rss", "twitter") | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | false
-            buildBlog(1L, "blog", "Xss", "twitter")   | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | false
-            buildBlog(1L, "blog", "rss", "Xwitter")   | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | false
-            buildBlog(1L, "authoX", "rsX", "twitteX") | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | false
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(1L, "blog", "rss", null, PERSONAL)      | false
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(1L, null, "rss", "twitter", PERSONAL)   | false
-            buildBlog(1L, "blog", "rss", "twitter")   | buildBloggerEntry(1L, "blog", null, "twitter", PERSONAL)  | false
-            buildBlog(1L, "blog", "RSS", "twitter")   | buildBloggerEntry(1L, "blog", "rss", "twitter", PERSONAL) | true
+            person                                 | bloggerEntry                | expectedResult
+            standardPersonalBlog()                 | entryWithStandardBlogData() | false
+            blogWithUppercasedRss()                | entryWithStandardBlogData() | false
+            standardPersonalBlog()                 | entryWithCompanyBlogData()  | true
+            blogWithDifferentJsonId()              | entryWithStandardBlogData() | true
+            blogWithDifferentAuthor()              | entryWithStandardBlogData() | true
+            blogWithDifferentRss()                 | entryWithStandardBlogData() | true
+            blogWithDifferentTwitter()             | entryWithStandardBlogData() | true
+            blogWithDifferentAuthorRssAndTwitter() | entryWithStandardBlogData() | true
+            blogWithNoTwitter()                    | entryWithStandardBlogData() | true
+            blogWithNoAuthor()                     | entryWithStandardBlogData() | true
+            blogWithNoRss()                        | entryWithStandardBlogData() | true
+            standardPersonalBlog()                 | entryWithNoPageUrl()        | false
+            standardPersonalBlog()                 | entryWithDifferentPage()    | true
+    }
+
+    private BloggerEntry entryWithCompanyBlogData() {
+        buildBloggerEntry(1L, "blog", "rss", "page", "twitter", COMPANY)
+    }
+
+    private BloggerEntry entryWithDifferentPage() {
+        buildBloggerEntry(1L, "blog", "rss", "newPage", "twitter", PERSONAL)
+    }
+
+    private BloggerEntry entryWithNoPageUrl() {
+        buildBloggerEntry(1L, "blog", "rss", null, "twitter", PERSONAL)
+    }
+
+    private Blog standardPersonalBlog() {
+        buildBlog(1L, "blog", "rss", "page", "twitter")
+    }
+
+    private BloggerEntry entryWithStandardBlogData() {
+        buildBloggerEntry(1L, "blog", "rss", "page", "twitter", PERSONAL)
+    }
+
+    private Blog blogWithNoRss() {
+        buildBlog(1L, "blog", null, "page", "twitter")
+    }
+
+    private Blog blogWithNoAuthor() {
+        buildBlog(1L, null, "rss", "page", "twitter")
+    }
+
+    private Blog blogWithNoTwitter() {
+        buildBlog(1L, "blog", "rss", "page", null)
+    }
+
+    private Blog blogWithDifferentAuthorRssAndTwitter() {
+        buildBlog(1L, "authoX", "rsX", "page", "twitteX")
+    }
+
+    private Blog blogWithDifferentTwitter() {
+        buildBlog(1L, "blog", "rss", "page", "Xwitter")
+    }
+
+    private Blog blogWithDifferentRss() {
+        buildBlog(1L, "blog", "Xss", "page", "twitter")
+    }
+
+    private Blog blogWithDifferentAuthor() {
+        buildBlog(1L, "Author", "rss", "page", "twitter")
+    }
+
+    private Blog blogWithDifferentJsonId() {
+        buildBlog(2L, "blog", "rss", "page", "twitter")
+    }
+
+    private Blog blogWithUppercasedRss() {
+        buildBlog(1L, "blog", "RSS", "page", "twitter")
     }
 
     def "Should insert new Person for entry with new json_id"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "twitter", null)
+            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", null)
             blogRepository.findByJsonId(jsonId) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
@@ -60,8 +118,8 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should not update data if equal record already exists in DB"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "twitter", PERSONAL)
-            blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, entry.rss, entry.twitter))
+            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", PERSONAL)
+            blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, entry.rss, entry.url, entry.twitter))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -74,9 +132,9 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should update data if data in entry data differs a bit from record in DB"() {
         given:
             Long jsonId = 2207L
-            String rss = "newRssAddress"
+            String rss = "httP://newRssAddress"
             BloggerEntry entry = new BloggerEntry(jsonId, "blog", rss, "twitter", PERSONAL)
-            blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, "oldRSS", entry.twitter))
+            blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, "oldRSS", entry.rss, entry.twitter))
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
             bloggersDataUpdater.updateSingleEntry(entry, summary)
@@ -90,7 +148,7 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             String newName = "newAuthor"
-            Blog existingPerson = buildBlog(jsonId, "oldAuthor", "existingRSS", "twitter")
+            Blog existingPerson = buildBlog(jsonId, "oldAuthor", "http://existingRSS", "page", "twitter")
             BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter, COMPANY)
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
         when:
@@ -104,16 +162,17 @@ class BloggersDataUpdaterSpec extends Specification {
             summary.createdEntries == 0
             summary.updatedEntries == 1
     }
-    
+
     def "Should update existing blog if url was changed"() {
         given:
+            String newBlogUrl = "http://new.blog.pl"
             Long jsonId = 2207L
             Blog blog = buildBlog(
-                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
-                "twitter", LocalDateTime.now(), PERSONAL
+                    jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                    "twitter", LocalDateTime.now(), PERSONAL
             )
             BloggerEntry entry = new BloggerEntry(
-                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+                    blog.jsonId, blog.author, blog.rss, newBlogUrl, blog.twitter, COMPANY
             )
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
         when:
@@ -124,16 +183,16 @@ class BloggersDataUpdaterSpec extends Specification {
                 it.url = "http://new.blog.pl"
             })
     }
-    
+
     def "Should not update existing blog url if new address could not be retrieved"() {
         given:
             Long jsonId = 2207L
             Blog blog = buildBlog(
-                jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
-                "twitter", LocalDateTime.now(), PERSONAL
+                    jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                    "twitter", LocalDateTime.now(), PERSONAL
             )
             BloggerEntry entry = new BloggerEntry(
-                blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
+                    blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
             )
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
         when:
@@ -145,26 +204,26 @@ class BloggersDataUpdaterSpec extends Specification {
             })
     }
 
-    def buildBlog(Long jsonId, String author, String rss, String twitter) {
-        buildBlog(jsonId, author, rss, null, twitter, LocalDateTime.now(), PERSONAL)
+    def buildBlog(Long jsonId, String author, String rss, String pageUrl, String twitter) {
+        buildBlog(jsonId, author, rss, pageUrl, twitter, LocalDateTime.now(), PERSONAL)
     }
 
     def buildBlog(Long jsonId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
         return Blog.builder()
-            .jsonId(jsonId)
-            .author(author)
-            .rss(rss)
-            .url(url)
-            .twitter(twitter)
-            .dateAdded(LocalDateTime.now())
-            .blogType(type)
-            .build()
+                .jsonId(jsonId)
+                .author(author)
+                .rss(rss)
+                .url(url)
+                .twitter(twitter)
+                .dateAdded(dateAdded)
+                .blogType(type)
+                .build()
     }
-    
-    def buildBloggerEntry(Long jsonId, String author, String rss, String twitter, BlogType type) {
-        return new BloggerEntry(jsonId, author, rss, twitter, type)
+
+    def buildBloggerEntry(Long jsonId, String author, String rss, String pageUrl, String twitter, BlogType type) {
+        return new BloggerEntry(jsonId, author, rss, pageUrl, twitter, type)
     }
-    
+
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
         producer.validUrlFromRss("") >> Optional.empty()

@@ -36,7 +36,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should persist new blog post"() {
         given:
-            String postUrl = "a link"
+            String postUrl = "http://blogpost.com/blog"
             String postTitle = "Title"
             String postDescription = "description"
             SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
@@ -53,9 +53,28 @@ class NewBlogPostStoringActorSpec extends Specification {
             })
     }
 
+    def "Should not persist blog post with invalid URL"() {
+        given:
+            String invalidLink = "invalidLink"
+            String postTitle = "Title"
+            String postDescription = "description"
+            SyndEntry entry = mockSyndEntry(invalidLink, postTitle, postDescription)
+            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
+            blogPostRepository.findByUrl(invalidLink) >> Optional.empty()
+        when:
+            blogPostingActor.tell(message, ActorRef.noSender())
+            testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        then:
+            0 * blogPostRepository.save({
+                it.url == invalidLink &&
+                        it.title == postTitle &&
+                        it.description == postDescription
+            })
+    }
+
     def "Should update description if post already exists"() {
         given:
-            String postUrl = "a link"
+            String postUrl = "http://blogpost.com/blog"
             String postTitle = "Title"
             String postDescription = "description"
             SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
@@ -73,7 +92,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should use updatedDate if publishedDate is null"() {
         given:
-            String postUrl = "a link"
+            String postUrl = "http://blogpost.com/blog"
             String postTitle = "Title"
             Date updatedDate = new Date().minus(1)
             SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
