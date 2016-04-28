@@ -21,7 +21,7 @@ public class BlogPostsFetchingScheduler {
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
 
-    @Scheduled(cron = TimeConstants.EVERY_SIX_HOURS)
+    @Scheduled(cron = TimeConstants.THIRTY_MINUTES_PAST_EVERY_HOUR)
     public void checkRssForNewBlogPosts() {
         log.info("Starting scheduler: fetching blog posts");
         blogPostsFetcher.refreshPosts();

@@ -21,7 +21,7 @@ public class BloggersDataFetchingScheduler {
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
 
-    @Scheduled(cron = TimeConstants.EVERY_EIGHT_AM_AND_PM)
+    @Scheduled(cron = TimeConstants.EVERY_TWO_HOURS_EXCLUDING_NIGHTS)
     public void fetchBloggersData() {
         log.info("Starting scheduler: bloggers data refresh. This may take a while.");
         bloggersDataFetcher.refreshData();
