@@ -13,14 +13,14 @@ in Poland. If you want to have your group or personal e-mail added, please conta
 
 I want to promote blogging as the best way to share knowledge and learn from your readers at the same time. And the best way to do that is by helping blog authors to reach wider audience.
 
-##### Your blog is missing? 
+##### Your blog/JUG/conference is missing?
 Please create a Pull Request adding it to
  
 * [bloggers.json](bloggers.json) for personal blogs
 
 * [companies.json](companies.json) for company blogs
 
-* [videos.json](videos.json) for video blogs
+* [videos.json](videos.json) for videos from JUGs/Meetups/Conferences
 
 and that's all. Once it is merged, you are on the list!
  
@@ -32,10 +32,10 @@ __Done__
 2. Add technical blogs from Polish companies
 3. Add moderation to discard off-topic content
 4. Write some admin panel to manage moderation. etc.
+5. Publish global RSS feed with all blog posts
+6. Add videos from JUGs and conferences in Poland
 
 __Planned__
-
-* Publish global RSS feed with all blog posts
 * Create website with all newsletter (latest and old ones)
 * Fetch data about number of comments in articles
 * Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
