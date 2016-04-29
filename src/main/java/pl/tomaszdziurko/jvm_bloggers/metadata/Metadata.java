@@ -27,7 +27,7 @@ public class Metadata implements Serializable {
     @Column(name = "name", unique = true, nullable = false, length = 100)
     private String name;
 
-    @Column(name = "value", nullable = false, length = 2500)
+    @Column(name = "value", nullable = false, length = 5000)
     private String value;
 
     public Metadata(String name, String value) {

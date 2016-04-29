@@ -237,4 +237,8 @@
         <sqlFile path="add_video_blogs_to_template.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="028--metatada-value-allows-longer-texts" author="Tomasz.Dziurko">
+        <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(5000)"/>
+    </changeSet>
+
 </databaseChangeLog>
