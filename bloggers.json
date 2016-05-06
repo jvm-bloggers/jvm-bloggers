@@ -761,6 +761,11 @@
       "jsonId": 133,
       "name": "Krzysztof Góralski",
       "rss": "https://krzysztofgoralski.wordpress.com/feed/"
+    },
+    {
+      "jsonId": 134,
+      "name": "Milen Dyankov",
+      "rss": "http://milendyankov.com/feed"
     }
   ]
 }
