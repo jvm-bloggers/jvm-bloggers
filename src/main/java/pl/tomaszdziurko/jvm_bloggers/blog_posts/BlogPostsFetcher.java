@@ -33,7 +33,7 @@ public class BlogPostsFetcher {
     }
 
     public void refreshPosts() {
-        List<Blog> people = blogRepository.findAll();
+        List<Blog> people = blogRepository.findAllActiveBlogs();
         people.stream()
             .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
     }
