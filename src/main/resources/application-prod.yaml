@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: "ENC(yh2uq5HPJRZwnEfkQoMpDZWs530ykVmarLsO0PRuWkK+lL4xCbauMYYMVFcsvHTCohrafq13iiYtgOkElV9VGLvx6++x33T3vfq6FAmk2tswIq7303UaCEwx8eZDW4OXmKNBn3rJKAi/aDQTykXzZlccx3pIivToxcsuMH3lnrHbdxPHHIzO6CPfmAXjfigUNCdfz68mdj4=)"
-    username: "ENC(u3wLuWd5WFBCQgGd+sTtkgfb7Prwsplp)"
-    password: "ENC(2+ePdd1W8rDJvgaqhRJSwp5xAGONYVaTpQxxOAC5bTWtFjkQ9WxCAA==)"
+    url: "ENC(K9wJPr6wc7CuKLxnm0+tk+sfS0O4rr725+lSEvBwRqPv3o62c7kx/vrgWlK2DRNL+OXYz6JG02XvXgHJCVMPNX6OnKCJKNs2:)"
+    username: "ENC(UCI18sY7gx2IG8jU2w3/zcCxE80YLmTfFIjfmiw/IWc=)"
+    password: "ENC(paRXsy9M7apHY2C4vvD6Otf4FO40xqdYm/7Ctt+s+58=)"
     driver: org.postgresql.Driver
     test-on-borrow: true
     validation-query: SELECT 1
