@@ -59,7 +59,13 @@
       "name": "Sii",
       "rss": "http://blogersii.pl/feed/",
       "twitter": "@Sii_Polska"
-    }
+    },
+    {
+      "jsonId": 10011,
+      "name": "Espeo",
+      "rss": "http://espeo.eu/blog/category/all/feed/",
+      "twitter": "@espeo_software"
+    },
 
   ]
 }

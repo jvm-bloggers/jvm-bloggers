@@ -765,7 +765,36 @@
     {
       "jsonId": 134,
       "name": "Milen Dyankov",
-      "rss": "http://milendyankov.com/feed"
+      "rss": "http://milendyankov.com/feed",
+      "twitter": "@milendyankov"
+    },
+    {
+      "jsonId": 135,
+      "name": "Sergiusz Kierat",
+      "rss": "http://runit.space/feed",
+      "twitter": "@kierat_s"
+    },
+    {
+      "jsonId": 136,
+      "name": "Grzegorz Kossakowski",
+      "rss": "https://medium.com/feed/@gkossakowski",
+      "twitter": "@gkossakowski"
+    },
+    {
+      "jsonId": 137,
+      "name": "Nagielka",
+      "rss": "http://nagielka.blog.pl/feed"
+    },
+    {
+      "jsonId": 138,
+      "name": "Grzegorz Kossakowski",
+      "rss": "https://medium.com/feed/@gkossakowski",
+      "twitter": "@gkossakowski"
+    },
+    {
+      "jsonId": 139,
+      "name": "Ania Dobrowolska",
+      "rss": "http://aniakodzi.pl/feed/"
     }
   ]
 }
