@@ -1,8 +1,8 @@
 package pl.tomaszdziurko.jvm_bloggers;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootSecuredWebApplication;
-import com.giffing.wicket.spring.boot.starter.context.WicketSpringBootApplication;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
 import pl.tomaszdziurko.jvm_bloggers.view.HomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
@@ -22,7 +23,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 @EnableScheduling
 @EnableCaching
 @EnableEncryptableProperties
-@WicketSpringBootApplication
 public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
 
     public static void main(String[] args) {
