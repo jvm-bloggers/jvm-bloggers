@@ -756,6 +756,11 @@
       "name": "Piotr Jagielski",
       "rss": "http://overtone-recipes.github.io/feed.xml",
       "twitter": "@pjagielski"
+    },
+    {
+      "jsonId": 133,
+      "name": "Krzysztof Góralski",
+      "rss": "https://krzysztofgoralski.wordpress.com/feed/"
     }
   ]
 }
