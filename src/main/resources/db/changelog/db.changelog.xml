@@ -272,4 +272,8 @@
 
     </changeSet>
 
+    <changeSet id="030-update-mailing-templates-to-support-newsletter-issues" author="Tomasz.Dziurko">
+        <sqlFile path="update_mailing_templates_to_introduce_newsletter_issues.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
