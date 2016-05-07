@@ -241,4 +241,35 @@
         <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(5000)"/>
     </changeSet>
 
+    <changeSet id="029-add-newsletter-issue-feature" author="Tomasz.Dziurko">
+
+        <createSequence sequenceName="NEWSLETTER_ISSUE_SEQ"/>
+
+        <createTable tableName="NEWSLETTER_ISSUE">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="ISSUE_NUMBER" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HEADING" type="varchar(4000)"/>
+
+            <column name="VARIA" type="varchar(4000)"/>
+
+            <column name="PUBLISHED_DATE" type="timestamp without timezone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addColumn tableName="blog">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+        <addColumn tableName="blog_post">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+    </changeSet>
+
 </databaseChangeLog>
