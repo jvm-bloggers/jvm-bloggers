@@ -66,6 +66,12 @@
       "rss": "http://espeo.eu/blog/category/all/feed/",
       "twitter": "@espeo_software"
     },
+    {
+      "jsonId": 10012,
+      "name": "smart.biz Marcin Stępień",
+      "rss": "http://feeds.smart.biz.pl/TechBlog/articles",
+      "twitter": "@marcinstepien"
+    }  
 
   ]
 }
