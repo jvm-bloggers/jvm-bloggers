@@ -75,13 +75,13 @@ UPDATE metadata SET value=
  $endif$
  ' WHERE name='MAILING_TEMPLATE';
 
-INSERT INTO metadata values(nextval('setting_seq'), 'MAILING_GREETING',
+INSERT INTO metadata values(nextval('METADATA_SEQ'), 'MAILING_GREETING',
                             'Witajcie,<br/<br/><br/>');
 
-INSERT INTO metadata values(nextval('setting_seq'), 'MAILING_SIGNATURE',
+INSERT INTO metadata values(nextval('METADATA_SEQ'), 'MAILING_SIGNATURE',
 'Miłej lektury,<br/>
 Tomek Dziurko, JVM Bloggers v. 0.9.0 - <a href="http://jvm-bloggers.com/pl/rss">RSS</a><br/>
 <a href="https://github.com/tdziurko/jvm-bloggers/">Fork me on GitHub</a><br/>');
 
-INSERT INTO metadata values(nextval('setting_seq'), 'HEADING_TEMPLATE', '');
-INSERT INTO metadata values(nextval('setting_seq'), 'VARIA_TEMPLATE', '');
+INSERT INTO metadata values(nextval('METADATA_SEQ'), 'HEADING_TEMPLATE', '');
+INSERT INTO metadata values(nextval('METADATA_SEQ'), 'VARIA_TEMPLATE', '');
