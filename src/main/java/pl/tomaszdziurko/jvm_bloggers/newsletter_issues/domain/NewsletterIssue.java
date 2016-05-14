@@ -1,7 +1,9 @@
 package pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain;
 
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
@@ -24,6 +26,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @Table(name = "newsletter_issue")
 @NoArgsConstructor(access = PRIVATE)
+@Getter
+@ToString
 public class NewsletterIssue {
 
     @Id
@@ -53,4 +57,19 @@ public class NewsletterIssue {
     @Column(name = "VARIA", length = 4000, updatable = false)
     private String varia;
 
+    public NewsletterIssue(
+        Long issueNumber,
+        LocalDate publishedDate,
+        List<Blog> newBlogs,
+        List<BlogPost> blogPosts,
+        String heading,
+        String varia) {
+
+        this.issueNumber = issueNumber;
+        this.publishedDate = publishedDate;
+        this.newBlogs = newBlogs;
+        this.blogPosts = blogPosts;
+        this.heading = heading;
+        this.varia = varia;
+    }
 }

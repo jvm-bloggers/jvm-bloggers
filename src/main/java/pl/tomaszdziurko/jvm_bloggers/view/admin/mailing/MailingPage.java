@@ -90,11 +90,11 @@ public class MailingPage extends AbstractAdminPage {
             "mailingToEditDropdown", TEMPLATE_SECTION_KEYS);
         newsletterSectionToEditDropdown.setModel(Model.of(initialSectionToEdit.getName()));
         newsletterSectionToEditDropdown.add(new AjaxFormComponentUpdatingBehavior("change") {
-              @Override
-              protected void onUpdate(AjaxRequestTarget target) {
-                  target.add(mailingTemplateForm);
-              }
-          }
+                @Override
+                protected void onUpdate(AjaxRequestTarget target) {
+                    target.add(mailingTemplateForm);
+                }
+            }
         );
         mailingTemplateForm.add(newsletterSectionToEditDropdown);
     }
