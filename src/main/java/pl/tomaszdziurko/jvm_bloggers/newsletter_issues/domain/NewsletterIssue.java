@@ -3,7 +3,8 @@ package pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
@@ -16,7 +17,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,7 +27,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Table(name = "newsletter_issue")
 @NoArgsConstructor(access = PRIVATE)
 @Getter
-@ToString
 public class NewsletterIssue {
 
     @Id
@@ -46,12 +45,10 @@ public class NewsletterIssue {
     @Column(name = "HEADING", length = 4000, updatable = false)
     private String heading;
 
-    @OneToMany
-    @JoinColumn(name = "NEWSLETTER_ISSUE_ID", updatable = false)
+    @OneToMany(mappedBy = "newsletterIssue")
     private List<BlogPost> blogPosts;
 
-    @OneToMany
-    @JoinColumn(name = "NEWSLETTER_ISSUE_ID", updatable = false)
+    @OneToMany(mappedBy = "newsletterIssue")
     private List<Blog> newBlogs;
 
     @Column(name = "VARIA", length = 4000, updatable = false)
@@ -67,9 +64,30 @@ public class NewsletterIssue {
 
         this.issueNumber = issueNumber;
         this.publishedDate = publishedDate;
-        this.newBlogs = newBlogs;
-        this.blogPosts = blogPosts;
         this.heading = heading;
         this.varia = varia;
+        setNewBlogs(newBlogs);
+        setBlogPosts(blogPosts);
+    }
+
+    public void setNewBlogs(List<Blog> newBlogs) {
+        this.newBlogs = newBlogs;
+        newBlogs.forEach(blog -> blog.setNewsletterIssue(this));
+    }
+
+    public void setBlogPosts(List<BlogPost> blogPosts) {
+        this.blogPosts = blogPosts;
+        blogPosts.forEach(post -> post.setNewsletterIssue(this));
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("heading", heading)
+            .append("id", id)
+            .append("issueNumber", issueNumber)
+            .append("varia", varia)
+            .append("publishedDate", publishedDate)
+            .toString();
     }
 }

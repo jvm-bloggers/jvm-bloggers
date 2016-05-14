@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,6 +17,7 @@ import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,6 +64,10 @@ public class BlogPost {
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "NEWSLETTER_ISSUE_ID")
+    private NewsletterIssue newsletterIssue;
 
     public boolean isApproved() {
         return Boolean.TRUE.equals(approved);

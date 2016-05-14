@@ -59,7 +59,9 @@ class NewsletterIssueServiceSpec extends SpringContextAwareSpecification {
             issue.heading == exampleHeading
             issue.varia == exampleVaria
             issue.newBlogs*.id.containsAll(blogs*.id)
+            issue.newBlogs*.newsletterIssue.every { it.id == issue.id}
             issue.blogPosts*.id.containsAll(posts*.id)
+            issue.blogPosts*.newsletterIssue.every { it.id == issue.id}
     }
 
     private void prepareMetadataUsedInNewsletterIssue(String exampleHeading, String exampleVaria) {
