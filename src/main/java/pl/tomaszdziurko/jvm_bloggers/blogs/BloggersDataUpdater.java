@@ -104,7 +104,8 @@ public class BloggersDataUpdater {
 
     private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
                                                                  BloggerEntry bloggerEntry) {
-        return StringUtils.isNotBlank(bloggerEntry.getUrl()) && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
+        return StringUtils.isNotBlank(bloggerEntry.getUrl())
+                && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
     }
 
     @Getter
