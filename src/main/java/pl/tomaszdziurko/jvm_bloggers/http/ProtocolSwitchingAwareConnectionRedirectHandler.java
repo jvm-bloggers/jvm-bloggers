@@ -97,7 +97,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         conn.setReadTimeout(DEFAULT_TIMEOUT);
         // handle redirects within the same protocol
         conn.setInstanceFollowRedirects(true);
-        if (headers != null) {
+        if (headers != null && !headers.isEmpty()) {
             setupHeaders(conn, headers);
         }
     }

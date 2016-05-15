@@ -63,7 +63,7 @@ public class BloggersDataUpdater {
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
             existingBlogger.setBlogType(bloggerEntry.getBlogType());
-            if (bloggerEntry.getUrl() != null) {
+            if (StringUtils.isNotBlank(bloggerEntry.getUrl())) {
                 existingBlogger.setUrl(bloggerEntry.getUrl());
             }
             blogRepository.save(existingBlogger);
@@ -104,8 +104,7 @@ public class BloggersDataUpdater {
 
     private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
                                                                  BloggerEntry bloggerEntry) {
-        return bloggerEntry.getUrl() != null
-            && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
+        return StringUtils.isNotBlank(bloggerEntry.getUrl()) && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
     }
 
     @Getter

@@ -1,10 +1,14 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing
 
+import org.apache.commons.lang3.StringUtils
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import spock.lang.Specification
 
 class BlogPostForMailItemSpec extends Specification {
+
+    String url = "test.pl";
+    String title = "My new article!"
 
     def "Should store author name as a label if twitter account is missing"() {
         given:
@@ -12,6 +16,8 @@ class BlogPostForMailItemSpec extends Specification {
             Blog author = stubAuthorWith(name, null)
             BlogPost post = Stub(BlogPost) {
                 getBlog() >> author
+                getUrl() >> url
+                getTitle() >> title
             }
         when:
             BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
@@ -26,11 +32,29 @@ class BlogPostForMailItemSpec extends Specification {
             Blog author = stubAuthorWith(name, twitter)
             BlogPost post = Stub(BlogPost) {
                 getBlog() >> author
+                getUrl() >> url
+                getTitle() >> title
             }
         when:
             BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
         then:
             blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
+    }
+
+    def "Should store author name as a label if twitter account is not set correctly."() {
+        given:
+        String name = "Jan Kowalski"
+        String twitter = StringUtils.EMPTY;
+        Blog author = stubAuthorWith(name, twitter)
+        BlogPost post = Stub(BlogPost) {
+            getBlog() >> author
+            getUrl() >> url
+            getTitle() >> title
+        }
+        when:
+        BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+        then:
+        blogPostForMailItem.authorLabel == name
     }
 
     private stubAuthorWith(String name, String twitterHandler) {
