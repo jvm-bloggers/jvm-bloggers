@@ -53,10 +53,10 @@ class BlogPostForMailItem {
 
         public BlogPostForMailItem build() {
             Preconditions.checkState(StringUtils.isNotBlank(instance.title),
-                    "Tittle cannot be null");
-            Preconditions.checkState(StringUtils.isNotBlank(instance.url), "Url cannot be null");
+                    "Tittle cannot be empty.");
+            Preconditions.checkState(StringUtils.isNotBlank(instance.url), "Url cannot be empty.");
             Preconditions.checkState(StringUtils.isNotBlank(instance.authorLabel),
-                    "Author cannot be null");
+                    "Author cannot be empty.");
             return instance;
         }
 

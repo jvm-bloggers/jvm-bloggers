@@ -41,7 +41,7 @@ class BlogPostForMailItemSpec extends Specification {
             blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
     }
 
-    def "Should store author name as a label if twitter account is not set correctly."() {
+    def "Should store author name as a label if twitter account is set with empty string"() {
         given:
         String name = "Jan Kowalski"
         String twitter = StringUtils.EMPTY;
