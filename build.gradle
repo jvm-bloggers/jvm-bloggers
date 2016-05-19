@@ -73,7 +73,6 @@ dependencies {
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.8"
     compile 'com.google.guava:guava:19.0'
-    compile 'io.reactivex:rxjava:1.1.5'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.antlr:ST4:4.0.8'
     compile 'org.glassfish.jersey.core:jersey-client:2.22.2'
