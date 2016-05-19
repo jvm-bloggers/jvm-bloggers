@@ -43,18 +43,18 @@ class BlogPostForMailItemSpec extends Specification {
 
     def "Should store author name as a label if twitter account is set with empty or null string"() {
         given:
-        String name = "Jan Kowalski"
-        String twitter = StringUtils.EMPTY;
-        Blog author = stubAuthorWith(name, twitter)
-        BlogPost post = Stub(BlogPost) {
-            getBlog() >> author
-            getUrl() >> url
-            getTitle() >> title
-        }
+            String name = "Jan Kowalski"
+            String twitter = StringUtils.EMPTY;
+            Blog author = stubAuthorWith(name, twitter)
+            BlogPost post = Stub(BlogPost) {
+                getBlog() >> author
+                getUrl() >> url
+                getTitle() >> title
+            }
         when:
-        BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
         then:
-        blogPostForMailItem.authorLabel == name
+            blogPostForMailItem.authorLabel == name
     }
 
     private stubAuthorWith(String name, String twitterHandler) {
