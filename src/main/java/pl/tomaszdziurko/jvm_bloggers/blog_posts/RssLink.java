@@ -11,7 +11,7 @@ public class RssLink {
 
     public RssLink(@NonNull Blog blog) {
         Preconditions.checkArgument(StringUtils.isNotBlank(blog.getRss()),
-                "Rss link can not be NULL or empty.");
+                "Rss link can not be NULL nor empty.");
         this.blog = blog;
     }
 
