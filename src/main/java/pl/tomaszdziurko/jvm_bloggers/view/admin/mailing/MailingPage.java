@@ -15,6 +15,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
@@ -40,7 +41,7 @@ public class MailingPage extends AbstractAdminPage {
     private DropDownChoice<String> newsletterSectionToEditDropdown;
     private CustomFeedbackPanel feedback;
     private WysiwygEditor wysiwygEditor;
-    private Form<String> mailingTemplateForm;
+    private Form<Metadata> mailingTemplateForm;
 
     @SpringBean
     private MetadataRepository metadataRepository;
@@ -64,35 +65,37 @@ public class MailingPage extends AbstractAdminPage {
     }
 
     private void addForm() {
-        mailingTemplateForm = new Form<>("mailingTemplateForm");
+        Metadata initialSectionToEdit = metadataRepository
+            .findByName(TEMPLATE_SECTION_KEYS.get(0));
+        mailingTemplateForm = new Form<>("mailingTemplateForm", Model.of(initialSectionToEdit));
         mailingTemplateForm.setOutputMarkupId(true);
         add(mailingTemplateForm);
     }
 
     private void addWysiwygEditor() {
         DefaultWysiwygToolbar toolbar = new DefaultWysiwygToolbar("toolbar");
-        wysiwygEditor = new WysiwygEditor("wysiwyg", new Model<String>() {
-            @Override
-            public String getObject() {
-                String metadata = newsletterSectionToEditDropdown.getModelObject();
-                return metadataRepository.findByName(metadata).getValue();
-            }
-        }, toolbar);
-
+        wysiwygEditor = new WysiwygEditor(
+            "wysiwyg", new PropertyModel<>(mailingTemplateForm.getModel(), "value"),
+            toolbar
+        );
         wysiwygEditor.setOutputMarkupId(true);
         mailingTemplateForm.add(toolbar, wysiwygEditor);
     }
 
     private void addNewsletterSectionToEditDropdown() {
-        Metadata initialSectionToEdit = metadataRepository
-            .findByName(TEMPLATE_SECTION_KEYS.get(0));
         newsletterSectionToEditDropdown = new DropDownChoice<>(
-            "mailingToEditDropdown", TEMPLATE_SECTION_KEYS);
-        newsletterSectionToEditDropdown.setModel(Model.of(initialSectionToEdit.getName()));
+            "mailingToEditDropdown",
+            Model.of(mailingTemplateForm.getModelObject().getName()),
+            TEMPLATE_SECTION_KEYS
+        );
         newsletterSectionToEditDropdown.add(new AjaxFormComponentUpdatingBehavior("change") {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
+                    String metadata = newsletterSectionToEditDropdown.getModelObject();
+                    Metadata metadataToEdit = metadataRepository.findByName(metadata);
+                    mailingTemplateForm.setModelObject(metadataToEdit);
                     target.add(mailingTemplateForm);
+                    target.add(wysiwygEditor);
                 }
             }
         );
@@ -107,12 +110,9 @@ public class MailingPage extends AbstractAdminPage {
             }
 
             private void persistChangesInMetadata(AjaxRequestTarget target) {
-                String metadataName = newsletterSectionToEditDropdown.getModelObject();
-                String mailingSectionContent = wysiwygEditor.getModelObject();
-                Metadata metadataToUpdate = metadataRepository.findByName(metadataName);
-                metadataToUpdate.setValue(mailingSectionContent);
+                Metadata metadataToUpdate = mailingTemplateForm.getModelObject();
                 metadataRepository.save(metadataToUpdate);
-                success("Mail template for " + metadataName + " saved successfully");
+                success("Mail template for " + metadataToUpdate.getName() + " saved successfully");
                 target.add(feedback);
             }
         };
@@ -124,6 +124,14 @@ public class MailingPage extends AbstractAdminPage {
             new AjaxButton("resetMailingTemplateButton", mailingTemplateForm) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                    String defaultMailingTemplate = metadataRepository
+                        .findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
+                    Metadata metadataToUpdate = mailingTemplateForm.getModelObject();
+                    metadataToUpdate.setValue(defaultMailingTemplate);
+                    metadataRepository.save(metadataToUpdate);
+                    success("Mail template for " + metadataToUpdate.getName()
+                        + " set to default value");
+                    target.add(mailingTemplateForm);
                     target.add(wysiwygEditor);
                 }
 
