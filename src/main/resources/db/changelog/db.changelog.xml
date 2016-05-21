@@ -309,4 +309,28 @@
         <renameColumn tableName="EMAIL" oldColumnName="TO" newColumnName="TO_ADDRESS"/>
     </changeSet>
 
+    <changeSet id="033-switch-to-external-table-to-map-newsletter-issue-with-blogs-and-blog-posts-relationship"
+               author="Tomasz.Dziurko">
+        <createTable tableName="blog_posts_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blog_post_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="new_blogs_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_blog_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <dropColumn tableName="blog" columnName="newsletter_issue_id"/>
+        <dropColumn tableName="blog_post" columnName="newsletter_issue_id"/>
+    </changeSet>
+
 </databaseChangeLog>

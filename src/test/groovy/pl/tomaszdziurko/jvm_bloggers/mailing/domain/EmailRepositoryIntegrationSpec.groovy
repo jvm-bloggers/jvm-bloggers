@@ -29,7 +29,7 @@ class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
             emailRepository.save(email1)
             emailRepository.save(email2)
         when:
-            Optional<Email> notSentEmail = emailRepository.findOneBySentDateNull()
+            Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
         then:
             notSentEmail.isPresent()
             notSentEmail.get().toAddress == email1.toAddress
@@ -44,7 +44,7 @@ class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
             emailRepository.save(email1)
             emailRepository.save(email2)
         when:
-            Optional<Email> notSentEmail = emailRepository.findOneBySentDateNull()
+            Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
         then:
             !notSentEmail.isPresent()
     }

@@ -35,7 +35,7 @@ public class EmailSendingScheduler {
 
     @Scheduled(fixedDelay = TimeConstants.FOUR_MINUTES)
     public void sendOneEmail() {
-        Optional<Email> notSentEmail = emailRepository.findOneBySentDateNull();
+        Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull();
 
         notSentEmail.ifPresent(email -> {
             MailSender.EmailSendingStatus status = mailSender.sendEmail(

@@ -6,20 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue;
-
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,7 +40,7 @@ public class Blog {
 
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
-    
+
     @Column(name = "URL", unique = true, length = 250)
     private String url;
 
@@ -61,10 +56,6 @@ public class Blog {
 
     @Column(name = "ACTIVE", nullable = false)
     private boolean active;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "NEWSLETTER_ISSUE_ID")
-    private NewsletterIssue newsletterIssue;
 
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;

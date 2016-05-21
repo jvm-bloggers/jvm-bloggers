@@ -42,20 +42,25 @@ public class EmailsWithNewIssueProducer {
     }
 
     @EventListener()
-    public void handleOrderCreatedEvent(NewIssuePublished newIssuePublished) {
+    public void handleNewIssueEvent(NewIssuePublished newIssuePublished) {
         log.info("Received event");
         NewsletterIssue newIssue = newIssuePublished.getNewsletterIssue();
         String emailTitle = prepareEmailTitle(newIssue);
 
         mailingAddressRepository.findAll().stream().forEach(mailingAddress -> {
-            Email email = new Email(
-                prepareSender(),
-                mailingAddress.getAddress(),
-                emailTitle,
-                prepareContent(newIssue)
-            );
-            emailRepository.save(email);
+            saveEmailWithNewsletterIssue(newIssue, emailTitle, mailingAddress.getAddress());
         });
+    }
+
+    public void saveEmailWithNewsletterIssue(NewsletterIssue newIssue, String emailTitle,
+                                             String recipient) {
+        Email email = new Email(
+            prepareSender(),
+            recipient,
+            emailTitle,
+            prepareContent(newIssue)
+        );
+        emailRepository.save(email);
     }
 
     private String prepareSender() {

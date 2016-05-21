@@ -22,7 +22,7 @@ class EmailSendingSchedulerSpec extends Specification {
     def "Should save sent email with set sentDate"() {
         given:
             Email email = Mock(Email)
-            emailRepository.findOneBySentDateNull() >> Optional.of(email)
+            emailRepository.findFirstBySentDateNull() >> Optional.of(email)
             mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.SUCCESS
         when:
             emailSendingScheduler.sendOneEmail()
@@ -33,7 +33,7 @@ class EmailSendingSchedulerSpec extends Specification {
 
     def "Should not execute any action for zero not sent emails"() {
         given:
-            emailRepository.findOneBySentDateNull() >> Optional.empty()
+            emailRepository.findFirstBySentDateNull() >> Optional.empty()
         when:
             emailSendingScheduler.sendOneEmail()
         then:
@@ -44,7 +44,7 @@ class EmailSendingSchedulerSpec extends Specification {
     def "Should not update sentDate for unsuccessful sanding action"() {
         given:
             Email email = Mock(Email)
-            emailRepository.findOneBySentDateNull() >> Optional.of(email)
+            emailRepository.findFirstBySentDateNull() >> Optional.of(email)
             mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.ERROR
         when:
             emailSendingScheduler.sendOneEmail()

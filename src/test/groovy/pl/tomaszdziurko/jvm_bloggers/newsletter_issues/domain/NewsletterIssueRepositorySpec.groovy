@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.newsletter_issues
+package pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain
 
 import com.google.common.collect.Lists
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,9 +17,10 @@ import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssueRep
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Subject
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 
-class NewsletterIssueServiceSpec extends SpringContextAwareSpecification {
+class NewsletterIssueRepositorySpec extends SpringContextAwareSpecification {
 
     @Autowired
     NewsletterIssueRepository newsletterIssueRepository
@@ -30,47 +31,34 @@ class NewsletterIssueServiceSpec extends SpringContextAwareSpecification {
     @Autowired
     BlogPostRepository blogPostRepository
 
-    MetadataRepository metadataRepository = Stub(MetadataRepository)
-    IssueNumberRetriever issueNumberRetriever = Stub(IssueNumberRetriever)
-
     def "Should save new issue"() {
         given:
             String exampleHeading = "Example heading"
             String exampleVaria = "Example varia"
-            prepareMetadataUsedInNewsletterIssue(exampleHeading, exampleVaria)
-        and:
             long issueNumber = 77L
-            issueNumberRetriever.getNextIssueNumber() >> issueNumber
         and:
             List<Blog> blogs = prepareBlogs()
             List<BlogPost> posts = prepareBlogPosts(blogs.get(0), blogs.get(1))
-        and:
-            @Subject
-            NewsletterIssueService newsletterIssueService = new NewsletterIssueService(
-                    metadataRepository,
-                    issueNumberRetriever,
-                    newsletterIssueRepository,
-                    new NowProvider()
-            )
         when:
-            NewsletterIssue issue = newsletterIssueService.saveNewIssue(blogs, posts)
+            NewsletterIssue issue = new NewsletterIssue(
+                    issueNumber,
+                    LocalDate.now(),
+                    blogs,
+                    posts,
+                    exampleHeading,
+                    exampleVaria
+            );
+            newsletterIssueRepository.save(issue)
         then:
-            issue.issueNumber == issueNumber
-            issue.heading == exampleHeading
-            issue.varia == exampleVaria
-            issue.newBlogs*.id.containsAll(blogs*.id)
-            issue.newBlogs*.newsletterIssue.every { it.id == issue.id}
-            issue.blogPosts*.id.containsAll(posts*.id)
-            issue.blogPosts*.newsletterIssue.every { it.id == issue.id}
-    }
-
-    private void prepareMetadataUsedInNewsletterIssue(String exampleHeading, String exampleVaria) {
-        metadataRepository.findByName(MetadataKeys.HEADING_TEMPLATE) >> Stub(Metadata) {
-            getValue() >> exampleHeading
-        }
-        metadataRepository.findByName(MetadataKeys.VARIA_TEMPLATE) >> Stub(Metadata) {
-            getValue() >> exampleVaria
-        }
+            Optional<NewsletterIssue> persistedIssue =
+                    newsletterIssueRepository.findByIssueNumber(issue.getIssueNumber())
+            persistedIssue.isPresent()
+            persistedIssue.get().blogPosts
+            persistedIssue.get().issueNumber == issueNumber
+            persistedIssue.get().heading == exampleHeading
+            persistedIssue.get().varia == exampleVaria
+            persistedIssue.get().newBlogs*.id.containsAll(blogs*.id)
+            persistedIssue.get().blogPosts*.id.containsAll(posts*.id)
     }
 
     private List<Blog> prepareBlogs() {

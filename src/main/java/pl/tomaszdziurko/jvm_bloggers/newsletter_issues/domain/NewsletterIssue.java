@@ -17,6 +17,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,10 +47,18 @@ public class NewsletterIssue {
     @Column(name = "HEADING", length = 4000, updatable = false)
     private String heading;
 
-    @OneToMany(mappedBy = "newsletterIssue")
+    @OneToMany
+    @JoinTable(name = "blog_posts_in_newsletter_issue",
+        joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "blog_post_id", referencedColumnName = "id")}
+    )
     private List<BlogPost> blogPosts;
 
-    @OneToMany(mappedBy = "newsletterIssue")
+    @OneToMany
+    @JoinTable(name = "new_blogs_in_newsletter_issue",
+        joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "new_blog_id", referencedColumnName = "id")}
+    )
     private List<Blog> newBlogs;
 
     @Column(name = "VARIA", length = 4000, updatable = false)
@@ -66,26 +76,16 @@ public class NewsletterIssue {
         this.publishedDate = publishedDate;
         this.heading = heading;
         this.varia = varia;
-        setNewBlogs(newBlogs);
-        setBlogPosts(blogPosts);
-    }
-
-    public void setNewBlogs(List<Blog> newBlogs) {
         this.newBlogs = newBlogs;
-        newBlogs.forEach(blog -> blog.setNewsletterIssue(this));
-    }
-
-    public void setBlogPosts(List<BlogPost> blogPosts) {
         this.blogPosts = blogPosts;
-        blogPosts.forEach(post -> post.setNewsletterIssue(this));
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("heading", heading)
             .append("id", id)
             .append("issueNumber", issueNumber)
+            .append("heading", heading)
             .append("varia", varia)
             .append("publishedDate", publishedDate)
             .toString();
