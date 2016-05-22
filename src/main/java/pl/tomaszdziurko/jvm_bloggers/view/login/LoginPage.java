@@ -13,9 +13,7 @@ import org.apache.wicket.protocol.http.servlet.ServletWebRequest;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
-import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceAttackEvent;
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector;
-import pl.tomaszdziurko.jvm_bloggers.view.login.attack.stream.BruteForceAttackEventStreamManager;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
@@ -38,9 +36,6 @@ public class LoginPage extends WebPage {
     @SpringBean
     private BruteForceLoginAttackDetector bruteForceLoginAttackDetector;
 
-    @SpringBean
-    private BruteForceAttackEventStreamManager bruteForceAttackEventStreamManager;
-
     public LoginPage() {
         StatelessForm<LoginPage> loginForm = new StatelessForm<LoginPage>(LOGIN_FORM_ID,
             new CompoundPropertyModel<>(this)) {
@@ -51,7 +46,7 @@ public class LoginPage extends WebPage {
                     bruteForceAttackDetected =
                     bruteForceLoginAttackDetector.isItBruteForceAttack(clientAddress);
                 if (bruteForceAttackDetected) {
-                    handleBruteForceAttack(clientAddress);
+                    error("Incorrect login or password [BruteForce attack was detected]");
                     return;
                 }
                 tryToLoginUser(clientAddress);
@@ -82,12 +77,6 @@ public class LoginPage extends WebPage {
         Button loginButton = new Button(FORM_SUBMIT_ID);
         loginForm.add(loginButton);
         add(loginForm);
-    }
-
-    private void handleBruteForceAttack(final String clientAddress) {
-        error("Incorrect login or password [BruteForce attack was detected]");
-        bruteForceAttackEventStreamManager.createEventStreamFor(clientAddress)
-            .publish(BruteForceAttackEvent.builder().ipAddress(clientAddress).build());
     }
 
     private String getClientAddress() {

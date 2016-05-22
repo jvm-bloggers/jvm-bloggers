@@ -51,3 +51,8 @@
 tr.highlighted-post > td:first-child > span {
     font-weight: bold;
 }
+
+.wysiwyg-editor {
+    height: 400px;
+    max-height: 400px;
+}

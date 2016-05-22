@@ -3,14 +3,16 @@ package pl.tomaszdziurko.jvm_bloggers.view.admin.mailing;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.tomaszdziurko.jvm_bloggers.mailing.BlogSummaryMailGenerator;
+
+import pl.tomaszdziurko.jvm_bloggers.mailing.EmailsWithNewIssueProducer;
 import pl.tomaszdziurko.jvm_bloggers.mailing.IssueNumberRetriever;
-import pl.tomaszdziurko.jvm_bloggers.mailing.MailSender;
-import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
+import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.NewsletterIssueFactory;
+import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 
@@ -19,24 +21,27 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MailingPageRequestHandler {
 
-    private MailSender mailSender;
-    private BlogSummaryMailGenerator blogSummaryMailGenerator;
     private NowProvider nowProvider;
-    private MetadataRepository metadataRepository;
     private IssueNumberRetriever issueNumberRetriever;
+    private NewsletterIssueFactory newsletterIssueFactory;
+    private EmailsWithNewIssueProducer emailsWithNewIssueProducer;
+    private MetadataRepository metadataRepository;
 
     public String sendTestEmail() {
         int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(nowProvider.now());
-        String mailContent = blogSummaryMailGenerator.prepareMailContent(
-            daysSinceLastFriday, issueNumberRetriever.getCurrentIssueNumber() + 1
+        NewsletterIssue newsletterIssue = newsletterIssueFactory.create(
+            daysSinceLastFriday,
+            issueNumberRetriever.getCurrentIssueNumber() + 1
         );
-        Metadata testMailAddress = metadataRepository
-                .findByName(MetadataKeys.ADMIN_EMAIL);
-        mailSender.sendEmail(testMailAddress.getValue(), "[JVM Bloggers] Test mail", mailContent);
-        return testMailAddress.getValue();
+
+        String adminEmail = metadataRepository.findByName(MetadataKeys.ADMIN_EMAIL).getValue();
+        emailsWithNewIssueProducer.saveEmailWithNewsletterIssue(
+            newsletterIssue,
+            "[JVM Bloggers] Test mail",
+            adminEmail
+        );
+
+        return adminEmail;
     }
 
-    public String loadDefaultMailingTemplate() {
-        return metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
-    }
 }

@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.mailing;
+package pl.tomaszdziurko.jvm_bloggers.mailing.sender;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction;
+
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.DEV;
 import static pl.tomaszdziurko.jvm_bloggers.ApplicationProfiles.TEST;
+import static pl.tomaszdziurko.jvm_bloggers.mailing.sender.MailSender.EmailSendingStatus.SUCCESS;
 
 @Component
 @Profile({DEV, TEST})
@@ -21,8 +24,10 @@ public class LogMailSender implements MailSender {
     private final LogMailSenderPostAction logMailSenderPostAction;
 
     @Override
-    public void sendEmail(String recipientAddress, String subject, String htmlContent) {
-        log.debug("Sending email to '{}'\nSubject: {}\n{}", recipientAddress, subject, htmlContent);
+    public EmailSendingStatus sendEmail(String fromAddress, String toAddress, String subject,
+                                        String htmlContent) {
+        log.debug("Sending email: from {}, to {}, title {}", fromAddress, toAddress, subject);
         logMailSenderPostAction.postAction();
+        return SUCCESS;
     }
 }

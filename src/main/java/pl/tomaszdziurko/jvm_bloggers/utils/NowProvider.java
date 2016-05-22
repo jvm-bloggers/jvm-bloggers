@@ -3,6 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.utils;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -13,5 +14,9 @@ public class NowProvider {
 
     public LocalDateTime now() {
         return LocalDateTime.now(DEFAULT_ZONE);
+    }
+
+    public LocalDate today() {
+        return now().toLocalDate();
     }
 }

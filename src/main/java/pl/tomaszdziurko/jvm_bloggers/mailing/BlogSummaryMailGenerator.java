@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.google.common.base.Strings;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,17 +11,13 @@ import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
-import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
-import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
-import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
+import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue;
 import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,29 +33,28 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAUL
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogSummaryMailGenerator {
 
+    public static final int DAYS_IN_THE_PAST = 7;
     private static final char TEMPLATE_DELIMITER = '$';
     private static final String UTM_MEDIUM = "newsletter";
-
-    private BlogRepository blogRepository;
-    private BlogPostRepository blogPostRepository;
     private MetadataRepository metadataRepository;
-    private NowProvider nowProvider;
 
-    public String prepareMailContent(int numberOfDaysBackInThePast, long issueNumber) {
-        LocalDateTime publishedDate = nowProvider.now()
-            .minusDays(numberOfDaysBackInThePast)
-            .withHour(11)
-            .withMinute(0)
-            .withSecond(0)
-            .withNano(0);
-        List<Blog> blogsAddedSinceLastNewsletter =
-            blogRepository.findByDateAddedAfter(publishedDate);
-        List<BlogPost> newApprovedPosts = blogPostRepository
-            .findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(publishedDate);
-        if (newApprovedPosts.isEmpty() && blogsAddedSinceLastNewsletter.isEmpty()) {
-            log.warn("There are no new posts nor new blogs added for last {} days !!!",
-                numberOfDaysBackInThePast);
-        }
+    public String prepareMailContent(NewsletterIssue newsletterIssue) {
+        String greeting = getValueForSection(MetadataKeys.MAILING_GREETING);
+        String heading = getValueForSection(MetadataKeys.HEADING_TEMPLATE);
+        String mainSection = prepareMainSectionWithBlogs(newsletterIssue);
+        String varia = getValueForSection(MetadataKeys.VARIA_TEMPLATE);
+        String signature = getValueForSection(MetadataKeys.MAILING_SIGNATURE);
+
+        return greeting + heading + mainSection + varia + signature;
+    }
+
+    private String getValueForSection(String key) {
+        return metadataRepository.findByName(key).getValue();
+    }
+
+    private String prepareMainSectionWithBlogs(NewsletterIssue newsletterIssue) {
+        List<Blog> blogsAddedSinceLastNewsletter = newsletterIssue.getNewBlogs();
+        List<BlogPost> newApprovedPosts = newsletterIssue.getBlogPosts();
 
         Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts
             .stream()
@@ -66,22 +62,22 @@ public class BlogSummaryMailGenerator {
 
         List<BlogPost> newPostsFromPersonalBlogs =
             newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
-        List<BlogPost> newPostsfromCompanies =
+        List<BlogPost> newPostsFromCompanies =
             newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
         List<BlogPost> newVideoPosts =
             newBlogPostsByType.getOrDefault(BlogType.VIDEOS, emptyList());
 
-        Metadata mailingTemplate = metadataRepository.findByName(MetadataKeys.MAILING_TEMPLATE);
-        String templateContent = mailingTemplate.getValue();
+        String templateContent = getValueForSection(MetadataKeys.MAILING_TEMPLATE);
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
-        template.add("days", numberOfDaysBackInThePast);
-        template.add("newPosts", postsToMailItems(newPostsFromPersonalBlogs, issueNumber));
+        template.add("days", DAYS_IN_THE_PAST);
+        template.add("newPosts",
+            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber()));
         template.add("newPostsFromCompanies",
-            postsToMailItems(newPostsfromCompanies, issueNumber));
+            postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()));
         template.add("newlyAddedBlogs",
-            blogsToMailItems(blogsAddedSinceLastNewsletter, issueNumber));
+            blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber()));
         template.add("newVideoPosts",
-            postsToMailItems(newVideoPosts, issueNumber));
+            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()));
         return template.render();
     }
 

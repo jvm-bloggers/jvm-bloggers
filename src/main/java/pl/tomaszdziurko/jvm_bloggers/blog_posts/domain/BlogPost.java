@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain;
 
 
 import com.google.common.annotations.VisibleForTesting;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,7 +57,7 @@ public class BlogPost {
     @Column(name = "PUBLISHED_DATE", nullable = false)
     private LocalDateTime publishedDate;
 
-    @Column(name = "APPROVED", nullable = true)
+    @Column(name = "APPROVED")
     private Boolean approved;
 
     @ManyToOne

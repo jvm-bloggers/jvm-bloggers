@@ -241,4 +241,96 @@
         <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(5000)"/>
     </changeSet>
 
+    <changeSet id="029-add-newsletter-issue-feature" author="Tomasz.Dziurko">
+
+        <createSequence sequenceName="NEWSLETTER_ISSUE_SEQ"/>
+
+        <createTable tableName="NEWSLETTER_ISSUE">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="ISSUE_NUMBER" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HEADING" type="varchar(4000)"/>
+
+            <column name="VARIA" type="varchar(4000)"/>
+
+            <column name="PUBLISHED_DATE" type="timestamp without timezone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addColumn tableName="blog">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+        <addColumn tableName="blog_post">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+    </changeSet>
+
+    <changeSet id="030-update-mailing-templates-to-support-newsletter-issues" author="Tomasz.Dziurko">
+        <sqlFile path="update_mailing_templates_to_introduce_newsletter_issues.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <changeSet id="031-create-email-table" author="Tomasz.Dziurko">
+        <createSequence sequenceName="EMAIL_SEQ"/>
+
+        <createTable tableName="EMAIL">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="FROM" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TO" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TITLE" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CONTENT" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="SENT_DATE" type="timestamp without timezone"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="032-fix-reserved-from-column-name-in-email-table" author="Tomasz.Dziurko">
+        <renameColumn tableName="EMAIL" oldColumnName="FROM" newColumnName="FROM_ADDRESS"/>
+        <renameColumn tableName="EMAIL" oldColumnName="TO" newColumnName="TO_ADDRESS"/>
+    </changeSet>
+
+    <changeSet id="033-switch-to-external-table-to-map-newsletter-issue-with-blogs-and-blog-posts-relationship"
+               author="Tomasz.Dziurko">
+        <createTable tableName="blog_posts_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blog_post_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="new_blogs_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_blog_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <dropColumn tableName="blog" columnName="newsletter_issue_id"/>
+        <dropColumn tableName="blog_post" columnName="newsletter_issue_id"/>
+    </changeSet>
+
 </databaseChangeLog>

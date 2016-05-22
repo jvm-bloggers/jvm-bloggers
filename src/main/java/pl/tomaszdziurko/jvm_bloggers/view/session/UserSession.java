@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.view.session;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -18,6 +19,10 @@ public class UserSession extends AbstractAuthenticatedWebSession {
         super(request);
         roles = new Roles(GUEST_ROLE);
         name = "Guest";
+    }
+
+    public static UserSession get() {
+        return (UserSession) Session.get();
     }
 
     @Override
@@ -42,15 +47,11 @@ public class UserSession extends AbstractAuthenticatedWebSession {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("User{");
+        final StringBuilder sb = new StringBuilder("User{");
         sb.append("name='").append(name).append('\'');
         sb.append(", roles=").append(roles);
         sb.append('}');
         return sb.toString();
-    }
-
-    public static UserSession get() {
-        return (UserSession) Session.get();
     }
 
 }
