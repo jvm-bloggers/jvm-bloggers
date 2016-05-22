@@ -3,9 +3,11 @@ package pl.tomaszdziurko.jvm_bloggers.blogs;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
 import pl.tomaszdziurko.jvm_bloggers.blogs.json_data.BloggerEntry;

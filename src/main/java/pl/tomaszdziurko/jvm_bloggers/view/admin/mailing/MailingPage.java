@@ -169,7 +169,10 @@ public class MailingPage extends AbstractAdminPage {
     }
 
     private void addSendTestMailButton() {
-        AjaxButton sendTestMailButton = new AjaxButton(SEND_TEST_MAIL_BUTTON_ID, mailingTemplateForm) {
+        AjaxButton sendTestMailButton = new AjaxButton(
+            SEND_TEST_MAIL_BUTTON_ID,
+            mailingTemplateForm
+        ) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 String testEmailRecipient = requestHandler.sendTestEmail();
