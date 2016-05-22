@@ -13,7 +13,8 @@ import pl.tomaszdziurko.jvm_bloggers.TimeConstants;
 @Slf4j
 public class PublishNewNewsletterIssueScheduler {
 
-    public static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE = 7;
+    private static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE = 7;
+
     private final NewNewsletterIssuePublisher newIssuePublisher;
 
     @Autowired

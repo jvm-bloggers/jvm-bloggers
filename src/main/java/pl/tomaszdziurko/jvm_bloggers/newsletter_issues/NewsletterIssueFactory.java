@@ -27,7 +27,8 @@ public class NewsletterIssueFactory {
 
     @Autowired
     public NewsletterIssueFactory(IssueNumberRetriever issueNumberRetriever,
-                                  NowProvider nowProvider, BlogRepository blogRepository,
+                                  NowProvider nowProvider,
+                                  BlogRepository blogRepository,
                                   BlogPostRepository blogPostRepository,
                                   MetadataRepository metadataRepository) {
         this.issueNumberRetriever = issueNumberRetriever;
@@ -52,7 +53,6 @@ public class NewsletterIssueFactory {
             metadataRepository.findByName(MetadataKeys.HEADING_TEMPLATE).getValue(),
             metadataRepository.findByName(MetadataKeys.VARIA_TEMPLATE).getValue()
         );
-
     }
 
     public NewsletterIssue create(int daysInThePastToIncludeInNewIssue) {

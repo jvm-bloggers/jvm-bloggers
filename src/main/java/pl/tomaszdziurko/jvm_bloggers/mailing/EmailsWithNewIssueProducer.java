@@ -21,9 +21,9 @@ public class EmailsWithNewIssueProducer {
 
     private static final String FROM_NAME = "JVM Bloggers";
 
-    public static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
-    public static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
+    private static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String senderAddress;
     private final MailingAddressRepository mailingAddressRepository;
@@ -54,13 +54,12 @@ public class EmailsWithNewIssueProducer {
 
     public void saveEmailWithNewsletterIssue(NewsletterIssue newIssue, String emailTitle,
                                              String recipient) {
-        Email email = new Email(
+        emailRepository.save(new Email(
             prepareSender(),
             recipient,
             emailTitle,
             prepareContent(newIssue)
-        );
-        emailRepository.save(email);
+        ));
     }
 
     private String prepareSender() {

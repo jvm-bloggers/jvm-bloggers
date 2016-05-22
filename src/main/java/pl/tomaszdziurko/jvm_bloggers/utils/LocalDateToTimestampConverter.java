@@ -13,12 +13,18 @@ public class LocalDateToTimestampConverter
 
     @Override
     public Timestamp convertToDatabaseColumn(LocalDate attribute) {
+        if (attribute == null) {
+            return null;
+        }
         LocalDateTime localDateTime = attribute.atTime(12, 0);
         return Timestamp.valueOf(localDateTime);
     }
 
     @Override
     public LocalDate convertToEntityAttribute(Timestamp dbData) {
+        if (dbData == null) {
+            return null;
+        }
         LocalDateTime dateTime = dbData.toLocalDateTime();
         return dateTime.toLocalDate();
     }

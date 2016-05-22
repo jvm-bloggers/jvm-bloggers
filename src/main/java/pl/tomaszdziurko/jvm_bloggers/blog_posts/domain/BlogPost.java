@@ -57,7 +57,7 @@ public class BlogPost {
     @Column(name = "PUBLISHED_DATE", nullable = false)
     private LocalDateTime publishedDate;
 
-    @Column(name = "APPROVED", nullable = true)
+    @Column(name = "APPROVED")
     private Boolean approved;
 
     @ManyToOne
