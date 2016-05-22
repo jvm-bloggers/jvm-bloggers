@@ -31,6 +31,12 @@ import java.util.List;
 @AuthorizeInstantiation(Roles.ADMIN)
 public class MailingPage extends AbstractAdminPage {
 
+    public static final String WYSIWYG_ID = "wysiwyg";
+    public static final String MAILING_TEMPLATE_FORM_ID = "mailingTemplateForm";
+    public static final String RESET_MAILING_TEMPLATE_BUTTON_ID = "resetMailingTemplateButton";
+    public static final String SEND_TEST_MAIL_BUTTON_ID = "sendTestMailButton";
+    public static final String MAILING_SECTION_TO_EDIT_DROPDOWN_ID = "mailingToEditDropdown";
+
     private static List<String> TEMPLATE_SECTION_KEYS = Lists.newArrayList(
         MetadataKeys.MAILING_TEMPLATE,
         MetadataKeys.MAILING_GREETING,
@@ -67,7 +73,7 @@ public class MailingPage extends AbstractAdminPage {
     private void addForm() {
         Metadata initialSectionToEdit = metadataRepository
             .findByName(TEMPLATE_SECTION_KEYS.get(0));
-        mailingTemplateForm = new Form<>("mailingTemplateForm", Model.of(initialSectionToEdit));
+        mailingTemplateForm = new Form<>(MAILING_TEMPLATE_FORM_ID, Model.of(initialSectionToEdit));
         mailingTemplateForm.setOutputMarkupId(true);
         add(mailingTemplateForm);
     }
@@ -75,7 +81,7 @@ public class MailingPage extends AbstractAdminPage {
     private void addWysiwygEditor() {
         DefaultWysiwygToolbar toolbar = new DefaultWysiwygToolbar("toolbar");
         wysiwygEditor = new WysiwygEditor(
-            "wysiwyg", new PropertyModel<>(mailingTemplateForm.getModel(), "value"),
+            WYSIWYG_ID, new PropertyModel<>(mailingTemplateForm.getModel(), "value"),
             toolbar
         );
         wysiwygEditor.setOutputMarkupId(true);
@@ -83,8 +89,8 @@ public class MailingPage extends AbstractAdminPage {
     }
 
     private void addNewsletterSectionToEditDropdown() {
-        newsletterSectionToEditDropdown = new DropDownChoice<>(
-            "mailingToEditDropdown",
+        newsletterSectionToEditDropdown =  new DropDownChoice<>(
+            MAILING_SECTION_TO_EDIT_DROPDOWN_ID,
             Model.of(mailingTemplateForm.getModelObject().getName()),
             TEMPLATE_SECTION_KEYS
         );
@@ -121,7 +127,7 @@ public class MailingPage extends AbstractAdminPage {
 
     private void addResetTemplateButton() {
         AjaxButton resetTemplateButton =
-            new AjaxButton("resetMailingTemplateButton", mailingTemplateForm) {
+            new AjaxButton(RESET_MAILING_TEMPLATE_BUTTON_ID, mailingTemplateForm) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                     String defaultMailingTemplate = metadataRepository
@@ -163,7 +169,7 @@ public class MailingPage extends AbstractAdminPage {
     }
 
     private void addSendTestMailButton() {
-        AjaxButton sendTestMailButton = new AjaxButton("sendTestMailButton", mailingTemplateForm) {
+        AjaxButton sendTestMailButton = new AjaxButton(SEND_TEST_MAIL_BUTTON_ID, mailingTemplateForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 String testEmailRecipient = requestHandler.sendTestEmail();
