@@ -786,6 +786,12 @@
       "rss": "http://nagielka.blog.pl/feed"
     },
     {
+      "jsonId": 138,
+      "name": "Marcin Stępień",
+      "rss": "http://feeds.smart.biz.pl/TechBlog/articles",
+      "twitter": "@marcinstepien"
+    },
+    {
       "jsonId": 139,
       "name": "Ania Dobrowolska",
       "rss": "http://aniakodzi.pl/feed/"
