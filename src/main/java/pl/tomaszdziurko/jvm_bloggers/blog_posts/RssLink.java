@@ -2,15 +2,16 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
 import com.google.common.base.Preconditions;
 import lombok.NonNull;
-import org.apache.commons.lang3.StringUtils;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class RssLink {
 
     private final Blog blog;
 
     public RssLink(@NonNull Blog blog) {
-        Preconditions.checkArgument(StringUtils.isNotBlank(blog.getRss()),
+        Preconditions.checkArgument(isNotBlank(blog.getRss()),
                 "Rss link can not be NULL nor empty.");
         this.blog = blog;
     }
