@@ -66,6 +66,11 @@
       "rss": "http://espeo.eu/blog/category/all/feed/",
       "twitter": "@espeo_software"
     },
-
+    {
+      "jsonId": 10012,
+      "name": "Codete",
+      "rss": "http://codete.com/blog/feed/",
+      "twitter": ""
+    },
   ]
 }
