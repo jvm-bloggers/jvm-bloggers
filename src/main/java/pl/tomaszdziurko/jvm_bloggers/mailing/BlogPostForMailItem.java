@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import lombok.Getter;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
@@ -51,15 +52,17 @@ class BlogPostForMailItem {
         }
 
         public BlogPostForMailItem build() {
-            Preconditions.checkState(instance.title != null, "Tittle cannot be null");
-            Preconditions.checkState(instance.url != null, "Url cannot be null");
-            Preconditions.checkState(instance.authorLabel != null, "Author cannot be null");
-
+            Preconditions.checkState(StringUtils.isNotBlank(instance.title),
+                    "Title cannot be NULL nor empty.");
+            Preconditions.checkState(StringUtils.isNotBlank(instance.url),
+                    "Url cannot be NULL nor empty.");
+            Preconditions.checkState(StringUtils.isNotBlank(instance.authorLabel),
+                    "Author cannot be NULL nor empty.");
             return instance;
         }
 
         private String determineAuthorLabel(Blog blogger) {
-            if (blogger.getTwitter() != null) {
+            if (StringUtils.isNotBlank(blogger.getTwitter())) {
                 return String.format(
                     "<a href=\"https://twitter.com/%s\">%s</a>",
                     blogger.getTwitter().substring(1),

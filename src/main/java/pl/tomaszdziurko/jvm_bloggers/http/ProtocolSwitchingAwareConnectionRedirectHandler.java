@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import net.jcip.annotations.ThreadSafe;
+import org.apache.commons.collections4.MapUtils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -97,7 +98,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         conn.setReadTimeout(DEFAULT_TIMEOUT);
         // handle redirects within the same protocol
         conn.setInstanceFollowRedirects(true);
-        if (headers != null) {
+        if (MapUtils.isNotEmpty(headers)) {
             setupHeaders(conn, headers);
         }
     }
