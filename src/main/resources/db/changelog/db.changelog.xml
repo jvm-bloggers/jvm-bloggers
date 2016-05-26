@@ -257,7 +257,7 @@
 
             <column name="VARIA" type="varchar(4000)"/>
 
-            <column name="PUBLISHED_DATE" type="timestamp without timezone">
+            <column name="PUBLISHED_DATE" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -300,7 +300,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="SENT_DATE" type="timestamp without timezone"/>
+            <column name="SENT_DATE" type="timestamp without time zone"/>
         </createTable>
     </changeSet>
 
