@@ -3,8 +3,7 @@ package pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import lombok.ToString;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
@@ -29,6 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Table(name = "newsletter_issue")
 @NoArgsConstructor(access = PRIVATE)
 @Getter
+@ToString(exclude = {"blogPosts", "newBlogs"})
 public class NewsletterIssue {
 
     @Id
@@ -80,14 +80,4 @@ public class NewsletterIssue {
         this.blogPosts = blogPosts;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("id", id)
-            .append("issueNumber", issueNumber)
-            .append("heading", heading)
-            .append("varia", varia)
-            .append("publishedDate", publishedDate)
-            .toString();
-    }
 }

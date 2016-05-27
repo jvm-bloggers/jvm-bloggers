@@ -1,10 +1,10 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -16,18 +16,10 @@ import java.util.Iterator;
 
 @Component
 @Slf4j
-public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
 
-    @SpringBean
-    private BlogPostRepository blogPostRepository;
-
-    public ModerationPageRequestHandler() {
-    }
-
-    @Autowired
-    public ModerationPageRequestHandler(BlogPostRepository blogPostRepository) {
-        this.blogPostRepository = blogPostRepository;
-    }
+    private final BlogPostRepository blogPostRepository;
 
     @Override
     public Iterator<? extends BlogPost> iterator(long first, long count) {

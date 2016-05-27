@@ -33,7 +33,7 @@ class NewNewsletterIssuePublisher {
     @Transactional
     void publishNewIssue(int daysInThePastToIncludeInNewIssue) {
         NewsletterIssue newIssue = newsletterIssueFactory.create(daysInThePastToIncludeInNewIssue);
-        log.info("Persisting new issue " + newIssue);
+        log.info("Persisting new issue: {} ", newIssue);
         newsletterIssueRepository.save(newIssue);
         eventPublisher.publishEvent(new NewIssuePublished(newIssue));
     }
