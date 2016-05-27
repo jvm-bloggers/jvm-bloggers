@@ -795,6 +795,12 @@
       "jsonId": 139,
       "name": "Ania Dobrowolska",
       "rss": "http://aniakodzi.pl/feed/"
+    },
+    {
+      "jsonId": 139,
+      "name": "Korneliusz Rabczak",
+      "rss": "http://thecookiezen.com/blog/atom.xml",
+      "twitter": "@nikom1337"
     }
   ]
 }
