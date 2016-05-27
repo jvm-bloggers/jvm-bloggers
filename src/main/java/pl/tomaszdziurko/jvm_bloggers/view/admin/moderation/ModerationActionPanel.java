@@ -12,37 +12,22 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 
 @Slf4j
-public class ModerationActionPanel extends Panel {
+class ModerationActionPanel extends Panel {
 
     @SpringBean
     private BlogPostRepository blogPostRepository;
 
-    public ModerationActionPanel(String id, Form<Void> moderationForm,
+    ModerationActionPanel(String id, Form<Void> moderationForm,
                                  CustomFeedbackPanel feedback,
-                                 IModel<? extends BlogPost> blogPostModel,
-                                 boolean panelIsDisabled) {
+                                 IModel<? extends BlogPost> blogPostModel) {
         super(id);
+        add(createAcceptButton(moderationForm, feedback, blogPostModel));
+        add(createRejectButton(moderationForm, feedback, blogPostModel));
+    }
 
-        AjaxButton acceptPost = new AjaxButton("acceptPost", moderationForm) {
-
-            @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-                log.debug("Accept clicked");
-                BlogPost blogPost = blogPostModel.getObject();
-                blogPost.setApproved(true);
-                long start = System.currentTimeMillis();
-                blogPostRepository.save(blogPost);
-                long stop = System.currentTimeMillis();
-                log.debug("Persist approved post execution time = " + (stop - start)  + " ms");
-                getSession().success("Blog post '" +  blogPost.getTitle() + "' accepted!");
-                target.add(moderationForm);
-                target.add(feedback);
-            }
-        };
-        acceptPost.setVisible(!blogPostModel.getObject().isApproved());
-        acceptPost.setEnabled(!panelIsDisabled);
-        add(acceptPost);
-
+    private AjaxButton createRejectButton(final Form<Void> moderationForm,
+                                          final CustomFeedbackPanel feedback,
+                                          final IModel<? extends BlogPost> blogPostModel) {
         AjaxButton rejectPost = new AjaxButton("rejectPost", moderationForm) {
 
             @Override
@@ -60,8 +45,30 @@ public class ModerationActionPanel extends Panel {
             }
         };
         rejectPost.setVisible(!blogPostModel.getObject().isRejected());
-        rejectPost.setEnabled(!panelIsDisabled);
-        add(rejectPost);
+        return rejectPost;
+    }
+
+    private AjaxButton createAcceptButton(final Form<Void> moderationForm,
+                                          final CustomFeedbackPanel feedback,
+                                          final IModel<? extends BlogPost> blogPostModel) {
+        AjaxButton acceptPost = new AjaxButton("acceptPost", moderationForm) {
+
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                log.debug("Accept clicked");
+                BlogPost blogPost = blogPostModel.getObject();
+                blogPost.setApproved(true);
+                long start = System.currentTimeMillis();
+                blogPostRepository.save(blogPost);
+                long stop = System.currentTimeMillis();
+                log.debug("Persist approved post execution time = " + (stop - start)  + " ms");
+                getSession().success("Blog post '" +  blogPost.getTitle() + "' accepted!");
+                target.add(moderationForm);
+                target.add(feedback);
+            }
+        };
+        acceptPost.setVisible(!blogPostModel.getObject().isApproved());
+        return acceptPost;
     }
 
 }

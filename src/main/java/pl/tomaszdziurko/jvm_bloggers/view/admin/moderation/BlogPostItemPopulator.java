@@ -41,7 +41,7 @@ public class BlogPostItemPopulator {
                 lastPublicationDate(nowProvider.now()));
 
         item.add(new ModerationActionPanel(ACTION_PANEL_WICKET_ID, moderationForm,
-                feedbackPanel, item.getModel(), !postIsGoingInNewsletter));
+                feedbackPanel, item.getModel()));
 
         if (postIsGoingInNewsletter) {
             addHighlightedRowStyling(item);

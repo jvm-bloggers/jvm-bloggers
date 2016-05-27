@@ -17,7 +17,7 @@ import java.util.Iterator;
 @Component
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
+public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
 
     private final BlogPostRepository blogPostRepository;
 
