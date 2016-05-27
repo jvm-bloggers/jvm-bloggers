@@ -17,7 +17,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 
     List<Blog> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 
-    Page<Blog> findAllByOrderByDateAddedDesc(Pageable pageable);
+    Page<Blog> findAllByOrderByAuthorAsc(Pageable pageable);
 
     @Query("from Blog b where b.active = true")
     List<Blog> findAllActiveBlogs();
