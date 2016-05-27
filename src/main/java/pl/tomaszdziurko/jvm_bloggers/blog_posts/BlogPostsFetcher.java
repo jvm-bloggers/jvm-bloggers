@@ -35,6 +35,7 @@ public class BlogPostsFetcher {
     public void refreshPosts() {
         List<Blog> people = blogRepository.findAllActiveBlogs();
         people.stream()
+            .filter(Blog::isActive)
             .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
     }
 }
