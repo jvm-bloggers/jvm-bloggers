@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToolbar;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -27,7 +25,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import java.util.List;
 
 
-@Slf4j
 @AuthorizeInstantiation(Roles.ADMIN)
 public class MailingPage extends AbstractAdminPage {
 
