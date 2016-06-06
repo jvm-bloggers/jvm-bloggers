@@ -2,6 +2,7 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import com.rometools.rome.feed.synd.SyndContentImpl;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
@@ -9,8 +10,10 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
 import com.rometools.rome.feed.synd.SyndLink;
 import com.rometools.rome.feed.synd.SyndLinkImpl;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
+
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
@@ -27,8 +31,10 @@ import pl.tomaszdziurko.jvm_bloggers.utils.Validators;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.MoreObjects.firstNonNull;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 
@@ -49,7 +55,8 @@ public class AggregatedRssFeedProducer {
     private static final String SELF_REL = "self";
     private static final String UTM_MEDIUM = "RSS";
     private static final String UTM_CAMPAIGN = "RSS";
-
+    @VisibleForTesting
+    static final Set<String> INCLUDE_ALL_AUTHORS_SET = ImmutableSet.of(StringUtils.EMPTY);
 
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
@@ -64,31 +71,43 @@ public class AggregatedRssFeedProducer {
      * @param limit Upper limit of RSS entries count in the generated feed. If equal or less
      *     than zero then all approved blog posts will be generated.
      *
+     * @param excludedAuthors RSS entries for given authors will be excluded
+     *     from the generated feed
+     *
      * @return Aggregated RSS feed for approved blog posts ordered by publication date
      */
     @Cacheable
-    public SyndFeed getRss(String feedUrl, int limit) {
+    public SyndFeed getRss(String feedUrl, int limit, Set<String> excludedAuthors) {
 
         Preconditions.checkArgument(
             StringUtils.isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
 
-        final StopWatch stopWatch = new StopWatch();
-        log.debug("Building aggregated RSS feed...");
-        stopWatch.start();
+        StopWatch stopWatch = null;
+        if (log.isDebugEnabled()) {
+            stopWatch = new StopWatch();
+            log.debug("Building aggregated RSS feed...");
+            stopWatch.start();
+        }
 
         final Pageable pageRequest = new PageRequest(0, limit > 0 ? limit : Integer.MAX_VALUE);
+        if (CollectionUtils.isEmpty(excludedAuthors)) {
+            excludedAuthors = INCLUDE_ALL_AUTHORS_SET;
+        }
         final List<BlogPost> approvedPosts =
-            blogPostRepository.findByApprovedTrueOrderByPublishedDateDesc(pageRequest);
+            blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(
+                pageRequest, firstNonNull(excludedAuthors, EMPTY_AUTHORS_SET)
+                );
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .filter(it -> Validators.isUrlValid(it.getUrl()))
             .map(this::toRssEntry)
             .collect(Collectors.toList());
         final SyndFeed feed = buildFeed(feedItems, feedUrl);
 
-        stopWatch.stop();
-        log.info("Total {} feed entries produced in {}ms", feedItems.size(),
-            stopWatch.getTotalTimeMillis());
-
+        if (log.isDebugEnabled()) {
+            stopWatch.stop();
+            log.info("Total {} feed entries produced in {}ms", feedItems.size(),
+                stopWatch.getTotalTimeMillis());
+        }
         return feed;
     }
 

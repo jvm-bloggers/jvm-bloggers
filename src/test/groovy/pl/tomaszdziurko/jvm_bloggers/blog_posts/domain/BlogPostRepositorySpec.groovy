@@ -2,13 +2,18 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
-import org.springframework.test.context.ActiveProfiles
+
 import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
+
+import spock.lang.Subject
+import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
+import static pl.tomaszdziurko.jvm_bloggers.blog_posts.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
 import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
@@ -16,7 +21,10 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     static NOT_MODERATED = null
     static APPROVED = Boolean.TRUE
     static REJECTED = Boolean.FALSE
-
+    static PAGEABLE = new PageRequest(0, Integer.MAX_VALUE)
+    static EXCLUDED_AUTHOR = "Excluded Author"
+    
+    @Subject
     @Autowired
     BlogPostRepository blogPostRepository
 
@@ -25,7 +33,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     def "Should order latest posts by moderation and publication date"() {
         given:
-            Blog blog = aBlog()
+            Blog blog = aBlog("Top Blogger", "http://topblogger.pl/")
 
             List<BlogPost> blogPosts = [
                 aBlogPost(1, LocalDateTime.of(2016, 1, 1, 12, 00), REJECTED, blog),
@@ -38,7 +46,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
             blogPostRepository.save(blogPosts)
         when:
-            List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(new PageRequest(0, blogPosts.size()))
+            List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(PAGEABLE)
         then:
             // not moderated posts first ...
             !latestPosts[0].isModerated()
@@ -56,12 +64,44 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             latestPosts[4].getPublishedDate().isAfter(latestPosts[5].getPublishedDate())
     }
 
-    private Blog aBlog() {
+    @Unroll
+    def "Should filter out posts by authors = #excludedAuthors"() {
+        given:
+            Blog excludedBlog = aBlog(EXCLUDED_AUTHOR, "http://excluded.pl/")
+            LocalDateTime publishedDate = new NowProvider().now()
+            
+            List<BlogPost> excludedblogPosts = [
+                aBlogPost(1, publishedDate, REJECTED, excludedBlog),
+                aBlogPost(2, publishedDate, APPROVED, excludedBlog),
+            ]
+
+            blogPostRepository.save(excludedblogPosts)
+            
+            Blog includedBlog = aBlog("Included Author", "http://included.pl/")
+
+            List<BlogPost> includedBlogPosts = [
+                aBlogPost(3, publishedDate, REJECTED, includedBlog),
+                aBlogPost(4, publishedDate, APPROVED, includedBlog),
+            ]
+            
+            blogPostRepository.save(includedBlogPosts)
+        when:
+            List<BlogPost> filteredPosts = blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(PAGEABLE, excludedAuthors)
+        then:
+            filteredPosts.size == expectedPostsCount
+        where:
+            excludedAuthors                || expectedPostsCount
+            [] as Set                      || 0
+            [EXCLUDED_AUTHOR] as Set       || 1
+            INCLUDE_ALL_AUTHORS_SET as Set || 2
+    }
+
+    private Blog aBlog(String author, String rssUrl) {
         return blogRepository.save(
                 Blog.builder()
                         .jsonId(1L)
-                        .author("Top Blogger")
-                        .rss("http://topblogger.pl/")
+                        .author(author)
+                        .rss(rssUrl)
                         .url("url")
                         .dateAdded(LocalDateTime.now())
                         .blogType(PERSONAL)
