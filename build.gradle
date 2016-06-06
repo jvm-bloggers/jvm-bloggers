@@ -151,7 +151,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion "2.12"
+    gradleVersion "2.13"
 }
 
 sourceSets.main.resources.srcDir 'src/main/java'
