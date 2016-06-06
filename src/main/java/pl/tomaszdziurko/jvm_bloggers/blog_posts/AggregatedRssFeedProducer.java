@@ -14,6 +14,7 @@ import com.rometools.rome.feed.synd.SyndLinkImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -34,7 +35,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.google.common.base.MoreObjects.firstNonNull;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate;
 
@@ -72,7 +72,7 @@ public class AggregatedRssFeedProducer {
      *     than zero then all approved blog posts will be generated.
      *
      * @param excludedAuthors RSS entries for given authors will be excluded
-     *     from the generated feed
+     *     from the generated feed (may be <code>null</code>)
      *
      * @return Aggregated RSS feed for approved blog posts ordered by publication date
      */
@@ -95,7 +95,7 @@ public class AggregatedRssFeedProducer {
         }
         final List<BlogPost> approvedPosts =
             blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(
-                pageRequest, firstNonNull(excludedAuthors, EMPTY_AUTHORS_SET)
+                pageRequest, excludedAuthors
                 );
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .filter(it -> Validators.isUrlValid(it.getUrl()))
@@ -105,7 +105,7 @@ public class AggregatedRssFeedProducer {
 
         if (log.isDebugEnabled()) {
             stopWatch.stop();
-            log.info("Total {} feed entries produced in {}ms", feedItems.size(),
+            log.debug("Total {} feed entries produced in {}ms", feedItems.size(),
                 stopWatch.getTotalTimeMillis());
         }
         return feed;
