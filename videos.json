@@ -23,6 +23,12 @@
       "name": "Toruń JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLuHypXd9ODOivs7gRpxNZg",
       "twitter": "@TorunJUG"
+    },
+    {
+      "jsonId": 20005,
+      "name": "Poznań JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQqIfvcYb1nWNFP-X1woAQ",
+      "twitter": "@PoznanJUG"
     }
   ]
 }
