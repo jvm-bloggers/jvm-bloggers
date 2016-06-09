@@ -12,6 +12,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.2.RELEASE")
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
         classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath 'cz.alenkacz.gradle:json-validator:0.9.10'
         classpath 'com.ofg:uptodate-gradle-plugin:+'
     }
 }
@@ -26,6 +27,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'application'
 apply plugin: 'docker'
+apply plugin: 'cz.alenkacz.gradle.jsonvalidator'
 apply plugin: 'com.ofg.uptodate'
 
 jar {
@@ -135,6 +137,7 @@ bootRun {
 
 test {
     systemProperty "file.encoding", "utf-8"
+    dependsOn 'validateBlogsData'
 }
 
 check.dependsOn 'uptodate'
@@ -147,6 +150,19 @@ String getTimestampWithGitHash() {
     return timeStamp + '-' + proc.in.text
 }
 
+task validateBlogsData() {
+    def blogsDir = "src/main/resources/blogs"
+    def blogsData = ["bloggers", "videos", "companies"]
+    blogsData.each { fileName ->
+        def taskName = "validate" + fileName.capitalize()
+        tasks.create(taskName, cz.alenkacz.gradle.jsonvalidator.ValidateJsonTask) {
+            jsonSchema = new File(blogsDir, "schema.json")
+            targetJsonFile = new File(blogsDir, "${fileName}.json")
+        }
+        dependsOn taskName
+    }
+}
+
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
@@ -155,4 +171,3 @@ wrapper {
 }
 
 sourceSets.main.resources.srcDir 'src/main/java'
-
