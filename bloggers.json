@@ -801,6 +801,12 @@
       "name": "Korneliusz Rabczak",
       "rss": "http://thecookiezen.com/blog/atom.xml",
       "twitter": "@nikom1337"
+    },
+    {
+      "jsonId": 141,
+      "name": "Dariusz Łuksza",
+      "rss": "http://feeds.feedburner.com/SwiatJava",
+      "twitter": "@dluksza"
     }
   ]
 }
