@@ -85,8 +85,9 @@ public class BloggersDataUpdater {
             .rss(bloggerEntry.getRss())
             .url(syndFeedFactory.validUrlFromRss(
                 bloggerEntry.getRss()).orElse(null)
-            )
+             )
             .twitter(bloggerEntry.getTwitter())
+            .url(bloggerEntry.getUrl())
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)

@@ -1,9 +1,9 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing.domain;
 
-
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -27,18 +27,23 @@ public class Email {
         allocationSize = 1)
     private Long id;
 
+    @NonNull
     @Column(name = "from_address", nullable = false, length = 250)
     private String fromAddress;
 
+    @NonNull
     @Column(name = "to_address", nullable = false, length = 250)
     private String toAddress;
 
+    @NonNull
     @Column(name = "title", nullable = false, length = 500)
     private String title;
 
+    @NonNull
     @Column(name = "content", nullable = false)
     private String content;
 
+    @NonNull
     @Column(name = "sent_date", nullable = false)
     private LocalDateTime sentDate;
 

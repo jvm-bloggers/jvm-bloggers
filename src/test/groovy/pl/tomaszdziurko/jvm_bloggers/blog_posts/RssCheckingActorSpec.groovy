@@ -7,6 +7,8 @@ import akka.testkit.JavaTestKit
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import pl.tomaszdziurko.jvm_bloggers.utils.SyndFeedProducer
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
@@ -14,6 +16,15 @@ import spock.lang.Subject
 
 class RssCheckingActorSpec extends Specification {
 
+    static final Blog BLOG = Blog.builder()
+        .jsonId(0L)
+        .author("Tomasz Dziurko")
+        .rss("http://tomaszdziurko.pl/feed/")
+        .url("url")
+        .dateAdded(new NowProvider().now())
+        .blogType(BlogType.PERSONAL)
+        .build();
+        
     JavaTestKit testProbe
     SyndFeedProducer syndFeedProducer
 
@@ -36,7 +47,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
         when:
-            rssCheckingActor.tell(new RssLink(Blog.builder().author("Tomasz Dziurko").rss("http://tomaszdziurko.pl/feed/").build()), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
         then:
             testProbe.expectMsgClass(RssEntryWithAuthor)
     }
@@ -45,7 +56,7 @@ class RssCheckingActorSpec extends Specification {
         given:
             mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
         when:
-            rssCheckingActor.tell(new RssLink(Blog.builder().author("Tomasz Dziurko").rss("http://tomaszdziurko.pl/feed/").build()), ActorRef.noSender())
+            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
         then:
             testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }
@@ -59,11 +70,12 @@ class RssCheckingActorSpec extends Specification {
     List<SyndEntry> mockEntries(int size) {
         List<SyndEntry> entries = []
 
-        for (int i = 0; i < size; i++) {
+        (0..<size).each {
             SyndEntry entry = Mock(SyndEntry)
-            entry.title = "Title $i"
+            entry.title = "Title $it"
             entries.add(entry)
         }
+
         return entries
     }
 }

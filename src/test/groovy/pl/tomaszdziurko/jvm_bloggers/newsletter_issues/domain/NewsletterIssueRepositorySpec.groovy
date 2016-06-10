@@ -40,14 +40,14 @@ class NewsletterIssueRepositorySpec extends SpringContextAwareSpecification {
             List<Blog> blogs = prepareBlogs()
             List<BlogPost> posts = prepareBlogPosts(blogs.get(0), blogs.get(1))
         when:
-            NewsletterIssue issue = new NewsletterIssue(
-                    issueNumber,
-                    LocalDate.now(),
-                    blogs,
-                    posts,
-                    exampleHeading,
-                    exampleVaria
-            );
+            NewsletterIssue issue = NewsletterIssue.builder()
+                .issueNumber(issueNumber)
+                .publishedDate(new NowProvider().today())
+                .newBlogs(blogs)
+                .blogPosts(posts)
+                .heading(exampleHeading)
+                .varia(exampleVaria)
+                .build();
             newsletterIssueRepository.save(issue)
         then:
             Optional<NewsletterIssue> persistedIssue =
@@ -69,6 +69,7 @@ class NewsletterIssueRepositorySpec extends SpringContextAwareSpecification {
                 .dateAdded(LocalDateTime.now())
                 .jsonId(1L)
                 .rss("http://example.com/rss")
+                .url("http://example.com")
                 .build()
         blogRepository.save(blog1)
         Blog blog2 = Blog.builder()
@@ -78,6 +79,7 @@ class NewsletterIssueRepositorySpec extends SpringContextAwareSpecification {
                 .dateAdded(LocalDateTime.now())
                 .jsonId(2L)
                 .rss("http://another-url.com/rss")
+                .url("http://another-url.com")
                 .build()
         blogRepository.save(blog2)
         return Lists.asList(blog1, blog2)

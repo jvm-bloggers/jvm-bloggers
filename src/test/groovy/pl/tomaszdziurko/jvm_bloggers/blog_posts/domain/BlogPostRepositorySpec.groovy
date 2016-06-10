@@ -62,6 +62,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                         .jsonId(1L)
                         .author("Top Blogger")
                         .rss("http://topblogger.pl/")
+                        .url("url")
                         .dateAdded(LocalDateTime.now())
                         .blogType(PERSONAL)
                         .build());

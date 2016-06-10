@@ -38,10 +38,6 @@ class BloggersDataUpdaterSpec extends Specification {
             blogWithDifferentRss()                 | entryWithStandardBlogData() | true
             blogWithDifferentTwitter()             | entryWithStandardBlogData() | true
             blogWithDifferentAuthorRssAndTwitter() | entryWithStandardBlogData() | true
-            blogWithNoTwitter()                    | entryWithStandardBlogData() | true
-            blogWithNoAuthor()                     | entryWithStandardBlogData() | true
-            blogWithNoRss()                        | entryWithStandardBlogData() | true
-            standardPersonalBlog()                 | entryWithNoPageUrl()        | false
             standardPersonalBlog()                 | entryWithDifferentPage()    | true
     }
 
@@ -53,10 +49,6 @@ class BloggersDataUpdaterSpec extends Specification {
         buildBloggerEntry(1L, "blog", "rss", "newPage", "twitter", PERSONAL)
     }
 
-    private BloggerEntry entryWithNoPageUrl() {
-        buildBloggerEntry(1L, "blog", "rss", null, "twitter", PERSONAL)
-    }
-
     private Blog standardPersonalBlog() {
         buildBlog(1L, "blog", "rss", "page", "twitter")
     }
@@ -65,19 +57,7 @@ class BloggersDataUpdaterSpec extends Specification {
         buildBloggerEntry(1L, "blog", "rss", "page", "twitter", PERSONAL)
     }
 
-    private Blog blogWithNoRss() {
-        buildBlog(1L, "blog", null, "page", "twitter")
-    }
-
-    private Blog blogWithNoAuthor() {
-        buildBlog(1L, null, "rss", "page", "twitter")
-    }
-
-    private Blog blogWithNoTwitter() {
-        buildBlog(1L, "blog", "rss", "page", null)
-    }
-
-    private Blog blogWithDifferentAuthorRssAndTwitter() {
+        private Blog blogWithDifferentAuthorRssAndTwitter() {
         buildBlog(1L, "authoX", "rsX", "page", "twitteX")
     }
 
@@ -104,7 +84,7 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should insert new Person for entry with new json_id"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", null)
+            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", PERSONAL)
             blogRepository.findByJsonId(jsonId) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)

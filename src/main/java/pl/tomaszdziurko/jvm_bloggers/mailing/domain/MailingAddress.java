@@ -1,8 +1,11 @@
 package pl.tomaszdziurko.jvm_bloggers.mailing.domain;
 
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "mailing_address")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public class MailingAddress {
 
     @Id
@@ -24,10 +28,8 @@ public class MailingAddress {
         allocationSize = 1)
     private Long id;
 
+    @NonNull
     @Column(name = "address", unique = true, nullable = false, length = 250)
-    private String address;
+    private final String address;
 
-    public MailingAddress(String address) {
-        this.address = address;
-    }
 }
