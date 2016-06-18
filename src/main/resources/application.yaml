@@ -20,3 +20,8 @@ generated.rss.entries.limit: 50
 # Logging
 logging.level.root: INFO
 logging.level.pl.tomaszdziurko.jvm_bloggers: DEBUG
+
+
+# REST API
+server:
+  context-path: "/api"

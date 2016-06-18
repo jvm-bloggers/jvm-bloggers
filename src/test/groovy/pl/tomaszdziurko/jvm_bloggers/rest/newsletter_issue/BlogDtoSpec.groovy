@@ -1,0 +1,22 @@
+package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue
+
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
+import spock.lang.Specification
+
+class BlogDtoSpec extends Specification {
+
+    def "Should convert blog to its DTO representation"() {
+        given:
+            Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
+                    "some twitter", null, BlogType.PERSONAL, true)
+        when:
+            BlogDto blogJson = BlogDto.fromBlog(blog)
+        then:
+            blogJson.author == blog.getAuthor()
+            blogJson.url == blog.getUrl()
+            blogJson.authorTwitterHandle == blog.getTwitter()
+            blogJson.type == BlogTypeDto.fromBlogType(blog.getBlogType())
+    }
+
+}
