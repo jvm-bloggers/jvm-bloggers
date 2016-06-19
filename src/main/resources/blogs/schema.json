@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jvm-bloggers.com/",
+  "type": "object",
+  "properties": {
+    "bloggers": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "An array of bloggers' data",
+      "items": {
+        "type": "object",
+        "properties": {
+          "jsonId": {
+            "type": "integer",
+            "description": "The unique identifier of the blogger within the file"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "description": "Blogger name"
+          },
+          "rss": {
+            "type": "string",
+            "pattern": "^https?://[^ ]+$",
+            "description": "Valid URL to the blogger's RSS feed"
+          },
+          "twitter": {
+            "type": "string",
+            "pattern": "^@(\\w){1,15}$",
+            "description": "Optional blogger's twitter id"
+          }
+        },
+        "required": [
+          "jsonId",
+          "name",
+          "rss"
+        ]
+      }
+    }
+  },
+  "required": [
+    "bloggers"
+  ]
+}
