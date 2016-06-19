@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +26,6 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAUL
 import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
 
 
-@Slf4j
 @Component
 @NoArgsConstructor
 @AllArgsConstructor(onConstructor = @__(@Autowired))

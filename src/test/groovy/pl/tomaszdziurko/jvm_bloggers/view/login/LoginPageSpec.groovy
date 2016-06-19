@@ -4,14 +4,11 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.util.tester.FormTester
 import pl.tomaszdziurko.jvm_bloggers.MockSpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
-import pl.tomaszdziurko.jvm_bloggers.mailing.LogMailSenderPostAction
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector
 
 class LoginPageSpec extends MockSpringContextAwareSpecification {
-
-    LogMailSenderPostAction logMailPostAction = new LogMailSenderPostAction()
 
     UserAuthenticator userAuthenticator = Stub()
 
