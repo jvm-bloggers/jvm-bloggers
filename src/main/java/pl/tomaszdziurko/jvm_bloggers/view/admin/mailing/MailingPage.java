@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToolbar;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
