@@ -1,5 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
+import lombok.RequiredArgsConstructor;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -20,12 +22,12 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.lastPublicat
  * @author mszarlinski
  */
 @Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogPostItemPopulator {
 
     private static final String ACTION_PANEL_WICKET_ID = "actionPanel";
 
-    @Autowired
-    private NowProvider nowProvider;
+    private final NowProvider nowProvider;
 
     public void populateItem(final Item<BlogPost> item, final Form<Void> moderationForm,
                              final CustomFeedbackPanel feedbackPanel) {

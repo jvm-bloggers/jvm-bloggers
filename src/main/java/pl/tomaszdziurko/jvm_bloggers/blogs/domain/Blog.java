@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -32,29 +33,35 @@ public class Blog {
     @Column(name = "ID")
     private Long id;
 
+    @NonNull
     @Column(nullable = false, name = "JSON_ID")
     private Long jsonId;
 
+    @NonNull
     @Column(name = "AUTHOR", nullable = false, length = 250)
     private String author;
 
+    @NonNull
     @Column(name = "RSS", unique = true, nullable = false, length = 250)
     private String rss;
 
-    @Column(name = "URL", unique = true, length = 250)
+    @NonNull
+    @Column(name = "URL", unique = true, nullable = false, length = 250)
     private String url;
 
     @Column(name = "TWITTER", length = 100)
     private String twitter;
 
+    @NonNull
     @Column(name = "DATE_ADDED", nullable = false)
     private LocalDateTime dateAdded;
 
+    @NonNull
     @Column(name = "BLOG_TYPE", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private BlogType blogType;
 
-    @Column(name = "ACTIVE", nullable = false)
+    @Column(name = "ACTIVE")
     private boolean active;
 
     public boolean isPersonal() {

@@ -1,5 +1,8 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -23,10 +26,6 @@ class BlogPostSpec extends Specification {
             null     || " -- "
     }
 
-    private BlogPost createBlogPost(final Boolean approved) {
-        return BlogPost.builder().approved(approved).build();
-    }
-
     @Unroll
     def "Should return #expected when isModerated called for post with approved = #approved"() {
         given:
@@ -45,9 +44,7 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return whether post is going in newsletter"() {
         given:
-            BlogPost blogPost = BlogPost.builder()
-                .publishedDate(postPublicationDate)
-                .build();
+            BlogPost blogPost = createBlogPost(false, postPublicationDate)
         when:
             boolean inNewsletter = blogPost.isGoingInNewsletter(lastNewsletterDate)
         then:
@@ -56,6 +53,28 @@ class BlogPostSpec extends Specification {
             postPublicationDate                             || lastNewsletterDate                              || expected
             LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || true
             LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 21, 12, 00) || false
+    }
+
+    private BlogPost createBlogPost(final Boolean approved) {
+        createBlogPost(approved, new NowProvider().now())
+    }
+
+    private BlogPost createBlogPost(final Boolean approved, LocalDateTime publicationDate) {
+
+        return BlogPost.builder()
+            .approved(approved)
+            .title("title")
+            .url("url")
+            .publishedDate(publicationDate)
+            .blog(Blog.builder()
+                .jsonId(0L)
+                .blogType(BlogType.PERSONAL)
+                .author("author")
+                .rss("rss")
+                .url("url")
+                .dateAdded(publicationDate)
+                .build())
+            .build();
     }
 
 }

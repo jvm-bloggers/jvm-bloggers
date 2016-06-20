@@ -1,5 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.newsletter_issues;
 
+import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class NewsletterIssueFactory {
 
     private final IssueNumberRetriever issueNumberRetriever;
@@ -25,19 +28,6 @@ public class NewsletterIssueFactory {
     private final BlogPostRepository blogPostRepository;
     private final MetadataRepository metadataRepository;
 
-    @Autowired
-    public NewsletterIssueFactory(IssueNumberRetriever issueNumberRetriever,
-                                  NowProvider nowProvider,
-                                  BlogRepository blogRepository,
-                                  BlogPostRepository blogPostRepository,
-                                  MetadataRepository metadataRepository) {
-        this.issueNumberRetriever = issueNumberRetriever;
-        this.nowProvider = nowProvider;
-        this.blogRepository = blogRepository;
-        this.blogPostRepository = blogPostRepository;
-        this.metadataRepository = metadataRepository;
-    }
-
     public NewsletterIssue create(int daysInThePastToIncludeInNewIssue, long issueNumber) {
 
         LocalDateTime startDate = calculateStartDate(daysInThePastToIncludeInNewIssue);
@@ -45,14 +35,14 @@ public class NewsletterIssueFactory {
         List<BlogPost> newApprovedPosts = blogPostRepository
             .findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(startDate);
 
-        return new NewsletterIssue(
-            issueNumber,
-            nowProvider.today(),
-            newBlogs,
-            newApprovedPosts,
-            metadataRepository.findByName(MetadataKeys.HEADING_TEMPLATE).getValue(),
-            metadataRepository.findByName(MetadataKeys.VARIA_TEMPLATE).getValue()
-        );
+        return NewsletterIssue.builder()
+            .issueNumber(issueNumber)
+            .publishedDate(nowProvider.today())
+            .newBlogs(newBlogs)
+            .blogPosts(newApprovedPosts)
+            .heading(metadataRepository.findByName(MetadataKeys.HEADING_TEMPLATE).getValue())
+            .varia(metadataRepository.findByName(MetadataKeys.VARIA_TEMPLATE).getValue())
+            .build();
     }
 
     public NewsletterIssue create(int daysInThePastToIncludeInNewIssue) {

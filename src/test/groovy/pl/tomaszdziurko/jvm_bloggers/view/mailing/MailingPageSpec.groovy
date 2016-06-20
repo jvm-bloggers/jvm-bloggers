@@ -39,11 +39,13 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         addBean(issueNumberRetriever)
 
         metadataRepository.findByName(MAILING_TEMPLATE) >> new Metadata(
+                0L,
                 MAILING_TEMPLATE,
                 MAILING_TEMPLATE_VALUE
         )
 
         metadataRepository.findByName(MAILING_GREETING) >> new Metadata(
+                1L,
                 MAILING_GREETING,
                 GREETING_VALUE
         )
@@ -61,6 +63,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
     def "Should restore default value of MailingTemplate after reset button is clicked"() {
         given:
             metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE) >> new Metadata(
+                    0L,
                     MetadataKeys.DEFAULT_MAILING_TEMPLATE,
                     DEFAULT_MAILING_TEMPLATE_VALUE
             )

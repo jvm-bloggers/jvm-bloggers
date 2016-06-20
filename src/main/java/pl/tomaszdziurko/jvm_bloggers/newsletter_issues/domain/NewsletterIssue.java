@@ -1,8 +1,12 @@
 package pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Singular;
 import lombok.ToString;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
@@ -27,6 +31,8 @@ import static lombok.AccessLevel.PRIVATE;
 @Entity
 @Table(name = "newsletter_issue")
 @NoArgsConstructor(access = PRIVATE)
+@AllArgsConstructor(access = PRIVATE)
+@Builder
 @Getter
 @ToString(exclude = {"blogPosts", "newBlogs"})
 public class NewsletterIssue {
@@ -38,6 +44,7 @@ public class NewsletterIssue {
     @Column(name = "ID")
     private Long id;
 
+    @NonNull
     @Column(name = "ISSUE_NUMBER", nullable = false, updatable = false)
     private Long issueNumber;
 
@@ -47,6 +54,8 @@ public class NewsletterIssue {
     @Column(name = "HEADING", length = 4000, updatable = false)
     private String heading;
 
+    @Singular
+    @NonNull
     @OneToMany
     @JoinTable(name = "blog_posts_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
@@ -54,6 +63,8 @@ public class NewsletterIssue {
     )
     private List<BlogPost> blogPosts;
 
+    @Singular
+    @NonNull
     @OneToMany
     @JoinTable(name = "new_blogs_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
@@ -63,21 +74,5 @@ public class NewsletterIssue {
 
     @Column(name = "VARIA", length = 4000, updatable = false)
     private String varia;
-
-    public NewsletterIssue(
-        Long issueNumber,
-        LocalDate publishedDate,
-        List<Blog> newBlogs,
-        List<BlogPost> blogPosts,
-        String heading,
-        String varia) {
-
-        this.issueNumber = issueNumber;
-        this.publishedDate = publishedDate;
-        this.heading = heading;
-        this.varia = varia;
-        this.newBlogs = newBlogs;
-        this.blogPosts = blogPosts;
-    }
 
 }

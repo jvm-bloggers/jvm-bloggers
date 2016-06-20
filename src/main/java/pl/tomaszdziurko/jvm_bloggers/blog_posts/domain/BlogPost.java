@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
@@ -45,21 +46,25 @@ public class BlogPost {
     @Column(name = "ID")
     private Long id;
 
+    @NonNull
     @Column(name = "TITLE", nullable = false, length = 250)
     private String title;
 
     @Column(name = "DESCRIPTION", length = MAX_DESCRIPTION_LENGTH)
     private String description;
 
+    @NonNull
     @Column(name = "URL", unique = true, nullable = false, length = 500)
     private String url;
 
+    @NonNull
     @Column(name = "PUBLISHED_DATE", nullable = false)
     private LocalDateTime publishedDate;
 
     @Column(name = "APPROVED")
     private Boolean approved;
 
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;

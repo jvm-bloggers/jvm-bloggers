@@ -1,7 +1,10 @@
 package pl.tomaszdziurko.jvm_bloggers.metadata;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.io.Serializable;
 
@@ -16,7 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "metadata")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Metadata implements Serializable {
 
     @Id
@@ -24,15 +28,12 @@ public class Metadata implements Serializable {
     @SequenceGenerator(name = "METADATA_SEQ", sequenceName = "METADATA_SEQ", allocationSize = 1)
     private Long id;
 
+    @NonNull
     @Column(name = "name", unique = true, nullable = false, length = 100)
     private String name;
 
+    @NonNull
     @Column(name = "value", nullable = false, length = 5000)
     private String value;
-
-    public Metadata(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
 
 }
