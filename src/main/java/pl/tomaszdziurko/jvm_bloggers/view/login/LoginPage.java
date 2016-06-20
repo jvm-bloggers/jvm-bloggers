@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.protocol.http.servlet.ServletWebRequest;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
 import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector;
@@ -19,6 +20,7 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 
+@MountPath("login")
 @StatelessComponent
 public class LoginPage extends WebPage {
 

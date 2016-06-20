@@ -6,12 +6,14 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 
+@MountPath("admin-moderation")
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {
 

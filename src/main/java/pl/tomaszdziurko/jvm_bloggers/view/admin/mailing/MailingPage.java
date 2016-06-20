@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToolbar;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -15,6 +17,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.wicketstuff.annotation.mount.MountPath;
 
 import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
@@ -25,6 +28,8 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
 import java.util.List;
 
 
+@Slf4j
+@MountPath("admin-mailing")
 @AuthorizeInstantiation(Roles.ADMIN)
 public class MailingPage extends AbstractAdminPage {
 
