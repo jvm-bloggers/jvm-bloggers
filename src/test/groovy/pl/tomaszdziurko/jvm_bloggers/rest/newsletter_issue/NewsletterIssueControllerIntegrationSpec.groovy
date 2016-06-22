@@ -2,9 +2,6 @@ package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue
 
 import org.hamcrest.Matchers
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.SpringApplicationContextLoader
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -12,14 +9,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.ConfigurableMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
-import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication
+import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue
 import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssueRepository
-import spock.lang.Specification
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -28,10 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 import static pl.tomaszdziurko.jvm_bloggers.rest.ContentTypes.JVM_BLOGGERS_V1
 
-@ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)
 @WebAppConfiguration
-@ActiveProfiles("test")
-class NewsletterIssueControllerIntegrationSpec extends Specification {
+class NewsletterIssueControllerIntegrationSpec extends SpringContextAwareSpecification {
 
     MockMvc mockMvc
 
@@ -61,9 +55,9 @@ class NewsletterIssueControllerIntegrationSpec extends Specification {
                     .contentType(JVM_BLOGGERS_V1)
                     .accept(JVM_BLOGGERS_V1)
             ).andExpect(status().isOk())
-             .andExpect(MockMvcResultMatchers.jsonPath('$.number', Matchers. is(issue.getIssueNumber().toInteger())))
-             .andExpect(MockMvcResultMatchers.jsonPath('$.heading', Matchers.is(issue.heading)))
-             .andExpect(MockMvcResultMatchers.jsonPath('$.posts[0].title', Matchers.is(issue.blogPosts.first().getTitle())))
+                    .andExpect(MockMvcResultMatchers.jsonPath('$.number', Matchers.is(issue.getIssueNumber().toInteger())))
+                    .andExpect(MockMvcResultMatchers.jsonPath('$.heading', Matchers.is(issue.heading)))
+                    .andExpect(MockMvcResultMatchers.jsonPath('$.posts[0].title', Matchers.is(issue.blogPosts.first().getTitle())))
     }
 
     def "Should return 404 when latest issue does not exist"() {
