@@ -15,6 +15,7 @@ import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest;
 
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.toDate
+import static pl.tomaszdziurko.jvm_bloggers.blog_posts.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
 
 class AggregatedRssFeedProducerSpec extends Specification {
 
@@ -33,11 +34,11 @@ class AggregatedRssFeedProducerSpec extends Specification {
     String UID_3 = UUID.randomUUID().toString()
     String REQUEST_URL = "http://jvm-bloggers.com/rss"
 
-    BlogPostRepository blogPostRepository = Stub() {
+    BlogPostRepository blogPostRepository = Mock() {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
         BlogPost blogPost2 = stubBlogPost(UID_2, null, TITLE_2, URL_2, AUTHOR_2, DATE)
         BlogPost blogPost3 = stubBlogPost(UID_3, null, TITLE_2, INVALID_URL, AUTHOR_2, DATE)
-        findByApprovedTrueOrderByPublishedDateDesc(_) >> { args ->
+        findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, _) >> { args ->
             Pageable pageable = args[0]
             List<BlogPost> blogposts = [blogPost1, blogPost2, blogPost3]
             int limit = Math.min(blogposts.size(), pageable.pageSize)
@@ -54,7 +55,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     def "Should produce aggregated RSS feed with all entries having valid url"() {
         when:
-            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 0)
+            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 0, null)
         then:
             Date date = toDate(DATE)
             with (feed) {
@@ -92,7 +93,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     def "Should produce aggregated RSS feed with limited entries count"() {
         when:
-            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 1)
+            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 1, null)
         then:
             Date date = toDate(DATE)
             with (feed) {
@@ -113,18 +114,38 @@ class AggregatedRssFeedProducerSpec extends Specification {
                 description.value == DESCRIPTION
                 publishedDate == date
                 author == AUTHOR_1
+                uri == UID_1
             }
     }
 
     @Unroll
     def "Should throw IAE on invalid feedUrl = [#blankFeedUrl]"() {
         when:
-            rssProducer.getRss(blankFeedUrl, 1)
+            rssProducer.getRss(blankFeedUrl, 1, null)
         then:
             IllegalArgumentException e = thrown()
             e.getMessage() == "feedUrl parameter cannot be blank"
         where:
             blankFeedUrl << [" ", "", null]
+    }
+
+    def "Should filter out given authors"() {
+        given:
+            Set excludedAuthors = ["John Doe", "Jane Doe"]
+        when:
+            rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+        then:
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, excludedAuthors) >> []
+    }
+    
+    @Unroll
+    def "Should include all authors when 'excludedAuthors' is #excludedAuthors"() {
+        when:
+            rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+        then:
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
+        where:
+            excludedAuthors << [null, [] as Set]
     }
 
     def stubBlogPost(String uid, String description, String title, String url, String author, LocalDateTime date) {

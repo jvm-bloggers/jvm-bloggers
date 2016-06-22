@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.PrintWriter;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,11 +30,12 @@ public class BlogPostsController {
     @RequestMapping("/pl/rss")
     public void getRss(HttpServletRequest request, HttpServletResponse response,
         PrintWriter writer, @RequestParam(required = false) Integer limit,
-        @Value("${generated.rss.entries.limit}") int defaultLimit) {
+        @Value("${generated.rss.entries.limit}") int defaultLimit,
+        @RequestParam(required = false) Set<String> excludedAuthors) {
         limit = firstNonNull(limit, defaultLimit);
         response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);
         new SyndFeedOutput().output(
-            rssProducer.getRss(request.getRequestURL().toString(), limit),
+            rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors),
             writer
         );
     }

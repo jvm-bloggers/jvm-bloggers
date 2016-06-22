@@ -29,7 +29,7 @@ class BlogPostsControllerSpec extends Specification {
         feed.description = AggregatedRssFeedProducer.FEED_DESCRIPTION
         feed.publishedDate = today
         feed.entries = [createSyndEntry("postId", "postUrl", "postTitle",  "postAuthor", "postDescription", today)]
-        1 * getRss(_, _) >> feed
+        1 * getRss(_, _, _) >> feed
     }
 
     @Subject
@@ -43,7 +43,7 @@ class BlogPostsControllerSpec extends Specification {
             HttpServletResponse response = Mock()
             def actualOutput = new ByteArrayOutputStream()
         when:
-            blogPostsController.getRss(request, response, new PrintWriter(actualOutput), null, 0)
+            blogPostsController.getRss(request, response, new PrintWriter(actualOutput), null, 0, null)
         then:
             1 * response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE)
             def actualLines = IOUtils.readLines(IOUtils.toInputStream(actualOutput.toString()))
