@@ -75,7 +75,7 @@ class NewsletterIssueControllerIntegrationSpec extends SpringContextAwareSpecifi
         Blog blog = persistBlog()
         BlogPost blogPost = persistBlogPost(blog)
         NewsletterIssue newsletterIssue = new NewsletterIssue(
-                2, LocalDate.now(), [blog], [blogPost], "Some heading", "Some varia"
+                1, 2, LocalDate.now(), "Some heading", [blogPost], [blog], "Some varia"
         )
         return newsletterIssueRepository.save(newsletterIssue)
     }
@@ -89,6 +89,7 @@ class NewsletterIssueControllerIntegrationSpec extends SpringContextAwareSpecifi
                         .rss("http://someblog.pl/rss")
                         .dateAdded(LocalDateTime.now())
                         .blogType(PERSONAL)
+                        .url("Some url")
                         .build()
         );
     }

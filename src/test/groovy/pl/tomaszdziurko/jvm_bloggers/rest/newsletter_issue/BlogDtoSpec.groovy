@@ -4,12 +4,14 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
 import spock.lang.Specification
 
+import static java.time.LocalDateTime.now
+
 class BlogDtoSpec extends Specification {
 
     def "Should convert blog to its DTO representation"() {
         given:
             Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
-                    "some twitter", null, BlogType.PERSONAL, true)
+                    "some twitter", now(), BlogType.PERSONAL, true)
         when:
             BlogDto blogJson = BlogDto.fromBlog(blog)
         then:
