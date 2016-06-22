@@ -87,6 +87,8 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+    testCompile 'org.springframework:spring-test'
+    testCompile 'com.jayway.jsonpath:json-path:2.2.0'
     testCompile 'cglib:cglib-nodep:3.2.2'
     testCompile 'org.codehaus.groovy:groovy:2.4.7'
     testCompile "com.typesafe.akka:akka-testkit_2.10:$akkaVersion"

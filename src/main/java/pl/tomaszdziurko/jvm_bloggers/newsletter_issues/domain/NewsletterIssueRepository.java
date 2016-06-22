@@ -11,7 +11,7 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
 
     Optional<NewsletterIssue> findByIssueNumber(Long issueNumber);
 
-    NewsletterIssue findFirstByOrderByPublishedDateDesc();
+    Optional<NewsletterIssue> findFirstByOrderByPublishedDateDesc();
 
     List<NewsletterIssue> findTop5ByOrderByPublishedDateDesc();
 
