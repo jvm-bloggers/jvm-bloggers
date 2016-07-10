@@ -812,6 +812,12 @@
       "jsonId": 142,
       "name": "Krzysztof Chruściel, Agnieszka Pieszczek",
       "rss": "http://codecouple.pl/feed/"
+    },
+    {
+      "jsonId": 143,
+      "name": "Maciej Aniserowicz",
+      "rss": "http://feeds.feedburner.com/devtalk_pl?format=xml",
+      "twitter": "@devtalkpl"
     }
   ]
 }
