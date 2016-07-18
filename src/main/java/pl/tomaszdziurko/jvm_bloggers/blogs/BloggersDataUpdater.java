@@ -55,7 +55,6 @@ public class BloggersDataUpdater {
     private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
                                                     UpdateSummary updateSummary,
                                                     Blog existingBlogger) {
-
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
@@ -79,6 +78,9 @@ public class BloggersDataUpdater {
 
     private void createNewBlogger(BloggerEntry bloggerEntry,
                                   UpdateSummary updateSummary) {
+        Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
+        validBlogUrl.ifPresent(bloggerEntry::setUrl);
+
         Blog newBlog = Blog.builder()
             .jsonId(bloggerEntry.getJsonId())
             .author(bloggerEntry.getName())
