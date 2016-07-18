@@ -14,7 +14,7 @@ import java.util.Optional;
 import static pl.tomaszdziurko.jvm_bloggers.rest.ContentTypes.JVM_BLOGGERS_V1;
 
 @RestController
-@RequestMapping(path = "/issues")
+@RequestMapping(path = "/api/issues")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class NewsletterIssueController {
 

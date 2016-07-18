@@ -51,7 +51,7 @@ class NewsletterIssueControllerIntegrationSpec extends SpringContextAwareSpecifi
             NewsletterIssue issue = prepareNewsletterIssue()
         expect:
             mockMvc.perform(MockMvcRequestBuilders
-                    .get("/issues/latest")
+                    .get("/api/issues/latest")
                     .contentType(JVM_BLOGGERS_V1)
                     .accept(JVM_BLOGGERS_V1)
             ).andExpect(status().isOk())
@@ -65,7 +65,7 @@ class NewsletterIssueControllerIntegrationSpec extends SpringContextAwareSpecifi
             newsletterIssueRepository.deleteAll()
         expect:
             mockMvc.perform(MockMvcRequestBuilders
-                    .get("/issues/latest")
+                    .get("/api/issues/latest")
                     .contentType(JVM_BLOGGERS_V1)
                     .accept(JVM_BLOGGERS_V1)
             ).andExpect(status().isNotFound())
