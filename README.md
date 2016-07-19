@@ -44,49 +44,80 @@ __Planned__
 
 ## Technical details
 
-Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a Heroku.
+Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a server hosted by [SoftwareMill](http://SoftwareMill.com).
 
-## Local development setup
 
+## Local development setup: Option A (without Docker)
+ 
 #### Step 1: 
 
-You need a PostgreSQL database (name: `jvm_bloggers`, user/pass: `jvm_bloggers`/`jvm_bloggers`). The easiest and recommended way is to run it as docker container:
-
-	docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -p 5432:5432 -d postgres
+You need a running PostgreSQL instance with database (name: `jvm_bloggers`, user/password: `jvm_bloggers`/`jvm_bloggers`).
 
 #### Step 2:
 
-Execute Gradle `bootRun` task:
-
-    ./gradlew  -Djasypt.encryptor.password=<SECRET_PASSWORD> -Dspring.profiles.active=dev -Ddatabase.host=<JVM_BLOGGERS_DB_HOST_ADDRESS> bootRun
-
-**NOTE**:If the `jvm_bloggers` database is running on _localhost_ then `database.host` property can be omitted (it will be assumed to be _localhost_ by default).
-
+Modify `spring.datasource.url` in `application-dev.yam` file to point to your local database (it will be `jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers` in most cases) 
 
 #### Step 3:
+
+Execute Gradle `bootRun` task:
+
+    ./gradlew  -Djasypt.encryptor.password=<SECRET_PASSWORD> -Dspring.profiles.active=dev bootRun
+
+#### Step 4:
 
 Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and `<SECRET_PASSWORD>` (the password provided in the previous step)
 
 **NOTE:** Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-#### Step 4:
+#### Step 5:
 
 To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
 
-## Running locally with Docker
+## Local development setup: Option B (with Docker and Docker Compose)
 
-    docker run -p 8080:8080 --add-host=jvm_bloggers_db:<JVM_BLOGGERS_DB_HOST_ADDRESS> -e database.host=jvm_bloggers_db -e jasypt.encryptor.password="<jasypt_password>" -e spring.profiles.active="dev" tdziurko/jvm-bloggers:<TAG>
+You need to have Docker and Docker Compose installed :)
+
+#### Step 1:
+
+Create your local image by executing `./gradlew clean buildDocker` and then check what is the exact name of created image with `docker images`. You should see something similar to:
+
+    → docker images
+    REPOSITORY              TAG                             IMAGE ID            CREATED             SIZE
+    tdziurko/jvm-bloggers   0.9.0-20160715-121902-d15c4ed   b783143f6c64        4 days ago          287.8 MB
+
+Alternatively you can use any of published images at https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/
+ 
+#### Step 2:
+
+Put tag of selected image in `jvm-bloggers.sh` file in line:
     
-where TAG is one from https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/ or any tag of your local image repository.      
+    export JVM_BLOGGERS_CORE_IMAGE_VERSION=0.9.0-20160718-225149-5845d23
+
+#### Step 3:
+
+You can adjust other variables in `jvm-bloggers.sh` script:
+
+* `JVM_BLOGGERS_CORE_PORT` - port on which application will start, default port is 9000
+
+* `JVM_BLOGGERS_DB_PUBLISHED_PORT` - port on which database will be available for external clients e.g. your pgAdmin or something similar, default port for database is 5432
+ 
+* `JVM_BLOGGERS_DB_PATH` - path to database files so they could be mounted as a Docker volume 
+
+
+### Step 4:
+
+Execute `./jvm-bloggers.sh start` and then open address on which your docker is running e.g. http://localhost:9000/admin and use password `secret` or other defined using `JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD` 
+
+You can use `start`, `stop`, `status` or `restart` commands with `jvm-bloggers.sh` script.
 
 ## Contributing
 
-Wanna help? Please let me know, you can simply:
+Wanna help? Have any problems or questions? Please let me know! You can simply:
 
 * join [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
 * write an e-mail to GMail: jvmbloggers (at) (you know what).com :)
 * create an issue or comment on existing one 
-* for more details please read our [Contribution guide](CONTRIBUTING.md)
+* for more details about contributing please read our [Contribution guide](CONTRIBUTING.md)
 
 
 **Important:** 
