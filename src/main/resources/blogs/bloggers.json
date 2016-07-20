@@ -818,6 +818,12 @@
       "name": "Maciej Aniserowicz",
       "rss": "http://feeds.feedburner.com/devtalk_pl?format=xml",
       "twitter": "@devtalkpl"
-    }
+    },
+    {
+      "jsonId": 144,
+      "name": "Paweł Zajączkowski",
+      "rss": "https://howtotrainyourjee.com/feed/",
+      "twitter": "@gvaireth"
+}
   ]
 }
