@@ -16,7 +16,7 @@ setupProperties() {
 }
 
 start() {
-    docker-compose up
+    docker-compose up -d
     echo "Started JVM Bloggers"
 }
 
@@ -34,6 +34,10 @@ status() {
     echo "** ** ** ** ** ** ** ** ** ** ** ** "
 }
 
+logs() {
+    docker-compose logs
+}
+
 setupProperties
 
 case "$1" in
@@ -46,7 +50,10 @@ case "$1" in
   status)
     status
     ;;
-  retart)
+  logs)
+    logs
+    ;;
+  restart)
     stop
     start
     ;;

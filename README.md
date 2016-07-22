@@ -71,7 +71,7 @@ Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill 
 
 #### Step 5:
 
-## Local development setup: Option B (with Docker and Docker Compose)
+## Local development setup: Option B (with Docker and Docker Compose, production-like setup)
 
 You need to have Docker and Docker Compose installed :)
 
@@ -106,7 +106,7 @@ You can adjust other variables in `jvm-bloggers.sh` script:
 
 Execute `./jvm-bloggers.sh start` and then open address on which your docker is running e.g. http://localhost:9000/admin and use password `secret` or other defined using `JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD` 
 
-You can use `start`, `stop`, `status` or `restart` commands with `jvm-bloggers.sh` script.
+You can use `start`, `stop`, `status` or `restart`, `logs` commands with `jvm-bloggers.sh` script.
 
 ## Contributing
 
