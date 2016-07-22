@@ -16,11 +16,11 @@ I want to promote blogging as the best way to share knowledge and learn from you
 ##### Your blog/JUG/conference is missing?
 Please create a Pull Request adding it to
  
-* [bloggers.json](bloggers.json) for personal blogs
+* [bloggers.json](src/main/resources/blogs/bloggers.json) for personal blogs
 
-* [companies.json](companies.json) for company blogs
+* [companies.json](src/main/resources/blogs/companies.json) for company blogs
 
-* [videos.json](videos.json) for videos from JUGs/Meetups/Conferences
+* [videos.json](src/main/resources/blogs/videos.json) for videos from JUGs/Meetups/Conferences
 
 and that's all. Once it is merged, you are on the list!
  
