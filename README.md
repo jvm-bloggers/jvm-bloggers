@@ -46,6 +46,8 @@ __Planned__
 
 Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a server hosted by [SoftwareMill](http://SoftwareMill.com).
 
+To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
+
 
 ## Local development setup: Option A (without Docker)
  
@@ -55,7 +57,7 @@ You need a running PostgreSQL instance with database (name: `jvm_bloggers`, user
 
 #### Step 2:
 
-Modify `spring.datasource.url` in `application-dev.yam` file to point to your local database (it will be `jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers` in most cases) 
+Modify `spring.datasource.url` in `application-dev.yaml` file to point to your local database (it will be `jdbc:postgresql://localhost:5432/jvm_bloggers` in most cases) 
 
 #### Step 3:
 
@@ -67,11 +69,7 @@ Execute Gradle `bootRun` task:
 
 Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and `<SECRET_PASSWORD>` (the password provided in the previous step)
 
-**NOTE:** Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
-
 #### Step 5:
-
-To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
 
 ## Local development setup: Option B (with Docker and Docker Compose)
 
@@ -91,7 +89,7 @@ Alternatively you can use any of published images at https://hub.docker.com/r/td
 
 Put tag of selected image in `jvm-bloggers.sh` file in line:
     
-    export JVM_BLOGGERS_CORE_IMAGE_VERSION=0.9.0-20160718-225149-5845d23
+    export JVM_BLOGGERS_CORE_IMAGE_VERSION=0.9.0-20160722-221143-ad56f2c
 
 #### Step 3:
 
