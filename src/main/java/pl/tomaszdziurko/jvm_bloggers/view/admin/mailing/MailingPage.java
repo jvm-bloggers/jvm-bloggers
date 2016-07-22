@@ -29,9 +29,9 @@ import java.util.List;
 
 
 @Slf4j
-@MountPath("admin-mailing")
+@MountPath("mailing-template")
 @AuthorizeInstantiation(Roles.ADMIN)
-public class MailingPage extends AbstractAdminPage {
+public class MailingPage extends AbstractMailingPage {
 
     public static final String WYSIWYG_ID = "wysiwyg";
     public static final String MAILING_TEMPLATE_FORM_ID = "mailingTemplateForm";
