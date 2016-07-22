@@ -120,6 +120,7 @@ group = 'tdziurko'
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
     applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
     tagVersion = jar.version + '-' + getTimestampWithGitHash()
     doFirst {
         copy {
