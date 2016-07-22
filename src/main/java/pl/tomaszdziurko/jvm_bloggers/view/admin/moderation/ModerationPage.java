@@ -7,7 +7,6 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
-
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
@@ -17,7 +16,7 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {
 
-    public static final long BLOG_POSTS_PER_PAGE = 15;
+    public static final int BLOG_POSTS_PER_PAGE = 15;
 
     @SpringBean
     private ModerationPageRequestHandler requestHandler;
