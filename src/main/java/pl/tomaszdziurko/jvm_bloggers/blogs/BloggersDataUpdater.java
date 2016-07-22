@@ -79,6 +79,10 @@ public class BloggersDataUpdater {
     private void createNewBlogger(BloggerEntry bloggerEntry,
                                   UpdateSummary updateSummary) {
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
+        if (!validBlogUrl.isPresent()) {
+            log.warn("No url found for blog {}, Skipping", bloggerEntry.getRss());
+            return;
+        }
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
         Blog newBlog = Blog.builder()
