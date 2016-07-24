@@ -49,11 +49,16 @@ Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, runni
 To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
 
 
-## Local development setup: Option A (without Docker)
+## Local development setup: Option A (without Docker Compose)
  
 #### Step 1: 
 
-You need a running PostgreSQL instance with database (name: `jvm_bloggers`, user/password: `jvm_bloggers`/`jvm_bloggers`).
+You need a running PostgreSQL instance with database (name: `jvm_bloggers`, user/password: `jvm_bloggers`/`jvm_bloggers`)
+
+
+Note: You can start this database with Docker:
+
+    docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -p 5432:5432 -d postgres
 
 #### Step 2:
 
@@ -71,7 +76,7 @@ Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill 
 
 #### Step 5:
 
-## Local development setup: Option B (with Docker and Docker Compose, production-like setup)
+## Local development setup: Option B (with Docker and Docker Compose)
 
 You need to have Docker and Docker Compose installed :)
 
