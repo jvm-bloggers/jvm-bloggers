@@ -46,7 +46,11 @@ public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
     @VisibleForTesting
-    static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
+    static final String FEED_DESCRIPTION =
+        "JVMBloggers aggregated feed. You can customize your rss results by using parameters"
+        + "`limit` and 'excludedAuthors` (comma delimeted names) parameters. "
+        + "Example: http://jvm-bloggers.com/pl/rss?limit=5&excludedAuthors=Tomasz Dziurko Adam Warski";
+
     @VisibleForTesting
     static final String FEED_TITLE = "JVMBloggers";
     @VisibleForTesting
