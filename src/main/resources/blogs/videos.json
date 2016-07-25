@@ -29,6 +29,13 @@
       "name": "Poznań JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQqIfvcYb1nWNFP-X1woAQ",
       "twitter": "@PoznanJUG"
+    },
+    {
+      "jsonId": 20006,
+      "name": "Polish JUG",
+      "rss": "https://vimeo.com/polishjug/videos/rss",
+      "twitter": "@polishjug"
+      
     }
   ]
 }
