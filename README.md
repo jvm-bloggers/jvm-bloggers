@@ -44,9 +44,11 @@ __Planned__
 
 ## Technical details
 
-Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a server hosted by [SoftwareMill](http://SoftwareMill.com).
+* Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. Currenly it runs on a server hosted by [SoftwareMill](http://SoftwareMill.com).
 
-To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
+* To import the project into IDE first execute `./gradlew eclipse` or `./gradlew idea` (depending on your IDE) to generate project files and import them into IDE.
+
+* Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
 
 ## Local development setup: Option A (without Docker Compose)
