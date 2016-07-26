@@ -2,12 +2,10 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
-
 import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-
 import spock.lang.Subject
 import spock.lang.Unroll
 
@@ -94,6 +92,25 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             [] as Set                      || 0
             [EXCLUDED_AUTHOR] as Set       || 1
             INCLUDE_ALL_AUTHORS_SET as Set || 2
+    }
+
+    @Unroll
+    def "Should find #expectedCount blogPosts with url longer than #maxLength and limit #limit"() {
+        given:
+            Blog blog = aBlog("Any Author", "http://any.com")
+            blogPostRepository.save(aBlogPost(1, LocalDateTime.now(), true, blog))
+            blogPostRepository.save(aBlogPost(2, LocalDateTime.now(), true, blog))
+            blogPostRepository.save(aBlogPost(3, LocalDateTime.now(), true, blog))
+            blogPostRepository.save(aBlogPost(4, LocalDateTime.now(), true, blog))
+        when:
+            List<BlogPost> postsToShortenUid = blogPostRepository.findPostsWithUidLongerThan(maxLength, new PageRequest(0, limit))
+        then:
+            postsToShortenUid.size() == expectedCount
+        where:
+            maxLength               | limit || expectedCount
+            BlogPost.UID_LENGTH     | 10    || 0
+            BlogPost.UID_LENGTH - 1 | 10    || 4
+            BlogPost.UID_LENGTH - 1 | 2     || 2
     }
 
     private Blog aBlog(String author, String rssUrl) {

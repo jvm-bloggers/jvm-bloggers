@@ -16,7 +16,7 @@ class NewsletterIssueDtoSpec extends Specification {
         given:
             Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
                     "some twitter", now(), BlogType.PERSONAL, true)
-            BlogPost post = new BlogPost(1, "some title", "some description", "some url", now(), true, blog)
+            BlogPost post = new BlogPost("uid", 1, "some title", "some description", "some url", now(), true, blog)
             NewsletterIssue issue = new NewsletterIssue(1, 2, LocalDate.now(), "Some heading", [post],
                     [blog], "Some varia")
         when:

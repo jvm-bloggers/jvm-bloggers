@@ -13,7 +13,7 @@ class BlogPostDtoSpec extends Specification {
         given:
             Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
                     "some twitter", now(), BlogType.PERSONAL, true)
-            BlogPost post = new BlogPost(1, "some title", "some description", "some url", now(), true, blog)
+            BlogPost post = new BlogPost("uid", 1, "some title", "some description", "some url", now(), true, blog)
         when:
             BlogPostDto blogPostJson = BlogPostDto.fromBlogPost(post)
         then:
