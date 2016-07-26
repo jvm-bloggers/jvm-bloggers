@@ -35,7 +35,18 @@
       "name": "Polish JUG",
       "rss": "https://vimeo.com/polishjug/videos/rss",
       "twitter": "@polishjug"
-      
+    },
+    {
+      "jsonId": 20007,
+      "name": "GeeCON",
+      "rss": "https://vimeo.com/geecon/videos/rss",
+      "twitter": "@geecon"
+    },
+    {
+      "jsonId": 20008,
+      "name": "Confitura",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkVjQGf_e0JmlonPMS4VNXQ",
+      "twitter": "@confiturapl"
     }
   ]
 }
