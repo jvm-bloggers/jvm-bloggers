@@ -52,6 +52,20 @@ __Planned__
 
 # [Development and contribution guidelelins Wiki](https://github.com/tdziurko/jvm-bloggers/wiki)
 
+## Contributors
+
+* [Tomasz Dziurko](http://tomaszdziurko.pl) - project leader
+* [Marcin Kłopotek](https://github.com/goostleek)
+* [Mateusz Urbański](https://github.com/matek2305)
+* [Jakub Spręga](http://cslysy.github.io/)
+* [Dawid Pura](https://github.com/puradawid)
+* [Jacek Jackowiak](https://github.com/airborn)
+* [Maciej Szarliński](https://github.com/mszarlinski)
+* [Marcin Zajączkowski](https://solidsoft.wordpress.com/)
+* [Jonatan Borkowski](https://github.com/jborkowski)
+* [Bartłomiej Piech](https://github.com/delor)
+* [Sławomir Leski](https://github.com/sleski)
+
 #### Contact
 
 If you need direct contact, you can reach JVM Bloggers project via:
