@@ -50,88 +50,12 @@ __Planned__
 
 * Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-
-## Local development setup: Option A (without Docker Compose)
- 
-#### Step 1: 
-
-You need a running PostgreSQL instance with database (name: `jvm_bloggers`, user/password: `jvm_bloggers`/`jvm_bloggers`)
-
-
-Note: You can start this database with Docker:
-
-    docker run --name jvm-bloggers-db -e POSTGRES_USER=jvm_bloggers -e POSTGRES_PASSWORD=jvm_bloggers -p 5432:5432 -d postgres
-
-#### Step 2:
-
-Modify `spring.datasource.url` in `application-dev.yaml` file to point to your local database (it will be `jdbc:postgresql://localhost:5432/jvm_bloggers` in most cases) 
-
-#### Step 3:
-
-Execute Gradle `bootRun` task:
-
-    ./gradlew  -Djasypt.encryptor.password=<SECRET_PASSWORD> -Dspring.profiles.active=dev bootRun
-
-#### Step 4:
-
-Navigate to [http://localhost:8080/admin](http://localhost:8080/admin) and fill login form with any login and `<SECRET_PASSWORD>` (the password provided in the previous step)
-
-#### Step 5:
-
-## Local development setup: Option B (with Docker and Docker Compose)
-
-You need to have Docker and Docker Compose installed :)
-
-#### Step 1:
-
-Create your local image by executing `./gradlew clean buildDocker` and then check what is the exact name of created image with `docker images`. You should see something similar to:
-
-    → docker images
-    REPOSITORY              TAG                             IMAGE ID            CREATED             SIZE
-    tdziurko/jvm-bloggers   0.9.0-20160715-121902-d15c4ed   b783143f6c64        4 days ago          287.8 MB
-
-Alternatively you can use any of published images at https://hub.docker.com/r/tdziurko/jvm-bloggers/tags/
- 
-#### Step 2:
-
-Put tag of selected image in `jvm-bloggers.sh` file in line:
-    
-    export JVM_BLOGGERS_CORE_IMAGE_VERSION=0.9.0-20160722-221143-ad56f2c
-
-#### Step 3:
-
-You can adjust other variables in `jvm-bloggers.sh` script:
-
-* `JVM_BLOGGERS_CORE_PORT` - port on which application will start, default port is 9000
-
-* `JVM_BLOGGERS_DB_PUBLISHED_PORT` - port on which database will be available for external clients e.g. your pgAdmin or something similar, default port for database is 5432
- 
-* `JVM_BLOGGERS_DB_PATH` - path to database files so they could be mounted as a Docker volume 
-
-
-### Step 4:
-
-Execute `./jvm-bloggers.sh start` and then open address on which your docker is running e.g. http://localhost:9000/admin and use password `secret` or other defined using `JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD` 
-
-You can use `start`, `stop`, `status` or `restart`, `logs` commands with `jvm-bloggers.sh` script.
-
-## Contributing
-
-Wanna help? Have any problems or questions? Please let me know! You can simply:
-
-* join [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
-* write an e-mail to GMail: jvmbloggers (at) (you know what).com :)
-* create an issue or comment on existing one 
-* for more details about contributing please read our [Contribution guide](CONTRIBUTING.md)
-
-
-**Important:** 
-
-1. Before coding please comment on issue that you will be working on so we do not duplicate efforts :)
-2. PR with code cleanups are also welcome :)
-
-This is a community driven open source project, so any help is appreciated!
+# [Development and contribution guidelelins Wiki](https://github.com/tdziurko/jvm-bloggers/wiki)
 
 #### Contact
 
-If you need direct contact, you can reach JVM Bloggers project at GMail: jvmbloggers (at) (you know what).(you know what too) :)
+If you need direct contact, you can reach JVM Bloggers project via:
+
+* GMail: jvmbloggers (at) (you know what).(you know what too) :)
+* [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
+
