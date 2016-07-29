@@ -1,6 +1,7 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts.data_migration;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,12 @@ import pl.tomaszdziurko.jvm_bloggers.TimeConstants;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogPostUuidShorteningConvertingScheduler {
 
     private static final int BATCH_SIZE = 250;
 
     private final BlogPostUidShortener uuidShortener;
-
-    @Autowired
-    public BlogPostUuidShorteningConvertingScheduler(BlogPostUidShortener uuidShortener) {
-        this.uuidShortener = uuidShortener;
-    }
 
     @Scheduled(fixedDelay = TimeConstants.ONE_MINUTE)
     public void convertUidToShorterForm() {
