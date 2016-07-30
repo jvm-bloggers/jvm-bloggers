@@ -17,9 +17,6 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author Mateusz Urbański <matek2305@gmail.com>
- */
 @RestController
 @RequestMapping(path = "/r")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -46,8 +43,8 @@ public class RedirectController {
                 .withMedium(UTM_MEDIUM)
                 .withCampaign(UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING)
                 .build());
-        } catch (IOException e) {
-            throw new RuntimeException("Error while sending redirect to " + blogPost.getUrl(), e);
+        } catch (IOException ex) {
+            throw new RuntimeException("Error while sending redirect to " + blogPost.getUrl(), ex);
         }
     }
 }

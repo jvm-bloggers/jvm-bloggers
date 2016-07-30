@@ -9,9 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
-/**
- * @author Mateusz Urbański <matek2305@gmail.com>
- */
+
 class RedirectControllerSpec extends Specification {
 
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
@@ -26,7 +24,8 @@ class RedirectControllerSpec extends Specification {
         expect:
             mockMvc.perform(get("/r/$uid"))
                 .andExpect(status().isFound())
-                .andExpect(header().string('Location', "$url?utm_source=jvm-bloggers.com&utm_medium=link&utm_campaign=jvm-bloggers"))
+                .andExpect(header().string('Location',
+                    "$url?utm_source=jvm-bloggers.com&utm_medium=link&utm_campaign=jvm-bloggers"))
     }
 
     def "should return 404 when blogpost does not exist"() {
