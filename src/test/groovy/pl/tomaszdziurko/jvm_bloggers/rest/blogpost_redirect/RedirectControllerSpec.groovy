@@ -12,10 +12,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * @author Mateusz Urbański <matek2305@gmail.com>
  */
-class BlogpostRedirectControllerSpec extends Specification {
+class RedirectControllerSpec extends Specification {
 
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
-    private MockMvc mockMvc = standaloneSetup(new BlogpostRedirectController(blogPostRepositoryMock)).build()
+    private MockMvc mockMvc = standaloneSetup(new RedirectController(blogPostRepositoryMock)).build()
 
     def "should redirect to blogpost url"() {
         given:
@@ -24,9 +24,9 @@ class BlogpostRedirectControllerSpec extends Specification {
         and:
             blogPostRepositoryMock.findByUid(uid) >> Optional.of(new BlogPost(url: url))
         expect:
-            mockMvc.perform(get("/blogpost/r/$uid"))
+            mockMvc.perform(get("/r/$uid"))
                 .andExpect(status().isFound())
-                .andExpect(header().string('Location', url))
+                .andExpect(header().string('Location', "$url?utm_source=jvm-bloggers.com&utm_medium=link&utm_campaign=jvm-bloggers"))
     }
 
     def "should return 404 when blogpost does not exist"() {
@@ -35,7 +35,7 @@ class BlogpostRedirectControllerSpec extends Specification {
         and:
             blogPostRepositoryMock.findByUid(uid) >> Optional.empty()
         expect:
-            mockMvc.perform(get("/blogpost/r/$uid"))
+            mockMvc.perform(get("/r/$uid"))
                 .andExpect(status().isNotFound())
     }
 }
