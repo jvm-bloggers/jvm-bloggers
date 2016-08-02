@@ -38,7 +38,7 @@ public class BlogPost {
     public static final int UID_LENGTH = 7;
 
     @Column(name = "UID", unique = true, nullable = false)
-    private String uid = RandomStringUtils.randomAlphanumeric(UID_LENGTH);
+    private String uid = generateRandomUid();
 
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
@@ -100,8 +100,12 @@ public class BlogPost {
         return new BlogPostBuilder();
     }
 
+    private static String generateRandomUid() {
+        return RandomStringUtils.randomAlphanumeric(UID_LENGTH);
+    }
+
     public static class BlogPostBuilder {
-        private String uid  = RandomStringUtils.randomAlphanumeric(UID_LENGTH);
+        private String uid  = generateRandomUid();
         private Long id;
         private String title;
         private String description;
@@ -111,11 +115,6 @@ public class BlogPost {
         private Blog blog;
 
         BlogPostBuilder() {
-        }
-
-        public BlogPost.BlogPostBuilder uid(String uid) {
-            this.uid = uid;
-            return this;
         }
 
         public BlogPost.BlogPostBuilder id(Long id) {
@@ -164,4 +163,5 @@ public class BlogPost {
                 + ", approved=" + this.approved + ", blog=" + this.blog + ")";
         }
     }
+
 }
