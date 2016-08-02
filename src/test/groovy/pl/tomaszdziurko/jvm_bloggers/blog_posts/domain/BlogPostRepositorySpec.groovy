@@ -94,25 +94,6 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             INCLUDE_ALL_AUTHORS_SET as Set || 2
     }
 
-    @Unroll
-    def "Should find #expectedCount blogPosts with url longer than #maxLength and limit #limit"() {
-        given:
-            Blog blog = aBlog("Any Author", "http://any.com")
-            blogPostRepository.save(aBlogPost(1, LocalDateTime.now(), true, blog))
-            blogPostRepository.save(aBlogPost(2, LocalDateTime.now(), true, blog))
-            blogPostRepository.save(aBlogPost(3, LocalDateTime.now(), true, blog))
-            blogPostRepository.save(aBlogPost(4, LocalDateTime.now(), true, blog))
-        when:
-            List<BlogPost> postsToShortenUid = blogPostRepository.findPostsWithUidLongerThan(maxLength, new PageRequest(0, limit))
-        then:
-            postsToShortenUid.size() == expectedCount
-        where:
-            maxLength               | limit || expectedCount
-            BlogPost.UID_LENGTH     | 10    || 0
-            BlogPost.UID_LENGTH - 1 | 10    || 4
-            BlogPost.UID_LENGTH - 1 | 2     || 2
-    }
-
     private Blog aBlog(String author, String rssUrl) {
         return blogRepository.save(
                 Blog.builder()
