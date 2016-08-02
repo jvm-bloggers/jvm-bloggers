@@ -38,7 +38,7 @@ public class BlogPost {
     public static final int UID_LENGTH = 7;
 
     @Column(name = "UID", unique = true, nullable = false)
-    private String uid = generateRandomUid();
+    private final String uid = generateRandomUid();
 
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
@@ -153,7 +153,7 @@ public class BlogPost {
         }
 
         public BlogPost build() {
-            return new BlogPost(uid, id, title, description, url, publishedDate, approved, blog);
+            return new BlogPost(id, title, description, url, publishedDate, approved, blog);
         }
 
         public String toString() {
