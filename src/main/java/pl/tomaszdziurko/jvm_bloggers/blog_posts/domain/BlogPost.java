@@ -5,15 +5,15 @@ import com.google.common.annotations.VisibleForTesting;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +31,14 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
 @EntityListeners(BlogPostEntityListener.class)
 public class BlogPost {
 
     public static final int MAX_DESCRIPTION_LENGTH = 4096;
+    public static final int UID_LENGTH = 7;
 
     @Column(name = "UID", unique = true, nullable = false)
-    private final String uid = UUID.randomUUID().toString();
+    private final String uid = generateRandomUid();
 
     @Id
     @GeneratedValue(generator = "BLOG_POST_SEQ", strategy = GenerationType.SEQUENCE)
@@ -95,4 +95,73 @@ public class BlogPost {
     public boolean isGoingInNewsletter(final LocalDateTime lastPublicationDate) {
         return publishedDate.isAfter(lastPublicationDate);
     }
+
+    public static BlogPostBuilder builder() {
+        return new BlogPostBuilder();
+    }
+
+    private static String generateRandomUid() {
+        return RandomStringUtils.randomAlphanumeric(UID_LENGTH);
+    }
+
+    public static class BlogPostBuilder {
+        private String uid  = generateRandomUid();
+        private Long id;
+        private String title;
+        private String description;
+        private String url;
+        private LocalDateTime publishedDate;
+        private Boolean approved;
+        private Blog blog;
+
+        BlogPostBuilder() {
+        }
+
+        public BlogPost.BlogPostBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder url(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder publishedDate(LocalDateTime publishedDate) {
+            this.publishedDate = publishedDate;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder approved(Boolean approved) {
+            this.approved = approved;
+            return this;
+        }
+
+        public BlogPost.BlogPostBuilder blog(Blog blog) {
+            this.blog = blog;
+            return this;
+        }
+
+        public BlogPost build() {
+            return new BlogPost(id, title, description, url, publishedDate, approved, blog);
+        }
+
+        public String toString() {
+            return "pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost.BlogPostBuilder(uid="
+                + this.uid + ", id=" + this.id + ", title=" + this.title + ", description="
+                + this.description + ", url=" + this.url + ", publishedDate=" + this.publishedDate
+                + ", approved=" + this.approved + ", blog=" + this.blog + ")";
+        }
+    }
+
 }
