@@ -1,8 +1,9 @@
 package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
-import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
+import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
+
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -14,7 +15,7 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
         given:
-            BlogPost blogPost = createBlogPost(approved);
+            BlogPost blogPost = createBlogPost(approved)
         when:
             String approvalState = blogPost.getApprovalState()
         then:
@@ -74,7 +75,14 @@ class BlogPostSpec extends Specification {
                 .url("url")
                 .dateAdded(publicationDate)
                 .build())
-            .build();
+            .build()
+    }
+
+    def "Should create BlogPost with random uid"() {
+        when:
+            BlogPost blogPost = createBlogPost(false)
+        then:
+            blogPost.uid != null
     }
 
 }
