@@ -15,7 +15,7 @@ class RedirectControllerSpec extends Specification {
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
     private MockMvc mockMvc = standaloneSetup(new RedirectController(blogPostRepositoryMock)).build()
 
-    def "should redirect to blogpost url"() {
+    def "Should redirect to blogpost url"() {
         given:
             final String uid = '1234'
             final String url = 'http://www.blog.com/post'
@@ -28,7 +28,7 @@ class RedirectControllerSpec extends Specification {
                     "$url?utm_source=jvm-bloggers.com&utm_medium=link&utm_campaign=jvm-bloggers"))
     }
 
-    def "should return 404 when blogpost does not exist"() {
+    def "Should return 404 when blogpost does not exist"() {
         given:
             final String uid = '1234'
         and:
