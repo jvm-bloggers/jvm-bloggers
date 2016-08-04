@@ -31,12 +31,13 @@ import javax.servlet.http.HttpServletResponse;
 import static akka.actor.ActorRef.noSender;
 
 @RestController
-@RequestMapping(path = "/r")
+@RequestMapping(path = RedirectController.REDIRECT_URL_PATH)
 @Slf4j
 public class RedirectController {
 
     private static final String UTM_MEDIUM = "link";
     private static final int MAX_ALLOWED_EXECUTION_TIME_IN_MILLIS = 1000;
+    public static final String REDIRECT_URL_PATH = "/r";
 
     private final BlogPostRepository blogPostRepository;
     private final ActorRef actorRef;
