@@ -1,8 +1,11 @@
 package pl.tomaszdziurko.jvm_bloggers.rest.blogpost_redirect
 
+import akka.actor.ActorSystem
 import org.springframework.test.web.servlet.MockMvc
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
+import pl.tomaszdziurko.jvm_bloggers.click_counter.domain.ClickRepository
+import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -13,7 +16,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 class RedirectControllerSpec extends Specification {
 
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
-    private MockMvc mockMvc = standaloneSetup(new RedirectController(blogPostRepositoryMock)).build()
+    private MockMvc mockMvc = standaloneSetup(
+            new RedirectController(
+                    blogPostRepositoryMock,
+                    Stub(ClickRepository),
+                    ActorSystem.create("test"),
+                    Stub(NowProvider)))
+            .build()
 
     def "Should redirect to blogpost url"() {
         given:

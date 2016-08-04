@@ -333,4 +333,27 @@
         <dropColumn tableName="blog_post" columnName="newsletter_issue_id"/>
     </changeSet>
 
+    <changeSet id="034-add-click-table" author="Tomasz.Dziurko">
+        <createSequence sequenceName="CLICK_SEQ" />
+
+        <createTable tableName="CLICK">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="BLOG_POST_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CLICK_DATE" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="CLICK" baseColumnNames="BLOG_POST_ID"
+                                 constraintName="CLICK_TO_BLOG_POST" referencedTableName="BLOG_POST"
+                                 referencedColumnNames="ID"
+        />
+
+    </changeSet>
+
 </databaseChangeLog>
