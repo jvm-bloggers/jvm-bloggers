@@ -70,6 +70,12 @@
       "jsonId": 10012,
       "name": "Codete",
       "rss": "http://codete.com/blog/feed/"
+    },
+    {
+      "jsonId": 10013,
+      "name": "Sages",
+      "rss": "http://www.sages.com.pl/blog/feed.xml",
+      "twitter": "@sagespl"
     }
   ]
 }
