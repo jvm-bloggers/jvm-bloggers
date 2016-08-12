@@ -2,10 +2,10 @@ package pl.tomaszdziurko.jvm_bloggers.mailing;
 
 import com.google.common.base.Strings;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
@@ -22,19 +22,30 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
+import static pl.tomaszdziurko.jvm_bloggers.rest.blogpost_redirect.RedirectController.REDIRECT_URL_PATH;
 import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
 import static pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
 
 
 @Component
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogSummaryMailGenerator {
 
-    public static final int DAYS_IN_THE_PAST = 7;
+    private static final int DAYS_IN_THE_PAST = 7;
     private static final char TEMPLATE_DELIMITER = '$';
     private static final String UTM_MEDIUM = "newsletter";
+
     private MetadataRepository metadataRepository;
+    private String applicationBaseUrl;
+
+    @Autowired
+    public BlogSummaryMailGenerator(
+        MetadataRepository metadataRepository,
+        @Value("${application.baseUrl}") String applicationBaseUrl
+    ) {
+        this.metadataRepository = metadataRepository;
+        this.applicationBaseUrl = applicationBaseUrl;
+    }
 
     public String prepareMailContent(NewsletterIssue newsletterIssue) {
         String greeting = getValueForSection(MetadataKeys.MAILING_GREETING);
@@ -84,7 +95,7 @@ public class BlogSummaryMailGenerator {
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)
-                .withUrl(urlWithUtmParameters(blogPost.getUrl(), issueNumber))
+                .withUrl(createRedirectLink(blogPost.getUid()))
                 .build()
         ).collect(Collectors.toList());
     }
@@ -105,4 +116,9 @@ public class BlogSummaryMailGenerator {
             .withCampaign(String.format("%s#%s", DEFAULT_UTM_CAMPAING, issueNumber))
             .build();
     }
+
+    private String createRedirectLink(String blogPostUid) {
+        return applicationBaseUrl + REDIRECT_URL_PATH + "/" + blogPostUid;
+    }
+
 }
