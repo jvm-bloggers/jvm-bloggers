@@ -17,6 +17,8 @@ import static pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType.PERSONAL
 
 class BloggersDataUpdaterSpec extends Specification {
 
+    public static final String RSS_OF_VALID_BLOG = "http://blog.pl/rss"
+    public static final String RSS_OF_INVALID_BLOG = "http://invalidblog.pl/rss"
     BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
@@ -84,7 +86,7 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should insert new Person for entry with new json_id"() {
         given:
             Long jsonId = 2207L
-            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", PERSONAL)
+            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", RSS_OF_VALID_BLOG, "page", "twitter", PERSONAL)
             blogRepository.findByJsonId(jsonId) >> Optional.empty()
         when:
             BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
@@ -92,6 +94,20 @@ class BloggersDataUpdaterSpec extends Specification {
         then:
             1 * blogRepository.save(_ as Blog)
             summary.createdEntries == 1
+            summary.updatedEntries == 0
+    }
+
+    def "Should skip insertion of new Person for entry without valid url in rss"() {
+        given:
+            Long jsonId = 2207L
+            BloggerEntry entry = buildBloggerEntry(jsonId, "blog", RSS_OF_INVALID_BLOG, "page", "twitter", PERSONAL)
+            blogRepository.findByJsonId(jsonId) >> Optional.empty()
+        when:
+            BloggersDataUpdater.UpdateSummary summary = new BloggersDataUpdater.UpdateSummary(1)
+            bloggersDataUpdater.updateSingleEntry(entry, summary)
+        then:
+            0 * blogRepository.save(_ as Blog)
+            summary.createdEntries == 0
             summary.updatedEntries == 0
     }
 
@@ -148,7 +164,7 @@ class BloggersDataUpdaterSpec extends Specification {
             String newBlogUrl = "http://new.blog.pl"
             Long jsonId = 2207L
             Blog blog = buildBlog(
-                    jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                    jsonId, "author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
                     "twitter", LocalDateTime.now(), PERSONAL
             )
             BloggerEntry entry = new BloggerEntry(
@@ -168,7 +184,7 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
             Long jsonId = 2207L
             Blog blog = buildBlog(
-                    jsonId, "author", "http://blog.pl/rss", "http://old.blog.pl",
+                    jsonId, "author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
                     "twitter", LocalDateTime.now(), PERSONAL
             )
             BloggerEntry entry = new BloggerEntry(
@@ -207,7 +223,7 @@ class BloggersDataUpdaterSpec extends Specification {
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
         producer.validUrlFromRss("") >> Optional.empty()
-        producer.validUrlFromRss("http://blog.pl/rss") >> Optional.of("http://new.blog.pl/")
+        producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Optional.of("http://new.blog.pl/")
         return producer
     }
 }

@@ -26,8 +26,8 @@ import org.springframework.util.StopWatch;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
+import pl.tomaszdziurko.jvm_bloggers.click_counter.RedirectLinkGenerator;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
-import pl.tomaszdziurko.jvm_bloggers.utils.UriUtmComponentsBuilder;
 import pl.tomaszdziurko.jvm_bloggers.utils.Validators;
 
 import java.util.Arrays;
@@ -46,7 +46,11 @@ public class AggregatedRssFeedProducer {
 
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
     @VisibleForTesting
-    static final String FEED_DESCRIPTION = "JVMBloggers aggregated feed";
+    static final String FEED_DESCRIPTION =
+        "JVMBloggers aggregated feed. You can customize your rss results by using parameters "
+        + "`limit` and 'excludedAuthors` (comma delimited names) parameters. "
+        + "Example: http://jvm-bloggers.com/pl/rss?limit=5&excludedAuthors=Tomasz Dziurko Adam Warski";
+
     @VisibleForTesting
     static final String FEED_TITLE = "JVMBloggers";
     @VisibleForTesting
@@ -60,6 +64,7 @@ public class AggregatedRssFeedProducer {
 
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
+    private final RedirectLinkGenerator linkGenerator;
 
     /**
      * Generates aggregated RSS feed for all or given <tt>limit</tt> of approved blog posts.
@@ -114,7 +119,7 @@ public class AggregatedRssFeedProducer {
     private SyndEntry toRssEntry(BlogPost post) {
         final SyndEntry rssEntry = new SyndEntryImpl();
         rssEntry.setTitle(post.getTitle());
-        rssEntry.setLink(addUtmComponents(post.getUrl()));
+        rssEntry.setLink(linkGenerator.generateLinkFor(post.getUid()));
         rssEntry.setAuthor(post.getBlog().getAuthor());
         rssEntry.setPublishedDate(toDate(post.getPublishedDate()));
         rssEntry.setUri(post.getUid());
@@ -127,14 +132,6 @@ public class AggregatedRssFeedProducer {
         }
 
         return rssEntry;
-    }
-
-    private String addUtmComponents(String url) {
-        return UriUtmComponentsBuilder.fromHttpUrl(url)
-            .withSource(UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE)
-            .withMedium(UTM_MEDIUM)
-            .withCampaign(UTM_CAMPAIGN)
-            .build();
     }
 
     private SyndFeed buildFeed(final List<SyndEntry> feedItems, String requestedUrlString) {

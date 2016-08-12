@@ -2,12 +2,10 @@ package pl.tomaszdziurko.jvm_bloggers.blog_posts.domain
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
-
 import pl.tomaszdziurko.jvm_bloggers.SpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-
 import spock.lang.Subject
 import spock.lang.Unroll
 

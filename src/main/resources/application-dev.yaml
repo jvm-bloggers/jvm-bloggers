@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${database.host:localhost}:5432/jvm_bloggers
+    url: jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers
     username: jvm_bloggers
     password: jvm_bloggers
     driver: org.postgresql.Driver
@@ -21,3 +21,5 @@ wicket.core.settings.debug.ajaxDebugModeEnabled: true
 wicket.core.settings.debug.componentUseCheck: true
 
 logging.level.pl.tomaszdziurko.jvm_bloggers: DEBUG
+
+application.baseUrl: http://localhost:8080

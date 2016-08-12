@@ -812,6 +812,24 @@
       "jsonId": 142,
       "name": "Krzysztof Chruściel, Agnieszka Pieszczek",
       "rss": "http://codecouple.pl/feed/"
+    },
+    {
+      "jsonId": 143,
+      "name": "Maciej Aniserowicz",
+      "rss": "http://feeds.feedburner.com/devtalk_pl?format=xml",
+      "twitter": "@devtalkpl"
+    },
+    {
+      "jsonId": 144,
+      "name": "Paweł Zajączkowski",
+      "rss": "https://howtotrainyourjee.com/feed/",
+      "twitter": "@gvaireth"
+    },
+    {
+      "jsonId": 145,
+      "name": "Jakub Dziworski",
+      "rss": "http://jakubdziworski.github.io/feed.xml",
+      "twitter": "@Jakub_Dziworski"
     }
   ]
 }

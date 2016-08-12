@@ -18,11 +18,8 @@ youtube.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/m
 generated.rss.entries.limit: 50
 items.pagination.size: 15
 
+application.baseUrl: http://jvm-bloggers.com
+
 # Logging
 logging.level.root: INFO
 logging.level.pl.tomaszdziurko.jvm_bloggers: DEBUG
-
-
-# REST API
-server:
-  context-path: "/api"

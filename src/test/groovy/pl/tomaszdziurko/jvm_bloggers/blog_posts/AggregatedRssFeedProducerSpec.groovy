@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
+import pl.tomaszdziurko.jvm_bloggers.click_counter.RedirectLinkGenerator
+import pl.tomaszdziurko.jvm_bloggers.rest.blogpost_redirect.RedirectController
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
@@ -19,7 +21,7 @@ import static pl.tomaszdziurko.jvm_bloggers.blog_posts.AggregatedRssFeedProducer
 
 class AggregatedRssFeedProducerSpec extends Specification {
 
-    String EXPECTED_UTM_SUBSTRING = "?utm_source=jvm-bloggers.com&utm_medium=RSS&utm_campaign=RSS"
+    public static final String BASE_URL = "http://test"
     String DESCRIPTION = "description"
     String TITLE_1 = "title_1"
     String TITLE_2 = "title_2"
@@ -50,8 +52,10 @@ class AggregatedRssFeedProducerSpec extends Specification {
         now() >> DATE
     }
 
+    RedirectLinkGenerator linkGenerator = new RedirectLinkGenerator(BASE_URL)
+
     @Subject
-    AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider)
+    AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider, linkGenerator)
 
     def "Should produce aggregated RSS feed with all entries having valid url"() {
         when:
@@ -70,7 +74,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             }
         and:
             with (feed.entries[0]) {
-                link == URL_1 + EXPECTED_UTM_SUBSTRING
+                link == redirectUrlForUid(UID_1)
                 title == TITLE_1
                 author == AUTHOR_1
                 description.value == DESCRIPTION
@@ -80,7 +84,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             }
         and:
             with (feed.entries[1]) {
-                link == URL_2 + EXPECTED_UTM_SUBSTRING
+                link == redirectUrlForUid(UID_2)
                 title == TITLE_2
                 author == AUTHOR_2
                 description == null
@@ -108,7 +112,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             }
         and:
             with (feed.entries[0]) {
-                link == URL_1 + EXPECTED_UTM_SUBSTRING
+                link == redirectUrlForUid(UID_1)
                 title == TITLE_1
                 author == AUTHOR_1
                 description.value == DESCRIPTION
@@ -116,6 +120,10 @@ class AggregatedRssFeedProducerSpec extends Specification {
                 author == AUTHOR_1
                 uri == UID_1
             }
+    }
+
+    private String redirectUrlForUid(String uid) {
+        return BASE_URL + RedirectController.REDIRECT_URL_PATH + "/" + uid
     }
 
     @Unroll
