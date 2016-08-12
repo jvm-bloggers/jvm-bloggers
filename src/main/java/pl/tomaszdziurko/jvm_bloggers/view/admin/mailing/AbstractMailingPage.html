@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
+>
+<head>
+</head>
+<body>
+
+<wicket:extend>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Mailing Settings</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <ul class="nav nav-tabs">
+            <li>
+                <a wicket:id="mailingTemplateLink">Template</a>
+            </li>
+            <li>
+                <a wicket:id="mailingAddressesLink">Addresses</a>
+            </li>
+        </ul>
+    <wicket:child/>
+    </div>
+    <!-- /#page-wrapper -->
+
+</wicket:extend>
+
+</body>
+</html>

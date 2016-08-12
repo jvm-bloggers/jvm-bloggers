@@ -14,6 +14,8 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
 
 import java.util.Iterator;
 
+import static pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage.BLOG_POSTS_PER_PAGE;
+
 @Component
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -24,11 +26,10 @@ public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
     @Override
     public Iterator<? extends BlogPost> iterator(long first, long count) {
         log.debug("Refreshing data, first {}, count {}", first, count);
-        int page = Long.valueOf(first / ModerationPage.BLOG_POSTS_PER_PAGE).intValue();
-        int countInt = Long.valueOf(count).intValue();
+        int page = Long.valueOf(first / BLOG_POSTS_PER_PAGE).intValue();
         long start = System.currentTimeMillis();
         Iterator<BlogPost> iterator = blogPostRepository
-            .findLatestPosts(new PageRequest(page, countInt)).iterator();
+            .findLatestPosts(new PageRequest(page, BLOG_POSTS_PER_PAGE)).iterator();
         long stop = System.currentTimeMillis();
         log.debug("Iterator() execution time = " + (stop - start) + " ms");
         return iterator;
