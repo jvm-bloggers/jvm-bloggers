@@ -22,8 +22,6 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATT
 @AuthorizeInstantiation(Roles.ADMIN)
 public class BlogsPage extends AbstractAdminPage {
 
-    public static final long BLOGS_PER_PAGE = 15;
-
     @SpringBean
     private BlogsPageRequestHandler requestHandler;
 
@@ -42,7 +40,7 @@ public class BlogsPage extends AbstractAdminPage {
     }
 
     private DataView<Blog> createBlogDataView(Form<Void> form, CustomFeedbackPanel feedbackPanel) {
-        return new DataView<Blog>("blogsDataView", requestHandler, BLOGS_PER_PAGE) {
+        return new DataView<Blog>("blogsDataView", requestHandler, defaultPaginationSize) {
 
             @Override
             protected void populateItem(Item<Blog> item) {
