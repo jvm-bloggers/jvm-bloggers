@@ -27,8 +27,7 @@ public class BlogsPageRequestHandler implements IDataProvider<Blog> {
     @Override
     public Iterator<? extends Blog> iterator(long first, long count) {
         int page = Long.valueOf(first / paginationLimit).intValue();
-        int size = Long.valueOf(count).intValue();
-        return blogRepository.findAllByOrderByAuthorAsc(new PageRequest(page, size)).iterator();
+        return blogRepository.findAllByOrderByAuthorAsc(new PageRequest(page, paginationLimit)).iterator();
     }
 
     @Override
