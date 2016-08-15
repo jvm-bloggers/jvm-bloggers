@@ -7,7 +7,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
 import org.apache.wicket.markup.html.WebPage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
@@ -23,9 +22,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
 @EnableCaching
 @EnableEncryptableProperties
 public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
-
-    @Value("${items.pagination.size}")
-    private int defaultPaginationSize;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder()
@@ -53,9 +49,5 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
     @Override
     protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
         return UserSession.class;
-    }
-
-    public int getDefaultPaginationSize() {
-        return defaultPaginationSize;
     }
 }
