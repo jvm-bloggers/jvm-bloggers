@@ -10,6 +10,7 @@ import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository
 import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.NewsletterIssueFactory
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPageRequestHandler
 
@@ -37,6 +38,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         addBean(newsletterIssueFactory)
         addBean(blogSummaryMailGenerator)
         addBean(issueNumberRetriever)
+        addBean(new PaginationConfiguration(15))
 
         metadataRepository.findByName(MAILING_TEMPLATE) >> new Metadata(
                 0L,

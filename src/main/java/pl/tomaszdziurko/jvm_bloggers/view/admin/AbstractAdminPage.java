@@ -4,17 +4,21 @@ import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
-import pl.tomaszdziurko.jvm_bloggers.JvmBloggersApplication;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.blogs.BlogsPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage;
 
 public abstract class AbstractAdminPage extends WebPage {
 
+    @SpringBean
+    private PaginationConfiguration paginationConfiguration;
+
     protected final int defaultPaginationSize;
 
     public AbstractAdminPage() {
-        defaultPaginationSize = ((JvmBloggersApplication) getApplication()).getDefaultPaginationSize();
+        defaultPaginationSize = paginationConfiguration.getDefaultPageSize();
         initializeElements();
     }
 

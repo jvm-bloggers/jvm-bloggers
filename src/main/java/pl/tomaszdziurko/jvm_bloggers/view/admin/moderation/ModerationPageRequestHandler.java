@@ -1,37 +1,37 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.moderation;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
 
 import java.util.Iterator;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
 
     private final BlogPostRepository blogPostRepository;
 
-    @Value("${items.pagination.size}")
-    private int paginationLimit;
+    private final PaginationConfiguration paginationConfiguration;
 
     @Override
     public Iterator<? extends BlogPost> iterator(long first, long count) {
         log.debug("Refreshing data, first {}, count {}", first, count);
-        int page = Long.valueOf(first / paginationLimit).intValue();
+        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         long start = System.currentTimeMillis();
         Iterator<BlogPost> iterator = blogPostRepository
-            .findLatestPosts(new PageRequest(page, paginationLimit)).iterator();
+            .findLatestPosts(new PageRequest(page, paginationConfiguration.getDefaultPageSize()))
+            .iterator();
         long stop = System.currentTimeMillis();
         log.debug("Iterator() execution time = " + (stop - start) + " ms");
         return iterator;

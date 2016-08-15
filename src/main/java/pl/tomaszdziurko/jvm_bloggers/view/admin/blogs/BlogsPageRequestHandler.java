@@ -1,33 +1,35 @@
 package pl.tomaszdziurko.jvm_bloggers.view.admin.blogs;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
 
 import java.util.Iterator;
 
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@NoArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BlogsPageRequestHandler implements IDataProvider<Blog> {
 
-    @Value("${items.pagination.size}")
-    private int paginationLimit;
+    private PaginationConfiguration paginationConfiguration;
 
-    @SpringBean
-    private final BlogRepository blogRepository;
+    private BlogRepository blogRepository;
 
     @Override
     public Iterator<? extends Blog> iterator(long first, long count) {
-        int page = Long.valueOf(first / paginationLimit).intValue();
-        return blogRepository.findAllByOrderByAuthorAsc(new PageRequest(page, paginationLimit)).iterator();
+        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
+        return blogRepository
+                .findAllByOrderByAuthorAsc(new PageRequest(page,
+                        paginationConfiguration.getDefaultPageSize())
+                ).iterator();
     }
 
     @Override
