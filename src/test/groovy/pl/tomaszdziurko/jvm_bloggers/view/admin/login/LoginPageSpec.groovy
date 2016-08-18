@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login
 
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.util.tester.FormTester
@@ -7,7 +7,7 @@ import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
-import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector
+import pl.tomaszdziurko.jvm_bloggers.view.admin.login.attack.BruteForceLoginAttackDetector
 
 class LoginPageSpec extends MockSpringContextAwareSpecification {
 

@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login;
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login;
 
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -14,9 +14,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage;
-import pl.tomaszdziurko.jvm_bloggers.view.login.attack.BruteForceLoginAttackDetector;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
-import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.login.attack.BruteForceLoginAttackDetector;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.session.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 

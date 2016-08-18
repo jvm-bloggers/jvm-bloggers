@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.panels;
+package pl.tomaszdziurko.jvm_bloggers.view.admin.panels;
 
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;

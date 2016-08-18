@@ -22,7 +22,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import pl.tomaszdziurko.jvm_bloggers.metadata.Metadata;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataKeys;
 import pl.tomaszdziurko.jvm_bloggers.metadata.MetadataRepository;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 
 import java.util.List;
 

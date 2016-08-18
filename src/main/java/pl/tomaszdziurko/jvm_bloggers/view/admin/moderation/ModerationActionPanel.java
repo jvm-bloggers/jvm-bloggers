@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 
 @Slf4j
 class ModerationActionPanel extends Panel {

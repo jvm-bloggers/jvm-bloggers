@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login
 
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import spock.lang.Specification

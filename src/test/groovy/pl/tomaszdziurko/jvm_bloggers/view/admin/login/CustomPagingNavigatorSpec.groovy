@@ -1,11 +1,11 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login
 
 import org.apache.wicket.AttributeModifier
 import org.apache.wicket.Component
 import org.apache.wicket.markup.html.navigation.paging.IPageable
 import org.apache.wicket.model.Model
 import pl.tomaszdziurko.jvm_bloggers.MockSpringContextAwareSpecification
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomPagingNavigator
 
 class CustomPagingNavigatorSpec extends MockSpringContextAwareSpecification {
 

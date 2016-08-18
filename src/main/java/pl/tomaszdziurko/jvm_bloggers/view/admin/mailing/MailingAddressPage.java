@@ -8,7 +8,7 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomPagingNavigator;
 
 @MountPath("mailing-address")
 @AuthorizeInstantiation(Roles.ADMIN)

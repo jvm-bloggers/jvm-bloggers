@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.session;
+package pl.tomaszdziurko.jvm_bloggers.view.admin.session;
 
 import lombok.extern.slf4j.Slf4j;
 

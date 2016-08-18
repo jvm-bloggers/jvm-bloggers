@@ -9,8 +9,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomPagingNavigator;
 
 @MountPath("admin-moderation")
 @AuthorizeInstantiation(Roles.ADMIN)

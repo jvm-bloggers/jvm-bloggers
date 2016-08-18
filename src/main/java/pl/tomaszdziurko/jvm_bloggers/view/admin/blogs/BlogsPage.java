@@ -13,8 +13,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomPagingNavigator;
 
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
 

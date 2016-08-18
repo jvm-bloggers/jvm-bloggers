@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login.attack;
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login.attack;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

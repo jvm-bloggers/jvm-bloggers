@@ -6,7 +6,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector
 import org.apache.wicket.spring.test.ApplicationContextMock
 import org.apache.wicket.util.tester.WicketTester
 
-import pl.tomaszdziurko.jvm_bloggers.view.session.UserSession
+import pl.tomaszdziurko.jvm_bloggers.view.admin.session.UserSession
 
 import spock.lang.Specification
 

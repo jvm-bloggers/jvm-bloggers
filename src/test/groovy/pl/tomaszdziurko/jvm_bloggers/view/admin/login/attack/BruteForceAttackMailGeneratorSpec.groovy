@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view.login.attack
+package pl.tomaszdziurko.jvm_bloggers.view.admin.login.attack
 
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification

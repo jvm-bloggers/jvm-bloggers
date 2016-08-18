@@ -9,7 +9,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 
 import java.io.Serializable;
 import java.util.function.Consumer;

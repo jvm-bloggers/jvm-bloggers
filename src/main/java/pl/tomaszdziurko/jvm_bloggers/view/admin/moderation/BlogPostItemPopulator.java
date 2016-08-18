@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPost;
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
-import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomFeedbackPanel;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
