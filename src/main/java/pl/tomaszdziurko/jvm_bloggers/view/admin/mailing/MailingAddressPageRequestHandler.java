@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
-import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.PaginationConfiguration;
 
 import java.util.Iterator;
 

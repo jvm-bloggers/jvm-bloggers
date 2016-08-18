@@ -5,7 +5,7 @@ import org.apache.wicket.util.tester.FormTester
 import pl.tomaszdziurko.jvm_bloggers.MockSpringContextAwareSpecification
 import pl.tomaszdziurko.jvm_bloggers.blog_posts.domain.BlogPostRepository
 import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider
-import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration
+import pl.tomaszdziurko.jvm_bloggers.view.admin.PaginationConfiguration
 import pl.tomaszdziurko.jvm_bloggers.view.admin.AdminDashboardPage
 import pl.tomaszdziurko.jvm_bloggers.view.admin.login.attack.BruteForceLoginAttackDetector
 

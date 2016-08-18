@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.view;
+package pl.tomaszdziurko.jvm_bloggers.view.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

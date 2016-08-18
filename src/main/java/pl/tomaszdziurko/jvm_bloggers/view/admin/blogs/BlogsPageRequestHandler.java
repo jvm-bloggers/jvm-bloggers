@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog;
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogRepository;
-import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
+import pl.tomaszdziurko.jvm_bloggers.view.admin.PaginationConfiguration;
 
 import java.util.Iterator;
 
