@@ -14,8 +14,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 @AuthorizeInstantiation(Roles.ADMIN)
 public class MailingAddressPage extends AbstractMailingPage {
 
-    public static final int MAILING_ADDRESS_PER_PAGE = 15;
-
     @SpringBean
     private MailingAddressPageRequestHandler mailingAddressPageRequestHandler;
 
@@ -30,7 +28,7 @@ public class MailingAddressPage extends AbstractMailingPage {
             }
         };
 
-        dataView.setItemsPerPage(MAILING_ADDRESS_PER_PAGE);
+        dataView.setItemsPerPage(defaultPaginationSize);
         add(dataView);
         add(new CustomPagingNavigator("navigator", dataView));
     }

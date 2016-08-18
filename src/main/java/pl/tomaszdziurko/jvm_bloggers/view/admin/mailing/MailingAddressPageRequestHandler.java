@@ -9,24 +9,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddress;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
 
 import java.util.Iterator;
-
-import static pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingAddressPage.MAILING_ADDRESS_PER_PAGE;
 
 @Component
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MailingAddressPageRequestHandler implements IDataProvider<MailingAddress> {
 
+    private final PaginationConfiguration paginationConfiguration;
+
     private final MailingAddressRepository mailingAddressRepository;
 
     @Override
     public Iterator<? extends MailingAddress> iterator(long first, long count) {
-        int page = Long.valueOf(first / MAILING_ADDRESS_PER_PAGE).intValue();
+        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         return mailingAddressRepository
-                .findAllByOrderByAddressAsc(new PageRequest(page, MAILING_ADDRESS_PER_PAGE))
-                .iterator();
+                .findAllByOrderByAddressAsc(new PageRequest(page,
+                        paginationConfiguration.getDefaultPageSize())
+                ).iterator();
     }
 
     @Override

@@ -8,3 +8,5 @@ spring.jpa.hibernate.ddl-auto: none
 mailing:
   apiKey: "apiKey"
   fromEmail: "example@example.com"
+
+items.pagination.size: 15

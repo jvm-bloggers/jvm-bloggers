@@ -16,6 +16,7 @@ bloggers.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/
 companies.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/master/src/main/resources/blogs/companies.json
 youtube.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/master/src/main/resources/blogs/videos.json
 generated.rss.entries.limit: 50
+items.pagination.size: 15
 
 application.baseUrl: http://jvm-bloggers.com
 

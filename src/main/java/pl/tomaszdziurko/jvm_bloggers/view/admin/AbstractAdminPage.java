@@ -3,20 +3,22 @@ package pl.tomaszdziurko.jvm_bloggers.view.admin;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import pl.tomaszdziurko.jvm_bloggers.view.PaginationConfiguration;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.blogs.BlogsPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.mailing.MailingPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.moderation.ModerationPage;
 
 public abstract class AbstractAdminPage extends WebPage {
 
-    public AbstractAdminPage() {
-        initializeElements();
-    }
+    @SpringBean
+    private PaginationConfiguration paginationConfiguration;
 
-    public AbstractAdminPage(PageParameters parameters) {
-        super(parameters);
+    protected final int defaultPaginationSize;
+
+    public AbstractAdminPage() {
+        defaultPaginationSize = paginationConfiguration.getDefaultPageSize();
         initializeElements();
     }
 

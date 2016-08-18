@@ -16,8 +16,6 @@ import pl.tomaszdziurko.jvm_bloggers.view.panels.CustomPagingNavigator;
 @AuthorizeInstantiation(Roles.ADMIN)
 public class ModerationPage extends AbstractAdminPage {
 
-    public static final int BLOG_POSTS_PER_PAGE = 15;
-
     @SpringBean
     private ModerationPageRequestHandler requestHandler;
 
@@ -40,7 +38,7 @@ public class ModerationPage extends AbstractAdminPage {
             }
         };
 
-        dataView.setItemsPerPage(BLOG_POSTS_PER_PAGE);
+        dataView.setItemsPerPage(defaultPaginationSize);
         moderationForm.add(dataView);
         moderationForm.add(new CustomPagingNavigator("navigator", dataView));
     }
