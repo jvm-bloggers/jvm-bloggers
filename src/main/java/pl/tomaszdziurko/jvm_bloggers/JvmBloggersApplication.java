@@ -13,9 +13,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
-import pl.tomaszdziurko.jvm_bloggers.view.HomePage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.login.LoginPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.session.UserSession;
+import pl.tomaszdziurko.jvm_bloggers.view.front_end.HomePage;
 
 @SpringBootApplication
 @EnableScheduling
