@@ -4,8 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue.NewsletterIssueDto;
 import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
+import pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue.NewsletterIssueDto;
 
 
 public class NewsletterIssuePanel extends Panel {
