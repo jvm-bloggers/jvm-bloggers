@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue;
+package pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue;
 
 import lombok.AllArgsConstructor;
 
@@ -12,13 +12,20 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class GetLatestNewsletterIssueService {
+public class NewsletterIssueDtoService {
 
     private final NewsletterIssueRepository newsletterIssueRepository;
+    private final NewsletterIssueDtoBuilder newsletterIssueDtoBuilder;
 
-    Optional<NewsletterIssueDto> getLatestIssue() {
+    public Optional<NewsletterIssueDto> getLatestIssue() {
         Optional<NewsletterIssue> latestIssue =
             newsletterIssueRepository.findFirstByOrderByPublishedDateDesc();
-        return latestIssue.map(NewsletterIssueDto::fromIssue);
+        return latestIssue.map(newsletterIssueDtoBuilder::build);
+    }
+
+    public Optional<NewsletterIssueDto> findByIssueNumber(long issueNumber) {
+        Optional<NewsletterIssue> issue =
+            newsletterIssueRepository.findByIssueNumber(issueNumber);
+        return issue.map(newsletterIssueDtoBuilder::build);
     }
 }

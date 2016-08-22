@@ -2,6 +2,8 @@ package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue
 
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.Blog
 import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType
+import pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue.BlogDto
+import pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue.BlogTypeDto
 import spock.lang.Specification
 
 import static java.time.LocalDateTime.now

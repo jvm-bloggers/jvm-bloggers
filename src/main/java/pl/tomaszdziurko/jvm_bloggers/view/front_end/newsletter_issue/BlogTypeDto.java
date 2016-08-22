@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue;
+package pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -6,7 +6,7 @@ import pl.tomaszdziurko.jvm_bloggers.blogs.domain.BlogType;
 
 import java.util.Map;
 
-enum BlogTypeDto {
+public enum BlogTypeDto {
 
     PERSONAL, COMPANY, VIDEOS;
 

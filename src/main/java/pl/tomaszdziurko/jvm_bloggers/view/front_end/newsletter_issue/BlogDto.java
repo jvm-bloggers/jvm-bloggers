@@ -1,4 +1,4 @@
-package pl.tomaszdziurko.jvm_bloggers.rest.newsletter_issue;
+package pl.tomaszdziurko.jvm_bloggers.view.front_end.newsletter_issue;
 
 import lombok.Builder;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Builder
-class BlogDto {
+public class BlogDto {
 
     public String author;
     public String url;
