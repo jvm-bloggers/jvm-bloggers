@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class NewsletterIssue {
 
     @Singular
     @NonNull
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "blog_posts_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "blog_post_id", referencedColumnName = "id")}
@@ -65,7 +66,7 @@ public class NewsletterIssue {
 
     @Singular
     @NonNull
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "new_blogs_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "new_blog_id", referencedColumnName = "id")}
