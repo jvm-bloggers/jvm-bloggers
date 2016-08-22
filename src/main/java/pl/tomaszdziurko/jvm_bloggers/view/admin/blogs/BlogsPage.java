@@ -16,7 +16,7 @@ import pl.tomaszdziurko.jvm_bloggers.view.admin.AbstractAdminPage;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomPagingNavigator;
 
-import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 
 @MountPath("admin-blogs")
 @AuthorizeInstantiation(Roles.ADMIN)
@@ -48,7 +48,7 @@ public class BlogsPage extends AbstractAdminPage {
                 item.add(new Label("author", blog.getAuthor()));
                 item.add(createTwitterLink(blog));
                 item.add(new ExternalLink("rss", blog.getRss(), blog.getRss()));
-                item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_FORMATTER)));
+                item.add(new Label("dateAdded", blog.getDateAdded().format(DATE_TIME_FORMATTER)));
                 item.add(new Label("status", blog.getStatus()));
                 item.add(new BlogActionPanel("actions", form, item.getModel(), feedbackPanel));
             }
