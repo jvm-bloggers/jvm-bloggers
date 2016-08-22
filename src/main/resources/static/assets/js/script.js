@@ -60,7 +60,7 @@ function isIE() {
      */
 
     if (isIE() && isIE() < 11) {
-        include('assets/js/pointer-events.min.js');
+        include('/assets/js/pointer-events.min.js');
         selectors.get('html').addClass('lt-ie11');
 
     }
@@ -75,7 +75,7 @@ function isIE() {
      */
 
     if (selectors.get('html').hasClass('desktop') && selectors.get('html').hasClass("wow-animation") && selectors.get(".wow").length) {
-        include('assets/js/wow.min.js');
+        include('/assets/js/wow.min.js');
     }
 
     /**
@@ -84,7 +84,7 @@ function isIE() {
      */
 
     if (selectors.get("html").hasClass("smoothscroll")) {
-        include('assets/js/smoothscroll.min.js');
+        include('/assets/js/smoothscroll.min.js');
     }
 
     /**
@@ -93,7 +93,7 @@ function isIE() {
      */
 
     if (selectors.get("html").hasClass("smoothscroll-all")) {
-        include('assets/js/rd-smoothscroll.min.js');
+        include('/assets/js/rd-smoothscroll.min.js');
     }
 
 
@@ -102,7 +102,7 @@ function isIE() {
      * @description  Enables ToTop Plugin
      */
     if (selectors.get('html').hasClass('desktop')) {
-        include('assets/js/jquery.ui.totop.min.js');
+        include('/assets/js/jquery.ui.totop.min.js');
     }
 
 
@@ -112,7 +112,7 @@ function isIE() {
      */
 
     if (selectors.get('.responsive-tabs').length > 0) {
-        include('assets/js/jquery.easy-responsive-tabs.min.js');
+        include('/assets/js/jquery.easy-responsive-tabs.min.js');
     }
 
 
@@ -123,7 +123,7 @@ function isIE() {
 
     if (selectors.get('#google-map').length) {
         include('https://maps.google.com/maps/api/js');
-        include('assets/js/jquery.rd-google-map.min.js');
+        include('/assets/js/jquery.rd-google-map.min.js');
     }
 
 
@@ -132,7 +132,7 @@ function isIE() {
      * @description  Enables RD Navbar Plugin
      */
     if (selectors.get('.rd-navbar').length > 0) {
-        include('assets/js/jquery.rd-navbar.min.js');
+        include('/assets/js/jquery.rd-navbar.min.js');
     }
 
 
@@ -142,7 +142,7 @@ function isIE() {
      */
 
     if (selectors.get(".progress-bar-custom").length) {
-        include('assets/js/progressbar.min.js');
+        include('/assets/js/progressbar.min.js');
     }
 
 
@@ -151,7 +151,7 @@ function isIE() {
      * @description  Enables Count To Plugin
      */
     if (selectors.get('.counter').length > 0) {
-        include('assets/js/jquery.countTo.js');
+        include('/assets/js/jquery.countTo.js');
     }
 
 
@@ -161,7 +161,7 @@ function isIE() {
      * @description  Enables Animation
      */
     if (selectors.get('.progress-bar').length > 0) {
-        include('assets/js/jquery.counter.js');
+        include('/assets/js/jquery.counter.js');
     }
 
 
@@ -210,7 +210,7 @@ function isIE() {
      */
 
     if (selectors.get('.owl-carousel').length) {
-        include('assets/js/jquery.owl-carousel.js');
+        include('/assets/js/jquery.owl-carousel.js');
 
         var isTouch = "ontouchstart" in window;
 
@@ -227,7 +227,7 @@ function isIE() {
      */
 
     if (selectors.get('.faq-section').length) {
-        include('assets/js/scrollTo.js');
+        include('/assets/js/scrollTo.js');
     }
 
 
@@ -239,7 +239,7 @@ function isIE() {
 
     if (selectors.get('.rd-navbar-search').length) {
 
-        include('assets/js/jquery.search.min.js');
+        include('/assets/js/jquery.search.min.js');
 
     }
 
@@ -250,7 +250,7 @@ function isIE() {
      * @description  Enables RD Search Plugin
      */
     if (selectors.get('#DateCountdown'.length)) {
-        include('assets/js/TimeCircles.js');
+        include('/assets/js/TimeCircles.js');
     }
 
 
@@ -263,8 +263,8 @@ function isIE() {
 
 
     if (selectors.get('.countdown').length) {
-        include('assets/js/jquery.plugin.min.js');
-        include('assets/js/jquery.countdown.js');
+        include('/assets/js/jquery.plugin.min.js');
+        include('/assets/js/jquery.countdown.js');
 
         var datecw = new Date();
         datecw.setTime(Date.parse(selectors.get('.countdown').attr('data-time'))).toLocaleString();
@@ -280,7 +280,7 @@ function isIE() {
 
     if (selectors.get('[data-lightbox]').not('[data-lightbox="gallery"] [data-lightbox]').length > 0 || selectors.get('[data-lightbox^="gallery"]').length > 0) {
 
-        include('assets/js/jquery.magnific-popup.min.js');
+        include('/assets/js/jquery.magnific-popup.min.js');
 
     }
 
@@ -292,7 +292,7 @@ function isIE() {
      */
 
     if (selectors.get(".isotope").length) {
-        include('assets/js/isotope.pkgd.min.js');
+        include('/assets/js/isotope.pkgd.min.js');
     }
 
 
@@ -328,7 +328,7 @@ function isIE() {
      */
 
     if (selectors.get('.form-label').length) {
-        include('assets/js/mailform/jquery.rd-input-label.js');
+        include('/assets/js/mailform/jquery.rd-input-label.js');
     }
 
 
@@ -336,8 +336,8 @@ function isIE() {
      =============================================*/
 
     if (selectors.get('.rd-mailform').length > 0) {
-        include('assets/js/mailform/jquery.form.min.js');
-        include('assets/js/mailform/jquery.rd-mailform.min.js');
+        include('/assets/js/mailform/jquery.form.min.js');
+        include('/assets/js/mailform/jquery.rd-mailform.min.js');
     }
 
     /**
@@ -363,7 +363,7 @@ function isIE() {
      */
 
     if (selectors.get('.flickr').length) {
-        include('assets/js/rd-flickrfeed.min.js');
+        include('/assets/js/rd-flickrfeed.min.js');
     }
 
 
@@ -374,7 +374,7 @@ function isIE() {
      */
 
     if (selectors.get('.rd-parallax').length) {
-        include('assets/js/jquery.rd-parallax.min.js');
+        include('/assets/js/jquery.rd-parallax.min.js');
     }
 
 
@@ -384,7 +384,7 @@ function isIE() {
      */
 
     if (selectors.get(".swiper-slider").length) {
-        include('assets/js/jquery.swiper.min.js');
+        include('/assets/js/jquery.swiper.min.js');
 
 
 

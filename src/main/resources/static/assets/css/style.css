@@ -1562,6 +1562,7 @@ a {
   color: inherit;
   text-decoration: none;
   transition: .2s;
+  color: #3498db;
 }
 
 a:focus {
@@ -14944,7 +14945,7 @@ h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
 }
 
 p + h1, p + h2, p + h3, p + h4, p + h5, p + h6 {
-  margin-top: 2.6875rem;
+  margin-top: 1.6875rem;
 }
 
 * + .btn {
@@ -20178,7 +20179,7 @@ html:not(.lt-ie10) .not-animated {
 .blog-post.blog-post-page .meta {
   color: rgba(0, 0, 0, 0.3);
   margin-top: 0.75rem;
-  margin-bottom: 2.1875rem;
+  margin-bottom: 1.0rem;
   font-size: 0.875rem;
 }
 
@@ -21605,7 +21606,7 @@ a.material-icons-shopping_cart:hover {
 }
 
 .rd-navbar-static .rd-navbar-nav-wrap, .rd-navbar-fullwidth .rd-navbar-nav-wrap {
-  padding-right: 6.25rem;
+  /*padding-right: 6.25rem;*/
 }
 
 .rd-navbar-static .rd-navbar-nav > li > a, .rd-navbar-fullwidth .rd-navbar-nav > li > a {
@@ -26354,7 +26355,6 @@ a[data-lightbox^=image] img {
   font-size: 0.875rem;
   line-height: 1.3125rem;
   font-weight: 400;
-  margin-bottom: 1.25rem;
 }
 
 @media (min-width: 768px) {
