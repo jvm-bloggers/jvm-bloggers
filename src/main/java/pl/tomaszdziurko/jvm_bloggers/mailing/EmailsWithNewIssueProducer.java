@@ -12,8 +12,8 @@ import pl.tomaszdziurko.jvm_bloggers.mailing.domain.EmailRepository;
 import pl.tomaszdziurko.jvm_bloggers.mailing.domain.MailingAddressRepository;
 import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.NewIssuePublished;
 import pl.tomaszdziurko.jvm_bloggers.newsletter_issues.domain.NewsletterIssue;
+import pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities;
 
-import java.time.format.DateTimeFormatter;
 
 @Component
 @Slf4j
@@ -23,7 +23,6 @@ public class EmailsWithNewIssueProducer {
 
     private static final String MAIL_SUMMARY_TITLE_PREFIX = "[JVM Bloggers] #";
     private static final String MAIL_SUMMARY_TITLE_POSTIFX = ": Nowe wpisy na polskich blogach, ";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String senderAddress;
     private final MailingAddressRepository mailingAddressRepository;
@@ -68,7 +67,7 @@ public class EmailsWithNewIssueProducer {
 
     private String prepareEmailTitle(NewsletterIssue newIssue) {
         return MAIL_SUMMARY_TITLE_PREFIX + newIssue.getIssueNumber() + MAIL_SUMMARY_TITLE_POSTIFX
-            + newIssue.getPublishedDate().format(FORMATTER);
+            + newIssue.getPublishedDate().format(DateTimeUtilities.DATE_FORMATTER);
     }
 
     private String prepareContent(NewsletterIssue newIssue) {
