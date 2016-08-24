@@ -13,6 +13,8 @@ import java.util.Optional;
 @MountPath("issue")
 public class NewsletterIssuePage extends AbstractFrontendPage {
 
+    static final String ISSUE_PANEL_ID = "issuePanel";
+
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
 
@@ -24,9 +26,9 @@ public class NewsletterIssuePage extends AbstractFrontendPage {
             newsletterIssueDtoService.findByIssueNumber(issueNumber);
 
         if (foundIssue.isPresent()) {
-            add(new NewsletterIssuePanel("latestIssuePanel", foundIssue.get()));
+            add(new NewsletterIssuePanel(ISSUE_PANEL_ID, foundIssue.get()));
         } else {
-            add(new Label("latestIssuePanel", "Nie znaleziono takiego wydania"));
+            add(new Label(ISSUE_PANEL_ID, "Nie znaleziono takiego wydania"));
         }
     }
 

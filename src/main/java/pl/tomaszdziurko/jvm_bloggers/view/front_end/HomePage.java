@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class HomePage extends AbstractFrontendPage {
 
+    static final String LATEST_ISSUE_PANEL_ID = "latestIssuePanel";
+
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
 
@@ -18,9 +20,9 @@ public class HomePage extends AbstractFrontendPage {
 
         Optional<NewsletterIssueDto> latestIssue = newsletterIssueDtoService.getLatestIssue();
         if (latestIssue.isPresent()) {
-            add(new NewsletterIssuePanel("latestIssuePanel", latestIssue.get()));
+            add(new NewsletterIssuePanel(LATEST_ISSUE_PANEL_ID, latestIssue.get()));
         } else {
-            add(new Label("latestIssuePanel", "Nie znaleziono takiego wydania"));
+            add(new Label(LATEST_ISSUE_PANEL_ID, "Nie znaleziono takiego wydania"));
         }
     }
 
