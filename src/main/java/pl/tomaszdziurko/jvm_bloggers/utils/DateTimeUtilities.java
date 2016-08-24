@@ -9,8 +9,11 @@ import static pl.tomaszdziurko.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
 public class DateTimeUtilities {
 
-    public static final DateTimeFormatter DATE_FORMATTER =
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    public static final DateTimeFormatter DATE_FORMATTER =
+        DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static LocalDateTime toLocalDateTime(Date date) {
         return date.toInstant().atZone(DEFAULT_ZONE).toLocalDateTime();

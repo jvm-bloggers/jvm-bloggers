@@ -15,7 +15,7 @@ import pl.tomaszdziurko.jvm_bloggers.utils.NowProvider;
 import pl.tomaszdziurko.jvm_bloggers.view.admin.panels.CustomFeedbackPanel;
 
 import static org.apache.commons.lang3.StringUtils.abbreviate;
-import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
+import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static pl.tomaszdziurko.jvm_bloggers.utils.DateTimeUtilities.lastPublicationDate;
 
 /**
@@ -35,7 +35,7 @@ public class BlogPostItemPopulator {
         item.add(new Label("title", post.getTitle()));
         item.add(new Label("author", post.getBlog().getAuthor()));
         item.add(new ExternalLink("link", post.getUrl(), abbreviate(post.getUrl(), 90)));
-        item.add(new Label("date", post.getPublishedDate().format(DATE_FORMATTER)));
+        item.add(new Label("date", post.getPublishedDate().format(DATE_TIME_FORMATTER)));
         item.add(new Label("approved", post.getApprovalState()));
         addEvenOddRowStyling(item);
 

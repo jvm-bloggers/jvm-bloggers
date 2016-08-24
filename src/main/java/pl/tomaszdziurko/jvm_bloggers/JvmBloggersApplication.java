@@ -34,6 +34,7 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
         super.init();
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         new AnnotatedMountScanner().scanPackage("pl.tomaszdziurko.jvm_bloggers.view").mount(this);
+        getMarkupSettings().setStripWicketTags(true);
     }
 
     @Override

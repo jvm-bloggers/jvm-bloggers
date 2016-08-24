@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<wicket:panel>
+
+    <article class="text-sm-left blog-post blog-post-page">
+        <h1 wicket:id="title">Wydanie #48</h1>
+        <div class="meta">
+            <time datetime="2016" class="small text-dark text-uppercase font-secondary" wicket:id="issueDate">22/10/2015</time>
+        </div>
+        <div class="caption full-width">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-darker" wicket:id="heading"></p>
+                    <p class="text-darker" wicket:id="linksFromPersonalBlogs"></p>
+                    <p class="text-darker" wicket:id="linksFromCompanyBlogs"></p>
+                    <p class="text-darker" wicket:id="linksFromVideoChannels"></p>
+                    <p class="text-darker" wicket:id="newBlogs"></p>
+                    <p class="text-darker">
+                        <h3 wicket:enclosure="varia">Varia</h3>
+                        <p wicket:id="varia"></p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</wicket:panel>
+
+</body>
+</html>
