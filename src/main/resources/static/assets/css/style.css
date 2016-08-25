@@ -26292,6 +26292,11 @@ a[data-lightbox^=image] img {
   color: #fff;
 }
 
+.page-footer.dark .footer-content .navbar-host {
+  color: #fff;
+  margin-top: 2.0rem;
+}
+
 .page-footer.dark .footer-content .list-inline li a {
   color: rgba(238, 238, 238, 0.2);
 }
