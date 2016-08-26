@@ -22,7 +22,7 @@ public class PublishNewNewsletterIssueScheduler {
         this.newIssuePublisher = newIssuePublisher;
     }
 
-    @Scheduled(cron = TimeConstants.EVERY_FRIDAY_AT_12_OCLOCK)
+    @Scheduled(cron = TimeConstants.EVERY_FRIDAY_AT_11_OCLOCK)
     public void publishNewIssue() {
         log.info("Starting scheduler: generating new issue");
         newIssuePublisher.publishNewIssue(DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE);
