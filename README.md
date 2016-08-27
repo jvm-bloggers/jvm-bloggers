@@ -76,3 +76,4 @@ If you need a direct contact, you can reach out to the JVM Bloggers project via:
 
 * GMail: jvmbloggers (at) (you know that).(and you know that too) :)
 * [Gitter room](https://gitter.im/tdziurko/jvm-bloggers)
+
