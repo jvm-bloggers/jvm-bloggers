@@ -3,7 +3,7 @@
 
 ## If looking for help
 
-* Please use our [Gitter chat room](https://gitter.im/tdziurko/jvm-bloggers) full of helpful people :)
+* Please use our [Slack](https://jvm-bloggers-slack.herokuapp.com/) full of helpful people :)
 
 * Not sure which issue pick? Please check those labelled as ["For newcomers"](https://github.com/tdziurko/jvm-bloggers/issues?q=is%3Aissue+is%3Aopen+label%3A%22For+newcomers%22).
 
