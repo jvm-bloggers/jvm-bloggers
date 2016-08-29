@@ -20,6 +20,6 @@ wicket.core.settings.debug.developmentUtilitiesEnabled: true
 wicket.core.settings.debug.ajaxDebugModeEnabled: true
 wicket.core.settings.debug.componentUseCheck: true
 
-logging.level.pl.tomaszdziurko.jvm_bloggers: DEBUG
+logging.level.com.jvm_bloggers: DEBUG
 
 application.baseUrl: http://localhost:8080

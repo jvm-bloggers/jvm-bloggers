@@ -2,7 +2,7 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/tdziurko/jvm-bloggers.svg?branch=master)](https://travis-ci.org/tdziurko/jvm-bloggers)  [![Coverage Status](https://coveralls.io/repos/tdziurko/jvm-bloggers/badge.svg?branch=master&service=github)](https://coveralls.io/github/tdziurko/jvm-bloggers?branch=master) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/tdziurko/jvm-bloggers)
+[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers)  [![Coverage Status](https://coveralls.io/repos/jvm-bloggers/jvm-bloggers/badge.svg?branch=master&service=github)](https://coveralls.io/github/jvm-bloggers/jvm-bloggers?branch=master) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
 
 ## Overview
 
@@ -54,7 +54,7 @@ __Planned__
 
 * Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-# [Development and contribution guidelelins Wiki](https://github.com/tdziurko/jvm-bloggers/wiki)
+# [Development and contribution guidelelins Wiki](https://github.com/jvm-bloggers/jvm-bloggers/wiki)
 
 ## Contributors
 
