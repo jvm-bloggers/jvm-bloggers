@@ -830,6 +830,12 @@
       "name": "Jakub Dziworski",
       "rss": "http://jakubdziworski.github.io/feed.xml",
       "twitter": "@Jakub_Dziworski"
+    },
+    {
+      "jsonId": 146,
+      "name": "Szymon Biliński",
+      "rss": "http://mintbeans.com/feed.xml",
+      "twitter": "@SzymonBilinski"
     }
   ]
 }
