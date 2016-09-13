@@ -836,6 +836,13 @@
       "name": "Szymon Biliński",
       "rss": "http://mintbeans.com/feed.xml",
       "twitter": "@SzymonBilinski"
+    },
+    {
+      "jsonId": 147,
+      "name": "Łukasz Kuczyński",
+      "rss": "https://lukcreates.wordpress.com/feed/",
+      "twitter": "@panlukaszk"
     }
+
   ]
 }
