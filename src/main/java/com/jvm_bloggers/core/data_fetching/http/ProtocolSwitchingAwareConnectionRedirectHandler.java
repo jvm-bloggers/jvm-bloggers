@@ -80,8 +80,8 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
                     return conn;
             }
 
-        } while (true);
-
+        }
+        while (true);
     }
 
     private int incrementRedirectCounterOrThrow(HttpURLConnection httpConnection,
