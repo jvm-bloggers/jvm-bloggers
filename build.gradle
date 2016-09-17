@@ -81,7 +81,7 @@ dependencies {
 
     // Database related
     compile "org.postgresql:postgresql:9.4.1210.jre7"
-    compile 'org.liquibase:liquibase-core:3.5.1'
+    compile 'org.liquibase:liquibase-core:3.4.2'
 
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
