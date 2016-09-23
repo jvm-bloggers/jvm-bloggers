@@ -1,7 +1,5 @@
 package com.jvm_bloggers.core.data_fetching.blog_posts;
 
-
-import com.jvm_bloggers.TimeConstants;
 import com.jvm_bloggers.core.metadata.Metadata;
 import com.jvm_bloggers.core.metadata.MetadataKeys;
 import com.jvm_bloggers.core.metadata.MetadataRepository;
@@ -23,7 +21,7 @@ public class BlogPostsFetchingScheduler {
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
 
-    @Scheduled(cron = TimeConstants.THIRTY_MINUTES_PAST_EVERY_HOUR)
+    @Scheduled(cron = "${scheduler.fetch-rss-for-new-blogs}")
     public void checkRssForNewBlogPosts() {
         log.info("Starting scheduler: fetching blog posts");
         blogPostsFetcher.refreshPosts();
