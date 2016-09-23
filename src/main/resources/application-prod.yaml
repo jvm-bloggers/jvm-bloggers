@@ -1,13 +1,16 @@
 spring:
   datasource:
-    url: "ENC(ezddNcP4hOkwhnxFskTqUb3oD+HdQwy8ielQVmA1gsR6ldk6CKB97hZbXcQKM5rOP5f84m8vS84uOv5i3UpRe+mtH4yoMRvjWahnxVcKeJFpWzMFsXf5Zg==)"
-    username: "ENC(u3wLuWd5WFBCQgGd+sTtkgfb7Prwsplp)"
-    password: "ENC(2+ePdd1W8rDJvgaqhRJSwp5xAGONYVaTpQxxOAC5bTWtFjkQ9WxCAA==)"
+    url: jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers_prod
+    username: "ENC(UCI18sY7gx2IG8jU2w3/zcCxE80YLmTfFIjfmiw/IWc=)"
+    password: "ENC(paRXsy9M7apHY2C4vvD6Otf4FO40xqdYm/7Ctt+s+58=)"
     driver: org.postgresql.Driver
     test-on-borrow: true
     validation-query: SELECT 1
 
+endpoints.enabled: false
+
 # Mail Configuration
 mailing:
-  apiKey: "ENC(u+1+9wseBKqW0dNE7IY2pe5ObMHpQX7pFQnNbCMJKVXFthwD5J+38xq6YSQg9JyC)"
+  apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+  throttleDelayInSeconds: 180

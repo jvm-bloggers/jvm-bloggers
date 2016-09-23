@@ -1,0 +1,12 @@
+liquibase.change-log: classpath:db/changelog/db.changelog.xml
+
+bloggers.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/bloggers.json
+companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/companies.json
+
+spring.jpa.hibernate.ddl-auto: none
+# Mail Configuration
+mailing:
+  apiKey: "apiKey"
+  fromEmail: "example@example.com"
+
+items.pagination.size: 15

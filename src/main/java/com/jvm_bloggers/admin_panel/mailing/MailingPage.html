@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
+>
+<head>
+</head>
+<body>
+
+<wicket:extend>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-envelope-o fa-fw"></i> Mailing Template editor
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div wicket:id="feedback"></div>
+                        <form wicket:id="mailingTemplateForm">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Select newsletter section:
+                                    <select wicket:id="mailingToEditDropdown">
+                                        <option>Main Section</option>
+                                        <option>Heading</option>
+                                        <option>Varia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div wicket:id="toolbar"></div>
+                                <div wicket:id="wysiwyg"></div>
+                                </div>
+                            <div class="row">
+                                <br/>
+                                <div class="form-group">
+                                    <div class="col-md-1">
+                                        <button wicket:id="resetMailingTemplateButton" type="button" class="btn btn-warning">Reset template</button>
+                                    </div>
+                                    <div class="col-md-8"></div>
+                                    <div class="col-md-3 text-right">
+                                        <button wicket:id="saveButton" type="submit" class="btn btn-primary">Save</button>
+                                        <button wicket:id="previewButton" type="button" class="btn btn-success">Preview</button>
+                                        <div wicket:id="mailingPreviewModal"></div>
+                                        <button wicket:id="sendTestMailButton" type="button" class="btn btn-info">Send test e-mail</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            <!-- /.col-lg-8 -->
+            </div>
+        </div>
+        <!-- /.row -->
+</wicket:extend>
+
+</body>
+</html>

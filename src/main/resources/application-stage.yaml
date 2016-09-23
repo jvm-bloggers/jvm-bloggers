@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers
+    username: jvm_bloggers
+    password: jvm_bloggers
+    driver: org.postgresql.Driver
+    test-on-borrow: true
+    validation-query: SELECT 1
+
+# Mail Configuration
+mailing:
+  apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
+  fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+  throttleDelayInSeconds: 1
+
+# Wicket configuration
+wicket.core.settings.general.runtime-configuration: development
+wicket.core.settings.debug.development-utilities-enabled: true
+wicket.core.settings.debug.enabled: true
+wicket.core.settings.debug.developmentUtilitiesEnabled: true
+wicket.core.settings.debug.ajaxDebugModeEnabled: true
+wicket.core.settings.debug.componentUseCheck: true

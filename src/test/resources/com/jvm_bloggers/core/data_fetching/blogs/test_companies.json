@@ -1,0 +1,16 @@
+{
+  "bloggers": [
+    {
+      "jsonId": 10001,
+      "name": "SoftwareMill",
+      "rss": "https://softwaremill.com/feed.xml",
+      "twitter": "@softwaremill"
+    },
+    {
+      "jsonId": 10002,
+      "name": "TouK",
+      "rss": "http://touk.pl/blog/feed/",
+      "twitter": "@touk_pl"
+    }
+  ]
+}

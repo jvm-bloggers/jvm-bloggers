@@ -122,4 +122,238 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="011-add-blog-type-column-to-blog-table" author="Tomasz.Dziurko">
+        <addColumn tableName="blog">
+            <column name="blog_type" type="varchar(30)" defaultValue="PERSONAL" >
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <dropDefaultValue tableName="blog" columnName="blog_type"/>
+    </changeSet>
+
+    <changeSet id="012-create-setting-table" author="Tomasz.Dziurko">
+
+        <createSequence sequenceName="SETTING_SEQ"/>
+
+        <createTable tableName="setting">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="value" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="013-store-mailing-template-in-setting-table" author="Tomasz.Dziurko">
+        <sqlFile path="insert_mailing_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <changeSet id="014-store-email-to-send-test-mail" author="Tomasz.Dziurko">
+        <sql>
+            INSERT INTO setting(id, name, value)
+            VALUES (nextval('setting_seq'), 'TEST_EMAIL', 'your-test-email-goes-here');
+        </sql>
+    </changeSet>
+
+    <changeSet id="015-store-default-mailing-template-in-setting-table" author="Tomasz.Dziurko">
+        <sqlFile path="insert_default_mailing_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="016-approved-in-blog-posts-can-be-null-value" author="Tomasz.Dziurko">
+        <dropNotNullConstraint tableName="BLOG_POST" columnName="APPROVED" columnDataType="boolean"/>
+    </changeSet>
+
+    <changeSet id="017-added-DESCRIPTION-column-to-BLOG_POST-table" author="Marcin Kłopotek">
+        <addColumn tableName="blog_post">
+            <column name="DESCRIPTION" type="varchar(4096)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="018-store-email-to-send-admin-mail" author="Adam.Dec">
+        <sql>
+            INSERT INTO setting(id, name, value)
+            VALUES (nextval('setting_seq'), 'ADMIN_EMAIL', 'your-admin-email-goes-here');
+        </sql>
+    </changeSet>
+
+    <changeSet id="019-fix-not-needed-ADMIN_EMAIL-key-in-SETTING-table" author="Tomasz.Dziurko">
+        <sql>
+            delete from setting where name = 'ADMIN_EMAIL';
+        </sql>
+        <sql>
+            update setting set name = 'ADMIN_EMAIL' where name = 'TEST_EMAIL';
+        </sql>
+    </changeSet>
+
+    <changeSet id="020-update-mailing-templates-with-new-homepage-links-handling" author="Dawid.Pura">
+        <sqlFile path="update_default_mailing_template_homepages_anchors.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="021-rename-table-setting-to-metadata" author="Jonatan.Borkowski">
+        <renameTable oldTableName="setting" newTableName="metadata"/>
+        <dropSequence sequenceName="SETTING_SEQ"/>
+        <createSequence sequenceName="METADATA_SEQ" startValue="4" incrementBy="1" />
+    </changeSet>
+
+    <changeSet id="022-store-dates-of-last-fetching" author="Jonatan.Borkowski">
+        <sql>
+            INSERT INTO metadata(id, name, value)
+            VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOGGERS', '1970-01-01T00:00:00.000');
+
+            INSERT INTO metadata(id, name, value)
+            VALUES (nextval('metadata_seq'), 'DATE_OF_LAST_FETCHING_BLOG_POSTS', '1970-01-01T00:00:00.000');
+        </sql>
+    </changeSet>
+    
+    <changeSet id="023-add-url-column-into-blog-table" author="Jakub.Sprega">
+        <addColumn tableName="blog">
+            <column name="URL" type="varchar(250)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="024-added-ACTIVE-column-to-BLOG-table" author="Mateusz Urbański">
+        <addColumn tableName="blog">
+            <column name="ACTIVE" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="025-update-mailing-templates-new-blog-url-comes-from-blog-entity" author="Jakub.Sprega">
+        <sqlFile path="update_default_mailing_template_url_from_blog_entity.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="026-fix-metatada-value-problem" author="Tomasz.Dziurko">
+        <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(2500)"/>
+    </changeSet>
+
+    <changeSet id="027-add-videos-blogs-to-template" author="Jacek.Jackowiak">
+        <sqlFile path="add_video_blogs_to_template.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="028--metatada-value-allows-longer-texts" author="Tomasz.Dziurko">
+        <modifyDataType tableName="METADATA" columnName="value" newDataType="varchar(5000)"/>
+    </changeSet>
+
+    <changeSet id="029-add-newsletter-issue-feature" author="Tomasz.Dziurko">
+
+        <createSequence sequenceName="NEWSLETTER_ISSUE_SEQ"/>
+
+        <createTable tableName="NEWSLETTER_ISSUE">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="ISSUE_NUMBER" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HEADING" type="varchar(4000)"/>
+
+            <column name="VARIA" type="varchar(4000)"/>
+
+            <column name="PUBLISHED_DATE" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addColumn tableName="blog">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+        <addColumn tableName="blog_post">
+            <column name="newsletter_issue_id" type="bigint"/>
+        </addColumn>
+
+    </changeSet>
+
+    <changeSet id="030-update-mailing-templates-to-support-newsletter-issues" author="Tomasz.Dziurko">
+        <sqlFile path="update_mailing_templates_to_introduce_newsletter_issues.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <changeSet id="031-create-email-table" author="Tomasz.Dziurko">
+        <createSequence sequenceName="EMAIL_SEQ"/>
+
+        <createTable tableName="EMAIL">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="FROM" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TO" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TITLE" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CONTENT" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="SENT_DATE" type="timestamp without time zone"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="032-fix-reserved-from-column-name-in-email-table" author="Tomasz.Dziurko">
+        <renameColumn tableName="EMAIL" oldColumnName="FROM" newColumnName="FROM_ADDRESS"/>
+        <renameColumn tableName="EMAIL" oldColumnName="TO" newColumnName="TO_ADDRESS"/>
+    </changeSet>
+
+    <changeSet id="033-switch-to-external-table-to-map-newsletter-issue-with-blogs-and-blog-posts-relationship"
+               author="Tomasz.Dziurko">
+        <createTable tableName="blog_posts_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blog_post_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="new_blogs_in_newsletter_issue">
+            <column name="newsletter_issue_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_blog_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <dropColumn tableName="blog" columnName="newsletter_issue_id"/>
+        <dropColumn tableName="blog_post" columnName="newsletter_issue_id"/>
+    </changeSet>
+
+    <changeSet id="034-add-click-table" author="Tomasz.Dziurko">
+        <createSequence sequenceName="CLICK_SEQ" />
+
+        <createTable tableName="CLICK">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="BLOG_POST_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CLICK_DATE" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="CLICK" baseColumnNames="BLOG_POST_ID"
+                                 constraintName="CLICK_TO_BLOG_POST" referencedTableName="BLOG_POST"
+                                 referencedColumnNames="ID"
+        />
+
+    </changeSet>
+
 </databaseChangeLog>

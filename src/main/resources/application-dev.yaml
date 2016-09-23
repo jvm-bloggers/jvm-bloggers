@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/jvm_bloggers
+    url: jdbc:postgresql://jvm_bloggers_db:5432/jvm_bloggers
     username: jvm_bloggers
     password: jvm_bloggers
     driver: org.postgresql.Driver
@@ -9,5 +9,17 @@ spring:
 
 # Mail Configuration
 mailing:
-  apiKey: "ENC(u+1+9wseBKqW0dNE7IY2pe5ObMHpQX7pFQnNbCMJKVXFthwD5J+38xq6YSQg9JyC)"
-  fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
+  apiKey: "empty"
+  fromEmail: "empty"
+
+# Wicket configuration
+wicket.core.settings.general.runtime-configuration: development
+wicket.core.settings.debug.development-utilities-enabled: true
+wicket.core.settings.debug.enabled: true
+wicket.core.settings.debug.developmentUtilitiesEnabled: true
+wicket.core.settings.debug.ajaxDebugModeEnabled: true
+wicket.core.settings.debug.componentUseCheck: true
+
+logging.level.com.jvm_bloggers: DEBUG
+
+application.baseUrl: http://localhost:8080

@@ -3,7 +3,23 @@ info:
     name: JVM Bloggers
     description: Application to spread info about polish blogging JVM Developers
 
-spring.jpa.hibernate.ddl-auto: validate
+spring:
+  mandatory-file-encoding: UTF-8 
+  jpa.hibernate.ddl-auto: validate
 liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
-bloggers.data.file.url: https://raw.githubusercontent.com/tdziurko/jvm-bloggers/master/bloggers.json
+server.compression:
+  enabled: true
+  mime-types: application/atom+xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
+ 
+bloggers.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/bloggers.json
+companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/companies.json
+youtube.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/videos.json
+generated.rss.entries.limit: 50
+items.pagination.size: 15
+
+application.baseUrl: http://jvm-bloggers.com
+
+# Logging
+logging.level.root: INFO
+logging.level.com.jvm_bloggers: INFO

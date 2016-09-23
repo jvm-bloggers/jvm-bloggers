@@ -1,0 +1,58 @@
+
+/* Custom styling for Wicket feedback panel*/
+
+.feedbackPanel {
+    padding: 10px;
+}
+
+.feedbackPanelItem {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.feedbackPanelSUCCESS {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.feedbackPanelSUCCESS hr {
+    border-top-color: #c9e2b3;
+}
+.feedbackPanelINFO {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.feedbackPanelINFO hr {
+    border-top-color: #a6e1ec;
+}
+.feedbackPanelWARNING {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.feedbackPanelWARNING hr {
+    border-top-color: #f7e1b5;
+}
+
+.feedbackPanelERROR {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+.feedbackPanelERROR hr {
+    border-top-color: #e4b9c0;
+}
+
+/* Highlighted blog post row styling */
+
+tr.highlighted-post > td:first-child > span {
+    font-weight: bold;
+}
+
+.wysiwyg-editor {
+    height: 400px;
+    max-height: 400px;
+}
