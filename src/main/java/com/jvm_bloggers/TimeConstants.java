@@ -4,7 +4,7 @@ public class TimeConstants {
 
     public static final long FOUR_MINUTES = 4 * 60 * 1000L;
 
-    public static final String EVERY_FRIDAY_AT_11_OCLOCK = "0 0 11 * * FRI";
+    public static final String EVERY_FRIDAY_AT_11_OCLOCK = "0 0 13 * * FRI";
 
     public static final String EVERY_TWO_HOURS_EXCLUDING_NIGHTS =
         "0 0 7,9,11,13,15,17,19,21,23 * * *";
