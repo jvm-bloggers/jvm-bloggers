@@ -4,7 +4,6 @@ import com.jvm_bloggers.admin_panel.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.core.data_fetching.blog_posts.BlogPostsFetchingScheduler;
 import com.jvm_bloggers.core.data_fetching.blogs.BloggersDataFetchingScheduler;
 import com.jvm_bloggers.core.metadata.MetadataKeys;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
