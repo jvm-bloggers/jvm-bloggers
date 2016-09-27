@@ -27,9 +27,6 @@ public class FetchingDataPanel extends Panel {
     @SpringBean
     private BlogPostsFetchingScheduler blogPostsFetchingScheduler;
 
-    @SpringBean
-    private MetadataRepository metadataRepository;
-
     private static final ThreadPoolExecutor
         fetchingBlogPostExecutor = new ThreadPoolExecutor(1, 1,
         0L, TimeUnit.MILLISECONDS,
