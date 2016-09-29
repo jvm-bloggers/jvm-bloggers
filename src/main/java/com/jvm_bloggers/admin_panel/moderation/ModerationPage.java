@@ -29,6 +29,8 @@ public class ModerationPage extends AbstractAdminPage {
         feedback = new CustomFeedbackPanel("feedback");
         add(feedback);
 
+        add(new FetchingDataPanel(feedback));
+
         final Form<Void> moderationForm = new Form<>("moderationForm");
         moderationForm.setOutputMarkupId(true);
         add(moderationForm);

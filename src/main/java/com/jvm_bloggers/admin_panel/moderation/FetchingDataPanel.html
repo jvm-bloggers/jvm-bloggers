@@ -1,0 +1,24 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Date of last fetching bloggers:
+                <span wicket:id="dateOfLastFetchingBloggers" class="text-muted small">
+                    [dateOfLastFetchingBloggers]
+                </span>
+            </h4>
+            <input type="button" class="btn btn-default" wicket:id="fetchBloggersData" value="Fetch bloggers"/>
+        </div>
+        <div class="col-md-6">
+            <h4>Date of last fetching blog posts:
+                <span wicket:id="dateOfLastFetchingBlogPosts" class="text-muted small">
+                    [dateOfLastFetchingBlogPosts]
+                </span>
+            </h4>
+            <input type="button" class="btn btn-default" wicket:id="fetchBlogPostsData" value="Fetch blog posts"/>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>
