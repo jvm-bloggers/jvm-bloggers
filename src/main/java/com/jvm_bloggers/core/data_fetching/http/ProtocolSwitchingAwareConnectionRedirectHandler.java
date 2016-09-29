@@ -81,7 +81,6 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
             }
 
         } while (true);
-
     }
 
     private int incrementRedirectCounterOrThrow(HttpURLConnection httpConnection,
