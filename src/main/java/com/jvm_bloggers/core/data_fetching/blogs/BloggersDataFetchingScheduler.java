@@ -1,7 +1,5 @@
 package com.jvm_bloggers.core.data_fetching.blogs;
 
-
-import com.jvm_bloggers.TimeConstants;
 import com.jvm_bloggers.core.metadata.Metadata;
 import com.jvm_bloggers.core.metadata.MetadataKeys;
 import com.jvm_bloggers.core.metadata.MetadataRepository;
@@ -23,7 +21,7 @@ public class BloggersDataFetchingScheduler {
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
 
-    @Scheduled(cron = TimeConstants.EVERY_TWO_HOURS_EXCLUDING_NIGHTS)
+    @Scheduled(cron = "${scheduler.fetch-bloggers-data}")
     public void fetchBloggersData() {
         log.info("Starting scheduler: bloggers data refresh. This may take a while.");
         bloggersDataFetcher.refreshData();
