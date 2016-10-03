@@ -2,20 +2,19 @@ package com.jvm_bloggers.admin_panel.moderation;
 
 import com.jvm_bloggers.core.metadata.Metadata;
 import com.jvm_bloggers.core.metadata.MetadataRepository;
-
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 
 public class DateOfLastFetchingDataModel extends AbstractReadOnlyModel<String> {
 
+    private final String name;
     @SpringBean
     private MetadataRepository metadataRepository;
-
-    private final String name;
 
     public DateOfLastFetchingDataModel(String name) {
         this.name = name;
@@ -25,9 +24,9 @@ public class DateOfLastFetchingDataModel extends AbstractReadOnlyModel<String> {
     @Override
     public String getObject() {
         final Metadata dateOfLastFetch = metadataRepository
-            .findByName(name);
+                .findByName(name);
 
         return LocalDateTime.parse(dateOfLastFetch.getValue())
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:SS"));
+                .format(DATE_TIME_FORMATTER);
     }
 }
