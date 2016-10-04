@@ -19,4 +19,26 @@ class MailingAddressRepositorySpec extends SpringContextAwareSpecification {
             savedAddress != null
             savedAddress.address == email
     }
+
+    def "Should detect existing address" (){
+        given:
+            MailingAddress mailingAddress = new MailingAddress(savedEmail)
+            mailingAddressRepository.save(mailingAddress)
+        when:
+            boolean addressExists = mailingAddressRepository.addressExistsIgnoringId(testAddress, null)
+        then:
+            addressExists == expectedExistCheckResult
+        where:
+            savedEmail              | testAddress           | expectedExistCheckResult
+            "example@example.pl"    | "example@example.pl"  | true
+            "example@example.pl"    | "unique@example.pl"   | false
+    }
+
+    def "Should ignore address with given id during exist check" (){
+        given:
+            MailingAddress mailingAddress = new MailingAddress("example@example.pl")
+            mailingAddressRepository.save(mailingAddress)
+        expect:
+            !mailingAddressRepository.addressExistsIgnoringId("example@example.pl", mailingAddress.id)
+    }
 }

@@ -14,13 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "mailing_address")
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
-public class MailingAddress {
+public class MailingAddress implements Serializable{
 
     @Id
     @GeneratedValue(generator = "MAILING_ADDRESS_SEQ", strategy = GenerationType.SEQUENCE)
@@ -29,7 +31,8 @@ public class MailingAddress {
     private Long id;
 
     @NonNull
+    @NotNull
     @Column(name = "address", unique = true, nullable = false, length = 250)
-    private final String address;
+    private String address;
 
 }
