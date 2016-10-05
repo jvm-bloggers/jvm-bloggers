@@ -27,7 +27,9 @@ public class MailingAddressActionPanel extends Panel {
         add(createEditButton(mailingAddressForm, model));
     }
 
-    private AjaxButton createEditButton(Form<MailingAddress> mailingAddressForm, IModel<MailingAddress> model) {
+    private AjaxButton createEditButton(
+            Form<MailingAddress> mailingAddressForm,
+            IModel<MailingAddress> model) {
         AjaxButton editButton = new AjaxButton(EDIT_MAILING_ADDRESS_ID, mailingAddressForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -40,14 +42,17 @@ public class MailingAddressActionPanel extends Panel {
         return editButton;
     }
 
-    private AjaxButton createDeleteButton(Form<MailingAddress> mailingAddressForm, IModel<MailingAddress> model) {
+    private AjaxButton createDeleteButton(
+            Form<MailingAddress> mailingAddressForm,
+            IModel<MailingAddress> model) {
         AjaxButton deleteButton = new AjaxButton(DELETE_MAILING_ADDRESS_ID, mailingAddressForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 MailingAddress mailingAddress = model.getObject();
                 mailingAddressRepository.delete(mailingAddress.getId());
                 mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
-                getSession().success("Mailing address '" + mailingAddress.getAddress() + "' has been deleted.");
+                getSession().success("Mailing address '" + mailingAddress.getAddress()
+                        + "' has been deleted.");
                 target.add(form);
             }
         };

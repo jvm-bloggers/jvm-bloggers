@@ -53,7 +53,8 @@ public class MailingAddressPage extends AbstractMailingPage {
         mailingAddressForm = new Form<>(MAILING_ADDRESS_FORM_ID);
         mailingAddressForm.setModel(CompoundPropertyModel.of(Model.of(DEFAULT_MODEL.get())));
         mailingAddressForm.add(new TextField(ID_INPUT_ID).setEnabled(false));
-        mailingAddressForm.add(new TextField<String>(ADDRESS_INPUT_ID).add(new PropertyValidator<MailingAddress>()));
+        mailingAddressForm.add(new TextField<String>(ADDRESS_INPUT_ID)
+                .add(new PropertyValidator<MailingAddress>()));
         mailingAddressForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
         mailingAddressForm.setOutputMarkupId(true);
         add(mailingAddressForm);
@@ -79,11 +80,14 @@ public class MailingAddressPage extends AbstractMailingPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 MailingAddress mailingAddress = mailingAddressForm.getModelObject();
-                if(mailingAddressRepository.addressExistsIgnoringId(mailingAddress.getAddress(), mailingAddress.getId())){
+                if (mailingAddressRepository.addressExistsIgnoringId(
+                        mailingAddress.getAddress(),
+                        mailingAddress.getId())) {
                     error("Address '" + mailingAddress.getAddress() + "' already exists.");
-                }else{
+                } else {
                     mailingAddressRepository.save(mailingAddress);
-                    success("Mailing address '" + mailingAddress.getAddress() + "' saved successfully");
+                    success("Mailing address '" + mailingAddress.getAddress()
+                            + "' saved successfully");
                     mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
                 }
                 target.add(form);
@@ -98,13 +102,15 @@ public class MailingAddressPage extends AbstractMailingPage {
     }
 
     private void addMailingAddressList() {
-        final DataView<MailingAddress> dataView = new DataView<MailingAddress>(PAGEABLE_LIST_ID, mailingAddressPageRequestHandler) {
+        final DataView<MailingAddress> dataView = new DataView<MailingAddress>(
+                PAGEABLE_LIST_ID, mailingAddressPageRequestHandler) {
             @Override
             protected void populateItem(Item<MailingAddress> item) {
                 MailingAddress modelObject = item.getModelObject();
                 item.add(new Label("id", modelObject.getId()));
                 item.add(new Label("address", modelObject.getAddress()));
-                item.add(new MailingAddressActionPanel(ACTION_PANEL_ID, mailingAddressForm, item.getModel()));
+                item.add(new MailingAddressActionPanel(
+                        ACTION_PANEL_ID, mailingAddressForm, item.getModel()));
             }
         };
 

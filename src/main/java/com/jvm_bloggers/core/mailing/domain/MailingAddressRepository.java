@@ -12,9 +12,9 @@ public interface MailingAddressRepository extends JpaRepository<MailingAddress, 
 
     Page<MailingAddress> findAllByOrderByAddressAsc(Pageable pageable);
 
-    @Query("select case when count(*) > 0 then true else false end " +
-            "from MailingAddress " +
-            "where address = :address and (:id is null or id != :id)")
+    @Query("select case when count(*) > 0 then true else false end "
+            + "from MailingAddress "
+            + "where address = :address and (:id is null or id != :id)")
     boolean addressExistsIgnoringId(@Param("address") String address, @Param("id") Long id);
 
 }
