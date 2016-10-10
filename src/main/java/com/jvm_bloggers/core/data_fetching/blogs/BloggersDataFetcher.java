@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
@@ -72,7 +71,7 @@ public class BloggersDataFetcher {
             .submit(this::startFetchingProcess);
     }
 
-    public void startFetchingProcess(){
+    public void startFetchingProcess() {
         refreshBloggersDataFor(bloggersUrlOptional, BlogType.PERSONAL);
         refreshBloggersDataFor(companiesUrlOptional, BlogType.COMPANY);
         refreshBloggersDataFor(videosUrlOptional, BlogType.VIDEOS);
@@ -89,7 +88,7 @@ public class BloggersDataFetcher {
                 BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
                 bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
                 bloggersDataUpdater.updateData(bloggers);
-            } catch (IOException exception) {
+            } catch (Exception exception) {
                 log.error("Exception during parse process for {}", blogType, exception);
             }
         } else {

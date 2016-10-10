@@ -62,7 +62,7 @@ public class BlogPostsFetcher {
             .submit(this::startFetchingProcess);
     }
 
-    public void startFetchingProcess(){
+    public void startFetchingProcess() {
         List<Blog> people = blogRepository.findAllActiveBlogs();
         people.stream()
             .filter(Blog::isActive)
