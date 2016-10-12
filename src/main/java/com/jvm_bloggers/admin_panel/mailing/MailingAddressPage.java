@@ -3,9 +3,7 @@ package com.jvm_bloggers.admin_panel.mailing;
 import com.jvm_bloggers.admin_panel.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.admin_panel.panels.CustomPagingNavigator;
 import com.jvm_bloggers.core.mailing.domain.MailingAddress;
-import com.jvm_bloggers.core.mailing.domain.MailingAddressRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -53,13 +51,12 @@ public class MailingAddressPage extends AbstractMailingPage {
         FormComponent idField = (FormComponent) new TextField(ID_INPUT_ID).setEnabled(false);
         FormComponent addressField = (FormComponent) new TextField<String>(ADDRESS_INPUT_ID)
                 .add(new PropertyValidator<MailingAddress>());
-
         mailingAddressForm = new Form<>(MAILING_ADDRESS_FORM_ID);
-        mailingAddressForm.setModel(CompoundPropertyModel.of(Model.of(DEFAULT_MODEL.get())));
         mailingAddressForm.add(idField);
         mailingAddressForm.add(addressField);
         mailingAddressForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
         mailingAddressForm.add(new MailingAddressUniquenessValidator(idField, addressField));
+        mailingAddressForm.setModel(CompoundPropertyModel.of(Model.of(DEFAULT_MODEL.get())));
         mailingAddressForm.setOutputMarkupId(true);
         add(mailingAddressForm);
         addCancelButton();
