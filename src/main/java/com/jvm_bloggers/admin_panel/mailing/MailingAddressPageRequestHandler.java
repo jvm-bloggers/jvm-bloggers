@@ -47,4 +47,12 @@ public class MailingAddressPageRequestHandler implements IDataProvider<MailingAd
     public void detach() {
 
     }
+
+    public void save(MailingAddress mailingAddress){
+        mailingAddressRepository.save(mailingAddress);
+    }
+
+    public void delete(Long mailingAddressId) {
+        mailingAddressRepository.delete(mailingAddressId);
+    }
 }

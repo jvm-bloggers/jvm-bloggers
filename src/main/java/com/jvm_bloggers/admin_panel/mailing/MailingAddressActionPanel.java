@@ -16,7 +16,7 @@ public class MailingAddressActionPanel extends Panel {
     public static final String EDIT_MAILING_ADDRESS_ID = "editMailingAddress";
 
     @SpringBean
-    private MailingAddressRepository mailingAddressRepository;
+    private MailingAddressPageRequestHandler mailingAddressPageRequestHandler;
 
     public MailingAddressActionPanel(
             String id,
@@ -49,7 +49,7 @@ public class MailingAddressActionPanel extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 MailingAddress mailingAddress = model.getObject();
-                mailingAddressRepository.delete(mailingAddress.getId());
+                mailingAddressPageRequestHandler.delete(mailingAddress.getId());
                 mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
                 getSession().success("Mailing address '" + mailingAddress.getAddress()
                         + "' has been deleted.");

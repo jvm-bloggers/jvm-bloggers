@@ -5,6 +5,7 @@ import com.jvm_bloggers.admin_panel.panels.CustomPagingNavigator;
 import com.jvm_bloggers.core.mailing.domain.MailingAddress;
 import com.jvm_bloggers.core.mailing.domain.MailingAddressRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -12,6 +13,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -41,8 +43,6 @@ public class MailingAddressPage extends AbstractMailingPage {
 
     @SpringBean
     private MailingAddressPageRequestHandler mailingAddressPageRequestHandler;
-    @SpringBean
-    private MailingAddressRepository mailingAddressRepository;
 
     public MailingAddressPage() {
         addForm();
@@ -50,12 +50,16 @@ public class MailingAddressPage extends AbstractMailingPage {
     }
 
     private void addForm() {
+        FormComponent idField = (FormComponent) new TextField(ID_INPUT_ID).setEnabled(false);
+        FormComponent addressField = (FormComponent) new TextField<String>(ADDRESS_INPUT_ID)
+                .add(new PropertyValidator<MailingAddress>());
+
         mailingAddressForm = new Form<>(MAILING_ADDRESS_FORM_ID);
         mailingAddressForm.setModel(CompoundPropertyModel.of(Model.of(DEFAULT_MODEL.get())));
-        mailingAddressForm.add(new TextField(ID_INPUT_ID).setEnabled(false));
-        mailingAddressForm.add(new TextField<String>(ADDRESS_INPUT_ID)
-                .add(new PropertyValidator<MailingAddress>()));
+        mailingAddressForm.add(idField);
+        mailingAddressForm.add(addressField);
         mailingAddressForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
+        mailingAddressForm.add(new MailingAddressUniquenessValidator(idField, addressField));
         mailingAddressForm.setOutputMarkupId(true);
         add(mailingAddressForm);
         addCancelButton();
@@ -80,16 +84,9 @@ public class MailingAddressPage extends AbstractMailingPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 MailingAddress mailingAddress = mailingAddressForm.getModelObject();
-                if (mailingAddressRepository.addressExistsIgnoringId(
-                        mailingAddress.getAddress(),
-                        mailingAddress.getId())) {
-                    error("Address '" + mailingAddress.getAddress() + "' already exists.");
-                } else {
-                    mailingAddressRepository.save(mailingAddress);
-                    success("Mailing address '" + mailingAddress.getAddress()
-                            + "' saved successfully");
-                    mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
-                }
+                mailingAddressPageRequestHandler.save(mailingAddress);
+                success("Mailing address '" + mailingAddress.getAddress() + "' saved successfully");
+                mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
                 target.add(form);
             }
 
