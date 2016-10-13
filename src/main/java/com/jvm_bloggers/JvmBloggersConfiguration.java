@@ -2,6 +2,7 @@ package com.jvm_bloggers;
 
 
 import akka.actor.ActorSystem;
+import akka.stream.ActorMaterializer;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,11 @@ public class JvmBloggersConfiguration {
     @Bean
     public ActorSystem getActorSystem() {
         return ActorSystem.create("jvm-bloggers-akka");
+    }
+
+    @Bean
+    public ActorMaterializer getActorMaterializer(ActorSystem actorSystem) {
+        return ActorMaterializer.create(actorSystem);
     }
 
     @Bean

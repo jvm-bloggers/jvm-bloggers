@@ -44,7 +44,8 @@ repositories {
 
 ext {
     wicketVersion = '7.4.0'
-    akkaVersion = '2.3.15'
+    akkaVersion = '2.4.11'
+    scalaVersion = "2.11"
 }
 
 dependencies {
@@ -57,8 +58,8 @@ dependencies {
 
 
     // Logic
-    compile "com.typesafe.akka:akka-actor_2.10:$akkaVersion"
-    compile "com.typesafe.akka:akka-slf4j_2.10:$akkaVersion"
+    compile "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
+    compile "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
     compile 'com.rometools:rome:1.7.0'
 
     // View
@@ -83,6 +84,9 @@ dependencies {
     compile "org.postgresql:postgresql:9.4.1210.jre7"
     compile 'org.liquibase:liquibase-core:3.4.2'
 
+    //Kafka
+    compile "com.typesafe.akka:akka-stream-kafka_$scalaVersion:0.12"
+
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
@@ -91,7 +95,9 @@ dependencies {
     testCompile 'com.jayway.jsonpath:json-path:2.2.0'
     testCompile 'cglib:cglib-nodep:3.2.4'
     testCompile 'org.codehaus.groovy:groovy:2.4.7'
-    testCompile "com.typesafe.akka:akka-testkit_2.10:$akkaVersion"
+    testCompile "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
+    testCompile "com.typesafe.akka:akka-stream-testkit_$scalaVersion:$akkaVersion"
+    testCompile "net.manub:scalatest-embedded-kafka_$scalaVersion:0.8.0"
     runtime 'com.h2database:h2'
 
 }
@@ -171,6 +177,13 @@ build.mustRunAfter clean
 
 wrapper {
     gradleVersion "3.0"
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 sourceSets.main.resources.srcDir 'src/main/java'

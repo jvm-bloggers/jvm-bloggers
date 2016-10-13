@@ -23,5 +23,22 @@ services:
       - /tmp
     links:
       - jvm_bloggers_db
+      - jvm-bloggers-kafka
     depends_on:
       - jvm_bloggers_db
+      - jvm-bloggers-kafka
+
+  jvm-bloggers-zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "$JVM_BLOGGERS_ZOOKEEPER_PORT:2181"
+  jvm-bloggers-kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "$JVM_BLOGGERS_KAFKA_PORT:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_CREATE_TOPICS: $JVM_BLOGGERS_KAFKA_TOPICS
+      KAFKA_ZOOKEEPER_CONNECT: jvm-bloggers-zookeeper:$JVM_BLOGGERS_ZOOKEEPER_PORT
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
