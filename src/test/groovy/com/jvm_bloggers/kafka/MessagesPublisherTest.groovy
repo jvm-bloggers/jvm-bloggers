@@ -50,11 +50,10 @@ class MessagesPublisherTest extends SpringContextAwareSpecification {
 					.withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 			def publishedMessage = new NewIssuePublishedMessage(15, "http://jvm-bloggers.com/issue/15")
 			def expectedConsumedMessage = """{"issueNumber":15,"url":"http://jvm-bloggers.com/issue/15"}"""
-		when:
-			true
 			def testProbe = Consumer.committableSource(consumerSettings, Subscriptions.topics("com.jvm_bloggers.issue.published"))
 					.toMat(TestSink.probe(actorSystem), Keep.right())
 					.run(actorMaterializer)
+		when:
 			producer.publish(publishedMessage, "com.jvm_bloggers.issue.published")
 			def actualConsumedMessage = testProbe.requestNext(FiniteDuration.create(20, "seconds")).record().value()
 		then:
