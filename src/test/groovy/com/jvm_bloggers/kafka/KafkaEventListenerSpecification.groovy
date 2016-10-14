@@ -30,6 +30,5 @@ class KafkaEventListenerSpecification extends Specification {
             eventListener.publishNewIssue(event)
         then:
             1 * messagesPublisher.publish(new NewIssuePublishedMessage(issueNumber, expectedMsgPublished), TOPIC_NAME)
-            0 * _
     }
 }
