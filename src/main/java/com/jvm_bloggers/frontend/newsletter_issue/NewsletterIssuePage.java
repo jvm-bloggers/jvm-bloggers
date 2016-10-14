@@ -32,4 +32,7 @@ public class NewsletterIssuePage extends AbstractFrontendPage {
         }
     }
 
+    public static PageParameters buildShowIssueParams(Long issueNumber) {
+        return new PageParameters().set(0, issueNumber);
+    }
 }
