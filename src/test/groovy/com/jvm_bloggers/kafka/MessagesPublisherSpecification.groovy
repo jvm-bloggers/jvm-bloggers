@@ -22,7 +22,7 @@ import scala.collection.immutable.Map
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Subject
 
-class MessagesPublisherTest extends SpringContextAwareSpecification {
+class MessagesPublisherSpecification extends SpringContextAwareSpecification {
 
 	@Autowired
 	@Subject

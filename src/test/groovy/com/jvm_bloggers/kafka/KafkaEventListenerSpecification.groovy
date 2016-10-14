@@ -6,7 +6,7 @@ import com.jvm_bloggers.kafka.message.NewIssuePublishedMessage
 import spock.lang.Specification
 import spock.lang.Subject
 
-class KafkaEventListenerSpec extends Specification {
+class KafkaEventListenerSpecification extends Specification {
     static final String ISSUE_URL = "http://jvm-bloggers.com/issue/"
     static final String TOPIC_NAME = "com.jvm_bloggers.issue.published"
 
