@@ -31,7 +31,7 @@ class NewsletterPublishedListener {
         String url = issueUrl + issue.getIssueNumber();
         NewIssuePublishedMessage newIssuePublishedMessage = new NewIssuePublishedMessage(
                 issue.getIssueNumber(), url);
-        messagesPublisher.publish(newIssuePublishedMessage,newIssuePublishedTopic);
+        messagesPublisher.publish(newIssuePublishedMessage, newIssuePublishedTopic);
     }
 
 }

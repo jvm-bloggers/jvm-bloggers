@@ -31,7 +31,7 @@ scheduler.fetch-rss-for-new-blogs: 0 30 * * * *
 scheduler.publish-new-issue: 0 0 11 * * FRI
 
 kafka:
-  adress: localhost:9092
+  address: localhost:9092
   stream.buffer.size: 5
   topics:
     new.issue: com.jvm_bloggers.issue.published

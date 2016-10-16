@@ -35,7 +35,7 @@ class MessagesPublisher {
                              MessageSerializer messageSerializer) {
         ProducerSettings<byte[], String> producerSettings = ProducerSettings
                 .create(actorSystem, new ByteArraySerializer(), new StringSerializer())
-                .withBootstrapServers(configuration.getAdress());
+                .withBootstrapServers(configuration.getAddress());
         Pair<ActorRef, CompletionStage<Done>> materialization = Source
                 .<ProducerRecord<byte[], String>>actorRef(configuration.getStreamBufferSize(),
                         OverflowStrategy.dropNew())
