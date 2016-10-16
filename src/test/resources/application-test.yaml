@@ -10,3 +10,7 @@ mailing:
   fromEmail: "example@example.com"
 
 items.pagination.size: 15
+
+# Kafka
+kafka:
+  address: localhost:10092

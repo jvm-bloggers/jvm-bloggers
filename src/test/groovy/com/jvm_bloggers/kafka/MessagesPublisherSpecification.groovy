@@ -26,6 +26,9 @@ import spock.lang.Subject
 
 class MessagesPublisherSpecification extends SpringContextAwareSpecification {
 
+	static final int KAFKA_TEST_PORT = 10092
+	static final int ZOOKEEPER_TEST_PORT = 12181
+
 	@Autowired
 	@Subject
 	MessagesPublisher producer
@@ -35,8 +38,8 @@ class MessagesPublisherSpecification extends SpringContextAwareSpecification {
 	ActorMaterializer actorMaterializer
 
 	def setup() {
-		def kafkaSettings = javaToscalaMap(Collections.<String,String>emptyMap())
-		EmbeddedKafka$.MODULE$.start(new EmbeddedKafkaConfig(9092,2181,kafkaSettings))
+		def kafkaSettings = javaToScalaMap(Collections.<String,String>emptyMap())
+		EmbeddedKafka$.MODULE$.start(new EmbeddedKafkaConfig(KAFKA_TEST_PORT, ZOOKEEPER_TEST_PORT, kafkaSettings))
 	}
 
 	def cleanup() {
@@ -49,7 +52,7 @@ class MessagesPublisherSpecification extends SpringContextAwareSpecification {
             String expectedConsumedMessage = """{"issueNumber":15,"url":"http://jvm-bloggers.com/issue/15"}"""
             ConsumerSettings<byte[], String> consumerSettings = ConsumerSettings
                     .create(actorSystem, new ByteArrayDeserializer(), new StringDeserializer())
-                    .withBootstrapServers("127.0.0.1:9092")
+                    .withBootstrapServers("127.0.0.1:$KAFKA_TEST_PORT")
                     .withGroupId("kafkaTestGroup")
                     .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
             TestSubscriber.Probe<ConsumerMessage.CommittableMessage<byte[], String>> testProbe = Consumer.
@@ -63,8 +66,7 @@ class MessagesPublisherSpecification extends SpringContextAwareSpecification {
             actualConsumedMessage == expectedConsumedMessage
     }
 
-
-	private Map<String, String> javaToscalaMap(java.util.Map<String, String> map) {
+	private Map<String, String> javaToScalaMap(java.util.Map<String, String> map) {
 		JavaConverters$.MODULE$.mapAsScalaMapConverter(map).asScala().toMap(
 				Predef$.MODULE$.<Tuple2<String, String>> conforms())
 	}
