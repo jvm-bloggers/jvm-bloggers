@@ -4,6 +4,7 @@ info:
     description: Application to spread info about polish blogging JVM Developers
 
 spring:
+  http.encoding.force: true
   mandatory-file-encoding: UTF-8 
   jpa.hibernate.ddl-auto: validate
 liquibase.change-log: classpath:db/changelog/db.changelog.xml
