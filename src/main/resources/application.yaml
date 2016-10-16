@@ -20,6 +20,7 @@ generated.rss.entries.limit: 50
 items.pagination.size: 15
 
 application.baseUrl: http://jvm-bloggers.com
+application.issueUrl: ${application.baseUrl}/issue/
 
 # Logging
 logging.level.root: INFO
@@ -28,3 +29,9 @@ logging.level.com.jvm_bloggers: INFO
 scheduler.fetch-bloggers-data: 0 0 7,9,11,13,15,17,19,21,23 * * *
 scheduler.fetch-rss-for-new-blogs: 0 30 * * * *
 scheduler.publish-new-issue: 0 0 11 * * FRI
+
+kafka:
+  adress: localhost:9092
+  stream.buffer.size: 5
+  topics:
+    new.issue: com.jvm_bloggers.issue.published
