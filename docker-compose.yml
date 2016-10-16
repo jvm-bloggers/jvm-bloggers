@@ -22,10 +22,10 @@ services:
       - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
       - /tmp
     links:
-      - jvm_bloggers_db
+      - jvm-bloggers-db
       - jvm-bloggers-kafka
     depends_on:
-      - jvm_bloggers_db
+      - jvm-bloggers-db
       - jvm-bloggers-kafka
 
   jvm-bloggers-zookeeper:
