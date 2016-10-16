@@ -1,6 +1,6 @@
 version: '2'
 services:
-  jvm_bloggers_db:
+  jvm-bloggers-db:
     image: sameersbn/postgresql:9.4-22
     environment:
       DB_USER: $JVM_BLOGGERS_DB_USER
