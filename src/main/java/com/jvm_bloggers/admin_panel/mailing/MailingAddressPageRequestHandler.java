@@ -3,10 +3,8 @@ package com.jvm_bloggers.admin_panel.mailing;
 import com.jvm_bloggers.admin_panel.PaginationConfiguration;
 import com.jvm_bloggers.core.mailing.domain.MailingAddress;
 import com.jvm_bloggers.core.mailing.domain.MailingAddressRepository;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +44,13 @@ public class MailingAddressPageRequestHandler implements IDataProvider<MailingAd
     @Override
     public void detach() {
 
+    }
+
+    public void save(MailingAddress mailingAddress) {
+        mailingAddressRepository.save(mailingAddress);
+    }
+
+    public void delete(Long mailingAddressId) {
+        mailingAddressRepository.delete(mailingAddressId);
     }
 }

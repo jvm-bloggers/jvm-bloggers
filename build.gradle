@@ -68,6 +68,7 @@ dependencies {
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:$wicketVersion"
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
     compile "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
+    compile "org.apache.wicket:wicket-bean-validation:$wicketVersion"
 
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.10"
