@@ -20,11 +20,13 @@ class SaveNewIssueSpec extends NewsletterIssueRepositorySpecBase {
             Optional<NewsletterIssue> persistedIssue =
                     newsletterIssueRepository.findByIssueNumber(issue.getIssueNumber())
             persistedIssue.isPresent()
-            persistedIssue.get().blogPosts
-            persistedIssue.get().issueNumber == issueNumber
-            persistedIssue.get().heading == exampleHeading
-            persistedIssue.get().varia == exampleVaria
-            persistedIssue.get().newBlogs*.id.containsAll(blogs*.id)
-            persistedIssue.get().blogPosts*.id.containsAll(posts*.id)
+            with(persistedIssue.get()){
+                blogPosts
+                issueNumber == issueNumber
+                heading == exampleHeading
+                varia == exampleVaria
+                newBlogs*.id.containsAll(blogs*.id)
+                blogPosts*.id.containsAll(posts*.id)
+            }
     }
 }
