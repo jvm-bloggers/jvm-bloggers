@@ -18,16 +18,19 @@ import java.util.List;
 public class BlogPostsFetcher {
 
     private final BlogRepository blogRepository;
+    private final BlogPostFactory blogPostFactory;
     private final ActorRef rssCheckingActor;
     private final ActorRef blogPostStoringActor;
 
     @Autowired
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
                             BlogPostRepository blogPostRepository,
-                            SyndFeedProducer syndFeedFactory) {
+                            SyndFeedProducer syndFeedFactory,
+                            BlogPostFactory blogPostFactory) {
         this.blogRepository = blogRepository;
+        this.blogPostFactory = blogPostFactory;
         blogPostStoringActor =
-            actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository));
+            actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
             .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
     }

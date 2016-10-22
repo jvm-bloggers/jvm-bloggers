@@ -26,7 +26,7 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     def "Should highlight post going in newsletter"() {
         given:
-            BlogPost blogPost = createBlogPostPublishedOn(SATURDAY_19TH_12_00.plusDays(1))
+            BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.plusDays(1))
             Item<BlogPost> item = createBlogPostItem(blogPost)
         when:
             blogPostItemPopulator.populateItem(item, null, null)
@@ -36,7 +36,7 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     def "Should not highlight post not going in newsletter"() {
         given:
-            BlogPost blogPost = createBlogPostPublishedOn(SATURDAY_19TH_12_00.minusDays(1))
+            BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.minusDays(1))
             Item<BlogPost> item = createBlogPostItem(blogPost)
         when:
             blogPostItemPopulator.populateItem(item, null, null)
@@ -44,12 +44,11 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
             !(item.getBehaviors(AttributeAppender).any { isHighlighted(it) })
     }
 
-    
     private boolean isHighlighted(AttributeAppender attributeAppender) {
         return attributeAppender.getAttribute() == "class" && attributeAppender.replaceModel.getObject() == "highlighted-post"
     }
 
-    private BlogPost createBlogPostPublishedOn(LocalDateTime publicationDate) {
+    private BlogPost createBlogPostAcceptedOn(LocalDateTime acceptationDate) {
         Blog blog = Blog.builder()
                 .jsonId(0L)
                 .author("Blog author")
@@ -60,7 +59,9 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
                 .build()
         return BlogPost.builder()
                 .blog(blog)
-                .publishedDate(publicationDate)
+                .approved(Boolean.TRUE)
+                .publishedDate(nowProvider.now())
+                .approvedDate(acceptationDate)
                 .title("title")
                 .url("url")
                 .build()
@@ -73,5 +74,6 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
     @Override
     protected void setupContext() {
         addBean(Stub(BlogPostRepository))
+        addBean(nowProvider)
     }
 }

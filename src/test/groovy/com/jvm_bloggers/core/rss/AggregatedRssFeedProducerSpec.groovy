@@ -1,6 +1,5 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.AggregatedRssFeedProducer
 import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.data.domain.Pageable
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
@@ -39,7 +38,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
         BlogPost blogPost2 = stubBlogPost(UID_2, null, TITLE_2, URL_2, AUTHOR_2, DATE)
         BlogPost blogPost3 = stubBlogPost(UID_3, null, TITLE_2, INVALID_URL, AUTHOR_2, DATE)
-        findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, _) >> { args ->
+        findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, _) >> { args ->
             Pageable pageable = args[0]
             List<BlogPost> blogposts = [blogPost1, blogPost2, blogPost3]
             int limit = Math.min(blogposts.size(), pageable.pageSize)
@@ -142,7 +141,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         when:
             rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, excludedAuthors) >> []
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, excludedAuthors) >> []
     }
     
     @Unroll
@@ -150,7 +149,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         when:
             rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
         where:
             excludedAuthors << [null, [] as Set]
     }

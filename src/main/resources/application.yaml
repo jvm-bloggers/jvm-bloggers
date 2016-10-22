@@ -18,6 +18,7 @@ companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-blog
 youtube.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/videos.json
 generated.rss.entries.limit: 50
 items.pagination.size: 15
+max.new.post.age.days: 30
 
 application.baseUrl: http://jvm-bloggers.com
 application.issueUrl: ${application.baseUrl}/issue/

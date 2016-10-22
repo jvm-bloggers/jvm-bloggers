@@ -3,6 +3,7 @@ package com.jvm_bloggers.admin_panel.moderation;
 import com.jvm_bloggers.admin_panel.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
+import com.jvm_bloggers.utils.NowProvider;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -18,6 +19,9 @@ class ModerationActionPanel extends Panel {
 
     @SpringBean
     private BlogPostRepository blogPostRepository;
+
+    @SpringBean
+    private NowProvider nowProvider;
 
     ModerationActionPanel(String id, Form<Void> moderationForm,
                                  CustomFeedbackPanel feedback,
@@ -36,7 +40,7 @@ class ModerationActionPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 log.debug("Reject clicked");
                 BlogPost blogPost = blogPostModel.getObject();
-                blogPost.setApproved(false);
+                blogPost.reject();
                 long start = System.currentTimeMillis();
                 blogPostRepository.save(blogPost);
                 long stop = System.currentTimeMillis();
@@ -59,7 +63,7 @@ class ModerationActionPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 log.debug("Accept clicked");
                 BlogPost blogPost = blogPostModel.getObject();
-                blogPost.setApproved(true);
+                blogPost.approve(nowProvider.now());
                 long start = System.currentTimeMillis();
                 blogPostRepository.save(blogPost);
                 long stop = System.currentTimeMillis();

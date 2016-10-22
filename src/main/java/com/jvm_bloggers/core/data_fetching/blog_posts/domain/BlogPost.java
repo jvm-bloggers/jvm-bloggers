@@ -65,6 +65,9 @@ public class BlogPost {
     @Column(name = "APPROVED")
     private Boolean approved;
 
+    @Column(name = "APPROVED_DATE")
+    private LocalDateTime approvedDate;
+
     @NonNull
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
@@ -94,11 +97,19 @@ public class BlogPost {
     }
 
     public boolean isGoingInNewsletter(final LocalDateTime lastPublicationDate) {
-        return publishedDate.isAfter(lastPublicationDate);
+        return isApproved() && approvedDate.isAfter(lastPublicationDate);
     }
 
     private static String generateRandomUid() {
         return RandomStringUtils.randomAlphanumeric(UID_LENGTH);
     }
 
+    public void approve(LocalDateTime approvedDate) {
+        this.approvedDate = approvedDate;
+        approved = Boolean.TRUE;
+    }
+
+    public void reject() {
+        approved = Boolean.FALSE;
+    }
 }
