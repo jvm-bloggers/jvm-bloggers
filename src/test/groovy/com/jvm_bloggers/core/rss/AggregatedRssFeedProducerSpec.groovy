@@ -1,12 +1,11 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.AggregatedRssFeedProducer
 import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.data.domain.Pageable
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator
+import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.blogpost_redirect.RedirectController
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
@@ -21,6 +20,7 @@ import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AU
 class AggregatedRssFeedProducerSpec extends Specification {
 
     public static final String BASE_URL = "http://test"
+    public static final String ISSUE_URL = "http://test/issue"
     String DESCRIPTION = "description"
     String TITLE_1 = "title_1"
     String TITLE_2 = "title_2"
@@ -51,7 +51,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         now() >> DATE
     }
 
-    RedirectLinkGenerator linkGenerator = new RedirectLinkGenerator(BASE_URL)
+    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL)
 
     @Subject
     AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider, linkGenerator)

@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.mailing;
 
 import com.google.common.base.Strings;
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator;
+import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType;
@@ -37,19 +37,19 @@ public class BlogSummaryMailGenerator {
     private static final String NEW_LINE = "<br/>";
 
     private MetadataRepository metadataRepository;
-    private RedirectLinkGenerator linkGenerator;
+    private LinkGenerator linkGenerator;
 
     @Autowired
     public BlogSummaryMailGenerator(
         MetadataRepository metadataRepository,
-        RedirectLinkGenerator linkGenerator
+        LinkGenerator linkGenerator
     ) {
         this.metadataRepository = metadataRepository;
         this.linkGenerator = linkGenerator;
     }
 
     public String prepareMailContent(NewsletterIssue newsletterIssue) {
-        String greeting = getValueForSection(MetadataKeys.MAILING_GREETING);
+        String greeting = prepareGreetingSection(newsletterIssue.getIssueNumber());
         String heading = newsletterIssue.getHeading();
         String mainSection = prepareMainSectionWithBlogs(newsletterIssue);
         String varia = newsletterIssue.getVaria();
@@ -60,6 +60,13 @@ public class BlogSummaryMailGenerator {
             + appendNewLinesIfNotEmpty(mainSection, 2)
             + prepareVariaSection(varia, 2)
             + NEW_LINE + signature;
+    }
+
+    private String prepareGreetingSection(Long issueNumber) {
+        String templateContent = getValueForSection(MetadataKeys.MAILING_GREETING);
+        ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
+        template.add("currentIssueLink", linkGenerator.generateIssueLink(issueNumber));
+        return template.render();
     }
 
     private String getValueForSection(String key) {
@@ -117,7 +124,7 @@ public class BlogSummaryMailGenerator {
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)
-                .withUrl(linkGenerator.generateLinkFor(blogPost.getUid()))
+                .withUrl(linkGenerator.generateRedirectLinkFor(blogPost.getUid()))
                 .build()
         ).collect(Collectors.toList());
     }

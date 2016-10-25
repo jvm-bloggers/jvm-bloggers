@@ -3,7 +3,7 @@ package com.jvm_bloggers.core.rss;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator;
+import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
 import com.jvm_bloggers.core.utils.Validators;
@@ -62,7 +62,7 @@ public class AggregatedRssFeedProducer {
     private static final String UTM_CAMPAIGN = "RSS";
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
-    private final RedirectLinkGenerator linkGenerator;
+    private final LinkGenerator linkGenerator;
 
     /**
      * Generates aggregated RSS feed for all or given <tt>limit</tt> of approved blog posts.
@@ -117,7 +117,7 @@ public class AggregatedRssFeedProducer {
     private SyndEntry toRssEntry(BlogPost post) {
         final SyndEntry rssEntry = new SyndEntryImpl();
         rssEntry.setTitle(post.getTitle());
-        rssEntry.setLink(linkGenerator.generateLinkFor(post.getUid()));
+        rssEntry.setLink(linkGenerator.generateRedirectLinkFor(post.getUid()));
         rssEntry.setAuthor(post.getBlog().getAuthor());
         rssEntry.setPublishedDate(DateTimeUtilities.toDate(post.getPublishedDate()));
         rssEntry.setUri(post.getUid());
