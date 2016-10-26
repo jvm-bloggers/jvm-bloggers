@@ -44,12 +44,8 @@ public class FetchingDataPanel extends Panel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 log.debug("Fetching blog posts data clicked");
-                if (!blogPostsFetcher.isFetchingProcessInProgress()) {
-                    blogPostsFetcher.refreshPosts();
-                    getSession().success("Fetching blog posts data started");
-                } else {
-                    getSession().error("Fetching blog posts data already in progress");
-                }
+                blogPostsFetcher.refreshPosts();
+                getSession().success("Fetching blog posts data started");
 
                 target.add(feedback);
             }
@@ -63,12 +59,8 @@ public class FetchingDataPanel extends Panel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 log.debug("Fetching bloggers data clicked");
-                if (!bloggersDataFetcher.isFetchingProcessInProgress()) {
-                    bloggersDataFetcher.refreshData();
-                    getSession().success("Fetching bloggers data started");
-                } else {
-                    getSession().error("Fetching bloggers data already in progress");
-                }
+                bloggersDataFetcher.refreshData();
+                getSession().success("Fetching bloggers data started");
 
                 target.add(feedback);
             }
