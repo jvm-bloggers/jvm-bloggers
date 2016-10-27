@@ -84,6 +84,7 @@ dependencies {
     // Database related
     compile "org.postgresql:postgresql:9.4.1210.jre7"
     compile 'org.liquibase:liquibase-core:3.4.2'
+    compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
     //Kafka
     compile "com.typesafe.akka:akka-stream-kafka_$scalaVersion:0.12"
