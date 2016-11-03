@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Initializes database with bloggers and posts data if database is empty.
@@ -31,7 +31,7 @@ public class InitialBlogDataPopulationTrigger {
     private final BloggersDataFetchingScheduler bloggersDataFetchingScheduler;
     private final BlogPostsFetchingScheduler blogPostsFetchingScheduler;
 
-    @PostConstruct
+    @EventListener(ContextRefreshedEvent.class)
     public void initializeDatabaseWithBlogDataIfEmpty() {
 
         if (blogRepository.count() == 0) {
