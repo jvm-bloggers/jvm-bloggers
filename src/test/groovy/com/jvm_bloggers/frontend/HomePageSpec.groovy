@@ -9,7 +9,6 @@ import org.apache.wicket.markup.html.basic.Label
 
 import java.text.NumberFormat
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class HomePageSpec extends MockSpringContextAwareSpecification {
 
@@ -66,7 +65,7 @@ class HomePageSpec extends MockSpringContextAwareSpecification {
         then:
             latestIssues.each {
                 String issueNumber = NumberFormat.getInstance().format(it.number)
-                String publishedDate = DateTimeFormatter.ofPattern(RightFrontendSidebar.PUBLISHED_DATE_FORMAT).format(it.publishedDate)
+                String publishedDate = RightFrontendSidebar.PUBLISHED_DATE_FORMATTER.format(it.publishedDate)
                 tester.assertContains("Nr $issueNumber wydany $publishedDate")
             }
     }

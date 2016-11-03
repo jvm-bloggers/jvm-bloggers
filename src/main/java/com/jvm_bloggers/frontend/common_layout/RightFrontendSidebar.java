@@ -14,7 +14,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public class RightFrontendSidebar extends Panel {
 
-    public static final String PUBLISHED_DATE_FORMAT = "d MMMM";
+    static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
 
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
@@ -59,8 +58,6 @@ public class RightFrontendSidebar extends Panel {
             NewsletterIssuePage.buildShowIssueParams(issue.number))
             .setBody(Model.of(new StringResourceModel("right.panel.issue.link.label")
                 .setParameters(issue.number,
-                    DateTimeFormatter
-                        .ofPattern(PUBLISHED_DATE_FORMAT, LocaleContextHolder.getLocale())
-                        .format(issue.publishedDate))));
+                    PUBLISHED_DATE_FORMATTER.format(issue.publishedDate))));
     }
 }
