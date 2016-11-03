@@ -1,12 +1,12 @@
 package com.jvm_bloggers.frontend.common_layout;
 
-import com.googlecode.wicket.jquery.ui.markup.html.link.BookmarkablePageLink;
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssueDto;
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssueDtoService;
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssuePage;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.AbstractLink;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
@@ -35,7 +35,7 @@ public class RightFrontendSidebar extends Panel {
     }
 
     private void composeLatestFiveNewsletterIssuesLinksView() {
-        List<AbstractLink> latestIssues = newsletterIssueDtoService
+        List<Link> latestIssues = newsletterIssueDtoService
             .findTop5ByOrderByPublishedDateDesc().stream().map(this::getLink)
             .collect(Collectors.toList());
 
@@ -45,16 +45,16 @@ public class RightFrontendSidebar extends Panel {
             add(new EmptyPanel("latestIssuesEmptyLabel"));
         }
 
-        add(new ListView<AbstractLink>("latestIssuesList", latestIssues) {
+        add(new ListView<Link>("latestIssuesList", latestIssues) {
             @Override
-            protected void populateItem(ListItem<AbstractLink> item) {
+            protected void populateItem(ListItem<Link> item) {
                 item.add(item.getModelObject());
             }
         });
     }
 
-    private AbstractLink getLink(NewsletterIssueDto issue) {
-        return new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
+    private Link getLink(NewsletterIssueDto issue) {
+        return (Link) new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
             NewsletterIssuePage.buildShowIssueParams(issue.number))
             .setBody(Model.of(new StringResourceModel("right.panel.issue.link.label")
                 .setParameters(issue.number,
