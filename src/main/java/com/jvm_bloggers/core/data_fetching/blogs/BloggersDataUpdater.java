@@ -34,7 +34,7 @@ public class BloggersDataUpdater {
             .filter(entry -> entry.getRss().length() > 0)
             .collect(Collectors.toList());
         UpdateSummary updateSummary = new UpdateSummary(entries.size());
-        entries.stream().forEach(entry -> updateSingleEntry(entry, updateSummary));
+        entries.parallelStream().forEach(entry -> updateSingleEntry(entry, updateSummary));
         log.info("Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}",
             updateSummary.numberOfEntries,
             updateSummary.updatedEntries, updateSummary.createdEntries);
