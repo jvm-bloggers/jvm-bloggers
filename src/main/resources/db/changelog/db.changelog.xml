@@ -365,4 +365,9 @@
         </sql>
     </changeSet>
 
+    <changeSet id="036-update-greeting-template-to-support-issue-link" author="Paweł Kaczorowski">
+        <sqlFile path="update-greeting-template-to-support-issue-link.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
 </databaseChangeLog>

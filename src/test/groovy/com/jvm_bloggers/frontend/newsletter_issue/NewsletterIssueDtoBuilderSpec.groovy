@@ -1,9 +1,9 @@
 package com.jvm_bloggers.frontend.newsletter_issue
 
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
 import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
+import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue
 import spock.lang.Specification
 import spock.lang.Subject
@@ -16,8 +16,8 @@ class NewsletterIssueDtoBuilderSpec extends Specification {
 
     static final String SHORT_URL = "http://shortlink.com"
 
-    RedirectLinkGenerator generator = Stub(RedirectLinkGenerator) {
-        generateLinkFor(_ as String) >> SHORT_URL
+    LinkGenerator generator = Stub(LinkGenerator) {
+        generateRedirectLinkFor(_ as String ) >> SHORT_URL
     }
 
     @Subject
