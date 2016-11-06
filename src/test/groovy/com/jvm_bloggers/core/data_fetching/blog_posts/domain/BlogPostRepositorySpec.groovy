@@ -84,7 +84,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             
             blogPostRepository.save(includedBlogPosts)
         when:
-            List<BlogPost> filteredPosts = blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(PAGEABLE, excludedAuthors)
+            List<BlogPost> filteredPosts = blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(PAGEABLE, excludedAuthors)
         then:
             filteredPosts.size == expectedPostsCount
         where:

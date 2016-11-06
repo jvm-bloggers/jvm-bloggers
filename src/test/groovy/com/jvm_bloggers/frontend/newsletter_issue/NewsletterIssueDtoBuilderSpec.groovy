@@ -1,9 +1,9 @@
 package com.jvm_bloggers.frontend.newsletter_issue
 
+import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
 import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator
 import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue
 import spock.lang.Specification
 import spock.lang.Subject
@@ -17,7 +17,7 @@ class NewsletterIssueDtoBuilderSpec extends Specification {
     static final String SHORT_URL = "http://shortlink.com"
 
     RedirectLinkGenerator generator = Stub(RedirectLinkGenerator) {
-        generateLinkFor(_ as String ) >> SHORT_URL
+        generateLinkFor(_ as String) >> SHORT_URL
     }
 
     @Subject
@@ -25,9 +25,8 @@ class NewsletterIssueDtoBuilderSpec extends Specification {
 
     def "Should convert newsletter issue to its DTO representation"() {
         given:
-            Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
-                    "some twitter", now(), BlogType.PERSONAL, true)
-            BlogPost post = new BlogPost(1, "some title", "some description", "some url", now(), true, blog)
+            Blog blog = sampleBlog()
+            BlogPost post = sampleBlogPost(blog)
             NewsletterIssue issue = new NewsletterIssue(1, 2, LocalDate.now(), "Some heading", [post],
                     [blog], "Some varia")
         when:
@@ -43,9 +42,8 @@ class NewsletterIssueDtoBuilderSpec extends Specification {
 
     def "Should convert blog post to its DTO representation"() {
         given:
-            Blog blog = new Blog(1, 2, "some author", "some rss", "some url",
-                    "some twitter", now(), BlogType.PERSONAL, true)
-            BlogPost post = new BlogPost(1, "some title", "some description", "some url", now(), true, blog)
+            Blog blog = sampleBlog()
+            BlogPost post = sampleBlogPost(blog)
         when:
             BlogPostDto blogPostJson = builder.fromBlogPost(post)
         then:
@@ -56,4 +54,30 @@ class NewsletterIssueDtoBuilderSpec extends Specification {
             blogPostJson.title == post.getTitle()
     }
 
+    private BlogPost sampleBlogPost(Blog blog) {
+        BlogPost.builder()
+                .id(1)
+                .title("some title")
+                .description("some description")
+                .url("some url")
+                .publishedDate(now())
+                .approvedDate(now())
+                .approved(true)
+                .blog(blog)
+                .build()
+    }
+
+    private Blog sampleBlog(){
+        Blog.builder()
+                .id(1)
+                .jsonId(2)
+                .author("some author")
+                .rss("some rss")
+                .url("some url")
+                .twitter("some twitter")
+                .dateAdded(now())
+                .blogType(BlogType.PERSONAL)
+                .active(true)
+                .build()
+    }
 }

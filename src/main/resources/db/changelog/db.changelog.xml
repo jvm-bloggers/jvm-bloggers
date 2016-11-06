@@ -356,4 +356,13 @@
 
     </changeSet>
 
+    <changeSet id="035-add-accepted-date-column-to-blog-post-table" author="Paweł Kaczorowski">
+        <addColumn tableName="blog_post">
+            <column name="APPROVED_DATE" type="timestamp without timezone"/>
+        </addColumn>
+        <sql>
+            update blog_post set APPROVED_DATE = PUBLISHED_DATE where APPROVED = true
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -97,7 +97,7 @@ public class AggregatedRssFeedProducer {
             excludedAuthors = INCLUDE_ALL_AUTHORS_SET;
         }
         final List<BlogPost> approvedPosts =
-            blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(
+            blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(
                 pageRequest, excludedAuthors
                 );
         final List<SyndEntry> feedItems = approvedPosts.stream()

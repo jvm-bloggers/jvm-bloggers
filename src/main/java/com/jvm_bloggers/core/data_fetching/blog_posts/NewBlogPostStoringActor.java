@@ -22,10 +22,14 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 @Slf4j
 public class NewBlogPostStoringActor extends AbstractActor {
 
-    public NewBlogPostStoringActor(BlogPostRepository blogPostRepository) {
+    private final BlogPostFactory blogPostFactory;
+
+    public NewBlogPostStoringActor(BlogPostRepository blogPostRepository,
+                                   BlogPostFactory blogPostFactory) {
+        this.blogPostFactory = blogPostFactory;
+
         receive(ReceiveBuilder.match(RssEntryWithAuthor.class,
             rssEntry -> {
-
                 if (Validators.isUrlValid(rssEntry.getRssEntry().getLink())) {
                     BlogPost blogPost = blogPostRepository
                         .findByUrl(rssEntry.getRssEntry().getLink())
@@ -43,9 +47,10 @@ public class NewBlogPostStoringActor extends AbstractActor {
         );
     }
 
-    public static Props props(BlogPostRepository blogPostRepository) {
+    public static Props props(BlogPostRepository blogPostRepository,
+                              BlogPostFactory blogPostFactory) {
         return Props.create(NewBlogPostStoringActor.class, () -> {
-                return new NewBlogPostStoringActor(blogPostRepository);
+                return new NewBlogPostStoringActor(blogPostRepository, blogPostFactory);
             }
         );
     }
@@ -55,13 +60,11 @@ public class NewBlogPostStoringActor extends AbstractActor {
         Date dateToStore = firstNonNull(postInRss.getPublishedDate(), postInRss.getUpdatedDate());
         log.info("Creating new post '{}' by {}", postInRss.getTitle(),
             rssEntry.getBlog().getAuthor());
-        return BlogPost.builder()
-            .title(postInRss.getTitle())
-            .url(postInRss.getLink())
-            .publishedDate(DateTimeUtilities.toLocalDateTime(dateToStore))
-            .approved(rssEntry.getBlog().getDefaultApprovedValue())
-            .blog(rssEntry.getBlog())
-            .build();
+        return blogPostFactory.create(
+            postInRss.getTitle(),
+            postInRss.getLink(),
+            DateTimeUtilities.toLocalDateTime(dateToStore),
+            rssEntry.getBlog());
     }
 
     private void updateDescription(BlogPost blogPost, SyndContent descriptionContent) {
@@ -71,4 +74,5 @@ public class NewBlogPostStoringActor extends AbstractActor {
             blogPost.setDescription(description);
         }
     }
+
 }
