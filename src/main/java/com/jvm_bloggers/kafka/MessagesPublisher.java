@@ -48,6 +48,7 @@ class MessagesPublisher {
     }
 
     public <T> void publish(T message, String topic) {
+        log.info("publishing message |{}| to kafka topic '{}'",message,topic);
         String serializedMessage = messageSerializer.serialize(message);
         publish(serializedMessage, topic);
     }

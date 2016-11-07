@@ -14,9 +14,11 @@ setupProperties() {
   export JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD=secret
   export JVM_BLOGGERS_CORE_PORT=9000
 
+  #Twitter settings
+  export JVM_BLOGGERS_TWITTER_CLIENT_PORT=9001
+
   #Kafka settings:
   export JVM_BLOGGERS_KAFKA_VERSION=0.10.0.1
-  export JVM_BLOGGERS_KAFKA_TOPICS="com.jvm_bloggers.issue.published:1:1"
   export JVM_BLOGGERS_KAFKA_PORT=9092
 
   #Zookeeper settings
