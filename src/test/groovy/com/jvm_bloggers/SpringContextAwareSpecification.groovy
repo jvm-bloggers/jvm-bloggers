@@ -1,14 +1,14 @@
 package com.jvm_bloggers
 
-import javax.transaction.Transactional
-
-import org.springframework.boot.test.SpringApplicationContextLoader
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
-
 import spock.lang.Specification
 
-@ContextConfiguration(classes = [JvmBloggersApplication], loader = SpringApplicationContextLoader)
+import javax.transaction.Transactional
+
+@ContextConfiguration
+@SpringBootTest
 @ActiveProfiles("test")
 @Transactional
 public abstract class SpringContextAwareSpecification extends Specification {
