@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<head></head>
+
+<body>
+
+<wicket:extend>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 wicket:id="header" class="page-header">[Blog Posts]</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-rss fa-fw"></i> Latest blog posts
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table cellspacing="0"
+                               class="table table-striped table-bordered table-hover dataTable no-footer">
+                            <tr>
+                                <th>Title</th>
+                                <th class="text-center" >Author</th>
+                                <th>Link</th>
+                                <th class="text-center">Date published</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                            <tr wicket:id="blogPostsDataView" class="gradeA">
+                                <td><span wicket:id="title">[title]</span></td>
+                                <td class="text-center"><span wicket:id="author">[author]</span></td>
+                                <td><a href="" wicket:id="link" target="_blank">[link]</a></td>
+                                <td class="text-center"><span wicket:id="date">[date]</span></td>
+                                <td class="text-center"><span wicket:id="approved">[approved]</span></td>
+                            </tr>
+                        </table>
+                        <span wicket:id="navigator">[dataview navigator]</span>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+                <!-- /.col-lg-8 -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</wicket:extend>
+
+</body>
+</html>
