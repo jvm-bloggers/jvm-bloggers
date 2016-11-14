@@ -76,6 +76,12 @@
       "name": "Sages",
       "rss": "http://www.sages.com.pl/blog/feed.xml",
       "twitter": "@sagespl"
+    },
+    {
+      "jsonId": 10014,
+      "name": "Consdata",
+      "rss": "http://www.consdata.pl/blog?format=feed",
+      "twitter": "@Consdata"
     }
   ]
 }
