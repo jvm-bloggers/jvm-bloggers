@@ -12,6 +12,9 @@ import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,6 +61,7 @@ public class NewsletterIssue implements NewsletterIssueBaseData {
     @Singular
     @NonNull
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "blog_posts_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "blog_post_id", referencedColumnName = "id")}
@@ -67,6 +71,7 @@ public class NewsletterIssue implements NewsletterIssueBaseData {
     @Singular
     @NonNull
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(name = "new_blogs_in_newsletter_issue",
         joinColumns = {@JoinColumn(name = "newsletter_issue_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "new_blog_id", referencedColumnName = "id")}
