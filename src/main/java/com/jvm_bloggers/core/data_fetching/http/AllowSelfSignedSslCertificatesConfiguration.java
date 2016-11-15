@@ -35,7 +35,7 @@ public class AllowSelfSignedSslCertificatesConfiguration {
     private static void disableSslVerification() {
         final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             @Override
-            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+            public X509Certificate[] getAcceptedIssuers() {
                 return ObjectArrays.newArray(java.security.cert.X509Certificate.class, 0);
             }
 

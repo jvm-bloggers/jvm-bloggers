@@ -5,8 +5,8 @@ import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssueDtoService;
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssuePage;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
@@ -19,9 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author rafal.garbowski
- */
+
 public class RightFrontendSidebar extends Panel {
 
     static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
@@ -31,11 +29,16 @@ public class RightFrontendSidebar extends Panel {
 
     public RightFrontendSidebar(String id) {
         super(id);
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
         composeLatestFiveNewsletterIssuesLinksView();
     }
 
     private void composeLatestFiveNewsletterIssuesLinksView() {
-        List<Link> latestIssues = newsletterIssueDtoService
+        List<AbstractLink> latestIssues = newsletterIssueDtoService
             .findTop5ByOrderByPublishedDateDesc().stream().map(this::getLink)
             .collect(Collectors.toList());
 
@@ -45,16 +48,16 @@ public class RightFrontendSidebar extends Panel {
             add(new EmptyPanel("latestIssuesEmptyLabel"));
         }
 
-        add(new ListView<Link>("latestIssuesList", latestIssues) {
+        add(new ListView<AbstractLink>("latestIssuesList", latestIssues) {
             @Override
-            protected void populateItem(ListItem<Link> item) {
+            protected void populateItem(ListItem<AbstractLink> item) {
                 item.add(item.getModelObject());
             }
         });
     }
 
-    private Link getLink(NewsletterIssueDto issue) {
-        return (Link) new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
+    private AbstractLink getLink(NewsletterIssueDto issue) {
+        return new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
             NewsletterIssuePage.buildShowIssueParams(issue.number))
             .setBody(Model.of(new StringResourceModel("right.panel.issue.link.label")
                 .setParameters(issue.number,

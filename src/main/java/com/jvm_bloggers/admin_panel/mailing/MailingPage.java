@@ -8,8 +8,6 @@ import com.jvm_bloggers.core.metadata.Metadata;
 import com.jvm_bloggers.core.metadata.MetadataKeys;
 import com.jvm_bloggers.core.metadata.MetadataRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -26,7 +24,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 import java.util.List;
 
 
-@Slf4j
 @MountPath("mailing-template")
 @AuthorizeInstantiation(Roles.ADMIN)
 public class MailingPage extends AbstractMailingPage {

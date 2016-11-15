@@ -4,7 +4,6 @@ import com.jvm_bloggers.admin_panel.PaginationConfiguration;
 import com.jvm_bloggers.core.mailing.domain.MailingAddress;
 import com.jvm_bloggers.core.mailing.domain.MailingAddressRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.util.Iterator;
 
 @Component
-@Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MailingAddressPageRequestHandler implements IDataProvider<MailingAddress> {
 

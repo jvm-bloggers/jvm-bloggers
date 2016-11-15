@@ -40,11 +40,7 @@ public class BlogPostFactory {
             return null;
         }
         LocalDateTime now = nowProvider.now();
-        if (postIsNew(publishedDate, now)) {
-            return now;
-        } else {
-            return publishedDate;
-        }
+        return (postIsNew(publishedDate, now)) ? now : publishedDate;
     }
 
     private boolean postIsNew(LocalDateTime publishedDate, LocalDateTime now) {
