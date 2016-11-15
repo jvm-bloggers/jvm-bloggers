@@ -5,6 +5,7 @@ import akka.actor.ActorSystem;
 import akka.routing.RoundRobinPool;
 
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
+import com.jvm_bloggers.core.data_fetching.blogs.PreventConcurrentExecutionSafeguard;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
 import com.jvm_bloggers.core.metadata.Metadata;
@@ -13,18 +14,13 @@ import com.jvm_bloggers.core.metadata.MetadataRepository;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.utils.NowProvider;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 @Component
-@Slf4j
 public class BlogPostsFetcher {
 
     private final BlogRepository blogRepository;
@@ -32,11 +28,8 @@ public class BlogPostsFetcher {
     private final ActorRef blogPostStoringActor;
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
-
-    private static final ThreadPoolExecutor
-        fetchingBlogPostExecutor = new ThreadPoolExecutor(1, 1,
-        0L, TimeUnit.MILLISECONDS,
-        new LinkedBlockingQueue<>());
+    private final PreventConcurrentExecutionSafeguard<Void> concurrentExecutionSafeguard
+        = new PreventConcurrentExecutionSafeguard<>();
 
     @Autowired
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
@@ -55,15 +48,15 @@ public class BlogPostsFetcher {
     }
 
     public void refreshPosts() {
-        if (isFetchingProcessInProgress()) {
-            log.info("Fetching blog posts data already in progress");
-            return;
-        }
-        fetchingBlogPostExecutor
-            .submit(this::startFetchingProcess);
+        concurrentExecutionSafeguard.preventConcurrentExecution(() -> startFetchingProcess());
     }
 
-    public void startFetchingProcess() {
+    @Async("singleThreadExecutor")
+    public void refreshPostsAsynchronously() {
+        refreshPosts();
+    }
+
+    private Void startFetchingProcess() {
         List<Blog> people = blogRepository.findAllActiveBlogs();
         people.stream()
             .filter(Blog::isActive)
@@ -73,9 +66,10 @@ public class BlogPostsFetcher {
             .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOG_POSTS);
         dateOfLastFetch.setValue(nowProvider.now().toString());
         metadataRepository.save(dateOfLastFetch);
+        return null;
     }
 
     public boolean isFetchingProcessInProgress() {
-        return fetchingBlogPostExecutor.getActiveCount() != 0;
+        return concurrentExecutionSafeguard.isExecuting();
     }
 }
