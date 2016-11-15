@@ -12,14 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -32,12 +30,9 @@ public class BloggersDataFetcher {
     private final ObjectMapper mapper = new ObjectMapper();
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
-
-    private static final ThreadPoolExecutor
-        fetchingBloggersDataExecutor = new ThreadPoolExecutor(1, 1,
-        0L, TimeUnit.MILLISECONDS,
-        new LinkedBlockingQueue<>());
-
+    private final PreventConcurrentExecutionSafeguard<Void> concurrentExecutionSafeguard
+        = new PreventConcurrentExecutionSafeguard<>();
+    
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
@@ -63,15 +58,15 @@ public class BloggersDataFetcher {
     }
 
     public void refreshData() {
-        if (isFetchingProcessInProgress()) {
-            log.info("Fetching bloggers data already in progress");
-            return;
-        }
-        fetchingBloggersDataExecutor
-            .submit(this::startFetchingProcess);
+        concurrentExecutionSafeguard.prevenConcurrentExecution(() -> startFetchingProcess());
     }
 
-    public void startFetchingProcess() {
+    @Async("singleThreadExecutor")
+    public void refreshDataAsynchronously() {
+        refreshData();
+    }
+
+    private Void startFetchingProcess() {
         refreshBloggersDataFor(bloggersUrlOptional, BlogType.PERSONAL);
         refreshBloggersDataFor(companiesUrlOptional, BlogType.COMPANY);
         refreshBloggersDataFor(videosUrlOptional, BlogType.VIDEOS);
@@ -80,6 +75,7 @@ public class BloggersDataFetcher {
             .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOGGERS);
         dateOfLastFetch.setValue(nowProvider.now().toString());
         metadataRepository.save(dateOfLastFetch);
+        return null;
     }
 
     private void refreshBloggersDataFor(Optional<URL> blogsDataUrl, BlogType blogType) {
@@ -97,6 +93,6 @@ public class BloggersDataFetcher {
     }
 
     public boolean isFetchingProcessInProgress() {
-        return fetchingBloggersDataExecutor.getActiveCount() != 0;
+        return concurrentExecutionSafeguard.isExecuting();
     }
 }
