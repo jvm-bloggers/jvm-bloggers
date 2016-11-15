@@ -17,10 +17,10 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     Optional<BlogPost> findByUid(String uid);
 
-    List<BlogPost> findByPublishedDateAfterAndApprovedTrueOrderByPublishedDateAsc(
+    List<BlogPost> findByApprovedDateAfterAndApprovedTrueOrderByApprovedDateAsc(
         LocalDateTime publishedDate);
 
-    List<BlogPost> findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(
+    List<BlogPost> findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(
         Pageable page, Set<String> excludedAuthors);
 
     @Query("from BlogPost bp order by "

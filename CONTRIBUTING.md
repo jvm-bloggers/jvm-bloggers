@@ -9,7 +9,7 @@
 
 ## Local git configuration
 
-Contributors must configure local repository after cloning by executing the command from the cloned root directory:
+Contributors must configure local repository after cloning by executing the command from jvm-bloggers/.git/config directory:
 
 	git config --local include.path ../.gitconfig
 

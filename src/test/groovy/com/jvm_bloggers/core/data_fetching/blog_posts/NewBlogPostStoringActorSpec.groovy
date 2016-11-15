@@ -4,19 +4,23 @@ import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Props
 import akka.testkit.JavaTestKit
-import com.rometools.rome.feed.synd.SyndContent
-import com.rometools.rome.feed.synd.SyndEntry
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.utils.DateTimeUtilities
+import com.rometools.rome.feed.synd.SyndContent
+import com.rometools.rome.feed.synd.SyndEntry
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.time.LocalDateTime
+
+import static com.jvm_bloggers.utils.DateTimeUtilities.toLocalDateTime
+
 class NewBlogPostStoringActorSpec extends Specification {
 
     BlogPostRepository blogPostRepository
+    BlogPostFactory blogPostFactory
     JavaTestKit testProbe
 
     @Subject
@@ -26,7 +30,8 @@ class NewBlogPostStoringActorSpec extends Specification {
         ActorSystem system = ActorSystem.create("test")
         testProbe = new JavaTestKit(system)
         blogPostRepository = Mock(BlogPostRepository)
-        Props props = NewBlogPostStoringActor.props(blogPostRepository)
+        blogPostFactory = Mock(BlogPostFactory)
+        Props props = NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory)
         blogPostingActor = system.actorOf(props, "blogPostingActor")
     }
 
@@ -39,18 +44,17 @@ class NewBlogPostStoringActorSpec extends Specification {
             String postUrl = "http://blogpost.com/blog"
             String postTitle = "Title"
             String postDescription = "description"
+            Blog blog = Mock(Blog)
+            BlogPost blogPost = Mock(BlogPost)
             SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
-            RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
+            RssEntryWithAuthor message = new RssEntryWithAuthor(blog, entry)
+            blogPostFactory.create(postTitle, postUrl, toLocalDateTime(entry.getPublishedDate()), blog) >> blogPost
             blogPostRepository.findByUrl(postUrl) >> Optional.empty()
         when:
             blogPostingActor.tell(message, ActorRef.noSender())
             testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
         then:
-            1 * blogPostRepository.save({
-                    it.url == postUrl &&
-                    it.title == postTitle &&
-                    it.description == postDescription
-            })
+            1 * blogPostRepository.save(blogPost)
     }
 
     def "Should not persist blog post with invalid URL"() {
@@ -102,13 +106,8 @@ class NewBlogPostStoringActorSpec extends Specification {
             blogPostingActor.tell(message, ActorRef.noSender())
             testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
         then:
-            1 * blogPostRepository.save({
-                    it.url == postUrl &&
-                    it.title == postTitle &&
-                    it.publishedDate == DateTimeUtilities.toLocalDateTime(updatedDate)
-            })
+            1 * blogPostFactory.create(postTitle, postUrl, toLocalDateTime(updatedDate), _ as Blog)
     }
-
 
     private SyndEntry mockSyndEntry(String postUrl, String postTitle, String postDescription) {
         return mockSyndEntry(postUrl, postTitle, postDescription, new Date(), new Date())

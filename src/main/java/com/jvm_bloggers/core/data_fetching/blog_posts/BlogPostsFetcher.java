@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class BlogPostsFetcher {
 
     private final BlogRepository blogRepository;
+    private final BlogPostFactory blogPostFactory;
     private final ActorRef rssCheckingActor;
     private final ActorRef blogPostStoringActor;
     private final MetadataRepository metadataRepository;
@@ -42,11 +43,14 @@ public class BlogPostsFetcher {
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
                             BlogPostRepository blogPostRepository,
                             SyndFeedProducer syndFeedFactory,
+                            BlogPostFactory blogPostFactory) {
+                            SyndFeedProducer syndFeedFactory,
                             MetadataRepository metadataRepository,
                             NowProvider nowProvider) {
         this.blogRepository = blogRepository;
+        this.blogPostFactory = blogPostFactory;
         blogPostStoringActor =
-            actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository));
+            actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
             .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
         this.metadataRepository = metadataRepository;

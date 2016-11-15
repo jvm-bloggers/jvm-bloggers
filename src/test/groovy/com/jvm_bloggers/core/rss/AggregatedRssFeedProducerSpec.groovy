@@ -1,12 +1,11 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.AggregatedRssFeedProducer
 import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.data.domain.Pageable
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.blogpost_redirect.RedirectLinkGenerator
+import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.blogpost_redirect.RedirectController
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
@@ -21,6 +20,7 @@ import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AU
 class AggregatedRssFeedProducerSpec extends Specification {
 
     public static final String BASE_URL = "http://test"
+    public static final String ISSUE_URL = "http://test/issue"
     String DESCRIPTION = "description"
     String TITLE_1 = "title_1"
     String TITLE_2 = "title_2"
@@ -39,7 +39,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
         BlogPost blogPost2 = stubBlogPost(UID_2, null, TITLE_2, URL_2, AUTHOR_2, DATE)
         BlogPost blogPost3 = stubBlogPost(UID_3, null, TITLE_2, INVALID_URL, AUTHOR_2, DATE)
-        findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, _) >> { args ->
+        findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, _) >> { args ->
             Pageable pageable = args[0]
             List<BlogPost> blogposts = [blogPost1, blogPost2, blogPost3]
             int limit = Math.min(blogposts.size(), pageable.pageSize)
@@ -51,7 +51,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         now() >> DATE
     }
 
-    RedirectLinkGenerator linkGenerator = new RedirectLinkGenerator(BASE_URL)
+    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL)
 
     @Subject
     AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider, linkGenerator)
@@ -142,7 +142,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         when:
             rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, excludedAuthors) >> []
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, excludedAuthors) >> []
     }
     
     @Unroll
@@ -150,7 +150,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         when:
             rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByPublishedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
+            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
         where:
             excludedAuthors << [null, [] as Set]
     }

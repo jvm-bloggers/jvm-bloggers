@@ -11,6 +11,7 @@ import java.time.LocalDateTime
 import java.time.Month
 
 class BlogPostSpec extends Specification {
+    private static final Boolean NOT_MODERATED = null
 
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
@@ -45,37 +46,53 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return whether post is going in newsletter"() {
         given:
-            BlogPost blogPost = createBlogPost(false, postPublicationDate)
+            BlogPost blogPost = createBlogPost(approved, postApprovedDate)
         when:
             boolean inNewsletter = blogPost.isGoingInNewsletter(lastNewsletterDate)
         then:
             inNewsletter == expected
         where:
-            postPublicationDate                             || lastNewsletterDate                              || expected
-            LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || true
-            LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 21, 12, 00) || false
+            approved | postApprovedDate                                || lastNewsletterDate                              || expected
+            true     | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || true
+            true     | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 21, 12, 00) || false
+            false    | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || false
+    }
+
+    def "Should approve post"() {
+        given:
+            BlogPost blogPost = createBlogPost(NOT_MODERATED)
+            LocalDateTime approvedDate = new NowProvider().now();
+        when:
+            blogPost.approve(approvedDate)
+        then:
+            blogPost.approved == Boolean.TRUE
+            blogPost.approvedDate == approvedDate
     }
 
     private BlogPost createBlogPost(final Boolean approved) {
-        createBlogPost(approved, new NowProvider().now())
+        createBlogPost(approved,
+                Boolean.TRUE == approved
+                        ? new NowProvider().now()
+                        : null)
     }
 
-    private BlogPost createBlogPost(final Boolean approved, LocalDateTime publicationDate) {
+    private BlogPost createBlogPost(final Boolean approved, LocalDateTime postApprovedDate) {
 
         return BlogPost.builder()
-            .approved(approved)
-            .title("title")
-            .url("url")
-            .publishedDate(publicationDate)
-            .blog(Blog.builder()
+                .approved(approved)
+                .title("title")
+                .url("url")
+                .publishedDate(new NowProvider().now())
+                .approvedDate(postApprovedDate)
+                .blog(Blog.builder()
                 .jsonId(0L)
                 .blogType(BlogType.PERSONAL)
                 .author("author")
                 .rss("rss")
                 .url("url")
-                .dateAdded(publicationDate)
+                .dateAdded(new NowProvider().now())
                 .build())
-            .build()
+                .build()
     }
 
     def "Should create BlogPost with random uid"() {

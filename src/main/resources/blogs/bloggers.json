@@ -513,7 +513,7 @@
     {
       "jsonId": 89,
       "name": "Damian Błażejewski",
-      "rss": "http://blog.dblazejewski.com/feeds/posts/default",
+      "rss": "http://blog.dblazejewski.com/feed/",
       "twitter": "@damian_bl"
     },
     {
@@ -847,6 +847,12 @@
       "jsonId": 148,
       "name": "Anna Pietras, Jakub Derda",
       "rss": "http://kobietydokodu.pl/feed/"
+    },
+    {
+      "jsonId": 149,
+      "name": "Marek Berkan",
+      "rss": "http://www.mberkan.pl/feed/",
+      "twitter": "@MarekBerkan"
     }
 
   ]
