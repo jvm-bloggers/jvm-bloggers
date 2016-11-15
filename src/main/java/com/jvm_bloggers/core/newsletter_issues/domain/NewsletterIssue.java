@@ -12,7 +12,6 @@ import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -37,7 +36,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @Getter
 @ToString(exclude = {"blogPosts", "newBlogs"})
-public class NewsletterIssue {
+public class NewsletterIssue implements NewsletterIssueBaseData {
 
     @Id
     @GeneratedValue(generator = "NEWSLETTER_ISSUE_SEQ", strategy = GenerationType.SEQUENCE)

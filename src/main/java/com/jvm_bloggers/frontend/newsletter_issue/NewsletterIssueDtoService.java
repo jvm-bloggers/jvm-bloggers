@@ -8,8 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -28,5 +29,10 @@ public class NewsletterIssueDtoService {
         Optional<NewsletterIssue> issue =
             newsletterIssueRepository.findByIssueNumber(issueNumber);
         return issue.map(newsletterIssueDtoBuilder::build);
+    }
+
+    public List<NewsletterIssueDto> findTop5ByOrderByPublishedDateDesc() {
+        return newsletterIssueRepository.findTop5ByOrderByPublishedDateDesc()
+            .stream().map(newsletterIssueDtoBuilder::build).collect(Collectors.toList());
     }
 }

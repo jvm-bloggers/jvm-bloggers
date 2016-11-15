@@ -5,6 +5,8 @@ import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue;
 
+import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssueBaseData;
+
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,13 @@ public class NewsletterIssueDtoBuilder {
             .publishedDate(issue.getPublishedDate())
             .newBlogs(fromBlogs(issue.getNewBlogs()))
             .posts(fromBlogPosts(issue.getBlogPosts()))
+            .build();
+    }
+
+    public NewsletterIssueDto build(NewsletterIssueBaseData issue) {
+        return NewsletterIssueDto.builder()
+            .number(issue.getIssueNumber())
+            .publishedDate(issue.getPublishedDate())
             .build();
     }
 
