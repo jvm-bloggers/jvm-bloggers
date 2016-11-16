@@ -6,7 +6,10 @@ import com.jvm_bloggers.admin_panel.session.UserSession;
 import com.jvm_bloggers.frontend.HomePage;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
+import net.ftlines.wicketsource.WicketSource;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
 import org.apache.wicket.markup.html.WebPage;
@@ -15,6 +18,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
+
 
 @SpringBootApplication
 @EnableScheduling
@@ -34,6 +38,10 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         new AnnotatedMountScanner().scanPackage("com.jvm_bloggers").mount(this);
         getMarkupSettings().setStripWicketTags(true);
+        RuntimeConfigurationType configurationType = getConfigurationType();
+        if (configurationType == RuntimeConfigurationType.DEVELOPMENT) {
+            WicketSource.configure(this);
+        }
     }
 
     @Override
