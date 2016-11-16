@@ -178,7 +178,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion "3.0"
+    gradleVersion "3.1"
 }
 
 idea {
