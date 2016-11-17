@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -26,7 +25,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Blog implements Serializable {
+public class Blog {
 
     @Id
     @GeneratedValue(generator = "PERSON_SEQ", strategy = GenerationType.SEQUENCE)

@@ -6,8 +6,6 @@ import com.jvm_bloggers.admin_panel.panels.CustomPagingNavigator;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -22,12 +20,11 @@ import static com.jvm_bloggers.admin_panel.blogs.BlogPostsPage.BLOG_ID_PARAM;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 
 @MountPath("admin-blogs")
-@AuthorizeInstantiation(Roles.ADMIN)
 public class BlogsPage extends AbstractAdminPage {
 
-    public static final String BLOG_DATA_FORM_ID = "blogDataForm";
-    public static final String BLOGS_DATA_VIEW_ID = "blogsDataView";
-    public static final String BLOG_POSTS_LINK_ID = "blogPostsLinkId";
+    static final String BLOG_DATA_FORM_ID = "blogDataForm";
+    static final String BLOGS_DATA_VIEW_ID = "blogsDataView";
+    static final String BLOG_POSTS_LINK_ID = "blogPostsLinkId";
 
     @SpringBean
     private BlogsPageRequestHandler requestHandler;

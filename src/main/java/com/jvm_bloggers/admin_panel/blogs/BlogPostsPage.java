@@ -6,8 +6,6 @@ import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
 import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
 
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
@@ -21,7 +19,6 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 @MountPath("admin-blogs/${" + BLOG_ID_PARAM + "}/posts")
-@AuthorizeInstantiation(Roles.ADMIN)
 public class BlogPostsPage extends AbstractAdminPage {
     static final String BLOG_ID_PARAM = "blogId";
     static final String HEADER_ID = "header";

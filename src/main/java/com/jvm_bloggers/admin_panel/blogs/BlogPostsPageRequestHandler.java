@@ -18,11 +18,8 @@ import java.util.Optional;
 public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
 
     private final PaginationConfiguration paginationConfiguration;
-
     private final BlogPostRepository blogPostRepository;
-
     private final BlogRepository blogRepository;
-
     private final Long blogId;
 
     @Override
@@ -51,7 +48,7 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
 
     String getPageHeader() {
         return Optional.ofNullable(blogRepository.findOne(blogId))
-            .map(b -> b.getAuthor() + " posts")
+            .map(b -> b.getAuthor() + "'s posts")
             .orElse("No such blog found");
     }
 }

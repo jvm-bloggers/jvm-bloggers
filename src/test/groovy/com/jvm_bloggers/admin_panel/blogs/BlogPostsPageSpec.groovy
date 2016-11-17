@@ -16,6 +16,7 @@ import static java.time.LocalDateTime.now
 class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
 
     private static final Long SAMPLE_BLOG_ID = 19L
+    private static final String APOSTROPHE = "&#039;"
 
     BlogPostRepository blogPostRepository = Mock(BlogPostRepository.class)
     BlogRepository blogRepository = Mock(BlogRepository.class)
@@ -31,7 +32,7 @@ class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
     def "Should generate header from Blog's author"() {
         given:
             blogRepository.findOne(SAMPLE_BLOG_ID) >> sampleBlog()
-            String expectedHeader = sampleBlog().author + " posts"
+            String expectedHeader = sampleBlog().author + APOSTROPHE + "s posts"
         when:
             tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))
         then:

@@ -29,7 +29,7 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
             Blog blog = sampleBlog()
             requestHandler.iterator(_, _) >> [blog].iterator()
             requestHandler.size() >> 1
-            requestHandler.model(_) >> Model.of(blog)
+            requestHandler.model(_) >> new BlogModel(blog)
         when:
             tester.startPage(BlogsPage.class)
             tester.clickLink(linkPath(BLOG_POSTS_LINK_ID))
