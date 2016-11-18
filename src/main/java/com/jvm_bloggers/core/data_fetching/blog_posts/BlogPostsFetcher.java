@@ -28,8 +28,8 @@ public class BlogPostsFetcher {
     private final ActorRef blogPostStoringActor;
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
-    private final PreventConcurrentExecutionSafeguard<Void> concurrentExecutionSafeguard
-        = new PreventConcurrentExecutionSafeguard<>();
+    private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
+        = new PreventConcurrentExecutionSafeguard();
 
     @Autowired
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,

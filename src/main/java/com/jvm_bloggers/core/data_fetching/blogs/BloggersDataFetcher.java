@@ -30,8 +30,8 @@ public class BloggersDataFetcher {
     private final ObjectMapper mapper = new ObjectMapper();
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
-    private final PreventConcurrentExecutionSafeguard<Void> concurrentExecutionSafeguard
-        = new PreventConcurrentExecutionSafeguard<>();
+    private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
+        = new PreventConcurrentExecutionSafeguard();
     
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
