@@ -853,6 +853,12 @@
       "name": "Marek Berkan",
       "rss": "http://www.mberkan.pl/feed/",
       "twitter": "@MarekBerkan"
+    },
+    {
+      "jsonId": 150,
+      "name": "Mateusz Rasiński",
+      "rss": "https://mateuszrasinski.github.io/feed.xml",
+      "twitter": "@MateuszRasinski"
     }
 
   ]
