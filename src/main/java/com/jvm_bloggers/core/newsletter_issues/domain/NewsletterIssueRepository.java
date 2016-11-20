@@ -14,4 +14,6 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
     Optional<NewsletterIssue> findFirstByOrderByPublishedDateDesc();
 
     List<NewsletterIssueBaseData> findTop5ByOrderByPublishedDateDesc();
+    
+    List<NewsletterIssue> findAllByOrderByPublishedDateDesc();
 }

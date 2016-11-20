@@ -20,14 +20,13 @@ public class NewsletterIssueDtoService {
     private final NewsletterIssueDtoBuilder newsletterIssueDtoBuilder;
 
     public Optional<NewsletterIssueDto> getLatestIssue() {
-        Optional<NewsletterIssue> latestIssue =
-            newsletterIssueRepository.findFirstByOrderByPublishedDateDesc();
+        Optional<NewsletterIssue> latestIssue = newsletterIssueRepository
+            .findFirstByOrderByPublishedDateDesc();
         return latestIssue.map(newsletterIssueDtoBuilder::build);
     }
 
     public Optional<NewsletterIssueDto> findByIssueNumber(long issueNumber) {
-        Optional<NewsletterIssue> issue =
-            newsletterIssueRepository.findByIssueNumber(issueNumber);
+        Optional<NewsletterIssue> issue = newsletterIssueRepository.findByIssueNumber(issueNumber);
         return issue.map(newsletterIssueDtoBuilder::build);
     }
 
@@ -35,4 +34,10 @@ public class NewsletterIssueDtoService {
         return newsletterIssueRepository.findTop5ByOrderByPublishedDateDesc()
             .stream().map(newsletterIssueDtoBuilder::build).collect(Collectors.toList());
     }
+
+    public List<NewsletterIssueDto> findAllByOrderByPublishedDateDesc() {
+        return newsletterIssueRepository.findAllByOrderByPublishedDateDesc().stream()
+            .map(newsletterIssueDtoBuilder::build).collect(Collectors.toList());
+    }
+
 }
