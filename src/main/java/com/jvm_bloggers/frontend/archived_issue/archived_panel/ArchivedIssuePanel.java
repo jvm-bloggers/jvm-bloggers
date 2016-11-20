@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.archiwum_issue.archiwum_panel;
+package com.jvm_bloggers.frontend.archived_issue.archived_panel;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -7,9 +7,9 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import java.util.List;
 import java.util.Map;
 
-public class ArchiwumIssuePanel extends Panel {
+public class ArchivedIssuePanel extends Panel {
 
-    public ArchiwumIssuePanel(String id, Map<String, List<Link>> archiwumIssueGroups) {
+    public ArchivedIssuePanel(String id, Map<String, List<Link>> archiwumIssueGroups) {
         super(id);
 
         RepeatingView issuesInMonth = new RepeatingView("issuesInMonthPanel");

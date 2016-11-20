@@ -37,7 +37,8 @@ public class NewsletterIssueDtoService {
 
     public List<NewsletterIssueDto> findAllByOrderByPublishedDateDesc() {
         return newsletterIssueRepository.findAllByOrderByPublishedDateDesc().stream()
-            .map(newsletterIssueDtoBuilder::build).collect(Collectors.toList());
+            .map(newsletterIssueDtoBuilder::build)
+            .collect(Collectors.toList());
     }
 
 }

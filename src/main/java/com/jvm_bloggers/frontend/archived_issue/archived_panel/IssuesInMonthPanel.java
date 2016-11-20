@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.archiwum_issue.archiwum_panel;
+package com.jvm_bloggers.frontend.archived_issue.archived_panel;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
