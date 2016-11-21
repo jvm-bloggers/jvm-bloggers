@@ -14,46 +14,38 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @MountPath("archivedIssues")
 public class ArchivedIssuePage extends AbstractFrontendPage {
 
-    static final String ARCHIVED_ISSUE_PANEL_ID = "archivedIssuePanel";
-
-    static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter
+    private static final String ARCHIVED_ISSUE_PANEL_ID = "archivedIssuePanel";
+    private static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter
         .ofPattern("dd/MM/yyyy");
-    static final DateTimeFormatter ARCHIVED_ISSSUE_FORMATTER = DateTimeFormatter
+    private static final DateTimeFormatter ARCHIVED_ISSSUE_FORMATTER = DateTimeFormatter
         .ofPattern("MM/yyyy");
 
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
 
     public ArchivedIssuePage() {
-        Map<String, List<Link>> archiwumIssuesGroup = createArchivedMonthGroups(
+        SortedMap<String, List<Link>> archiwumIssuesGroup = createArchivedMonthGroups(
             newsletterIssueDtoService);
-        archiwumIssuesGroup = sortMapByKey(archiwumIssuesGroup);
         add(new ArchivedIssuePanel(ARCHIVED_ISSUE_PANEL_ID, archiwumIssuesGroup));
     }
 
-    private Map<String, List<Link>> createArchivedMonthGroups(
+    private SortedMap<String, List<Link>> createArchivedMonthGroups(
         NewsletterIssueDtoService newsletterIssueDtoService) {
         return newsletterIssueDtoService
             .findAllByOrderByPublishedDateDesc().stream()
-            .collect(Collectors.groupingBy(this::getArchivedIssueGroup,
+            .collect(Collectors.groupingBy(
+                this::getArchivedIssueGroup,
+                () -> new TreeMap<String, List<Link>>(Comparator.reverseOrder()),
                 Collectors.mapping(this::getLink, Collectors.toList())));
-    }
-
-    private Map<String, List<Link>> sortMapByKey(Map<String, List<Link>> map) {
-        Map<String, List<Link>> sortedMap = new LinkedHashMap<String, List<Link>>();
-        map.entrySet().stream()
-            .sorted(Map.Entry.<String, List<Link>>comparingByKey()
-                .reversed())
-            .forEachOrdered(e -> sortedMap.put(e.getKey(), e.getValue()));
-        return sortedMap;
     }
 
     private String getArchivedIssueGroup(NewsletterIssueDto issue) {
