@@ -26,16 +26,16 @@ public class ArchivedIssuePage extends AbstractFrontendPage {
     private static final String ARCHIVED_ISSUE_PANEL_ID = "archivedIssuePanel";
     private static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter
         .ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter ARCHIVED_ISSSUE_FORMATTER = DateTimeFormatter
+    private static final DateTimeFormatter ARCHIVED_ISSUE_FORMATTER = DateTimeFormatter
         .ofPattern("MM/yyyy");
 
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
 
     public ArchivedIssuePage() {
-        SortedMap<String, List<Link>> archiwumIssuesGroup = createArchivedMonthGroups(
+        SortedMap<String, List<Link>> archivedIssuesGroup = createArchivedMonthGroups(
             newsletterIssueDtoService);
-        add(new ArchivedIssuePanel(ARCHIVED_ISSUE_PANEL_ID, archiwumIssuesGroup));
+        add(new ArchivedIssuePanel(ARCHIVED_ISSUE_PANEL_ID, archivedIssuesGroup));
     }
 
     private SortedMap<String, List<Link>> createArchivedMonthGroups(
@@ -44,12 +44,12 @@ public class ArchivedIssuePage extends AbstractFrontendPage {
             .findAllByOrderByPublishedDateDesc().stream()
             .collect(Collectors.groupingBy(
                 this::getArchivedIssueGroup,
-                () -> new TreeMap<String, List<Link>>(Comparator.reverseOrder()),
+                () -> new TreeMap<>(Comparator.reverseOrder()),
                 Collectors.mapping(this::getLink, Collectors.toList())));
     }
 
     private String getArchivedIssueGroup(NewsletterIssueDto issue) {
-        return ARCHIVED_ISSSUE_FORMATTER.format(issue.publishedDate);
+        return ARCHIVED_ISSUE_FORMATTER.format(issue.publishedDate);
     }
 
     private Link getLink(NewsletterIssueDto issue) {

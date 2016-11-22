@@ -9,11 +9,11 @@ import java.util.Map;
 
 public class ArchivedIssuePanel extends Panel {
 
-    public ArchivedIssuePanel(String id, Map<String, List<Link>> archiwumIssueGroups) {
+    public ArchivedIssuePanel(String id, Map<String, List<Link>> archivedIssueGroups) {
         super(id);
 
         RepeatingView issuesInMonth = new RepeatingView("issuesInMonthPanel");
-        archiwumIssueGroups.forEach((key, value) -> issuesInMonth
+        archivedIssueGroups.forEach((key, value) -> issuesInMonth
             .add(new IssuesInMonthPanel(issuesInMonth.newChildId(), key, value)));
         add(issuesInMonth);
 
