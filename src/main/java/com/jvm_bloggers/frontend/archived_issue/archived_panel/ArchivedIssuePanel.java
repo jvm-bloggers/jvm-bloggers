@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ArchivedIssuePanel extends Panel {
 
-    public ArchivedIssuePanel(String id, Map<String, List<Link>> archivedIssueGroups) {
+    public ArchivedIssuePanel(String id, Map<String, List<Link<?>>> archivedIssueGroups) {
         super(id);
 
         RepeatingView issuesInMonth = new RepeatingView("issuesInMonthPanel");

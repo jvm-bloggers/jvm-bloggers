@@ -15,6 +15,9 @@ public class DateTimeUtilities {
     public static final DateTimeFormatter DATE_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    public static final DateTimeFormatter MONTH_FORMATTER =
+        DateTimeFormatter.ofPattern("MM/yyyy");
+
     public static LocalDateTime toLocalDateTime(Date date) {
         return date.toInstant().atZone(DEFAULT_ZONE).toLocalDateTime();
     }

@@ -10,14 +10,14 @@ import java.util.List;
 
 public class IssuesInMonthPanel extends Panel {
 
-    public IssuesInMonthPanel(String id, String groupLabel, List<Link> monthIssues) {
+    public IssuesInMonthPanel(String id, String groupLabel, List<Link<?>> monthIssues) {
         super(id);
 
         add(new Label("groupLabel", groupLabel));
-        add(new ListView<Link>("issuesList", monthIssues) {
+        add(new ListView<Link<?>>("issuesList", monthIssues) {
 
             @Override
-            protected void populateItem(ListItem<Link> item) {
+            protected void populateItem(ListItem<Link<?>> item) {
                 item.add(item.getModelObject());
             }
         });

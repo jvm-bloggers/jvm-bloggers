@@ -13,50 +13,48 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
+import static com.jvm_bloggers.utils.DateTimeUtilities.MONTH_FORMATTER;
+
 @MountPath("archivedIssues")
 public class ArchivedIssuePage extends AbstractFrontendPage {
 
     private static final String ARCHIVED_ISSUE_PANEL_ID = "archivedIssuePanel";
-    private static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter
-        .ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter ARCHIVED_ISSUE_FORMATTER = DateTimeFormatter
-        .ofPattern("MM/yyyy");
 
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
 
     public ArchivedIssuePage() {
-        SortedMap<String, List<Link>> archivedIssuesGroup = createArchivedMonthGroups(
+        SortedMap<String, List<Link<?>>> archivedIssuesGroup = createArchivedMonthGroups(
             newsletterIssueDtoService);
         add(new ArchivedIssuePanel(ARCHIVED_ISSUE_PANEL_ID, archivedIssuesGroup));
     }
 
-    private SortedMap<String, List<Link>> createArchivedMonthGroups(
+    private SortedMap<String, List<Link<?>>> createArchivedMonthGroups(
         NewsletterIssueDtoService newsletterIssueDtoService) {
         return newsletterIssueDtoService
             .findAllByOrderByPublishedDateDesc().stream()
             .collect(Collectors.groupingBy(
                 this::getArchivedIssueGroup,
-                () -> new TreeMap<>(Comparator.reverseOrder()),
+                () -> new TreeMap<String, List<Link<?>>>(Comparator.reverseOrder()),
                 Collectors.mapping(this::getLink, Collectors.toList())));
     }
 
     private String getArchivedIssueGroup(NewsletterIssueDto issue) {
-        return ARCHIVED_ISSUE_FORMATTER.format(issue.publishedDate);
+        return MONTH_FORMATTER.format(issue.publishedDate);
     }
 
-    private Link getLink(NewsletterIssueDto issue) {
-        return (Link) new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
+    private Link<?> getLink(NewsletterIssueDto issue) {
+        return (Link<?>) new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
             NewsletterIssuePage.buildShowIssueParams(issue.number))
                 .setBody(Model.of(new StringResourceModel("archived.issue.link.label")
                     .setParameters(issue.number,
-                        PUBLISHED_DATE_FORMATTER.format(issue.publishedDate))));
+                            DATE_TIME_FORMATTER.format(issue.publishedDate))));
     }
 }
