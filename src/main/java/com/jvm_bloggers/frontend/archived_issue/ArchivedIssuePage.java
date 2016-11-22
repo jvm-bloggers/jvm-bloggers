@@ -19,7 +19,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
+import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
 import static com.jvm_bloggers.utils.DateTimeUtilities.MONTH_FORMATTER;
 
 @MountPath("archivedIssues")
@@ -53,8 +53,8 @@ public class ArchivedIssuePage extends AbstractFrontendPage {
     private Link<?> getLink(NewsletterIssueDto issue) {
         return (Link<?>) new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
             NewsletterIssuePage.buildShowIssueParams(issue.number))
-                .setBody(Model.of(new StringResourceModel("archived.issue.link.label")
-                    .setParameters(issue.number,
-                            DATE_TIME_FORMATTER.format(issue.publishedDate))));
+            .setBody(Model.of(new StringResourceModel("archived.issue.link.label")
+                .setParameters(issue.number,
+                    DATE_FORMATTER.format(issue.publishedDate))));
     }
 }
