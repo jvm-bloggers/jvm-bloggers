@@ -3,10 +3,11 @@ package com.jvm_bloggers.admin_panel.mailing;
 import com.jvm_bloggers.admin_panel.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.admin_panel.panels.CustomPagingNavigator;
 import com.jvm_bloggers.core.mailing.domain.MailingAddress;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -20,8 +21,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.function.Supplier;
 
+@Slf4j
 @MountPath("mailing-address")
-@AuthorizeInstantiation(Roles.ADMIN)
 public class MailingAddressPage extends AbstractMailingPage {
 
     public static final String MAILING_ADDRESS_FORM_ID = "mailingAddressForm";

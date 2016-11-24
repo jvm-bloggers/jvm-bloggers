@@ -12,6 +12,7 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Source;
 import com.jvm_bloggers.kafka.exception.UnableToConnectToKafkaException;
 import com.jvm_bloggers.kafka.serialization.MessageSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.CompletionStage;
 
 @Service
+@Slf4j
 class MessagesPublisher {
 
     private final ActorRef publishingActor;
@@ -46,6 +48,7 @@ class MessagesPublisher {
     }
 
     public <T> void publish(T message, String topic) {
+        log.info("publishing message |{}| to kafka topic '{}'",message,topic);
         String serializedMessage = messageSerializer.serialize(message);
         publish(serializedMessage, topic);
     }

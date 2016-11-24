@@ -16,12 +16,14 @@ import org.apache.wicket.markup.html.WebPage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 
 @SpringBootApplication
 @EnableScheduling
+@EnableAsync
 @EnableCaching
 @EnableEncryptableProperties
 public class JvmBloggersApplication extends WicketBootSecuredWebApplication {

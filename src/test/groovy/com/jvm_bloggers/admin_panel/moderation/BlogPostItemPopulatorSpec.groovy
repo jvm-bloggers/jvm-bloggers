@@ -1,5 +1,6 @@
 package com.jvm_bloggers.admin_panel.moderation
 
+import com.jvm_bloggers.admin_panel.blogs.BlogPostModel
 import org.apache.wicket.behavior.AttributeAppender
 import org.apache.wicket.markup.repeater.Item
 import com.jvm_bloggers.MockSpringContextAwareSpecification
