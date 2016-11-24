@@ -32,4 +32,8 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     int countByApprovedIsNull();
 
+    List<BlogPost> findByBlogIdOrderByPublishedDateDesc(Long blogId, Pageable page);
+
+    int countByBlogId(Long blogId);
+
 }

@@ -1,4 +1,4 @@
-package com.jvm_bloggers.admin_panel.moderation;
+package com.jvm_bloggers.admin_panel.blogs;
 
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
 import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
