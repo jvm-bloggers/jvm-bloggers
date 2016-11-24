@@ -11,7 +11,7 @@ class BloggersDataFetcherSpec extends Specification {
 
     def "Should not throw exception when url is not valid"() {
         given:
-            LocalDateTime NOW = LocalDateTime.now();
+            LocalDateTime NOW = LocalDateTime.now()
             NowProvider nowProvider = new TestNowProvider(NOW)
             String urlString = "invalid"
             String urlString2 = "invalid"
@@ -25,7 +25,7 @@ class BloggersDataFetcherSpec extends Specification {
 
     def "Should update bloggers data from valid url"() {
         given:
-            LocalDateTime NOW = LocalDateTime.now();
+            LocalDateTime NOW = LocalDateTime.now()
             NowProvider nowProvider = new TestNowProvider(NOW)
             String urlString = getClass().getResource("test_bloggers.json").toExternalForm()
             String urlString2 = getClass().getResource("test_companies.json").toExternalForm()
@@ -33,7 +33,7 @@ class BloggersDataFetcherSpec extends Specification {
             BloggersDataUpdater bloggersDataUpdater = Mock(BloggersDataUpdater)
             BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, bloggersDataUpdater, Stub(MetadataRepository), nowProvider)
         when:
-            fetcher.startFetchingProcess()
+            fetcher.refreshData()
         then:
             1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
             1 * bloggersDataUpdater.updateData({ it.bloggers.size == 2 })
