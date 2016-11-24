@@ -69,11 +69,7 @@ public class Blog {
     }
 
     public Boolean getDefaultApprovedValue() {
-        if (isPersonal()) {
-            return Boolean.TRUE;
-        } else {
-            return null;
-        }
+        return isPersonal() ? Boolean.TRUE : null; 
     }
 
     public String getStatus() {

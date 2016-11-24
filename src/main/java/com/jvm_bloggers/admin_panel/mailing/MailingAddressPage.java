@@ -11,7 +11,6 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -47,9 +46,10 @@ public class MailingAddressPage extends AbstractMailingPage {
     }
 
     private void addForm() {
-        FormComponent idField = (FormComponent) new TextField(ID_INPUT_ID).setEnabled(false);
-        FormComponent addressField = (FormComponent) new TextField<String>(ADDRESS_INPUT_ID)
-                .add(new PropertyValidator<MailingAddress>());
+        TextField<String> idField = new TextField<>(ID_INPUT_ID);
+        idField.setEnabled(false);
+        TextField<String> addressField = new TextField<>(ADDRESS_INPUT_ID);
+        addressField.add(new PropertyValidator<MailingAddress>());
         mailingAddressForm = new Form<>(MAILING_ADDRESS_FORM_ID);
         mailingAddressForm.add(idField);
         mailingAddressForm.add(addressField);

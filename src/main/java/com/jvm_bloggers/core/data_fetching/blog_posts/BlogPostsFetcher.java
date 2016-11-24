@@ -25,7 +25,6 @@ public class BlogPostsFetcher {
 
     private final BlogRepository blogRepository;
     private final ActorRef rssCheckingActor;
-    private final ActorRef blogPostStoringActor;
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
     private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
@@ -39,7 +38,7 @@ public class BlogPostsFetcher {
                             MetadataRepository metadataRepository,
                             NowProvider nowProvider) {
         this.blogRepository = blogRepository;
-        blogPostStoringActor =
+        final ActorRef blogPostStoringActor =
             actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
             .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");

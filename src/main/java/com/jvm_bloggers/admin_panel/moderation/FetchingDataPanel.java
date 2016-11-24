@@ -38,8 +38,8 @@ public class FetchingDataPanel extends Panel {
         add(createFetchBloggersDataButton(feedback));
     }
 
-    private AjaxLink createFetchBlogPostsDataButton(CustomFeedbackPanel feedback) {
-        return new AjaxLink("fetchBlogPostsData") {
+    private AjaxLink<Void> createFetchBlogPostsDataButton(CustomFeedbackPanel feedback) {
+        return new AjaxLink<Void>("fetchBlogPostsData") {
 
             @Override
             public void onClick(AjaxRequestTarget target) {
@@ -56,9 +56,9 @@ public class FetchingDataPanel extends Panel {
         };
     }
 
-    private AjaxLink createFetchBloggersDataButton(CustomFeedbackPanel feedback) {
+    private AjaxLink<Void> createFetchBloggersDataButton(CustomFeedbackPanel feedback) {
 
-        return new AjaxLink("fetchBloggersData") {
+        return new AjaxLink<Void>("fetchBloggersData") {
 
             @Override
             public void onClick(AjaxRequestTarget target) {

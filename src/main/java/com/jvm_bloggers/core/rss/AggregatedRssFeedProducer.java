@@ -58,8 +58,6 @@ public class AggregatedRssFeedProducer {
     static final Set<String> INCLUDE_ALL_AUTHORS_SET = ImmutableSet.of(StringUtils.EMPTY);
 
     private static final String SELF_REL = "self";
-    private static final String UTM_MEDIUM = "RSS";
-    private static final String UTM_CAMPAIGN = "RSS";
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
     private final LinkGenerator linkGenerator;
@@ -82,8 +80,7 @@ public class AggregatedRssFeedProducer {
     @Cacheable
     public SyndFeed getRss(String feedUrl, int limit, Set<String> excludedAuthors) {
 
-        Preconditions.checkArgument(
-            StringUtils.isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
+        Preconditions.checkArgument(isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
 
         StopWatch stopWatch = null;
         if (log.isDebugEnabled()) {
