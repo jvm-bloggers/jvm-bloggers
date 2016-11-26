@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.archived_issue.archived_panel;
+package com.jvm_bloggers.frontend.all_issues.all_issues_panel;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -12,16 +12,12 @@ public class IssuesInMonthPanel extends Panel {
 
     public IssuesInMonthPanel(String id, String groupLabel, List<Link<?>> monthIssues) {
         super(id);
-
         add(new Label("groupLabel", groupLabel));
         add(new ListView<Link<?>>("issuesList", monthIssues) {
-
             @Override
             protected void populateItem(ListItem<Link<?>> item) {
                 item.add(item.getModelObject());
             }
         });
-
     }
-
 }
