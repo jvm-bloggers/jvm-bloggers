@@ -124,7 +124,7 @@ tasks.coveralls {
     dependsOn 'check'
 }
 
-group = 'tdziurko'
+group = 'jvmbloggers'
 
 task buildDocker(type: Docker, dependsOn: build) {
     push = true
