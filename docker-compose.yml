@@ -11,7 +11,7 @@ services:
     volumes:
       - "$JVM_BLOGGERS_DB_PATH:/var/lib/postgresql"
   jvm-bloggers-core:
-    image: tdziurko/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
+    image: jvmbloggers/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
     environment:
       spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
       jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
@@ -28,7 +28,7 @@ services:
       - jvm-bloggers-kafka
 
   jvm-bloggers-twitter-client:
-    image: jakubdziworski/jvm-bloggers-twitter-client
+    image: jvmbloggers/jvm-bloggers-twitter-client
     depends_on:
       - jvm-bloggers-kafka
 
