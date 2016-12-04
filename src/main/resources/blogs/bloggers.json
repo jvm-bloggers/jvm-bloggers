@@ -859,7 +859,11 @@
       "name": "Mateusz Rasiński",
       "rss": "https://mateuszrasinski.github.io/feed.xml",
       "twitter": "@MateuszRasinski"
+    },
+    {
+      "jsonId": 151,
+      "name": "Paweł Chudzik",
+      "rss": "https://blog.pchudzik.com/index.xml"
     }
-
   ]
 }
