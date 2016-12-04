@@ -29,6 +29,11 @@ services:
 
   jvm-bloggers-twitter-client:
     image: jvmbloggers/jvm-bloggers-twitter-client
+    environment:
+        JVM_BLOGGERS_TWITTER_CONSUMER_KEY: $JVM_BLOGGERS_TWITTER_CONSUMER_KEY
+        JVM_BLOGGERS_TWITTER_CONSUMER_SECRET: $JVM_BLOGGERS_TWITTER_CONSUMER_SECRET
+        JVM_BLOGGERS_TWITTER_ACCESS_TOKEN: $JVM_BLOGGERS_TWITTER_ACCESS_TOKEN
+        JVM_BLOGGERS_TWITTER_ACCESS_SECRET: $JVM_BLOGGERS_TWITTER_ACCESS_SECRET
     depends_on:
       - jvm-bloggers-kafka
 

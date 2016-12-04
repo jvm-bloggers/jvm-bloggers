@@ -16,6 +16,11 @@ setupProperties() {
 
   #Twitter settings
   export JVM_BLOGGERS_TWITTER_CLIENT_PORT=9001
+  #Credentials for fake test account -> https://twitter.com/JvmTest
+  export JVM_BLOGGERS_TWITTER_CONSUMER_KEY="Dsi4rXqresiqm1YE6ZYmKZtra"
+  export JVM_BLOGGERS_TWITTER_CONSUMER_SECRET="WcWU68jIct0LkLoOSlfWIip16qVlTsu5sp54lg7emhvNHA1gtq"
+  export JVM_BLOGGERS_TWITTER_ACCESS_TOKEN="768504700031426562-SQNcsArlg0937WqVPMnxCyFGzJUXA4D"
+  export JVM_BLOGGERS_TWITTER_ACCESS_SECRET="cT1B9xaw15Y4kAJWh86WZMEdapgmu60EIGwu4tORtxuSH"
 
   #Kafka settings:
   export JVM_BLOGGERS_KAFKA_VERSION=0.10.0.1
