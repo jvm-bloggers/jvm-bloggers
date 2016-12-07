@@ -371,7 +371,7 @@
 
     <changeSet id="037-implicit-define-name-unique-constraint-on-metadata-table" author="Maciej.Pawlaczyk">
         <addColumn tableName="METADATA">
-            <column name="NEW_TEMP_NAME" type="varchar(100)" afterColumn="id"></column>
+            <column name="NEW_TEMP_NAME" type="varchar(100)"></column>
         </addColumn>
         <sql>update METADATA set NEW_TEMP_NAME=NAME</sql>
         <dropColumn tableName="METADATA" columnName="NAME"/>
