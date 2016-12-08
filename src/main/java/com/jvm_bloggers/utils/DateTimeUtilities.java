@@ -1,6 +1,7 @@
 package com.jvm_bloggers.utils;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -8,6 +9,10 @@ import java.util.Date;
 import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
 public class DateTimeUtilities {
+
+    public static final String[] POLISH_MONTHS =
+        {"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień",
+            "wrzesień", "paździrnik", "listopad", "grudzień"};
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -21,6 +26,12 @@ public class DateTimeUtilities {
 
     public static Date toDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(DEFAULT_ZONE).toInstant());
+    }
+
+    public static String getPolishMonthAndYear(LocalDate localDateTime) {
+        int monthNumber = localDateTime.getMonth().getValue();
+        return new StringBuilder().append(POLISH_MONTHS[monthNumber - 1]).append(" ")
+            .append(Integer.toString(localDateTime.getYear())).toString();
     }
 
     public static int daysBetweenDateAndLastFriday(LocalDateTime date) {
