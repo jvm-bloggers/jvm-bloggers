@@ -864,6 +864,12 @@
       "jsonId": 151,
       "name": "Paweł Chudzik",
       "rss": "https://blog.pchudzik.com/index.xml"
+    },
+    {
+      "jsonId": 152,
+      "name": "Grzegorz Ziemoński",
+      "rss": "http://tidyjava.com/feed/",
+      "twitter": "@grzegorztj"
     }
   ]
 }
