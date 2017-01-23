@@ -1,7 +1,6 @@
 package com.jvm_bloggers.core.mailing.sender;
 
 
-import com.jvm_bloggers.TimeConstants;
 import com.jvm_bloggers.core.mailing.domain.Email;
 import com.jvm_bloggers.core.mailing.domain.EmailRepository;
 import com.jvm_bloggers.utils.NowProvider;
@@ -33,7 +32,7 @@ public class EmailSendingScheduler {
         this.nowProvider = nowProvider;
     }
 
-    @Scheduled(fixedDelay = TimeConstants.FOUR_MINUTES)
+    @Scheduled(fixedDelayString = "${scheduler.send-email}")
     public void sendOneEmail() {
         Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull();
 

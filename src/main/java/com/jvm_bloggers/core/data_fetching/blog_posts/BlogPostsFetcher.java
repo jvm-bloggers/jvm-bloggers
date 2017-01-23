@@ -47,7 +47,7 @@ public class BlogPostsFetcher {
     }
 
     public void refreshPosts() {
-        concurrentExecutionSafeguard.preventConcurrentExecution(() -> startFetchingProcess());
+        concurrentExecutionSafeguard.preventConcurrentExecution(this::startFetchingProcess);
     }
 
     @Async("singleThreadExecutor")
