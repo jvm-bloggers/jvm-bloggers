@@ -62,6 +62,20 @@ This will configure cloned repository according to project standards. Note that 
 * Object under test should be marked with `@Subject` annotation from Spock
 
 
+## Liquibase guidelines
+
+* Do not modify old changesets, always create new one.
+
+* Always define primary/foreign key names and unique constraint names directly. Use [dedicated tags](http://www.liquibase.org/documentation/column.html#constraints-tag) on column definition, or refactor [changes](http://www.liquibase.org/documentation/changes/add_unique_constraint.html).
+
+* Use patterns below for constraint names:
+    * For primary keys: pk_{tableName} (eg. pk_blog, pk_email)
+    * For foreign keys: {tableName}\_to\_{refTableName} (eg. click_to_blog_post)
+    * For unique: {tableName}_{columnName}_unique (eg. blog_post_url_unique)
+
+* Make sure that after renaming a table or column, you've renamed all corresponding constraint names or primary/foreign key names. This additional effort will keep good readability.
+
+
 ## Commit guidelines
 
 * Do not forget to run `./gradlew check` before the commit. Green unit tests under IDE (or `./gradlew test`) does not guarantee the commit will pass CI. `check` task will additionally (among unit tests) run [checkstyle](http://checkstyle.sourceforge.net/) plugin against source code base.
