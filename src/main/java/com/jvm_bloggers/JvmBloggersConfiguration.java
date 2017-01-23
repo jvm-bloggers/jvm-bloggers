@@ -2,7 +2,6 @@ package com.jvm_bloggers;
 
 
 import akka.actor.ActorSystem;
-import akka.stream.ActorMaterializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
@@ -24,11 +23,6 @@ public class JvmBloggersConfiguration {
     @Bean
     public ActorSystem getActorSystem() {
         return ActorSystem.create("jvm-bloggers-akka");
-    }
-
-    @Bean
-    public ActorMaterializer getActorMaterializer(ActorSystem actorSystem) {
-        return ActorMaterializer.create(actorSystem);
     }
 
     @Bean

@@ -87,9 +87,6 @@ dependencies {
     compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
-    //Kafka
-    compile "com.typesafe.akka:akka-stream-kafka_$scalaVersion:0.13"
-
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-3'
@@ -99,8 +96,6 @@ dependencies {
     testCompile 'cglib:cglib-nodep:3.2.4'
     testCompile 'org.codehaus.groovy:groovy:2.4.7'
     testCompile "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
-    testCompile "com.typesafe.akka:akka-stream-testkit_$scalaVersion:$akkaVersion"
-    testCompile "net.manub:scalatest-embedded-kafka_$scalaVersion:0.9.0"
     runtime 'com.h2database:h2'
 
 }

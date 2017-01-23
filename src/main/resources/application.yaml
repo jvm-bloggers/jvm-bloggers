@@ -30,9 +30,3 @@ logging.level.com.jvm_bloggers: INFO
 scheduler.fetch-bloggers-data: 0 0 7,9,11,13,15,17,19,21,23 * * *
 scheduler.fetch-rss-for-new-blogs: 0 30 * * * *
 scheduler.publish-new-issue: 0 0 12 * * FRI
-
-kafka:
-  address: jvm-bloggers-kafka:9092
-  stream.buffer.size: 5
-  topics:
-    new.issue: com.jvm_bloggers.issue.published
