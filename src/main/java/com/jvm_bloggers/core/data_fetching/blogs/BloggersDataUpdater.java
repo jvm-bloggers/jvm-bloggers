@@ -7,7 +7,6 @@ import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.utils.NowProvider;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,9 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,36 +26,47 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BloggersDataUpdater {
 
+    enum UpdateStatus {
+        CREATED, UPDATED, NOT_CHANGED, INVALID
+    }
+
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
 
     public void updateData(BloggersData data) {
-        List<BloggerEntry> entries = data.getBloggers().stream()
-            .filter(entry -> entry.getRss().length() > 0)
-            .collect(Collectors.toList());
-        UpdateSummary updateSummary = new UpdateSummary(entries.size());
-        entries.parallelStream().forEach(entry -> updateSingleEntry(entry, updateSummary));
-        log.info("Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}",
-            updateSummary.numberOfEntries,
-            updateSummary.updatedEntries, updateSummary.createdEntries);
+        ConcurrentMap<UpdateStatus, Integer> stats = data.getBloggers()
+            .parallelStream()
+            .filter(BloggerEntry::hasRss)
+            .map(this::updateSingleEntry)
+            .collect(Collectors.groupingByConcurrent(
+                Function.identity(),
+                Collectors.reducing(0, e -> 1, Integer::sum)));
+        logStatistics(stats);
     }
 
-    protected void updateSingleEntry(BloggerEntry bloggerEntry, UpdateSummary updateSummary) {
-        Optional<Blog> existingBloggerByJsonId =
-            blogRepository.findByJsonId(bloggerEntry.getJsonId());
-
-        if (existingBloggerByJsonId.isPresent()) {
-            Blog bloggerWithSameJsonId = existingBloggerByJsonId.get();
-            updateBloggerIfThereAreSomeChanges(bloggerEntry, updateSummary, bloggerWithSameJsonId);
-        } else {
-            createNewBlogger(bloggerEntry, updateSummary);
-        }
+    private void logStatistics(Map<UpdateStatus, Integer> stats) {
+        int updates = stats.getOrDefault(UpdateStatus.UPDATED, 0);
+        int insertions = stats.getOrDefault(UpdateStatus.CREATED, 0);
+        int invalids = stats.getOrDefault(UpdateStatus.INVALID, 0);
+        int notChanged = stats.getOrDefault(UpdateStatus.NOT_CHANGED, 0);
+        int total = updates + insertions + invalids + notChanged;
+        log.info(
+            "Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}, invalidRecords={}, notChanged={}",
+            total, updates, insertions, invalids, notChanged
+        );
     }
 
-    private void updateBloggerIfThereAreSomeChanges(BloggerEntry bloggerEntry,
-                                                    UpdateSummary updateSummary,
-                                                    Blog existingBlogger) {
+    protected UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
+        return blogRepository
+            .findByJsonId(bloggerEntry.getJsonId())
+            .map(bloggerWithSameId ->
+                updateBloggerIfThereAreAnyChanges(bloggerEntry, bloggerWithSameId))
+            .orElseGet(() -> createNewBlogger(bloggerEntry));
+    }
+
+    private UpdateStatus updateBloggerIfThereAreAnyChanges(BloggerEntry bloggerEntry,
+                                                           Blog existingBlogger) {
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
@@ -68,7 +80,9 @@ public class BloggersDataUpdater {
                 existingBlogger.setUrl(bloggerEntry.getUrl());
             }
             blogRepository.save(existingBlogger);
-            updateSummary.recordUpdated();
+            return UpdateStatus.UPDATED;
+        } else {
+            return UpdateStatus.NOT_CHANGED;
         }
     }
 
@@ -76,12 +90,11 @@ public class BloggersDataUpdater {
         return syndFeedFactory.validUrlFromRss(rss);
     }
 
-    private void createNewBlogger(BloggerEntry bloggerEntry,
-                                  UpdateSummary updateSummary) {
+    private UpdateStatus createNewBlogger(BloggerEntry bloggerEntry) {
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
         if (!validBlogUrl.isPresent()) {
             log.warn("No url found for blog {}, Skipping", bloggerEntry.getRss());
-            return;
+            return UpdateStatus.INVALID;
         }
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
@@ -91,7 +104,7 @@ public class BloggersDataUpdater {
             .rss(bloggerEntry.getRss())
             .url(syndFeedFactory.validUrlFromRss(
                 bloggerEntry.getRss()).orElse(null)
-             )
+            )
             .twitter(bloggerEntry.getTwitter())
             .url(bloggerEntry.getUrl())
             .dateAdded(nowProvider.now())
@@ -99,7 +112,7 @@ public class BloggersDataUpdater {
             .active(true)
             .build();
         blogRepository.save(newBlog);
-        updateSummary.recordCreated();
+        return UpdateStatus.CREATED;
     }
 
     protected boolean somethingChangedInBloggerData(Blog blog, BloggerEntry bloggerEntry) {
@@ -114,27 +127,7 @@ public class BloggersDataUpdater {
     private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
                                                                  BloggerEntry bloggerEntry) {
         return StringUtils.isNotBlank(bloggerEntry.getUrl())
-                && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
-    }
-
-    @Getter
-    public static class UpdateSummary {
-
-        private int numberOfEntries;
-        private int updatedEntries;
-        private int createdEntries;
-
-        public UpdateSummary(int numberOfEntries) {
-            this.numberOfEntries = numberOfEntries;
-        }
-
-        public void recordUpdated() {
-            updatedEntries++;
-        }
-
-        public void recordCreated() {
-            createdEntries++;
-        }
+            && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
     }
 
 }
