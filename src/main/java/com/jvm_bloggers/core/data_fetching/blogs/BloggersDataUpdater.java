@@ -52,7 +52,8 @@ public class BloggersDataUpdater {
         int notChanged = stats.getOrDefault(UpdateStatus.NOT_CHANGED, 0);
         int total = updates + insertions + invalids + notChanged;
         log.info(
-            "Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, newRecords={}, invalidRecords={}, notChanged={}",
+            "Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, "
+                + "newRecords={}, invalidRecords={}, notChanged={}",
             total, updates, insertions, invalids, notChanged
         );
     }
