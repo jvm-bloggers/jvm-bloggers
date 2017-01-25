@@ -1,12 +1,12 @@
 package com.jvm_bloggers.admin_panel.login.attack;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -16,7 +16,7 @@ public class BruteForceLoginAttackDetector {
     private static final int MAX_INVALID_LOGIN_ATTEMPTS_PER_IP_ADDRESS = 3;
     private static final int EXPIRY_TIME_IN_MINUTES = 10;
 
-    private final Cache<String, Integer> invalidLoginAttemptsCounter;
+    private ConcurrentMap<String, Integer> invalidLoginAttemptsCounter;
 
     public BruteForceLoginAttackDetector() {
         this(EXPIRY_TIME_IN_MINUTES, TimeUnit.MINUTES);
@@ -25,23 +25,20 @@ public class BruteForceLoginAttackDetector {
     public BruteForceLoginAttackDetector(long duration, TimeUnit timeUnit) {
         invalidLoginAttemptsCounter = CacheBuilder
             .newBuilder()
-            .expireAfterWrite(duration, timeUnit).build();
+            .expireAfterWrite(duration, timeUnit)
+            .<String, Integer>build()
+            .asMap();
     }
 
-    public synchronized void recordInvalidLoginAttempt(String clientAddress) {
+    public void recordInvalidLoginAttempt(String clientAddress) {
         log.info("Storing invalid login attempt from {}", clientAddress);
-        Integer invalidLoginCounter = invalidLoginAttemptsCounter.getIfPresent(clientAddress);
-        if (invalidLoginCounter == null) {
-            invalidLoginAttemptsCounter.put(clientAddress, 1);
-        } else {
-            invalidLoginAttemptsCounter.put(clientAddress, invalidLoginCounter + 1);
-        }
+        invalidLoginAttemptsCounter.merge(clientAddress, 1, Integer::sum);
     }
 
-    public synchronized boolean isItBruteForceAttack(String clientAddress) {
-        Integer invalidLoginCounter = invalidLoginAttemptsCounter.getIfPresent(clientAddress);
-        boolean bruteForceAttackDetected = invalidLoginCounter != null
-            && invalidLoginCounter >= MAX_INVALID_LOGIN_ATTEMPTS_PER_IP_ADDRESS;
+    public boolean isItBruteForceAttack(String clientAddress) {
+        Integer invalidLoginCounter = invalidLoginAttemptsCounter.getOrDefault(clientAddress, -1);
+        boolean bruteForceAttackDetected =
+            invalidLoginCounter >= MAX_INVALID_LOGIN_ATTEMPTS_PER_IP_ADDRESS;
         if (bruteForceAttackDetected) {
             log.warn("Brute force attack detected from {}", clientAddress);
         }

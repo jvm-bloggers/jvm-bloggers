@@ -27,7 +27,7 @@ public class BloggersDataFetcher {
     private final Optional<URL> companiesUrlOptional;
     private final Optional<URL> videosUrlOptional;
     private final BloggersDataUpdater bloggersDataUpdater;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
     private final MetadataRepository metadataRepository;
     private final NowProvider nowProvider;
     private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
@@ -38,12 +38,13 @@ public class BloggersDataFetcher {
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
                                @Value("${youtube.data.file.url}") String videosDataUrlString,
                                BloggersDataUpdater bloggersDataUpdater,
-                               MetadataRepository metadataRepository,
+                               ObjectMapper mapper, MetadataRepository metadataRepository,
                                NowProvider nowProvider) {
         bloggersUrlOptional = convertToUrl(bloggersDataUrlString);
         companiesUrlOptional = convertToUrl(companiesDataUrlString);
         videosUrlOptional = convertToUrl(videosDataUrlString);
         this.bloggersDataUpdater = bloggersDataUpdater;
+        this.mapper = mapper;
         this.metadataRepository = metadataRepository;
         this.nowProvider = nowProvider;
     }
@@ -58,7 +59,7 @@ public class BloggersDataFetcher {
     }
 
     public void refreshData() {
-        concurrentExecutionSafeguard.preventConcurrentExecution(() -> startFetchingProcess());
+        concurrentExecutionSafeguard.preventConcurrentExecution(this::startFetchingProcess);
     }
 
     @Async("singleThreadExecutor")

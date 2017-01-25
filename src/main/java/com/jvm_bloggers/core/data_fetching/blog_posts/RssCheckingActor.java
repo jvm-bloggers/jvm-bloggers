@@ -10,9 +10,8 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer;
 public class RssCheckingActor extends AbstractActor {
 
     public RssCheckingActor(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory) {
-        receive(ReceiveBuilder.match(RssLink.class, rssLink -> {
-                executeAction(postStoringActor, syndFeedFactory, rssLink);
-            }
+        receive(ReceiveBuilder.match(RssLink.class,
+            rssLink -> executeAction(postStoringActor, syndFeedFactory, rssLink)
         ).build());
     }
 

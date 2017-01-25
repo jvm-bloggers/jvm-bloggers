@@ -49,9 +49,9 @@ public class NewBlogPostStoringActor extends AbstractActor {
 
     public static Props props(BlogPostRepository blogPostRepository,
                               BlogPostFactory blogPostFactory) {
-        return Props.create(NewBlogPostStoringActor.class, () -> {
-                return new NewBlogPostStoringActor(blogPostRepository, blogPostFactory);
-            }
+        return Props.create(
+            NewBlogPostStoringActor.class,
+            () -> new NewBlogPostStoringActor(blogPostRepository, blogPostFactory)
         );
     }
 
