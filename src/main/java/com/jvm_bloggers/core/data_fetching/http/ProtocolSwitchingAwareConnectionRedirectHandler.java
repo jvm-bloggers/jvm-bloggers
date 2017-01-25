@@ -8,13 +8,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import net.jcip.annotations.ThreadSafe;
+
 import org.apache.commons.collections4.MapUtils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 import java.util.Map;
 
 
@@ -58,7 +58,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
      *                                   {@link #REDIRECT_LIMIT redirects limit}
      */
     public HttpURLConnection handle(@NonNull URLConnection urlConnection,
-                                    Map<String, List<String>> headers) throws IOException {
+                                    Map<String, String> headers) throws IOException {
 
         HttpURLConnection conn = (HttpURLConnection) urlConnection;
         int redirectCounter = 0;
@@ -92,7 +92,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         return redirectCounter;
     }
 
-    private void setupConnection(HttpURLConnection conn, Map<String, List<String>> headers) {
+    private void setupConnection(HttpURLConnection conn, Map<String, String> headers) {
         conn.setConnectTimeout(DEFAULT_TIMEOUT);
         conn.setReadTimeout(DEFAULT_TIMEOUT);
         // handle redirects within the same protocol
@@ -102,12 +102,9 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
         }
     }
 
-    private void setupHeaders(HttpURLConnection conn, Map<String, List<String>> headers) {
-        headers.entrySet().forEach(header -> {
-            header.getValue().forEach(value -> {
-                conn.setRequestProperty(header.getKey(), value);
-            });
-        });
+    private void setupHeaders(HttpURLConnection conn, Map<String, String> headers) {
+        headers.entrySet()
+            .forEach(header -> conn.setRequestProperty(header.getKey(), header.getValue()));
     }
 
     private HttpURLConnection handleRedirect(HttpURLConnection conn) throws IOException {

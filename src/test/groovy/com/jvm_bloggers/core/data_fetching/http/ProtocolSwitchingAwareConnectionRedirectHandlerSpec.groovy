@@ -8,7 +8,7 @@ import static ProtocolSwitchingAwareConnectionRedirectHandler.LOCATION_HEADER
 
 class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification {
 
-    static final REQUEST_HEADERS = ["header": ["value 1", "value 2"]]
+    static final REQUEST_HEADERS = ["header": "value 1"]
 
     final HttpURLConnection httpConnection = Mock();
 
@@ -65,7 +65,6 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
     private def commonInteractions() {
         with(httpConnection) {
             1 * setRequestProperty("header", "value 1")
-            1 * setRequestProperty("header", "value 2")
             1 * setInstanceFollowRedirects(true)
             1 * setReadTimeout(DEFAULT_TIMEOUT)
             1 * setConnectTimeout(DEFAULT_TIMEOUT)
