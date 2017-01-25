@@ -16,6 +16,7 @@ class BloggerEntrySpec extends Specification {
             BloggerEntry entry = bloggers.bloggers.get(0)
             entry.getJsonId() == 1L
             entry.name == "Tomasz Dziurko"
+            entry.hasRss()
     }
 
 }

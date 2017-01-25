@@ -21,4 +21,8 @@ public class BloggerEntry {
     public BloggerEntry(Long jsonId, String name, String rss, String twitter, BlogType blogType) {
         this(jsonId, name, rss, null, twitter, blogType);
     }
+
+    public boolean hasRss() {
+        return !rss.isEmpty();
+    }
 }

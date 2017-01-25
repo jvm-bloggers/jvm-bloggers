@@ -83,7 +83,7 @@ public class BloggersDataFetcher {
         if (blogsDataUrl.isPresent()) {
             try {
                 BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
-                bloggers.getBloggers().stream().forEach(it -> it.setBlogType(blogType));
+                bloggers.getBloggers().forEach(it -> it.setBlogType(blogType));
                 bloggersDataUpdater.updateData(bloggers);
             } catch (Exception exception) {
                 log.error("Exception during parse process for {}", blogType, exception);
