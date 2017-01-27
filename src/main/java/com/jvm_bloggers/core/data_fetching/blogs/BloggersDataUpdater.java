@@ -26,15 +26,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BloggersDataUpdater {
 
-    enum UpdateStatus {
-        CREATED, UPDATED, NOT_CHANGED, INVALID
-    }
-
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
 
-    public void updateData(BloggersData data) {
+    public Map<UpdateStatus, Integer> updateData(BloggersData data) {
         ConcurrentMap<UpdateStatus, Integer> stats = data.getBloggers()
             .parallelStream()
             .filter(BloggerEntry::hasRss)
@@ -43,6 +39,7 @@ public class BloggersDataUpdater {
                 Function.identity(),
                 Collectors.reducing(0, e -> 1, Integer::sum)));
         logStatistics(stats);
+        return stats;
     }
 
     private void logStatistics(Map<UpdateStatus, Integer> stats) {
@@ -58,7 +55,7 @@ public class BloggersDataUpdater {
         );
     }
 
-    protected UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
+    private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
         return blogRepository
             .findByJsonId(bloggerEntry.getJsonId())
             .map(bloggerWithSameId ->
