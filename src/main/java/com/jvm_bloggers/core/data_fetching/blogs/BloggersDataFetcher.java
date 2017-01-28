@@ -32,7 +32,7 @@ public class BloggersDataFetcher {
     private final NowProvider nowProvider;
     private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
         = new PreventConcurrentExecutionSafeguard();
-    
+
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
@@ -84,7 +84,8 @@ public class BloggersDataFetcher {
             try {
                 BloggersData bloggers = mapper.readValue(blogsDataUrl.get(), BloggersData.class);
                 bloggers.getBloggers().forEach(it -> it.setBlogType(blogType));
-                bloggersDataUpdater.updateData(bloggers);
+                UpdateStatistic updateStatistic = bloggersDataUpdater.updateData(bloggers);
+                log.info("Refreshed {} blogs: {}", blogType, updateStatistic);
             } catch (Exception exception) {
                 log.error("Exception during parse process for {}", blogType, exception);
             }

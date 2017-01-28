@@ -91,10 +91,10 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(jsonId) >> Optional.empty()
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             1 * blogRepository.save(_ as Blog)
-            status.get(UpdateStatus.CREATED) == 1
+            statistics.getCreated() == 1
     }
 
     def "Should skip insertion of new Person for entry without valid url in rss"() {
@@ -104,10 +104,10 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(jsonId) >> Optional.empty()
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             0 * blogRepository.save(_ as Blog)
-            status.get(UpdateStatus.INVALID) == 1
+            statistics.getInvalid() == 1
     }
 
     def "Should not update data if equal record already exists in DB"() {
@@ -117,10 +117,10 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, entry.rss, entry.url, entry.twitter))
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             0 * blogRepository.save(_ as Blog)
-            status.get(UpdateStatus.NOT_CHANGED) == 1
+            statistics.getNotChanged() == 1
     }
 
     def "Should update data if data in entry data differs a bit from record in DB"() {
@@ -131,10 +131,10 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, "oldRSS", entry.rss, entry.twitter))
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             1 * blogRepository.save(_ as Blog)
-            status.get(UpdateStatus.UPDATED) == 1
+            statistics.getUpdated() == 1
     }
 
     def "Should update existing person if only name was changed"() {
@@ -146,13 +146,13 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             1 * blogRepository.save({
                 it.jsonId == jsonId && it.author == newName && it.rss == existingPerson.rss &&
                         it.twitter == existingPerson.twitter
             })
-            status.get(UpdateStatus.UPDATED) == 1
+            statistics.getUpdated() == 1
     }
 
     def "Should update existing blog if url was changed"() {
@@ -169,12 +169,12 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             1 * blogRepository.save({
                 it.url = "http://new.blog.pl"
             })
-            status.get(UpdateStatus.UPDATED) == 1
+            statistics.getUpdated() == 1
     }
 
     def "Should not update existing blog url if new address could not be retrieved"() {
@@ -190,12 +190,12 @@ class BloggersDataUpdaterSpec extends Specification {
             blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
             BloggersData bloggers = buildBloggersData(entry)
         when:
-            Map<UpdateStatus, Integer> status = bloggersDataUpdater.updateData(bloggers)
+            UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
         then:
             1 * blogRepository.save({
                 it.url != ""
             })
-            status.get(UpdateStatus.UPDATED) == 1
+            statistics.getUpdated() == 1
     }
 
     def buildBloggersData(BloggerEntry bloggerEntry) {

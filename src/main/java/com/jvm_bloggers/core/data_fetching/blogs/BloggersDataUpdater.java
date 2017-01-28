@@ -14,12 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -30,29 +26,12 @@ public class BloggersDataUpdater {
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
 
-    public Map<UpdateStatus, Integer> updateData(BloggersData data) {
-        ConcurrentMap<UpdateStatus, Integer> stats = data.getBloggers()
+    public UpdateStatistic updateData(BloggersData data) {
+        return data.getBloggers()
             .parallelStream()
             .filter(BloggerEntry::hasRss)
             .map(this::updateSingleEntry)
-            .collect(Collectors.groupingByConcurrent(
-                Function.identity(),
-                Collectors.reducing(0, e -> 1, Integer::sum)));
-        logStatistics(stats);
-        return stats;
-    }
-
-    private void logStatistics(Map<UpdateStatus, Integer> stats) {
-        int updates = stats.getOrDefault(UpdateStatus.UPDATED, 0);
-        int insertions = stats.getOrDefault(UpdateStatus.CREATED, 0);
-        int invalids = stats.getOrDefault(UpdateStatus.INVALID, 0);
-        int notChanged = stats.getOrDefault(UpdateStatus.NOT_CHANGED, 0);
-        int total = updates + insertions + invalids + notChanged;
-        log.info(
-            "Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, "
-                + "newRecords={}, invalidRecords={}, notChanged={}",
-            total, updates, insertions, invalids, notChanged
-        );
+            .collect(UpdateStatistic.collector());
     }
 
     private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
