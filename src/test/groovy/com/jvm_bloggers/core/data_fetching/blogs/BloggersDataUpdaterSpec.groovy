@@ -9,7 +9,6 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
-import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
@@ -23,66 +22,7 @@ class BloggersDataUpdaterSpec extends Specification {
     BlogRepository blogRepository = Mock(BlogRepository)
 
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer())
-
-    @Unroll
-    def "Should detect that BloggerEntry is different than corresponding Blog"() {
-        when:
-            boolean somethingChanged = bloggersDataUpdater.somethingChangedInBloggerData(person, bloggerEntry)
-        then:
-            somethingChanged == expectedResult
-        where:
-            person                                 | bloggerEntry                | expectedResult
-            standardPersonalBlog()                 | entryWithStandardBlogData() | false
-            blogWithUppercasedRss()                | entryWithStandardBlogData() | false
-            standardPersonalBlog()                 | entryWithCompanyBlogData()  | true
-            blogWithDifferentJsonId()              | entryWithStandardBlogData() | true
-            blogWithDifferentAuthor()              | entryWithStandardBlogData() | true
-            blogWithDifferentRss()                 | entryWithStandardBlogData() | true
-            blogWithDifferentTwitter()             | entryWithStandardBlogData() | true
-            blogWithDifferentAuthorRssAndTwitter() | entryWithStandardBlogData() | true
-            standardPersonalBlog()                 | entryWithDifferentPage()    | true
-    }
-
-    private BloggerEntry entryWithCompanyBlogData() {
-        buildBloggerEntry(1L, "blog", "rss", "page", "twitter", COMPANY)
-    }
-
-    private BloggerEntry entryWithDifferentPage() {
-        buildBloggerEntry(1L, "blog", "rss", "newPage", "twitter", PERSONAL)
-    }
-
-    private Blog standardPersonalBlog() {
-        buildBlog(1L, "blog", "rss", "page", "twitter")
-    }
-
-    private BloggerEntry entryWithStandardBlogData() {
-        buildBloggerEntry(1L, "blog", "rss", "page", "twitter", PERSONAL)
-    }
-
-    private Blog blogWithDifferentAuthorRssAndTwitter() {
-        buildBlog(1L, "authoX", "rsX", "page", "twitteX")
-    }
-
-    private Blog blogWithDifferentTwitter() {
-        buildBlog(1L, "blog", "rss", "page", "Xwitter")
-    }
-
-    private Blog blogWithDifferentRss() {
-        buildBlog(1L, "blog", "Xss", "page", "twitter")
-    }
-
-    private Blog blogWithDifferentAuthor() {
-        buildBlog(1L, "Author", "rss", "page", "twitter")
-    }
-
-    private Blog blogWithDifferentJsonId() {
-        buildBlog(2L, "blog", "rss", "page", "twitter")
-    }
-
-    private Blog blogWithUppercasedRss() {
-        buildBlog(1L, "blog", "RSS", "page", "twitter")
-    }
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer(), new BloggerChangedVerifier())
 
     def "Should insert new Person for entry with new json_id"() {
         given:

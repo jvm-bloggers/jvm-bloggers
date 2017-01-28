@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -25,6 +24,7 @@ public class BloggersDataUpdater {
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
+    private final BloggerChangedVerifier bloggerChangedVerifier;
 
     public UpdateStatistic updateData(BloggersData data) {
         return data.getBloggers()
@@ -47,7 +47,7 @@ public class BloggersDataUpdater {
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
-        if (somethingChangedInBloggerData(existingBlogger, bloggerEntry)) {
+        if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
@@ -91,20 +91,4 @@ public class BloggersDataUpdater {
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
     }
-
-    protected boolean somethingChangedInBloggerData(Blog blog, BloggerEntry bloggerEntry) {
-        return !Objects.equals(blog.getAuthor(), bloggerEntry.getName())
-            || !Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
-            || !StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
-            || !Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
-            || !Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter())
-            || urlFromRssIsValidAndDifferentThanExistingOne(blog, bloggerEntry);
-    }
-
-    private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
-                                                                 BloggerEntry bloggerEntry) {
-        return StringUtils.isNotBlank(bloggerEntry.getUrl())
-            && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
-    }
-
 }
