@@ -23,7 +23,8 @@ public class IssuesInMonthPanel extends Panel {
         });
     }
 
-    private String convertGroupLabelName(String groupLabel){
-        return POLISH_MONTHS[Integer.parseInt(groupLabel.substring(5))-1] + " " + groupLabel.substring(0,4);
+    private String convertGroupLabelName(String groupLabel) {
+        return POLISH_MONTHS[Integer.parseInt(groupLabel.substring(5)) - 1]
+            + " " + groupLabel.substring(0, 4);
     }
 }

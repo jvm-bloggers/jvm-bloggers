@@ -56,7 +56,7 @@ public class AllIssuesPage extends AbstractFrontendPage {
                     DATE_FORMATTER.format(issue.publishedDate))));
     }
 
-    private String getIssuesGroupNameKey(NewsletterIssueDto issue){
+    private String getIssuesGroupNameKey(NewsletterIssueDto issue) {
         return YEAR_MONTH_FORMATTER.format(issue.publishedDate);
     }
 }
