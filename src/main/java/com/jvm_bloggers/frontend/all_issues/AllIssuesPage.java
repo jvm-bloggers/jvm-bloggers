@@ -13,12 +13,13 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
-import static com.jvm_bloggers.utils.DateTimeUtilities.getPolishMonthAndYear;
+import static com.jvm_bloggers.utils.DateTimeUtilities.YEAR_MONTH_FORMATTER;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
@@ -42,13 +43,9 @@ public class AllIssuesPage extends AbstractFrontendPage {
         return newsletterIssueDtoService
             .findAllByOrderByPublishedDateDesc().stream()
             .collect(groupingBy(
-                this::getIssuesGroupName,
-                TreeMap::new,
+                this::getIssuesGroupNameKey,
+                () -> new TreeMap<String, List<Link<?>>>(Comparator.reverseOrder()),
                 mapping(this::getLink, toList())));
-    }
-
-    private String getIssuesGroupName(NewsletterIssueDto issue) {
-        return getPolishMonthAndYear(issue.publishedDate);
     }
 
     private Link<?> getLink(NewsletterIssueDto issue) {
@@ -57,5 +54,9 @@ public class AllIssuesPage extends AbstractFrontendPage {
             .setBody(Model.of(new StringResourceModel("all.issues.link.label")
                 .setParameters(issue.number,
                     DATE_FORMATTER.format(issue.publishedDate))));
+    }
+
+    private String getIssuesGroupNameKey(NewsletterIssueDto issue){
+        return YEAR_MONTH_FORMATTER.format(issue.publishedDate);
     }
 }

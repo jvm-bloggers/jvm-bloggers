@@ -1,7 +1,6 @@
 package com.jvm_bloggers.utils;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -20,18 +19,15 @@ public class DateTimeUtilities {
     public static final DateTimeFormatter DATE_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    public static final DateTimeFormatter YEAR_MONTH_FORMATTER =
+        DateTimeFormatter.ofPattern("yyyy/MM");
+
     public static LocalDateTime toLocalDateTime(Date date) {
         return date.toInstant().atZone(DEFAULT_ZONE).toLocalDateTime();
     }
 
     public static Date toDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(DEFAULT_ZONE).toInstant());
-    }
-
-    public static String getPolishMonthAndYear(LocalDate localDateTime) {
-        int monthNumber = localDateTime.getMonth().getValue();
-        return new StringBuilder().append(POLISH_MONTHS[monthNumber - 1]).append(" ")
-            .append(Integer.toString(localDateTime.getYear())).toString();
     }
 
     public static int daysBetweenDateAndLastFriday(LocalDateTime date) {
