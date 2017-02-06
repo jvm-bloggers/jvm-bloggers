@@ -2,6 +2,7 @@ package com.jvm_bloggers.core.data_fetching.blogs.json_data;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,5 +14,6 @@ public class BloggersData {
     }
 
     public BloggersData() {
+        this(new ArrayList<>());
     }
 }

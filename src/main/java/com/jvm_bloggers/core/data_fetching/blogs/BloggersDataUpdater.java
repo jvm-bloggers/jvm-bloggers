@@ -14,51 +14,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BloggersDataUpdater {
 
-    enum UpdateStatus {
-        CREATED, UPDATED, NOT_CHANGED, INVALID
-    }
-
     private final BlogRepository blogRepository;
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
+    private final BloggerChangedVerifier bloggerChangedVerifier;
 
-    public void updateData(BloggersData data) {
-        ConcurrentMap<UpdateStatus, Integer> stats = data.getBloggers()
+    public UpdateStatistic updateData(BloggersData data) {
+        return data.getBloggers()
             .parallelStream()
             .filter(BloggerEntry::hasRss)
             .map(this::updateSingleEntry)
-            .collect(Collectors.groupingByConcurrent(
-                Function.identity(),
-                Collectors.reducing(0, e -> 1, Integer::sum)));
-        logStatistics(stats);
+            .collect(UpdateStatistic.collector());
     }
 
-    private void logStatistics(Map<UpdateStatus, Integer> stats) {
-        int updates = stats.getOrDefault(UpdateStatus.UPDATED, 0);
-        int insertions = stats.getOrDefault(UpdateStatus.CREATED, 0);
-        int invalids = stats.getOrDefault(UpdateStatus.INVALID, 0);
-        int notChanged = stats.getOrDefault(UpdateStatus.NOT_CHANGED, 0);
-        int total = updates + insertions + invalids + notChanged;
-        log.info(
-            "Bloggers Data updated: totalRecordsInFile={}, updatedRecords={}, "
-                + "newRecords={}, invalidRecords={}, notChanged={}",
-            total, updates, insertions, invalids, notChanged
-        );
-    }
-
-    protected UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
+    private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
         return blogRepository
             .findByJsonId(bloggerEntry.getJsonId())
             .map(bloggerWithSameId ->
@@ -71,7 +47,7 @@ public class BloggersDataUpdater {
         Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
         validBlogUrl.ifPresent(bloggerEntry::setUrl);
 
-        if (somethingChangedInBloggerData(existingBlogger, bloggerEntry)) {
+        if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
@@ -115,20 +91,4 @@ public class BloggersDataUpdater {
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
     }
-
-    protected boolean somethingChangedInBloggerData(Blog blog, BloggerEntry bloggerEntry) {
-        return !Objects.equals(blog.getAuthor(), bloggerEntry.getName())
-            || !Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
-            || !StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
-            || !Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
-            || !Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter())
-            || urlFromRssIsValidAndDifferentThanExistingOne(blog, bloggerEntry);
-    }
-
-    private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
-                                                                 BloggerEntry bloggerEntry) {
-        return StringUtils.isNotBlank(bloggerEntry.getUrl())
-            && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
-    }
-
 }
