@@ -5,6 +5,7 @@ import com.jvm_bloggers.frontend.common_layout.RightFrontendSidebar
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssueDto
 import com.jvm_bloggers.frontend.newsletter_issue.NewsletterIssueDtoService
 import com.jvm_bloggers.frontend.newsletter_issue.newsletter_panel.NewsletterIssuePanel
+import com.jvm_bloggers.utils.DateTimeUtilities
 import org.apache.wicket.markup.html.basic.Label
 
 import java.text.NumberFormat
@@ -65,8 +66,8 @@ class HomePageSpec extends MockSpringContextAwareSpecification {
         then:
             latestIssues.each {
                 String issueNumber = NumberFormat.getInstance().format(it.number)
-                String publishedDate = RightFrontendSidebar.PUBLISHED_DATE_FORMATTER.format(it.publishedDate)
-                tester.assertContains("Nr $issueNumber wydany $publishedDate")
+                String publishedDate = DateTimeUtilities.DATE_FORMATTER.format(it.publishedDate)
+                tester.assertContains("Wydanie #$issueNumber - $publishedDate")
             }
     }
 

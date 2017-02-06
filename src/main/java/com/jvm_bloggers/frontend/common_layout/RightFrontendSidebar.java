@@ -15,14 +15,13 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
+
 
 public class RightFrontendSidebar extends Panel {
-
-    static final DateTimeFormatter PUBLISHED_DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
 
     @SpringBean
     private NewsletterIssueDtoService newsletterIssueDtoService;
@@ -61,6 +60,6 @@ public class RightFrontendSidebar extends Panel {
             NewsletterIssuePage.buildShowIssueParams(issue.number))
             .setBody(Model.of(new StringResourceModel("right.panel.issue.link.label")
                 .setParameters(issue.number,
-                    PUBLISHED_DATE_FORMATTER.format(issue.publishedDate))));
+                    DATE_FORMATTER.format(issue.publishedDate))));
     }
 }
