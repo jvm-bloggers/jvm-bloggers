@@ -877,6 +877,12 @@
       "name": "Bartek Kalinka",
       "rss": "https://bartekkalinka.github.io/feed.xml",
       "twitter": "@bartkali"      
+    },
+    {
+      "jsonId": 154,
+      "name": "Daniel Pokusa",
+      "rss": "http://software-empathy.pl/feed/",
+      "twitter": "@dpokusa"
     }
   ]
 }
