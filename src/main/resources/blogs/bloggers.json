@@ -883,6 +883,11 @@
       "name": "Daniel Pokusa",
       "rss": "http://software-empathy.pl/feed/",
       "twitter": "@dpokusa"
+    },
+    {
+      "jsonId": 155,
+      "name": "Bartosz Wieczorek",
+      "rss": "https://bmwieczorek.wordpress.com/tag/java-2/feed/"
     }
   ]
 }
