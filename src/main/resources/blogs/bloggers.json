@@ -883,6 +883,11 @@
       "name": "Daniel Pokusa",
       "rss": "http://software-empathy.pl/feed/",
       "twitter": "@dpokusa"
+    },
+    {
+      "jsonId": 155,
+      "name": "Michał Kuliński",
+      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default"
     }
   ]
 }
