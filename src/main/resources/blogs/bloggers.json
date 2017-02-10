@@ -886,6 +886,11 @@
     },
     {
       "jsonId": 155,
+      "name": "Michał Kuliński",
+      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default"
+    },
+    {
+      "jsonId": 156,
       "name": "Bartosz Wieczorek",
       "rss": "https://bmwieczorek.wordpress.com/tag/java-2/feed/"
     }
