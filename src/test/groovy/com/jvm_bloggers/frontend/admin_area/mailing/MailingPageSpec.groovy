@@ -3,10 +3,10 @@ package com.jvm_bloggers.frontend.admin_area.mailing
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.core.mailing.BlogSummaryMailGenerator
 import com.jvm_bloggers.core.mailing.IssueNumberRetriever
-import com.jvm_bloggers.core.metadata.Metadata
-import com.jvm_bloggers.core.metadata.MetadataKeys
-import com.jvm_bloggers.core.metadata.MetadataRepository
 import com.jvm_bloggers.core.newsletter_issues.NewsletterIssueFactory
+import com.jvm_bloggers.entities.metadata.Metadata
+import com.jvm_bloggers.entities.metadata.MetadataKeys
+import com.jvm_bloggers.entities.metadata.MetadataRepository
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import com.jvm_bloggers.utils.NowProvider
 import org.apache.wicket.Page
@@ -14,7 +14,11 @@ import org.apache.wicket.util.tester.FormTester
 
 import static MetadataKeys.MAILING_GREETING
 import static MetadataKeys.MAILING_TEMPLATE
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.*
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.MAILING_SECTION_TO_EDIT_DROPDOWN_ID
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.MAILING_TEMPLATE_FORM_ID
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.RESET_MAILING_TEMPLATE_BUTTON_ID
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.SEND_TEST_MAIL_BUTTON_ID
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.WYSIWYG_ID
 
 class MailingPageSpec extends MockSpringContextAwareSpecification {
 

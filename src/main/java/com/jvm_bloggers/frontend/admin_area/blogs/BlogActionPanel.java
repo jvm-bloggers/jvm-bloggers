@@ -1,9 +1,8 @@
 package com.jvm_bloggers.frontend.admin_area.blogs;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;

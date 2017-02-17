@@ -3,7 +3,6 @@ package com.jvm_bloggers.frontend.public_area;
 import com.jvm_bloggers.frontend.public_area.common_layout.FooterFrontend;
 import com.jvm_bloggers.frontend.public_area.common_layout.HeaderFrontend;
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebar;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;

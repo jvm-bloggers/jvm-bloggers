@@ -3,7 +3,6 @@ package com.jvm_bloggers.frontend.public_area.common_layout;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDto;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDtoService;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;

@@ -1,8 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area.moderation;
 
-import com.jvm_bloggers.core.metadata.Metadata;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
-
+import com.jvm_bloggers.entities.metadata.Metadata;
+import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;

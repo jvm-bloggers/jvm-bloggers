@@ -1,21 +1,21 @@
 package com.jvm_bloggers.core.rss
 
-import com.rometools.rome.feed.synd.SyndFeed
-import org.springframework.data.domain.Pageable
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.blogpost_redirect.RedirectController
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog_post.BlogPost
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.utils.NowProvider
+import com.rometools.rome.feed.synd.SyndFeed
+import org.springframework.data.domain.Pageable
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
-import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
+import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 class AggregatedRssFeedProducerSpec extends Specification {
 

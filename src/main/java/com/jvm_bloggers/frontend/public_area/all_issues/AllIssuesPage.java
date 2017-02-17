@@ -5,7 +5,6 @@ import com.jvm_bloggers.frontend.public_area.all_issues.all_issues_panel.AllIssu
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDto;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDtoService;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage;
-
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;

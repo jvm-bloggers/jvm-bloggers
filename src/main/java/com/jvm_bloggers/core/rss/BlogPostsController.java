@@ -1,10 +1,8 @@
 package com.jvm_bloggers.core.rss;
 
 import com.rometools.rome.io.SyndFeedOutput;
-
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;

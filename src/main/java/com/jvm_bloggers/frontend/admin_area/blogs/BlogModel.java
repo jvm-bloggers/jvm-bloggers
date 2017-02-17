@@ -1,8 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area.blogs;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
-
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;

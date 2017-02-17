@@ -1,15 +1,13 @@
 package com.jvm_bloggers.core.data_fetching.blogs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType;
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData;
-import com.jvm_bloggers.core.metadata.Metadata;
-import com.jvm_bloggers.core.metadata.MetadataKeys;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
+import com.jvm_bloggers.entities.blog.BlogType;
+import com.jvm_bloggers.entities.metadata.Metadata;
+import com.jvm_bloggers.entities.metadata.MetadataKeys;
+import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;

@@ -1,12 +1,10 @@
 package com.jvm_bloggers.frontend.admin_area.blogs;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.beans.factory.annotation.Autowired;

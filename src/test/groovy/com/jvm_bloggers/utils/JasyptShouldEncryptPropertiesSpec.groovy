@@ -1,8 +1,8 @@
 package com.jvm_bloggers.utils
 
+import com.jvm_bloggers.SpringContextAwareSpecification
 import org.jasypt.encryption.StringEncryptor
 import org.springframework.beans.factory.annotation.Autowired
-import com.jvm_bloggers.SpringContextAwareSpecification
 
 /**
  * This test is a helper to encrypt properties we don't want to put in the repo as a plain text.

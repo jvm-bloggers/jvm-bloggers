@@ -3,7 +3,6 @@ package com.jvm_bloggers.frontend.admin_area;
 import com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage;
 import com.jvm_bloggers.frontend.admin_area.mailing.MailingPage;
 import com.jvm_bloggers.frontend.admin_area.moderation.ModerationPage;
-
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.devutils.debugbar.DebugBar;

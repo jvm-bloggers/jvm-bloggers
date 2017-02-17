@@ -1,7 +1,7 @@
 package com.jvm_bloggers.frontend.public_area.newsletter_issue;
 
 import com.google.common.collect.ImmutableMap;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType;
+import com.jvm_bloggers.entities.blog.BlogType;
 
 import java.util.Map;
 

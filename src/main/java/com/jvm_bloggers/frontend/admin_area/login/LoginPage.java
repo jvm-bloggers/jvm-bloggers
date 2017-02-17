@@ -4,7 +4,6 @@ import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage;
 import com.jvm_bloggers.frontend.admin_area.login.attack.BruteForceLoginAttackDetector;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.frontend.admin_area.session.UserSession;
-
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.devutils.stateless.StatelessComponent;

@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.admin_area.session;
 
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;

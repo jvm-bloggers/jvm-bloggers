@@ -1,11 +1,11 @@
 package com.jvm_bloggers.core.blogpost_redirect
 
 import akka.actor.ActorSystem
-import org.springframework.test.web.servlet.MockMvc
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
-import com.jvm_bloggers.core.blogpost_redirect.click_counter.domain.ClickRepository
+import com.jvm_bloggers.entities.blog_post.BlogPost
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
+import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.utils.NowProvider
+import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get

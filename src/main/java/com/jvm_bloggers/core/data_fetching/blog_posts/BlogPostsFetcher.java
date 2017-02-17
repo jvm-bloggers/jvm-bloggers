@@ -3,17 +3,15 @@ package com.jvm_bloggers.core.data_fetching.blog_posts;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.routing.RoundRobinPool;
-
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
 import com.jvm_bloggers.core.data_fetching.blogs.PreventConcurrentExecutionSafeguard;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
-import com.jvm_bloggers.core.metadata.Metadata;
-import com.jvm_bloggers.core.metadata.MetadataKeys;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
+import com.jvm_bloggers.entities.metadata.Metadata;
+import com.jvm_bloggers.entities.metadata.MetadataKeys;
+import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

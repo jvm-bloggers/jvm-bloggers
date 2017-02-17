@@ -1,7 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area.login
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import com.jvm_bloggers.frontend.admin_area.login.attack.BruteForceLoginAttackDetector

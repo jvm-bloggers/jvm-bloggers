@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.admin_area.mailing;
 
 import com.jvm_bloggers.frontend.admin_area.AbstractAdminPage;
-
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
 public abstract class AbstractMailingPage extends AbstractAdminPage {

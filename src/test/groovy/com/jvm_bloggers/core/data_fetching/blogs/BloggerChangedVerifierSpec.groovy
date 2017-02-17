@@ -1,16 +1,16 @@
 package com.jvm_bloggers.core.data_fetching.blogs
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggerEntry
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog.BlogType
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
-import static com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType.COMPANY
-import static com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType.PERSONAL
+import static BlogType.COMPANY
+import static BlogType.PERSONAL
 
 class BloggerChangedVerifierSpec extends Specification {
 

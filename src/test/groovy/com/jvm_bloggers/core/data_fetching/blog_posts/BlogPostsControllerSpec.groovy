@@ -5,14 +5,13 @@ import com.jvm_bloggers.core.rss.BlogPostsController
 import com.rometools.rome.feed.synd.SyndContentImpl
 import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.feed.synd.SyndFeedImpl
-import com.rometools.rome.feed.synd.SyndLinkImpl;
-
+import com.rometools.rome.feed.synd.SyndLinkImpl
 import org.apache.commons.io.IOUtils
 import org.springframework.http.MediaType
 import spock.lang.Specification
 import spock.lang.Subject
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class BlogPostsControllerSpec extends Specification {

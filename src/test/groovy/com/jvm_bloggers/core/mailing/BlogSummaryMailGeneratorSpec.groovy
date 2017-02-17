@@ -1,10 +1,10 @@
 package com.jvm_bloggers.core.mailing
 
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
-import com.jvm_bloggers.core.metadata.Metadata
-import com.jvm_bloggers.core.metadata.MetadataKeys
-import com.jvm_bloggers.core.metadata.MetadataRepository
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue
+import com.jvm_bloggers.entities.metadata.Metadata
+import com.jvm_bloggers.entities.metadata.MetadataKeys
+import com.jvm_bloggers.entities.metadata.MetadataRepository
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -1,6 +1,6 @@
 package com.jvm_bloggers.frontend.public_area.newsletter_issue
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
+import com.jvm_bloggers.entities.blog.BlogType
 import spock.lang.Specification
 import spock.lang.Unroll
 

@@ -1,10 +1,8 @@
 package com.jvm_bloggers.core.data_fetching.http;
 
 import com.google.common.collect.ObjectArrays;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
 import org.postgresql.ssl.NonValidatingFactory;
 import org.springframework.stereotype.Component;
 

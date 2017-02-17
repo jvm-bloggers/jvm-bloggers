@@ -1,15 +1,13 @@
 package com.jvm_bloggers.core.data_fetching.blogs;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggerEntry;
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

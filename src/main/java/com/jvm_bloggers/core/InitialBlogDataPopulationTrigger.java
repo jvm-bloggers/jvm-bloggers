@@ -1,13 +1,11 @@
 package com.jvm_bloggers.core;
 
 import com.jvm_bloggers.core.data_fetching.blog_posts.BlogPostsFetchingScheduler;
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
 import com.jvm_bloggers.core.data_fetching.blogs.BloggersDataFetchingScheduler;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
-
+import com.jvm_bloggers.entities.blog.BlogRepository;
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;

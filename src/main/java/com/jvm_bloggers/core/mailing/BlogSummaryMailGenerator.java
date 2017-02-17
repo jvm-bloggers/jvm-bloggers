@@ -2,16 +2,14 @@ package com.jvm_bloggers.core.mailing;
 
 import com.google.common.base.Strings;
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator;
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType;
-import com.jvm_bloggers.core.metadata.MetadataKeys;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue;
 import com.jvm_bloggers.core.utils.UriUtmComponentsBuilder;
-
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogType;
+import com.jvm_bloggers.entities.blog_post.BlogPost;
+import com.jvm_bloggers.entities.metadata.MetadataKeys;
+import com.jvm_bloggers.entities.metadata.MetadataRepository;
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import lombok.NoArgsConstructor;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

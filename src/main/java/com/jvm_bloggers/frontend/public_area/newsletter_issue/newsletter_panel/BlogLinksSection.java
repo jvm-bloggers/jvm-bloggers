@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel;
 
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.BlogDto;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.list.ListItem;

@@ -1,11 +1,11 @@
 package com.jvm_bloggers.core.data_fetching.blogs
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggerEntry
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData
 import com.jvm_bloggers.core.rss.SyndFeedProducer
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject

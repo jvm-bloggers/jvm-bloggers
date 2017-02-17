@@ -1,17 +1,15 @@
 package com.jvm_bloggers.core.newsletter_issues;
 
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
 import com.jvm_bloggers.core.mailing.IssueNumberRetriever;
-import com.jvm_bloggers.core.metadata.MetadataKeys;
-import com.jvm_bloggers.core.metadata.MetadataRepository;
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue;
+import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.blog.BlogRepository;
+import com.jvm_bloggers.entities.blog_post.BlogPost;
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
+import com.jvm_bloggers.entities.metadata.MetadataKeys;
+import com.jvm_bloggers.entities.metadata.MetadataRepository;
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.NowProvider;
-
 import lombok.AllArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

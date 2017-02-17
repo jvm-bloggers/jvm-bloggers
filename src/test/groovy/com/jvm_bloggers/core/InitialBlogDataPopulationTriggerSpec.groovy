@@ -1,10 +1,10 @@
 package com.jvm_bloggers.core
 
-import com.jvm_bloggers.core.data_fetching.blog_posts.BlogPostsFetchingScheduler;
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
-import com.jvm_bloggers.core.data_fetching.blogs.BloggersDataFetchingScheduler;
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository;
-import spock.lang.Specification;
+import com.jvm_bloggers.core.data_fetching.blog_posts.BlogPostsFetchingScheduler
+import com.jvm_bloggers.core.data_fetching.blogs.BloggersDataFetchingScheduler
+import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
+import spock.lang.Specification
 import spock.lang.Subject
 
 class InitialBlogDataPopulationTriggerSpec extends Specification {

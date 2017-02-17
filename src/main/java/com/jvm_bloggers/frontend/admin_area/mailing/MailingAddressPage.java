@@ -1,11 +1,9 @@
 package com.jvm_bloggers.frontend.admin_area.mailing;
 
-import com.jvm_bloggers.core.mailing.domain.MailingAddress;
+import com.jvm_bloggers.entities.mailing_address.MailingAddress;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomPagingNavigator;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.bean.validation.PropertyValidator;

@@ -1,13 +1,15 @@
 package com.jvm_bloggers.frontend.admin_area.blogs
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.blog.BlogType
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 
-import static com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage.*
+import static com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage.BLOGS_DATA_VIEW_ID
+import static com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage.BLOG_DATA_FORM_ID
+import static com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage.BLOG_POSTS_LINK_ID
 import static java.time.LocalDateTime.now
 
 class BlogsPageSpec extends MockSpringContextAwareSpecification {

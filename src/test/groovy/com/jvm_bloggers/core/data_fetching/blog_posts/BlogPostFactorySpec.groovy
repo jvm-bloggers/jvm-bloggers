@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.data_fetching.blog_posts
 
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject

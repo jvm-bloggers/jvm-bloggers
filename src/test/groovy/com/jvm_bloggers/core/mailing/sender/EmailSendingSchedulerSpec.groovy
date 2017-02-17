@@ -1,8 +1,8 @@
 package com.jvm_bloggers.core.mailing.sender
 
 import com.jvm_bloggers.TestNowProvider
-import com.jvm_bloggers.core.mailing.domain.Email
-import com.jvm_bloggers.core.mailing.domain.EmailRepository
+import com.jvm_bloggers.entities.email.Email
+import com.jvm_bloggers.entities.email.EmailRepository
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject

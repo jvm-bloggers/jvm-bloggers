@@ -1,11 +1,9 @@
 package com.jvm_bloggers.frontend.admin_area.moderation;
 
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPost;
+import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.utils.NowProvider;
-
 import lombok.RequiredArgsConstructor;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;

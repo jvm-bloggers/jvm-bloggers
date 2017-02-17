@@ -1,14 +1,12 @@
 package com.jvm_bloggers.core.mailing;
 
-import com.jvm_bloggers.core.mailing.domain.Email;
-import com.jvm_bloggers.core.mailing.domain.EmailRepository;
-import com.jvm_bloggers.core.mailing.domain.MailingAddressRepository;
 import com.jvm_bloggers.core.newsletter_issues.NewIssuePublished;
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue;
+import com.jvm_bloggers.entities.email.Email;
+import com.jvm_bloggers.entities.email.EmailRepository;
+import com.jvm_bloggers.entities.mailing_address.MailingAddressRepository;
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.DateTimeUtilities;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;

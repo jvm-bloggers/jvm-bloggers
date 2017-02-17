@@ -3,11 +3,9 @@ package com.jvm_bloggers.core.blogpost_redirect.click_counter;
 import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
-
-import com.jvm_bloggers.core.blogpost_redirect.click_counter.domain.Click;
-import com.jvm_bloggers.core.blogpost_redirect.click_counter.domain.ClickRepository;
+import com.jvm_bloggers.entities.click.Click;
+import com.jvm_bloggers.entities.click.ClickRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

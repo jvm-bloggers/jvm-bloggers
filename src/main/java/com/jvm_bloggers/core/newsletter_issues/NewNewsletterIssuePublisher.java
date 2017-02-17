@@ -1,11 +1,9 @@
 package com.jvm_bloggers.core.newsletter_issues;
 
 
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssue;
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssueRepository;
-
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;

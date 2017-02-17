@@ -1,10 +1,10 @@
 package com.jvm_bloggers.frontend.admin_area.blogs
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
-import com.jvm_bloggers.core.data_fetching.blog_posts.domain.BlogPostRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogRepository
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType
+import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.blog.BlogType
+import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import org.apache.wicket.request.mapper.parameter.PageParameters
 

@@ -1,8 +1,7 @@
 package com.jvm_bloggers.core.data_fetching.blogs;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.Blog;
 import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggerEntry;
-
+import com.jvm_bloggers.entities.blog.Blog;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

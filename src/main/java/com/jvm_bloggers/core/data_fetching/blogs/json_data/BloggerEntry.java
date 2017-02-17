@@ -1,7 +1,6 @@
 package com.jvm_bloggers.core.data_fetching.blogs.json_data;
 
-import com.jvm_bloggers.core.data_fetching.blogs.domain.BlogType;
-
+import com.jvm_bloggers.entities.blog.BlogType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
