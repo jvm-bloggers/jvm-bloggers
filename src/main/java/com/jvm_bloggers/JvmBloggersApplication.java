@@ -1,9 +1,9 @@
 package com.jvm_bloggers;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootSecuredWebApplication;
-import com.jvm_bloggers.admin_panel.login.LoginPage;
-import com.jvm_bloggers.admin_panel.session.UserSession;
-import com.jvm_bloggers.frontend.HomePage;
+import com.jvm_bloggers.frontend.admin_area.login.LoginPage;
+import com.jvm_bloggers.frontend.admin_area.session.UserSession;
+import com.jvm_bloggers.frontend.public_area.HomePage;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 import net.ftlines.wicketsource.WicketSource;
