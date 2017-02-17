@@ -11,7 +11,7 @@ public class DateTimeUtilities {
 
     public static final String[] POLISH_MONTHS =
         {"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień",
-            "wrzesień", "paździrnik", "listopad", "grudzień"};
+            "wrzesień", "październik", "listopad", "grudzień"};
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
         DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
