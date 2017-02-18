@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.newsletter_issues.domain;
+package com.jvm_bloggers.entities.newsletter_issue;
 
 import java.time.LocalDate;
 

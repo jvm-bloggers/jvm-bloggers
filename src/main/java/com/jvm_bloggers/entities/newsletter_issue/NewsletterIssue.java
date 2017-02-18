@@ -1,7 +1,6 @@
 package com.jvm_bloggers.entities.newsletter_issue;
 
 
-import com.jvm_bloggers.core.newsletter_issues.domain.NewsletterIssueBaseData;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import lombok.AllArgsConstructor;
