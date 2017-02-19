@@ -46,6 +46,7 @@ ext {
     wicketVersion = '7.5.0'
     akkaVersion = '2.4.12'
     scalaVersion = "2.11"
+    jacksonVersion = '2.24'
 }
 
 dependencies {
@@ -55,7 +56,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.9'
     compile 'org.springframework.boot:spring-boot-devtools'
-
 
     // Logic
     compile "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
@@ -76,7 +76,8 @@ dependencies {
     compile 'com.google.guava:guava:21.0'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.antlr:ST4:4.0.8'
-    compile 'org.glassfish.jersey.core:jersey-client:2.24'
+    compile "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
     compile 'net.jcip:jcip-annotations:1.0'
     compile 'org.objenesis:objenesis:2.4'
     compile 'commons-validator:commons-validator:1.5.1'
