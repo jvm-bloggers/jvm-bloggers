@@ -898,6 +898,11 @@
       "jsonId": 157,
       "name": "JUG Łódź",
       "rss": "http://blog.juglodz.pl/"
+    },
+    {
+      "jsonId": 158,
+      "name": "Sprawny Programista",
+      "rss": "http://http://sprawnyprogramista.pl/feed/"
     }
   ]
 }
