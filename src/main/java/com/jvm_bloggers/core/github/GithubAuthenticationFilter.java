@@ -9,14 +9,13 @@ import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class GithubAuthenticationFilter implements ClientRequestFilter {
 
     private final GithubProperties githubProperties;
-
-    public GithubAuthenticationFilter(GithubProperties githubProperties) {
-        this.githubProperties = githubProperties;
-    }
 
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
