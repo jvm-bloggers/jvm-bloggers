@@ -1,5 +1,7 @@
 package com.jvm_bloggers.core.github;
 
+import lombok.RequiredArgsConstructor;
+
 import org.apache.wicket.util.string.Strings;
 import org.springframework.stereotype.Component;
 
@@ -8,8 +10,6 @@ import java.io.IOException;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
-
-import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
