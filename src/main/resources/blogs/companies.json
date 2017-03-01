@@ -82,6 +82,11 @@
       "name": "Consdata",
       "rss": "http://www.consdata.pl/blog?format=feed",
       "twitter": "@Consdata"
+    },
+    {
+      "jsonId": 10015,
+      "name": "Zooplus",
+      "rss": "http://tech.zooplus.com/rss"     
     }
   ]
 }
