@@ -898,6 +898,11 @@
       "jsonId": 157,
       "name": "JUG Łódź",
       "rss": "http://blog.juglodz.pl/"
+    },
+    {
+      "jsonId": 158,
+      "name": "Bartłomiej Słota",
+      "rss": "http://bartslota.blogspot.com/feeds/posts/default"
     }
   ]
 }
