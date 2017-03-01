@@ -904,6 +904,11 @@
       "name": "Paweł Barszcz",
       "rss": "http://timbercode.pl/feed.xml",
       "twitter": "@nkoder"
+    },
+    {
+      "jsonId": 159,
+      "name": "Sprawny Programista",
+      "rss": "http://http://sprawnyprogramista.pl/feed/"
     }
   ]
 }
