@@ -841,7 +841,7 @@
     {
       "jsonId": 147,
       "name": "Łukasz Kuczyński",
-      "rss": "https://lukcreates.wordpress.com/feed/",
+      "rss": "http://lukcreates.pl/feed",
       "twitter": "@panlukaszk"
     },
     {
@@ -898,6 +898,17 @@
       "jsonId": 157,
       "name": "JUG Łódź",
       "rss": "http://blog.juglodz.pl/feeds/posts/default"
+    },
+    {
+      "jsonId": 158,
+      "name": "Paweł Barszcz",
+      "rss": "http://timbercode.pl/feed.xml",
+      "twitter": "@nkoder"
+    },
+    {
+      "jsonId": 159,
+      "name": "Sprawny Programista",
+      "rss": "http://http://sprawnyprogramista.pl/feed/"
     }
   ]
 }
