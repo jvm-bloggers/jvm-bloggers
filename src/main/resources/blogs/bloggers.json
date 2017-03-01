@@ -909,6 +909,11 @@
       "jsonId": 159,
       "name": "Sprawny Programista",
       "rss": "http://http://sprawnyprogramista.pl/feed/"
+    },
+    {
+      "jsonId": 160,
+      "name": "Bartłomiej Słota",
+      "rss": "http://bartslota.blogspot.com/feeds/posts/default"
     }
   ]
 }
