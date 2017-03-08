@@ -39,7 +39,9 @@ public class SyndFeedProducer {
                 ImmutableMap.of("User-Agent", FAKE_USER_AGENT);
             urlConnection = redirectHandler.handle(urlConnection, headers);
             @Cleanup
-            final InputStream inputStream = wrapToGzipStreamIfNeeded(urlConnection.getInputStream());
+            final InputStream inputStream = wrapToGzipStreamIfNeeded(
+                    urlConnection.getInputStream()
+            );
             return Optional.of(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn("Error during fetching RSS {} url", rssUrl, ex);
@@ -61,7 +63,7 @@ public class SyndFeedProducer {
         inputStream.mark(1000);
         try {
             return new GZIPInputStream(inputStream);
-        } catch (ZipException e) {
+        } catch (ZipException ex) {
             inputStream.reset();
             return inputStream;
         }
