@@ -913,7 +913,8 @@
     {
       "jsonId": 160,
       "name": "Bartłomiej Słota",
-      "rss": "http://bartslota.blogspot.com/feeds/posts/default"
+      "rss": "http://bartslota.blogspot.com/feeds/posts/default",
+      "twitter": "@bartekslota"
     }
   ]
 }
