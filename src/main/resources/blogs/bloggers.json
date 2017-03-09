@@ -915,6 +915,30 @@
       "name": "Bartłomiej Słota",
       "rss": "http://bartslota.blogspot.com/feeds/posts/default",
       "twitter": "@bartekslota"
+    },
+    {
+      "jsonId": 161,
+      "name": "Ola Kunysz",
+      "rss": "http://olaqnysz.blogspot.com/feeds/posts/default",
+      "twitter": "@OlaQnysz"
+    },
+    {
+      "jsonId": 162,
+      "name": "Łukasz Monkiewicz",
+      "rss": "https://lmonkiewicz.com/feed",
+      "twitter": "@lmonkiewiczdev"
+    },
+    {
+      "jsonId": 163,
+      "name": "Olaf Goj",
+      "rss": "https://www.olafgoj.pl/feed/"
+    },
+    {
+      "jsonId": 164,
+      "name": "Piotr Kalinowski",
+      "rss": "http://sciezkaprogramisty.pl/feed/",
+      "twitter": "@kali_piotrek"
     }
+    
   ]
 }
