@@ -1,13 +1,8 @@
-FROM iron/java:1.8
+FROM davidcaste/alpine-java-unlimited-jce:jdk8
+
 MAINTAINER t dziurko at g mail dooot com
 VOLUME /tmp
 EXPOSE 8080
-
-RUN apk upgrade --update && \
-    apk add --update curl unzip && \
-    curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/unlimited_jce_policy.zip "http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip" && \
-    unzip -jo -d  /usr/lib/jvm/default-jvm/jre/lib/security /tmp/unlimited_jce_policy.zip && \
-    rm -rf /tmp/* /var/cache/apk/*
 
 ENV USER_NAME blogger
 ENV APP_HOME /home/$USER_NAME/app
