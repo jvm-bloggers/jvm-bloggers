@@ -68,7 +68,7 @@ __Planned__
 * [Marcin Zajączkowski](https://solidsoft.wordpress.com/)
 * [Jonatan Borkowski](https://github.com/jborkowski)
 * [Bartłomiej Piech](https://github.com/delor)
-* [Sławomir Leski](https://github.com/sleski)
+* [Sławomir Łęski](https://github.com/sleski)
 
 #### Contact
 
