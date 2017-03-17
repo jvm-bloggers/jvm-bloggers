@@ -938,6 +938,12 @@
       "name": "Piotr Kalinowski",
       "rss": "http://sciezkaprogramisty.pl/feed/",
       "twitter": "@kali_piotrek"
+    },
+    {
+      "jsonId": 165,
+      "name": "Piotr Wyczesany",
+      "rss": "http://www.eventuallyinconsistent.com/feeds/posts/default",
+      "twitter": "@pwyczes"
     }
     
   ]
