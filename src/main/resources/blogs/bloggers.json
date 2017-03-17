@@ -944,6 +944,12 @@
       "name": "Piotr Wyczesany",
       "rss": "http://www.eventuallyinconsistent.com/feeds/posts/default",
       "twitter": "@pwyczes"
+    },
+    {
+      "jsonId": 166,
+      "name": "Paweł Dobrzański",
+      "rss": "http://paweldobrzanski.pl/feed/",
+      "twitter": "@dobskip"
     }
     
   ]
