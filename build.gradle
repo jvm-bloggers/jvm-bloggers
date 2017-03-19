@@ -6,7 +6,7 @@ buildscript {
         maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
         classpath 'se.transmode.gradle:gradle-docker:1.2'
         classpath 'cz.alenkacz.gradle:json-validator:0.9.10'
@@ -43,7 +43,7 @@ repositories {
 }
 
 ext {
-    wicketVersion = '7.5.0'
+    wicketVersion = '7.6.0'
     akkaVersion = '2.4.12'
     scalaVersion = "2.11"
     jacksonVersion = '2.24'
@@ -63,7 +63,7 @@ dependencies {
     compile 'com.rometools:rome:1.7.0'
 
     // View
-    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:1.0.1'
+    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:1.0.5'
     compile "org.apache.wicket:wicket-devutils:$wicketVersion"
     compile "org.apache.wicket:wicket-auth-roles:$wicketVersion"
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:$wicketVersion"
