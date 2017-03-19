@@ -88,6 +88,11 @@ dependencies {
     compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
+    compile 'org.webjars:webjars-locator:0.32'
+    compile 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
+    compile 'org.webjars:html5shiv:3.7.3'
+    compile 'org.webjars:respond:1.4.2'
+
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-3'
