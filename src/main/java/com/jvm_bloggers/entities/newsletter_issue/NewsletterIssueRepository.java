@@ -1,19 +1,20 @@
 package com.jvm_bloggers.entities.newsletter_issue;
 
+import javaslang.collection.List;
+import javaslang.control.Option;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue, Long> {
 
-    Optional<NewsletterIssue> findByIssueNumber(Long issueNumber);
+    Option<NewsletterIssue> findByIssueNumber(Long issueNumber);
 
-    Optional<NewsletterIssue> findFirstByOrderByPublishedDateDesc();
+    Option<NewsletterIssue> findFirstByOrderByPublishedDateDesc();
 
-    List<NewsletterIssueBaseData> findTop5ByOrderByPublishedDateDesc();
+    List<NewsletterIssue> findByOrderByPublishedDateDesc(PageRequest request);
     
     List<NewsletterIssue> findAllByOrderByPublishedDateDesc();
+
 }

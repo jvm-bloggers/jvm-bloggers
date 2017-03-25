@@ -3,17 +3,17 @@ package com.jvm_bloggers.frontend.public_area.contributors
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.core.github.ContributorsService
 import com.jvm_bloggers.entities.github.Contributor
-import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDtoService
+import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 
 class ContributorsPageSpec extends MockSpringContextAwareSpecification {
 
     ContributorsService contributorsService = Stub(ContributorsService);
-    NewsletterIssueDtoService newsletterIssueService = Stub(NewsletterIssueDtoService)
+    RightFrontendSidebarBackingBean sidebarBackingBean = Stub(RightFrontendSidebarBackingBean)
 
     @Override
     protected void setupContext() {
         addBean(contributorsService)
-        addBean(newsletterIssueService)
+        addBean(sidebarBackingBean)
     }
 
     def "Name"() {

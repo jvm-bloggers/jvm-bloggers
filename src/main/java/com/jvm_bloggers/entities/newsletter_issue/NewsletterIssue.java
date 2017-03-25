@@ -15,7 +15,6 @@ import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +36,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @Getter
 @ToString(exclude = {"blogPosts", "newBlogs"})
-public class NewsletterIssue implements NewsletterIssueBaseData {
+public class NewsletterIssue {
 
     @Id
     @GeneratedValue(generator = "NEWSLETTER_ISSUE_SEQ", strategy = GenerationType.SEQUENCE)
