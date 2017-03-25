@@ -54,7 +54,9 @@ __Planned__
 
 * Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-# [Development and contribution guidelelins Wiki](https://github.com/jvm-bloggers/jvm-bloggers/wiki)
+More details about contributinf and how project is organized please check
+
+# [Development and contribution guidelelines Wiki](https://github.com/jvm-bloggers/jvm-bloggers/wiki)
 
 ## Contributors
 
