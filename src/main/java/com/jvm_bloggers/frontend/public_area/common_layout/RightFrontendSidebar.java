@@ -1,29 +1,20 @@
 package com.jvm_bloggers.frontend.public_area.common_layout;
 
-import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDto;
-import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssueDtoService;
-import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage;
+import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
+import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
+import javaslang.collection.List;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.AbstractLink;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
-
 
 public class RightFrontendSidebar extends Panel {
 
+    private static final int NUMBER_OF_LISTED_ISSUES = 5;
+
     @SpringBean
-    private NewsletterIssueDtoService newsletterIssueDtoService;
+    private RightFrontendSidebarBackingBean backingBean;
 
     public RightFrontendSidebar(String id) {
         super(id);
@@ -32,33 +23,26 @@ public class RightFrontendSidebar extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        composeLatestFiveNewsletterIssuesLinksView();
-    }
+        List<NewsletterIssueForListing> latestIssues =
+            backingBean.getLatestIssues(NUMBER_OF_LISTED_ISSUES);
 
-    private void composeLatestFiveNewsletterIssuesLinksView() {
-        List<AbstractLink> latestIssues = newsletterIssueDtoService
-            .findTop5ByOrderByPublishedDateDesc().stream().map(this::getLink)
-            .collect(Collectors.toList());
+        add(new Label("latestIssuesEmptyLabel", "Brak archiwalnych wydań")
+                .setVisible(latestIssues.isEmpty())
+        );
 
-        if (latestIssues.isEmpty()) {
-            add(new Label("latestIssuesEmptyLabel", getString("right.panel.latest.issues.empty")));
-        } else {
-            add(new EmptyPanel("latestIssuesEmptyLabel"));
-        }
-
-        add(new ListView<AbstractLink>("latestIssuesList", latestIssues) {
+        ListView<NewsletterIssueForListing> latestIssuesList =
+            new ListView<NewsletterIssueForListing>("latestIssuesList", latestIssues.toJavaList()) {
             @Override
-            protected void populateItem(ListItem<AbstractLink> item) {
-                item.add(item.getModelObject());
+            protected void populateItem(ListItem<NewsletterIssueForListing> item) {
+                NewsletterIssueForListing issue = item.getModel().getObject();
+                item.add(new NewsletterIssueLink(
+                    "issueLink",
+                    issue.getIssueNumber(),
+                    issue.getPublicationDate())
+                );
             }
-        });
+        };
+        add(latestIssuesList);
     }
 
-    private AbstractLink getLink(NewsletterIssueDto issue) {
-        return new BookmarkablePageLink<>("issueLink", NewsletterIssuePage.class,
-            NewsletterIssuePage.buildShowIssueParams(issue.number))
-            .setBody(Model.of(new StringResourceModel("right.panel.issue.link.label")
-                .setParameters(issue.number,
-                    DATE_FORMATTER.format(issue.publishedDate))));
-    }
 }

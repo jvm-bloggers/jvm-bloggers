@@ -1,52 +1,68 @@
 package com.jvm_bloggers.frontend.public_area.newsletter_issue
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
+import com.jvm_bloggers.domain.query.NewsletterIssueNumber
+import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue
+import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel
+import javaslang.control.Option
 import org.apache.wicket.markup.html.basic.Label
-import org.apache.wicket.request.mapper.parameter.PageParameters
 
-import java.time.LocalDate
+import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
+import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.ISSUE_PANEL_ID
+import static java.time.LocalDate.now
+import static javaslang.collection.List.empty
 
 class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
 
-    NewsletterIssueDtoService newsletterIssueService = Stub(NewsletterIssueDtoService)
+    NewsletterIssuePageBackingBean backingBean = Stub(NewsletterIssuePageBackingBean)
+    RightFrontendSidebarBackingBean sidebarBackingBean = Stub(RightFrontendSidebarBackingBean)
 
     @Override
     protected void setupContext() {
-        addBean(newsletterIssueService)
+        addBean(backingBean)
+        addBean(sidebarBackingBean)
     }
 
     def "Should display selected issue"() {
         given:
-            NewsletterIssueDto issue = prepareExampleIssue()
-            newsletterIssueService.findByIssueNumber(issue.number) >> Optional.of(issue)
-        when:
+        PublishedNewsletterIssue issue = prepareExampleIssue()
+        backingBean.findByIssueNumber(issue.number) >> Option.of(issue)
 
-            tester.startPage(NewsletterIssuePage, new PageParameters().set(0, issue.number))
+        when:
+        tester.startPage(NewsletterIssuePage, NewsletterIssuePage.buildShowIssueParams(issue.number))
+
         then:
-            tester.assertComponent(NewsletterIssuePage.ISSUE_PANEL_ID, NewsletterIssuePanel)
-            tester.assertContains("Wydanie #$issue.number")
-            tester.assertContains("$issue.heading")
-            tester.assertContains("$issue.varia")
+        tester.assertComponent(ISSUE_PANEL_ID, NewsletterIssuePanel)
+        tester.assertContains("Wydanie #${issue.number.asLong()}")
+        tester.assertContains("$issue.headingSection()")
+        tester.assertContains("$issue.variaSection")
     }
 
-    private NewsletterIssueDto prepareExampleIssue() {
-        return new NewsletterIssueDto(
-                22, LocalDate.now(), "Example heading", "Example varia", Collections.emptyList(), Collections.emptyList()
+    private PublishedNewsletterIssue prepareExampleIssue() {
+        return new PublishedNewsletterIssue(
+                of(22L),
+                now(),
+                "Example heading",
+                "Example varia",
+                empty(),
+                empty(),
+                empty(),
+                empty()
         )
     }
 
     def "Should display 'No issue found' when there is issue with a given number"() {
         given:
-            int issueNumber = 34
-            newsletterIssueService.findByIssueNumber(issueNumber) >> Optional.empty()
+        NewsletterIssueNumber issueNumber = of(34)
+        backingBean.findByIssueNumber(issueNumber) >> Option.none()
+
         when:
-            tester.startPage(NewsletterIssuePage, new PageParameters().set(0, issueNumber))
+        tester.startPage(NewsletterIssuePage, NewsletterIssuePage.buildShowIssueParams(issueNumber))
+
         then:
-            tester.assertComponent(NewsletterIssuePage.ISSUE_PANEL_ID, Label)
-            tester.assertContains("Nie znaleziono takiego wydania")
+        tester.assertComponent(ISSUE_PANEL_ID, Label)
+        tester.assertContains("Nie znaleziono takiego wydania")
     }
-
-
 
 }
