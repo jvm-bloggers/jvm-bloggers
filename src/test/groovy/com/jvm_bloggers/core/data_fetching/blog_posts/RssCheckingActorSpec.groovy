@@ -24,7 +24,7 @@ class RssCheckingActorSpec extends Specification {
         .dateAdded(new NowProvider().now())
         .blogType(BlogType.PERSONAL)
         .build();
-        
+
     JavaTestKit testProbe
     SyndFeedProducer syndFeedProducer
 
@@ -45,20 +45,24 @@ class RssCheckingActorSpec extends Specification {
 
     def "Should send message about new posts to postStoringActor"() {
         given:
-            mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
+        mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
+
         when:
-            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+        rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+
         then:
-            testProbe.expectMsgClass(RssEntryWithAuthor)
+        testProbe.expectMsgClass(RssEntryWithAuthor)
     }
 
     def "Should not send any message about new posts to postStoringActor when there are no posts in the feed "() {
         given:
-            mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
+        mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
+
         when:
-            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+        rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+
         then:
-            testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }
 
     private void mockFeedToReturnNumberOfPosts(SyndFeedProducer factory, int numberOfPosts) {

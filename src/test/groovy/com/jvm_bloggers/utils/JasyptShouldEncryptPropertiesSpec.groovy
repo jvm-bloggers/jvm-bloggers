@@ -25,11 +25,12 @@ class JasyptShouldEncryptPropertiesSpec extends SpringContextAwareSpecification 
 
     def "Should encrypt and decrypt given value"() {
         given:
-            String textToEncrypt = "textToEncrypt"
+        String textToEncrypt = "textToEncrypt"
+
         when:
-            String encrypted = encryptor.encrypt(textToEncrypt);
-            String decryptedText = encryptor.decrypt(encrypted);
-            println """
+        String encrypted = encryptor.encrypt(textToEncrypt);
+        String decryptedText = encryptor.decrypt(encrypted);
+        println """
                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                 Encrypting...
                     original text = $textToEncrypt
@@ -37,7 +38,7 @@ class JasyptShouldEncryptPropertiesSpec extends SpringContextAwareSpecification 
                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                 """
         then:
-            textToEncrypt == decryptedText
+        textToEncrypt == decryptedText
     }
 
 

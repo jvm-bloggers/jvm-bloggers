@@ -24,12 +24,12 @@ class BlogPostsControllerSpec extends Specification {
         link.href = "http://jvm-bloggers.com/rss"
         def feed = new SyndFeedImpl()
         feed.links = [link]
-        feed.uri = "URI" 
+        feed.uri = "URI"
         feed.feedType = AggregatedRssFeedProducer.FEED_TYPE
         feed.title = AggregatedRssFeedProducer.FEED_TITLE
         feed.description = AggregatedRssFeedProducer.FEED_DESCRIPTION
         feed.publishedDate = today
-        feed.entries = [createSyndEntry("postId", "postUrl", "postTitle",  "postAuthor", "postDescription", today)]
+        feed.entries = [createSyndEntry("postId", "postUrl", "postTitle", "postAuthor", "postDescription", today)]
         1 * getRss(_, _, _) >> feed
     }
 
@@ -38,18 +38,20 @@ class BlogPostsControllerSpec extends Specification {
 
     def "Should get RSS feed"() {
         given:
-            HttpServletRequest request = Stub() {
-                getRequestURL() >> new StringBuffer("http://jvm-bloggers.com/rss")
-            }
-            HttpServletResponse response = Mock()
-            def actualOutput = new ByteArrayOutputStream()
+        HttpServletRequest request = Stub() {
+            getRequestURL() >> new StringBuffer("http://jvm-bloggers.com/rss")
+        }
+        HttpServletResponse response = Mock()
+        def actualOutput = new ByteArrayOutputStream()
+
         when:
-            blogPostsController.getRss(request, response, new PrintWriter(actualOutput), null, 0, null)
+        blogPostsController.getRss(request, response, new PrintWriter(actualOutput), null, 0, null)
+
         then:
-            1 * response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE)
-            def actualLines = IOUtils.readLines(IOUtils.toInputStream(actualOutput.toString()))
-            def expectedLines = IOUtils.readLines(getClass().getResource("expected-rss.xml").openStream())
-            actualLines == expectedLines
+        1 * response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE)
+        def actualLines = IOUtils.readLines(IOUtils.toInputStream(actualOutput.toString()))
+        def expectedLines = IOUtils.readLines(getClass().getResource("expected-rss.xml").openStream())
+        actualLines == expectedLines
     }
 
     protected createSyndEntry(String id, String url, String title, String author, String description, Date publishedDate) {

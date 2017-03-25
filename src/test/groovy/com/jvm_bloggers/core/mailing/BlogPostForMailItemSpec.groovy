@@ -12,49 +12,55 @@ class BlogPostForMailItemSpec extends Specification {
 
     def "Should store author name as a label if twitter account is missing"() {
         given:
-            String name = "Jan Kowalski"
-            Blog author = stubAuthorWith(name, null)
-            BlogPost post = Stub(BlogPost) {
-                getBlog() >> author
-                getUrl() >> url
-                getTitle() >> title
-            }
+        String name = "Jan Kowalski"
+        Blog author = stubAuthorWith(name, null)
+        BlogPost post = Stub(BlogPost) {
+            getBlog() >> author
+            getUrl() >> url
+            getTitle() >> title
+        }
+
         when:
-            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+        BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+
         then:
-            blogPostForMailItem.authorLabel == name
+        blogPostForMailItem.authorLabel == name
     }
 
     def "Should store link to author's twitter account as author label"() {
         given:
-            String name = "Jan Kowalski"
-            String twitter = "@JanKowalski"
-            Blog author = stubAuthorWith(name, twitter)
-            BlogPost post = Stub(BlogPost) {
-                getBlog() >> author
-                getUrl() >> url
-                getTitle() >> title
-            }
+        String name = "Jan Kowalski"
+        String twitter = "@JanKowalski"
+        Blog author = stubAuthorWith(name, twitter)
+        BlogPost post = Stub(BlogPost) {
+            getBlog() >> author
+            getUrl() >> url
+            getTitle() >> title
+        }
+
         when:
-            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+        BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+
         then:
-            blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
+        blogPostForMailItem.authorLabel == "<a href=\"https://twitter.com/" + twitter.substring(1) + "\">" + name + "</a>"
     }
 
     def "Should store author name as a label if twitter account is set with empty or null string"() {
         given:
-            String name = "Jan Kowalski"
-            String twitter = StringUtils.EMPTY;
-            Blog author = stubAuthorWith(name, twitter)
-            BlogPost post = Stub(BlogPost) {
-                getBlog() >> author
-                getUrl() >> url
-                getTitle() >> title
-            }
+        String name = "Jan Kowalski"
+        String twitter = StringUtils.EMPTY;
+        Blog author = stubAuthorWith(name, twitter)
+        BlogPost post = Stub(BlogPost) {
+            getBlog() >> author
+            getUrl() >> url
+            getTitle() >> title
+        }
+
         when:
-            BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+        BlogPostForMailItem blogPostForMailItem = BlogPostForMailItem.builder().from(post).build()
+
         then:
-            blogPostForMailItem.authorLabel == name
+        blogPostForMailItem.authorLabel == name
     }
 
     private stubAuthorWith(String name, String twitterHandler) {

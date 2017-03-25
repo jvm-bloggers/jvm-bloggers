@@ -16,14 +16,16 @@ class LocalDateToTimestampConverterSpec extends Specification {
 
     def "Should convert"() {
         given:
-            LocalDateTime localDateTime = LocalDateTime.of(2016, 05, 7, 8, 44, 0)
-            Timestamp timestamp = convertToTimestamp(localDateTime)
+        LocalDateTime localDateTime = LocalDateTime.of(2016, 05, 7, 8, 44, 0)
+        Timestamp timestamp = convertToTimestamp(localDateTime)
+
         when:
-            LocalDate localDate = converter.convertToEntityAttribute(timestamp)
+        LocalDate localDate = converter.convertToEntityAttribute(timestamp)
+
         then:
-            localDate.getDayOfMonth() == localDateTime.getDayOfMonth()
-            localDate.getMonthValue() == localDateTime.getMonthValue()
-            localDate.getYear() == localDateTime.getYear()
+        localDate.getDayOfMonth() == localDateTime.getDayOfMonth()
+        localDate.getMonthValue() == localDateTime.getMonthValue()
+        localDate.getYear() == localDateTime.getYear()
     }
 
     private Timestamp convertToTimestamp(LocalDateTime localDateTime) {

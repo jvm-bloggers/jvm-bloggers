@@ -18,13 +18,13 @@ class ContributorsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Name"() {
         given:
-            List<Contributor> contributors = [Stub(Contributor), Stub(Contributor)]
-            contributorsService.fetchContributors() >> contributors
+        List<Contributor> contributors = [Stub(Contributor), Stub(Contributor)]
+        contributorsService.fetchContributors() >> contributors
 
         when:
-            tester.startPage(ContributorsPage)
+        tester.startPage(ContributorsPage)
 
         then:
-            tester.assertListView("contributorsList", contributors)
+        tester.assertListView("contributorsList", contributors)
     }
 }

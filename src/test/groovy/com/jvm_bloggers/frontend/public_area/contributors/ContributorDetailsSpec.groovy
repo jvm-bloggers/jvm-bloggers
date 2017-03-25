@@ -23,58 +23,58 @@ class ContributorDetailsSpec extends MockSpringContextAwareSpecification {
 
     def "Should have label with number of contributions"() {
         given:
-            Contributor contributor = new Contributor()
-            contributor.setContributions(CONTRIBUTIONS)
+        Contributor contributor = new Contributor()
+        contributor.setContributions(CONTRIBUTIONS)
 
-            IModel<Contributor> model = Model.of(contributor)
+        IModel<Contributor> model = Model.of(contributor)
 
-            @Subject
-            ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
+        @Subject
+        ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
 
         when:
-            tester.startComponentInPage(testObj)
+        tester.startComponentInPage(testObj)
 
         then:
-            tester.assertLabel("contributorDetails:contributions", "666")
+        tester.assertLabel("contributorDetails:contributions", "666")
     }
 
     def "Should have login linking to profile page"() {
         given:
-            Contributor contributor = new Contributor()
-            contributor.setLogin(LOGIN)
-            contributor.setProfilePage(PROFILE_URL)
+        Contributor contributor = new Contributor()
+        contributor.setLogin(LOGIN)
+        contributor.setProfilePage(PROFILE_URL)
 
-            IModel<Contributor> model = Model.of(contributor)
+        IModel<Contributor> model = Model.of(contributor)
 
-            @Subject
-            ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
+        @Subject
+        ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
 
         when:
-            tester.startComponentInPage(testObj)
+        tester.startComponentInPage(testObj)
 
         then:
-            AbstractLink link = tester.getComponentFromLastRenderedPage("contributorDetails:link")
-            assertEquals(PROFILE_URL, link.getDefaultModelObject())
-            assertEquals(LOGIN, link.getBody().getObject())
+        AbstractLink link = tester.getComponentFromLastRenderedPage("contributorDetails:link")
+        assertEquals(PROFILE_URL, link.getDefaultModelObject())
+        assertEquals(LOGIN, link.getBody().getObject())
     }
 
     def "Should have avatar linking to profile page"() {
         given:
-            Contributor contributor = new Contributor()
-            contributor.setAvatarUrl(AVATAR_URL)
-            contributor.setLogin(LOGIN)
-            contributor.setProfilePage(PROFILE_URL)
+        Contributor contributor = new Contributor()
+        contributor.setAvatarUrl(AVATAR_URL)
+        contributor.setLogin(LOGIN)
+        contributor.setProfilePage(PROFILE_URL)
 
-            IModel<Contributor> model = Model.of(contributor)
+        IModel<Contributor> model = Model.of(contributor)
 
-            @Subject
-            ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
+        @Subject
+        ContributorDetails testObj = new ContributorDetails("contributorDetails", model)
 
         when:
-            tester.startComponentInPage(testObj)
+        tester.startComponentInPage(testObj)
 
         then:
-            tester.assertModelValue("contributorDetails:avatarLink", PROFILE_URL)
-            tester.assertModelValue("contributorDetails:avatarLink:avatar", AVATAR_URL)
+        tester.assertModelValue("contributorDetails:avatarLink", PROFILE_URL)
+        tester.assertModelValue("contributorDetails:avatarLink:avatar", AVATAR_URL)
     }
 }

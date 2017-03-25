@@ -20,17 +20,19 @@ class BlogSummaryMailGeneratorSpec extends Specification {
 
     def "should replace \$currentIssueLink\$, in greeting section, with link to the newest issue"() {
         given:
-            metadataRepository.findByName(MetadataKeys.MAILING_GREETING) >>
-                    new Metadata(1, MetadataKeys.MAILING_GREETING, '$currentIssueLink$')
-            linkGenerator.generateIssueLink(SAMPLE_ISSUE_NUMBER) >> SAMPLE_ISSUE_LINK
+        metadataRepository.findByName(MetadataKeys.MAILING_GREETING) >>
+            new Metadata(1, MetadataKeys.MAILING_GREETING, '$currentIssueLink$')
+        linkGenerator.generateIssueLink(SAMPLE_ISSUE_NUMBER) >> SAMPLE_ISSUE_LINK
+
         when:
-            String content = blogSummaryMailGenerator.prepareMailContent(
-                    NewsletterIssue.builder()
-                            .heading("")
-                            .varia("")
-                            .issueNumber(SAMPLE_ISSUE_NUMBER)
-                            .build())
+        String content = blogSummaryMailGenerator.prepareMailContent(
+            NewsletterIssue.builder()
+                .heading("")
+                .varia("")
+                .issueNumber(SAMPLE_ISSUE_NUMBER)
+                .build())
+
         then:
-            content == "$SAMPLE_ISSUE_LINK<br/><br/><br/>".toString()
+        content == "$SAMPLE_ISSUE_LINK<br/><br/><br/>".toString()
     }
 }

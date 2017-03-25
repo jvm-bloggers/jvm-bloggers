@@ -20,20 +20,22 @@ class BloggerChangedVerifierSpec extends Specification {
     @Unroll
     def "Should detect that BloggerEntry is different than corresponding Blog"() {
         when:
-            boolean pendingChanges = testObj.pendingChanges(person, bloggerEntry)
+        boolean pendingChanges = testObj.pendingChanges(person, bloggerEntry)
+
         then:
-            pendingChanges == expectedResult
+        pendingChanges == expectedResult
+
         where:
-            person                                 | bloggerEntry                | expectedResult
-            standardPersonalBlog()                 | entryWithStandardBlogData() | false
-            blogWithUppercasedRss()                | entryWithStandardBlogData() | false
-            standardPersonalBlog()                 | entryWithCompanyBlogData()  | true
-            blogWithDifferentJsonId()              | entryWithStandardBlogData() | true
-            blogWithDifferentAuthor()              | entryWithStandardBlogData() | true
-            blogWithDifferentRss()                 | entryWithStandardBlogData() | true
-            blogWithDifferentTwitter()             | entryWithStandardBlogData() | true
-            blogWithDifferentAuthorRssAndTwitter() | entryWithStandardBlogData() | true
-            standardPersonalBlog()                 | entryWithDifferentPage()    | true
+        person                                 | bloggerEntry                | expectedResult
+        standardPersonalBlog()                 | entryWithStandardBlogData() | false
+        blogWithUppercasedRss()                | entryWithStandardBlogData() | false
+        standardPersonalBlog()                 | entryWithCompanyBlogData()  | true
+        blogWithDifferentJsonId()              | entryWithStandardBlogData() | true
+        blogWithDifferentAuthor()              | entryWithStandardBlogData() | true
+        blogWithDifferentRss()                 | entryWithStandardBlogData() | true
+        blogWithDifferentTwitter()             | entryWithStandardBlogData() | true
+        blogWithDifferentAuthorRssAndTwitter() | entryWithStandardBlogData() | true
+        standardPersonalBlog()                 | entryWithDifferentPage()    | true
     }
 
     private BloggerEntry entryWithCompanyBlogData() {
@@ -82,14 +84,14 @@ class BloggerChangedVerifierSpec extends Specification {
 
     def buildBlog(Long jsonId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
         return Blog.builder()
-                .jsonId(jsonId)
-                .author(author)
-                .rss(rss)
-                .url(url)
-                .twitter(twitter)
-                .dateAdded(dateAdded)
-                .blogType(type)
-                .build()
+            .jsonId(jsonId)
+            .author(author)
+            .rss(rss)
+            .url(url)
+            .twitter(twitter)
+            .dateAdded(dateAdded)
+            .blogType(type)
+            .build()
     }
 
     def buildBloggerEntry(Long jsonId, String author, String rss, String pageUrl, String twitter, BlogType type) {

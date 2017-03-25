@@ -30,34 +30,38 @@ class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should generate header from Blog's author"() {
         given:
-            blogRepository.findOne(SAMPLE_BLOG_ID) >> sampleBlog()
-            String expectedHeader = sampleBlog().author + APOSTROPHE + "s posts"
+        blogRepository.findOne(SAMPLE_BLOG_ID) >> sampleBlog()
+        String expectedHeader = sampleBlog().author + APOSTROPHE + "s posts"
+
         when:
-            tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))
+        tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))
+
         then:
-            tester.assertLabel(HEADER_ID, expectedHeader)
+        tester.assertLabel(HEADER_ID, expectedHeader)
     }
 
     def "Should generate exceptional header when no blog with given id found"() {
         given:
-            blogRepository.findOne(SAMPLE_BLOG_ID) >> null
+        blogRepository.findOne(SAMPLE_BLOG_ID) >> null
+
         when:
-            tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))
+        tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))
+
         then:
-            tester.assertLabel(HEADER_ID, "No such blog found")
+        tester.assertLabel(HEADER_ID, "No such blog found")
     }
 
     private Blog sampleBlog() {
         Blog.builder()
-                .id(1)
-                .jsonId(2)
-                .author("some author")
-                .rss("some rss")
-                .url("some url")
-                .twitter("some twitter")
-                .dateAdded(now())
-                .blogType(BlogType.PERSONAL)
-                .active(true)
-                .build()
+            .id(1)
+            .jsonId(2)
+            .author("some author")
+            .rss("some rss")
+            .url("some url")
+            .twitter("some twitter")
+            .dateAdded(now())
+            .blogType(BlogType.PERSONAL)
+            .active(true)
+            .build()
     }
 }

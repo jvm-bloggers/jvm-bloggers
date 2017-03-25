@@ -27,75 +27,83 @@ class MailingAddressPageSpec extends MockSpringContextAwareSpecification {
         addBean(mailingAddressRepository)
     }
 
-    def "Should create new MailingAddress" () {
+    def "Should create new MailingAddress"() {
         when:
-            tester.startPage(MailingAddressPage.class)
-            FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
-            formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, SAMPLE_VALID_ADDRESS)
-            formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+        tester.startPage(MailingAddressPage.class)
+        FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
+        formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, SAMPLE_VALID_ADDRESS)
+        formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+
         then:
-            1 * requestHandler.save( {it.address == SAMPLE_VALID_ADDRESS && it.id == null})
+        1 * requestHandler.save({ it.address == SAMPLE_VALID_ADDRESS && it.id == null })
     }
 
     def "Should reject not valid MailingAddress save request"() {
         when:
-            tester.startPage(MailingAddressPage.class)
-            FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
-            formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, "")
-            formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+        tester.startPage(MailingAddressPage.class)
+        FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
+        formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, "")
+        formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+
         then:
-            0 * requestHandler.save(_)
+        0 * requestHandler.save(_)
     }
 
-    def "Should not save MailingAddress when address not unique" () {
+    def "Should not save MailingAddress when address not unique"() {
         given:
-            mailingAddressRepository.addressExistsIgnoringId(_, _) >> true
+        mailingAddressRepository.addressExistsIgnoringId(_, _) >> true
+
         when:
-            tester.startPage(MailingAddressPage.class)
-            FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
-            formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, SAMPLE_VALID_ADDRESS)
-            formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+        tester.startPage(MailingAddressPage.class)
+        FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
+        formTester.setValue(MailingAddressPage.ADDRESS_INPUT_ID, SAMPLE_VALID_ADDRESS)
+        formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+
         then:
-            0 * requestHandler.save(_)
-            tester.assertErrorMessages("Address 'joe.doe@mail.com' already exists.")
+        0 * requestHandler.save(_)
+        tester.assertErrorMessages("Address 'joe.doe@mail.com' already exists.")
     }
 
-    def "Should delete MailingAddress"(){
+    def "Should delete MailingAddress"() {
         given:
-            MailingAddress mailingAddress = newSampleMailingAddress()
-            requestHandler.iterator(_, _) >> [mailingAddress].iterator()
-            requestHandler.size() >> 1
-            requestHandler.model(_) >> Model.of(mailingAddress)
+        MailingAddress mailingAddress = newSampleMailingAddress()
+        requestHandler.iterator(_, _) >> [mailingAddress].iterator()
+        requestHandler.size() >> 1
+        requestHandler.model(_) >> Model.of(mailingAddress)
+
         when:
-            tester.startPage(MailingAddressPage.class)
-            FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
-            formTester.submit([PAGEABLE_LIST_ID, 1, ACTION_PANEL_ID, DELETE_MAILING_ADDRESS_ID].join(":"))
+        tester.startPage(MailingAddressPage.class)
+        FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
+        formTester.submit([PAGEABLE_LIST_ID, 1, ACTION_PANEL_ID, DELETE_MAILING_ADDRESS_ID].join(":"))
+
         then:
-            1 * requestHandler.delete(mailingAddress.id)
+        1 * requestHandler.delete(mailingAddress.id)
     }
 
-    def "Should update selected MailingAddress"(){
+    def "Should update selected MailingAddress"() {
         given:
-            MailingAddress mailingAddress = newSampleMailingAddress()
-            requestHandler.iterator(_, _) >> [mailingAddress].iterator()
-            requestHandler.size() >> 1
-            requestHandler.model(_) >> Model.of(mailingAddress)
+        MailingAddress mailingAddress = newSampleMailingAddress()
+        requestHandler.iterator(_, _) >> [mailingAddress].iterator()
+        requestHandler.size() >> 1
+        requestHandler.model(_) >> Model.of(mailingAddress)
+
         when:
-            tester.startPage(MailingAddressPage.class)
-            FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
-            formTester.submit(buttonPath(EDIT_MAILING_ADDRESS_ID))
-            formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+        tester.startPage(MailingAddressPage.class)
+        FormTester formTester = tester.newFormTester(MailingAddressPage.MAILING_ADDRESS_FORM_ID)
+        formTester.submit(buttonPath(EDIT_MAILING_ADDRESS_ID))
+        formTester.submit(MailingAddressPage.SAVE_BUTTON_ID)
+
         then:
-            1 * requestHandler.save(mailingAddress)
+        1 * requestHandler.save(mailingAddress)
     }
 
-    private def MailingAddress newSampleMailingAddress(){
+    private def MailingAddress newSampleMailingAddress() {
         MailingAddress mailingAddress = new MailingAddress(SAMPLE_VALID_ADDRESS)
         mailingAddress.id = SAMPLE_ID
         return mailingAddress
     }
 
-    private def String buttonPath(String buttonId){
+    private def String buttonPath(String buttonId) {
         [PAGEABLE_LIST_ID, 1, ACTION_PANEL_ID, buttonId].join(":")
     }
 }

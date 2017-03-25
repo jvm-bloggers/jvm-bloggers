@@ -15,46 +15,46 @@ class GithubAuthenticationFilterSpec extends Specification {
 
     def "Should set not empty access token"() {
         given:
-            GithubProperties properties = new GithubProperties()
-            properties.setToken(TOKEN)
+        GithubProperties properties = new GithubProperties()
+        properties.setToken(TOKEN)
 
-            @Subject
-            GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
+        @Subject
+        GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
 
-            MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
+        MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
 
-            ClientRequestContext requestContext = Mock()
-            requestContext.getHeaders() >> headers
+        ClientRequestContext requestContext = Mock()
+        requestContext.getHeaders() >> headers
 
         when:
-            testObj.filter(requestContext)
+        testObj.filter(requestContext)
 
         then:
-            headers.getFirst(HttpHeaders.AUTHORIZATION) == "token " + TOKEN
+        headers.getFirst(HttpHeaders.AUTHORIZATION) == "token " + TOKEN
     }
 
     @Unroll
     def "Should not set access token when access token is: #token"() {
         given:
-            GithubProperties properties = new GithubProperties()
-            properties.setToken(token)
+        GithubProperties properties = new GithubProperties()
+        properties.setToken(token)
 
-            @Subject
-            GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
+        @Subject
+        GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
 
-            MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
+        MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
 
-            ClientRequestContext requestContext = Mock()
-            requestContext.getHeaders() >> headers
+        ClientRequestContext requestContext = Mock()
+        requestContext.getHeaders() >> headers
 
         when:
-            testObj.filter(requestContext)
+        testObj.filter(requestContext)
 
         then:
-            headers.getFirst(HttpHeaders.AUTHORIZATION) == null
+        headers.getFirst(HttpHeaders.AUTHORIZATION) == null
 
         where:
-            token << [null, ""]
+        token << [null, ""]
 //            token | _
 //            null | _
 //            "" | _

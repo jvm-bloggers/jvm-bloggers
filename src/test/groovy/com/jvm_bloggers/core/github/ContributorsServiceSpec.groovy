@@ -33,59 +33,59 @@ class ContributorsServiceSpec extends Specification {
 
     def "Should fetch contributors from a single page"() {
         given:
-            WebTarget target = Mock()
-            client.target(_) >> target
-            target.resolveTemplate(_, _, _) >> target
+        WebTarget target = Mock()
+        client.target(_) >> target
+        target.resolveTemplate(_, _, _) >> target
 
-            Response response = Mock(Response)
-            Contributor contributor1 = Mock(Contributor)
-            Contributor contributor2 = Mock(Contributor)
-            response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
+        Response response = Mock(Response)
+        Contributor contributor1 = Mock(Contributor)
+        Contributor contributor2 = Mock(Contributor)
+        response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
 
-            target.request() >> Stub(Invocation.Builder) {
-                get() >> response
-            }
+        target.request() >> Stub(Invocation.Builder) {
+            get() >> response
+        }
 
         when:
-            List<Contributor> actual = testObj.fetchContributors()
+        List<Contributor> actual = testObj.fetchContributors()
 
         then:
-            assertThat(actual).containsOnly(contributor1, contributor2)
+        assertThat(actual).containsOnly(contributor1, contributor2)
     }
 
     def "Should fetch contributors from multiple pages"() {
         given:
-            WebTarget target = Mock()
-            client.target(_ as String) >> target
-            target.resolveTemplate(_, _, _) >> target
+        WebTarget target = Mock()
+        client.target(_ as String) >> target
+        target.resolveTemplate(_, _, _) >> target
 
-            Response response = Mock(Response)
-            Contributor contributor1 = Mock(Contributor)
-            Contributor contributor2 = Mock(Contributor)
-            response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
+        Response response = Mock(Response)
+        Contributor contributor1 = Mock(Contributor)
+        Contributor contributor2 = Mock(Contributor)
+        response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
 
-            Link link = Mock(Link)
-            response.getLink("next") >> link
+        Link link = Mock(Link)
+        response.getLink("next") >> link
 
-            target.request() >> Stub(Invocation.Builder) {
-                get() >> response
-            }
+        target.request() >> Stub(Invocation.Builder) {
+            get() >> response
+        }
 
-            WebTarget secondPageTarget = Mock(WebTarget)
-            client.target(link) >> secondPageTarget
+        WebTarget secondPageTarget = Mock(WebTarget)
+        client.target(link) >> secondPageTarget
 
-            Response secondPageResponse = Mock(Response)
-            Contributor contributor3 = Mock(Contributor)
-            secondPageResponse.readEntity(_) >> Arrays.asList(contributor3)
+        Response secondPageResponse = Mock(Response)
+        Contributor contributor3 = Mock(Contributor)
+        secondPageResponse.readEntity(_) >> Arrays.asList(contributor3)
 
-            secondPageTarget.request() >> Stub(Invocation.Builder) {
-                get() >> secondPageResponse
-            }
+        secondPageTarget.request() >> Stub(Invocation.Builder) {
+            get() >> secondPageResponse
+        }
 
         when:
-            List<Contributor> actual = testObj.fetchContributors()
+        List<Contributor> actual = testObj.fetchContributors()
 
         then:
-            assertThat(actual).containsOnly(contributor1, contributor2, contributor3)
+        assertThat(actual).containsOnly(contributor1, contributor2, contributor3)
     }
 }
