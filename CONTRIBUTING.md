@@ -1,7 +1,7 @@
 # Contributing
 
 
-## If looking for help
+## Have any questions or problems with initial setup? Just ask :)
 
 * Please use our [Slack](https://jvm-bloggers-slack.herokuapp.com/) full of helpful people :)
 
@@ -31,7 +31,6 @@ This will configure cloned repository according to project standards. Note that 
 * Before coding think if you know everything you need and ask for a clarification when you are not sure about something (especially about "functional" requirements)
  
  
-
 ## General coding guidelines
 
 * Avoid Javadocs where possible. Comments should be used only when REALLY needed, prefer better naming and clean code over bloated Javadocs.
@@ -46,6 +45,18 @@ This will configure cloned repository according to project standards. Note that 
 
 * Wicket html files representing Pages and Components should be placed in `src/main/java` directory next to corresponding Java classes, other web-related files (css, images, etc.) should land in `src/main/resources` 
 
+
+## Architecture 
+
+* We aim to use "simplified" `CQRS` architecture with `*Query` objects to retrieve read only data and `*Command` and `*CommandHandler` to perform all changes in the database.
+
+* Each Wicket Page class should have a corresponding `*BackingBean` class that provides model and allows to execute commands using `CommandPublisher` service.
+
+* Example: Page `NewsletterIssuePage` has bean `NewsletterIssuePageBackingBean` with injected `Query` object named `PublishedNewsletterIssueQuery` that returns `PublishedNewsletterIssue` instances.
+
+* We prefer [Javaslang](http://javaslang.io) collections and `Option` over JDK8 ones where possible. Latest `Spring Data` allows to use Javaslang without extra boilerplate.
+
+* (work in progress)
  
 ## Testing
   
@@ -54,9 +65,7 @@ This will configure cloned repository according to project standards. Note that 
 * Notation for test classes is `YourClassNameSpec` ([example](src/test/groovy/pl/tomaszdziurko/jvm_bloggers/utils/DateTimeUtilitiesSpec.groovy#L8))
 
 * Notation for test methods is `def "Should do something"` ([example](src/test/groovy/pl/tomaszdziurko/jvm_bloggers/InitialBlogDataPopulationTriggerSpec.groovy#L20))
-
-* Each section after label `given/when/then` should have indentation one level deeper than label itself
-  
+ 
 * Do **not** use `def` for local variables declaration in `.groovy` files, we use static typing instead
 
 * Object under test should be marked with `@Subject` annotation from Spock
