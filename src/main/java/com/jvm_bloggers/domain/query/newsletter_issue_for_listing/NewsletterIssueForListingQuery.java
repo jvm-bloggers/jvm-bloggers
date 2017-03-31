@@ -24,14 +24,14 @@ public class NewsletterIssueForListingQuery {
     }
 
     public List<NewsletterIssueForListing> findLatestIssues(int count) {
-        List<NewsletterIssue> latestIssues = repository.findByOrderByPublishedDateDesc(
+        List<NewsletterIssue> latestIssues = List.ofAll(repository.findByOrderByPublishedDateDesc(
             new PageRequest(0, count)
-        );
+        ));
         return latestIssues.map(convertToDomainObject());
     }
 
     public List<NewsletterIssueForListing> findAllByOrderByPublishedDateDesc() {
-        return repository.findAllByOrderByPublishedDateDesc().map(convertToDomainObject());
+        return List.ofAll(repository.findAllByOrderByPublishedDateDesc()).map(convertToDomainObject());
     }
 
     private Function<NewsletterIssue, NewsletterIssueForListing> convertToDomainObject() {
