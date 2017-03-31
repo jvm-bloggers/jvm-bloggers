@@ -4,6 +4,7 @@ import com.jvm_bloggers.entities.github.Contributor
 import spock.lang.Specification
 import spock.lang.Subject
 
+import javaslang.collection.List as JavaslangList
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.Invocation
 import javax.ws.rs.client.WebTarget
@@ -38,8 +39,8 @@ class ContributorsServiceSpec extends Specification {
         target.resolveTemplate(_, _, _) >> target
 
         Response response = Mock(Response)
-        Contributor contributor1 = Mock(Contributor)
-        Contributor contributor2 = Mock(Contributor)
+        Contributor contributor1 = Stub(Contributor)
+        Contributor contributor2 = Stub(Contributor)
         response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
 
         target.request() >> Stub(Invocation.Builder) {
@@ -47,7 +48,7 @@ class ContributorsServiceSpec extends Specification {
         }
 
         when:
-        List<Contributor> actual = testObj.fetchContributors()
+        JavaslangList<Contributor> actual = testObj.fetchContributors()
 
         then:
         assertThat(actual).containsOnly(contributor1, contributor2)
@@ -83,7 +84,7 @@ class ContributorsServiceSpec extends Specification {
         }
 
         when:
-        List<Contributor> actual = testObj.fetchContributors()
+        JavaslangList<Contributor> actual = testObj.fetchContributors()
 
         then:
         assertThat(actual).containsOnly(contributor1, contributor2, contributor3)

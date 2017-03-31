@@ -31,7 +31,8 @@ public class NewsletterIssueForListingQuery {
     }
 
     public List<NewsletterIssueForListing> findAllByOrderByPublishedDateDesc() {
-        return List.ofAll(repository.findAllByOrderByPublishedDateDesc()).map(convertToDomainObject());
+        return List.ofAll(repository.findAllByOrderByPublishedDateDesc())
+            .map(convertToDomainObject());
     }
 
     private Function<NewsletterIssue, NewsletterIssueForListing> convertToDomainObject() {

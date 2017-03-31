@@ -3,10 +3,10 @@ package com.jvm_bloggers.core.github;
 import com.jvm_bloggers.GithubClient;
 import com.jvm_bloggers.entities.github.Contributor;
 
+import javaslang.collection.List;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,8 +19,8 @@ import javax.ws.rs.core.Response;
 @Service
 public class ContributorsService {
 
-    private static final GenericType<List<Contributor>> CONTRIBUTORS_LIST_TYPE =
-        new GenericType<List<Contributor>>() {
+    private static final GenericType<java.util.List<Contributor>> CONTRIBUTORS_LIST_TYPE =
+        new GenericType<java.util.List<Contributor>>() {
         };
 
     private final Client client;
@@ -38,7 +38,7 @@ public class ContributorsService {
             .resolveTemplate("api_url", properties.getApiUrl(), false)
             .resolveTemplate("org", properties.getOrg(), false)
             .resolveTemplate("repo", properties.getRepo(), false);
-        return traversePages(target).collect(Collectors.toList());
+        return List.ofAll(traversePages(target).collect(Collectors.toList()));
     }
 
     private Stream<Contributor> traversePages(WebTarget target) {
