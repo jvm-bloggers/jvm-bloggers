@@ -9,7 +9,7 @@ spring:
   jpa.hibernate.ddl-auto: validate
 liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
-spring-data-releasetrain.version: Ingalls-SR2
+spring-data-releasetrain.version: Ingalls-SR1
 
 server.compression:
   enabled: true
