@@ -4,6 +4,7 @@ import com.jvm_bloggers.TestNowProvider
 import com.jvm_bloggers.entities.email.Email
 import com.jvm_bloggers.entities.email.EmailRepository
 import com.jvm_bloggers.utils.NowProvider
+import javaslang.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -22,7 +23,7 @@ class EmailSendingSchedulerSpec extends Specification {
     def "Should save sent email with set sentDate"() {
         given:
         Email email = Mock(Email)
-        emailRepository.findFirstBySentDateNull() >> Optional.of(email)
+        emailRepository.findFirstBySentDateNull() >> Option.of(email)
         mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.SUCCESS
 
         when:
@@ -35,7 +36,7 @@ class EmailSendingSchedulerSpec extends Specification {
 
     def "Should not execute any action for zero not sent emails"() {
         given:
-        emailRepository.findFirstBySentDateNull() >> Optional.empty()
+        emailRepository.findFirstBySentDateNull() >> Option.none()
 
         when:
         emailSendingScheduler.sendOneEmail()
@@ -48,7 +49,7 @@ class EmailSendingSchedulerSpec extends Specification {
     def "Should not update sentDate for unsuccessful sanding action"() {
         given:
         Email email = Mock(Email)
-        emailRepository.findFirstBySentDateNull() >> Optional.of(email)
+        emailRepository.findFirstBySentDateNull() >> Option.of(email)
         mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.ERROR
 
         when:

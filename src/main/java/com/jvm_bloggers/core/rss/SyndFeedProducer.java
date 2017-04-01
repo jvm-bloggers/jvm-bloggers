@@ -6,6 +6,7 @@ import com.jvm_bloggers.core.utils.Validators;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import javaslang.control.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
@@ -19,10 +20,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
-import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipException;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -38,21 +37,21 @@ public class SyndFeedProducer {
     private final ProtocolSwitchingAwareConnectionRedirectHandler redirectHandler =
         new ProtocolSwitchingAwareConnectionRedirectHandler();
 
-    public Optional<SyndFeed> createFor(String rssUrl) {
-        Optional<SyndFeed> rssFeed = createInADefaultWay(rssUrl);
+    public Option<SyndFeed> createFor(String rssUrl) {
+        Option<SyndFeed> rssFeed = createInADefaultWay(rssUrl);
         
-        if (rssFeed.isPresent()) {
+        if (rssFeed.isDefined()) {
             return rssFeed;
         }
         return createWithoutSslVerification(rssUrl);
     }
 
-    public Optional<String> validUrlFromRss(String rss) {
-        Optional<String> url = createFor(rss).map(SyndFeed::getLink);
+    public Option<String> validUrlFromRss(String rss) {
+        Option<String> url = createFor(rss).map(SyndFeed::getLink);
         return url.filter(Validators::isUrlValid);
     }
 
-    private Optional<SyndFeed> createInADefaultWay(String rssUrl) {
+    private Option<SyndFeed> createInADefaultWay(String rssUrl) {
         URLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
@@ -62,17 +61,17 @@ public class SyndFeedProducer {
             urlConnection = redirectHandler.handle(urlConnection, headers);
 
             inputStream = wrapToGzipStreamIfNeeded(urlConnection.getInputStream());
-            return Optional.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+            return Option.of(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn("Error during fetching RSS {} url", rssUrl, ex);
-            return Optional.empty();
+            return Option.none();
         } finally {
             IOUtils.closeQuietly(inputStream);
             IOUtils.close(urlConnection);
         }
     }
 
-    private Optional<SyndFeed> createWithoutSslVerification(String rssUrl) {
+    private Option<SyndFeed> createWithoutSslVerification(String rssUrl) {
         URLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
@@ -82,10 +81,10 @@ public class SyndFeedProducer {
             urlConnection = redirectHandler.handle(urlConnection, headers);
             configureHttpsConnectionToTrustAnyone(urlConnection);
             inputStream = wrapToGzipStreamIfNeeded(urlConnection.getInputStream());
-            return Optional.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+            return Option.of(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn("Error during fetching RSS without https check for {} url", rssUrl, ex);
-            return Optional.empty();
+            return Option.none();
         } finally {
             IOUtils.closeQuietly(inputStream);
             IOUtils.close(urlConnection);

@@ -7,6 +7,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
+import javaslang.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -28,7 +29,7 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
         Long jsonId = 2207L
         BloggerEntry entry = buildBloggerEntry(jsonId, "blog", RSS_OF_VALID_BLOG, "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Optional.empty()
+        blogRepository.findByJsonId(jsonId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -43,7 +44,7 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
         Long jsonId = 2207L
         BloggerEntry entry = buildBloggerEntry(jsonId, "blog", RSS_OF_INVALID_BLOG, "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Optional.empty()
+        blogRepository.findByJsonId(jsonId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -58,7 +59,7 @@ class BloggersDataUpdaterSpec extends Specification {
         given:
         Long jsonId = 2207L
         BloggerEntry entry = buildBloggerEntry(jsonId, "blog", "rss", "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, entry.rss, entry.url, entry.twitter))
+        blogRepository.findByJsonId(jsonId) >> Option.of(buildBlog(entry.jsonId, entry.name, entry.rss, entry.url, entry.twitter))
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -74,7 +75,7 @@ class BloggersDataUpdaterSpec extends Specification {
         Long jsonId = 2207L
         String rss = "httP://newRssAddress"
         BloggerEntry entry = new BloggerEntry(jsonId, "blog", rss, "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Optional.of(buildBlog(entry.jsonId, entry.name, "oldRSS", entry.rss, entry.twitter))
+        blogRepository.findByJsonId(jsonId) >> Option.of(buildBlog(entry.jsonId, entry.name, "oldRSS", entry.rss, entry.twitter))
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -91,7 +92,7 @@ class BloggersDataUpdaterSpec extends Specification {
         String newName = "newAuthor"
         Blog existingPerson = buildBlog(jsonId, "oldAuthor", "http://existingRSS", "page", "twitter")
         BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, newName, existingPerson.rss, existingPerson.twitter, COMPANY)
-        blogRepository.findByJsonId(entry.jsonId) >> Optional.of(existingPerson)
+        blogRepository.findByJsonId(entry.jsonId) >> Option.of(existingPerson)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -116,7 +117,7 @@ class BloggersDataUpdaterSpec extends Specification {
         BloggerEntry entry = new BloggerEntry(
             blog.jsonId, blog.author, blog.rss, newBlogUrl, blog.twitter, COMPANY
         )
-        blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        blogRepository.findByJsonId(entry.jsonId) >> Option.of(blog)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -139,7 +140,7 @@ class BloggersDataUpdaterSpec extends Specification {
         BloggerEntry entry = new BloggerEntry(
             blog.jsonId, blog.author, blog.rss, blog.twitter, COMPANY
         )
-        blogRepository.findByJsonId(entry.jsonId) >> Optional.of(blog)
+        blogRepository.findByJsonId(entry.jsonId) >> Option.of(blog)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -180,8 +181,8 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def spySyndFeedProducer() {
         SyndFeedProducer producer = Spy(SyndFeedProducer);
-        producer.validUrlFromRss("") >> Optional.empty()
-        producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Optional.of("http://new.blog.pl/")
+        producer.validUrlFromRss("") >> Option.none()
+        producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Option.of("http://new.blog.pl/")
         return producer
     }
 }

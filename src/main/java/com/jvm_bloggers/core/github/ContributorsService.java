@@ -2,15 +2,13 @@ package com.jvm_bloggers.core.github;
 
 import com.jvm_bloggers.GithubClient;
 import com.jvm_bloggers.entities.github.Contributor;
-
 import javaslang.collection.List;
+import javaslang.control.Option;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -43,13 +41,12 @@ public class ContributorsService {
 
     private Stream<Contributor> traversePages(WebTarget target) {
         Response response = target.request().get();
-
         Stream<Contributor> currentPage = response.readEntity(CONTRIBUTORS_LIST_TYPE).stream();
 
-        return Optional.ofNullable(response.getLink("next"))
+        return Option.of(response.getLink("next"))
             .map(client::target)
             .map(this::traversePages)
             .map(nextPage -> Stream.concat(currentPage, nextPage))
-            .orElse(currentPage);
+            .getOrElse(() -> currentPage);
     }
 }

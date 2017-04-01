@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.email
 
 import com.jvm_bloggers.SpringContextAwareSpecification
+import javaslang.control.Option
 import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime
@@ -32,10 +33,10 @@ class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
         emailRepository.save(email2)
 
         when:
-        Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
+        Option<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
 
         then:
-        notSentEmail.isPresent()
+        notSentEmail.isDefined()
         notSentEmail.get().toAddress == email1.toAddress
     }
 
@@ -49,10 +50,10 @@ class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
         emailRepository.save(email2)
 
         when:
-        Optional<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
+        Option<Email> notSentEmail = emailRepository.findFirstBySentDateNull()
 
         then:
-        !notSentEmail.isPresent()
+        notSentEmail.isEmpty()
     }
 
     private Email prepareEmail(String toAddress) {

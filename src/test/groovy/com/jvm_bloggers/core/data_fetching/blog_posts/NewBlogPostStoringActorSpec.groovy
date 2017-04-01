@@ -9,6 +9,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.rometools.rome.feed.synd.SyndContent
 import com.rometools.rome.feed.synd.SyndEntry
+import javaslang.control.Option
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
@@ -47,7 +48,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         RssEntryWithAuthor message = new RssEntryWithAuthor(blog, entry)
         blogPostFactory.create(postTitle, postUrl, toLocalDateTime(entry.getPublishedDate()), blog) >> blogPost
-        blogPostRepository.findByUrl(postUrl) >> Optional.empty()
+        blogPostRepository.findByUrl(postUrl) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -64,7 +65,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         String postDescription = "description"
         SyndEntry entry = mockSyndEntry(invalidLink, postTitle, postDescription)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(invalidLink) >> Optional.empty()
+        blogPostRepository.findByUrl(invalidLink) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -86,7 +87,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         BlogPost blogPost = Mock()
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(postUrl) >> Optional.of(blogPost)
+        blogPostRepository.findByUrl(postUrl) >> Option.of(blogPost)
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -106,7 +107,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         Date updatedDate = new Date().minus(1)
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(postUrl) >> Optional.empty()
+        blogPostRepository.findByUrl(postUrl) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())

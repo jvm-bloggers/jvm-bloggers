@@ -30,7 +30,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
                 if (Validators.isUrlValid(rssEntry.getRssEntry().getLink())) {
                     BlogPost blogPost = blogPostRepository
                         .findByUrl(rssEntry.getRssEntry().getLink())
-                        .orElseGet(() -> createBlogPost(rssEntry));
+                        .getOrElse(() -> createBlogPost(rssEntry));
                     updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
                     blogPostRepository.save(blogPost);
                 } else {

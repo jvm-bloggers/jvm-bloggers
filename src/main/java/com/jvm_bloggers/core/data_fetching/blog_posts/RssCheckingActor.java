@@ -21,7 +21,7 @@ public class RssCheckingActor extends AbstractActor {
 
     private void executeAction(ActorRef postStoringActor, SyndFeedProducer syndFeedFactory,
                                RssLink rssLink) {
-        syndFeedFactory.createFor(rssLink.getUrl()).ifPresent(feed ->
+        syndFeedFactory.createFor(rssLink.getUrl()).forEach(feed ->
             feed.getEntries().forEach(post -> {
                 RssEntryWithAuthor msg = new RssEntryWithAuthor(rssLink.getOwner(), post);
                 postStoringActor.tell(msg, self());
