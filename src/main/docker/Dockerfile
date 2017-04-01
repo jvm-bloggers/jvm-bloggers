@@ -9,6 +9,7 @@ ENV APP_HOME /home/$USER_NAME/app
 
 RUN adduser -S $USER_NAME
 RUN mkdir $APP_HOME
+RUN chown $USER_NAME $APP_HOME
 
 ADD jvm-bloggers-*.jar $APP_HOME/jvm-bloggers.jar
 RUN chown $USER_NAME $APP_HOME/jvm-bloggers.jar
