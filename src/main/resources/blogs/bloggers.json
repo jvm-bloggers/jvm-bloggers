@@ -950,7 +950,11 @@
       "name": "Paweł Dobrzański",
       "rss": "http://paweldobrzanski.pl/feed/",
       "twitter": "@dobskip"
+    },
+    {
+      "jsonId": 167,
+      "name": "Marcin Pietraszek",
+      "rss": "http://www.samouczekprogramisty.pl/feed/"
     }
-    
   ]
 }
