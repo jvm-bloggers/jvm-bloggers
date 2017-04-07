@@ -20,7 +20,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
-      - /home/jvm-bloggers/jvm-bloggers/logs:/home/blogger/app/logs
+      - /home/jvm-bloggers/jvm-bloggers-app/logs:/home/blogger/app/logs
       - /tmp
     links:
       - jvm-bloggers-db
