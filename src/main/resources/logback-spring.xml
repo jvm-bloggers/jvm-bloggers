@@ -29,7 +29,7 @@
 
     <springProfile name="test,dev">
         <logger name="com.jvm_bloggers" level="DEBUG"/>
-        <logger name="org.hibernate.SQL" level="DEBUG"/>
+        <!--<logger name="org.hibernate.SQL" level="DEBUG"/>-->
     </springProfile>
 
 </configuration>
