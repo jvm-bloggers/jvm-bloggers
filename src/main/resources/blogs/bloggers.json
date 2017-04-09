@@ -955,6 +955,12 @@
       "jsonId": 167,
       "name": "Marcin Pietraszek",
       "rss": "http://www.samouczekprogramisty.pl/feed/"
+    },
+    {
+      "jsonId": 168,
+      "name": "Łukasz Monkiewicz",
+      "rss": "https://lmonkiewicz.com/feed/",
+      "twitter":"@lmonkiewiczdev"
     }
   ]
 }
