@@ -29,6 +29,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import static javaslang.control.Option.of;
+
 @Component
 @Slf4j
 public class SyndFeedProducer {
@@ -42,8 +44,10 @@ public class SyndFeedProducer {
     /**
      * Try to fetch rss from given url.
      * 1st attempt - standard https connection
-     * 2nd attempt - fallback for some self-signed certificates using https connection with disabled SSL cerficiate checking
-     * 3rd attempt - execute wget, save as a file in tmp directory and create SyndFeed from this file
+     * 2nd attempt - fallback for some self-signed certificates using https connection with
+     * disabled SSL certificate checking
+     * 3rd attempt - execute wget unix command, save as rss a file in tmp directory
+     * and create SyndFeed from it
      */
     public Option<SyndFeed> createFor(String rssUrl) {
 
@@ -63,11 +67,11 @@ public class SyndFeedProducer {
         try {
             urlConnection = new URL(rssUrl).openConnection();
             final Map<String, String> headers =
-                    ImmutableMap.of("User-Agent", FAKE_USER_AGENT);
+                ImmutableMap.of("User-Agent", FAKE_USER_AGENT);
             urlConnection = redirectHandler.handle(urlConnection, headers);
 
             inputStream = wrapToGzipStreamIfNeeded(urlConnection.getInputStream());
-            return Option.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+            return of(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn("Error during fetching RSS {} url: {}", rssUrl, ex.getMessage());
             return Option.none();
@@ -83,11 +87,11 @@ public class SyndFeedProducer {
         try {
             urlConnection = new URL(rssUrl).openConnection();
             final Map<String, String> headers =
-                    ImmutableMap.of("User-Agent", FAKE_USER_AGENT);
+                ImmutableMap.of("User-Agent", FAKE_USER_AGENT);
             urlConnection = redirectHandler.handle(urlConnection, headers);
             configureHttpsConnectionToTrustAnyone(urlConnection);
             inputStream = wrapToGzipStreamIfNeeded(urlConnection.getInputStream());
-            return Option.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+            return of(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn(
                 "Error during fetching RSS without https check for {} url: {}",
@@ -101,22 +105,24 @@ public class SyndFeedProducer {
         }
     }
 
-    private void configureHttpsConnectionToTrustAnyone(URLConnection urlConnection) 
-            throws NoSuchAlgorithmException, KeyManagementException {
+    private void configureHttpsConnectionToTrustAnyone(URLConnection urlConnection)
+        throws NoSuchAlgorithmException, KeyManagementException {
         if (urlConnection instanceof HttpsURLConnection) {
             HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
 
-            TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-                public X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
+            TrustManager[] trustAllCerts = new TrustManager[] {
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
 
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
 
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    }
                 }
-            } };
+            };
             SSLContext sc = SSLContext.getInstance("TLSv1.2");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             httpsConnection.setSSLSocketFactory(sc.getSocketFactory());
@@ -124,15 +130,15 @@ public class SyndFeedProducer {
         }
     }
 
-    private static Option<SyndFeed> createWithWget(String rssUrl) {
+    private Option<SyndFeed> createWithWget(String rssUrl) {
         String uid = UUID.randomUUID().toString();
         try {
             Process process = new ProcessBuilder("wget", rssUrl, "-O", "/tmp/" + uid).start();
             process.waitFor();
             File file = new File("/tmp/" + uid);
-            Option<SyndFeed> of = Option.of(new SyndFeedInput().build(file));
+            Option<SyndFeed> feed = of(new SyndFeedInput().build(file));
             file.delete();
-            return of;
+            return feed;
         } catch (Exception exc) {
             log.warn("Exception during wget execution for url {}: {}", rssUrl, exc.getMessage());
             return Option.none();
