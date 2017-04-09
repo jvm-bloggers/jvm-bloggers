@@ -10,6 +10,8 @@ ENV APP_HOME /home/$USER_NAME/app
 RUN adduser -S $USER_NAME
 RUN mkdir $APP_HOME
 RUN chown $USER_NAME $APP_HOME
+RUN mkdir $APP_HOME/logs
+RUN chown $USER_NAME $APP_HOME/logs
 
 RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl
 
@@ -18,7 +20,6 @@ RUN chown $USER_NAME $APP_HOME/jvm-bloggers.jar
 
 USER $USER_NAME
 WORKDIR $APP_HOME
-RUN mkdir $APP_HOME/logs
 RUN sh -c 'touch jvm-bloggers.jar'
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","jvm-bloggers.jar"]
