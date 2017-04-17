@@ -51,7 +51,12 @@
     {
       "jsonId": 20009,
       "name": "CodingSkills PL",
-      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQHxE5dFZ6GQ8orZC5116g",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQHxE5dFZ6GQ8orZC5116g"
+    }
+    {
+      "jsonId": 20010,
+      "name": "Wrocław JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvj_1SWNU4diTM2Z2KCUHug"    
     }
   ]
 }
