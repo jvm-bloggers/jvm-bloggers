@@ -24,6 +24,7 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 
 @RestController
 public class BlogPostsController {
+    public static final String RSS_FEED_MAPPING = "/pl/rss";
 
     private final AggregatedRssFeedProducer rssProducer;
     private final RssToJsonConverter rssToJsonConverter;
@@ -40,7 +41,7 @@ public class BlogPostsController {
     }
 
     @SneakyThrows
-    @RequestMapping("/pl/rss")
+    @RequestMapping(RSS_FEED_MAPPING)
     public void getRss(HttpServletRequest request, HttpServletResponse response,
                        PrintWriter writer,
                        @RequestParam(required = false) Integer limit,

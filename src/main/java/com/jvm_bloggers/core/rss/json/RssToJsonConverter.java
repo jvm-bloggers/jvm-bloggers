@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.rss.json;
 
+import com.jvm_bloggers.core.rss.BlogPostsController;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.AUTHOR;
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.DATE;
@@ -55,12 +54,10 @@ public class RssToJsonConverter {
         return json;
     }
 
-    private static List<JSONObject> toJson(List<SyndEntry> entries) {
-        List<JSONObject> result = new ArrayList<>(entries.size());
-
-        entries.forEach(entry -> result.add(toJson(entry)));
-
-        return result;
+    private static java.util.List<JSONObject> toJson(java.util.List<SyndEntry> entries) {
+        return javaslang.collection.List.ofAll(entries)
+            .map(RssToJsonConverter::toJson)
+            .toJavaList();
     }
 
     private static JSONObject toJson(SyndEntry entry) {
@@ -94,9 +91,7 @@ public class RssToJsonConverter {
 
         JSONObject json = toJson(feed);
         json.put(GENERATOR.getKey(), baseUrl);
-        json.put(LINK.getKey(), baseUrl + "/pl/rss");
-
-        json.put(ENTRIES.getKey(), toJson(feed.getEntries()));
+        json.put(LINK.getKey(), baseUrl + BlogPostsController.RSS_FEED_MAPPING);
 
         log.debug("JSON content generated successfully with '{}' entries",
             feed.getEntries().size());
