@@ -47,54 +47,54 @@ class BlogPostsControllerSpec extends Specification {
     @Unroll
     def "Should get OK status for RSS feed in #format format request"() {
         given:
-            MockMvc mockMvc = standaloneSetup(blogPostsController).build()
+        MockMvc mockMvc = standaloneSetup(blogPostsController).build()
 
         expect:
-            mockMvc.perform(get("/pl/rss?format=$format"))
-                    .andExpect(status().isOk())
-                    .andExpect(content().contentType(mediaType))
+        mockMvc.perform(get("/pl/rss?format=$format"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(mediaType))
 
         where:
-            format || mediaType
-            "json" || MediaType.APPLICATION_JSON_VALUE
-            "xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
+        format || mediaType
+        "json" || MediaType.APPLICATION_JSON_VALUE
+        "xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
     }
 
     def "Should get BAD_REQUEST status for RSS feed in undefined format request"() {
         given:
-            MockMvc mockMvc = standaloneSetup(blogPostsController).build()
+        MockMvc mockMvc = standaloneSetup(blogPostsController).build()
 
         expect:
-            mockMvc.perform(get("/pl/rss?format=dummy_format"))
-                    .andExpect(status().isBadRequest())
+        mockMvc.perform(get("/pl/rss?format=dummy_format"))
+                .andExpect(status().isBadRequest())
     }
 
     @Unroll
     def "Should get RSS feed as #format"() {
         given:
-            HttpServletRequest request = Stub() {
-                getRequestURL() >> new StringBuffer("http://jvm-bloggers.com/rss")
-            }
+        HttpServletRequest request = Stub() {
+            getRequestURL() >> new StringBuffer("http://jvm-bloggers.com/rss")
+        }
 
-            HttpServletResponse response = Mock()
-            StringWriter actualOutput = new StringWriter()
-            PrintWriter printWriter = new PrintWriter(actualOutput)
+        HttpServletResponse response = Mock()
+        StringWriter actualOutput = new StringWriter()
+        PrintWriter printWriter = new PrintWriter(actualOutput)
 
         when:
-            blogPostsController.getRss(request, response, printWriter, null, null, format)
+        blogPostsController.getRss(request, response, printWriter, null, null, format)
 
         then:
-            1 * response.setContentType(mediaType)
+        1 * response.setContentType(mediaType)
 
-            def actualLines = IOUtils.readLines(IOUtils.toInputStream(actualOutput.toString(), Charset.defaultCharset()), Charset.defaultCharset())
-            def expectedLines = IOUtils.readLines(getClass().getResource(resource).openStream(), Charset.defaultCharset())
+        def actualLines = IOUtils.readLines(IOUtils.toInputStream(actualOutput.toString(), Charset.defaultCharset()), Charset.defaultCharset())
+        def expectedLines = IOUtils.readLines(getClass().getResource(resource).openStream(), Charset.defaultCharset())
 
-            actualLines == expectedLines
+        actualLines == expectedLines
 
         where:
-            format || resource            || mediaType
-            "xml"  || "expected-rss.xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
-            "json" || "expected-rss.json" || MediaType.APPLICATION_JSON_VALUE
+        format || resource            || mediaType
+        "xml"  || "expected-rss.xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
+        "json" || "expected-rss.json" || MediaType.APPLICATION_JSON_VALUE
     }
 
     def createSyndEntry(String id, String url, String title, String author, String description, Date publishedDate) {
