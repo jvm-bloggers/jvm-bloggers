@@ -29,12 +29,12 @@ public class BlogPostsController {
     private final AggregatedRssFeedProducer rssProducer;
     private final RssToJsonConverter rssToJsonConverter;
 
-    private final int defaultLimit;
+    private final Integer defaultLimit;
 
     @Autowired
     public BlogPostsController(AggregatedRssFeedProducer rssProducer,
                                RssToJsonConverter rssToJsonConverter,
-                               @Value("${generated.rss.entries.limit}") int defaultLimit) {
+                               @Value("${generated.rss.entries.limit}") Integer defaultLimit) {
         this.rssProducer = rssProducer;
         this.rssToJsonConverter = rssToJsonConverter;
         this.defaultLimit = defaultLimit;
@@ -47,10 +47,10 @@ public class BlogPostsController {
                        @RequestParam(required = false) Integer limit,
                        @RequestParam(required = false) Set<String> excludedAuthors,
                        @RequestParam(required = false, defaultValue = "xml") String format) {
-        limit = firstNonNull(limit, defaultLimit);
+        Integer checkedLimit = firstNonNull(limit, defaultLimit);
 
         SyndFeed feed =
-            rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
+            rssProducer.getRss(request.getRequestURL().toString(), checkedLimit, excludedAuthors);
 
         if (SupportedFormat.XML.toString().equalsIgnoreCase(format)) {
             response.setContentType(MediaType.APPLICATION_ATOM_XML_VALUE);

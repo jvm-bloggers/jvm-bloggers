@@ -33,7 +33,7 @@ import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 @Component
 @Slf4j
 public class RssToJsonConverter {
-    static final DateTimeFormatter DATE_FORMATTER =
+    private static final DateTimeFormatter DATE_FORMATTER =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private final String baseUrl;
