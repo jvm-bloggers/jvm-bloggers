@@ -43,63 +43,70 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         addBean(new PaginationConfiguration(15))
 
         metadataRepository.findByName(MAILING_TEMPLATE) >> new Metadata(
-                0L,
-                MAILING_TEMPLATE,
-                MAILING_TEMPLATE_VALUE
+            0L,
+            MAILING_TEMPLATE,
+            MAILING_TEMPLATE_VALUE
         )
 
         metadataRepository.findByName(MAILING_GREETING) >> new Metadata(
-                1L,
-                MAILING_GREETING,
-                GREETING_VALUE
+            1L,
+            MAILING_GREETING,
+            GREETING_VALUE
         )
     }
 
     def "Should display value of Mailing Template in wysiwyg editor"() {
         when:
-            tester.startPage(MailingPage.class)
+        tester.startPage(MailingPage.class)
+
         then:
-            Page currentPage = tester.getLastRenderedPage()
-            String wysiwygModelValue = currentPage.get(MAILING_TEMPLATE_FORM_ID + ":" + WYSIWYG_ID).getDefaultModelObjectAsString()
-            wysiwygModelValue == MAILING_TEMPLATE_VALUE
+        Page currentPage = tester.getLastRenderedPage()
+        String wysiwygModelValue = currentPage.get(MAILING_TEMPLATE_FORM_ID + ":" + WYSIWYG_ID).getDefaultModelObjectAsString()
+        wysiwygModelValue == MAILING_TEMPLATE_VALUE
     }
 
     def "Should restore default value of MailingTemplate after reset button is clicked"() {
         given:
-            metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE) >> new Metadata(
-                    0L,
-                    MetadataKeys.DEFAULT_MAILING_TEMPLATE,
-                    DEFAULT_MAILING_TEMPLATE_VALUE
-            )
-            tester.startPage(MailingPage.class)
+        metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE) >> new Metadata(
+            0L,
+            MetadataKeys.DEFAULT_MAILING_TEMPLATE,
+            DEFAULT_MAILING_TEMPLATE_VALUE
+        )
+        tester.startPage(MailingPage.class)
+
         when:
-            FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
-            formTester.submit(RESET_MAILING_TEMPLATE_BUTTON_ID)
+        FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
+        formTester.submit(RESET_MAILING_TEMPLATE_BUTTON_ID)
+
         then:
-            1 * metadataRepository.save( {it.name == MAILING_TEMPLATE && it.value == DEFAULT_MAILING_TEMPLATE_VALUE})
+        1 * metadataRepository.save({ it.name == MAILING_TEMPLATE && it.value == DEFAULT_MAILING_TEMPLATE_VALUE })
     }
 
     def "Should send test email when button clicked"() {
         given:
-            tester.startPage(MailingPage.class)
+        tester.startPage(MailingPage.class)
+
         when:
-            FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
-            formTester.submit(SEND_TEST_MAIL_BUTTON_ID)
+        FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
+        formTester.submit(SEND_TEST_MAIL_BUTTON_ID)
+
         then:
-            1 * mailingPageRequestHandler.sendTestEmail()
+        1 * mailingPageRequestHandler.sendTestEmail()
     }
 
     def "Should change model in wysiwyg editor when dropdown value is changed to greeting section"() {
         given:
-            tester.startPage(MailingPage.class)
+        tester.startPage(MailingPage.class)
+
         when:
-            FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
-            formTester.select(MAILING_SECTION_TO_EDIT_DROPDOWN_ID, 1)
-            tester.executeAjaxEvent(MAILING_TEMPLATE_FORM_ID + ":" + MAILING_SECTION_TO_EDIT_DROPDOWN_ID, "change")
+        FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
+        formTester.select(MAILING_SECTION_TO_EDIT_DROPDOWN_ID, 1)
+        tester.executeAjaxEvent(MAILING_TEMPLATE_FORM_ID + ":" + MAILING_SECTION_TO_EDIT_DROPDOWN_ID, "change")
+
         then:
-            Page currentPage = tester.getLastRenderedPage()
-            String wysiwygModelValue = currentPage.get(MAILING_TEMPLATE_FORM_ID + ":" + WYSIWYG_ID).getDefaultModelObjectAsString()
-            wysiwygModelValue == GREETING_VALUE
+        Page currentPage = tester.getLastRenderedPage()
+        String wysiwygModelValue = currentPage.get(MAILING_TEMPLATE_FORM_ID + ":" + WYSIWYG_ID).getDefaultModelObjectAsString()
+        wysiwygModelValue == GREETING_VALUE
     }
 
 }

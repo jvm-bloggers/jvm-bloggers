@@ -14,54 +14,64 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should proceed if no redirect"() {
         given:
-            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler();
+        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler();
+
         when:
-            def conn = tested.handle(httpConnection, null)
+        def conn = tested.handle(httpConnection, null)
+
         then:
-            conn == httpConnection
+        conn == httpConnection
     }
 
     def "Should handle redirect between protocols"() {
         given:
-            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
+        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
+
         and:
-            def redirectLocation = "https://redirect.location"
-            httpConnection.getURL() >> new URL("http://redirected.url")
-            httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_TEMP
-            httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
+        def redirectLocation = "https://redirect.location"
+        httpConnection.getURL() >> new URL("http://redirected.url")
+        httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_TEMP
+        httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
+
         when:
-            tested.handle(httpConnection, REQUEST_HEADERS)
+        tested.handle(httpConnection, REQUEST_HEADERS)
+
         then:
-            interaction{ commonInteractions() }
-            UnknownHostException e = thrown()
-            redirectLocation.contains(e.message)
+        interaction { commonInteractions() }
+        UnknownHostException e = thrown()
+        redirectLocation.contains(e.message)
     }
-    
+
     def "Should throw exception when redirect limit reached"() {
         given:
-            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+
         and:
-            def redirectLocation = "https://redirect.location"
-            httpConnection.getURL() >> new URL("http://redirected.url")
-            httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_PERM
-            httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
+        def redirectLocation = "https://redirect.location"
+        httpConnection.getURL() >> new URL("http://redirected.url")
+        httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_PERM
+        httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
+
         when:
-            tested.handle(httpConnection, REQUEST_HEADERS)
+        tested.handle(httpConnection, REQUEST_HEADERS)
+
         then:
-            interaction{ commonInteractions() }
-            thrown(ProtocolSwitchingAwareConnectionRedirectHandler.TooManyRedirectsException)
+        interaction { commonInteractions() }
+        thrown(ProtocolSwitchingAwareConnectionRedirectHandler.TooManyRedirectsException)
     }
 
     def "Should throw NPE on null connection parameter"() {
         given:
-            @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+
         when:
-            tested.handle(null, null)
+        tested.handle(null, null)
+
         then:
-            NullPointerException e = thrown()
-            e.message.contains("urlConnection")
+        NullPointerException e = thrown()
+        e.message.contains("urlConnection")
     }
-    
+
     private def commonInteractions() {
         with(httpConnection) {
             1 * setRequestProperty("header", "value 1")

@@ -146,7 +146,7 @@
     {
       "jsonId": 25,
       "name": "Bartek Kuczyński",
-      "rss": "http://koziolekweb.pl/feed/?cat=43",
+      "rss": "https://koziolekweb.pl/feed/?cat=43",
       "twitter": "@koziolek"
     },
     {
@@ -560,7 +560,7 @@
       "jsonId": 97,
       "name": "Ola Kunysz",
       "rss": "http://5months-5apps.blogspot.com/feeds/posts/default",
-      "twitter": "@OlaWaliczek"
+      "twitter": "@OlaQnysz"
     },
     {
       "jsonId": 98,
@@ -688,7 +688,7 @@
     {
       "jsonId": 121,
       "name": "Michał Przybylak",
-      "rss": "http://www.mprzybylak.pl/feed/",
+      "rss": "http://stackframelayout.com/feed",
       "twitter": "@mprzybylak"
     },
     {
@@ -730,7 +730,7 @@
     {
       "jsonId": 128,
       "name": "Grzegorz Gajos",
-      "rss": "http://ggajos.com/rss.xml",
+      "rss": "https://medium.com/feed/@ggajos",
       "twitter": "@ggajos"
     },
     {
@@ -902,18 +902,59 @@
     {
       "jsonId": 158,
       "name": "Paweł Barszcz",
-      "rss": "http://timbercode.pl/feed.xml",
+      "rss": "http://timbercode.pl/blog/tag/jvm-bloggers/feed.xml",
       "twitter": "@nkoder"
     },
     {
       "jsonId": 159,
       "name": "Sprawny Programista",
-      "rss": "http://http://sprawnyprogramista.pl/feed/"
+      "rss": "http://sprawnyprogramista.pl/feed/"
     },
     {
       "jsonId": 160,
       "name": "Bartłomiej Słota",
-      "rss": "http://bartslota.blogspot.com/feeds/posts/default"
+      "rss": "http://bartslota.blogspot.com/feeds/posts/default",
+      "twitter": "@bartekslota"
+    },
+    {
+      "jsonId": 161,
+      "name": "Ola Kunysz",
+      "rss": "http://olaqnysz.blogspot.com/feeds/posts/default",
+      "twitter": "@OlaQnysz"
+    },
+    {
+      "jsonId": 162,
+      "name": "Łukasz Monkiewicz",
+      "rss": "https://lmonkiewicz.com/feed",
+      "twitter": "@lmonkiewiczdev"
+    },
+    {
+      "jsonId": 163,
+      "name": "Olaf Goj",
+      "rss": "https://www.olafgoj.pl/feed/"
+    },
+    {
+      "jsonId": 164,
+      "name": "Piotr Kalinowski",
+      "rss": "http://sciezkaprogramisty.pl/feed/",
+      "twitter": "@kali_piotrek"
+    },
+    {
+      "jsonId": 165,
+      "name": "Piotr Wyczesany",
+      "rss": "http://www.eventuallyinconsistent.com/feeds/posts/default",
+      "twitter": "@pwyczes"
+    },
+    {
+      "jsonId": 166,
+      "name": "Paweł Dobrzański",
+      "rss": "http://paweldobrzanski.pl/feed/",
+      "twitter": "@dobskip"
+    },
+    {
+      "jsonId": 167,
+      "name": "Marcin Pietraszek",
+      "rss": "http://www.samouczekprogramisty.pl/feed/"
     }
   ]
 }

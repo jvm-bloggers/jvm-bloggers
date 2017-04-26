@@ -23,7 +23,7 @@ Please create a Pull Request adding it to
 
 * [companies.json](src/main/resources/blogs/companies.json) for company blogs
 
-* [videos.json](src/main/resources/blogs/videos.json) for videos from JUGs/Meetups/Conferences
+* [videos.json](src/main/resources/blogs/videos.json) for videos from JUGs/Meetups/Conferences/personal vblogs
 
 and that's all. Once it is merged, you are in the list!
 
@@ -37,10 +37,10 @@ __Done__
 - [x] Write some admin panel to manage moderation. etc.
 - [x] Publish global [RSS](http://jvm-bloggers.com/pl/rss) feed with all blog posts. You can limit and exclude authors using parameters. example: http://jvm-bloggers.com/pl/rss?limit=15&excludedAuthors=author1,author2
 - [x] Add videos from JUGs and conferences in Poland
+- [x] Create website with all newsletter (latest and old ones)
 
 __Planned__
 
-- [ ] Create website with all newsletter (latest and old ones)
 - [ ] Fetch data about number of comments in articles
 - [ ] Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
 - [ ]  Maybe export the idea to another country? :)
@@ -54,7 +54,9 @@ __Planned__
 
 * Admin UI is based on [http://startbootstrap.com/template-overviews/sb-admin-2/](http://startbootstrap.com/template-overviews/sb-admin-2/).
 
-# [Development and contribution guidelelins Wiki](https://github.com/jvm-bloggers/jvm-bloggers/wiki)
+More details about contributinf and how project is organized please check
+
+# [Development and contribution guidelelines Wiki](https://github.com/jvm-bloggers/jvm-bloggers/wiki)
 
 ## Contributors
 
@@ -68,7 +70,7 @@ __Planned__
 * [Marcin Zajączkowski](https://solidsoft.wordpress.com/)
 * [Jonatan Borkowski](https://github.com/jborkowski)
 * [Bartłomiej Piech](https://github.com/delor)
-* [Sławomir Leski](https://github.com/sleski)
+* [Sławomir Łęski](https://github.com/sleski)
 
 #### Contact
 

@@ -19,24 +19,28 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
 
     def "Should trigger bloggers data population if there is no data"() {
         given:
-            1 * blogRepository.count() >> 0
-            1 * blogPostRepository.count() >> 0
+        1 * blogRepository.count() >> 0
+        1 * blogPostRepository.count() >> 0
+
         when:
-            tested.initializeDatabaseWithBlogDataIfEmpty()
+        tested.initializeDatabaseWithBlogDataIfEmpty()
+
         then:
-            1 * bloggersDataFetchingScheduler.fetchBloggersData();
-            1 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
+        1 * bloggersDataFetchingScheduler.fetchBloggersData();
+        1 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
     }
 
     def "Should skip if bloggers data already exists"() {
         given:
-            1 * blogRepository.count() >> 1
-            1 * blogPostRepository.count() >> 1
+        1 * blogRepository.count() >> 1
+        1 * blogPostRepository.count() >> 1
+
         when:
-            tested.initializeDatabaseWithBlogDataIfEmpty()
+        tested.initializeDatabaseWithBlogDataIfEmpty()
+
         then:
-            0 * bloggersDataFetchingScheduler.fetchBloggersData();
-            0 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
+        0 * bloggersDataFetchingScheduler.fetchBloggersData();
+        0 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
     }
 
 }

@@ -6,13 +6,12 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.utils.NowProvider;
+import javaslang.control.Option;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 @Slf4j
@@ -37,13 +36,13 @@ public class BloggersDataUpdater {
             .findByJsonId(bloggerEntry.getJsonId())
             .map(bloggerWithSameId ->
                 updateBloggerIfThereAreAnyChanges(bloggerEntry, bloggerWithSameId))
-            .orElseGet(() -> createNewBlogger(bloggerEntry));
+            .getOrElse(() -> createNewBlogger(bloggerEntry));
     }
 
     private UpdateStatus updateBloggerIfThereAreAnyChanges(BloggerEntry bloggerEntry,
                                                            Blog existingBlogger) {
-        Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
-        validBlogUrl.ifPresent(bloggerEntry::setUrl);
+        Option<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
+        validBlogUrl.forEach(bloggerEntry::setUrl);
 
         if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
@@ -61,24 +60,24 @@ public class BloggersDataUpdater {
         }
     }
 
-    private Optional<String> extractValidBlogUrlFromFeed(String rss) {
+    private Option<String> extractValidBlogUrlFromFeed(String rss) {
         return syndFeedFactory.validUrlFromRss(rss);
     }
 
     private UpdateStatus createNewBlogger(BloggerEntry bloggerEntry) {
-        Optional<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
-        if (!validBlogUrl.isPresent()) {
+        Option<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
+        if (validBlogUrl.isEmpty()) {
             log.warn("No url found for blog {}, Skipping", bloggerEntry.getRss());
             return UpdateStatus.INVALID;
         }
-        validBlogUrl.ifPresent(bloggerEntry::setUrl);
+        validBlogUrl.forEach(bloggerEntry::setUrl);
 
         Blog newBlog = Blog.builder()
             .jsonId(bloggerEntry.getJsonId())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())
             .url(syndFeedFactory.validUrlFromRss(
-                bloggerEntry.getRss()).orElse(null)
+                bloggerEntry.getRss()).getOrElse(() -> null)
             )
             .twitter(bloggerEntry.getTwitter())
             .url(bloggerEntry.getUrl())

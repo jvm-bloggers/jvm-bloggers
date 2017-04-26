@@ -7848,6 +7848,10 @@ button.list-group-item-danger.active:focus {
   padding-bottom: 3.125rem;
 }
 
+.well-xxs-bottom {
+  padding-bottom: 2.125rem;
+}
+
 .well-bottom-null {
   padding-bottom: 0;
 }

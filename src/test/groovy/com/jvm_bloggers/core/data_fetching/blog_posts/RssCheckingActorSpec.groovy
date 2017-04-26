@@ -10,6 +10,7 @@ import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
+import javaslang.control.Option
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
@@ -24,7 +25,7 @@ class RssCheckingActorSpec extends Specification {
         .dateAdded(new NowProvider().now())
         .blogType(BlogType.PERSONAL)
         .build();
-        
+
     JavaTestKit testProbe
     SyndFeedProducer syndFeedProducer
 
@@ -45,26 +46,30 @@ class RssCheckingActorSpec extends Specification {
 
     def "Should send message about new posts to postStoringActor"() {
         given:
-            mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
+        mockFeedToReturnNumberOfPosts(syndFeedProducer, 1)
+
         when:
-            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+        rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+
         then:
-            testProbe.expectMsgClass(RssEntryWithAuthor)
+        testProbe.expectMsgClass(RssEntryWithAuthor)
     }
 
     def "Should not send any message about new posts to postStoringActor when there are no posts in the feed "() {
         given:
-            mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
+        mockFeedToReturnNumberOfPosts(syndFeedProducer, 0)
+
         when:
-            rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+        rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
+
         then:
-            testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
     }
 
     private void mockFeedToReturnNumberOfPosts(SyndFeedProducer factory, int numberOfPosts) {
         SyndFeed syndFeedMock = Mock(SyndFeed)
         syndFeedMock.getEntries() >> mockEntries(numberOfPosts)
-        factory.createFor(_ as String) >> Optional.of(syndFeedMock)
+        factory.createFor(_ as String) >> Option.of(syndFeedMock)
     }
 
     List<SyndEntry> mockEntries(int size) {

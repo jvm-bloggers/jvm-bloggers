@@ -4,6 +4,7 @@ import com.jvm_bloggers.TestNowProvider
 import com.jvm_bloggers.entities.email.Email
 import com.jvm_bloggers.entities.email.EmailRepository
 import com.jvm_bloggers.utils.NowProvider
+import javaslang.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -21,36 +22,42 @@ class EmailSendingSchedulerSpec extends Specification {
 
     def "Should save sent email with set sentDate"() {
         given:
-            Email email = Mock(Email)
-            emailRepository.findFirstBySentDateNull() >> Optional.of(email)
-            mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.SUCCESS
+        Email email = Mock(Email)
+        emailRepository.findFirstBySentDateNull() >> Option.of(email)
+        mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.SUCCESS
+
         when:
-            emailSendingScheduler.sendOneEmail()
+        emailSendingScheduler.sendOneEmail()
+
         then:
-            1 * email.setSentDate(NOW)
-            1 * emailRepository.save(email)
+        1 * email.setSentDate(NOW)
+        1 * emailRepository.save(email)
     }
 
     def "Should not execute any action for zero not sent emails"() {
         given:
-            emailRepository.findFirstBySentDateNull() >> Optional.empty()
+        emailRepository.findFirstBySentDateNull() >> Option.none()
+
         when:
-            emailSendingScheduler.sendOneEmail()
+        emailSendingScheduler.sendOneEmail()
+
         then:
-            0 * mailSender.sendEmail(_, _, _, _)
-            0 * emailRepository.save(_ as Email)
+        0 * mailSender.sendEmail(_, _, _, _)
+        0 * emailRepository.save(_ as Email)
     }
 
     def "Should not update sentDate for unsuccessful sanding action"() {
         given:
-            Email email = Mock(Email)
-            emailRepository.findFirstBySentDateNull() >> Optional.of(email)
-            mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.ERROR
+        Email email = Mock(Email)
+        emailRepository.findFirstBySentDateNull() >> Option.of(email)
+        mailSender.sendEmail(_, _, _, _) >> MailSender.EmailSendingStatus.ERROR
+
         when:
-            emailSendingScheduler.sendOneEmail()
+        emailSendingScheduler.sendOneEmail()
+
         then:
-            0 * email.setSentDate(NOW)
-            0 * emailRepository.save(email)
+        0 * email.setSentDate(NOW)
+        0 * emailRepository.save(email)
     }
 
 }

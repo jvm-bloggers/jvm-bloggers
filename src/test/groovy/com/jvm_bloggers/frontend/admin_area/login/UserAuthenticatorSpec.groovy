@@ -17,21 +17,25 @@ class UserAuthenticatorSpec extends Specification {
 
     def "Should return ADMIN role if password is correct"() {
         given:
-            String password = PASSWORD
+        String password = PASSWORD
+
         when:
-            Roles roles = authenticator.getRolesForUser("any", password)
+        Roles roles = authenticator.getRolesForUser("any", password)
+
         then:
-            roles.hasRole(Roles.ADMIN)
-            !roles.hasRole(Roles.USER)
+        roles.hasRole(Roles.ADMIN)
+        !roles.hasRole(Roles.USER)
     }
 
     def "Should return USER role if password is invalid"() {
         given:
-            String password = "incorrect"
+        String password = "incorrect"
+
         when:
-            Roles roles = authenticator.getRolesForUser("any", password)
+        Roles roles = authenticator.getRolesForUser("any", password)
+
         then:
-            roles.hasRole(Roles.USER)
-            !roles.hasRole(Roles.ADMIN)
+        roles.hasRole(Roles.USER)
+        !roles.hasRole(Roles.ADMIN)
     }
 }

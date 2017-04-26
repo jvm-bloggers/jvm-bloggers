@@ -223,3 +223,7 @@ nbdist/
 nbactions.xml
 .nb-gradle/
 .nb-gradle-properties
+
+### Manual entries ###
+
+logs

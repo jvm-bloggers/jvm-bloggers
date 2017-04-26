@@ -4,13 +4,13 @@ import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
+import javaslang.control.Option;
 import lombok.RequiredArgsConstructor;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Iterator;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
@@ -45,8 +45,8 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
     }
 
     String getPageHeader() {
-        return Optional.ofNullable(blogRepository.findOne(blogId))
+        return Option.of(blogRepository.findOne(blogId))
             .map(b -> b.getAuthor() + "'s posts")
-            .orElse("No such blog found");
+            .getOrElse("No such blog found");
     }
 }

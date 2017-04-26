@@ -1,13 +1,12 @@
 package com.jvm_bloggers.frontend.admin_area.mailing;
 
 import com.jvm_bloggers.entities.mailing_address.MailingAddressRepository;
+import javaslang.control.Option;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Args;
-
-import java.util.Optional;
 
 public class MailingAddressUniquenessValidator extends AbstractFormValidator {
 
@@ -34,11 +33,10 @@ public class MailingAddressUniquenessValidator extends AbstractFormValidator {
 
     @Override
     public void validate(Form<?> form) {
-        Long id = Optional.ofNullable(idComponent.getValue())
-                .filter(value -> !value.isEmpty())
-                .map(Long::valueOf)
-                .orElse(null);
-
+        Long id = Option.of(idComponent.getValue())
+            .filter(value -> !value.isEmpty())
+            .map(Long::valueOf)
+            .getOrElse(() -> null);
         if (mailingAddressRepository.addressExistsIgnoringId(addressComponent.getValue(), id)) {
             error(addressComponent);
         }

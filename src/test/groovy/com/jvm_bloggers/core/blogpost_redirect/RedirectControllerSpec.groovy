@@ -5,6 +5,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.utils.NowProvider
+import javaslang.control.Option
 import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
 
@@ -29,7 +30,7 @@ class RedirectControllerSpec extends Specification {
             final String uid = '1234'
             final String url = 'http://www.blog.com/post'
         and:
-            blogPostRepositoryMock.findByUid(uid) >> Optional.of(new BlogPost(url: url))
+            blogPostRepositoryMock.findByUid(uid) >> Option.of(new BlogPost(url: url))
         expect:
             mockMvc.perform(get("/r/$uid"))
                 .andExpect(status().isFound())
@@ -41,7 +42,7 @@ class RedirectControllerSpec extends Specification {
         given:
             final String uid = '1234'
         and:
-            blogPostRepositoryMock.findByUid(uid) >> Optional.empty()
+            blogPostRepositoryMock.findByUid(uid) >> Option.none()
         expect:
             mockMvc.perform(get("/r/$uid"))
                 .andExpect(status().isNotFound())

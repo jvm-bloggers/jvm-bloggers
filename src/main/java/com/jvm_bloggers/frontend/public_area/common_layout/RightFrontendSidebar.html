@@ -11,25 +11,41 @@
     <div class="col-sm-3 text-center text-lg-left">
         <div class="row">
 
-            <div class="col-xs-12 well-xs-bottom text-lg-left">
+            <div class="col-xs-12 well-xxs-bottom text-lg-left">
                 <h2>Archiwum</h2>
                 <article class="box-lg blog-post blog-post-variant">
                     <ul>
-					  	<li wicket:id="latestIssuesList"><a wicket:id="issueLink" href="#">Wydanie #1</a></li>
+					  	<li wicket:id="latestIssuesList">
+                            <a wicket:id="issueLink" href="#">Wydanie #1</a>
+                        </li>
 					</ul>
+                    <br/>
+                    <a href="#" wicket:id="allIssuesLink">Zobacz pełne archiwum</a>
 					<span wicket:id="latestIssuesEmptyLabel">Brak</span>
                 </article>
             </div>
 
-            <div class="col-xs-12 well-xs-bottom text-lg-left">
+            <div class="col-xs-12 well-xxs-bottom text-lg-left">
                 <h2>Dołącz do nas</h2>
                 <article class="box-lg blog-post blog-post-variant">
-                   Jeśli chcesz pokodować w projekcie z mikroserwisami, Javą 8, Scalą, Springiem, Akką i co tam sobie
-                    jeszcze wymyślimy, zapraszamy na naszego <a href="https://github.com/jvm-bloggers/jvm-bloggers" target="_blank">GitHuba</a>
-                    lub <a href="https://jvm-bloggers-slack.herokuapp.com" target="_blank">Slacka</a> :)
+                   Jeśli chcesz pokodować w projekcie z dość nowymi technologiami: Javą 8, Spring Bootem, Akką i co tam sobie
+                   jeszcze Javowego wymyślimy, zapraszamy na naszego <a href="https://github.com/jvm-bloggers/jvm-bloggers" target="_blank">GitHuba</a>
+                   lub Slacka <a href="https://jvm-poland.signup.team/" target="_blank">JVM-Poland</a> (kanał #jvm-bloggers)
                 </article>
             </div>
 
+            <div class="col-xs-12 well-xxs-bottom text-lg-left">
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.8&appId=984518258323702";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+
+                <div class="fb-page" data-href="https://www.facebook.com/jvmbloggers/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/jvmbloggers/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jvmbloggers/">JVM Bloggers</a></blockquote></div>
+            </div>
         </div>
     </div>
 

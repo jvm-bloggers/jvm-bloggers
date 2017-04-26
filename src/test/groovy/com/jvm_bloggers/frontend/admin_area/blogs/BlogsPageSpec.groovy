@@ -27,29 +27,31 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should redirect to blog's posts page"() {
         given:
-            Blog blog = sampleBlog()
-            requestHandler.iterator(_, _) >> [blog].iterator()
-            requestHandler.size() >> 1
-            requestHandler.model(_) >> new BlogModel(blog)
+        Blog blog = sampleBlog()
+        requestHandler.iterator(_, _) >> [blog].iterator()
+        requestHandler.size() >> 1
+        requestHandler.model(_) >> new BlogModel(blog)
+
         when:
-            tester.startPage(BlogsPage.class)
-            tester.clickLink(linkPath(BLOG_POSTS_LINK_ID))
+        tester.startPage(BlogsPage.class)
+        tester.clickLink(linkPath(BLOG_POSTS_LINK_ID))
+
         then:
-            tester.assertRenderedPage(BlogPostsPage.class)
+        tester.assertRenderedPage(BlogPostsPage.class)
     }
 
     private Blog sampleBlog() {
         Blog.builder()
-                .id(1)
-                .jsonId(2)
-                .author("some author")
-                .rss("some rss")
-                .url("some url")
-                .twitter("some twitter")
-                .dateAdded(now())
-                .blogType(BlogType.PERSONAL)
-                .active(true)
-                .build()
+            .id(1)
+            .jsonId(2)
+            .author("some author")
+            .rss("some rss")
+            .url("some url")
+            .twitter("some twitter")
+            .dateAdded(now())
+            .blogType(BlogType.PERSONAL)
+            .active(true)
+            .build()
     }
 
     private def String linkPath(String buttonId) {

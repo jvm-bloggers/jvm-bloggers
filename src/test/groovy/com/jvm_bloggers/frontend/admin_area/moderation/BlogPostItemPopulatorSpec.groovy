@@ -27,22 +27,26 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     def "Should highlight post going in newsletter"() {
         given:
-            BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.plusDays(1))
-            Item<BlogPost> item = createBlogPostItem(blogPost)
+        BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.plusDays(1))
+        Item<BlogPost> item = createBlogPostItem(blogPost)
+
         when:
-            blogPostItemPopulator.populateItem(item, null, null)
+        blogPostItemPopulator.populateItem(item, null, null)
+
         then:
-            item.getBehaviors(AttributeAppender).any { isHighlighted(it) }
+        item.getBehaviors(AttributeAppender).any { isHighlighted(it) }
     }
 
     def "Should not highlight post not going in newsletter"() {
         given:
-            BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.minusDays(1))
-            Item<BlogPost> item = createBlogPostItem(blogPost)
+        BlogPost blogPost = createBlogPostAcceptedOn(SATURDAY_19TH_12_00.minusDays(1))
+        Item<BlogPost> item = createBlogPostItem(blogPost)
+
         when:
-            blogPostItemPopulator.populateItem(item, null, null)
+        blogPostItemPopulator.populateItem(item, null, null)
+
         then:
-            !(item.getBehaviors(AttributeAppender).any { isHighlighted(it) })
+        !(item.getBehaviors(AttributeAppender).any { isHighlighted(it) })
     }
 
     private boolean isHighlighted(AttributeAppender attributeAppender) {
@@ -51,21 +55,21 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     private BlogPost createBlogPostAcceptedOn(LocalDateTime acceptationDate) {
         Blog blog = Blog.builder()
-                .jsonId(0L)
-                .author("Blog author")
-                .rss("rss")
-                .url("url")
-                .dateAdded(nowProvider.now())
-                .blogType(BlogType.PERSONAL)
-                .build()
+            .jsonId(0L)
+            .author("Blog author")
+            .rss("rss")
+            .url("url")
+            .dateAdded(nowProvider.now())
+            .blogType(BlogType.PERSONAL)
+            .build()
         return BlogPost.builder()
-                .blog(blog)
-                .approved(Boolean.TRUE)
-                .publishedDate(nowProvider.now())
-                .approvedDate(acceptationDate)
-                .title("title")
-                .url("url")
-                .build()
+            .blog(blog)
+            .approved(Boolean.TRUE)
+            .publishedDate(nowProvider.now())
+            .approvedDate(acceptationDate)
+            .title("title")
+            .url("url")
+            .build()
     }
 
     private Item<BlogPost> createBlogPostItem(BlogPost blogPost) {

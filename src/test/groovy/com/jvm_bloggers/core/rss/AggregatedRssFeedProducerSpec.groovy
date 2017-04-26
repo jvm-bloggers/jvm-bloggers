@@ -58,67 +58,72 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     def "Should produce aggregated RSS feed with all entries having valid url"() {
         when:
-            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 0, null)
+        SyndFeed feed = rssProducer.getRss(REQUEST_URL, 0, null)
+
         then:
-            Date date = toDate(DATE)
-            with (feed) {
-                links[0].rel == "self"
-                links[0].href == REQUEST_URL
-                feedType == AggregatedRssFeedProducer.FEED_TYPE
-                uri == AggregatedRssFeedProducer.FEED_TITLE
-                title == AggregatedRssFeedProducer.FEED_TITLE
-                description == AggregatedRssFeedProducer.FEED_DESCRIPTION
-                publishedDate == date
-                entries.size() == 2
-            }
+        Date date = toDate(DATE)
+        with(feed) {
+            links[0].rel == "self"
+            links[0].href == REQUEST_URL
+            feedType == AggregatedRssFeedProducer.FEED_TYPE
+            uri == AggregatedRssFeedProducer.FEED_TITLE
+            title == AggregatedRssFeedProducer.FEED_TITLE
+            description == AggregatedRssFeedProducer.FEED_DESCRIPTION
+            publishedDate == date
+            entries.size() == 2
+        }
+
         and:
-            with (feed.entries[0]) {
-                link == redirectUrlForUid(UID_1)
-                title == TITLE_1
-                author == AUTHOR_1
-                description.value == DESCRIPTION
-                publishedDate == date
-                author == AUTHOR_1
-                uri == UID_1
-            }
+        with(feed.entries[0]) {
+            link == redirectUrlForUid(UID_1)
+            title == TITLE_1
+            author == AUTHOR_1
+            description.value == DESCRIPTION
+            publishedDate == date
+            author == AUTHOR_1
+            uri == UID_1
+        }
+
         and:
-            with (feed.entries[1]) {
-                link == redirectUrlForUid(UID_2)
-                title == TITLE_2
-                author == AUTHOR_2
-                description == null
-                publishedDate == date
-                author == AUTHOR_2
-                uri == UID_2
-            }
+        with(feed.entries[1]) {
+            link == redirectUrlForUid(UID_2)
+            title == TITLE_2
+            author == AUTHOR_2
+            description == null
+            publishedDate == date
+            author == AUTHOR_2
+            uri == UID_2
+        }
 
     }
 
     def "Should produce aggregated RSS feed with limited entries count"() {
         when:
-            SyndFeed feed = rssProducer.getRss(REQUEST_URL, 1, null)
+        SyndFeed feed = rssProducer.getRss(REQUEST_URL, 1, null)
+
         then:
-            Date date = toDate(DATE)
-            with (feed) {
-                links[0].rel == "self"
-                links[0].href == REQUEST_URL
-                feedType == AggregatedRssFeedProducer.FEED_TYPE
-                uri == AggregatedRssFeedProducer.FEED_TITLE
-                title == AggregatedRssFeedProducer.FEED_TITLE
-                description == AggregatedRssFeedProducer.FEED_DESCRIPTION
-                publishedDate == date
-                entries.size() == 1
-            }
+        Date date = toDate(DATE)
+        with(feed) {
+            links[0].rel == "self"
+            links[0].href == REQUEST_URL
+            feedType == AggregatedRssFeedProducer.FEED_TYPE
+            uri == AggregatedRssFeedProducer.FEED_TITLE
+            title == AggregatedRssFeedProducer.FEED_TITLE
+            description == AggregatedRssFeedProducer.FEED_DESCRIPTION
+            publishedDate == date
+            entries.size() == 1
+        }
+
         and:
-            with (feed.entries[0]) {
-                link == redirectUrlForUid(UID_1)
-                title == TITLE_1
-                author == AUTHOR_1
-                description.value == DESCRIPTION
-                publishedDate == date
-                author == AUTHOR_1
-                uri == UID_1
-            }
+        with(feed.entries[0]) {
+            link == redirectUrlForUid(UID_1)
+            title == TITLE_1
+            author == AUTHOR_1
+            description.value == DESCRIPTION
+            publishedDate == date
+            author == AUTHOR_1
+            uri == UID_1
+        }
     }
 
     private String redirectUrlForUid(String uid) {
@@ -128,31 +133,37 @@ class AggregatedRssFeedProducerSpec extends Specification {
     @Unroll
     def "Should throw IAE on invalid feedUrl = [#blankFeedUrl]"() {
         when:
-            rssProducer.getRss(blankFeedUrl, 1, null)
+        rssProducer.getRss(blankFeedUrl, 1, null)
+
         then:
-            IllegalArgumentException e = thrown()
-            e.getMessage() == "feedUrl parameter cannot be blank"
+        IllegalArgumentException e = thrown()
+        e.getMessage() == "feedUrl parameter cannot be blank"
+
         where:
-            blankFeedUrl << [" ", "", null]
+        blankFeedUrl << [" ", "", null]
     }
 
     def "Should filter out given authors"() {
         given:
-            Set excludedAuthors = ["John Doe", "Jane Doe"]
+        Set excludedAuthors = ["John Doe", "Jane Doe"]
+
         when:
-            rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+        rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, excludedAuthors) >> []
+        1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, excludedAuthors) >> []
     }
-    
+
     @Unroll
     def "Should include all authors when 'excludedAuthors' is #excludedAuthors"() {
         when:
-            rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+        rssProducer.getRss(REQUEST_URL, 0, excludedAuthors)
+
         then:
-            1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
+        1 * blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(_, INCLUDE_ALL_AUTHORS_SET) >> []
+
         where:
-            excludedAuthors << [null, [] as Set]
+        excludedAuthors << [null, [] as Set]
     }
 
     def stubBlogPost(String uid, String description, String title, String url, String author, LocalDateTime date) {
@@ -163,7 +174,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
             getDescription() >> description
             getTitle() >> title
             getUrl() >> url
-            getUid() >> uid 
+            getUid() >> uid
             getBlog() >> blog
             getPublishedDate() >> date
         }
