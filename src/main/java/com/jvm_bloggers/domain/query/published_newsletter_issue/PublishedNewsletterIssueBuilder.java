@@ -7,11 +7,11 @@ import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 
+import javaslang.collection.List;
+
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Component;
-
-import javaslang.collection.List;
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY;
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;

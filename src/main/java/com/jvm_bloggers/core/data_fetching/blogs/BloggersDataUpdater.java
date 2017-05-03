@@ -6,14 +6,12 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
+import javaslang.control.Option;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-
-import javaslang.control.Option;
 
 @Component
 @Slf4j
