@@ -57,6 +57,12 @@
       "jsonId": 20010,
       "name": "Wrocław JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvj_1SWNU4diTM2Z2KCUHug"    
+    },
+    {
+      "jsonId": 20011,
+      "name": "jSession",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjBzbSV4De3Bjt_9BtBGsmQ",
+      "twitter": "@jSessionPL"
     }
   ]
 }
