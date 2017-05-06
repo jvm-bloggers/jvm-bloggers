@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.UUID;
 
 @Component
 @Slf4j
@@ -18,17 +17,20 @@ public class WgetFetcher implements Fetcher {
 
     @Override
     public Option<SyndFeed> fetch(String rssUrl) {
-        String uid = UUID.randomUUID().toString();
+        File tempFile = null;
         try {
-            Process process = new ProcessBuilder("wget", rssUrl, "-O", "/tmp/" + uid).start();
+            tempFile = File.createTempFile("jvm-bloggers", null);
+            String tmpPath = tempFile.getAbsolutePath();
+            Process process = new ProcessBuilder("wget", rssUrl, "-O", tmpPath).start();
             process.waitFor();
-            File file = new File("/tmp/" + uid);
-            Option<SyndFeed> feed = Option.of(new SyndFeedInput().build(file));
-            file.delete();
-            return feed;
+            return Option.of(new SyndFeedInput().build(tempFile));
         } catch (Exception exc) {
             log.warn("Exception during wget execution for url {}: {}", rssUrl, exc.getMessage());
             return Option.none();
+        } finally {
+            if (tempFile != null) {
+                tempFile.delete();
+            }
         }
     }
 }
