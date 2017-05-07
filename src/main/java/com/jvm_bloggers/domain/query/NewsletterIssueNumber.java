@@ -15,6 +15,14 @@ public class NewsletterIssueNumber implements Comparable<NewsletterIssueNumber> 
         return new NewsletterIssueNumber(value);
     }
 
+    public static NewsletterIssueNumber next(Long value) {
+        return new NewsletterIssueNumber(value + 1L);
+    }
+
+    public static NewsletterIssueNumber previous(Long value) {
+        return new NewsletterIssueNumber(value - 1L);
+    }
+
     public Long asLong() {
         return value;
     }

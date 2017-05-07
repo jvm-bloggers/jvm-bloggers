@@ -27,7 +27,9 @@ public class NewsletterIssuePage extends AbstractFrontendPage {
         Option<PublishedNewsletterIssue> foundIssue = backingBean.findByIssueNumber(issueNumber);
 
         if (foundIssue.isDefined()) {
-            add(new NewsletterIssuePanel(ISSUE_PANEL_ID, foundIssue.get()));
+            add(new NewsletterIssuePanel(ISSUE_PANEL_ID, foundIssue.get(),
+                backingBean.findNextIssueNumber(issueNumber),
+                backingBean.findPreviousIssueNumber(issueNumber)));
         } else {
             add(new Label(ISSUE_PANEL_ID, "Nie znaleziono takiego wydania"));
         }

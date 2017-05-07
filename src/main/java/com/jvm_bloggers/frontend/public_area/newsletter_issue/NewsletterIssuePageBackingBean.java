@@ -21,4 +21,13 @@ public class NewsletterIssuePageBackingBean {
         return publishedNewsletterIssueQuery.findByIssueNumber(issueNumber);
     }
 
+    public Option<NewsletterIssueNumber> findNextIssueNumber(NewsletterIssueNumber issueNumber) {
+        return publishedNewsletterIssueQuery.findNextIssueNumber(issueNumber);
+    }
+
+    public Option<NewsletterIssueNumber> findPreviousIssueNumber(
+        NewsletterIssueNumber issueNumber) {
+        return publishedNewsletterIssueQuery.findPreviousIssueNumber(issueNumber);
+    }
+
 }
