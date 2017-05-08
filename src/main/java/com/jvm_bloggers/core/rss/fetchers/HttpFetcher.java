@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -20,9 +22,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
 
+/**
+ * Standard https connection
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class HttpFetcher implements Fetcher {
 
     private static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "

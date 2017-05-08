@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -28,7 +29,12 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * Fallback for some self-signed certificates using https connection with
+ * disabled SSL certificate checking
+ */
 @Slf4j
+@Order(0)
 @Component
 @RequiredArgsConstructor
 public class HttpFetcherWithoutSslVerification implements Fetcher {

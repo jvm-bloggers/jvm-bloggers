@@ -10,15 +10,15 @@ import spock.lang.Subject
 
 class SyndFeedProducerSpec extends Specification {
 
-    private final HttpFetcher httpFetcher = Stub()
-    private final HttpFetcherWithoutSslVerification httpFetcherWithoutSslVerification = Stub()
-    private final WgetFetcher wgetFetcher = Stub()
+    private final HttpFetcher httpFetcher = Mock()
+    private final HttpFetcherWithoutSslVerification httpFetcherWithoutSslVerification = Mock()
+    private final WgetFetcher wgetFetcher = Mock()
     private final SyndFeed syndFeed = Mock()
 
     static final String URL = "URL"
 
     @Subject
-    SyndFeedProducer feedProducer = new SyndFeedProducer(httpFetcher, httpFetcherWithoutSslVerification, wgetFetcher)
+    SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(httpFetcher, httpFetcherWithoutSslVerification, wgetFetcher))
 
     def "Should fetch through primary fetcher"() {
         given:
@@ -30,6 +30,9 @@ class SyndFeedProducerSpec extends Specification {
         then:
             actual.isDefined()
             actual.get() == syndFeed
+        and:
+            0 * httpFetcherWithoutSslVerification.fetch(URL)
+            0 * wgetFetcher.fetch(URL)
     }
 
     def "Should fallback to second fetcher"() {
@@ -43,6 +46,8 @@ class SyndFeedProducerSpec extends Specification {
         then:
             actual.isDefined()
             actual.get() == syndFeed
+        and:
+            0 * wgetFetcher.fetch(URL)
     }
 
     def "Should fallback to any fetcher"() {
@@ -57,5 +62,18 @@ class SyndFeedProducerSpec extends Specification {
         then:
             actual.isDefined()
             actual.get() == syndFeed
+    }
+
+    def "Should return Option.none when all methods fail"() {
+        given:
+            httpFetcher.fetch(URL) >> Option.none()
+            httpFetcherWithoutSslVerification.fetch(URL) >> Option.none()
+            wgetFetcher.fetch(URL) >> Option.none()
+
+        when:
+            def actual = feedProducer.createFor(URL)
+
+        then:
+            actual.isEmpty()
     }
 }

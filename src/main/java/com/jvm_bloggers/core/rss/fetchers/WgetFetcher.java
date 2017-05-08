@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 
-@Component
+/**
+ * Execute wget unix command, save as rss a file in tmp directory
+ * and create SyndFeed from it
+ */
 @Slf4j
+@Component
 public class WgetFetcher implements Fetcher {
 
     @Override
