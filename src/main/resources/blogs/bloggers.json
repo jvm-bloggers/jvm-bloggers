@@ -955,6 +955,11 @@
       "jsonId": 167,
       "name": "Marcin Pietraszek",
       "rss": "http://www.samouczekprogramisty.pl/feed/"
+    }, 
+    {
+      "jsonId": 168,
+      "name": "Jakub Wach",
+      "rss": "http://javakiss.blogspot.com/feeds/posts/default"
     }
   ]
 }
