@@ -1,28 +1,27 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.fetchers.HttpFetcher
-import com.jvm_bloggers.core.rss.fetchers.HttpFetcherWithoutSslVerification
-import com.jvm_bloggers.core.rss.fetchers.WgetFetcher
+import com.jvm_bloggers.core.rss.fetchers.Fetcher
 import com.rometools.rome.feed.synd.SyndFeed
-import javaslang.control.Option
+import javaslang.control.Try
 import spock.lang.Specification
 import spock.lang.Subject
 
 class SyndFeedProducerSpec extends Specification {
 
-    private final HttpFetcher httpFetcher = Mock()
-    private final HttpFetcherWithoutSslVerification httpFetcherWithoutSslVerification = Mock()
-    private final WgetFetcher wgetFetcher = Mock()
+    private final Fetcher primaryFetcher = Mock()
+    private final Fetcher fallbackFetcher = Mock()
+    private final Fetcher lastFallbackFetcher = Mock()
     private final SyndFeed syndFeed = Mock()
 
     static final String URL = "URL"
 
     @Subject
-    SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(httpFetcher, httpFetcherWithoutSslVerification, wgetFetcher))
+    SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(primaryFetcher, fallbackFetcher, lastFallbackFetcher))
+    private Try<SyndFeed> failure = Try.failure(new RuntimeException())
 
     def "Should fetch through primary fetcher"() {
         given:
-            httpFetcher.fetch(URL) >> Option.of(syndFeed)
+            primaryFetcher.fetch(URL) >> Try.success(syndFeed)
 
         when:
             def actual = feedProducer.createFor(URL)
@@ -31,14 +30,14 @@ class SyndFeedProducerSpec extends Specification {
             actual.isDefined()
             actual.get() == syndFeed
         and:
-            0 * httpFetcherWithoutSslVerification.fetch(URL)
-            0 * wgetFetcher.fetch(URL)
+            0 * fallbackFetcher.fetch(URL)
+            0 * lastFallbackFetcher.fetch(URL)
     }
 
     def "Should fallback to second fetcher"() {
         given:
-            httpFetcher.fetch(URL) >> Option.none()
-            httpFetcherWithoutSslVerification.fetch(URL) >> Option.of(syndFeed)
+            primaryFetcher.fetch(URL) >> failure
+            fallbackFetcher.fetch(URL) >> Try.success(syndFeed)
 
         when:
             def actual = feedProducer.createFor(URL)
@@ -47,14 +46,14 @@ class SyndFeedProducerSpec extends Specification {
             actual.isDefined()
             actual.get() == syndFeed
         and:
-            0 * wgetFetcher.fetch(URL)
+            0 * lastFallbackFetcher.fetch(URL)
     }
 
     def "Should fallback to any fetcher"() {
         given:
-            httpFetcher.fetch(URL) >> Option.none()
-            httpFetcherWithoutSslVerification.fetch(URL) >> Option.none()
-            wgetFetcher.fetch(URL) >> Option.of(syndFeed)
+            primaryFetcher.fetch(URL) >> failure
+            fallbackFetcher.fetch(URL) >> failure
+            lastFallbackFetcher.fetch(URL) >> Try.success(syndFeed)
 
         when:
             def actual = feedProducer.createFor(URL)
@@ -64,11 +63,11 @@ class SyndFeedProducerSpec extends Specification {
             actual.get() == syndFeed
     }
 
-    def "Should return Option.none when all methods fail"() {
+    def "Should return Option.None when all methods fail"() {
         given:
-            httpFetcher.fetch(URL) >> Option.none()
-            httpFetcherWithoutSslVerification.fetch(URL) >> Option.none()
-            wgetFetcher.fetch(URL) >> Option.none()
+            primaryFetcher.fetch(URL) >> failure
+            fallbackFetcher.fetch(URL) >> failure
+            lastFallbackFetcher.fetch(URL) >> failure
 
         when:
             def actual = feedProducer.createFor(URL)

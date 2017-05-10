@@ -6,6 +6,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 
 import javaslang.collection.Stream;
 import javaslang.control.Option;
+import javaslang.control.Try;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +27,8 @@ public class SyndFeedProducer {
     public Option<SyndFeed> createFor(String rssUrl) {
         return fetchers
             .map(fetcher -> fetcher.fetch(rssUrl))
-            .find(Option::isDefined)
-            .getOrElse(Option::none);
+            .find(Try::isSuccess)
+            .flatMap(Try::getOption);
     }
 
     public Option<String> validUrlFromRss(String rss) {

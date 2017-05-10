@@ -7,7 +7,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
-import javaslang.control.Option;
+import javaslang.control.Try;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class HttpFetcher implements Fetcher {
     private final GzipStreamWrapper gzipStreamWrapper;
 
     @Override
-    public Option<SyndFeed> fetch(String rssUrl) {
+    public Try<SyndFeed> fetch(String rssUrl) {
         URLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
@@ -48,10 +48,10 @@ public class HttpFetcher implements Fetcher {
             urlConnection = redirectHandler.handle(urlConnection, headers);
 
             inputStream = gzipStreamWrapper.wrap(urlConnection.getInputStream());
-            return Option.of(new SyndFeedInput().build(new XmlReader(inputStream)));
+            return Try.success(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
             log.warn("Error during fetching RSS {} url: {}", rssUrl, ex.getMessage());
-            return Option.none();
+            return Try.failure(ex);
         } finally {
             IOUtils.closeQuietly(inputStream);
             IOUtils.close(urlConnection);
