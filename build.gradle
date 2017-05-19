@@ -82,7 +82,7 @@ dependencies {
     compile 'org.objenesis:objenesis:2.5.1'
     compile 'commons-validator:commons-validator:1.6'
     compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
-    compile 'io.javaslang:javaslang:2.0.5'
+    compile 'io.javaslang:javaslang:2.0.6'
 
     // Database related
     compile "org.postgresql:postgresql:9.4.1212.jre7"
