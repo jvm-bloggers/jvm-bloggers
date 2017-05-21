@@ -377,4 +377,22 @@
         <addUniqueConstraint tableName="METADATA" columnNames="NAME" constraintName="metadata_name_unique"/>
     </changeSet>
 
+    <changeSet id="038-create-facebook-post-table" author="Michał.Chmielarz">
+
+        <createSequence sequenceName="FB_POST_SEQ"/>
+
+        <createTable tableName="FB_POST">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ISSUE_LINK" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MESSAGE" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SENT_DATE" type="timestamp without time zone"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
