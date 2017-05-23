@@ -42,7 +42,9 @@ class FacebookPublishingScheduler {
         });
     }
 
-    private void setSentDateForSuccessfulAction(FacebookPost facebookPost, FacebookPublisher.FacebookPublishingStatus status) {
+    private void setSentDateForSuccessfulAction(
+        FacebookPost facebookPost,
+        FacebookPublisher.FacebookPublishingStatus status) {
         if (status.isOk()) {
             facebookPost.setSentDate(nowProvider.now());
             facebookPostRepository.save(facebookPost);
