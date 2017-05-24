@@ -3,6 +3,7 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery;
 import javaslang.Tuple2;
+import javaslang.collection.Array;
 import javaslang.collection.List;
 import javaslang.collection.Map;
 import javaslang.collection.TreeMap;
@@ -27,18 +28,19 @@ public class AllIssuesPageBackingBean {
     public Map<YearMonth, List<NewsletterIssueForListing>> getIssuesGroupedByYearMonth() {
         List<NewsletterIssueForListing> allIssues = query.findAllByOrderByPublishedDateDesc();
 
-        Map<YearMonth, List<NewsletterIssueForListing>> issuesGroupedByYearMonth = allIssues
+        Array<Tuple2<YearMonth, List<NewsletterIssueForListing>>>
+            issuesGroupedByYearMonth = allIssues
             .groupBy(this::getYearMonthFrom)
             .mapValues(list ->
                 list
                     .sorted(Comparator.comparing(NewsletterIssueForListing::getIssueNumber))
                     .reverse()
-            );
+            )
+            .map(Tuple2::new)
+            .toArray();
         return TreeMap.ofEntries(
             Comparator.reverseOrder(),
-            issuesGroupedByYearMonth
-                .map(Tuple2::new)
-                .toArray());
+            issuesGroupedByYearMonth);
     }
 
     private YearMonth getYearMonthFrom(NewsletterIssueForListing issue) {
