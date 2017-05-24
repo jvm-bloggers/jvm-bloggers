@@ -4,8 +4,6 @@ import javaslang.collection.List;
 import javaslang.control.Option;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,8 +18,6 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
 
     List<NewsletterIssue> findAllByOrderByPublishedDateDesc();
 
-    @Query("select case when count(*) > 0 then true else false end "
-        + "from NewsletterIssue where issueNumber = :issueNumber")
-    boolean issueNumberExist(@Param("issueNumber") Long issueNumber);
+    boolean existsByIssueNumber(Long issueNumber);
 
 }

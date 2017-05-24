@@ -16,7 +16,7 @@ class NewsletterIssueRepositorySpec extends NewsletterIssueRepositorySpecBase {
         newsletterIssueRepository.save(issue)
 
         when:
-        boolean newsletterIssueExist = newsletterIssueRepository.issueNumberExist(testIssueNumber)
+        boolean newsletterIssueExist = newsletterIssueRepository.existsByIssueNumber(testIssueNumber)
 
         then:
         newsletterIssueExist == expectedResult

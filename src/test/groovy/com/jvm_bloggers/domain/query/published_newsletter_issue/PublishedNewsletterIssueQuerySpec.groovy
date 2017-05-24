@@ -15,40 +15,58 @@ class PublishedNewsletterIssueQuerySpec extends Specification {
     PublishedNewsletterIssueQuery publishedNewsletterIssueQuery = new PublishedNewsletterIssueQuery(
             newsletterIssueRepository, publishedNewsletterIssueBuilder)
 
-    def "Should find previous and next issue numbers"() {
+    def "Should find previous issue numbers"() {
         given:
         NewsletterIssueNumber issueNumber = NewsletterIssueNumber.of(22L)
-        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issueNumber.asLong())
-        NewsletterIssueNumber next = NewsletterIssueNumber.next(issueNumber.asLong())
-        newsletterIssueRepository.issueNumberExist(previous.asLong()) >> true
-        newsletterIssueRepository.issueNumberExist(next.asLong()) >> true
+        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issueNumber)
+        newsletterIssueRepository.existsByIssueNumber(previous.asLong()) >> true
 
         when:
         Option<NewsletterIssueNumber> resultPreviousIssueNumber = publishedNewsletterIssueQuery.findPreviousIssueNumber(issueNumber)
-        Option<NewsletterIssueNumber> resultNextIssueNumber = publishedNewsletterIssueQuery.findNextIssueNumber(issueNumber)
 
         then:
         resultPreviousIssueNumber.isDefined()
         resultPreviousIssueNumber.get() == previous
+    }
+
+    def "Should find next issue numbers"() {
+        given:
+        NewsletterIssueNumber issueNumber = NewsletterIssueNumber.of(22L)
+        NewsletterIssueNumber next = NewsletterIssueNumber.next(issueNumber)
+        newsletterIssueRepository.existsByIssueNumber(next.asLong()) >> true
+
+        when:
+        Option<NewsletterIssueNumber> resultNextIssueNumber = publishedNewsletterIssueQuery.findNextIssueNumber(issueNumber)
+
+        then:
         resultNextIssueNumber.isDefined()
         resultNextIssueNumber.get() == next
     }
 
-    def "Should not find previous and next issue numbers"() {
+    def "Should not find previous issue numbers"() {
         given:
         NewsletterIssueNumber issueNumber = NewsletterIssueNumber.of(22L)
-        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issueNumber.asLong())
-        NewsletterIssueNumber next = NewsletterIssueNumber.next(issueNumber.asLong())
-        newsletterIssueRepository.issueNumberExist(previous.asLong()) >> false
-        newsletterIssueRepository.issueNumberExist(next.asLong()) >> false
+        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issueNumber)
+        newsletterIssueRepository.existsByIssueNumber(previous.asLong()) >> false
 
         when:
         Option<NewsletterIssueNumber> resultPreviousIssueNumber = publishedNewsletterIssueQuery.findPreviousIssueNumber(issueNumber)
+
+        then:
+        resultPreviousIssueNumber.isEmpty()
+    }
+
+    def "Should not find next issue numbers"() {
+        given:
+        NewsletterIssueNumber issueNumber = NewsletterIssueNumber.of(22L)
+        NewsletterIssueNumber next = NewsletterIssueNumber.next(issueNumber)
+        newsletterIssueRepository.existsByIssueNumber(next.asLong()) >> false
+
+        when:
         Option<NewsletterIssueNumber> resultNextIssueNumber = publishedNewsletterIssueQuery.findNextIssueNumber(issueNumber)
 
         then:
-        !resultPreviousIssueNumber.isDefined()
-        !resultNextIssueNumber.isDefined()
+        resultNextIssueNumber.isEmpty()
     }
 
 }

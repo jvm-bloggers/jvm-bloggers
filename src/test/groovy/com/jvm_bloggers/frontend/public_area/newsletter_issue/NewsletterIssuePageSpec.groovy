@@ -70,17 +70,16 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         tester.assertContains("Nie znaleziono takiego wydania")
     }
 
-    def "Should display previous and next navigation links"() {
+    def "Should display previous navigation link"() {
         given:
         PublishedNewsletterIssue issue = prepareExampleIssue()
-        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issue.number.asLong())
-        NewsletterIssueNumber next = NewsletterIssueNumber.next(issue.number.asLong())
+        NewsletterIssueNumber previous = NewsletterIssueNumber.previous(issue.number)
 
         @Subject
         NewsletterIssuePanel newsletterIssuePanel = new NewsletterIssuePanel(
                 ISSUE_PANEL_ID,
                 issue,
-                Option.of(next),
+                Option.none(),
                 Option.of(previous))
 
         when:
@@ -90,12 +89,30 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         tester.assertComponent("$ISSUE_PANEL_ID:previousNewsletterIssueNumber", NewsletterIssueNavigationLink)
         tester.assertBookmarkablePageLink("$ISSUE_PANEL_ID:previousNewsletterIssueNumber", NewsletterIssuePage, buildShowIssueParams(previous))
         tester.getTagByWicketId('previousNewsletterIssueNumber').value == HtmlUtils.htmlEscape(format(NewsletterIssueNavigationLink.Direction.PRESIOUS.value, previous.asLong()))
+    }
+
+    def "Should display next navigation link"() {
+        given:
+        PublishedNewsletterIssue issue = prepareExampleIssue()
+        NewsletterIssueNumber next = NewsletterIssueNumber.next(issue.number)
+
+        @Subject
+        NewsletterIssuePanel newsletterIssuePanel = new NewsletterIssuePanel(
+                ISSUE_PANEL_ID,
+                issue,
+                Option.of(next),
+                Option.none())
+
+        when:
+        tester.startComponentInPage(newsletterIssuePanel)
+
+        then:
         tester.assertComponent("$ISSUE_PANEL_ID:nextNewsletterIssueNumber", NewsletterIssueNavigationLink)
         tester.assertBookmarkablePageLink("$ISSUE_PANEL_ID:nextNewsletterIssueNumber", NewsletterIssuePage, buildShowIssueParams(next))
         tester.getTagByWicketId('nextNewsletterIssueNumber').value == HtmlUtils.htmlEscape(format(NewsletterIssueNavigationLink.Direction.NEXT.value, next.asLong()))
     }
 
-    def "Should not display previous and next navigation links"() {
+    def "Should not display previous navigation link"() {
         given:
         PublishedNewsletterIssue issue = prepareExampleIssue()
 
@@ -111,6 +128,23 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
 
         then:
         tester.getTagByWicketId('previousNewsletterIssueNumber') == null
+    }
+
+    def "Should not display next navigation links"() {
+        given:
+        PublishedNewsletterIssue issue = prepareExampleIssue()
+
+        @Subject
+        NewsletterIssuePanel newsletterIssuePanel = new NewsletterIssuePanel(
+                ISSUE_PANEL_ID,
+                issue,
+                Option.none(),
+                Option.none())
+
+        when:
+        tester.startComponentInPage(newsletterIssuePanel)
+
+        then:
         tester.getTagByWicketId('nextNewsletterIssueNumber') == null
     }
 

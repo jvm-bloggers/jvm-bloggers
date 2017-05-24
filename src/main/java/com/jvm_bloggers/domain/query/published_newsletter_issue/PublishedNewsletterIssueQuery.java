@@ -37,21 +37,21 @@ public class PublishedNewsletterIssueQuery {
     }
 
     public Option<NewsletterIssueNumber> findNextIssueNumber(NewsletterIssueNumber issueNumber) {
-        return of(issueNumber.asLong())
+        return of(issueNumber)
             .map(NewsletterIssueNumber::next)
             .find(this::issueNumberExist);
     }
 
     public Option<NewsletterIssueNumber> findPreviousIssueNumber(
         NewsletterIssueNumber issueNumber) {
-        return of(issueNumber.asLong())
+        return of(issueNumber)
             .map(NewsletterIssueNumber::previous)
             .find(this::issueNumberExist);
     }
 
     private boolean issueNumberExist(NewsletterIssueNumber issueNumber) {
         return newsletterIssueRepository
-                .issueNumberExist(issueNumber.asLong());
+            .existsByIssueNumber(issueNumber.asLong());
     }
 
 }
