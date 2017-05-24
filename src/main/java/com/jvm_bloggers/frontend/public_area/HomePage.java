@@ -16,7 +16,9 @@ public class HomePage extends AbstractFrontendPage {
     public HomePage() {
         Option<PublishedNewsletterIssue> latestIssue = backingBean.getLatestIssue();
         if (latestIssue.isDefined()) {
-            add(new NewsletterIssuePanel(LATEST_ISSUE_PANEL_ID, latestIssue.get()));
+            add(new NewsletterIssuePanel(LATEST_ISSUE_PANEL_ID, latestIssue.get(),
+                backingBean.findNextIssueNumber(latestIssue.get().getNumber()),
+                backingBean.findPreviousIssueNumber(latestIssue.get().getNumber())));
         } else {
             add(new Label(LATEST_ISSUE_PANEL_ID, "Nie istnieje żadne wydanie newslettera."));
         }

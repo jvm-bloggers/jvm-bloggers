@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static javaslang.collection.Stream.of;
+
 @Service
 @Transactional(readOnly = true)
 public class PublishedNewsletterIssueQuery {
@@ -32,6 +34,24 @@ public class PublishedNewsletterIssueQuery {
         return newsletterIssueRepository
                 .findByIssueNumber(issueNumber.asLong())
                 .map(publishedNewsletterIssueBuilder::build);
+    }
+
+    public Option<NewsletterIssueNumber> findNextIssueNumber(NewsletterIssueNumber issueNumber) {
+        return of(issueNumber)
+            .map(NewsletterIssueNumber::next)
+            .find(this::issueNumberExist);
+    }
+
+    public Option<NewsletterIssueNumber> findPreviousIssueNumber(
+        NewsletterIssueNumber issueNumber) {
+        return of(issueNumber)
+            .map(NewsletterIssueNumber::previous)
+            .find(this::issueNumberExist);
+    }
+
+    private boolean issueNumberExist(NewsletterIssueNumber issueNumber) {
+        return newsletterIssueRepository
+            .existsByIssueNumber(issueNumber.asLong());
     }
 
 }

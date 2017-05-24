@@ -18,4 +18,6 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
 
     List<NewsletterIssue> findAllByOrderByPublishedDateDesc();
 
+    boolean existsByIssueNumber(Long issueNumber);
+
 }
