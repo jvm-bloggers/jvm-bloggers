@@ -2,6 +2,7 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery;
+import javaslang.Tuple2;
 import javaslang.collection.List;
 import javaslang.collection.Map;
 import javaslang.collection.TreeMap;
@@ -33,7 +34,11 @@ public class AllIssuesPageBackingBean {
                     .sorted(Comparator.comparing(NewsletterIssueForListing::getIssueNumber))
                     .reverse()
             );
-        return TreeMap.ofAll(issuesGroupedByYearMonth.toJavaMap());
+        return TreeMap.ofEntries(
+            Comparator.reverseOrder(),
+            issuesGroupedByYearMonth
+                .map(Tuple2::new)
+                .toArray());
     }
 
     private YearMonth getYearMonthFrom(NewsletterIssueForListing issue) {
