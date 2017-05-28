@@ -5,7 +5,9 @@ import com.jvm_bloggers.core.newsletter_issues.NewIssuePublished;
 import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;

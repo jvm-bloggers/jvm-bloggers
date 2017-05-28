@@ -3,11 +3,14 @@ package com.jvm_bloggers.core.social.fb.publisher;
 import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import javaslang.control.Option;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javaslang.control.Option;
 
 @Component
 @Slf4j
