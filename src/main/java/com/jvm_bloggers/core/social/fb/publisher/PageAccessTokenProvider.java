@@ -47,7 +47,8 @@ class PageAccessTokenProvider {
         log.info("Requesting page access token...");
         return Try.of(() -> queryForPageToken(appSecretProof))
             .mapTry(response -> extractToken(response))
-            .getOrElseThrow(ex -> new PageAccessTokenException("Cannot fetch page access token from FB", ex));
+            .getOrElseThrow(
+                ex -> new PageAccessTokenException("Cannot fetch page access token from FB", ex));
     }
 
     private WebRequestor.Response queryForPageToken(String appSecretProof) throws IOException {
