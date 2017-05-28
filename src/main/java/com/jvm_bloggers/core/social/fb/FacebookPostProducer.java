@@ -32,7 +32,7 @@ class FacebookPostProducer {
     public void handleNewIssueEvent(NewIssuePublished newIssuePublished) {
         final NewsletterIssue issue = newIssuePublished.getNewsletterIssue();
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
-        final String facebookMessage = messageGenerator.generateFacebookMessage(issueLink, issue);
+        final String facebookMessage = messageGenerator.generateFacebookMessage(issueLink);
         FacebookPost post = new FacebookPost(issueLink, facebookMessage);
         facebookPostRepository.save(post);
     }

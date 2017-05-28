@@ -1,14 +1,15 @@
 package com.jvm_bloggers.core.social.fb;
 
-import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
-
 import org.springframework.stereotype.Component;
 
 @Component
 class FacebookMessageGenerator {
 
-    String generateFacebookMessage(String issueLink, NewsletterIssue issue) {
-        return issueLink + " " + issue.getHeading(); // TODO
+    private static final String MESSAGE_TEMPLATE =
+        "Nowe wydanie JVM Bloggers czeka już na Was: %s #java #newsletter #jvmbloggers #blogs";
+
+    String generateFacebookMessage(String issueLink) {
+        return String.format(MESSAGE_TEMPLATE, issueLink);
     }
 
 }
