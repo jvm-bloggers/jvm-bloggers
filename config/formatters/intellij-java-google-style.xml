@@ -119,6 +119,8 @@
             <emptyLine/>
             <package name="javanet" withSubpackages="true" static="false"/>
             <emptyLine/>
+            <package name="javaslang" withSubpackages="true" static="false"/>
+            <emptyLine/>
             <package name="javassist" withSubpackages="true" static="false"/>
             <emptyLine/>
             <package name="javazoom" withSubpackages="true" static="false"/>
