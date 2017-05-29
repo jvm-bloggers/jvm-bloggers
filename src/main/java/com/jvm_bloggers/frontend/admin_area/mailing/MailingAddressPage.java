@@ -63,10 +63,10 @@ public class MailingAddressPage extends AbstractMailingPage {
     private void addCancelButton() {
         AjaxButton cancelButton = new AjaxButton(CANCEL_BUTTON_ID, mailingAddressForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
                 mailingAddressForm.clearInput();
-                target.add(form);
+                target.add(getForm());
             }
         };
         cancelButton.setDefaultFormProcessing(false);
@@ -76,17 +76,17 @@ public class MailingAddressPage extends AbstractMailingPage {
     private void addSubmitFormButton() {
         AjaxButton saveButton = new AjaxButton(SAVE_BUTTON_ID, mailingAddressForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 MailingAddress mailingAddress = mailingAddressForm.getModelObject();
                 mailingAddressPageRequestHandler.save(mailingAddress);
                 success("Mailing address '" + mailingAddress.getAddress() + "' saved successfully");
                 mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
-                target.add(form);
+                target.add(getForm());
             }
 
             @Override
-            protected void onError(AjaxRequestTarget target, Form<?> form) {
-                target.add(form);
+            protected void onError(AjaxRequestTarget target) {
+                target.add(getForm());
             }
         };
         mailingAddressForm.add(saveButton);

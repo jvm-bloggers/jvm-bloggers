@@ -58,14 +58,14 @@ public class BlogActionPanel extends Panel {
         return new AjaxButton(id, form) {
 
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 Blog blog = blogModel.getObject();
                 blogAction.accept(blog);
                 blogRepository.save(blog);
 
                 getSession().success(successMessage);
 
-                target.add(form);
+                target.add(getForm());
                 target.add(feedbackPanel);
             }
         };
