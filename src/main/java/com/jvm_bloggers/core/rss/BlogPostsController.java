@@ -70,7 +70,7 @@ public class BlogPostsController {
     private void prepareJsonResponse(HttpServletResponse response, SyndFeed feed,
                                      PrintWriter writer) {
         response.setContentType(APPLICATION_JSON_VALUE);
-        syndFeedToJsonConverter.convert(feed).write(writer);
+        writer.write(syndFeedToJsonConverter.convert(feed).toString());
     }
 
     @SneakyThrows
