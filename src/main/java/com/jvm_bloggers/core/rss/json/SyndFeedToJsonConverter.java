@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.rss.json;
 
+import com.github.openjson.JSONObject;
 import com.jvm_bloggers.core.rss.BlogPostsController;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -8,7 +9,6 @@ import javaslang.control.Option;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.wicket.ajax.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
