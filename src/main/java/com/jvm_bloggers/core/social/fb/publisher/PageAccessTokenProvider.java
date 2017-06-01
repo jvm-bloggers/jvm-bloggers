@@ -70,12 +70,12 @@ class PageAccessTokenProvider {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     @NoArgsConstructor(access = PRIVATE)
-    class PageAccessToken {
+    private class PageAccessToken {
 
         @JsonProperty("access_token")
         private String token;
 
-        String getToken() {
+        private String getToken() {
             return token;
         }
     }
