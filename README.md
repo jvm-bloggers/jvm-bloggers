@@ -43,7 +43,9 @@ __Planned__
 
 - [ ] Fetch data about number of comments in articles
 - [ ] Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
-- [ ]  Maybe export the idea to another country? :)
+- [ ] Maybe export the idea to another country? :)
+- [ ] Publishing a new issue information on Facebook
+- [ ] Publishing on Twitter
 - [ ] .... this is a place for __YOUR__ idea :)
 
 ## Technical details
