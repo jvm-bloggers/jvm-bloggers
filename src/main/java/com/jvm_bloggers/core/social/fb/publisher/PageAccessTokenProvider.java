@@ -7,8 +7,6 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.WebRequestor;
 
-import javaslang.control.Try;
-
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +16,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
+import javaslang.control.Try;
 
 import static com.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static lombok.AccessLevel.PRIVATE;
@@ -46,7 +46,7 @@ class PageAccessTokenProvider {
         objectMapper = new ObjectMapper();
     }
 
-    String getToken() {
+    public String getToken() {
         log.info("Fetching application secret proof...");
         String appSecretProof = facebookClient.obtainAppSecretProof(userAccessToken, appSecret);
         log.info("Requesting page access token...");

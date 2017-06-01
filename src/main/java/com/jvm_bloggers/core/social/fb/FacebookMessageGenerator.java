@@ -8,7 +8,7 @@ class FacebookMessageGenerator {
     private static final String MESSAGE_TEMPLATE =
         "Nowe wydanie JVM Bloggers czeka już na Was: %s #java #newsletter #jvmbloggers #blogs";
 
-    String generateFacebookMessage(String issueLink) {
+    public String generateFacebookMessage(String issueLink) {
         return String.format(MESSAGE_TEMPLATE, issueLink);
     }
 

@@ -28,7 +28,7 @@ class RestFbPublisher {
         this.facebook = clientFactory.createFacebookClient();
     }
 
-    String publishPost(FacebookPost post) {
+    public String publishPost(FacebookPost post) {
         log.info("Sending a new message to Facebook: {}", post);
         final FacebookType publishResponse =
             facebook.publish("me/feed", Post.class,
