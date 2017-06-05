@@ -87,6 +87,11 @@
       "jsonId": 10015,
       "name": "Zooplus",
       "rss": "http://tech.zooplus.com/rss"     
+    },
+    {
+      "jsonId": 10016,
+      "name": "GFT Polska",
+      "rss": "http://blog.gft.com/pl/feed"
     }
   ]
 }
