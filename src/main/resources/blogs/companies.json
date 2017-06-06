@@ -91,7 +91,8 @@
     {
       "jsonId": 10016,
       "name": "GFT Polska",
-      "rss": "http://blog.gft.com/pl/feed"
+      "rss": "http://blog.gft.com/pl/feed",
+      "twitter": "@GFT_Polska"
     }
   ]
 }
