@@ -1,5 +1,7 @@
 package com.jvm_bloggers.core.social.fb.publisher;
 
+import com.jvm_bloggers.entities.fb.FacebookPost;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.annotation.Profile;
@@ -14,8 +16,9 @@ import static com.jvm_bloggers.ApplicationProfiles.TEST;
 class LogFacebookPublisher implements FacebookPublisher {
 
     @Override
-    public FacebookPublishingStatus publishPost(String issueLink, String postMessage) {
-        log.debug("Publishing on Facebook page: link {}, message {}", issueLink, postMessage);
+    public FacebookPublishingStatus publishPost(FacebookPost post) {
+        log.debug("Publishing on Facebook page: link {}, message {}", post.getIssueLink(),
+            post.getMessage());
         return FacebookPublishingStatus.SUCCESS;
     }
 

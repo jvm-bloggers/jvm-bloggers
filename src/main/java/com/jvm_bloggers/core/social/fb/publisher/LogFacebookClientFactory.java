@@ -28,7 +28,7 @@ class LogFacebookClientFactory implements FacebookClientFactory {
             public <T> T publish(String connection,
                                  Class<T> objectType,
                                  Parameter... parameters) {
-                log.info("Publishing {}", parameters);
+                log.info("Publishing {}", (Object[]) parameters);
                 return jsonMapper.toJavaObject("published", objectType);
             }
 
@@ -37,7 +37,7 @@ class LogFacebookClientFactory implements FacebookClientFactory {
                                  Class<T> objectType,
                                  List<BinaryAttachment> binaryAttachments,
                                  Parameter... parameters) {
-                log.info("Publishing {}", parameters);
+                log.info("Publishing {}", (Object[]) parameters);
                 return jsonMapper.toJavaObject("published", objectType);
             }
 
@@ -46,7 +46,7 @@ class LogFacebookClientFactory implements FacebookClientFactory {
                                  Class<T> objectType,
                                  BinaryAttachment binaryAttachment,
                                  Parameter... parameters) {
-                log.info("Publishing {}", parameters);
+                log.info("Publishing {}", (Object[]) parameters);
                 return jsonMapper.toJavaObject("published", objectType);
             }
         };

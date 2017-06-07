@@ -25,7 +25,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
         given:
             FacebookPost post = Mock(FacebookPost)
             fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-            fbPublisher.publishPost(_, _) >> FacebookPublisher.FacebookPublishingStatus.SUCCESS
+            fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.SUCCESS
 
         when:
             fbPublisherScheduler.publishOnePost()
@@ -43,7 +43,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
             fbPublisherScheduler.publishOnePost()
 
         then:
-            0 * fbPublisher.publishPost(_, _)
+            0 * fbPublisher.publishPost(_)
             0 * fbPostRepository.save(_ as FacebookPost)
     }
 
@@ -51,7 +51,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
         given:
             FacebookPost post = Mock(FacebookPost)
             fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-            fbPublisher.publishPost(_, _) >> FacebookPublisher.FacebookPublishingStatus.ERROR
+            fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.ERROR
 
         when:
             fbPublisherScheduler.publishOnePost()
