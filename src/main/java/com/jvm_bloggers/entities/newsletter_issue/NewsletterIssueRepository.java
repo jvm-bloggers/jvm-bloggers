@@ -1,7 +1,8 @@
 package com.jvm_bloggers.entities.newsletter_issue;
 
-import javaslang.collection.List;
+import javaslang.collection.Seq;
 import javaslang.control.Option;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,10 +14,9 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
 
     Option<NewsletterIssue> findFirstByOrderByPublishedDateDesc();
 
-    //TODO: Fix it once https://jira.spring.io/browse/DATACMNS-1005 is released (at least spring-data-commons 1.13.2)
-    java.util.List<NewsletterIssue> findByOrderByPublishedDateDesc(Pageable request);
+    Seq<NewsletterIssue> findByOrderByPublishedDateDesc(Pageable request);
 
-    List<NewsletterIssue> findAllByOrderByPublishedDateDesc();
+    Seq<NewsletterIssue> findAllByOrderByPublishedDateDesc();
 
     boolean existsByIssueNumber(Long issueNumber);
 

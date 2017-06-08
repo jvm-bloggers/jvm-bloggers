@@ -2,7 +2,9 @@ package com.jvm_bloggers.domain.query.newsletter_issue_for_listing;
 
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
-import javaslang.collection.List;
+
+import javaslang.collection.Seq;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,15 +25,14 @@ public class NewsletterIssueForListingQuery {
         this.repository = repository;
     }
 
-    public List<NewsletterIssueForListing> findLatestIssues(int count) {
-        List<NewsletterIssue> latestIssues = List.ofAll(repository.findByOrderByPublishedDateDesc(
-            new PageRequest(0, count)
-        ));
-        return latestIssues.map(convertToDomainObject());
+    public Seq<NewsletterIssueForListing> findLatestIssues(int count) {
+        PageRequest page = new PageRequest(0, count);
+        return repository.findByOrderByPublishedDateDesc(page)
+            .map(convertToDomainObject());
     }
 
-    public List<NewsletterIssueForListing> findAllByOrderByPublishedDateDesc() {
-        return List.ofAll(repository.findAllByOrderByPublishedDateDesc())
+    public Seq<NewsletterIssueForListing> findAllByOrderByPublishedDateDesc() {
+        return repository.findAllByOrderByPublishedDateDesc()
             .map(convertToDomainObject());
     }
 

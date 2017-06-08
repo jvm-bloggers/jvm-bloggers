@@ -1,7 +1,9 @@
 package com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel;
 
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost;
-import javaslang.collection.List;
+
+import javaslang.collection.Seq;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -12,7 +14,7 @@ class BlogPostLinksSection extends Panel {
 
     private static final String TWITTER_HOME_URL = "https://twitter.com/";
 
-    BlogPostLinksSection(String id, String heading, List<PublishedPost> blogPosts) {
+    BlogPostLinksSection(String id, String heading, Seq<PublishedPost> blogPosts) {
         super(id);
         add(new Label("sectionHeading", heading));
         add(new ListView<PublishedPost>("postItems", blogPosts.toJavaList()) {

@@ -4,6 +4,7 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery
 import javaslang.collection.List as JavaslangList
+import javaslang.collection.Seq
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -47,7 +48,7 @@ class AllIssuesPageBackingBeanSpec extends Specification {
         ))
 
         YearMonth january2017 = YearMonth.of(2017, JANUARY)
-        javaslang.collection.List<NewsletterIssueForListing> januaryIssues = groupedIssues.get(january2017).get()
+            Seq<NewsletterIssueForListing> januaryIssues = groupedIssues.get(january2017).get()
         januaryIssues.size() == 4
         januaryIssues.get(0).getIssueNumber() == NewsletterIssueNumber.of(23)
         januaryIssues.get(3).getIssueNumber() == NewsletterIssueNumber.of(20)
