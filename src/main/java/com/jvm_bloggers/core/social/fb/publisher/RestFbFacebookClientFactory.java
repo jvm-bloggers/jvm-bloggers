@@ -22,6 +22,7 @@ class RestFbFacebookClientFactory implements FacebookClientFactory {
         this.patProvider = patProvider;
     }
 
+    @Override
     public FacebookClient createFacebookClient() {
         return new DefaultFacebookClient(patProvider.getToken(), appSecret, Version.LATEST);
     }
