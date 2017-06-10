@@ -31,15 +31,16 @@ public class ContributorsService {
     @Cacheable("contributors")
     public List<Contributor> fetchContributors() {
         WebTarget target = client
-            .target("{api_url}/repos/{org}/{repo}/contributors")
+            .target("{api_url}/repos/{org}/{repo}/contributors?per_page={page_size}")
             .resolveTemplate("api_url", properties.getApiUrl(), false)
             .resolveTemplate("org", properties.getOrg(), false)
-            .resolveTemplate("repo", properties.getRepo(), false);
-        return List.ofAll(getTop30Contributors(target).collect(Collectors.toList()));
+            .resolveTemplate("repo", properties.getRepo(), false)
+            .resolveTemplate("page_size", properties.getPageSize(), false);
+        return List.ofAll(getContributorsStream(target).collect(Collectors.toList()));
     }
 
-    private Stream<Contributor> getTop30Contributors(WebTarget target) {
+    private Stream<Contributor> getContributorsStream(WebTarget target) {
         Response response = target.request().get();
-        return response.readEntity(CONTRIBUTORS_LIST_TYPE).stream().limit(30);
+        return response.readEntity(CONTRIBUTORS_LIST_TYPE).stream();
     }
 }
