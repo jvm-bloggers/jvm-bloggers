@@ -36,11 +36,11 @@ public class ContributorsService {
             .resolveTemplate("org", properties.getOrg(), false)
             .resolveTemplate("repo", properties.getRepo(), false)
             .resolveTemplate("page_size", properties.getPageSize(), false);
-        return List.ofAll(getContributorsStream(target).collect(Collectors.toList()));
+        return List.ofAll(getContributors(target));
     }
 
-    private Stream<Contributor> getContributorsStream(WebTarget target) {
+    private java.util.List<Contributor> getContributors(WebTarget target) {
         Response response = target.request().get();
-        return response.readEntity(CONTRIBUTORS_LIST_TYPE).stream();
+        return response.readEntity(CONTRIBUTORS_LIST_TYPE);
     }
 }
