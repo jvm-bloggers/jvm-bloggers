@@ -32,7 +32,7 @@ public class ContributorsPage extends AbstractFrontendPage {
 
         add(new ListView<Contributor>(
             SECOND_LEVEL_CONTRIBUTORS_LIST_ID,
-            contributors.slice(6, 30).toJavaList()
+            contributors.drop(6).toJavaList()
         ) {
             @Override
             protected void populateItem(ListItem<Contributor> item) {
