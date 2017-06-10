@@ -1,7 +1,9 @@
 package com.jvm_bloggers.frontend.admin_area.mailing;
 
 import com.jvm_bloggers.entities.mailing_address.MailingAddressRepository;
-import javaslang.control.Option;
+
+import io.vavr.control.Option;
+
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;

@@ -2,7 +2,7 @@ package com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel;
 
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;

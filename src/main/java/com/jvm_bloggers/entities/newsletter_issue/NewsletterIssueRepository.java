@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.newsletter_issue;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
+
 import javaslang.control.Option;
 
 import org.springframework.data.domain.Pageable;

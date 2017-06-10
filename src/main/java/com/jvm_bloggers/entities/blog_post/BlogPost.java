@@ -3,12 +3,14 @@ package com.jvm_bloggers.entities.blog_post;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.jvm_bloggers.entities.blog.Blog;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;

@@ -3,8 +3,8 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 
-import javaslang.collection.Map;
-import javaslang.collection.Seq;
+import io.vavr.collection.Map;
+import io.vavr.collection.Seq;
 
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.spring.injection.annot.SpringBean;

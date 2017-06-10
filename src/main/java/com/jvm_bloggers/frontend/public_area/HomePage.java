@@ -2,7 +2,9 @@ package com.jvm_bloggers.frontend.public_area;
 
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel;
-import javaslang.control.Option;
+
+import io.vavr.control.Option;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 

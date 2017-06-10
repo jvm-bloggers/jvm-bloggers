@@ -1,10 +1,10 @@
 package com.jvm_bloggers.core.github
 
 import com.jvm_bloggers.entities.github.Contributor
+import io.vavr.collection.List as VavrList
 import spock.lang.Specification
 import spock.lang.Subject
 
-import javaslang.collection.List as JavaslangList
 import javax.ws.rs.client.Client
 import javax.ws.rs.client.Invocation
 import javax.ws.rs.client.WebTarget
@@ -48,7 +48,7 @@ class ContributorsServiceSpec extends Specification {
         }
 
         when:
-        JavaslangList<Contributor> actual = testObj.fetchContributors()
+        VavrList<Contributor> actual = testObj.fetchContributors()
 
         then:
         assertThat(actual).containsOnly(contributor1, contributor2)
@@ -84,7 +84,7 @@ class ContributorsServiceSpec extends Specification {
         }
 
         when:
-        JavaslangList<Contributor> actual = testObj.fetchContributors()
+        VavrList<Contributor> actual = testObj.fetchContributors()
 
         then:
         assertThat(actual).containsOnly(contributor1, contributor2, contributor3)

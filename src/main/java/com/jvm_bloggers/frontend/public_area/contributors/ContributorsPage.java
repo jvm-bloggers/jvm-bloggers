@@ -4,7 +4,7 @@ import com.jvm_bloggers.core.github.ContributorsService;
 import com.jvm_bloggers.entities.github.Contributor;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
