@@ -14,6 +14,7 @@ public class ContributorsPage extends AbstractFrontendPage {
 
     static final String FIRST_LEVEL_CONTRIBUTORS_LIST_ID = "firstLevelContributors";
     static final String SECOND_LEVEL_CONTRIBUTORS_LIST_ID = "secondLevelContributors";
+    static final String THIRD_LEVEL_CONTRIBUTORS_LIST_ID = "thirdLevelContributors";
 
     @SpringBean
     private ContributorsService contributorsService;
@@ -32,7 +33,17 @@ public class ContributorsPage extends AbstractFrontendPage {
 
         add(new ListView<Contributor>(
             SECOND_LEVEL_CONTRIBUTORS_LIST_ID,
-            contributors.slice(6, 30).toJavaList()
+            contributors.slice(6, 26).toJavaList()
+        ) {
+            @Override
+            protected void populateItem(ListItem<Contributor> item) {
+                item.add(new ContributorDetails("contributorDetails", item.getModel()));
+            }
+        });
+
+        add(new ListView<Contributor>(
+            THIRD_LEVEL_CONTRIBUTORS_LIST_ID,
+            contributors.drop(26).toJavaList()
         ) {
             @Override
             protected void populateItem(ListItem<Contributor> item) {
