@@ -9,7 +9,7 @@ import org.apache.wicket.spring.test.ApplicationContextMock
 import org.apache.wicket.util.tester.WicketTester
 import spock.lang.Specification
 
-public abstract class MockSpringContextAwareSpecification extends Specification {
+abstract class MockSpringContextAwareSpecification extends Specification {
 
     private final ApplicationContextMock mockApplicationContext = new ApplicationContextMock()
 
