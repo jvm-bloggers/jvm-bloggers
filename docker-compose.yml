@@ -10,25 +10,25 @@ services:
       - "$JVM_BLOGGERS_DB_PUBLISHED_PORT:5432"
     volumes:
       - "$JVM_BLOGGERS_DB_PATH:/var/lib/postgresql"
-  jvm-bloggers-core:
-    image: jvmbloggers/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
-    environment:
-      spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
-      jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
-    ports:
-      - "$JVM_BLOGGERS_CORE_PORT:8080"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
-      - /home/jvm-bloggers/jvm-bloggers-app/logs:/home/blogger/app/logs
-      - /tmp
-    links:
-      - jvm-bloggers-db
-    depends_on:
-      - jvm-bloggers-db
-  logspout:
-    image: gliderlabs/logspout:latest
-    command: 'syslog://logs5.papertrailapp.com:$JVM_BLOGGERS_LOGSPOUT_PORT'
-    volumes:
-    - '/var/run/docker.sock:/tmp/docker.sock'
+#  jvm-bloggers-core:
+#    image: jvmbloggers/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
+#    environment:
+#      spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
+#      jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
+#    ports:
+#      - "$JVM_BLOGGERS_CORE_PORT:8080"
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
+#      - /home/jvm-bloggers/jvm-bloggers-app/logs:/home/blogger/app/logs
+#      - /tmp
+#    links:
+#      - jvm-bloggers-db
+#    depends_on:
+#      - jvm-bloggers-db
+#  logspout:
+#    image: gliderlabs/logspout:latest
+#    command: 'syslog://logs5.papertrailapp.com:$JVM_BLOGGERS_LOGSPOUT_PORT'
+#    volumes:
+#    - '/var/run/docker.sock:/tmp/docker.sock'
 

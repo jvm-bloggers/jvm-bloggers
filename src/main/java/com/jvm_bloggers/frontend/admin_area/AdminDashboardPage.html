@@ -9,6 +9,7 @@
 <wicket:extend>
 
     <div id="page-wrapper">
+        <div wicket:id="feedback"></div>
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Dashboard</h1>
@@ -59,6 +60,20 @@
                             <div class="clearfix"></div>
                         </div>
                     </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        Actions
+                    </div>
+                    <div class="panel-body">
+                        <form wicket:id="generateTopPostsSummaryForm">
+                            Top posts in previous month <button type="submit" class="btn btn-primary">Generate</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
