@@ -469,6 +469,8 @@
                                  referencedColumnNames="ID"
         />
 
+        <addUniqueConstraint tableName="TOP_POSTS_SUMMARY" columnNames="YEAR, MONTH" constraintName="TOP_POSTS_SUMMARY_UNIQUE_MONTH_YEAR" />
+
     </changeSet>
 
 </databaseChangeLog>
