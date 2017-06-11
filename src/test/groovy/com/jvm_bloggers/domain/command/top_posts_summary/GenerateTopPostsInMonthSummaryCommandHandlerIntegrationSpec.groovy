@@ -1,4 +1,4 @@
-package com.jvm_bloggers.domain.query
+package com.jvm_bloggers.domain.command.top_posts_summary
 
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
@@ -8,23 +8,26 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.click.Click
 import com.jvm_bloggers.entities.click.ClickRepository
-import com.jvm_bloggers.entities.click.PostIdWithCount
+import com.jvm_bloggers.entities.top_posts_summary.PopularPersonalPost
+import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary
+import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
+import javaslang.control.Option
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Subject
-import javaslang.collection.List as JavaslangList
 
 import java.time.LocalDateTime
+import java.time.YearMonth
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
-class MostPopularBlogPostsQueryIntegrationSpec extends SpringContextAwareSpecification {
+class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends SpringContextAwareSpecification {
 
-    static LocalDateTime START = LocalDateTime.of(2017, 07, 22, 10, 10)
-    static LocalDateTime END  = START.plusMonths(1)
+    static YearMonth ANALYZED_MONTH = YearMonth.of(2017, 7)
+    static LocalDateTime START_OF_MONTH = ANALYZED_MONTH.atDay(1).atStartOfDay()
 
     @Subject
     @Autowired
-    MostPopularBlogPostsQuery mostPopularBlogPostsQuery
+    GenerateTopPostsInMonthSummaryCommandHandler generateTopPostsCommandHandler
 
     @Autowired
     BlogRepository blogRepository
@@ -35,7 +38,10 @@ class MostPopularBlogPostsQueryIntegrationSpec extends SpringContextAwareSpecifi
     @Autowired
     ClickRepository clickRepository
 
-    def "should calculate top blog posts from given period"() {
+    @Autowired
+    TopPostsSummaryRepository topPostsSummaryRepository
+
+    def "should calculate and store top blog posts from given period"() {
         given: "there are ten personal blogs"
         List<Blog> personalBlogs = (1..10).collect { it ->
             saveBlog("Blogger $it", "exampleRss $it", PERSONAL)
@@ -43,7 +49,7 @@ class MostPopularBlogPostsQueryIntegrationSpec extends SpringContextAwareSpecifi
 
         and: "each blog has a one post"
         List<BlogPost> personalPosts = personalBlogs.collect { b ->
-            savePost(b.id, START, true, b)
+            savePost(b.id, START_OF_MONTH, true, b)
         }
 
         and: "posts have increasing number of clicks"
@@ -52,24 +58,32 @@ class MostPopularBlogPostsQueryIntegrationSpec extends SpringContextAwareSpecifi
             int index = it.getSecond()
             BlogPost post = it.getFirst()
             for (int i = 0; i < index; i++) {
-                clickRepository.save(new Click(post, START))
+                clickRepository.save(new Click(post, START_OF_MONTH))
             }
         })
 
         and: "there are some clicks outside of analysed period"
-        saveClicksForPost(personalPosts[0], END.plusMinutes(1), 50)
-        saveClicksForPost(personalPosts[1], START.minusMinutes(1), 50)
+        saveClicksForPost(personalPosts[0], START_OF_MONTH.plusMonths(2), 50)
+        saveClicksForPost(personalPosts[1], START_OF_MONTH.minusMinutes(1), 50)
 
         when:
-        JavaslangList<PostIdWithCount> popularPosts = mostPopularBlogPostsQuery.getBestPersonalPosts(START, END, 5)
+        generateTopPostsCommandHandler.handle(
+            new GenerateTopPostsInMonthSummary(ANALYZED_MONTH, 5, 5)
+        )
 
         then: "last post from collection should have most clicks"
+        Option<TopPostsSummary> postsSummary = topPostsSummaryRepository
+            .findOneByYearAndMonth(ANALYZED_MONTH.getYear(), ANALYZED_MONTH.getMonthValue())
+
+        postsSummary.isDefined()
+        List<PopularPersonalPost> popularPosts = postsSummary.get().getPopularPersonalPosts()
         popularPosts.size() == 5
-        popularPosts.first().blogPostId == personalPosts.last().id
-        popularPosts.first().count == 10
+        popularPosts.first().getBlogPost() == personalPosts.last()
+        popularPosts.first().getPosition() == 1
+        popularPosts.first().getNumberOfClicks() == 10
 
         and: "each clicks count should be one less starting from 10"
-        popularPosts.collect {it.count} == [10, 9, 8, 7, 6]
+        popularPosts.collect {it.getNumberOfClicks()} == [10L, 9L, 8L, 7L, 6L]
     }
 
     private Blog saveBlog(String author, String rssUrl, BlogType type) {
@@ -79,7 +93,7 @@ class MostPopularBlogPostsQueryIntegrationSpec extends SpringContextAwareSpecifi
                 .author(author)
                 .rss(rssUrl)
                 .url("url")
-                .dateAdded(START)
+                .dateAdded(START_OF_MONTH)
                 .blogType(type)
                 .build())
     }

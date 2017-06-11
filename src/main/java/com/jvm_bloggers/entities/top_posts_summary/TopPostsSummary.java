@@ -1,5 +1,7 @@
 package com.jvm_bloggers.entities.top_posts_summary;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
+@Getter
 @Table(name = "top_posts_summary")
 public class TopPostsSummary {
 

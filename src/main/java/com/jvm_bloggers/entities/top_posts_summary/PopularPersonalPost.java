@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.top_posts_summary;
 
 import com.jvm_bloggers.entities.blog_post.BlogPost;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
+@Getter
 @Table(name = "popular_personal_post")
 public class PopularPersonalPost extends BasePopularBlogPost {
 
