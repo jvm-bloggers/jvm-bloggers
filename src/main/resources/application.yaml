@@ -40,3 +40,4 @@ github.api:
   apiUrl: https://api.github.com
   org: jvm-bloggers
   repo: jvm-bloggers
+  pageSize: 30
