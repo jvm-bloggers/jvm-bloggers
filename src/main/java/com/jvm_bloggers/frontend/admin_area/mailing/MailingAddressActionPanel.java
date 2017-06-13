@@ -31,10 +31,10 @@ public class MailingAddressActionPanel extends Panel {
             IModel<MailingAddress> model) {
         AjaxButton editButton = new AjaxButton(EDIT_MAILING_ADDRESS_ID, mailingAddressForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 MailingAddress mailingAddress = model.getObject();
                 mailingAddressForm.setModelObject(mailingAddress);
-                target.add(form);
+                target.add(getForm());
             }
         };
         editButton.setDefaultFormProcessing(false);
@@ -46,13 +46,13 @@ public class MailingAddressActionPanel extends Panel {
             IModel<MailingAddress> model) {
         AjaxButton deleteButton = new AjaxButton(DELETE_MAILING_ADDRESS_ID, mailingAddressForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 MailingAddress mailingAddress = model.getObject();
                 mailingAddressPageRequestHandler.delete(mailingAddress.getId());
                 mailingAddressForm.setModelObject(DEFAULT_MODEL.get());
                 getSession().success("Mailing address '" + mailingAddress.getAddress()
                         + "' has been deleted.");
-                target.add(form);
+                target.add(getForm());
             }
         };
         deleteButton.setDefaultFormProcessing(false);

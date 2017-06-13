@@ -1,15 +1,16 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenLocal()
         mavenCentral()
+        jcenter()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
         classpath 'se.transmode.gradle:gradle-docker:1.2'
-        classpath 'cz.alenkacz.gradle:json-validator:0.9.10'
+        classpath 'cz.alenkacz.gradle:json-validator:1.0.0'
         classpath 'com.ofg:uptodate-gradle-plugin:+'
     }
 }
@@ -43,10 +44,10 @@ repositories {
 }
 
 ext {
-    wicketVersion = '7.6.0'
-    akkaVersion = '2.4.12'
+    wicketVersion = '8.0.0-M6'
+    akkaVersion = '2.5.2'
     scalaVersion = "2.11"
-    jacksonVersion = '2.24'
+    jacksonVersion = '2.25.1'
 }
 
 dependencies {
@@ -54,16 +55,16 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.9'
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.12'
     compile 'org.springframework.boot:spring-boot-devtools'
 
     // Logic
     compile "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
     compile "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
-    compile 'com.rometools:rome:1.7.0'
+    compile 'com.rometools:rome:1.7.3'
 
     // View
-    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:1.0.5'
+    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.0.3'
     compile "org.apache.wicket:wicket-devutils:$wicketVersion"
     compile "org.apache.wicket:wicket-auth-roles:$wicketVersion"
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:$wicketVersion"
@@ -72,36 +73,36 @@ dependencies {
     compile "org.apache.wicket:wicket-bean-validation:$wicketVersion"
 
     // Utils and helpers
-    compile "org.projectlombok:lombok:1.16.10"
-    compile 'com.google.guava:guava:21.0'
+    compile "org.projectlombok:lombok:1.16.16"
+    compile 'com.google.guava:guava:22.0'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'org.antlr:ST4:4.0.8'
     compile "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
     compile 'net.jcip:jcip-annotations:1.0'
-    compile 'org.objenesis:objenesis:2.4'
-    compile 'commons-validator:commons-validator:1.5.1'
+    compile 'org.objenesis:objenesis:2.5.1'
+    compile 'commons-validator:commons-validator:1.6'
     compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
-    compile 'io.javaslang:javaslang:2.0.5'
+    compile 'io.javaslang:javaslang:2.0.6'
 
     // Database related
-    compile "org.postgresql:postgresql:9.4.1212.jre7"
+    compile "org.postgresql:postgresql:9.4.1212"
     compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
-    compile 'org.webjars:webjars-locator:0.32'
+    compile 'org.webjars:webjars-locator:0.32-1'
     compile 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
     compile 'org.webjars:html5shiv:3.7.3'
     compile 'org.webjars:respond:1.4.2'
 
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
-    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-3'
-    testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4-rc-3'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
     testCompile 'org.springframework:spring-test'
     testCompile 'com.jayway.jsonpath:json-path:2.2.0'
-    testCompile 'cglib:cglib-nodep:3.2.4'
-    testCompile 'org.codehaus.groovy:groovy:2.4.7'
+    testCompile 'cglib:cglib-nodep:3.2.5'
+    testCompile 'org.codehaus.groovy:groovy:2.4.11'
     testCompile "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
     runtime 'com.h2database:h2'
 

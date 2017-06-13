@@ -902,7 +902,7 @@
     {
       "jsonId": 158,
       "name": "Paweł Barszcz",
-      "rss": "http://timbercode.pl/blog/tag/jvm-bloggers/feed.xml",
+      "rss": "https://timbercode.pl/blog/tag/jvm-bloggers/feed.xml",
       "twitter": "@nkoder"
     },
     {
@@ -955,6 +955,11 @@
       "jsonId": 167,
       "name": "Marcin Pietraszek",
       "rss": "http://www.samouczekprogramisty.pl/feed/"
+    }, 
+    {
+      "jsonId": 168,
+      "name": "Jakub Wach",
+      "rss": "http://javakiss.blogspot.com/feeds/posts/default"
     }
   ]
 }
