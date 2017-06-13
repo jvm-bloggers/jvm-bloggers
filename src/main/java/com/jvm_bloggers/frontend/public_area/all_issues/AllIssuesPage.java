@@ -28,4 +28,9 @@ public class AllIssuesPage extends AbstractFrontendPage {
         add(issuesInMonth);
     }
 
+    @Override
+    protected String getPageTitle() {
+        return "Archiwum";
+    }
+
 }

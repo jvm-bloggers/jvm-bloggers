@@ -10,7 +10,8 @@ import java.time.ZoneId;
 @Component
 public class NowProvider {
 
-    public static final ZoneId DEFAULT_ZONE = ZoneId.of("Europe/Warsaw");
+    public static final String DEFAULT_ZONE_NAME = "Europe/Warsaw";
+    public static final ZoneId DEFAULT_ZONE = ZoneId.of(DEFAULT_ZONE_NAME);
 
     public LocalDateTime now() {
         return LocalDateTime.now(DEFAULT_ZONE);

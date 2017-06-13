@@ -19,5 +19,7 @@ public class GithubProperties {
     private String org;
     @NotNull
     private String repo;
+    @NotNull
+    private String pageSize;
 
 }

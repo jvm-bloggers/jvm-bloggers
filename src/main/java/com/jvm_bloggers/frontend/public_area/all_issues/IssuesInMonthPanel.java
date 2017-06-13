@@ -11,29 +11,21 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import java.time.YearMonth;
-import java.util.Locale;
 
-import static java.time.format.TextStyle.FULL_STANDALONE;
+import static com.jvm_bloggers.utils.DateTimeUtilities.stringify;
 
 class IssuesInMonthPanel extends Panel {
-
-    private static final Locale POLISH_LOCALE = new Locale("PL");
 
     IssuesInMonthPanel(String id, YearMonth yearMonth,
                        Seq<NewsletterIssueForListing> monthIssues) {
         super(id);
-        add(new Label("groupLabel", stringRepresentationOf(yearMonth)));
+        add(new Label("groupLabel", stringify(yearMonth)));
         add(new ListView<NewsletterIssueForListing>("issuesList", monthIssues.toJavaList()) {
             @Override
             protected void populateItem(ListItem<NewsletterIssueForListing> item) {
                 item.add(new NewsletterIssueLink("issueLink", item.getModelObject()));
             }
         });
-    }
-
-    private String stringRepresentationOf(YearMonth yearMonth) {
-        String monthName = yearMonth.getMonth().getDisplayName(FULL_STANDALONE, POLISH_LOCALE);
-        return String.format("%s %d", monthName, yearMonth.getYear());
     }
 
 }

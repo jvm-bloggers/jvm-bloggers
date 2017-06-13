@@ -28,13 +28,16 @@ application.issueUrl: ${application.baseUrl}/issue/
 logging.level.root: INFO
 logging.level.com.jvm_bloggers: INFO
 
-scheduler.fetch-bloggers-data: 0 0 7,9,11,13,15,17,19,21,23 * * *
-scheduler.fetch-rss-for-new-blogs: 0 30 * * * *
-scheduler.publish-new-issue: 0 0 13 * * FRI
-scheduler.send-email: 240000 # 4 minutes
+scheduler:
+  fetch-bloggers-data: 0 0 7,9,11,13,15,17,19,21,23 * * *
+  fetch-rss-for-new-blogs: 0 30 * * * *
+  publish-new-issue: 0 0 13 * * FRI
+  send-email: 240000 # 4 minutes
+  top-posts-in-month-summary: 0 0 15 12 * *
 
 github.api:
   token: #Personal access tokens can be created under https://github.com/settings/tokens
   apiUrl: https://api.github.com
   org: jvm-bloggers
   repo: jvm-bloggers
+  pageSize: 30

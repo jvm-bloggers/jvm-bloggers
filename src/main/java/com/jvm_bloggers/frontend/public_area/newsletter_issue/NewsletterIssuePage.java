@@ -25,7 +25,7 @@ public class NewsletterIssuePage extends AbstractFrontendPage {
 
     public NewsletterIssuePage(PageParameters parameters) {
         super(parameters);
-        NewsletterIssueNumber issueNumber = of(parameters.get(0).toLong(DEFAULT_VALUE));
+        NewsletterIssueNumber issueNumber = of(extractIssueNumberFromParameters());
         Option<PublishedNewsletterIssue> foundIssue = backingBean.findByIssueNumber(issueNumber);
 
         if (foundIssue.isDefined()) {
@@ -37,12 +37,21 @@ public class NewsletterIssuePage extends AbstractFrontendPage {
         }
     }
 
+    private long extractIssueNumberFromParameters() {
+        return getPageParameters().get(0).toLong(DEFAULT_VALUE);
+    }
+
     public static PageParameters buildShowIssueParams(Long issueNumber) {
         return new PageParameters().set(0, issueNumber);
     }
 
     public static PageParameters buildShowIssueParams(NewsletterIssueNumber issueNumber) {
         return new PageParameters().set(0, issueNumber.asLong());
+    }
+
+    @Override
+    protected String getPageTitle() {
+        return "Wydanie #" + extractIssueNumberFromParameters();
     }
 
 }

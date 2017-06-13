@@ -26,4 +26,9 @@ public class HomePage extends AbstractFrontendPage {
         }
     }
 
+    @Override
+    protected String getPageTitle() {
+        return "Najnowsze wydanie newslettera";
+    }
+
 }

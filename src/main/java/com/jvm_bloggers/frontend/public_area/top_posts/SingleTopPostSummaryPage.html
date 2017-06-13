@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+
+<wicket:extend>
+    <article class="text-sm-left blog-post blog-post-page">
+        <h1 wicket:id="headerLabel" class="padding-bottom-40-px">Najpopularniejsze posty</h1>
+
+        <div>
+            <h2>Najlepsze posty z blogów prywatnych</h2>
+
+            <div class="top-posts-section">
+                <ol>
+                    <li wicket:id="topPersonalPosts">
+                        <span wicket:id="blogPostLink"></span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div>
+            <h2>Najlepsze posty z blogów firmowych</h2>
+
+            <div class="top-posts-section">
+                <ol>
+                    <li wicket:id="topCompanyPosts">
+                        <span wicket:id="blogPostLink"></span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </article>
+
+</wicket:extend>
+
+</body>
+</html>

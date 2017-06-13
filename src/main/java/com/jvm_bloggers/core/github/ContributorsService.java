@@ -36,21 +36,16 @@ public class ContributorsService {
     @Cacheable("contributors")
     public Seq<Contributor> fetchContributors() {
         WebTarget target = client
-            .target("{api_url}/repos/{org}/{repo}/contributors")
+            .target("{api_url}/repos/{org}/{repo}/contributors?per_page={page_size}")
             .resolveTemplate("api_url", properties.getApiUrl(), false)
             .resolveTemplate("org", properties.getOrg(), false)
-            .resolveTemplate("repo", properties.getRepo(), false);
-        return List.ofAll(traversePages(target).collect(Collectors.toList()));
+            .resolveTemplate("repo", properties.getRepo(), false)
+            .resolveTemplate("page_size", properties.getPageSize(), false);
+        return List.ofAll(getContributors(target));
     }
 
-    private Stream<Contributor> traversePages(WebTarget target) {
+    private java.util.List<Contributor> getContributors(WebTarget target) {
         Response response = target.request().get();
-        Stream<Contributor> currentPage = response.readEntity(CONTRIBUTORS_LIST_TYPE).stream();
-
-        return Option.of(response.getLink("next"))
-            .map(client::target)
-            .map(this::traversePages)
-            .map(nextPage -> Stream.concat(currentPage, nextPage))
-            .getOrElse(() -> currentPage);
+        return response.readEntity(CONTRIBUTORS_LIST_TYPE);
     }
 }

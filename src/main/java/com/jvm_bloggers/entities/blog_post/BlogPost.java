@@ -29,7 +29,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "blog_post")
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @EntityListeners(BlogPostEntityListener.class)
