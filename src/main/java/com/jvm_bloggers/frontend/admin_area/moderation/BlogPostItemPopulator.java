@@ -3,13 +3,14 @@ package com.jvm_bloggers.frontend.admin_area.moderation;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.utils.NowProvider;
+
 import lombok.RequiredArgsConstructor;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
@@ -20,7 +21,7 @@ import static org.apache.commons.lang3.StringUtils.abbreviate;
  * @author mszarlinski
  */
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class BlogPostItemPopulator {
 
     private static final String ACTION_PANEL_WICKET_ID = "actionPanel";

@@ -8,10 +8,9 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 
 import io.vavr.collection.Seq;
-
 import lombok.AllArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY;
@@ -20,7 +19,7 @@ import static com.jvm_bloggers.entities.blog.BlogType.VIDEOS;
 import static io.vavr.collection.List.ofAll;
 
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class PublishedNewsletterIssueBuilder {
 
     private final LinkGenerator linkGenerator;
