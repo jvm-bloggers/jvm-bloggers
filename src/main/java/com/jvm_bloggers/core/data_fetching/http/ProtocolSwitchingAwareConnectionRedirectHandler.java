@@ -1,11 +1,14 @@
 package com.jvm_bloggers.core.data_fetching.http;
 
 import com.google.common.annotations.VisibleForTesting;
+
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import net.jcip.annotations.ThreadSafe;
+
 import org.apache.commons.collections4.MapUtils;
 
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.util.Map;
  */
 @ThreadSafe
 @Slf4j
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@VisibleForTesting))
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ProtocolSwitchingAwareConnectionRedirectHandler {
 
     @VisibleForTesting
@@ -100,8 +103,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
     }
 
     private void setupHeaders(HttpURLConnection conn, Map<String, String> headers) {
-        headers.entrySet()
-            .forEach(header -> conn.setRequestProperty(header.getKey(), header.getValue()));
+        headers.forEach(conn::setRequestProperty);
     }
 
     private HttpURLConnection handleRedirect(HttpURLConnection conn) throws IOException {
