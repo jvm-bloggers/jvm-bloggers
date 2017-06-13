@@ -3,6 +3,7 @@ package com.jvm_bloggers.entities.top_posts_summary;
 
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @Getter
 @Table(name = "popular_company_post")
+@NoArgsConstructor(access = PRIVATE)
 public class PopularCompanyPost extends BasePopularBlogPost {
 
     @Id
@@ -25,5 +29,6 @@ public class PopularCompanyPost extends BasePopularBlogPost {
     public PopularCompanyPost(BlogPost blogPost, Long position, Long numberOfClicks) {
         super(blogPost, position, numberOfClicks);
     }
+
 }
 

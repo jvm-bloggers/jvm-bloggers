@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -72,4 +73,9 @@ public class TopPostsSummary {
         popularCompanyPosts.add(post);
         return popularCompanyPosts;
     }
+
+    public YearMonth getYearMonth() {
+        return YearMonth.of(year, month);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.jvm_bloggers.entities.top_posts_summary;
 
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -9,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import static lombok.AccessLevel.PROTECTED;
+
 @MappedSuperclass
 @Getter
+@NoArgsConstructor(access = PROTECTED)
 abstract class BasePopularBlogPost {
 
     @Column(name = "position", nullable = false)
