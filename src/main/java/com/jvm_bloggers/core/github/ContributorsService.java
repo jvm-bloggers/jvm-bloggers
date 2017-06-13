@@ -2,16 +2,10 @@ package com.jvm_bloggers.core.github;
 
 import com.jvm_bloggers.GithubClient;
 import com.jvm_bloggers.entities.github.Contributor;
-
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
-import io.vavr.control.Option;
-
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
