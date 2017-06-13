@@ -1,6 +1,7 @@
 package com.jvm_bloggers
 
 import com.jvm_bloggers.frontend.admin_area.session.UserSession
+import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
 import org.apache.wicket.mock.MockApplication
 import org.apache.wicket.protocol.http.WebApplication
@@ -9,7 +10,9 @@ import org.apache.wicket.spring.test.ApplicationContextMock
 import org.apache.wicket.util.tester.WicketTester
 import spock.lang.Specification
 
-public abstract class MockSpringContextAwareSpecification extends Specification {
+import static org.apache.wicket.authroles.authorization.strategies.role.Roles.ADMIN
+
+abstract class MockSpringContextAwareSpecification extends Specification {
 
     private final ApplicationContextMock mockApplicationContext = new ApplicationContextMock()
 
@@ -31,6 +34,10 @@ public abstract class MockSpringContextAwareSpecification extends Specification 
 
     protected void addBean(Object bean) {
         mockApplicationContext.putBean(bean)
+    }
+
+    protected void currentUserIsAdmin() {
+        UserSession.get().loginAs("Admin", new Roles(ADMIN))
     }
 
 }

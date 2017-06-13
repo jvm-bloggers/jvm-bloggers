@@ -41,4 +41,9 @@ public class ContributorsPage extends AbstractFrontendPage {
         });
     }
 
+    @Override
+    protected String getPageTitle() {
+        return "Autorzy projektu";
+    }
+
 }
