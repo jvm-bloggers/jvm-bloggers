@@ -6,10 +6,7 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
-
 import io.vavr.collection.Seq;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
