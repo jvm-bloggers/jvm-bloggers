@@ -11,7 +11,7 @@ import java.time.YearMonth;
 public class GenerateTopPostsInMonthSummary implements Command {
 
     private final YearMonth yearMonth;
-    private int numberOfPersonalPosts;
-    private int numberOfCompanyPosts;
+    private final int numberOfPersonalPosts;
+    private final int numberOfCompanyPosts;
 
 }

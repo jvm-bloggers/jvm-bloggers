@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.top_posts_summary;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Getter
 @Table(name = "top_posts_summary")
+@NoArgsConstructor
 public class TopPostsSummary {
 
     @Id

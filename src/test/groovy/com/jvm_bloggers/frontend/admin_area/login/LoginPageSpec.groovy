@@ -2,6 +2,7 @@ package com.jvm_bloggers.frontend.admin_area.login
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
+import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPageBackingBean
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
@@ -30,6 +31,7 @@ class LoginPageSpec extends MockSpringContextAwareSpecification {
         addBean(Mock(BlogPostRepository))
         addBean(new PaginationConfiguration(15))
         addBean(Stub(AdminDashboardPageBackingBean))
+        addBean(Stub(TopPostsSummaryRepository))
     }
 
     def "Should redirect to Admin Dashboard after successful login"() {
