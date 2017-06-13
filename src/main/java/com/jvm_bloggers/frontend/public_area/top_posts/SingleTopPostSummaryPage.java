@@ -85,4 +85,10 @@ public class SingleTopPostSummaryPage extends AbstractFrontendPage {
             .add(MONTH_URL_PLACEHOLDER, format("%02d",yearMonth.getMonthValue()));
     }
 
+    @Override
+    protected String getPageTitle() {
+        YearMonth month = parseParameters(getPageParameters()).getOrElseGet(t -> YearMonth.now());
+        return String.format("%s - %s", stringify(month), "najlepsze posty");
+    }
+
 }

@@ -30,4 +30,10 @@ public class TopPostsPage extends AbstractFrontendPage {
             }
         });
     }
+
+    @Override
+    protected String getPageTitle() {
+        return "Lista podsumowań z najlepszymi postami w każdym miesiącu";
+    }
+
 }
