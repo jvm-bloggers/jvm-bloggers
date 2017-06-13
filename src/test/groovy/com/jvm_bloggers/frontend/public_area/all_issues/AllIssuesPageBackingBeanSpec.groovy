@@ -3,7 +3,8 @@ package com.jvm_bloggers.frontend.public_area.all_issues
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery
-import javaslang.collection.List as JavaslangList
+import io.vavr.collection.List as VavrList
+import io.vavr.collection.Seq
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -22,7 +23,7 @@ class AllIssuesPageBackingBeanSpec extends Specification {
 
     def "Should group issues into YearMonth lists"() {
         given:
-        query.findAllByOrderByPublishedDateDesc() >> JavaslangList.of(
+        query.findAllByOrderByPublishedDateDesc() >> VavrList.of(
                 createIssueFor(2017, JANUARY, 20),
                 createIssueFor(2017, JANUARY, 22),
                 createIssueFor(2017, JANUARY, 21),
@@ -38,8 +39,8 @@ class AllIssuesPageBackingBeanSpec extends Specification {
 
         then:
         groupedIssues.size() == 4
-        javaslang.collection.Set<YearMonth> yearMonths = groupedIssues.keySet()
-        yearMonths.eq(javaslang.collection.LinkedHashSet.of(
+        io.vavr.collection.Set<YearMonth> yearMonths = groupedIssues.keySet()
+        yearMonths.eq(io.vavr.collection.LinkedHashSet.of(
                 YearMonth.of(2017, APRIL),
                 YearMonth.of(2017, MARCH),
                 YearMonth.of(2017, FEBRUARY),
@@ -47,7 +48,7 @@ class AllIssuesPageBackingBeanSpec extends Specification {
         ))
 
         YearMonth january2017 = YearMonth.of(2017, JANUARY)
-        javaslang.collection.List<NewsletterIssueForListing> januaryIssues = groupedIssues.get(january2017).get()
+            Seq<NewsletterIssueForListing> januaryIssues = groupedIssues.get(january2017).get()
         januaryIssues.size() == 4
         januaryIssues.get(0).getIssueNumber() == NewsletterIssueNumber.of(23)
         januaryIssues.get(3).getIssueNumber() == NewsletterIssueNumber.of(20)

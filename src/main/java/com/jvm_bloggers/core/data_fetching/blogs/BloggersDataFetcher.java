@@ -7,8 +7,10 @@ import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import javaslang.control.Option;
-import javaslang.control.Try;
+
+import io.vavr.control.Option;
+import io.vavr.control.Try;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +53,7 @@ public class BloggersDataFetcher {
         return Try
             .of(() -> new URL(urlString))
             .onFailure(exc -> log.error("Invalid URL " + urlString))
-            .getOption();
+            .toOption();
     }
 
     public void refreshData() {

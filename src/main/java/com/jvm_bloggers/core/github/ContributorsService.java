@@ -2,7 +2,8 @@ package com.jvm_bloggers.core.github;
 
 import com.jvm_bloggers.GithubClient;
 import com.jvm_bloggers.entities.github.Contributor;
-import javaslang.collection.List;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class ContributorsService {
     }
 
     @Cacheable("contributors")
-    public List<Contributor> fetchContributors() {
+    public Seq<Contributor> fetchContributors() {
         WebTarget target = client
             .target("{api_url}/repos/{org}/{repo}/contributors?per_page={page_size}")
             .resolveTemplate("api_url", properties.getApiUrl(), false)

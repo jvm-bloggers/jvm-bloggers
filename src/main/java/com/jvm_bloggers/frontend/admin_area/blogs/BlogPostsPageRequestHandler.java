@@ -4,8 +4,11 @@ import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
-import javaslang.control.Option;
+
+import io.vavr.control.Option;
+
 import lombok.RequiredArgsConstructor;
+
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.springframework.data.domain.PageRequest;

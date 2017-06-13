@@ -2,7 +2,9 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
-import javaslang.collection.List;
+
+import io.vavr.collection.Seq;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -15,7 +17,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.stringify;
 class IssuesInMonthPanel extends Panel {
 
     IssuesInMonthPanel(String id, YearMonth yearMonth,
-                       List<NewsletterIssueForListing> monthIssues) {
+                       Seq<NewsletterIssueForListing> monthIssues) {
         super(id);
         add(new Label("groupLabel", stringify(yearMonth)));
         add(new ListView<NewsletterIssueForListing>("issuesList", monthIssues.toJavaList()) {

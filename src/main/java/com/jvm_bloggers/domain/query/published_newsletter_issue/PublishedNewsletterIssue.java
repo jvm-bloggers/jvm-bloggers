@@ -1,7 +1,9 @@
 package com.jvm_bloggers.domain.query.published_newsletter_issue;
 
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
-import javaslang.collection.List;
+
+import io.vavr.collection.Seq;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,9 +17,9 @@ public class PublishedNewsletterIssue {
     private LocalDate publishedDate;
     private String headingSection;
     private String variaSection;
-    private List<PublishedPost> personalPosts;
-    private List<PublishedPost> companyPosts;
-    private List<PublishedPost> videos;
-    private List<NewlyAddedBlog> newBlogs;
+    private Seq<PublishedPost> personalPosts;
+    private Seq<PublishedPost> companyPosts;
+    private Seq<PublishedPost> videos;
+    private Seq<NewlyAddedBlog> newBlogs;
 
 }

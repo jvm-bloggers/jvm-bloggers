@@ -2,11 +2,13 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery;
-import javaslang.Tuple2;
-import javaslang.collection.Array;
-import javaslang.collection.List;
-import javaslang.collection.Map;
-import javaslang.collection.TreeMap;
+
+import io.vavr.Tuple2;
+import io.vavr.collection.Array;
+import io.vavr.collection.Map;
+import io.vavr.collection.Seq;
+import io.vavr.collection.TreeMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,10 @@ public class AllIssuesPageBackingBean {
         this.query = query;
     }
 
-    public Map<YearMonth, List<NewsletterIssueForListing>> getIssuesGroupedByYearMonth() {
-        List<NewsletterIssueForListing> allIssues = query.findAllByOrderByPublishedDateDesc();
+    public Map<YearMonth, Seq<NewsletterIssueForListing>> getIssuesGroupedByYearMonth() {
+        Seq<NewsletterIssueForListing> allIssues = query.findAllByOrderByPublishedDateDesc();
 
-        Array<Tuple2<YearMonth, List<NewsletterIssueForListing>>>
+        Array<Tuple2<YearMonth, Seq<NewsletterIssueForListing>>>
             issuesGroupedByYearMonth = allIssues
             .groupBy(this::getYearMonthFrom)
             .mapValues(list ->
