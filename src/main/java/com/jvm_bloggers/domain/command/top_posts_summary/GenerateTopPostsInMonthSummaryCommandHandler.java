@@ -9,7 +9,6 @@ import com.jvm_bloggers.entities.top_posts_summary.PopularCompanyPost;
 import com.jvm_bloggers.entities.top_posts_summary.PopularPersonalPost;
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary;
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository;
-import com.jvm_bloggers.utils.DateTimeUtilities;
 import com.jvm_bloggers.utils.NowProvider;
 import javaslang.collection.List;
 import lombok.RequiredArgsConstructor;
