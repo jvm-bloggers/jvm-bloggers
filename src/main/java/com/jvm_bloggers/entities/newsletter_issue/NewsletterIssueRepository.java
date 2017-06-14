@@ -1,6 +1,6 @@
 package com.jvm_bloggers.entities.newsletter_issue;
 
-import io.vavr.collection.Seq;
+import javaslang.collection.Seq;
 
 import javaslang.control.Option;
 

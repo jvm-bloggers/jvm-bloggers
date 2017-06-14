@@ -8,8 +8,8 @@ import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.utils.NowProvider;
 
-import io.vavr.control.Option;
-import io.vavr.control.Try;
+import javaslang.control.Option;
+import javaslang.control.Try;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

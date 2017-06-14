@@ -84,7 +84,6 @@ dependencies {
     compile 'commons-validator:commons-validator:1.6'
     compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
     compile 'io.javaslang:javaslang:2.0.6'
-    compile 'io.vavr:vavr:0.9.0'
 
     // Database related
     compile "org.postgresql:postgresql:9.4.1212"

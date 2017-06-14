@@ -4,7 +4,7 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
 
-import io.vavr.control.Option;
+import javaslang.control.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Function;
 
-import static io.vavr.collection.Stream.of;
+import static javaslang.collection.Stream.of;
 
 @Service
 @Transactional(readOnly = true)

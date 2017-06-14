@@ -10,7 +10,7 @@ import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
-import io.vavr.control.Option
+import javaslang.control.Option
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject

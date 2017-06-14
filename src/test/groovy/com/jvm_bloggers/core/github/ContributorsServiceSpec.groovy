@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.github
 
 import com.jvm_bloggers.entities.github.Contributor
-import io.vavr.collection.List as VavrList
+import javaslang.collection.List as VavrList
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -3,7 +3,7 @@ package com.jvm_bloggers.domain.query.newsletter_issue_for_listing;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
 
-import io.vavr.collection.Seq;
+import javaslang.collection.Seq;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

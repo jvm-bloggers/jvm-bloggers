@@ -6,7 +6,7 @@ import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewslet
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssueNavigationLink
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel
-import io.vavr.control.Option
+import javaslang.control.Option
 import org.apache.wicket.markup.html.basic.Label
 import org.springframework.web.util.HtmlUtils
 import spock.lang.Subject
@@ -14,7 +14,7 @@ import spock.lang.Subject
 import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.ISSUE_PANEL_ID
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.buildShowIssueParams
-import static io.vavr.collection.List.empty
+import static javaslang.collection.List.empty
 import static java.lang.String.format
 import static java.time.LocalDate.now
 

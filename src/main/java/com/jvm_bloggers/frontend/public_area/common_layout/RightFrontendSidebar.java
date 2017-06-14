@@ -5,7 +5,7 @@ import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssu
 import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
 import com.jvm_bloggers.frontend.public_area.all_issues.AllIssuesPage;
 
-import io.vavr.collection.Seq;
+import javaslang.collection.Seq;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;

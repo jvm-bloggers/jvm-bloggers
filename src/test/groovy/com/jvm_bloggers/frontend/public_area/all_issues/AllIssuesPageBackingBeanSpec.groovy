@@ -3,8 +3,8 @@ package com.jvm_bloggers.frontend.public_area.all_issues
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery
-import io.vavr.collection.List as VavrList
-import io.vavr.collection.Seq
+import javaslang.collection.List as VavrList
+import javaslang.collection.Seq
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -39,8 +39,8 @@ class AllIssuesPageBackingBeanSpec extends Specification {
 
         then:
         groupedIssues.size() == 4
-        io.vavr.collection.Set<YearMonth> yearMonths = groupedIssues.keySet()
-        yearMonths.eq(io.vavr.collection.LinkedHashSet.of(
+        javaslang.collection.Set<YearMonth> yearMonths = groupedIssues.keySet()
+        yearMonths.eq(javaslang.collection.LinkedHashSet.of(
                 YearMonth.of(2017, APRIL),
                 YearMonth.of(2017, MARCH),
                 YearMonth.of(2017, FEBRUARY),

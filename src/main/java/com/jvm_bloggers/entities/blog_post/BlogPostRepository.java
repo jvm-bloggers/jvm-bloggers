@@ -1,7 +1,6 @@
 package com.jvm_bloggers.entities.blog_post;
 
-import io.vavr.control.Option;
-
+import javaslang.control.Option;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

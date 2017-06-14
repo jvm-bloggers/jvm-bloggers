@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel;
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue;
 
-import io.vavr.control.Option;
+import javaslang.control.Option;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;

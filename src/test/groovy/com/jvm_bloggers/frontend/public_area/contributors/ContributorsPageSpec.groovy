@@ -4,7 +4,7 @@ import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.core.github.ContributorsService
 import com.jvm_bloggers.entities.github.Contributor
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
-import io.vavr.collection.List as VavrList
+import javaslang.collection.List as VavrList
 
 import static com.jvm_bloggers.frontend.public_area.contributors.ContributorsPage.FIRST_LEVEL_CONTRIBUTORS_LIST_ID
 

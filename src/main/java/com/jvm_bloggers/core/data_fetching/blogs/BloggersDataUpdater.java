@@ -7,7 +7,7 @@ import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.utils.NowProvider;
 
-import io.vavr.control.Option;
+import javaslang.control.Option;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

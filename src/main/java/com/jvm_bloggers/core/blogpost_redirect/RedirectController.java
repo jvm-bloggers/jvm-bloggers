@@ -11,9 +11,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.entities.click.ClickRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
-import io.vavr.control.Option;
-
+import javaslang.control.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
