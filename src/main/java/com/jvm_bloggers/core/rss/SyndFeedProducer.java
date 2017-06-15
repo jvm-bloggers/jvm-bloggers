@@ -1,9 +1,10 @@
 package com.jvm_bloggers.core.rss;
 
-import com.jvm_bloggers.core.rss.fetchers.Fetcher;
+import com.jvm_bloggers.core.rss.fetchers.RssFetcher;
 import com.jvm_bloggers.core.utils.Validators;
 import com.rometools.rome.feed.synd.SyndFeed;
 
+import javaslang.collection.Seq;
 import javaslang.collection.Stream;
 import javaslang.control.Option;
 import javaslang.control.Try;
@@ -17,10 +18,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SyndFeedProducer {
 
-    private final Stream<Fetcher> fetchers;
+    private final Seq<RssFetcher> fetchers;
 
     @Autowired
-    public SyndFeedProducer(java.util.List<Fetcher> fetchers) {
+    public SyndFeedProducer(java.util.List<RssFetcher> fetchers) {
         this.fetchers = Stream.ofAll(fetchers);
     }
 

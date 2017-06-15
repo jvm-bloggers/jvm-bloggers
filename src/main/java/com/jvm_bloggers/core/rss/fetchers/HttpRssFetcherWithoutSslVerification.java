@@ -12,7 +12,6 @@ import javaslang.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +28,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import static org.apache.commons.io.IOUtils.close;
+import static org.apache.commons.io.IOUtils.closeQuietly;
+
 /**
  * Fallback for some self-signed certificates using https connection with
  * disabled SSL certificate checking
@@ -37,7 +39,7 @@ import javax.net.ssl.X509TrustManager;
 @Order(0)
 @Component
 @RequiredArgsConstructor
-public class HttpFetcherWithoutSslVerification implements Fetcher {
+public class HttpRssFetcherWithoutSslVerification implements RssFetcher {
 
     private static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
         + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36";
@@ -64,8 +66,8 @@ public class HttpFetcherWithoutSslVerification implements Fetcher {
             );
             return Try.failure(ex);
         } finally {
-            IOUtils.closeQuietly(inputStream);
-            IOUtils.close(urlConnection);
+            closeQuietly(inputStream);
+            close(urlConnection);
         }
     }
 

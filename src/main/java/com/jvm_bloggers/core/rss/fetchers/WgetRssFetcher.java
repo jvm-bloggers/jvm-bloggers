@@ -7,6 +7,8 @@ import javaslang.control.Try;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,7 +19,8 @@ import java.io.File;
  */
 @Slf4j
 @Component
-public class WgetFetcher implements Fetcher {
+@Order(Ordered.LOWEST_PRECEDENCE)
+public class WgetRssFetcher implements RssFetcher {
 
     @Override
     public Try<SyndFeed> fetch(String rssUrl) {

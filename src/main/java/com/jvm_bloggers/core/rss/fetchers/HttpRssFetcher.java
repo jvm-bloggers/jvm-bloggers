@@ -12,7 +12,6 @@ import javaslang.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -22,6 +21,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
 
+import static org.apache.commons.io.IOUtils.close;
+import static org.apache.commons.io.IOUtils.closeQuietly;
+
 /**
  * Standard https connection
  */
@@ -29,7 +31,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class HttpFetcher implements Fetcher {
+public class HttpRssFetcher implements RssFetcher {
 
     private static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
         + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36";
@@ -53,8 +55,8 @@ public class HttpFetcher implements Fetcher {
             log.warn("Error during fetching RSS {} url: {}", rssUrl, ex.getMessage());
             return Try.failure(ex);
         } finally {
-            IOUtils.closeQuietly(inputStream);
-            IOUtils.close(urlConnection);
+            closeQuietly(inputStream);
+            close(urlConnection);
         }
     }
 }

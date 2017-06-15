@@ -1,6 +1,6 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.fetchers.Fetcher
+import com.jvm_bloggers.core.rss.fetchers.RssFetcher
 import com.rometools.rome.feed.synd.SyndFeed
 import javaslang.control.Try
 import spock.lang.Specification
@@ -8,9 +8,9 @@ import spock.lang.Subject
 
 class SyndFeedProducerSpec extends Specification {
 
-    private final Fetcher primaryFetcher = Mock()
-    private final Fetcher fallbackFetcher = Mock()
-    private final Fetcher lastFallbackFetcher = Mock()
+    private final RssFetcher primaryFetcher = Mock()
+    private final RssFetcher fallbackFetcher = Mock()
+    private final RssFetcher lastFallbackFetcher = Mock()
     private final SyndFeed syndFeed = Mock()
 
     static final String URL = "URL"

@@ -4,7 +4,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 
 import javaslang.control.Try;
 
-public interface Fetcher {
+public interface RssFetcher {
 
     Try<SyndFeed> fetch(String rssUrl);
 }
