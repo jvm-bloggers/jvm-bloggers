@@ -54,7 +54,7 @@ This will configure cloned repository according to project standards. Note that 
 
 * Example: Page `NewsletterIssuePage` has bean `NewsletterIssuePageBackingBean` with injected `Query` object named `PublishedNewsletterIssueQuery` that returns `PublishedNewsletterIssue` instances.
 
-* We prefer [Javaslang](http://javaslang.io) collections and `Option` over JDK8 ones where possible. Latest `Spring Data` allows to use Javaslang without extra boilerplate.
+* We prefer [Vavr](http://vavr.io) collections and `Option` over JDK8 ones where possible. Latest `Spring Data` allows to use Vavr without extra boilerplate.
 
 * (work in progress)
  

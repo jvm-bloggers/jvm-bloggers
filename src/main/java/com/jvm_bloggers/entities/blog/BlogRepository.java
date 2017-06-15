@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.blog;
 
 import javaslang.control.Option;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,5 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 
     @Query("from Blog b where b.active = true")
     List<Blog> findAllActiveBlogs();
+
 }

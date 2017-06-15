@@ -1,0 +1,11 @@
+.padding-bottom-40-px {
+    padding-bottom: 40px;
+}
+
+.top-posts-section {
+    padding: 30px 0 30px 30px;
+}
+
+.top-posts-section li {
+    list-style: decimal;
+}

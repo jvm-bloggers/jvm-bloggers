@@ -4,7 +4,9 @@ import com.googlecode.wicket.jquery.ui.markup.html.link.BookmarkablePageLink;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
 import com.jvm_bloggers.frontend.public_area.all_issues.AllIssuesPage;
-import javaslang.collection.List;
+
+import javaslang.collection.Seq;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -25,7 +27,7 @@ public class RightFrontendSidebar extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        List<NewsletterIssueForListing> latestIssues =
+        Seq<NewsletterIssueForListing> latestIssues =
             backingBean.getLatestIssues(NUMBER_OF_LISTED_ISSUES);
 
         add(new Label("latestIssuesEmptyLabel", "Brak archiwalnych wydań")

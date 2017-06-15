@@ -32,7 +32,7 @@ import java.util.Map;
 @Component
 @ThreadSafe
 @Slf4j
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE, onConstructor = @__(@VisibleForTesting))
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class ProtocolSwitchingAwareConnectionRedirectHandler {
 
     @VisibleForTesting
@@ -105,8 +105,7 @@ public class ProtocolSwitchingAwareConnectionRedirectHandler {
     }
 
     private void setupHeaders(HttpURLConnection conn, Map<String, String> headers) {
-        headers.entrySet()
-            .forEach(header -> conn.setRequestProperty(header.getKey(), header.getValue()));
+        headers.forEach(conn::setRequestProperty);
     }
 
     private HttpURLConnection handleRedirect(HttpURLConnection conn) throws IOException {

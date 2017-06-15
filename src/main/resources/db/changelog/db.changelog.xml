@@ -377,4 +377,100 @@
         <addUniqueConstraint tableName="METADATA" columnNames="NAME" constraintName="metadata_name_unique"/>
     </changeSet>
 
+    <changeSet id="038-create-tables-for-top-posts-summary" author="Tomasz Dziurko">
+        <createSequence sequenceName="TOP_POSTS_SUMMARY_SEQ"/>
+
+        <createTable tableName="TOP_POSTS_SUMMARY">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="YEAR" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="MONTH" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="CREATED" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <createSequence sequenceName="POPULAR_PERSONAL_POST_SEQ"/>
+
+        <createTable tableName="POPULAR_PERSONAL_POST">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="POSITION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="BLOG_POST_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TOP_POSTS_SUMMARY_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="NUMBER_OF_CLICKS" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="POPULAR_PERSONAL_POST" baseColumnNames="BLOG_POST_ID"
+                                 constraintName="POPULAR_PERSONAL_POST_TO_BLOG_POST" referencedTableName="BLOG_POST"
+                                 referencedColumnNames="ID"
+        />
+
+        <addForeignKeyConstraint baseTableName="POPULAR_PERSONAL_POST" baseColumnNames="TOP_POSTS_SUMMARY_ID"
+                                 constraintName="POPULAR_PERSONAL_POST_TO_TOP_POSTS_SUMMARY" referencedTableName="TOP_POSTS_SUMMARY"
+                                 referencedColumnNames="ID"
+        />
+
+        <createSequence sequenceName="POPULAR_COMPANY_POST_SEQ"/>
+
+        <createTable tableName="POPULAR_COMPANY_POST">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="POSITION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="BLOG_POST_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TOP_POSTS_SUMMARY_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="NUMBER_OF_CLICKS" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="POPULAR_COMPANY_POST" baseColumnNames="BLOG_POST_ID"
+                                 constraintName="POPULAR_COMPANY_POST_TO_BLOG_POST" referencedTableName="BLOG_POST"
+                                 referencedColumnNames="ID"
+        />
+
+        <addForeignKeyConstraint baseTableName="POPULAR_COMPANY_POST" baseColumnNames="TOP_POSTS_SUMMARY_ID"
+                                 constraintName="POPULAR_COMPANY_POST_TO_TOP_POSTS_SUMMARY" referencedTableName="TOP_POSTS_SUMMARY"
+                                 referencedColumnNames="ID"
+        />
+
+        <addUniqueConstraint tableName="TOP_POSTS_SUMMARY" columnNames="YEAR, MONTH" constraintName="TOP_POSTS_SUMMARY_UNIQUE_MONTH_YEAR" />
+
+    </changeSet>
+
 </databaseChangeLog>

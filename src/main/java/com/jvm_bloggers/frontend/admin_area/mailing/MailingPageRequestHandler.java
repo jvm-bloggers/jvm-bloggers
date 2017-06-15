@@ -1,6 +1,5 @@
 package com.jvm_bloggers.frontend.admin_area.mailing;
 
-
 import com.jvm_bloggers.core.mailing.EmailsWithNewIssueProducer;
 import com.jvm_bloggers.core.mailing.IssueNumberRetriever;
 import com.jvm_bloggers.core.newsletter_issues.NewsletterIssueFactory;
@@ -9,14 +8,13 @@ import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.DateTimeUtilities;
 import com.jvm_bloggers.utils.NowProvider;
+
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 @Component
-@NoArgsConstructor
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class MailingPageRequestHandler {
 
     private NowProvider nowProvider;

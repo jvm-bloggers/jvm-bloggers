@@ -41,7 +41,7 @@ class RssCheckingActorSpec extends Specification {
     }
 
     def cleanup() {
-        testProbe.system.shutdown()
+        testProbe.system.terminate()
     }
 
     def "Should send message about new posts to postStoringActor"() {
