@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.jcip.annotations.ThreadSafe;
 
 import org.apache.commons.collections4.MapUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -28,6 +29,7 @@ import java.util.Map;
  *
  * @author Marcin Kłopotek
  */
+@Component
 @ThreadSafe
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
