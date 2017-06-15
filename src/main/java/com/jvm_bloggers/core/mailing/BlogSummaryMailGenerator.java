@@ -9,7 +9,6 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +22,7 @@ import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CA
 import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
 import static java.util.Collections.emptyList;
 
-
 @Component
-@NoArgsConstructor
 public class BlogSummaryMailGenerator {
 
     private static final int DAYS_IN_THE_PAST = 7;

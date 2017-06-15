@@ -104,7 +104,7 @@ public class MailingPage extends AbstractMailingPage {
     private void addSaveButton() {
         AjaxButton saveButton = new AjaxButton("saveButton", mailingTemplateForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 persistChangesInMetadata(target);
             }
 
@@ -122,7 +122,7 @@ public class MailingPage extends AbstractMailingPage {
         AjaxButton resetTemplateButton =
             new AjaxButton(RESET_MAILING_TEMPLATE_BUTTON_ID, mailingTemplateForm) {
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                protected void onSubmit(AjaxRequestTarget target) {
                     String defaultMailingTemplate = metadataRepository
                         .findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
                     Metadata metadataToUpdate = mailingTemplateForm.getModelObject();
@@ -154,7 +154,7 @@ public class MailingPage extends AbstractMailingPage {
 
         AjaxButton previewButton = new AjaxButton("previewButton", mailingTemplateForm) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 mailingPreviewModalWindow.show(target);
             }
         };
@@ -167,7 +167,7 @@ public class MailingPage extends AbstractMailingPage {
             mailingTemplateForm
         ) {
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 String testEmailRecipient = requestHandler.sendTestEmail();
                 success("Test email sent to " + testEmailRecipient + "!");
                 target.add(feedback);

@@ -35,7 +35,7 @@ class NewBlogPostStoringActorSpec extends Specification {
     }
 
     def cleanup() {
-        testProbe.system.shutdown()
+        testProbe.system.terminate()
     }
 
     def "Should persist new blog post"() {

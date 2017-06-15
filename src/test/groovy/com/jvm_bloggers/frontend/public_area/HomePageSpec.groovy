@@ -15,9 +15,9 @@ import java.util.function.Consumer
 import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
 import static com.jvm_bloggers.frontend.public_area.HomePage.LATEST_ISSUE_PANEL_ID
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER
-import static java.time.LocalDate.now
 import static javaslang.collection.List.empty
 import static javaslang.control.Option.none
+import static java.time.LocalDate.now
 
 class HomePageSpec extends MockSpringContextAwareSpecification {
 

@@ -2,7 +2,9 @@ package com.jvm_bloggers.frontend.admin_area.login
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
+import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage
+import com.jvm_bloggers.frontend.admin_area.AdminDashboardPageBackingBean
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import com.jvm_bloggers.frontend.admin_area.login.attack.BruteForceLoginAttackDetector
 import com.jvm_bloggers.utils.NowProvider
@@ -21,13 +23,15 @@ class LoginPageSpec extends MockSpringContextAwareSpecification {
         hasRole(Roles.ADMIN) >> false
     }
 
-    def void setupContext() {
+    void setupContext() {
         NowProvider nowProvider = new NowProvider()
         addBean(nowProvider)
         addBean(userAuthenticator)
         addBean(new BruteForceLoginAttackDetector())
         addBean(Mock(BlogPostRepository))
         addBean(new PaginationConfiguration(15))
+        addBean(Stub(AdminDashboardPageBackingBean))
+        addBean(Stub(TopPostsSummaryRepository))
     }
 
     def "Should redirect to Admin Dashboard after successful login"() {
