@@ -13,7 +13,6 @@ import com.jvm_bloggers.utils.NowProvider;
 import javaslang.collection.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.DAY_OF_MONTH_ENDING_SUMMA
 
 @Service
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 class GenerateTopPostsInMonthSummaryCommandHandler
     implements CommandHandler<GenerateTopPostsInMonthSummary> {
 

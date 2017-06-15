@@ -5,7 +5,6 @@ import com.jvm_bloggers.entities.click.ClickRepository;
 import com.jvm_bloggers.entities.click.PostIdWithCount;
 import javaslang.collection.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,7 @@ import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class MostPopularBlogPostsQuery {
 
     private final ClickRepository clickRepository;
