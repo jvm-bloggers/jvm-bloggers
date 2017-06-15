@@ -23,42 +23,42 @@ class FacebookPublishingSchedulerSpec extends Specification {
 
     def "Should save published FB post with set sentDate"() {
         given:
-            FacebookPost post = Mock(FacebookPost)
-            fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-            fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.SUCCESS
+        FacebookPost post = Mock(FacebookPost)
+        fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
+        fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.SUCCESS
 
         when:
-            fbPublisherScheduler.publishOnePost()
+        fbPublisherScheduler.publishOnePost()
 
         then:
-            1 * post.setSentDate(NOW)
-            1 * fbPostRepository.save(post)
+        1 * post.setSentDate(NOW)
+        1 * fbPostRepository.save(post)
     }
 
     def "Should not execute any action for zero not published FB posts"() {
         given:
-            fbPostRepository.findFirstBySentDateNull() >> Option.none()
+        fbPostRepository.findFirstBySentDateNull() >> Option.none()
 
         when:
-            fbPublisherScheduler.publishOnePost()
+        fbPublisherScheduler.publishOnePost()
 
         then:
-            0 * fbPublisher.publishPost(_)
-            0 * fbPostRepository.save(_ as FacebookPost)
+        0 * fbPublisher.publishPost(_)
+        0 * fbPostRepository.save(_ as FacebookPost)
     }
 
     def "Should not update sentDate for unsuccessful sending action"() {
         given:
-            FacebookPost post = Mock(FacebookPost)
-            fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-            fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.ERROR
+        FacebookPost post = Mock(FacebookPost)
+        fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
+        fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.ERROR
 
         when:
-            fbPublisherScheduler.publishOnePost()
+        fbPublisherScheduler.publishOnePost()
 
         then:
-            0 * post.setSentDate(NOW)
-            0 * fbPostRepository.save(post)
+        0 * post.setSentDate(NOW)
+        0 * fbPostRepository.save(post)
     }
 
 }

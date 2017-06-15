@@ -16,9 +16,9 @@ class RestFbFacebookClientFactory implements FacebookClientFactory {
     private final PageAccessTokenProvider patProvider;
     private final String appSecret;
 
-    RestFbFacebookClientFactory(FacebookProperties facebookProperties,
+    RestFbFacebookClientFactory(FacebookConfiguration facebookConfiguration,
                                 PageAccessTokenProvider patProvider) {
-        this.appSecret = facebookProperties.getAppSecret();
+        this.appSecret = facebookConfiguration.getAppSecret();
         this.patProvider = patProvider;
     }
 

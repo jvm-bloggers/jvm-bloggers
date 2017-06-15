@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.social.fb.publisher;
 
+import com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus;
 import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
@@ -28,9 +29,7 @@ class FacebookPublishingScheduler {
         Option<FacebookPost> notSentEmail = facebookPostRepository.findFirstBySentDateNull();
 
         notSentEmail.forEach(post -> {
-            final FacebookPublisher.FacebookPublishingStatus
-                status =
-                facebookPublisher.publishPost(post);
+            final FacebookPublishingStatus status = facebookPublisher.publishPost(post);
             log.info("Post on Facebook published, status: {}", status);
             setSentDateForSuccessfulAction(post, status);
         });
@@ -38,7 +37,7 @@ class FacebookPublishingScheduler {
 
     private void setSentDateForSuccessfulAction(
         FacebookPost facebookPost,
-        FacebookPublisher.FacebookPublishingStatus status) {
+        FacebookPublishingStatus status) {
         if (status.isOk()) {
             facebookPost.setSentDate(nowProvider.now());
             facebookPostRepository.save(facebookPost);

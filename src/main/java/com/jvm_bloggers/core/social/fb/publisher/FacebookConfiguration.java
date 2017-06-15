@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-@ConfigurationProperties("fb")
-public class FacebookProperties {
+@ConfigurationProperties("facebook")
+class FacebookConfiguration {
 
     @NotNull
     private String pageId;

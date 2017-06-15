@@ -13,49 +13,49 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
 
     def "Should persist FacebookPost entity"() {
         given:
-            FacebookPost post = preparePost("http://jvm-bloggers.com/issues/1")
+        FacebookPost post = preparePost("http://jvm-bloggers.com/issues/1")
 
         when:
-            facebookPostRepository.save(post)
+        facebookPostRepository.save(post)
 
         then:
-            List<FacebookPost> allPosts = facebookPostRepository.findAll()
-            allPosts.size() == 1
-            allPosts.get(0).id == post.id
+        List<FacebookPost> allPosts = facebookPostRepository.findAll()
+        allPosts.size() == 1
+        allPosts.get(0).id == post.id
     }
 
     def "Should find one not sent FacebookPost"() {
         given:
-            FacebookPost post1 = preparePost("http://jvm-bloggers.com/issues/1")
-            FacebookPost post2 = preparePost("http://jvm-bloggers.com/issues/2")
-            post2.setSentDate(LocalDateTime.now())
+        FacebookPost post1 = preparePost("http://jvm-bloggers.com/issues/1")
+        FacebookPost post2 = preparePost("http://jvm-bloggers.com/issues/2")
+        post2.setSentDate(LocalDateTime.now())
         and:
-            facebookPostRepository.save(post1)
-            facebookPostRepository.save(post2)
+        facebookPostRepository.save(post1)
+        facebookPostRepository.save(post2)
 
         when:
-            Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull()
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull()
 
         then:
-            notSentPost.isDefined()
-            notSentPost.get().issueLink == post1.issueLink
+        notSentPost.isDefined()
+        notSentPost.get().issueLink == post1.issueLink
     }
 
     def "Should find zero not sent posts "() {
         given:
-            FacebookPost post1 = preparePost("http://jvm-bloggers.com/issues/1")
-            post1.setSentDate(LocalDateTime.now())
-            FacebookPost post2 = preparePost("http://jvm-bloggers.com/issues/2")
-            post2.setSentDate(LocalDateTime.now())
+        FacebookPost post1 = preparePost("http://jvm-bloggers.com/issues/1")
+        post1.setSentDate(LocalDateTime.now())
+        FacebookPost post2 = preparePost("http://jvm-bloggers.com/issues/2")
+        post2.setSentDate(LocalDateTime.now())
         and:
-            facebookPostRepository.save(post1)
-            facebookPostRepository.save(post2)
+        facebookPostRepository.save(post1)
+        facebookPostRepository.save(post2)
 
         when:
-            Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull()
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull()
 
         then:
-            notSentPost.isEmpty()
+        notSentPost.isEmpty()
     }
 
     private FacebookPost preparePost(String issueLink) {

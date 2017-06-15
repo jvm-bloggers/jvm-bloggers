@@ -12,26 +12,27 @@ class FacebookPostProducerSpec extends Specification {
 
     def "Should save a new Facebook post for a given issue"() {
         given:
-            FacebookMessageGenerator messageGenerator = new FacebookMessageGenerator()
-            LinkGenerator linkGenerator = Mock(LinkGenerator)
-            linkGenerator.generateIssueLink(_) >> { args -> "$LINK_BASE${args[0]}" }
-            FacebookPostRepository postRepository = Mock(FacebookPostRepository)
+        FacebookMessageGenerator messageGenerator = new FacebookMessageGenerator()
+        LinkGenerator linkGenerator = Mock(LinkGenerator)
+        linkGenerator.generateIssueLink(_) >> { args -> "$LINK_BASE${args[0]}" }
+        FacebookPostRepository postRepository = Mock(FacebookPostRepository)
+
         and:
-            NewIssuePublished issuePublishedEvent = new NewIssuePublished(
-                    NewsletterIssue
-                            .builder()
-                            .issueNumber(1L)
-                            .heading("issue heading")
-                            .build()
-            )
+        NewIssuePublished issuePublishedEvent = new NewIssuePublished(
+                NewsletterIssue
+                        .builder()
+                        .issueNumber(1L)
+                        .heading("issue heading")
+                        .build()
+        )
         and:
-            FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository)
+        FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository)
 
         when:
-            facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)
+        facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)
 
         then:
-            1 * postRepository.save({ it.issueLink.startsWith(LINK_BASE) && it.message != null })
+        1 * postRepository.save({ it.issueLink.startsWith(LINK_BASE) && it.message != null })
     }
 
 }

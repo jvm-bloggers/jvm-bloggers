@@ -14,3 +14,8 @@ mailing:
   apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
   fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
   throttleDelayInSeconds: 180
+
+facebook:
+  userToken: ""
+  pageId: ""
+  appSecret: ""

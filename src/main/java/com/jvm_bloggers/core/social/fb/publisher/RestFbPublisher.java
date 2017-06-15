@@ -36,15 +36,19 @@ class RestFbPublisher implements FacebookPublisher {
 
     public FacebookPublishingStatus publishPost(FacebookPost post) {
         log.info("Sending a new message to Facebook: {}", post);
-        return Try.of(() -> publish(post))
+        return Try
+            .of(() -> publish(post))
             .onSuccess(publishResponse -> log
-                .info("Message published with id {}", publishResponse.getId()))
+                .info("Message published with id {}", publishResponse.getId())
+            )
             .onFailure(
-                ex -> log.error("Cannot publish message on Facebook page", ex))
-            .transform(result -> Match(result).of(
-                Case(Success($()), SUCCESS),
-                Case(Failure($()), ERROR)
-            ));
+                ex -> log.error("Cannot publish message on Facebook page", ex)
+            )
+            .transform(result -> Match(result)
+                .of(Case(Success($()), SUCCESS),
+                    Case(Failure($()), ERROR)
+                )
+            );
     }
 
     private Post publish(FacebookPost post) {
