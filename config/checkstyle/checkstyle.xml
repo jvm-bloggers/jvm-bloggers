@@ -203,5 +203,10 @@
         </module>
         <module name="CommentsIndentation"/>
         <module name="UnusedImports"/>
+        <module name="Regexp">
+            <property name="format" value="\n\s*\n\s*\n"/>
+            <property name="illegalPattern" value="true"/>
+            <property name="message" value="More than one empty line!"/>
+        </module>
     </module>
 </module>

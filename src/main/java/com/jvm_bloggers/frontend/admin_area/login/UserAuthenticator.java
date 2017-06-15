@@ -1,6 +1,5 @@
 package com.jvm_bloggers.frontend.admin_area.login;
 
-
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.springframework.stereotype.Service;
 

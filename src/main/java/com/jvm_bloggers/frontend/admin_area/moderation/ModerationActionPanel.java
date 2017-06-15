@@ -12,7 +12,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-
 @Slf4j
 class ModerationActionPanel extends Panel {
 

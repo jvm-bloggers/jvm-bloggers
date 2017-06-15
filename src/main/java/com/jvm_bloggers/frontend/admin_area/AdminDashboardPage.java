@@ -91,5 +91,4 @@ public class AdminDashboardPage extends AbstractAdminPage {
         return backingBean.prepareYearMonthChoices();
     }
 
-
 }

@@ -18,7 +18,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
 
-
 /**
  * Handles the case where {@link java.net.HttpURLConnection} gets redirected by
  * <tt>301</tt> or <tt>302</tt> HTTP response code and the redirect involves
