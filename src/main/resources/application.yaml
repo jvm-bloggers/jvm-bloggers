@@ -33,7 +33,7 @@ scheduler:
   fetch-rss-for-new-blogs: 0 30 * * * *
   publish-new-issue: 0 0 13 * * FRI
   send-email: 240000 # 4 minutes
-  top-posts-in-month-summary: 0 0 15 12 * *
+  top-posts-in-month-summary: 0 0 13 12 * *
 
 github.api:
   token: #Personal access tokens can be created under https://github.com/settings/tokens
