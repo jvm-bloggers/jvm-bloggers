@@ -1,10 +1,10 @@
 package com.jvm_bloggers.core.rss
 
-import com.jvm_bloggers.core.rss.json.RssToJsonConverter
+import com.jvm_bloggers.core.rss.json.SyndFeedToJsonConverter
 import com.rometools.rome.feed.synd.*
 import org.apache.commons.io.IOUtils
-import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import java.nio.charset.Charset
 
+import static org.springframework.http.MediaType.APPLICATION_ATOM_XML_VALUE
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 class BlogPostsControllerSpec extends Specification {
 
+    @Shared
     Date today = new Date(0)
 
     AggregatedRssFeedProducer rssProducerMock = Mock() {
@@ -39,10 +42,10 @@ class BlogPostsControllerSpec extends Specification {
         1 * getRss(_, _, _) >> feed
     }
 
-    RssToJsonConverter rssToJsonConverter = new RssToJsonConverter("http://jvm-bloggers.com")
+    SyndFeedToJsonConverter syndFeedToJsonConverter = new SyndFeedToJsonConverter("http://jvm-bloggers.com")
 
     @Subject
-    BlogPostsController blogPostsController = new BlogPostsController(rssProducerMock, rssToJsonConverter, 50)
+    BlogPostsController blogPostsController = new BlogPostsController(rssProducerMock, syndFeedToJsonConverter, 50)
 
     @Unroll
     def "Should get OK status for RSS feed in #format format request"() {
@@ -56,8 +59,9 @@ class BlogPostsControllerSpec extends Specification {
 
         where:
         format || mediaType
-        "json" || MediaType.APPLICATION_JSON_VALUE
-        "xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
+        "json" || APPLICATION_JSON_VALUE
+        "xml"  || APPLICATION_ATOM_XML_VALUE
+        ""     || APPLICATION_ATOM_XML_VALUE
     }
 
     def "Should get BAD_REQUEST status for RSS feed in undefined format request"() {
@@ -93,8 +97,8 @@ class BlogPostsControllerSpec extends Specification {
 
         where:
         format || resource            || mediaType
-        "xml"  || "expected-rss.xml"  || MediaType.APPLICATION_ATOM_XML_VALUE
-        "json" || "expected-rss.json" || MediaType.APPLICATION_JSON_VALUE
+        "xml"  || "expected-rss.xml"  || APPLICATION_ATOM_XML_VALUE
+        "json" || "expected-rss.json" || APPLICATION_JSON_VALUE
     }
 
     def createSyndEntry(String id, String url, String title, String author, String description, Date publishedDate) {

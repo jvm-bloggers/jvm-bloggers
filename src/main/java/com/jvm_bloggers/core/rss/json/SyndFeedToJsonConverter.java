@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.AUTHOR;
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.DATE;
@@ -23,75 +24,58 @@ import static com.jvm_bloggers.core.rss.json.RssJsonKey.ENTRIES;
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.GENERATOR;
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.LINK;
 import static com.jvm_bloggers.core.rss.json.RssJsonKey.TITLE;
+import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
-/**
- * Simple {@link SyndFeed} objects to JSON plain text converter
- *
- * @author kraluk
- */
 @Component
 @Slf4j
-public class RssToJsonConverter {
-    private static final DateTimeFormatter DATE_FORMATTER =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+public class SyndFeedToJsonConverter {
 
     private final String baseUrl;
 
     @Autowired
-    public RssToJsonConverter(@Value("${application.baseUrl}") String baseUrl) {
+    public SyndFeedToJsonConverter(@Value("${application.baseUrl}") String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
     private static JSONObject toJson(SyndFeed feed) {
         JSONObject json = new JSONObject();
-
-        json.put(TITLE.getKey(), feed.getTitle());
-        json.put(LINK.getKey(), feed.getLink());
-        json.put(DESCRIPTION.getKey(), feed.getDescription());
-        json.put(ENTRIES.getKey(), toJson(feed.getEntries()));
-
+        json.put(TITLE, feed.getTitle());
+        json.put(LINK, feed.getLink());
+        json.put(DESCRIPTION, feed.getDescription());
+        json.put(ENTRIES, toJson(feed.getEntries()));
         return json;
     }
 
-    private static java.util.List<JSONObject> toJson(java.util.List<SyndEntry> entries) {
-        return javaslang.collection.List.ofAll(entries)
-            .map(RssToJsonConverter::toJson)
-            .toJavaList();
+    private static List<JSONObject> toJson(List<SyndEntry> entries) {
+        return entries.stream()
+            .map(SyndFeedToJsonConverter::toJson)
+            .collect(Collectors.toList());
     }
 
     private static JSONObject toJson(SyndEntry entry) {
         JSONObject json = new JSONObject();
 
-        json.put(LINK.getKey(), entry.getLink());
-        json.put(TITLE.getKey(), entry.getTitle());
-        json.put(AUTHOR.getKey(), entry.getAuthor());
+        json.put(LINK, entry.getLink());
+        json.put(TITLE, entry.getTitle());
+        json.put(AUTHOR, entry.getAuthor());
 
-        // Description
         Option.of(entry.getDescription())
-            .peek(d -> json.put(DESCRIPTION.getKey(), d.getValue()));
+            .peek(d -> json.put(DESCRIPTION, d.getValue()));
 
-        // Date
-        String date = DATE_FORMATTER.format(
+        String date = DATE_TIME_FORMATTER.format(
             LocalDateTime.ofInstant(entry.getPublishedDate().toInstant(), DEFAULT_ZONE));
 
-        json.put(DATE.getKey(), date);
-
+        json.put(DATE, date);
         return json;
     }
 
-    /**
-     * Converts complete {@link SyndFeed} instance to a JSON form
-     *
-     * @param feed a {@link SyndFeed} instance
-     * @return a {@link JSONObject} containing complete JSONfied feed
-     */
     public JSONObject convert(SyndFeed feed) {
         log.debug("Building JSON from the RSS feed...");
 
         JSONObject json = toJson(feed);
-        json.put(GENERATOR.getKey(), baseUrl);
-        json.put(LINK.getKey(), baseUrl + BlogPostsController.RSS_FEED_MAPPING);
+        json.put(GENERATOR, baseUrl);
+        json.put(LINK, baseUrl + BlogPostsController.RSS_FEED_MAPPING);
 
         log.debug("JSON content generated successfully with '{}' entries",
             feed.getEntries().size());

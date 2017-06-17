@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.rss.json
 
+import com.jvm_bloggers.utils.DateTimeUtilities
 import com.jvm_bloggers.utils.NowProvider
 import com.rometools.rome.feed.synd.SyndContent
 import com.rometools.rome.feed.synd.SyndEntry
@@ -12,7 +13,7 @@ import java.time.LocalDateTime
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 
-class RssToJsonConverterSpec extends Specification {
+class SyndFeedToJsonConverterSpec extends Specification {
 
     static final String BASE_URL = "http://localhost"
     static final String FEED_TITLE = "JvmBloggers"
@@ -25,7 +26,7 @@ class RssToJsonConverterSpec extends Specification {
     static final String TITLE_2 = "title2"
 
     @Subject
-    RssToJsonConverter converter = new RssToJsonConverter(BASE_URL)
+    SyndFeedToJsonConverter converter = new SyndFeedToJsonConverter(BASE_URL)
 
     SyndFeed feed = Mock() {
         SyndEntry entry1 = stubFeedEntry(AUTHOR_1, BASE_URL, DESCRIPTION_1, TITLE_1, DATE)
@@ -40,36 +41,36 @@ class RssToJsonConverterSpec extends Specification {
 
     def "Should convert RSS feed to a JSON content"() {
         when:
-            String jsonString = converter.convert(feed).toString()
-            Object json = new JsonSlurper().parseText(jsonString)
+        String jsonString = converter.convert(feed).toString()
+        Object json = new JsonSlurper().parseText(jsonString)
 
         then:
-            with(json) {
-                title == FEED_TITLE
-                link == BASE_URL + "/pl/rss"
-                generator == BASE_URL
+        with(json) {
+            title == FEED_TITLE
+            link == BASE_URL + "/pl/rss"
+            generator == BASE_URL
 
-                entries != null
-                entries.size() == 2
-            }
-
-        and:
-            with(json.entries[0]) {
-                author == AUTHOR_1
-                link == BASE_URL
-                description == DESCRIPTION_1
-                title == TITLE_1
-                date == RssToJsonConverter.DATE_FORMATTER.format(DATE)
-            }
+            entries != null
+            entries.size() == 2
+        }
 
         and:
-            with(json.entries[1]) {
-                author == AUTHOR_2
-                link == BASE_URL
-                description == null
-                title == TITLE_2
-                date == RssToJsonConverter.DATE_FORMATTER.format(DATE)
-            }
+        with(json.entries[0]) {
+            author == AUTHOR_1
+            link == BASE_URL
+            description == DESCRIPTION_1
+            title == TITLE_1
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
+        }
+
+        and:
+        with(json.entries[1]) {
+            author == AUTHOR_2
+            link == BASE_URL
+            description == null
+            title == TITLE_2
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
+        }
     }
 
     def stubFeedEntry(String author, String link, String description, String title, LocalDateTime publishedDate) {
