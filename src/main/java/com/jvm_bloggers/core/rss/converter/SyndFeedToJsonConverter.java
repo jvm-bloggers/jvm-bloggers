@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.rss.json;
+package com.jvm_bloggers.core.rss.converter;
 
 import com.github.openjson.JSONObject;
 import com.jvm_bloggers.core.rss.BlogPostsController;
@@ -7,6 +7,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 
 import javaslang.control.Option;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.AUTHOR;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.DATE;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.DESCRIPTION;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.ENTRIES;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.GENERATOR;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.LINK;
-import static com.jvm_bloggers.core.rss.json.RssJsonKey.TITLE;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.AUTHOR;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.DATE;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.DESCRIPTION;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.ENTRIES;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.GENERATOR;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.LINK;
+import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.TITLE;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 
 @Component
 @Slf4j
-public class SyndFeedToJsonConverter {
+class SyndFeedToJsonConverter {
 
     private final String baseUrl;
 
@@ -80,5 +81,19 @@ public class SyndFeedToJsonConverter {
         log.debug("JSON content generated successfully with '{}' entries",
             feed.getEntries().size());
         return json;
+    }
+
+    /**
+     * Keys which are used in parsing RSS Feed to a JSON text content
+     */
+    @UtilityClass
+    static class RssJsonKey {
+        static final String GENERATOR = "generator";
+        static final String LINK = "link";
+        static final String ENTRIES = "entries";
+        static final String TITLE = "title";
+        static final String DESCRIPTION = "description";
+        static final String AUTHOR = "author";
+        static final String DATE = "date";
     }
 }
