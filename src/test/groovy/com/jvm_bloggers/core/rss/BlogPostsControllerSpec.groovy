@@ -5,6 +5,7 @@ import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.web.context.WebApplicationContext
+import spock.lang.Ignore
 import spock.lang.Unroll
 
 import javax.servlet.http.HttpServletRequest
@@ -39,6 +40,7 @@ class BlogPostsControllerSpec extends SpringContextAwareSpecification {
         ""     || APPLICATION_JSON_UTF8_VALUE
     }
 
+    @Ignore
     def "Should get a raw RSS feed"() {
         given:
         HttpServletRequest request = Stub() {
