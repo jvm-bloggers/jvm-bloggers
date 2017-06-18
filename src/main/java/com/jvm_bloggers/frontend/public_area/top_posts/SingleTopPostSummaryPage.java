@@ -5,6 +5,7 @@ import com.jvm_bloggers.domain.query.top_posts_summary.PublishedTopPostSummary;
 import com.jvm_bloggers.frontend.common_components.PublishedBlogPostLink;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import javaslang.control.Try;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -20,6 +21,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.stringify;
 import static java.lang.String.format;
 
 @MountPath("/top-articles/${" + YEAR_URL_PLACEHOLDER + "}/${" +  MONTH_URL_PLACEHOLDER + "}")
+@Slf4j
 public class SingleTopPostSummaryPage extends AbstractFrontendPage {
 
     static final String YEAR_URL_PLACEHOLDER = "year";
@@ -36,7 +38,10 @@ public class SingleTopPostSummaryPage extends AbstractFrontendPage {
         super(parameters);
         findSummary(parameters)
             .onSuccess(this::buildView)
-            .onFailure(t -> setResponsePage(TopPostsPage.class));
+            .onFailure(t -> {
+                setResponsePage(TopPostsPage.class);
+                log.warn("Summary not found for " + parameters);
+            });
     }
 
     private Try<PublishedTopPostSummary> findSummary(PageParameters parameters) {
