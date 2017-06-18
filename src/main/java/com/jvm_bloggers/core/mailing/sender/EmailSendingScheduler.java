@@ -1,6 +1,5 @@
 package com.jvm_bloggers.core.mailing.sender;
 
-
 import com.jvm_bloggers.entities.email.Email;
 import com.jvm_bloggers.entities.email.EmailRepository;
 import com.jvm_bloggers.utils.NowProvider;

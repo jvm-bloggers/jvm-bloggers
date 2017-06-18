@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Slf4j
 public class EmailsWithNewIssueProducer {

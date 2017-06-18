@@ -1,6 +1,5 @@
 package com.jvm_bloggers;
 
-
 import akka.actor.ActorSystem;
 
 import com.jvm_bloggers.core.github.GithubAuthenticationFilter;

@@ -1,6 +1,5 @@
 package com.jvm_bloggers.entities.blog_post;
 
-
 import com.google.common.annotations.VisibleForTesting;
 import com.jvm_bloggers.entities.blog.Blog;
 

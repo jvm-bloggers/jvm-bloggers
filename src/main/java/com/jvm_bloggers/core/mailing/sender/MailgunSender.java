@@ -1,6 +1,5 @@
 package com.jvm_bloggers.core.mailing.sender;
 
-
 import com.google.common.util.concurrent.RateLimiter;
 import com.jvm_bloggers.MailingClient;
 

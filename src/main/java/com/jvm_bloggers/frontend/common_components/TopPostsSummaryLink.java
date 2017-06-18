@@ -11,7 +11,7 @@ import static com.jvm_bloggers.frontend.public_area.top_posts.SingleTopPostSumma
 
 public class TopPostsSummaryLink extends BookmarkablePageLink<SingleTopPostSummaryPage> {
 
-    private static final String LABEL = "%s - najlepsze wpisy z blogów";
+    private static final String LABEL = "%s - podsumowanie najlepszych postów";
 
     public TopPostsSummaryLink(String id, YearMonth yearMonth) {
         super(id, SingleTopPostSummaryPage.class, buildPageParams(yearMonth));

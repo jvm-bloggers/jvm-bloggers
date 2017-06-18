@@ -5,8 +5,7 @@ import com.jvm_bloggers.domain.command.top_posts_summary.GenerateTopPostsInMonth
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
 import javaslang.collection.Stream;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,24 +16,14 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.DAY_OF_MONTH_ENDING_SUMMA
 import static com.jvm_bloggers.utils.DateTimeUtilities.lastPublicationDate;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class AdminDashboardPageBackingBean {
 
     private static int NUMBER_OF_MONTHS_TO_GENERATE_TOP_POSTS_SUMMARY = 6;
 
-    private NowProvider nowProvider;
-    private CommandPublisher commandPublisher;
-    private BlogPostRepository blogPostRepository;
-
-    @Autowired
-    public AdminDashboardPageBackingBean(
-        NowProvider nowProvider,
-        CommandPublisher commandPublisher,
-        BlogPostRepository blogPostRepository) {
-        this.nowProvider = nowProvider;
-        this.commandPublisher = commandPublisher;
-        this.blogPostRepository = blogPostRepository;
-    }
+    private final NowProvider nowProvider;
+    private final CommandPublisher commandPublisher;
+    private final BlogPostRepository blogPostRepository;
 
     public void generateTopPostsSummary(YearMonth yearMonth) {
         commandPublisher.publish(

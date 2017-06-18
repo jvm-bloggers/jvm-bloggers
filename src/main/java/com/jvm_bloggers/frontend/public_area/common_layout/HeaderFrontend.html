@@ -34,9 +34,14 @@
                         <li><a href="/">Home <small>Let`s start</small></a></li>
                         <li><a wicket:id="topPosts">Najlepsze Posty</a></li>
                         <li><a wicket:id="allIssues">Archiwum</a></li>
-                        <li><a wicket:id="contributors">Autorzy</a></li>
-                        <li><a href="https://github.com/jvm-bloggers/jvm-bloggers/" target="_blank">GitHub</a></li>
-                        <li><a href="/">About</a></li>
+                        <li class="rd-navbar--has-dropdown rd-navbar-submenu"><a href="#">O projekcie &#x25BC;<small>O Projekcie</small></a>
+                            <ul class="rd-navbar-dropdown">
+                                <li><a wicket:id="about">O projekcie</a></li>
+                                <li><a wicket:id="contributors">Autorzy</a></li>
+                                <li><a href="https://github.com/jvm-bloggers/jvm-bloggers/" target="_blank">GitHub</a></li>
+                            </ul>
+                            <span class="rd-navbar-submenu-toggle"></span>
+                        </li>
                     </ul>
                     <!--END RD Navbar Nav-->
                 </div>

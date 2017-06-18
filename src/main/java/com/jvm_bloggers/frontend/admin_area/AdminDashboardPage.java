@@ -2,7 +2,6 @@ package com.jvm_bloggers.frontend.admin_area;
 
 import com.jvm_bloggers.frontend.admin_area.moderation.ModerationPage;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
-import com.jvm_bloggers.utils.DateTimeUtilities;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -16,6 +15,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.time.YearMonth;
 import java.util.List;
+
+import static com.jvm_bloggers.utils.DateTimeUtilities.stringify;
 
 @MountPath("admin")
 public class AdminDashboardPage extends AbstractAdminPage {
@@ -56,7 +57,7 @@ public class AdminDashboardPage extends AbstractAdminPage {
             @Override
             protected void onSubmit() {
                 backingBean.generateTopPostsSummary(selectedPeriod);
-                getSession().info("Top posts summary generated");
+                getSession().info("Top posts summary generated for " + stringify(selectedPeriod));
                 setResponsePage(AdminDashboardPage.class);
             }
         };
@@ -81,7 +82,7 @@ public class AdminDashboardPage extends AbstractAdminPage {
         return new ChoiceRenderer<YearMonth>() {
             @Override
             public Object getDisplayValue(YearMonth object) {
-                return DateTimeUtilities.stringify(object);
+                return stringify(object);
             }
         };
     }
@@ -89,6 +90,5 @@ public class AdminDashboardPage extends AbstractAdminPage {
     private List<YearMonth> prepareYearMonthChoices() {
         return backingBean.prepareYearMonthChoices();
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.jvm_bloggers.entities.top_posts_summary;
 
-
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

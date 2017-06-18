@@ -22,8 +22,10 @@ class BloggersDataUpdaterSpec extends Specification {
     public static final String RSS_OF_INVALID_BLOG = "http://invalidblog.pl/rss"
     BlogRepository blogRepository = Mock(BlogRepository)
 
+    private SyndFeedProducer producer = syndFeedProducer()
+
     @Subject
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), spySyndFeedProducer(), new BloggerChangedVerifier())
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), producer, new BloggerChangedVerifier())
 
     def "Should insert new Person for entry with new json_id"() {
         given:
@@ -46,6 +48,7 @@ class BloggersDataUpdaterSpec extends Specification {
         BloggerEntry entry = buildBloggerEntry(jsonId, "blog", RSS_OF_INVALID_BLOG, "page", "twitter", PERSONAL)
         blogRepository.findByJsonId(jsonId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
+            producer.validUrlFromRss(RSS_OF_INVALID_BLOG) >> Option.none()
 
         when:
         UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
@@ -179,8 +182,8 @@ class BloggersDataUpdaterSpec extends Specification {
         return new BloggerEntry(jsonId, author, rss, pageUrl, twitter, type)
     }
 
-    def spySyndFeedProducer() {
-        SyndFeedProducer producer = Spy(SyndFeedProducer);
+    def syndFeedProducer() {
+        SyndFeedProducer producer = Stub(SyndFeedProducer)
         producer.validUrlFromRss("") >> Option.none()
         producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Option.of("http://new.blog.pl/")
         return producer

@@ -4,7 +4,6 @@ import com.jvm_bloggers.domain.command.CommandPublisher;
 import com.jvm_bloggers.domain.command.top_posts_summary.GenerateTopPostsInMonthSummary;
 import com.jvm_bloggers.utils.NowProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import java.time.YearMonth;
 import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE_NAME;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class TopPostsInPreviousMonthSummaryScheduler {
 
     private static final int NUMBER_OF_TOP_PERSONAL_POSTS = 10;

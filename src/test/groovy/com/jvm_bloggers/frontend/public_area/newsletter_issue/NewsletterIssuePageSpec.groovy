@@ -4,19 +4,16 @@ import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
-import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssueNavigationLink
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel
 import javaslang.control.Option
 import org.apache.wicket.markup.html.basic.Label
-import org.springframework.web.util.HtmlUtils
 import spock.lang.Subject
 
 import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.ISSUE_PANEL_ID
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.buildShowIssueParams
-import static javaslang.collection.List.empty
-import static java.lang.String.format
 import static java.time.LocalDate.now
+import static javaslang.collection.List.empty
 
 class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
 
@@ -35,7 +32,7 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         backingBean.findByIssueNumber(issue.number) >> Option.of(issue)
 
         when:
-        tester.startPage(NewsletterIssuePage, NewsletterIssuePage.buildShowIssueParams(issue.number))
+        tester.startPage(NewsletterIssuePage, buildShowIssueParams(issue.number))
 
         then:
         tester.assertComponent(ISSUE_PANEL_ID, NewsletterIssuePanel)
@@ -63,7 +60,7 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         backingBean.findByIssueNumber(issueNumber) >> Option.none()
 
         when:
-        tester.startPage(NewsletterIssuePage, NewsletterIssuePage.buildShowIssueParams(issueNumber))
+        tester.startPage(NewsletterIssuePage, buildShowIssueParams(issueNumber))
 
         then:
         tester.assertComponent(ISSUE_PANEL_ID, Label)
@@ -86,9 +83,7 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         tester.startComponentInPage(newsletterIssuePanel)
 
         then:
-        tester.assertComponent("$ISSUE_PANEL_ID:previousNewsletterIssueNumber", NewsletterIssueNavigationLink)
         tester.assertBookmarkablePageLink("$ISSUE_PANEL_ID:previousNewsletterIssueNumber", NewsletterIssuePage, buildShowIssueParams(previous))
-        tester.getTagByWicketId('previousNewsletterIssueNumber').value == HtmlUtils.htmlEscape(format(NewsletterIssueNavigationLink.Direction.PRESIOUS.value, previous.asLong()))
     }
 
     def "Should display next navigation link"() {
@@ -107,9 +102,7 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
         tester.startComponentInPage(newsletterIssuePanel)
 
         then:
-        tester.assertComponent("$ISSUE_PANEL_ID:nextNewsletterIssueNumber", NewsletterIssueNavigationLink)
         tester.assertBookmarkablePageLink("$ISSUE_PANEL_ID:nextNewsletterIssueNumber", NewsletterIssuePage, buildShowIssueParams(next))
-        tester.getTagByWicketId('nextNewsletterIssueNumber').value == HtmlUtils.htmlEscape(format(NewsletterIssueNavigationLink.Direction.NEXT.value, next.asLong()))
     }
 
     def "Should not display previous navigation link"() {

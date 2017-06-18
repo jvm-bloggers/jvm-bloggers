@@ -24,11 +24,19 @@
                         <h3 wicket:enclosure="varia">Varia</h3>
                         <p wicket:id="varia"></p>
                     </p>
-                    <div class="form-group">
-                        <a wicket:id="previousNewsletterIssueNumber" href="#" class="pull-left">&lt;&lt; (Wydanie #47)</a>
-                        <a wicket:id="nextNewsletterIssueNumber" href="#" class="pull-right">(Wydanie #49) &gt;&gt;</a>
-                        <span class="clearfix"></span>
-                    </div>
+                    <span class="clearfix"></span>
+                </div>
+            </div>
+            <div class="row padding-bottom-40-px">
+                <div class="col-xs-6" style="text-align: left">
+                    <a href="#" wicket:id="previousNewsletterIssueNumber" class="btn btn-primary btn-sm icon-left">
+                        <span class="icon fa-arrow-left"></span> Poprzednie wydanie
+                    </a>
+                </div>
+                <div class="col-xs-6" style="text-align: right">
+                    <a href="#" wicket:id="nextNewsletterIssueNumber" class="btn btn-primary btn-sm icon-right">
+                        Następne wydanie <span class="icon fa-arrow-right"></span>
+                    </a>
                 </div>
             </div>
         </div>

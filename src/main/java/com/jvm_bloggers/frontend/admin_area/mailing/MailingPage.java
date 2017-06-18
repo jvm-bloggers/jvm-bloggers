@@ -20,7 +20,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.List;
 
-
 @MountPath("mailing-template")
 public class MailingPage extends AbstractMailingPage {
 

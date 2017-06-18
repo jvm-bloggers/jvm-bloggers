@@ -1,0 +1,13 @@
+version: '2'
+services:
+  jvm-bloggers-db:
+    image: sameersbn/postgresql:9.4-22
+    environment:
+      DB_USER: $JVM_BLOGGERS_DB_USER
+      DB_PASS: $JVM_BLOGGERS_DB_PASSWORD
+      DB_NAME: $JVM_BLOGGERS_DB_NAME
+    ports:
+      - "$JVM_BLOGGERS_DB_PUBLISHED_PORT:5432"
+    volumes:
+      - "$JVM_BLOGGERS_DB_PATH:/var/lib/postgresql"
+

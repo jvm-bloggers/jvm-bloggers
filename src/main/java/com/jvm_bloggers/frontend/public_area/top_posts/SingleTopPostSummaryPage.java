@@ -32,7 +32,6 @@ public class SingleTopPostSummaryPage extends AbstractFrontendPage {
     @SpringBean
     private SingleTopPostSummaryPageBackingBean backingBean;
 
-
     public SingleTopPostSummaryPage(PageParameters parameters) {
         super(parameters);
         findSummary(parameters)

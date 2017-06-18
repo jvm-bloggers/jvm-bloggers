@@ -960,6 +960,17 @@
       "jsonId": 168,
       "name": "Jakub Wach",
       "rss": "http://javakiss.blogspot.com/feeds/posts/default"
+    },
+    {
+      "jsonId": 169,
+      "name": "Łukasz Antkowiak",
+      "rss": "http://blog.lantkowiak.pl/index.php/feed/"
+    },
+    {
+      "jsonId": 170,
+      "name": "Mateusz Maciaszek",
+      "rss": "http://speedcom.github.io/feed.xml",
+      "twitter": "@mcmaciaszek"
     }
   ]
 }
