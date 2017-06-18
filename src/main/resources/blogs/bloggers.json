@@ -812,7 +812,8 @@
     {
       "jsonId": 142,
       "name": "Krzysztof Chruściel, Agnieszka Pieszczek",
-      "rss": "http://codecouple.pl/feed/"
+      "rss": "https://codecouple.pl/feed/",
+      "twitter": "@CodeCouple_pl"
     },
     {
       "jsonId": 143,
