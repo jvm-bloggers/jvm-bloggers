@@ -3,14 +3,11 @@ package com.jvm_bloggers.core.rss;
 import com.jvm_bloggers.core.rss.fetchers.RssFetcher;
 import com.jvm_bloggers.core.utils.Validators;
 import com.rometools.rome.feed.synd.SyndFeed;
-
 import javaslang.collection.Seq;
 import javaslang.collection.Stream;
 import javaslang.control.Option;
 import javaslang.control.Try;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +23,14 @@ public class SyndFeedProducer {
     }
 
     public Option<SyndFeed> createFor(String rssUrl) {
-        return fetchers
+        Option<SyndFeed> syndFeed = fetchers
             .map(fetcher -> fetcher.fetch(rssUrl))
             .find(Try::isSuccess)
             .flatMap(Try::getOption);
+        if (syndFeed.isDefined()) {
+            log.warn("Error: Unable to fetch RSS for {}", rssUrl);
+        }
+        return syndFeed;
     }
 
     public Option<String> validUrlFromRss(String rss) {

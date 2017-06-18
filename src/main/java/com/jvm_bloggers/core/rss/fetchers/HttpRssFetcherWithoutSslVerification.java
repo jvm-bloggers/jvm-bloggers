@@ -41,9 +41,6 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
 @RequiredArgsConstructor
 public class HttpRssFetcherWithoutSslVerification implements RssFetcher {
 
-    private static final String FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) "
-        + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36";
-
     private final ProtocolSwitchingAwareConnectionRedirectHandler redirectHandler;
     private final GzipStreamWrapper gzipStreamWrapper;
 
@@ -60,7 +57,7 @@ public class HttpRssFetcherWithoutSslVerification implements RssFetcher {
             inputStream = gzipStreamWrapper.wrap(urlConnection.getInputStream());
             return Try.success(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
-            log.warn("Error during fetching RSS without https check for {} url: {}",
+            log.info("Problem during fetching RSS without https check for {} url: {}",
                 rssUrl,
                 ex.getMessage()
             );
