@@ -72,7 +72,6 @@ Author:	trinixstudio
 56. Page Header / #page-header
 57. Page Content / #page-content
 58. Page Footer / #page-footer
-59. Custom styling
 
 -------------------------------------------------------------------*/
 
@@ -26769,13 +26768,4 @@ a[data-lightbox^=image] img {
     bottom: 0;
     z-index: 0;
   }
-}
-
-/* 59. Custom styling */
-.blogs-nav {
-  margin-bottom: 30px;
-}
-
-ul > .item > li {
-  margin-bottom: 15px;
 }

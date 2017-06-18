@@ -9,3 +9,11 @@
 .top-posts-section li {
     list-style: decimal;
 }
+
+.blogs-nav {
+  margin-bottom: 30px;
+}
+
+ul > .item > li {
+  margin-bottom: 15px;
+}
