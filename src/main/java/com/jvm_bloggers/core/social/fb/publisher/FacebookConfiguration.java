@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-@ConfigurationProperties("facebook")
+@ConfigurationProperties("facebook.api")
 class FacebookConfiguration {
 
     @NotNull
