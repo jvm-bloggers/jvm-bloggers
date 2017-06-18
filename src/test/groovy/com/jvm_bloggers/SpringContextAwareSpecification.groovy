@@ -11,7 +11,7 @@ import javax.transaction.Transactional
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-public abstract class SpringContextAwareSpecification extends Specification {
+abstract class SpringContextAwareSpecification extends Specification {
 
     static String PASSWORD = "secretPassword"
 

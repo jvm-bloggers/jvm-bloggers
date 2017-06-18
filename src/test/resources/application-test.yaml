@@ -10,3 +10,8 @@ mailing:
   fromEmail: "example@example.com"
 
 items.pagination.size: 15
+
+facebook:
+  userToken: "fbUserToken"
+  pageId: "fbPageId"
+  appSecret: "fbAppSecret"

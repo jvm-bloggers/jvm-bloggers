@@ -46,7 +46,7 @@ class EmailSendingSchedulerSpec extends Specification {
         0 * emailRepository.save(_ as Email)
     }
 
-    def "Should not update sentDate for unsuccessful sanding action"() {
+    def "Should not update sentDate for unsuccessful sending action"() {
         given:
         Email email = Mock(Email)
         emailRepository.findFirstBySentDateNull() >> Option.of(email)

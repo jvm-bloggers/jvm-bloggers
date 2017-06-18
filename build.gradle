@@ -63,6 +63,9 @@ dependencies {
     compile "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
     compile 'com.rometools:rome:1.7.3'
 
+    // Facebook
+    compile 'com.restfb:restfb:1.40.1'
+
     // View
     compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.0.3'
     compile "org.apache.wicket:wicket-devutils:$wicketVersion"

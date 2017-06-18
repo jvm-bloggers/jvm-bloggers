@@ -34,6 +34,7 @@ scheduler:
   publish-new-issue: 0 0 13 * * FRI
   send-email: 240000 # 4 minutes
   top-posts-in-month-summary: 0 0 13 12 * *
+  publish-fb: 600000 # 10 minutes
 
 github.api:
   token: #Personal access tokens can be created under https://github.com/settings/tokens
@@ -41,3 +42,8 @@ github.api:
   org: jvm-bloggers
   repo: jvm-bloggers
   pageSize: 30
+
+facebook.api:
+  userToken: #User access token can be created as it is described in FACEBOOK.md
+  appSecret: #To get application's secret check FACEBOOK.md
+  pageId: "1059067680779426"
