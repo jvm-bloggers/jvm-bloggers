@@ -72,6 +72,7 @@ Author:	trinixstudio
 56. Page Header / #page-header
 57. Page Content / #page-content
 58. Page Footer / #page-footer
+59. Custom styling
 
 -------------------------------------------------------------------*/
 
@@ -3228,7 +3229,7 @@ th {
   background-color: #f9f9f9;
 }
 
-.table-hover > tbody > tr:hover {
+.table-hover > tbody > tr:not(:first-child):hover {
   background-color: #ebebed;
 }
 
@@ -5455,11 +5456,6 @@ tbody.collapse.in {
     border-bottom: 0.075rem solid #ddd;
     border-radius: 0px 0px 0 0;
   }
-  .nav-tabs-justified > .active > a,
-  .nav-tabs.nav-justified > .active > a, .nav-tabs-justified > .active > a:hover,
-  .nav-tabs.nav-justified > .active > a:hover, .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #000;
-  }
 }
 
 .tab-content > .tab-pane {
@@ -6242,7 +6238,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
-  color: rgba(255, 255, 255, 0.7);
+  color: #777;
   background-color: #fff;
   border-color: #ddd;
   cursor: not-allowed;
@@ -26773,4 +26769,13 @@ a[data-lightbox^=image] img {
     bottom: 0;
     z-index: 0;
   }
+}
+
+/* 59. Custom styling */
+.blogs-nav {
+  margin-bottom: 30px;
+}
+
+ul > .item > li {
+  margin-bottom: 15px;
 }
