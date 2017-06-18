@@ -1,6 +1,5 @@
 package com.jvm_bloggers.utils;
 
-
 import org.jsoup.Jsoup;
 
 public class HtmlEmptinessChecker {
