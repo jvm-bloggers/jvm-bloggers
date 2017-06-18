@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Validated
 @ConfigurationProperties("facebook.api")
-class FacebookConfiguration {
+public class FacebookConfiguration {
 
     @NotNull
     private String pageId;
