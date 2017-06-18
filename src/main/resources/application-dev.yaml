@@ -24,7 +24,6 @@ logging.level.com.jvm_bloggers: DEBUG
 
 application.baseUrl: http://localhost:8080
 
-facebook:
-  userToken: "fbUserToken"
-  pageId: "fbPageId"
-  appSecret: "fbAppSecret"
+facebook.api:
+  userToken: #User access token can be created as it is described in FACEBOOK.md
+  appSecret: #To get application's secret check FACEBOOK.md
