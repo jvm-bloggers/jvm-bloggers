@@ -34,7 +34,7 @@ scheduler:
   publish-new-issue: 0 0 13 * * FRI
   send-email: 240000 # 4 minutes
   top-posts-in-month-summary: 0 0 15 12 * *
-  publish-fb: 43200000 # 12 hours
+  publish-fb: 600000 # 10 minutes
 
 
 github.api:
