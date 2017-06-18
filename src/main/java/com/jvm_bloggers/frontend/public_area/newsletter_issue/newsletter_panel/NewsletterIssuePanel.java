@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of;
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.buildShowIssueParams;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
+import static com.jvm_bloggers.utils.HtmlEmptinessChecker.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class NewsletterIssuePanel extends Panel {
@@ -46,14 +47,14 @@ public class NewsletterIssuePanel extends Panel {
     private void addVaria(String variaContent) {
         Label varia = new Label("varia", variaContent);
         varia.setEscapeModelStrings(false);
-        varia.setVisible(isNotBlank(variaContent));
+        varia.setVisible(isNotEmpty(variaContent));
         add(varia);
     }
 
     private void addHeading(String headingContent) {
         Label heading = new Label("heading", headingContent);
         heading.setEscapeModelStrings(false);
-        heading.setVisible(isNotBlank(headingContent));
+        heading.setVisible(isNotEmpty(headingContent));
         add(heading);
     }
 
