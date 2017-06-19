@@ -27,7 +27,7 @@ public class SyndFeedProducer {
             .map(fetcher -> fetcher.fetch(rssUrl))
             .find(Try::isSuccess)
             .flatMap(Try::getOption);
-        if (syndFeed.isDefined()) {
+        if (syndFeed.isEmpty()) {
             log.warn("Error: Unable to fetch RSS for {}", rssUrl);
         }
         return syndFeed;
