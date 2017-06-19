@@ -20,6 +20,9 @@ import static com.google.common.base.MoreObjects.firstNonNull;
 @RequiredArgsConstructor
 public class NewBlogPostStoringActor extends AbstractActor {
 
+    private static final String HTTPS_PREFIX = "https://";
+    private static final String HTTP_PREFIX = "http://";
+
     private final BlogPostRepository blogPostRepository;
     private final BlogPostFactory blogPostFactory;
 
@@ -27,19 +30,32 @@ public class NewBlogPostStoringActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder().match(RssEntryWithAuthor.class,
             rssEntry -> {
-                if (Validators.isUrlValid(rssEntry.getRssEntry().getLink())) {
+                String blogPostLink = rssEntry.getRssEntry().getLink();
+                if (Validators.isUrlValid(blogPostLink)) {
                     BlogPost blogPost = blogPostRepository
-                            .findByUrl(rssEntry.getRssEntry().getLink())
+                            .findByUrl(blogPostLink)
+                            .orElse(() ->
+                                blogPostRepository
+                                    .findByUrl(createLinkWithSwitchedProtocol(blogPostLink))
+                            )
                             .getOrElse(() -> createBlogPost(rssEntry));
                     updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
                     blogPostRepository.save(blogPost);
                 } else {
                     log.info(
                             "Detected blog post with invalid link {}. Skipping DB operation",
-                            rssEntry.getRssEntry().getLink()
+                        blogPostLink
                     );
                 }
             }).build();
+    }
+
+    private String createLinkWithSwitchedProtocol(String link) {
+        if (link.startsWith(HTTPS_PREFIX)) {
+            return link.replace(HTTPS_PREFIX, HTTP_PREFIX);
+        } else {
+            return link.replace(HTTP_PREFIX, HTTPS_PREFIX);
+        }
     }
 
     public static Props props(BlogPostRepository blogPostRepository,

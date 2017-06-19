@@ -41,6 +41,7 @@ class NewBlogPostStoringActorSpec extends Specification {
     def "Should persist new blog post"() {
         given:
         String postUrl = "http://blogpost.com/blog"
+        String postUrlHttps = postUrl.replace("http://", "https://")
         String postTitle = "Title"
         String postDescription = "description"
         Blog blog = Mock(Blog)
@@ -49,6 +50,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         RssEntryWithAuthor message = new RssEntryWithAuthor(blog, entry)
         blogPostFactory.create(postTitle, postUrl, toLocalDateTime(entry.getPublishedDate()), blog) >> blogPost
         blogPostRepository.findByUrl(postUrl) >> Option.none()
+        blogPostRepository.findByUrl(postUrlHttps) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -100,14 +102,39 @@ class NewBlogPostStoringActorSpec extends Specification {
         1 * blogPostRepository.save(blogPost)
     }
 
+    def "Should update only description if post already exists with different protocol"() {
+        given:
+        String postUrl = "http://blogpost.com/blog"
+        String postUrlHttps = postUrl.replace("http://", "https://")
+        String postTitle = "Title"
+        String postDescription = "description"
+        SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
+        BlogPost blogPost = Mock()
+        RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
+        blogPostRepository.findByUrl(postUrl) >> Option.none()
+        blogPostRepository.findByUrl(postUrlHttps) >> Option.of(blogPost)
+
+        when:
+        blogPostingActor.tell(message, ActorRef.noSender())
+        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+
+        then:
+        1 * blogPost.setDescription(postDescription)
+
+        then:
+        1 * blogPostRepository.save(blogPost)
+    }
+
     def "Should use updatedDate if publishedDate is null"() {
         given:
         String postUrl = "http://blogpost.com/blog"
+        String postUrlHttps = postUrl.replace("http://", "https://")
         String postTitle = "Title"
         Date updatedDate = new Date().minus(1)
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
         blogPostRepository.findByUrl(postUrl) >> Option.none()
+        blogPostRepository.findByUrl(postUrlHttps) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
