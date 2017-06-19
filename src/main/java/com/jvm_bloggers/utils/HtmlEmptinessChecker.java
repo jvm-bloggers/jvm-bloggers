@@ -12,4 +12,8 @@ public class HtmlEmptinessChecker {
             .hasText();
     }
 
+    public static boolean isEmpty(String htmlContent) {
+        return !isNotEmpty(htmlContent);
+    }
+
 }

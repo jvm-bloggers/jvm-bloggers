@@ -36,4 +36,5 @@ public class SyndFeedProducer {
         Option<String> url = createFor(rss).map(SyndFeed::getLink);
         return url.filter(Validators::isUrlValid);
     }
+
 }
