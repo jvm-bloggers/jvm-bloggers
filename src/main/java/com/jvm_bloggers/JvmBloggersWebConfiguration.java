@@ -16,8 +16,8 @@ public class JvmBloggersWebConfiguration extends WebMvcConfigurerAdapter {
             .favorPathExtension(true)
             .favorParameter(false)
             .ignoreAcceptHeader(false)
-            .useJaf(true)
-            .defaultContentType(APPLICATION_JSON_UTF8)
+            .useJaf(false)
+            .defaultContentType(APPLICATION_ATOM_XML)
             .mediaType("xml", APPLICATION_ATOM_XML)
             .mediaType("json", APPLICATION_JSON_UTF8);
     }

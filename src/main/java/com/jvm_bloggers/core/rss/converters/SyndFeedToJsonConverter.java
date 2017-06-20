@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.rss.converter;
+package com.jvm_bloggers.core.rss.converters;
 
 import com.github.openjson.JSONObject;
 import com.jvm_bloggers.core.rss.BlogPostsController;
@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.AUTHOR;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.DATE;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.DESCRIPTION;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.ENTRIES;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.GENERATOR;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.LINK;
-import static com.jvm_bloggers.core.rss.converter.SyndFeedToJsonConverter.RssJsonKey.TITLE;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.AUTHOR;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.DATE;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.DESCRIPTION;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.ENTRIES;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.GENERATOR;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.LINK;
+import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.TITLE;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
 

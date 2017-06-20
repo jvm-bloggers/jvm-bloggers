@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.rss.converter
+package com.jvm_bloggers.core.rss.converters
 
 import com.jvm_bloggers.core.rss.TestSyndFeedProvider
 import com.rometools.rome.feed.synd.SyndFeed
@@ -14,16 +14,16 @@ import spock.lang.Unroll
 
 import java.nio.charset.Charset
 
-class SyndFeedJsonMessageConverterSpec extends Specification {
+import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace
+import static spock.util.matcher.HamcrestSupport.that
+
+class SyndFeedXmlMessageConverterSpec extends Specification {
 
     @Shared
     TestSyndFeedProvider testSyndFeedProvider = new TestSyndFeedProvider()
 
-    @Shared
-    SyndFeedToJsonConverter jsonConverter = new SyndFeedToJsonConverter("http://jvm-bloggers.com")
-
     @Subject
-    SyndFeedJsonMessageConverter converter = new SyndFeedJsonMessageConverter(jsonConverter)
+    SyndFeedXmlMessageConverter converter = new SyndFeedXmlMessageConverter()
 
     @Unroll
     def "Should support #supportedClazz"() {
@@ -45,7 +45,7 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
         thrown(UnsupportedOperationException)
     }
 
-    def "Should properly convert SyndFeed object to the JSON form"() {
+    def "Should properly convert SyndFeed object to the XML form"() {
         given:
         SyndFeed feed = testSyndFeedProvider.getSyndFeed()
         HttpOutputMessage message = new MockHttpOutputMessage()
@@ -55,8 +55,8 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
 
         then:
         def actual = message.getBodyAsString(Charset.defaultCharset())
-        def expected = IOUtils.toString(getClass().getResource("expected-rss.json").openStream(), Charset.defaultCharset())
+        def expected = IOUtils.toString(getClass().getResource("expected-rss.xml").openStream(), Charset.defaultCharset())
 
-        actual == expected
+        that actual, equalToIgnoringWhiteSpace(expected)
     }
 }

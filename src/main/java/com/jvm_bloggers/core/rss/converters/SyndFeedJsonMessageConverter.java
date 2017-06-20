@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.rss.converter;
+package com.jvm_bloggers.core.rss.converters;
 
 import com.github.openjson.JSONObject;
 import com.rometools.rome.feed.synd.SyndFeed;

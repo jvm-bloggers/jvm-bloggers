@@ -1,4 +1,4 @@
-package com.jvm_bloggers.core.rss.converter
+package com.jvm_bloggers.core.rss.converters
 
 import com.jvm_bloggers.utils.DateTimeUtilities
 import com.jvm_bloggers.utils.NowProvider
