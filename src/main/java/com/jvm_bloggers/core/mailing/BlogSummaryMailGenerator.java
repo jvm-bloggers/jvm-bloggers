@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
 import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
+import static com.jvm_bloggers.utils.HtmlEmptinessChecker.isEmpty;
 import static java.util.Collections.emptyList;
 
 @Component
@@ -69,16 +70,16 @@ public class BlogSummaryMailGenerator {
     }
 
     private String appendNewLinesIfNotEmpty(String text, int numberOfNewLines) {
-        if (StringUtils.isEmpty(text)) {
-            return text;
+        if (isEmpty(text)) {
+            return "";
         } else {
             return text + StringUtils.repeat(NEW_LINE, numberOfNewLines);
         }
     }
 
     private String prepareVariaSection(String variaContent, int numberOfNewLines) {
-        if (StringUtils.isEmpty(variaContent)) {
-            return variaContent;
+        if (isEmpty(variaContent)) {
+            return "";
         } else {
             return "Varia:" + NEW_LINE + variaContent
                 + StringUtils.repeat(NEW_LINE, numberOfNewLines);
