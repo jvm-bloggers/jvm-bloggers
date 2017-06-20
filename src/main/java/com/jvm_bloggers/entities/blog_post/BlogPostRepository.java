@@ -13,7 +13,7 @@ import java.util.Set;
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
-    Option<BlogPost> findByUrl(String url);
+    Option<BlogPost> findByUrlEndingWith(String urlWithoutProtocol);
 
     Option<BlogPost> findByUid(String uid);
 

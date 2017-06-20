@@ -48,7 +48,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         RssEntryWithAuthor message = new RssEntryWithAuthor(blog, entry)
         blogPostFactory.create(postTitle, postUrl, toLocalDateTime(entry.getPublishedDate()), blog) >> blogPost
-        blogPostRepository.findByUrl(postUrl) >> Option.none()
+        blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -65,7 +65,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         String postDescription = "description"
         SyndEntry entry = mockSyndEntry(invalidLink, postTitle, postDescription)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(invalidLink) >> Option.none()
+        blogPostRepository.findByUrlEndingWith(invalidLink) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -87,7 +87,28 @@ class NewBlogPostStoringActorSpec extends Specification {
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         BlogPost blogPost = Mock()
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(postUrl) >> Option.of(blogPost)
+        blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.of(blogPost)
+
+        when:
+        blogPostingActor.tell(message, ActorRef.noSender())
+        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+
+        then:
+        1 * blogPost.setDescription(postDescription)
+
+        then:
+        1 * blogPostRepository.save(blogPost)
+    }
+
+    def "Should update only description if post already exists with different protocol"() {
+        given:
+        String postUrl = "http://blogpost.com/blog"
+        String postTitle = "Title"
+        String postDescription = "description"
+        SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
+        BlogPost blogPost = Mock()
+        RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
+        blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.of(blogPost)
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -107,7 +128,7 @@ class NewBlogPostStoringActorSpec extends Specification {
         Date updatedDate = new Date().minus(1)
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
-        blogPostRepository.findByUrl(postUrl) >> Option.none()
+        blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
@@ -131,6 +152,10 @@ class NewBlogPostStoringActorSpec extends Specification {
             getValue() >> postDescription
         }
         return entry
+    }
+
+    private String removeHttpProtocolFrom(String link) {
+        return link.replaceAll("^http", "")
     }
 
 }
