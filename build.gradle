@@ -64,7 +64,7 @@ dependencies {
     compile 'com.rometools:rome:1.7.3'
 
     // Facebook
-    compile 'com.restfb:restfb:1.40.1'
+    compile 'com.restfb:restfb:1.42.0'
 
     // View
     compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.0.3'
