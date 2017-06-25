@@ -972,6 +972,11 @@
       "name": "Mateusz Maciaszek",
       "rss": "http://speedcom.github.io/feed.xml",
       "twitter": "@mcmaciaszek"
+    },
+    {
+      "jsonId": 171,
+      "name": "Bartłomiej Mazur",
+      "rss": "https://blog.gotofinal.com/feed.xml"
     }
   ]
 }
