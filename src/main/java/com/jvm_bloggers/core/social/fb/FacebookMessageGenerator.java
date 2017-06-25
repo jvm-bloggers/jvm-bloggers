@@ -8,7 +8,7 @@ import static java.lang.String.format;
 class FacebookMessageGenerator {
 
     private static final String MESSAGE_TEMPLATE =
-        "Nowe wydanie JVM Bloggers czeka już na Was: %s #java #jvm #newsletter #jvmbloggers #blogs";
+        "Nowe wydanie JVM Bloggers czeka już na Was: %s #java #jvm #blogs";
 
     public String generateFacebookMessage(String issueLink) {
         return format(MESSAGE_TEMPLATE, issueLink);
