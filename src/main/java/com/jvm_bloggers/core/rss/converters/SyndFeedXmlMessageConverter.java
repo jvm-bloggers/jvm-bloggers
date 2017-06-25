@@ -14,6 +14,8 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 import static org.springframework.http.MediaType.APPLICATION_ATOM_XML;
 
@@ -42,7 +44,7 @@ public class SyndFeedXmlMessageConverter extends AbstractHttpMessageConverter<Sy
     protected void writeInternal(SyndFeed syndFeed, HttpOutputMessage outputMessage)
         throws IOException, HttpMessageNotWritableException {
 
-        String xml = new SyndFeedOutput().outputString(syndFeed);
-        outputMessage.getBody().write(xml.getBytes());
+        Writer writer = new PrintWriter(outputMessage.getBody());
+        new SyndFeedOutput().output(syndFeed, writer);
     }
 }
