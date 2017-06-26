@@ -16,16 +16,4 @@ class FacebookMessageGeneratorSpec extends Specification {
         facebookMessage.contains(issueLink)
     }
 
-    def "Should generate a Facebook message with an issue heading"() {
-        given:
-        FacebookMessageGenerator generator = new FacebookMessageGenerator()
-        String issueLink = "http://jvm-bloggers.com/issue/1"
-
-        when:
-        String facebookMessage = generator.generateFacebookMessage(issueLink)
-
-        then:
-        facebookMessage.contains(issueLink)
-    }
-
 }
