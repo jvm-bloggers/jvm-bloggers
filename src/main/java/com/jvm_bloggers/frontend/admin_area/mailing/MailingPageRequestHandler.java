@@ -11,10 +11,13 @@ import com.jvm_bloggers.utils.NowProvider;
 
 import lombok.AllArgsConstructor;
 
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MailingPageRequestHandler {
 
     private NowProvider nowProvider;
