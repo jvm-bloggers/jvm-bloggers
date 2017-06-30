@@ -52,7 +52,7 @@ public class NewsletterIssueFactory {
     private LocalDateTime calculateStartDate(int daysInThePastToIncludeInNewIssue) {
         return nowProvider.now()
             .minusDays(daysInThePastToIncludeInNewIssue)
-            .withHour(11)
+            .withHour(10)
             .withMinute(0)
             .withSecond(0)
             .withNano(0);
