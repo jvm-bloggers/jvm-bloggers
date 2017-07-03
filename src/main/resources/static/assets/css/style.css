@@ -2293,6 +2293,7 @@ pre code {
 
 .container:before,
 .container:after {
+  padding-top: 15px;
   content: " ";
   display: table;
 }
