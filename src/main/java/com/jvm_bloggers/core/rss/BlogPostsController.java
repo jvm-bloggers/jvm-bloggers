@@ -38,7 +38,7 @@ public class BlogPostsController {
     @RequestMapping(
         method = RequestMethod.GET,
         path = RSS_FEED_MAPPING,
-        produces = {APPLICATION_JSON_UTF8_VALUE, APPLICATION_ATOM_XML_VALUE}
+        produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
     )
     public SyndFeed getRss(HttpServletRequest request,
                            @RequestParam(required = false) Integer limit,

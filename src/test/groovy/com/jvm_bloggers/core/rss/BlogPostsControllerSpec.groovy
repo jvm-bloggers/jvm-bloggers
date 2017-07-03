@@ -15,6 +15,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 class BlogPostsControllerSpec extends SpringContextAwareSpecification {
 
+    private static final String BROWSER_ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0"
+
     @Autowired
     WebApplicationContext webApplicationContext
 
@@ -25,7 +27,8 @@ class BlogPostsControllerSpec extends SpringContextAwareSpecification {
                 .build()
 
         expect:
-        mockMvc.perform(get("/pl/rss.$format"))
+        mockMvc.perform(get("/pl/rss.$format")
+                .header("Accept", BROWSER_ACCEPT_HEADER))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(mediaType))
 
@@ -35,4 +38,5 @@ class BlogPostsControllerSpec extends SpringContextAwareSpecification {
         "xml"  || APPLICATION_ATOM_XML_VALUE
         ""     || APPLICATION_ATOM_XML_VALUE
     }
+
 }
