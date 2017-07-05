@@ -66,6 +66,9 @@ dependencies {
     // Facebook
     compile 'com.restfb:restfb:1.40.1'
 
+    // Twitter
+    compile 'org.twitter4j:twitter4j-core:4.0.6'
+
     // View
     compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.0.3'
     compile "org.apache.wicket:wicket-devutils:$wicketVersion"
