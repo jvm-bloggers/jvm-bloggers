@@ -14,7 +14,6 @@
     margin-top: 0.75rem;
 }
 
-.container:before,
-.container:after {
+.container:before {
   padding-left: 15px;
 }
