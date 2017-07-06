@@ -13,3 +13,7 @@
 .rd-navbar-static .rd-navbar-nav > li > .rd-navbar-dropdown, .rd-navbar-fullwidth .rd-navbar-nav > li > .rd-navbar-dropdown {
     margin-top: 0.75rem;
 }
+
+.container:before {
+  padding-left: 15px;
+}
