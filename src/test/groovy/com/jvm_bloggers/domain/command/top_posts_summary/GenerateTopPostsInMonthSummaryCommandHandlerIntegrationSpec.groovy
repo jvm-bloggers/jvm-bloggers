@@ -58,7 +58,9 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
             int index = it.getSecond()
             BlogPost post = it.getFirst()
             for (int i = 0; i < index; i++) {
-                clickRepository.save(new Click(post, START_OF_MONTH))
+                clickRepository.save(new Click(
+                    post, START_OF_MONTH, "anyIp", "anyReferer", "anyUserAgent")
+                )
             }
         })
 
@@ -114,7 +116,9 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
 
     private void saveClicksForPost(BlogPost post, LocalDateTime dateTime, int howMany) {
         for (int i = 0; i < howMany; i++) {
-            clickRepository.save(new Click(post, dateTime))
+            clickRepository.save(
+                new Click(post, dateTime, "anyIp", "anyReferer", "anyUserAgent")
+            )
         }
     }
 

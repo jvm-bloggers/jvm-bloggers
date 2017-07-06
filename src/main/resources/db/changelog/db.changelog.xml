@@ -491,4 +491,16 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="040-add-ip-referer-user-agent-fields-to-click-table" author="Tomasz.Dziurko">
+        <addColumn tableName="CLICK">
+            <column name="IP_ADDRESS" type="varchar(20)"/>
+            <column name="REFERER" type="varchar(256)"/>
+            <column name="USER_AGENT" type="varchar(256)"/>
+        </addColumn>
+
+        <sql>
+            update click set ip_address = id, referer=id, user_agent=id;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
