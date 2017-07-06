@@ -21,8 +21,18 @@ public class ClicksStoringActor extends AbstractActor {
         return receiveBuilder().match(SingleClick.class,
             clickEvent -> {
                 log.debug("Storing click for " + clickEvent.getBlogPost().getUrl());
-                clickRepository.save(new Click(clickEvent.getBlogPost(), nowProvider.now()));
+                clickRepository.save(createClick(clickEvent));
             }).build();
+    }
+
+    private Click createClick(SingleClick clickEvent) {
+        return new Click(
+            clickEvent.getBlogPost(),
+            nowProvider.now(),
+            clickEvent.getIp().getValue(),
+            clickEvent.getReferer().getValue(),
+            clickEvent.getUserAgent().getValue()
+        );
     }
 
     public static Props props(ClickRepository clickRepository, NowProvider nowProvider) {
