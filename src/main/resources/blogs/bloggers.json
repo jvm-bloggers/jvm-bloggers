@@ -977,6 +977,12 @@
       "jsonId": 171,
       "name": "Bartłomiej Mazur",
       "rss": "https://blog.gotofinal.com/feed.xml"
+    },
+    {
+      "jsonId": 172,
+      "name": "Mateusz Kupilas",
+      "rss": "http://www.javadevmatt.pl/feed/",
+      "twitter": "@JavaDevMatt"
     }
   ]
 }
