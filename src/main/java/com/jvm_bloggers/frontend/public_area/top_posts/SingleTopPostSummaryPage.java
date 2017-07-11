@@ -4,6 +4,7 @@ import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost;
 import com.jvm_bloggers.domain.query.top_posts_summary.PublishedTopPostSummary;
 import com.jvm_bloggers.frontend.common_components.PublishedBlogPostLink;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
+import com.jvm_bloggers.frontend.public_area.social_meta_data.SocialMetaData;
 import javaslang.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.markup.html.basic.Label;
@@ -91,8 +92,16 @@ public class SingleTopPostSummaryPage extends AbstractFrontendPage {
 
     @Override
     protected String getPageTitle() {
-        YearMonth month = parseParameters(getPageParameters()).getOrElseGet(t -> YearMonth.now());
+        YearMonth month = extractYearMonth(getPageParameters());
         return String.format("%s - %s", stringify(month), "najlepsze posty");
     }
 
+    private YearMonth extractYearMonth(PageParameters pageParameters) {
+        return parseParameters(pageParameters).getOrElseGet(t -> YearMonth.now());
+    }
+
+    @Override
+    protected SocialMetaData getSocialMetaTags() {
+        return backingBean.createSocialMetaTags(extractYearMonth(getPageParameters()));
+    }
 }
