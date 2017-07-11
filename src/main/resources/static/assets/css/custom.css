@@ -17,3 +17,7 @@
 .container:before {
   padding-top: 15px;
 }
+
+ul > .item > li {
+    margin-top: 0.9375rem;
+}

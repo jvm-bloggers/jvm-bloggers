@@ -1,0 +1,20 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<body>
+
+<wicket:extend>
+
+    <h3>Autorem wpisów jest <span wicket:id="author"></span></h3>
+    <span wicket:id="pageable-wrapper">
+        <ul wicket:id="pageable">
+            <div class="item">
+                <li><a wicket:id="link" target="_blank">[link]</a> <span wicket:id="date">[date]</span></li>
+            </div>
+        </ul>
+        <div wicket:id="infinite-pager"></div>
+    </span>
+
+</wicket:extend>
+
+</body>
+</html>

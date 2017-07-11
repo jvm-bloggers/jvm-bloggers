@@ -1,0 +1,28 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<body>
+
+<wicket:extend>
+
+    <h2>Monitorowane blogi</h2>
+    <div>w nawiasach liczba postów w ostatnich 3 i 6 miesiącach</div>
+
+    <ul role="tablist" class="nav nav-tabs text-center">
+        <li role="presentation" wicket:id="personal"></li>
+        <li role="presentation" wicket:id="company"></li>
+        <li role="presentation" wicket:id="video"></li>
+    </ul>
+
+    <span wicket:id="pageable-wrapper">
+        <ul wicket:id="pageable">
+            <div class="item">
+                <li><a wicket:id="blogPostsLinkId"><i class="fa fa-list"></i></a> <a wicket:id="url">[blog link]</a> by <a wicket:id="authorLink" target="_blank">[authorLink]</a><span wicket:id="author">[author]</span> (<span wicket:id="countFirstRange">[12]</span>/<span wicket:id="countSecondRange">[12]</span>)</li>
+            </div>
+        </ul>
+        <div wicket:id="infinite-pager"></div>
+    </span>
+
+</wicket:extend>
+
+</body>
+</html>
