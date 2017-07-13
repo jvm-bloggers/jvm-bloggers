@@ -14,8 +14,7 @@ public class DefaultSocialMetaData implements SocialMetaData {
         + " co tydzień nowe wydanie, co tydzień nowa porcja wiedzy";
     public static final String DEFAULT_IMAGE = "http://jvm-bloggers.com/jvm-bloggers.png";
 
-    private static final DefaultSocialMetaData INSTANCE =
-        new DefaultSocialMetaData(DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_IMAGE);
+    private static final DefaultSocialMetaData INSTANCE = new DefaultSocialMetaData();
 
     private String title;
     private String description;
@@ -25,7 +24,11 @@ public class DefaultSocialMetaData implements SocialMetaData {
         return INSTANCE;
     }
 
-    private DefaultSocialMetaData(String title, String description, String imageUrl) {
+    protected DefaultSocialMetaData() {
+        this(DEFAULT_TITLE, DEFAULT_DESCRIPTION, DEFAULT_IMAGE);
+    }
+
+    protected DefaultSocialMetaData(String title, String description, String imageUrl) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
