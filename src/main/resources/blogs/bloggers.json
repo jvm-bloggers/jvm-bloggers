@@ -983,6 +983,12 @@
       "name": "Mateusz Kupilas",
       "rss": "http://www.javadevmatt.pl/feed/",
       "twitter": "@JavaDevMatt"
+    },
+    {
+      "jsonId": 173,
+      "name": "Grzegorz Dyrda",
+      "rss": "http://blog.geekydevs.com/feed/",
+      "twitter": "@grzegorzdyrda"
     }
   ]
 }
