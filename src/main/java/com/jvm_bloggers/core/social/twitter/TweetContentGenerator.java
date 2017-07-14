@@ -21,7 +21,7 @@ import static lombok.AccessLevel.PACKAGE;
 class TweetContentGenerator {
 
     private static final String MESSAGE_TEMPLATE =
-        "Nowy numer #%s już online - %s z postami m.in. %s i %s #java #jvm";
+        "Nowy numer #%s już online - %s z postami m.in. %s, %s i %s #java #jvm";
 
     private final LinkGenerator linkGenerator;
     private final Random random = new Random();
@@ -33,10 +33,11 @@ class TweetContentGenerator {
         final List<String> companyTTs =
             issue.getBlogPosts().stream().map(b -> b.getBlog()).filter(b -> !b.isPersonal())
                 .map(b -> b.getTwitter()).collect(toList());
-        final String tt1 = personalTTs.remove(random.nextInt(personalTTs.size()));
-        final String tt2 = personalTTs.remove(random.nextInt(personalTTs.size()));
+        final String personalHandle1 = personalTTs.remove(random.nextInt(personalTTs.size()));
+        final String personalHandle2 = personalTTs.remove(random.nextInt(personalTTs.size()));
+        final String companyHandle = companyTTs.remove(random.nextInt(personalTTs.size()));
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
-        final String tweetContent = format(MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink, tt1, tt2);
+        final String tweetContent = format(MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink, personalHandle1, companyHandle, personalHandle2);
         // check for length - link 23 chars, number 3 chars
         // two variants - with single mention and two of them
         // add at the end #java #jvm (higher priority than authors?)

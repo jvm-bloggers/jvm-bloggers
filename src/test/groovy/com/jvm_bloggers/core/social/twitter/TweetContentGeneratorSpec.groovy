@@ -58,7 +58,6 @@ class TweetContentGeneratorSpec extends Specification {
             String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            println tweetContent
             def personal = /@personal/
             def personalBlogs = (tweetContent =~ /$personal/)
             assert personalBlogs.count == 2
@@ -77,13 +76,28 @@ class TweetContentGeneratorSpec extends Specification {
             String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            println tweetContent
             def company = /@company/
             def companyBlogs = (tweetContent =~ /$company/)
             assert companyBlogs.count == 1
     }
 
-    // Should add company twitter handle as the second on handles list
+    def "Should add company twitter handle as the second on handles list"() {
+        given:
+            NewsletterIssue issue = NewsletterIssue
+                    .builder()
+                    .issueNumber(ISSUE_NUMBER)
+                    .heading("issue heading")
+                    .blogPosts(posts())
+                    .build()
+
+        when:
+            String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+            def handles = /.*@personal\d{1}, @company\d{1} i @personal\d{1}.*/
+            tweetContent ==~ /$handles/
+    }
+
     // Should not add the second personal twitter handle if message is too long
     // Should always have java and jvm tags at the end
 
