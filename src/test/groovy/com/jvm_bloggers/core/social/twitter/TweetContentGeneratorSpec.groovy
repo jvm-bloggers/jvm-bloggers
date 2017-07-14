@@ -7,6 +7,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
+import spock.lang.Subject
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
@@ -18,13 +19,17 @@ class TweetContentGeneratorSpec extends Specification {
 
     private final Random randomJsonId = new Random()
     private final NowProvider nowProvider = new NowProvider()
+    private final LinkGenerator linkGenerator = Mock(LinkGenerator)
+
+    @Subject
+    private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)
+
+    def setup() {
+        linkGenerator.generateIssueLink(_) >> { args -> LINK }
+    }
 
     def "Should generate a Tweet content with an issue number and link"() {
         given:
-            LinkGenerator linkGenerator = Mock(LinkGenerator)
-            linkGenerator.generateIssueLink(_) >> { args -> LINK }
-            TweetContentGenerator generator = new TweetContentGenerator(linkGenerator)
-        and:
             NewsletterIssue issue = NewsletterIssue
                     .builder()
                     .issueNumber(ISSUE_NUMBER)
@@ -33,7 +38,7 @@ class TweetContentGeneratorSpec extends Specification {
                     .build()
 
         when:
-            String tweetContent = generator.generateTweetContent(issue)
+            String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
             tweetContent.contains(issue.issueNumber as String)
@@ -42,10 +47,6 @@ class TweetContentGeneratorSpec extends Specification {
 
     def "Should add two twitter handles of personal blogs"() {
         given:
-            LinkGenerator linkGenerator = Mock(LinkGenerator)
-            linkGenerator.generateIssueLink(_) >> { args -> LINK }
-            TweetContentGenerator generator = new TweetContentGenerator(linkGenerator)
-        and:
             NewsletterIssue issue = NewsletterIssue
                     .builder()
                     .issueNumber(ISSUE_NUMBER)
@@ -54,7 +55,7 @@ class TweetContentGeneratorSpec extends Specification {
                     .build()
 
         when:
-            String tweetContent = generator.generateTweetContent(issue)
+            String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
             println tweetContent
@@ -63,7 +64,25 @@ class TweetContentGeneratorSpec extends Specification {
             assert personalBlogs.count == 2
     }
 
-    // Should add one twitter handle of company blog
+    def "Should add one twitter handle of company blog"() {
+        given:
+            NewsletterIssue issue = NewsletterIssue
+                    .builder()
+                    .issueNumber(ISSUE_NUMBER)
+                    .heading("issue heading")
+                    .blogPosts(posts())
+                    .build()
+
+        when:
+            String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+            println tweetContent
+            def company = /@company/
+            def companyBlogs = (tweetContent =~ /$company/)
+            assert companyBlogs.count == 1
+    }
+
     // Should add company twitter handle as the second on handles list
     // Should not add the second personal twitter handle if message is too long
     // Should always have java and jvm tags at the end
