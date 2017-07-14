@@ -8,6 +8,7 @@ import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Unroll
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
@@ -17,8 +18,9 @@ class TweetContentGeneratorSpec extends Specification {
     private static final long ISSUE_NUMBER = 999L
     private static final String LINK = "http://jvm-bloggers.com/issue/$ISSUE_NUMBER"
 
-    private final Random randomJsonId = new Random()
-    private final NowProvider nowProvider = new NowProvider()
+    private static final Random randomJsonId = new Random()
+    private static final NowProvider nowProvider = new NowProvider()
+
     private final LinkGenerator linkGenerator = Mock(LinkGenerator)
 
     @Subject
@@ -94,13 +96,48 @@ class TweetContentGeneratorSpec extends Specification {
             String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
+            println tweetContent.length()
             def handles = /.*@personal\d{1}, @company\d{1} i @personal\d{1}.*/
             tweetContent ==~ /$handles/
     }
 
-    // Should not add the second personal twitter handle if message is too long
-    // Should always have java and jvm tags at the end
+    def "Should not add the second personal twitter handle if message is too long"() {
+        given:
+            NewsletterIssue issue = NewsletterIssue
+                    .builder()
+                    .issueNumber(ISSUE_NUMBER)
+                    .heading("issue heading")
+                    .blogPosts(postsWithLongHandles())
+                    .build()
 
+        when:
+            String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+            println tweetContent.length()
+            def handles = /.*@veryLongPersonalHandle\d{1} i @veryLongCompanyHandle\d{1}.*/
+            tweetContent ==~ /$handles/
+    }
+
+    @Unroll
+    def "Should always have java and jvm tags at the end"() {
+        given:
+            NewsletterIssue issue = NewsletterIssue
+                    .builder()
+                    .issueNumber(ISSUE_NUMBER)
+                    .heading("issue heading")
+                    .blogPosts(posts)
+                    .build()
+
+        when:
+            String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+            tweetContent.endsWith("#java #jvm")
+
+        where:
+            posts << [posts(), postsWithLongHandles()]
+    }
 
     private Collection<BlogPost> posts() {
         List<BlogPost> posts = new ArrayList<>()
@@ -109,6 +146,16 @@ class TweetContentGeneratorSpec extends Specification {
         posts.add(blogPost(blog("@company1", COMPANY)))
         posts.add(blogPost(blog("@company2", COMPANY)))
         posts.add(blogPost(blog("@personal3", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> postsWithLongHandles() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@veryLongPersonalHandle1", PERSONAL)))
+        posts.add(blogPost(blog("@veryLongPersonalHandle2", PERSONAL)))
+        posts.add(blogPost(blog("@veryLongCompanyHandle1", COMPANY)))
+        posts.add(blogPost(blog("@veryLongCompanyHandle2", COMPANY)))
+        posts.add(blogPost(blog("@veryLongPersonalHandle3", PERSONAL)))
         return posts
     }
 
