@@ -27,10 +27,14 @@ class TweetContentGenerator {
     private final Random random = new Random();
 
     public String generateTweetContent(NewsletterIssue issue) {
-        final List<String> twitters =
-            issue.getBlogPosts().stream().map(b -> b.getBlog().getTwitter()).collect(toList());
-        final String tt1 = twitters.remove(random.nextInt(twitters.size()));
-        final String tt2 = twitters.remove(random.nextInt(twitters.size()));
+        final List<String> personalTTs =
+            issue.getBlogPosts().stream().map(b -> b.getBlog()).filter(b -> b.isPersonal())
+                .map(b -> b.getTwitter()).collect(toList());
+        final List<String> companyTTs =
+            issue.getBlogPosts().stream().map(b -> b.getBlog()).filter(b -> !b.isPersonal())
+                .map(b -> b.getTwitter()).collect(toList());
+        final String tt1 = personalTTs.remove(random.nextInt(personalTTs.size()));
+        final String tt2 = personalTTs.remove(random.nextInt(personalTTs.size()));
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
         final String tweetContent = format(MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink, tt1, tt2);
         // check for length - link 23 chars, number 3 chars

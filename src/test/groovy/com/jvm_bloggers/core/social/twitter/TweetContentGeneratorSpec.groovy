@@ -2,11 +2,13 @@ package com.jvm_bloggers.core.social.twitter
 
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.entities.blog.Blog
+import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
+import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
 class TweetContentGeneratorSpec extends Specification {
@@ -38,7 +40,29 @@ class TweetContentGeneratorSpec extends Specification {
             tweetContent.contains(LINK)
     }
 
-    // Should add two twitter handles of personal blogs
+    def "Should add two twitter handles of personal blogs"() {
+        given:
+            LinkGenerator linkGenerator = Mock(LinkGenerator)
+            linkGenerator.generateIssueLink(_) >> { args -> LINK }
+            TweetContentGenerator generator = new TweetContentGenerator(linkGenerator)
+        and:
+            NewsletterIssue issue = NewsletterIssue
+                    .builder()
+                    .issueNumber(ISSUE_NUMBER)
+                    .heading("issue heading")
+                    .blogPosts(posts())
+                    .build()
+
+        when:
+            String tweetContent = generator.generateTweetContent(issue)
+
+        then:
+            println tweetContent
+            def personal = /@personal/
+            def personalBlogs = (tweetContent =~ /$personal/)
+            assert personalBlogs.count == 2
+    }
+
     // Should add one twitter handle of company blog
     // Should add company twitter handle as the second on handles list
     // Should not add the second personal twitter handle if message is too long
@@ -47,9 +71,11 @@ class TweetContentGeneratorSpec extends Specification {
 
     private Collection<BlogPost> posts() {
         List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("author1")))
-        posts.add(blogPost(blog("author2")))
-        posts.add(blogPost(blog("author3")))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal2", PERSONAL)))
+        posts.add(blogPost(blog("@company1", COMPANY)))
+        posts.add(blogPost(blog("@company2", COMPANY)))
+        posts.add(blogPost(blog("@personal3", PERSONAL)))
         return posts
     }
 
@@ -63,7 +89,7 @@ class TweetContentGeneratorSpec extends Specification {
             .build()
     }
 
-    private Blog blog(String twitterHandle) {
+    private Blog blog(String twitterHandle, BlogType blogType) {
         Blog.builder()
             .jsonId(randomJsonId.nextLong())
             .author("author")
@@ -71,7 +97,7 @@ class TweetContentGeneratorSpec extends Specification {
             .rss("rss")
             .url("url")
             .dateAdded(nowProvider.now())
-            .blogType(PERSONAL)
+            .blogType(blogType)
             .build()
     }
 
