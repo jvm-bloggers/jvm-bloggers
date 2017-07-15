@@ -1,6 +1,8 @@
 package com.jvm_bloggers
 
 import com.jvm_bloggers.frontend.admin_area.session.UserSession
+import de.agilecoders.wicket.webjars.WicketWebjars
+import de.agilecoders.wicket.webjars.settings.WebjarsSettings
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import com.jvm_bloggers.frontend.wicket.RenderJavaScriptToFooterHeaderResponseDecorator
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -29,7 +31,8 @@ abstract class MockSpringContextAwareSpecification extends Specification {
                 new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container"))
         webApp.getComponentInstantiationListeners()
                 .add(new SpringComponentInjector(webApp, mockApplicationContext))
-        new BeanValidationConfiguration().configure(webApp);
+        WicketWebjars.install(webApp, new WebjarsSettings())
+        new BeanValidationConfiguration().configure(webApp)
         setupContext()
     }
 

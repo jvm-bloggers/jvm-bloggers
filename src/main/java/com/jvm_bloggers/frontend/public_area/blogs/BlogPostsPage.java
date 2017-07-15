@@ -56,10 +56,10 @@ public class BlogPostsPage extends AbstractFrontendPage {
 
         DataView dataView = createBlogPostDataView(requestHandler);
         WebMarkupContainer pageableWrapper = new WebMarkupContainer(DATA_VIEW_WRAPPER_ID);
+        pageableWrapper.setOutputMarkupId(true);
         add(pageableWrapper);
         pageableWrapper.add(dataView);
-        pageableWrapper.add(new InfinitePaginationPanel(INFINITE_SCROLL_ID,
-            pageableWrapper, dataView));
+        pageableWrapper.add(new InfinitePaginationPanel(INFINITE_SCROLL_ID, dataView));
     }
 
     private DataView<BlogPost> createBlogPostDataView(BlogPostsPageRequestHandler requestHandler) {

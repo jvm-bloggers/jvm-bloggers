@@ -5,11 +5,9 @@
 <wicket:extend>
 
     <h3>Autorem wpisów jest <span wicket:id="author"></span></h3>
-    <span wicket:id="pageable-wrapper">
-        <ul wicket:id="pageable">
-            <div class="item">
-                <li><a wicket:id="link" target="_blank">[link]</a> <span wicket:id="date">[date]</span></li>
-            </div>
+    <span wicket:id="pageable-wrapper" class="infinite-scroll-list">
+        <ul wicket:id="pageable" class="item">
+            <li><a wicket:id="link" target="_blank">[link]</a> <span wicket:id="date">[date]</span></li>
         </ul>
         <div wicket:id="infinite-pager"></div>
     </span>

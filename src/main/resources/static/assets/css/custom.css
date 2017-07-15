@@ -18,6 +18,10 @@
   padding-top: 15px;
 }
 
-ul > .item > li {
+.infinite-scroll-list .item li {
     margin-top: 0.9375rem;
+}
+
+.infinite-scroll-list .item li:last-child {
+    margin-bottom: 0.9375rem;
 }

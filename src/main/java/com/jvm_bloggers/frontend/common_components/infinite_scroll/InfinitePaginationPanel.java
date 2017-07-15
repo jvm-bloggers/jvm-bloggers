@@ -17,7 +17,7 @@ public class InfinitePaginationPanel extends Panel {
 
     private final Model<String> callbackUrl;
 
-    public InfinitePaginationPanel(String id, Component itemParent, DataView dataView) {
+    public InfinitePaginationPanel(String id, DataView dataView) {
         super(id);
         setOutputMarkupId(true);
 
@@ -27,19 +27,12 @@ public class InfinitePaginationPanel extends Panel {
 
         add(pager);
         add(nextLink);
-        add(newInfiniteScrollingBehavior(pager, nextLink, itemParent));
+        add(newInfiniteScrollingBehavior(nextLink));
     }
 
-    protected InfiniteScrollingBehavior newInfiniteScrollingBehavior(final Component pager,
-                                                                     final Component nextLink,
-                                                                     final Component itemParent) {
+    protected InfiniteScrollingBehavior newInfiniteScrollingBehavior(final Component nextLink) {
         final InfiniteScrollingBehavior scrollingBehavior = new InfiniteScrollingBehavior();
-        scrollingBehavior.setNavSelector(pager);
-        scrollingBehavior.setItemSelector(itemParent, ".item");
         scrollingBehavior.setNextSelector(nextLink);
-        scrollingBehavior.extraScrollPx(20);
-        scrollingBehavior.loadingMsgText("loading...");
-        scrollingBehavior.loadingFinishedMsg("completed!");
 
         return scrollingBehavior;
     }

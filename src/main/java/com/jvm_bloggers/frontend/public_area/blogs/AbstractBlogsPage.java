@@ -50,11 +50,11 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
     AbstractBlogsPage() {
         createNavigationItems();
         WebMarkupContainer pageableWrapper = new WebMarkupContainer(DATA_VIEW_WRAPPER_ID);
+        pageableWrapper.setOutputMarkupId(true);
         add(pageableWrapper);
         DataView dataView = createBlogChannelList(DATA_VIEW_ID);
         pageableWrapper.add(dataView);
-        pageableWrapper.add(new InfinitePaginationPanel(INFINITE_SCROLL_ID,
-            pageableWrapper, dataView));
+        pageableWrapper.add(new InfinitePaginationPanel(INFINITE_SCROLL_ID, dataView));
     }
 
     private void createNavigationItems() {

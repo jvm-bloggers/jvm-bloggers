@@ -6,6 +6,10 @@ import com.jvm_bloggers.frontend.admin_area.session.UserSession;
 import com.jvm_bloggers.frontend.public_area.HomePage;
 import com.jvm_bloggers.frontend.wicket.RenderJavaScriptToFooterHeaderResponseDecorator;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
+import de.agilecoders.wicket.webjars.WicketWebjars;
+import de.agilecoders.wicket.webjars.settings.WebjarsSettings;
+
 import net.ftlines.wicketsource.WicketSource;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
@@ -44,6 +48,7 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
         if (configurationType == RuntimeConfigurationType.DEVELOPMENT) {
             WicketSource.configure(this);
         }
+        WicketWebjars.install(this, new WebjarsSettings());
     }
 
     @Override
