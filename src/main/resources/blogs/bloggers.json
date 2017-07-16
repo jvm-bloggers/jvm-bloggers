@@ -989,6 +989,12 @@
       "name": "Grzegorz Dyrda",
       "rss": "http://blog.geekydevs.com/feed/",
       "twitter": "@grzegorzdyrda"
+    },
+    {
+      "jsonId": 174,
+      "name": "Bartłomiej Kiełbasa",
+      "rss": "https://iamcode.guru/category/jvm/feed/",
+      "twitter": "@kabanek"
     }
   ]
 }
