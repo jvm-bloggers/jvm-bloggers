@@ -42,10 +42,17 @@ class TweetContentGenerator {
         final String companyHandle = companyTTs.remove(random.nextInt(personalTTs.size()));
 
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
-        final String tweetContent = format(MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink, personalHandle1, companyHandle, personalHandle2);
+        final String tweetContent =
+            format(
+                MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink,
+                personalHandle1, companyHandle, personalHandle2
+            );
 
         if (tweetIsTooLong(tweetContent, issueLink.length())) {
-            return format(SHORT_MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink, personalHandle1, companyHandle);
+            return format(
+                SHORT_MESSAGE_TEMPLATE, issue.getIssueNumber(), issueLink,
+                personalHandle1, companyHandle
+            );
         } else {
             return tweetContent;
         }
