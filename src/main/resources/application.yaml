@@ -35,6 +35,7 @@ scheduler:
   send-email: 240000 # 4 minutes
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
+  publish-twitter: 36000 # 5 minutes
 
 github.api:
   token: #Personal access tokens can be created under https://github.com/settings/tokens
