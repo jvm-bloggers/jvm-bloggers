@@ -3,8 +3,6 @@ package com.jvm_bloggers.frontend.public_area.rss;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import com.jvm_bloggers.frontend.public_area.HomePage;
 
-import lombok.Data;
-
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -26,10 +24,7 @@ public class RssInformationPage extends AbstractFrontendPage {
         add(new ExternalLink("rss_feed_url", feedUrl, feedUrl));
 
         Arrays.stream(FeedUrl.values())
-            .forEach(e -> {
-                String url = getAbsoluteUrl(e.getParameter());
-                add(new ExternalLink(e.getId(), url, url));
-            });
+            .forEach(e -> add(getExternalLink(e)));
     }
 
     @Override
@@ -44,6 +39,11 @@ public class RssInformationPage extends AbstractFrontendPage {
 
     private String getAbsoluteUrl(String parameter) {
         return String.format(FEED_URL_PATTERN, feedUrl, parameter);
+    }
+
+    private ExternalLink getExternalLink(FeedUrl feedUrl) {
+        String url = getAbsoluteUrl(feedUrl.getParameter());
+        return new ExternalLink(feedUrl.getId(), url, url);
     }
 
     private enum FeedUrl {
