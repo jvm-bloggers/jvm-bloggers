@@ -162,7 +162,7 @@
     },
     {
       "jsonId": 24,
-      "code": "jacek-laskowski",
+      "code": "jacek-laskowski-blogpost",
       "name": "Jacek Laskowski",
       "rss": "http://jlaskowski.blogspot.com/feeds/posts/default",
       "twitter": "@jaceklaskowski"
@@ -203,7 +203,7 @@
     },
     {
       "jsonId": 31,
-      "code": "pawel-wlodarski",
+      "code": "pawel-wlodarski-1",
       "name": "Paweł Włodarski",
       "rss": "http://pawelwlodarski.blogspot.com/feeds/posts/default",
       "twitter": "@PawelWlodarski"
@@ -652,7 +652,7 @@
     },
     {
       "jsonId": 97,
-      "code": "ola-kunysz",
+      "code": "ola-kunysz-2",
       "name": "Ola Kunysz",
       "rss": "http://5months-5apps.blogspot.com/feeds/posts/default",
       "twitter": "@OlaQnysz"
@@ -708,7 +708,7 @@
     },
     {
       "jsonId": 107,
-      "code": "pawel-wlodarski",
+      "code": "pawel-wlodarski-2",
       "name": "Paweł Włodarski",
       "rss": "http://usethiscode.blogspot.com/feeds/posts/default",
       "twitter": "@PawelWlodarski"
@@ -734,7 +734,7 @@
     },
     {
       "jsonId": 111,
-      "code": "jacek-laskowski",
+      "code": "jacek-laskowski-on-medium",
       "name": "Jacek Laskowski",
       "rss": "https://medium.com/feed/@jaceklaskowski",
       "twitter": "@jaceklaskowski"
