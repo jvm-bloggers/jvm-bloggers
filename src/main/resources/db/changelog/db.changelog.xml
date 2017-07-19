@@ -503,4 +503,10 @@
         </sql>
     </changeSet>
 
+    <!--<changeSet id="041-change-column-name-in-facebook-post-table" author="Michał.Wiącek">-->
+        <!--<renameColumn tableName="FB_POST" oldColumnName="ISSUE_LINK" newColumnName="LINK"/>-->
+    <!--</changeSet>-->
+
+
+
 </databaseChangeLog>

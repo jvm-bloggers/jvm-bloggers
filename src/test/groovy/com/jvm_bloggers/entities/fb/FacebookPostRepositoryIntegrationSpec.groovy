@@ -38,7 +38,7 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
 
         then:
         notSentPost.isDefined()
-        notSentPost.get().issueLink == post1.issueLink
+        notSentPost.get().link == post1.link
     }
 
     def "Should find zero not sent posts "() {
@@ -58,9 +58,9 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
         notSentPost.isEmpty()
     }
 
-    private FacebookPost preparePost(String issueLink) {
+    private FacebookPost preparePost(String link) {
         return new FacebookPost(
-                issueLink,
+                link,
                 "anyContent"
         )
     }
