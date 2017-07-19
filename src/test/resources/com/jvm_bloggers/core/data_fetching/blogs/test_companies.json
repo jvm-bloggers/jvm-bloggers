@@ -2,12 +2,14 @@
   "bloggers": [
     {
       "jsonId": 10001,
+      "code": "softwaremill",
       "name": "SoftwareMill",
       "rss": "https://softwaremill.com/feed.xml",
       "twitter": "@softwaremill"
     },
     {
       "jsonId": 10002,
+      "code": "touk",
       "name": "TouK",
       "rss": "http://touk.pl/blog/feed/",
       "twitter": "@touk_pl"
