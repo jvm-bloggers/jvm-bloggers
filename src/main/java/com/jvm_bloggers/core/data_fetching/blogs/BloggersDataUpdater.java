@@ -6,12 +6,9 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.utils.NowProvider;
-
 import javaslang.control.Option;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +45,7 @@ public class BloggersDataUpdater {
 
         if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
+            existingBlogger.setCode(bloggerEntry.getCode());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
@@ -76,6 +74,7 @@ public class BloggersDataUpdater {
 
         Blog newBlog = Blog.builder()
             .jsonId(bloggerEntry.getJsonId())
+            .code(bloggerEntry.getCode())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())
             .url(syndFeedFactory.validUrlFromRss(

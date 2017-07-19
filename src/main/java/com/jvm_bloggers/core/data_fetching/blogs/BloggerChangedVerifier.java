@@ -14,6 +14,7 @@ public class BloggerChangedVerifier {
     public boolean pendingChanges(Blog blog, BloggerEntry bloggerEntry) {
         return !Objects.equals(blog.getAuthor(), bloggerEntry.getName())
             || !Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
+            || !Objects.equals(blog.getCode(), bloggerEntry.getCode())
             || !StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
             || !Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
             || !Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter())
