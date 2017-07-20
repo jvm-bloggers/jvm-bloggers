@@ -507,4 +507,12 @@
         <renameColumn tableName="FB_POST" oldColumnName="ISSUE_LINK" newColumnName="LINK"/>
     </changeSet>
 
+    <changeSet id="042-add-bookmarkable-id-column-to-blog-table" author="Tomasz.Dziurko">
+        <addColumn tableName="BLOG">
+            <column name="BOOKMARKABLE_ID" type="varchar(30)">
+                <constraints unique="true" uniqueConstraintName="BLOG_BOOKMARKABLE_ID_UNIQUE"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

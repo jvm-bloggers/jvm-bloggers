@@ -2,6 +2,7 @@
   "bloggers": [
     {
       "jsonId": 1,
+      "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.pl/feed/",
       "twitter": "@TomaszDziurko"
