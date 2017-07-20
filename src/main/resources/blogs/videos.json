@@ -2,75 +2,75 @@
   "bloggers": [
     {
       "jsonId": 20001,
-      "code": "trojmiasto-jug",
+      "bookmarkableId": "trojmiasto-jug",
       "name": "Trójmiasto JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCU5x5RmlIUUTyZIQKZkXHUw",
       "twitter": "@JUGTricity"
     },
     {
       "jsonId": 20002,
-      "code": "warszawa-jug",
+      "bookmarkableId": "warszawa-jug",
       "name": "Warszawa JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2coGyxf5x_CzJ3l4F-N-Sw",
       "twitter": "@warszawajug"
     },
     {
       "jsonId": 20003,
-      "code": "lodz-jug",
+      "bookmarkableId": "lodz-jug",
       "name": "Łódź JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCS5yGVNI9HfkGz9EngOLqIQ",
       "twitter": "@juglodz"
     },
     {
       "jsonId": 20004,
-      "code": "torun-jug",
+      "bookmarkableId": "torun-jug",
       "name": "Toruń JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLuHypXd9ODOivs7gRpxNZg",
       "twitter": "@TorunJUG"
     },
     {
       "jsonId": 20005,
-      "code": "poznan-jug",
+      "bookmarkableId": "poznan-jug",
       "name": "Poznań JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQqIfvcYb1nWNFP-X1woAQ",
       "twitter": "@PoznanJUG"
     },
     {
       "jsonId": 20006,
-      "code": "polish-jug",
+      "bookmarkableId": "polish-jug",
       "name": "Polish JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFQJHkJln2LF1gYy3lMqCnw",
       "twitter": "@polishjug"
     },
     {
       "jsonId": 20007,
-      "code": "geecon",
+      "bookmarkableId": "geecon",
       "name": "GeeCON",
       "rss": "https://vimeo.com/geecon/videos/rss",
       "twitter": "@geecon"
     },
     {
       "jsonId": 20008,
-      "code": "confitura",
+      "bookmarkableId": "confitura",
       "name": "Confitura",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkVjQGf_e0JmlonPMS4VNXQ",
       "twitter": "@confiturapl"
     },
     {
       "jsonId": 20009,
-      "code": "coding-skills-pl",
+      "bookmarkableId": "coding-skills-pl",
       "name": "CodingSkills PL",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQHxE5dFZ6GQ8orZC5116g"
     },
     {
       "jsonId": 20010,
-      "code": "wroclaw-jug",
+      "bookmarkableId": "wroclaw-jug",
       "name": "Wrocław JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvj_1SWNU4diTM2Z2KCUHug"
     },
     {
       "jsonId": 20011,
-      "code": "jsession",
+      "bookmarkableId": "jsession",
       "name": "jSession",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjBzbSV4De3Bjt_9BtBGsmQ",
       "twitter": "@jSessionPL"

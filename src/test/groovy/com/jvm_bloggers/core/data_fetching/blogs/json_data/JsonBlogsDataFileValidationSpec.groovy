@@ -39,38 +39,38 @@ class JsonBlogsDataFileValidationSpec extends Specification {
             .flatten()
     }
 
-    def "should check that all codes are lower-case, alphanumeric or hyphen"() {
-        List<String> violatingCodes = []
+    def "should check that all bookmarkable IDs are lower-case, alphanumeric or hyphen"() {
+        List<String> violatingIds = []
 
         when:
-        jsonEntries.code.forEach({code ->
+        jsonEntries.bookmarkableId.forEach({id ->
             CharMatcher lowercaseOrHyphen = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
                 .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
                 .or(CharMatcher.is('-' as char) as CharMatcher)
-            if (!lowercaseOrHyphen.matchesAllOf(code)) {
-                violatingCodes.add(code)
+            if (!lowercaseOrHyphen.matchesAllOf(id)) {
+                violatingIds.add(id)
             }
         })
 
         then:
-        assert violatingCodes.isEmpty() : "All codes should be lower-cased, alphanumeric or hyphen. Found violations: $violatingCodes"
+        assert violatingIds.isEmpty() : "All bookmarkable IDs should be lower-cased, alphanumeric or hyphen. Found violations: $violatingIds"
     }
 
-    def "should check that all codes are unique"() {
+    def "should check that all bookmarkable IDs are unique"() {
         given:
-        Set<String> uniqueCodes = []
-        List<String> duplicateCodes = []
+        Set<String> uniqueIds = []
+        List<String> duplicateIds = []
 
         when:
-        jsonEntries.code.forEach({code ->
-            boolean added = uniqueCodes.add(code)
+        jsonEntries.bookmarkableId.forEach({id ->
+            boolean added = uniqueIds.add(id)
             if (!added) {
-                duplicateCodes.add(code)
+                duplicateIds.add(id)
             }
         })
 
         then:
-        assert duplicateCodes.isEmpty() : "Duplicate codes found in json files: $duplicateCodes"
+        assert duplicateIds.isEmpty() : "Duplicate bookmarkable IDs found in json files: $duplicateIds"
     }
 
 }

@@ -2,110 +2,110 @@
   "bloggers": [
     {
       "jsonId": 10001,
-      "code": "softwaremill",
+      "bookmarkableId": "softwaremill",
       "name": "SoftwareMill",
       "rss": "https://softwaremill.com/feed.xml",
       "twitter": "@softwaremill"
     },
     {
       "jsonId": 10002,
-      "code": "touk",
+      "bookmarkableId": "touk",
       "name": "TouK",
       "rss": "http://touk.pl/blog/feed/",
       "twitter": "@touk_pl"
     },
     {
       "jsonId": 10003,
-      "code": "goyello",
+      "bookmarkableId": "goyello",
       "name": "Goyello",
       "rss": "http://blog.goyello.com/pl/feed/",
       "twitter": "@goyello"
     },
     {
       "jsonId": 10004,
-      "code": "pragmatists",
+      "bookmarkableId": "pragmatists",
       "name": "Pragmatists",
       "rss": "http://pragmatists.pl/blog/feed/",
       "twitter": "@pragmatists"
     },
     {
       "jsonId": 10005,
-      "code": "allegro-tech",
+      "bookmarkableId": "allegro-tech",
       "name": "Allegro.Tech",
       "rss": "http://allegro.tech/feed.xml",
       "twitter": "@AllegroTechBlog"
     },
     {
       "jsonId": 10006,
-      "code": "scalac",
+      "bookmarkableId": "scalac",
       "name": "ScalaC",
       "rss": "http://blog.scalac.io/feeds/index.xml",
       "twitter": "@scalac_io"
     },
     {
       "jsonId": 10007,
-      "code": "spring-blog",
+      "bookmarkableId": "spring-blog",
       "name": "Spring Blog",
       "rss": "http://spring.io/blog.atom",
       "twitter": "@springcentral"
     },
     {
       "jsonId": 10008,
-      "code": "virtus-lab",
+      "bookmarkableId": "virtus-lab",
       "name": "Virtus Lab",
       "rss": "http://virtuslab.com/blog/feed/",
       "twitter": "@VirtusLab"
     },
     {
       "jsonId": 10009,
-      "code": "pragmatic-coders",
+      "bookmarkableId": "pragmatic-coders",
       "name": "Pragmatic Coders",
       "rss": "http://pragmaticcoders.com/blog/feed/",
       "twitter": "@pragmaticcoders"
     },
     {
       "jsonId": 10010,
-      "code": "sii",
+      "bookmarkableId": "sii",
       "name": "Sii",
       "rss": "http://blogersii.pl/feed/",
       "twitter": "@Sii_Polska"
     },
     {
       "jsonId": 10011,
-      "code": "espeo",
+      "bookmarkableId": "espeo",
       "name": "Espeo",
       "rss": "http://espeo.eu/blog/category/all/feed/",
       "twitter": "@espeo_software"
     },
     {
       "jsonId": 10012,
-      "code": "codete",
+      "bookmarkableId": "codete",
       "name": "Codete",
       "rss": "http://codete.com/blog/feed/"
     },
     {
       "jsonId": 10013,
-      "code": "sages",
+      "bookmarkableId": "sages",
       "name": "Sages",
       "rss": "http://www.sages.com.pl/blog/feed.xml",
       "twitter": "@sagespl"
     },
     {
       "jsonId": 10014,
-      "code": "consdata",
+      "bookmarkableId": "consdata",
       "name": "Consdata",
       "rss": "http://www.consdata.pl/blog?format=feed",
       "twitter": "@Consdata"
     },
     {
       "jsonId": 10015,
-      "code": "zooplus",
+      "bookmarkableId": "zooplus",
       "name": "Zooplus",
       "rss": "http://tech.zooplus.com/rss"
     },
     {
       "jsonId": 10016,
-      "code": "gft-polska",
+      "bookmarkableId": "gft-polska",
       "name": "GFT Polska",
       "rss": "http://blog.gft.com/pl/feed",
       "twitter": "@GFT_Polska"

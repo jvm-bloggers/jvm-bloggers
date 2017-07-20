@@ -9,7 +9,7 @@ import lombok.Data;
 public class BloggerEntry {
 
     private Long jsonId;
-    private String code;
+    private String bookmarkableId;
     private String name;
     private String rss;
     private String url;
@@ -17,9 +17,14 @@ public class BloggerEntry {
     private BlogType blogType;
 
     public BloggerEntry(
-        Long jsonId, String code, String name, String rss, String twitter, BlogType blogType
+        Long jsonId,
+        String bookmarkableId,
+        String name,
+        String rss,
+        String twitter,
+        BlogType blogType
     ) {
-        this(jsonId,  code, name, rss, null, twitter, blogType);
+        this(jsonId, bookmarkableId, name, rss, null, twitter, blogType);
     }
 
     public boolean hasRss() {

@@ -37,8 +37,8 @@ public class Blog {
     @Column(nullable = false, name = "JSON_ID")
     private Long jsonId;
 
-    @Column(name = "CODE", length = 30, unique = true)
-    private String code;
+    @Column(name = "BOOKMARKABLE_ID", length = 30, unique = true)
+    private String bookmarkableId;
 
     @NonNull
     @Column(name = "AUTHOR", nullable = false, length = 250)

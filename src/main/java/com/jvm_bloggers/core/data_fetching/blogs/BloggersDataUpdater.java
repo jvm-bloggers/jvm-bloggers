@@ -45,7 +45,7 @@ public class BloggersDataUpdater {
 
         if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
             existingBlogger.setJsonId(bloggerEntry.getJsonId());
-            existingBlogger.setCode(bloggerEntry.getCode());
+            existingBlogger.setBookmarkableId(bloggerEntry.getBookmarkableId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
             existingBlogger.setRss(bloggerEntry.getRss());
@@ -74,7 +74,7 @@ public class BloggersDataUpdater {
 
         Blog newBlog = Blog.builder()
             .jsonId(bloggerEntry.getJsonId())
-            .code(bloggerEntry.getCode())
+            .bookmarkableId(bloggerEntry.getBookmarkableId())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())
             .url(syndFeedFactory.validUrlFromRss(

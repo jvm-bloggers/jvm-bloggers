@@ -503,10 +503,10 @@
         </sql>
     </changeSet>
 
-    <changeSet id="041-add-code-column-to-blog-table" author="Tomasz.Dziurko">
+    <changeSet id="041-add-bookmarkable-id-column-to-blog-table" author="Tomasz.Dziurko">
         <addColumn tableName="BLOG">
-            <column name="CODE" type="varchar(30)">
-                <constraints unique="true" uniqueConstraintName="BLOG_CODE_UNIQUE"/>
+            <column name="BOOKMARKABLE_ID" type="varchar(30)">
+                <constraints unique="true" uniqueConstraintName="BLOG_BOOKMARKABLE_ID_UNIQUE"/>
             </column>
         </addColumn>
     </changeSet>
