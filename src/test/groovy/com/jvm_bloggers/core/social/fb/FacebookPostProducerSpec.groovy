@@ -14,7 +14,7 @@ class FacebookPostProducerSpec extends Specification {
         given:
         FacebookMessageGenerator messageGenerator = new FacebookMessageGenerator()
         LinkGenerator linkGenerator = Mock(LinkGenerator)
-        linkGenerator.generateIssueLink(_) >> { args -> "$LINK_BASE${args[0]}" }
+        linkGenerator.generateLink(_) >> { args -> "$LINK_BASE${args[0]}" }
         FacebookPostRepository postRepository = Mock(FacebookPostRepository)
 
         and:
@@ -32,7 +32,7 @@ class FacebookPostProducerSpec extends Specification {
         facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)
 
         then:
-        1 * postRepository.save({ it.getLink.startsWith(LINK_BASE) && it.message != null })
+        1 * postRepository.save({ it.link.startsWith(LINK_BASE) && it.message != null })
     }
 
 }

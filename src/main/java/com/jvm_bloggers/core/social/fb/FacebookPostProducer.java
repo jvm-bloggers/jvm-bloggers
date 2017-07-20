@@ -26,9 +26,9 @@ class FacebookPostProducer {
     @EventListener
     public void handleNewIssueEvent(NewIssuePublished newIssuePublished) {
         final NewsletterIssue issue = newIssuePublished.getNewsletterIssue();
-        final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
-        final String facebookMessage = messageGenerator.generateFacebookMessage(issueLink);
-        facebookPostRepository.save(new FacebookPost(issueLink, facebookMessage));
+        final String link = linkGenerator.generateLink(issue.getIssueNumber());
+        final String facebookMessage = messageGenerator.generateFacebookMessage(link);
+        facebookPostRepository.save(new FacebookPost(link, facebookMessage));
     }
 
 }

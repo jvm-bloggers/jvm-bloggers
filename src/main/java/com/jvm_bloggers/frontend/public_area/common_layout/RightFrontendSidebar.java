@@ -40,7 +40,7 @@ public class RightFrontendSidebar extends Panel {
             protected void populateItem(ListItem<NewsletterIssueForListing> item) {
                 NewsletterIssueForListing issue = item.getModel().getObject();
                 item.add(new NewsletterIssueLink(
-                    "link",
+                    "issueLink",
                     issue.getIssueNumber(),
                     issue.getPublicationDate())
                 );

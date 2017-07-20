@@ -23,7 +23,7 @@ class IssuesInMonthPanel extends Panel {
         add(new ListView<NewsletterIssueForListing>("issuesList", monthIssues.toJavaList()) {
             @Override
             protected void populateItem(ListItem<NewsletterIssueForListing> item) {
-                item.add(new NewsletterIssueLink("link", item.getModelObject()));
+                item.add(new NewsletterIssueLink("issueLink", item.getModelObject()));
             }
         });
     }
