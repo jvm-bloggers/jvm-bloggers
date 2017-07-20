@@ -5,7 +5,7 @@
 <wicket:extend>
 
     <h2>Monitorowane blogi</h2>
-    <div>w nawiasach liczba postów w ostatnich 3 i 6 miesiącach</div>
+    <div>w nawiasach liczba postów w ostatnich 3 i 12 miesiącach</div>
 
     <ul role="tablist" class="nav nav-tabs text-center">
         <li role="presentation" wicket:id="personal"></li>
@@ -15,9 +15,12 @@
 
     <span wicket:id="pageable-wrapper" class="infinite-scroll-list">
         <ul wicket:id="pageable" class="item">
-            <li><a wicket:id="blogPostsLinkId"><i class="fa fa-list"></i></a> <a wicket:id="url">[blog link]</a> by <a wicket:id="authorLink" target="_blank">[authorLink]</a><span wicket:id="author">[author]</span> (<span wicket:id="countFirstRange">[12]</span>/<span wicket:id="countSecondRange">[12]</span>)</li>
+            <li>
+                - <a wicket:id="blogPostsLinkId"><span wicket:id="linkLabelId">[blog posts link]</span></a> by <a wicket:id="authorLink" target="_blank">[authorLink]</a><span wicket:id="author">[author]</span>
+                <wicket:enclosure child="countFirstRange">(<span wicket:id="countFirstRange">[12]</span>/<span wicket:id="countSecondRange">[12]</span>)</wicket:enclosure>
+            </li>
         </ul>
-        <div wicket:id="infinite-pager"></div>
+        <div wicket:id="infinite-pager" class="padding-bottom-40-px"></div>
     </span>
 
 </wicket:extend>

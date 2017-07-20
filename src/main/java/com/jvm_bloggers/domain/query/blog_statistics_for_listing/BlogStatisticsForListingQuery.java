@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +25,15 @@ public class BlogStatisticsForListingQuery {
 
     @Cacheable(BLOG_STATISTICS_CACHE)
     public List<BlogStatisticsForListing> findBlogPostStatistics(BlogType blogType,
-                                                                 Pageable pageable) {
+                                                                 int page, int size) {
         return blogRepository.findBlogStatistics(
             LocalDate.now().minusMonths(3).atStartOfDay(),
-            LocalDate.now().minusMonths(6).atStartOfDay(),
-            blogType, pageable)
+            LocalDate.now().minusMonths(12).atStartOfDay(),
+            blogType, new PageRequest(page, size))
             .map(BlogStatisticsForListing::fromBlogPostStatisticProjection);
+    }
+
+    public long countByBlogType(BlogType blogType) {
+        return blogRepository.countByBlogType(blogType);
     }
 }

@@ -27,6 +27,7 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
         given:
         Blog pBlog1 = aBlog(1, PERSONAL)
         Blog pBlog2 = aBlog(2, PERSONAL)
+        Blog pBlog3 = aBlog(3, PERSONAL, false)
 
         aBlogPost(1, LocalDateTime.now(), pBlog1)
         aBlogPost(2, LocalDateTime.now().minusMonths(1), pBlog1)
@@ -36,7 +37,7 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
         aBlogPost(6, LocalDateTime.now().minusMonths(5), pBlog1)
         aBlogPost(7, LocalDateTime.now().minusMonths(6).minusDays(1), pBlog1)
         aBlogPost(8, LocalDateTime.now().minusMonths(6).plusDays(2), pBlog1)
-        aBlogPost(9, LocalDateTime.now().minusMonths(6), pBlog2)
+        aBlogPost(9, LocalDateTime.now().minusMonths(6), pBlog3)
         aBlogPost(10, LocalDateTime.now().minusMonths(6).plusDays(1), pBlog2)
 
         when:
@@ -51,18 +52,20 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
         result.get(0).firstCount == 4
         result.get(0).secondCount == 7
         result.get(1).firstCount == 0
-        result.get(1).secondCount == 2
+        result.get(1).secondCount == 1
     }
 
-    private Blog aBlog(int index, BlogType blogType) {
+    private Blog aBlog(int index, BlogType blogType, boolean active = true) {
         return blogRepository.save(
                 Blog.builder()
+                        .bookmarkableId("bookmarkableId $index")
                         .jsonId(1L)
                         .author("author")
                         .rss("rss $index")
                         .url("url $index")
                         .dateAdded(LocalDateTime.now())
                         .blogType(blogType)
+                        .active(active)
                         .build())
     }
 

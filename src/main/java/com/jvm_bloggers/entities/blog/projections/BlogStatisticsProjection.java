@@ -2,7 +2,7 @@ package com.jvm_bloggers.entities.blog.projections;
 
 public interface BlogStatisticsProjection {
 
-    Long getId();
+    String getBookmarkableId();
 
     String getUrl();
 

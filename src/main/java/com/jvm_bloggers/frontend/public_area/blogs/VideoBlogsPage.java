@@ -4,12 +4,12 @@ import com.jvm_bloggers.entities.blog.BlogType;
 
 import org.wicketstuff.annotation.mount.MountPath;
 
-@MountPath("blogs/video")
+@MountPath("/video-channels")
 public class VideoBlogsPage extends AbstractBlogsPage {
 
     @Override
     protected String getPageTitle() {
-        return "Blogi - video";
+        return "Kanały Video";
     }
 
     @Override

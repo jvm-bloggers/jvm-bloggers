@@ -40,7 +40,6 @@ public class InfinitePaginationPanel extends Panel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        pager.add(new AttributeModifier("style", "position:absolute;left:-9999px;"));
         for (Behavior behavior : pager.get("next").getBehaviors()) {
             if (behavior instanceof AjaxPagingNavigationBehavior) {
                 callbackUrl.setObject(((AjaxPagingNavigationBehavior) behavior)

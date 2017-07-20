@@ -4,12 +4,12 @@ import com.jvm_bloggers.entities.blog.BlogType;
 
 import org.wicketstuff.annotation.mount.MountPath;
 
-@MountPath(value = "blogs", alt = "blogs/personal")
+@MountPath(value = "blogs", alt = "/personal-blogs")
 public class PersonalBlogsPage extends AbstractBlogsPage {
 
     @Override
     protected String getPageTitle() {
-        return "Blogi - personalne";
+        return "Blogi prywatne";
     }
 
     @Override

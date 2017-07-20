@@ -1,11 +1,7 @@
 package com.jvm_bloggers.frontend.public_area.blogs;
 
 import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListing;
-import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListingQuery;
-import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog.BlogType;
-import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem;
@@ -29,19 +25,7 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
     static final String VIDEO_TAB_ID = "video";
 
     @SpringBean
-    protected BlogRepository blogRepository;
-
-    @SpringBean
-    protected BlogPostRepository blogPostRepository;
-
-    @SpringBean
-    protected BlogStatisticsForListingQuery blogStatsForListingQuery;
-
-    @SpringBean
-    protected BlogWithStatisticsItemPopulator blogWithStatisticsItemPopulator;
-
-    @SpringBean
-    protected PaginationConfiguration paginationConfiguration;
+    private AbstractBlogsPageBackingBean backingBean;
 
     protected abstract BlogType getBlogType();
 
@@ -58,26 +42,24 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
     }
 
     private void createNavigationItems() {
-        add(new NavigationTabItem(PERSONAL_TAB_ID, "Personalne", MALE,
+        add(new NavigationTabItem(PERSONAL_TAB_ID, "Prywatne", MALE,
             PersonalBlogsPage.class, this.getActiveClass()));
         add(new NavigationTabItem(COMPANY_TAB_ID, "Firmowe", USERS,
             CompanyBlogsPage.class, this.getActiveClass()));
-        add(new NavigationTabItem(VIDEO_TAB_ID, "Wideo", TELEVISION,
+        add(new NavigationTabItem(VIDEO_TAB_ID, "Video", TELEVISION,
             VideoBlogsPage.class, this.getActiveClass()));
     }
 
     private DataView<BlogStatisticsForListing> createBlogChannelList(String id) {
         final DataView<BlogStatisticsForListing> dataView =
-            new DataView<BlogStatisticsForListing>(id,
-                new BlogsRequestHandler(blogStatsForListingQuery, blogRepository,
-                    paginationConfiguration, getBlogType())) {
+            new DataView<BlogStatisticsForListing>(id, backingBean.requestHandler(getBlogType())) {
                 @Override
                 protected void populateItem(Item<BlogStatisticsForListing> item) {
-                    blogWithStatisticsItemPopulator.populateItem(item);
+                    backingBean.itemPopulator(item);
                 }
             };
 
-        dataView.setItemsPerPage(paginationConfiguration.getDefaultPageSize());
+        dataView.setItemsPerPage(backingBean.defaultPageSize());
         dataView.setOutputMarkupId(true);
         return dataView;
     }

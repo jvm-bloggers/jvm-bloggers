@@ -1,11 +1,9 @@
-package com.jvm_bloggers.frontend.common_components.request_handlers;
+package com.jvm_bloggers.frontend.admin_area.blogs;
 
-import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
-import com.jvm_bloggers.frontend.admin_area.blogs.BlogPostModel;
 
 import javaslang.control.Option;
 import lombok.RequiredArgsConstructor;
@@ -62,15 +60,9 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
 
     }
 
-    public String getPageHeader() {
+    String getPageHeader() {
         return Option.of(blogRepository.findOne(blogId))
             .map(b -> b.getAuthor() + "'s posts")
             .getOrElse("No such blog found");
-    }
-
-    public String getAuthor() {
-        return Option.of(blogRepository.findOne(blogId))
-            .map(Blog::getAuthor)
-            .getOrElse("John Doe");
     }
 }

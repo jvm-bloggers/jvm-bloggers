@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class BlogPostsFetcher {
 
@@ -54,8 +52,7 @@ public class BlogPostsFetcher {
     }
 
     private Void startFetchingProcess() {
-        List<Blog> people = blogRepository.findAllActiveBlogs();
-        people.stream()
+        blogRepository.findAllActiveBlogs()
             .filter(Blog::isActive)
             .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
 

@@ -9,7 +9,6 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.request.resource.ResourceReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,17 +20,13 @@ public class InfiniteScrollingBehavior extends Behavior {
 
     private static final String INIT_JS_ID = "InitInfiniteScroll";
 
-    private static final ResourceReference
-        AJAX_INTERCEPTOR = new JavaScriptResourceReference(InfiniteScrollingBehavior.class,
-            "js/ajax-request-interceptor.js");
+    private static final String AJAX_INTERCEPTOR = "js/ajax-request-interceptor.js";
 
-    private static final ResourceReference
-        JS = new WebjarsJavaScriptResourceReference(
-            "infinite-scroll/current/dist/infinite-scroll.pkgd.min.js");
+    private static final String
+        INFINITE_SCROLL = "infinite-scroll/current/dist/infinite-scroll.pkgd.min.js";
 
-    private static final ResourceReference
-        CUSTOM_JS = new JavaScriptResourceReference(InfiniteScrollingBehavior.class,
-        "js/infinite-scroll-event-listener.js");
+    private static final String
+        INFINITE_SCROLL_EVENT_LISTENER = "js/infinite-scroll-event-listener.js";
 
     private final Map<String, Object> jsonData;
 
@@ -43,10 +38,18 @@ public class InfiniteScrollingBehavior extends Behavior {
     @Override
     public void renderHead(Component component, IHeaderResponse headerResponse) {
         super.renderHead(component, headerResponse);
-        headerResponse.render(JavaScriptHeaderItem.forReference(AJAX_INTERCEPTOR));
-        headerResponse.render(JavaScriptHeaderItem.forReference(JS));
+        headerResponse.render(
+            JavaScriptHeaderItem.forReference(
+                new JavaScriptResourceReference(
+                    InfiniteScrollingBehavior.class, AJAX_INTERCEPTOR)));
+        headerResponse.render(
+            JavaScriptHeaderItem.forReference(
+                new WebjarsJavaScriptResourceReference(INFINITE_SCROLL)));
         headerResponse.render(JavaScriptHeaderItem.forScript(createScript(component), INIT_JS_ID));
-        headerResponse.render(JavaScriptHeaderItem.forReference(CUSTOM_JS));
+        headerResponse.render(
+            JavaScriptHeaderItem.forReference(
+                new JavaScriptResourceReference(
+                    InfiniteScrollingBehavior.class, INFINITE_SCROLL_EVENT_LISTENER)));
     }
 
     private CharSequence createScript(Component component) {

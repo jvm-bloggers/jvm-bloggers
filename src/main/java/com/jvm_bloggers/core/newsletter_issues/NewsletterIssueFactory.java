@@ -30,7 +30,7 @@ public class NewsletterIssueFactory {
     public NewsletterIssue create(int daysInThePastToIncludeInNewIssue, long issueNumber) {
 
         LocalDateTime startDate = calculateStartDate(daysInThePastToIncludeInNewIssue);
-        List<Blog> newBlogs = blogRepository.findByDateAddedAfter(startDate);
+        List<Blog> newBlogs = blogRepository.findByDateAddedAfter(startDate).toJavaList();
         List<BlogPost> newApprovedPosts = blogPostRepository
             .findByApprovedDateAfterAndApprovedTrueOrderByApprovedDateAsc(startDate);
 

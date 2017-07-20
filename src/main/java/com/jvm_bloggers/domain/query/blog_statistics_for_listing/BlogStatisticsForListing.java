@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Value
 public class BlogStatisticsForListing implements Serializable {
 
-    private Long id;
+    private String bookmarkableId;
     private String url;
     private String author;
     private Option<String> twitter;
@@ -20,7 +20,7 @@ public class BlogStatisticsForListing implements Serializable {
     public static BlogStatisticsForListing fromBlogPostStatisticProjection(
         BlogStatisticsProjection projection) {
         return new BlogStatisticsForListing(
-            projection.getId(),
+            projection.getBookmarkableId(),
             projection.getUrl(),
             projection.getAuthor(),
             Option.of(projection.getTwitter()),
