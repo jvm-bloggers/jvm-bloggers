@@ -24,7 +24,7 @@ public class LinkGenerator {
         return applicationBaseUrl + REDIRECT_URL_PATH + "/" + blogPostUid;
     }
 
-    public String generateLink(Long issueNumber) {
+    public String generateIssueLink(Long issueNumber) {
         return issueUrl + issueNumber;
     }
 }

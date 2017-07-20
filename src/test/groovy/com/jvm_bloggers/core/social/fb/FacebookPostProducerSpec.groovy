@@ -14,7 +14,7 @@ class FacebookPostProducerSpec extends Specification {
         given:
         FacebookMessageGenerator messageGenerator = new FacebookMessageGenerator()
         LinkGenerator linkGenerator = Mock(LinkGenerator)
-        linkGenerator.generateLink(_) >> { args -> "$LINK_BASE${args[0]}" }
+        linkGenerator.generateIssueLink(_) >> { args -> "$LINK_BASE${args[0]}" }
         FacebookPostRepository postRepository = Mock(FacebookPostRepository)
 
         and:

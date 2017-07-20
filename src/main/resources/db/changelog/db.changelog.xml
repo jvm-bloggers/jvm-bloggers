@@ -507,6 +507,4 @@
         <renameColumn tableName="FB_POST" oldColumnName="ISSUE_LINK" newColumnName="LINK"/>
     </changeSet>
 
-
-
 </databaseChangeLog>

@@ -61,7 +61,7 @@ public class BlogSummaryMailGenerator {
     private String prepareGreetingSection(Long issueNumber) {
         String templateContent = getValueForSection(MetadataKeys.MAILING_GREETING);
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
-        template.add("currentLink", linkGenerator.generateLink(issueNumber));
+        template.add("currentIssueLink", linkGenerator.generateIssueLink(issueNumber));
         return template.render();
     }
 

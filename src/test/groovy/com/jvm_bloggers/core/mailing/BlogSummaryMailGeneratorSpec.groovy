@@ -10,7 +10,7 @@ import spock.lang.Subject
 
 class BlogSummaryMailGeneratorSpec extends Specification {
     private static final Long SAMPLE_ISSUE_NUMBER = 59L
-    private static final String SAMPLE_LINK = "http://jvm-bloggers.com/issue/59"
+    private static final String SAMPLE_ISSUE_LINK = "http://jvm-bloggers.com/issue/59"
 
     MetadataRepository metadataRepository = Stub(MetadataRepository)
     LinkGenerator linkGenerator = Stub(LinkGenerator)
@@ -18,11 +18,11 @@ class BlogSummaryMailGeneratorSpec extends Specification {
     @Subject
     BlogSummaryMailGenerator blogSummaryMailGenerator = new BlogSummaryMailGenerator(metadataRepository, linkGenerator)
 
-    def "should replace \$currentLink\$, in greeting section, with link to the newest issue"() {
+    def "should replace \$currentIssueLink\$, in greeting section, with link to the newest issue"() {
         given:
         metadataRepository.findByName(MetadataKeys.MAILING_GREETING) >>
-            new Metadata(1, MetadataKeys.MAILING_GREETING, '$currentLink$')
-        linkGenerator.generateLink(SAMPLE_ISSUE_NUMBER) >> SAMPLE_LINK
+            new Metadata(1, MetadataKeys.MAILING_GREETING, '$currentIssueLink$')
+        linkGenerator.generateIssueLink(SAMPLE_ISSUE_NUMBER) >> SAMPLE_ISSUE_LINK
 
         when:
         String content = blogSummaryMailGenerator.prepareMailContent(
@@ -33,6 +33,6 @@ class BlogSummaryMailGeneratorSpec extends Specification {
                 .build())
 
         then:
-        content == "$SAMPLE_LINK<br/><br/><br/>".toString()
+        content == "$SAMPLE_ISSUE_LINK<br/><br/><br/>".toString()
     }
 }
