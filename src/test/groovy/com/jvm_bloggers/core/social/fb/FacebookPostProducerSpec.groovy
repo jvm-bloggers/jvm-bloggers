@@ -32,7 +32,7 @@ class FacebookPostProducerSpec extends Specification {
         facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)
 
         then:
-        1 * postRepository.save({ it.issueLink.startsWith(LINK_BASE) && it.message != null })
+        1 * postRepository.save({ it.link.startsWith(LINK_BASE) && it.message != null })
     }
 
 }

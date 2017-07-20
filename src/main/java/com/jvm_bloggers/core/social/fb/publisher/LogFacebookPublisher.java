@@ -17,7 +17,7 @@ class LogFacebookPublisher implements FacebookPublisher {
 
     @Override
     public FacebookPublishingStatus publishPost(FacebookPost post) {
-        log.debug("Publishing on Facebook page: link {}, message {}", post.getIssueLink(),
+        log.debug("Publishing on Facebook page: link {}, message {}", post.getLink(),
             post.getMessage());
         return FacebookPublishingStatus.SUCCESS;
     }

@@ -14,14 +14,17 @@ public class BloggerChangedVerifier {
     public boolean pendingChanges(Blog blog, BloggerEntry bloggerEntry) {
         return !Objects.equals(blog.getAuthor(), bloggerEntry.getName())
             || !Objects.equals(blog.getJsonId(), bloggerEntry.getJsonId())
+            || !Objects.equals(blog.getBookmarkableId(), bloggerEntry.getBookmarkableId())
             || !StringUtils.equalsIgnoreCase(blog.getRss(), bloggerEntry.getRss())
             || !Objects.equals(blog.getBlogType(), bloggerEntry.getBlogType())
             || !Objects.equals(blog.getTwitter(), bloggerEntry.getTwitter())
             || urlFromRssIsValidAndDifferentThanExistingOne(blog, bloggerEntry);
     }
 
-    private boolean urlFromRssIsValidAndDifferentThanExistingOne(Blog blog,
-                                                                 BloggerEntry bloggerEntry) {
+    private boolean urlFromRssIsValidAndDifferentThanExistingOne(
+        Blog blog,
+        BloggerEntry bloggerEntry
+    ) {
         return StringUtils.isNotBlank(bloggerEntry.getUrl())
             && !StringUtils.equalsIgnoreCase(blog.getUrl(), bloggerEntry.getUrl());
     }
