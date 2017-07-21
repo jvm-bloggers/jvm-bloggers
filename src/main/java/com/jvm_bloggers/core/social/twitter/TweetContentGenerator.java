@@ -39,7 +39,7 @@ class TweetContentGenerator {
 
         final String personalHandle1 = personalTTs.remove(random.nextInt(personalTTs.size()));
         final String personalHandle2 = personalTTs.remove(random.nextInt(personalTTs.size()));
-        final String companyHandle = companyTTs.remove(random.nextInt(personalTTs.size()));
+        final String companyHandle = companyTTs.remove(random.nextInt(companyTTs.size()));
 
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
         final String tweetContent =

@@ -96,7 +96,6 @@ class TweetContentGeneratorSpec extends Specification {
             String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            println tweetContent.length()
             def handles = /.*@personal\d{1}, @company\d{1} i @personal\d{1}.*/
             tweetContent ==~ /$handles/
     }
@@ -114,7 +113,6 @@ class TweetContentGeneratorSpec extends Specification {
             String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            println tweetContent.length()
             def handles = /.*@veryLongPersonalHandle\d{1} i @veryLongCompanyHandle\d{1}.*/
             tweetContent ==~ /$handles/
     }
