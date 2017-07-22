@@ -24,8 +24,8 @@ public class BlogPostForListingQuery {
         return blogPostRepository.countByBlogId(blogId);
     }
 
-    public Option<Long> findBlogIdByCode(String code) {
-        return blogRepository.findByBookmarkableId(code)
+    public Option<Long> findBlogIdByBookmarkableId(String bookmarkableId) {
+        return blogRepository.findByBookmarkableId(bookmarkableId)
             .map(Blog::getId);
     }
 

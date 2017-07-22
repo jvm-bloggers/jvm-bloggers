@@ -24,10 +24,10 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPostForLis
     public BlogPostsPageRequestHandler(
         BlogPostForListingQuery blogPostForListingQuery,
         PaginationConfiguration paginationConfiguration,
-        String code) {
+        String bookmarkableId) {
         this.blogPostForListingQuery = blogPostForListingQuery;
         this.paginationConfiguration = paginationConfiguration;
-        this.blogId = blogPostForListingQuery.findBlogIdByCode(code)
+        this.blogId = blogPostForListingQuery.findBlogIdByBookmarkableId(bookmarkableId)
             .getOrElse(-1L);
     }
 

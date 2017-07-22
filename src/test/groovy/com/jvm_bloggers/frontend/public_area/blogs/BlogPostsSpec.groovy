@@ -46,11 +46,11 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
 
     def "Should render blog posts list"() {
         given:
-        String blogCode = "blog-code"
+        String blogBookmarkableId = "blogBookmarkableId"
         Long blogId = 10
         BlogDisplayDetails blogDisplayDetails = new BlogDisplayDetails("author", PERSONAL, "url")
         backingBean.defaultPageSize() >> 1
-        backingBean.requestHandler(blogCode) >> Stub(BlogPostsPageRequestHandler) {
+        backingBean.requestHandler(blogBookmarkableId) >> Stub(BlogPostsPageRequestHandler) {
             iterator(_, _) >> [].iterator()
             size() >> 0
             getBlogId() >> blogId
@@ -58,7 +58,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
         backingBean.findBlogDisplayDetails(blogId) >> Option.of(blogDisplayDetails)
 
         when:
-        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogCode))
+        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogBookmarkableId))
 
         then:
         tester.assertComponent("$BLOG_LINK", ExternalLink)
@@ -68,7 +68,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
 
     def "Should render list items"() {
         given:
-        String blogCode = "blog-code"
+        String blogBookmarkableId = "blogBookmarkableId"
         Long blogId = 10
         BlogDisplayDetails blogDisplayDetails = new BlogDisplayDetails("author", PERSONAL, "url")
         List<BlogPostForListing> blogPosts = [
@@ -77,7 +77,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
                 new BlogPostForListing(randomUUID().toString(), "title3", nowProvider.now().minusDays(2))
         ]
         backingBean.defaultPageSize() >> 5
-        backingBean.requestHandler(blogCode) >> GroovyMock(BlogPostsPageRequestHandler) {
+        backingBean.requestHandler(blogBookmarkableId) >> GroovyMock(BlogPostsPageRequestHandler) {
             iterator(_, _) >> blogPosts.iterator()
             size() >> blogPosts.size()
             getBlogId() >> blogId
@@ -87,7 +87,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
         backingBean.generateRedirectLink(_) >>> ["#1", "#2", "#3"]
 
         when:
-        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogCode))
+        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogBookmarkableId))
 
         then:
         tester.getComponentFromLastRenderedPage("$DATA_VIEW_WRAPPER_ID:$DATA_VIEW_ID")
@@ -101,11 +101,11 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
 
     def "Should render page header"() {
         given:
-        String blogCode = "blog-code"
+        String blogBookmarkableId = "blogBookmarkableId"
         Long blogId = 10
         BlogDisplayDetails blogDisplayDetails = new BlogDisplayDetails("author", COMPANY, "url")
         backingBean.defaultPageSize() >> 1
-        backingBean.requestHandler(blogCode) >> Stub(BlogPostsPageRequestHandler) {
+        backingBean.requestHandler(blogBookmarkableId) >> Stub(BlogPostsPageRequestHandler) {
             iterator(_, _) >> [].iterator()
             size() >> 0
             getBlogId() >> blogId
@@ -113,7 +113,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
         backingBean.findBlogDisplayDetails(blogId) >> Option.of(blogDisplayDetails)
 
         when:
-        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogCode))
+        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogBookmarkableId))
 
         then:
         tester.getTagByWicketId("$BLOG_LINK").value == blogDisplayDetails.author
@@ -144,10 +144,10 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
 
     def "Should generate next-link for infinity scroll"() {
         given:
-        String blogCode = "blog-code"
+        String blogBookmarkableId = "blogBookmarkableId"
         Long blogId = 10
         backingBean.defaultPageSize() >> 1
-        backingBean.requestHandler(blogCode) >> Stub(BlogPostsPageRequestHandler) {
+        backingBean.requestHandler(blogBookmarkableId) >> Stub(BlogPostsPageRequestHandler) {
             iterator(_, _) >> [].iterator()
             size() >> 0
             getBlogId() >> blogId
@@ -155,7 +155,7 @@ class BlogPostsSpec extends MockSpringContextAwareSpecification {
         backingBean.findBlogDisplayDetails(blogId) >> Option.none()
 
         when:
-        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogCode))
+        tester.startPage(BlogPostsPage, new PageParameters().add(BLOG_BOOKMARKABLE_ID_PARAM, blogBookmarkableId))
 
         then:
         tester.getTagByWicketId("next-page").getAttributeContains("href", "BlogPostsPage?-1.0")

@@ -33,8 +33,8 @@ public class BlogPostsPageBackingBean {
         return linkGenerator.generateRedirectLinkFor(blogPostForListing.getUid());
     }
 
-    public BlogPostsPageRequestHandler requestHandler(String code) {
+    public BlogPostsPageRequestHandler requestHandler(String bookmarkableId) {
         return new BlogPostsPageRequestHandler(blogPostForListingQuery,
-            paginationConfiguration, code);
+            paginationConfiguration, bookmarkableId);
     }
 }

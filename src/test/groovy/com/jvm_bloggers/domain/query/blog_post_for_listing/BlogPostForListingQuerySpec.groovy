@@ -30,7 +30,7 @@ class BlogPostForListingQuerySpec  extends Specification {
         blogRepository.findByBookmarkableId(code) >> Option.of(blog)
 
         when:
-        Option<Long> result = blogPostForListingQuery.findBlogIdByCode(code)
+        Option<Long> result = blogPostForListingQuery.findBlogIdByBookmarkableId(code)
 
         then:
         result.isDefined()
