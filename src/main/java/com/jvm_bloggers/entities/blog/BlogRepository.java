@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
 
-    Option<Blog> findByJsonId(Long jsonId);
+    Option<Blog> findByBookmarkableId(String bookmarkableId);
 
     List<Blog> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 

@@ -31,7 +31,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     def "Should order latest posts by moderation and publication date"() {
         given:
-        Blog blog = aBlog("Top Blogger", "http://topblogger.pl/")
+        Blog blog = aBlog("bookmarkId", "Top Blogger", "http://topblogger.pl/")
 
         List<BlogPost> blogPosts = [
             aBlogPost(1, LocalDateTime.of(2016, 1, 1, 12, 00), REJECTED, blog),
@@ -67,7 +67,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     @Unroll
     def "Should filter out posts by authors = #excludedAuthors"() {
         given:
-        Blog excludedBlog = aBlog(EXCLUDED_AUTHOR, "http://excluded.pl/")
+        Blog excludedBlog = aBlog("bookmarkId-1", EXCLUDED_AUTHOR, "http://excluded.pl/")
         LocalDateTime publishedDate = new NowProvider().now()
 
         List<BlogPost> excludedblogPosts = [
@@ -77,7 +77,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
         blogPostRepository.save(excludedblogPosts)
 
-        Blog includedBlog = aBlog("Included Author", "http://included.pl/")
+        Blog includedBlog = aBlog("bookmarkId-2","Included Author", "http://included.pl/")
 
         List<BlogPost> includedBlogPosts = [
             aBlogPost(3, publishedDate, REJECTED, includedBlog),
@@ -99,10 +99,10 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         INCLUDE_ALL_AUTHORS_SET as Set || 2
     }
 
-    private Blog aBlog(String author, String rssUrl) {
+    private Blog aBlog(String bookmarkableId, String author, String rssUrl) {
         return blogRepository.save(
             Blog.builder()
-                .jsonId(1L)
+                .bookmarkableId(bookmarkableId)
                 .author(author)
                 .rss(rssUrl)
                 .url("url")

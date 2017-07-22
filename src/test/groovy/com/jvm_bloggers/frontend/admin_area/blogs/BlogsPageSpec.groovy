@@ -43,7 +43,7 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
     private Blog sampleBlog() {
         Blog.builder()
             .id(1)
-            .jsonId(2)
+            .bookmarkableId("bookmarkableId")
             .author("some author")
             .rss("some rss")
             .url("some url")

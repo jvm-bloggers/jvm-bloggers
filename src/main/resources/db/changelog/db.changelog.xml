@@ -515,4 +515,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="043-drop-json-id-column-in-blog-table" author="Łukasz.Drążek" >
+        <dropColumn tableName="BLOG" columnName="JSON_ID"/>
+    </changeSet>
+
 </databaseChangeLog>

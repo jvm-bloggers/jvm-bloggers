@@ -44,7 +44,7 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
     def "should calculate and store top blog posts from given period"() {
         given: "there are ten personal blogs"
         List<Blog> personalBlogs = (1..10).collect { it ->
-            saveBlog("Blogger $it", "exampleRss $it", PERSONAL)
+            saveBlog(it, "Blogger $it", "exampleRss $it", PERSONAL)
         }
 
         and: "each blog has a one post"
@@ -88,10 +88,10 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
         popularPosts.collect {it.getNumberOfClicks()} == [10L, 9L, 8L, 7L, 6L]
     }
 
-    private Blog saveBlog(String author, String rssUrl, BlogType type) {
+    private Blog saveBlog(Long nr,String author, String rssUrl, BlogType type) {
         return blogRepository.save(
             Blog.builder()
-                .jsonId(1L)
+                .bookmarkableId("bookmarkableId" + nr)
                 .author(author)
                 .rss(rssUrl)
                 .url("url")
