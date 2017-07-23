@@ -34,7 +34,6 @@ public class BlogPostsPageBackingBean {
     }
 
     public BlogPostsPageRequestHandler requestHandler(String bookmarkableId) {
-        return new BlogPostsPageRequestHandler(blogPostForListingQuery,
-            paginationConfiguration, bookmarkableId);
+        return new BlogPostsPageRequestHandler(bookmarkableId);
     }
 }

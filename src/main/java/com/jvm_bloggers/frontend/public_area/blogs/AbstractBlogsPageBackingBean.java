@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AbstractBlogsPageBackingBean {
 
-    private final BlogStatisticsForListingQuery blogStatsForListingQuery;
-
     private final BlogWithStatisticsItemPopulator blogWithStatisticsItemPopulator;
 
     private final PaginationConfiguration paginationConfiguration;
@@ -30,6 +28,6 @@ public class AbstractBlogsPageBackingBean {
     }
 
     public BlogsRequestHandler requestHandler(BlogType blogType) {
-        return new BlogsRequestHandler(blogStatsForListingQuery, paginationConfiguration, blogType);
+        return new BlogsRequestHandler(blogType);
     }
 }
