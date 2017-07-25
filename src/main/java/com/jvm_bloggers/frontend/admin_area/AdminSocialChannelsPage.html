@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
+>
+<head>
+</head>
+<body>
+
+<wicket:extend>
+    <div id="page-wrapper">
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class="fa fa-facebook fa-fw"></i> Post on Facebook
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+        <form action="" wicket:id="facebookPostForm">
+            <label for="link" wicket:id="linkLabel">Link</label><br/>
+        <input type="text" id="link" wicket:id="link"/>
+            <br/>
+            <label wicket:id="messageLabel">Message</label><br/>
+            <textarea wicket:id="message" rows="10" cols="50"></textarea>
+            <br/>
+        <input type="submit" value="Save" class="formbutton" name="save" wicket:id="submitButton"/>
+        </form>
+                </div></div></div></div></div>
+
+
+</wicket:extend>
+
+</body>
+</html>
