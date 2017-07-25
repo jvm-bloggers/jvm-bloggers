@@ -23,7 +23,7 @@ public class RssInformationPage extends AbstractFrontendPage {
 
         add(new ExternalLink("rss_feed_url", feedUrl, feedUrl));
 
-        Arrays.stream(FeedUrl.values())
+        Arrays.stream(FeedParameter.values())
             .forEach(e -> add(getExternalLink(e)));
     }
 
@@ -41,32 +41,32 @@ public class RssInformationPage extends AbstractFrontendPage {
         return String.format(FEED_URL_PATTERN, feedUrl, parameter);
     }
 
-    private ExternalLink getExternalLink(FeedUrl feedUrl) {
-        String url = getAbsoluteUrl(feedUrl.getParameter());
-        return new ExternalLink(feedUrl.getId(), url, url);
+    private ExternalLink getExternalLink(FeedParameter feedParameter) {
+        String url = getAbsoluteUrl(feedParameter.getParameterExample());
+        return new ExternalLink(feedParameter.getComponentId(), url, url);
     }
 
-    private enum FeedUrl {
+    private enum FeedParameter {
         XML("rss_feed_xml", ".xml"),
         JSON("rss_feed_json", ".json"),
         LIMIT("rss_feed_limit", "?limit=10"),
         EXCLUDE_AUTHORS("rss_feed_exclude", "?excludedAuthors=Tomasz Dziurko,Adam Warski"),
         COMPLEX("rss_feed_complex", ".json?limit=2&excludedAuthors=Tomasz Dziurko");
 
-        private final String id;
-        private final String parameter;
+        private final String componentId;
+        private final String parameterExample;
 
-        FeedUrl(String id, String parameter) {
-            this.id = id;
-            this.parameter = parameter;
+        FeedParameter(String componentId, String parameterExample) {
+            this.componentId = componentId;
+            this.parameterExample = parameterExample;
         }
 
-        String getId() {
-            return id;
+        String getComponentId() {
+            return componentId;
         }
 
-        String getParameter() {
-            return parameter;
+        String getParameterExample() {
+            return parameterExample;
         }
     }
 }

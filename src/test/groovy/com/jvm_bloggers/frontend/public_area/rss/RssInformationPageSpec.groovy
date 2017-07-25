@@ -14,15 +14,23 @@ class RssInformationPageSpec extends MockSpringContextAwareSpecification {
         addBean(sidebarBean)
     }
 
-    @Unroll
-    def "Should contain #element element"() {
-    when:
+    def "Should contain RSS feed link"() {
+        when:
         tester.startPage(RssInformationPage)
 
-    then:
-        tester.assertComponent(element.id, ExternalLink)
+        then:
+        tester.assertComponent("rss_feed_url", ExternalLink)
+    }
 
-    where:
-        element << RssInformationPage.FeedUrl.values()
+    @Unroll
+    def "Should contain #element element"() {
+        when:
+        tester.startPage(RssInformationPage)
+
+        then:
+        tester.assertComponent(element.componentId, ExternalLink)
+
+        where:
+        element << RssInformationPage.FeedParameter.values()
     }
 }
