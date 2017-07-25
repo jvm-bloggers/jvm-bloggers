@@ -18,13 +18,14 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
         <form action="" wicket:id="facebookPostForm">
-            <label for="link" wicket:id="linkLabel">Link</label><br/>
-        <input type="text" id="link" wicket:id="link"/>
-            <br/>
+
             <label wicket:id="messageLabel">Message</label><br/>
             <textarea wicket:id="message" rows="10" cols="50"></textarea>
             <br/>
-        <input type="submit" value="Save" class="formbutton" name="save" wicket:id="submitButton"/>
+            <label for="link" wicket:id="linkLabel">Link</label><br/>
+            <input type="text" size="50" id="link" wicket:id="link"/>
+            <br/><br/>
+        <input type="submit" value="Save" class="btn btn-primary" name="save" wicket:id="submitButton"/>
         </form>
                 </div></div></div></div></div>
 
