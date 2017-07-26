@@ -1,3 +1,5 @@
+server.port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/jvm_bloggers
