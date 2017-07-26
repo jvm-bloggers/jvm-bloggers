@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreateNewFacebookPostCommandHandler implements CommandHandler<CreateNewFacebookPost> {
 
-
     private final FacebookPostRepository facebookPostRepository;
 
     @Override
@@ -23,8 +22,8 @@ public class CreateNewFacebookPostCommandHandler implements CommandHandler<Creat
     public void handle(CreateNewFacebookPost command) {
 
         FacebookPost facebookPost = new FacebookPost(
-        command.getIssueLink(),
-        command.getFacebookMessage());
+            command.getIssueLink(),
+            command.getFacebookMessage());
 
         facebookPostRepository.save(facebookPost);
     }
