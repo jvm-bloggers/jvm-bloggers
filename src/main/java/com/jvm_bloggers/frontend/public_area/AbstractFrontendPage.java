@@ -7,6 +7,7 @@ import com.jvm_bloggers.frontend.public_area.social_meta_data.SocialMetaData;
 import com.jvm_bloggers.frontend.public_area.social_meta_data.SocialMetaDataHeadRenderer;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -28,6 +29,7 @@ public abstract class AbstractFrontendPage extends WebPage {
         add(createHeader());
         add(createRightSidebar());
         add(createFooter());
+        add(createFooterContainer());
     }
 
     private Component createHeader() {
@@ -58,4 +60,7 @@ public abstract class AbstractFrontendPage extends WebPage {
         return getInstance();
     }
 
+    private Component createFooterContainer() {
+        return new HeaderResponseContainer("footer-container", "footer-container");
+    }
 }
