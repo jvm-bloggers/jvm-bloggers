@@ -50,7 +50,6 @@ public class BlogWithStatisticsItemPopulator {
     }
 
     private boolean displayCounters(BlogStatisticsForListing blogStatisticsForListing) {
-        return blogStatisticsForListing.getCountFirstRange().compareTo(0) != 0
-            && blogStatisticsForListing.getCountSecondRange().compareTo(0) != 0;
+        return blogStatisticsForListing.getCountSecondRange() > 0;
     }
 }
