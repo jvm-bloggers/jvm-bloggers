@@ -3,7 +3,7 @@ package com.jvm_bloggers.domain.query;
 import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.click.ClickRepository;
 import com.jvm_bloggers.entities.click.PostIdWithCount;
-import javaslang.collection.List;
+import io.vavr.collection.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.all_issues;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;

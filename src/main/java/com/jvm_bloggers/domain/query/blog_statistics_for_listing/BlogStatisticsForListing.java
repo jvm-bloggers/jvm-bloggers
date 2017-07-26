@@ -2,7 +2,7 @@ package com.jvm_bloggers.domain.query.blog_statistics_for_listing;
 
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 import lombok.Value;
 
 import java.io.Serializable;

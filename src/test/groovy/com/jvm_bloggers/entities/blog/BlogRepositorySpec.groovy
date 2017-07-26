@@ -4,7 +4,7 @@ import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
-import javaslang.collection.List
+import io.vavr.collection.List
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject

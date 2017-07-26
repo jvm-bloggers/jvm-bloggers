@@ -2,7 +2,7 @@ package com.jvm_bloggers.frontend.admin_area;
 
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary;
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository;
-import javaslang.control.Option;
+import io.vavr.control.Option;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.IValidatable;

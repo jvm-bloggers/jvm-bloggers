@@ -4,8 +4,8 @@ import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 
-import javaslang.collection.List;
-import javaslang.control.Option;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.PageRequest;

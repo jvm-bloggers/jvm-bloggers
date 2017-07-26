@@ -1,7 +1,7 @@
 package com.jvm_bloggers.entities.email
 
 import com.jvm_bloggers.SpringContextAwareSpecification
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime

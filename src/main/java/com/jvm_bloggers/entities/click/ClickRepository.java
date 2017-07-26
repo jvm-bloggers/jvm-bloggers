@@ -1,7 +1,7 @@
 package com.jvm_bloggers.entities.click;
 
 import com.jvm_bloggers.entities.blog.BlogType;
-import javaslang.collection.List;
+import io.vavr.collection.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

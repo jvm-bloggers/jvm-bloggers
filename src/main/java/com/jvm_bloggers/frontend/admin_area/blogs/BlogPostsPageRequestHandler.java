@@ -5,7 +5,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

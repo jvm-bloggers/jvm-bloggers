@@ -6,7 +6,7 @@ import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListing
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.utils.NowProvider
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.apache.wicket.Component
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.link.ExternalLink

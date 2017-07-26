@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.top_posts;
 import com.jvm_bloggers.domain.query.top_posts_summary.PublishedTopPostSummary;
 import com.jvm_bloggers.domain.query.top_posts_summary.TopPostsSummaryQuery;
 import com.jvm_bloggers.frontend.public_area.social_meta_data.SocialMetaData;
-import javaslang.control.Option;
+import io.vavr.control.Option;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,7 +2,7 @@ package com.jvm_bloggers.entities.newsletter_issue
 
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog_post.BlogPost
-import javaslang.control.Option
+import io.vavr.control.Option
 
 class SaveNewIssueSpec extends NewsletterIssueRepositorySpecBase {
 
