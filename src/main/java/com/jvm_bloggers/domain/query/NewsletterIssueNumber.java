@@ -4,10 +4,12 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class NewsletterIssueNumber implements Comparable<NewsletterIssueNumber> {
+public class NewsletterIssueNumber implements Comparable<NewsletterIssueNumber>, Serializable {
 
     private final Long value;
 

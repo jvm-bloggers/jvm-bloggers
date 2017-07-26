@@ -5,6 +5,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.admin_area.AbstractAdminPage;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomPagingNavigator;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.Item;
