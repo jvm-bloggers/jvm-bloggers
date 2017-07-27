@@ -2,9 +2,8 @@ package com.jvm_bloggers.domain.query.blog_statistics_for_listing;
 
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog.BlogType;
-
-import io.vavr.collection.List;
 import com.jvm_bloggers.utils.NowProvider;
+import io.vavr.collection.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
