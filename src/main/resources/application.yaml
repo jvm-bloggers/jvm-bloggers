@@ -47,3 +47,5 @@ facebook.api:
   userToken: #User access token can be created as it is described in FACEBOOK.md
   appSecret: #To get application's secret check FACEBOOK.md
   pageId: "1059067680779426"
+
+wicket.external.webjars.enabled: true

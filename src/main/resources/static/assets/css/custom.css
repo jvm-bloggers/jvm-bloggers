@@ -40,4 +40,15 @@
 .rss-example {
     font-family: monospace;
     font-size: 0.85rem;
+.infinite-scroll-list .item li {
+    margin-top: 0.9375rem;
+}
+
+.hidden-navigation {
+    position:absolute;left:-9999px;
+}
+
+.vertical-align {
+    align-items: center;
+    display: flex;
 }
