@@ -26,8 +26,8 @@ public class NavigationTabItem extends Panel {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Icon {
         MALE("fa-male"),
-        USERS("fa-users"),
-        TELEVISION("fa-television");
+        USERS("fa-black-tie"),
+        TELEVISION("fa-youtube-play");
         private String value;
     }
 
