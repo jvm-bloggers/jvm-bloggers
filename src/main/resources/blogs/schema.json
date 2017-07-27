@@ -10,8 +10,8 @@
       "items": {
         "type": "object",
         "properties": {
-          "jsonId": {
-            "type": "integer",
+          "bookmarkableId": {
+            "type": "string",
             "description": "The unique identifier of the blogger within the file"
           },
           "name": {
@@ -31,7 +31,7 @@
           }
         },
         "required": [
-          "jsonId",
+          "bookmarkableId",
           "name",
           "rss"
         ]

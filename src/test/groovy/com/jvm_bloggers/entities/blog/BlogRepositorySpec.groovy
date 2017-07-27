@@ -59,7 +59,6 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
         return blogRepository.save(
                 Blog.builder()
                         .bookmarkableId("bookmarkableId $index")
-                        .jsonId(1L)
                         .author("author")
                         .rss("rss $index")
                         .url("url $index")

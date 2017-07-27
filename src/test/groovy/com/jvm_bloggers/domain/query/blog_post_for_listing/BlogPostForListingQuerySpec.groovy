@@ -82,7 +82,6 @@ class BlogPostForListingQuerySpec  extends Specification {
         new Blog.BlogBuilder()
                 .url(randomUUID().toString())
                 .id(1)
-                .jsonId(1)
                 .bookmarkableId(randomUUID().toString())
                 .rss(randomUUID().toString())
                 .dateAdded(now())

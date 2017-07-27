@@ -17,9 +17,7 @@ import java.time.LocalDateTime;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
 
-    Option<Blog> findByBookmarkableId(String code);
-
-    Option<Blog> findByJsonId(Long jsonId);
+    Option<Blog> findByBookmarkableId(String bookmarkableId);
 
     List<Blog> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 

@@ -96,7 +96,7 @@ class BlogPostSpec extends Specification {
             .publishedDate(new NowProvider().now())
             .approvedDate(postApprovedDate)
             .blog(Blog.builder()
-            .jsonId(0L)
+            .bookmarkableId("bookmarkableId")
             .blogType(BlogType.PERSONAL)
             .author("author")
             .rss("rss")
