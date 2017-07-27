@@ -30,7 +30,7 @@ apply plugin: 'com.ofg.uptodate'
 
 jar {
     baseName = 'jvm-bloggers'
-    version = '1.9.0'
+    version = '1.10.0'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -64,7 +64,7 @@ dependencies {
     compile 'com.rometools:rome:1.7.3'
 
     // Facebook
-    compile 'com.restfb:restfb:1.40.1'
+    compile 'com.restfb:restfb:1.42.0'
 
     // Twitter
     compile 'org.twitter4j:twitter4j-core:4.0.6'
@@ -77,6 +77,7 @@ dependencies {
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
     compile "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
     compile "org.apache.wicket:wicket-bean-validation:$wicketVersion"
+    compile "de.agilecoders.wicket.webjars:wicket-webjars:2.0.3"
 
     // Utils and helpers
     compile "org.projectlombok:lombok:1.16.16"
@@ -90,6 +91,7 @@ dependencies {
     compile 'commons-validator:commons-validator:1.6'
     compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
     compile 'io.javaslang:javaslang:2.0.6'
+    compile 'org.jsoup:jsoup:1.10.3'
 
     // Database related
     compile "org.postgresql:postgresql:9.4.1212"
@@ -100,6 +102,9 @@ dependencies {
     compile 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
     compile 'org.webjars:html5shiv:3.7.3'
     compile 'org.webjars:respond:1.4.2'
+    compile 'org.webjars.npm:ev-emitter:1.1.0'
+    compile 'org.webjars.npm:fizzy-ui-utils:2.0.5'
+    compile 'org.webjars.npm:infinite-scroll:3.0.0'
 
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"

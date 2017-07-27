@@ -6,12 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.WebRequestor;
-
 import javaslang.control.Try;
-
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -20,7 +17,7 @@ import java.io.IOException;
 
 import static com.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static java.lang.String.format;
-import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Component
 @Slf4j
@@ -72,8 +69,8 @@ class PageAccessTokenProvider {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @NoArgsConstructor(access = PRIVATE)
-    private class PageAccessToken {
+    @NoArgsConstructor(access = PROTECTED)
+    private static class PageAccessToken {
 
         @JsonProperty("access_token")
         private String token;

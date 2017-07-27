@@ -16,5 +16,5 @@ mailing:
   throttleDelayInSeconds: 180
 
 facebook.api:
-  userToken: #User access token can be created as it is described in FACEBOOK.md
-  appSecret: #To get application's secret check FACEBOOK.md
+  userToken: "ENC(GAychZmR96oar6UjLNbhTbJ1ITfQ30G3FeDtWYqMxaWJNhHRkJzs43a1hKkLzADRmF4TaNj4tWdjFonSKdXXF5a4wvSojjHhdia7ig3lv4HObynn0zhNU/wqlkq/4hxbi5lwK4HqfoKgfiRq6TN/zN3roFXBjw6DqjtG5IRYuNl49W7zTsnmV5IbJ3+sn8WJELkrFSFLbeidjXkjXuAjn2hg7xnCY8nOhS1wAKqNOsD1oZfKCrJM9Q==)"
+  appSecret: "ENC(yKI3IX9wAqx/qc+3NNsFFW31fN4uML14R9YOZqNoZJriUOYUH2WZaWbslgK+FTAJ)"

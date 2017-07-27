@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +26,9 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Click {
 
+    private static final int REFERER_MAX_LENGTH = 256;
+    private static final int USER_AGENT_MAX_LENGTH = 256;
+
     @Id
     @GeneratedValue(generator = "CLICK_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "CLICK_SEQ", sequenceName = "CLICK_SEQ")
@@ -40,8 +44,28 @@ public class Click {
     @Column(name = "CLICK_DATE", nullable = false)
     private LocalDateTime clickDate;
 
-    public Click(BlogPost blogPost, LocalDateTime clickDate) {
+    @NonNull
+    @Column(name = "IP_ADDRESS", nullable = false, length = 20)
+    private String ipAddress;
+
+    @NonNull
+    @Column(name = "REFERER", nullable = false, length = REFERER_MAX_LENGTH)
+    private String referer;
+
+    @Column(name = "USER_AGENT", nullable = false, length = USER_AGENT_MAX_LENGTH)
+    private String userAgent;
+
+    public Click(
+        BlogPost blogPost,
+        LocalDateTime clickDate,
+        String ipAddress,
+        String referer,
+        String userAgent
+    ) {
         this.blogPost = blogPost;
         this.clickDate = clickDate;
+        this.ipAddress = ipAddress;
+        this.referer = StringUtils.abbreviate(referer, REFERER_MAX_LENGTH);
+        this.userAgent = StringUtils.abbreviate(userAgent, USER_AGENT_MAX_LENGTH);
     }
 }

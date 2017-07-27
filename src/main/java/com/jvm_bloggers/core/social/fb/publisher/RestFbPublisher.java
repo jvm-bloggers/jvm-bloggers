@@ -54,7 +54,7 @@ class RestFbPublisher implements FacebookPublisher {
     private Post publish(FacebookPost post) {
         return facebook.publish("me/feed", Post.class,
             Parameter.with("message", post.getMessage()),
-            Parameter.with("link", post.getIssueLink()));
+            Parameter.with("link", post.getLink()));
     }
 
 }

@@ -28,8 +28,8 @@ public class FacebookPost {
     private Long id;
 
     @NonNull
-    @Column(name = "issue_link", nullable = false)
-    private String issueLink;
+    @Column(name = "link", nullable = false)
+    private String link;
 
     @NonNull
     @Column(name = "message", nullable = false)
@@ -39,8 +39,8 @@ public class FacebookPost {
     @Column(name = "sent_date", nullable = false)
     private LocalDateTime sentDate;
 
-    public FacebookPost(String issueLink, String message) {
-        this.issueLink = issueLink;
+    public FacebookPost(String link, String message) {
+        this.link = link;
         this.message = message;
     }
 }

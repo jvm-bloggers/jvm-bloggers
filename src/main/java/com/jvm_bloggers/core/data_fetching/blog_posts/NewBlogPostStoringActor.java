@@ -2,7 +2,6 @@ package com.jvm_bloggers.core.data_fetching.blog_posts;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
-import com.jvm_bloggers.core.utils.Validators;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.utils.DateTimeUtilities;
@@ -10,15 +9,19 @@ import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
+import static com.jvm_bloggers.core.utils.Validators.isUrlValid;
+import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 @Slf4j
 @RequiredArgsConstructor
 public class NewBlogPostStoringActor extends AbstractActor {
+
+    private static final String HTTPS_PREFIX = "https";
+    private static final String HTTP_PREFIX = "http";
 
     private final BlogPostRepository blogPostRepository;
     private final BlogPostFactory blogPostFactory;
@@ -27,16 +30,17 @@ public class NewBlogPostStoringActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder().match(RssEntryWithAuthor.class,
             rssEntry -> {
-                if (Validators.isUrlValid(rssEntry.getRssEntry().getLink())) {
+                String blogPostLink = rssEntry.getRssEntry().getLink();
+                if (isUrlValid(blogPostLink)) {
                     BlogPost blogPost = blogPostRepository
-                            .findByUrl(rssEntry.getRssEntry().getLink())
+                            .findByUrlEndingWith(removeProtocolFrom(blogPostLink))
                             .getOrElse(() -> createBlogPost(rssEntry));
                     updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
                     blogPostRepository.save(blogPost);
                 } else {
                     log.info(
                             "Detected blog post with invalid link {}. Skipping DB operation",
-                            rssEntry.getRssEntry().getLink()
+                        blogPostLink
                     );
                 }
             }).build();
@@ -48,6 +52,12 @@ public class NewBlogPostStoringActor extends AbstractActor {
             NewBlogPostStoringActor.class,
             () -> new NewBlogPostStoringActor(blogPostRepository, blogPostFactory)
         );
+    }
+
+    private String removeProtocolFrom(String link) {
+        return link
+            .replaceAll("^" + HTTPS_PREFIX, "")
+            .replaceAll("^" + HTTP_PREFIX, "");
     }
 
     private BlogPost createBlogPost(RssEntryWithAuthor rssEntry) {
@@ -65,7 +75,7 @@ public class NewBlogPostStoringActor extends AbstractActor {
     private void updateDescription(BlogPost blogPost, SyndContent descriptionContent) {
         if (descriptionContent != null) {
             String description = descriptionContent.getValue();
-            description = StringUtils.abbreviate(description, BlogPost.MAX_DESCRIPTION_LENGTH);
+            description = abbreviate(description, BlogPost.MAX_DESCRIPTION_LENGTH);
             blogPost.setDescription(description);
         }
     }

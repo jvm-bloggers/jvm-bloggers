@@ -491,6 +491,30 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="040-add-ip-referer-user-agent-fields-to-click-table" author="Tomasz.Dziurko">
+        <addColumn tableName="CLICK">
+            <column name="IP_ADDRESS" type="varchar(20)"/>
+            <column name="REFERER" type="varchar(256)"/>
+            <column name="USER_AGENT" type="varchar(256)"/>
+        </addColumn>
+
+        <sql>
+            update click set ip_address = id, referer=id, user_agent=id;
+        </sql>
+    </changeSet>
+
+    <changeSet id="041-change-column-name-in-facebook-post-table" author="Michał.Wiącek">
+        <renameColumn tableName="FB_POST" oldColumnName="ISSUE_LINK" newColumnName="LINK"/>
+    </changeSet>
+
+    <changeSet id="042-add-bookmarkable-id-column-to-blog-table" author="Tomasz.Dziurko">
+        <addColumn tableName="BLOG">
+            <column name="BOOKMARKABLE_ID" type="varchar(30)">
+                <constraints unique="true" uniqueConstraintName="BLOG_BOOKMARKABLE_ID_UNIQUE"/>
+            </column>
+        </addColumn>
+    </changeSet>
+  
     <changeSet id="040-create-tweet-table" author="Michał.Chmielarz">
 
         <createSequence sequenceName="TWEET_SEQ"/>

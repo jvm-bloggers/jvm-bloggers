@@ -29,10 +29,10 @@ logging.level.root: INFO
 logging.level.com.jvm_bloggers: INFO
 
 scheduler:
-  fetch-bloggers-data: 0 0 7,9,11,13,15,17,19,21,23 * * *
+  fetch-bloggers-data: 0 0 7,9,10,13,15,17,19,21,23 * * *
   fetch-rss-for-new-blogs: 0 30 * * * *
-  publish-new-issue: 0 0 13 * * FRI
-  send-email: 240000 # 4 minutes
+  publish-new-issue: 0 0 12 * * FRI
+  send-email: 120000 # 2 minutes
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
   publish-twitter: 36000 # 5 minutes
@@ -56,3 +56,5 @@ twitter.api:
   accessTokenSecret: #Can be found on Twitter application's page
   retryCount: 3
   retryIntervalSecs: 5
+
+wicket.external.webjars.enabled: true

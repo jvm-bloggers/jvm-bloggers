@@ -1,3 +1,5 @@
+server.port: 8080
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/jvm_bloggers
@@ -22,7 +24,7 @@ wicket.core.settings.debug.componentUseCheck: true
 
 logging.level.com.jvm_bloggers: DEBUG
 
-application.baseUrl: http://localhost:8080
+application.baseUrl: http://localhost:${server.port}
 
 facebook.api:
   userToken: #User access token can be created as it is described in FACEBOOK.md

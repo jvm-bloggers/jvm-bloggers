@@ -13,7 +13,7 @@ import java.util.Set;
 @Repository
 public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
-    Option<BlogPost> findByUrl(String url);
+    Option<BlogPost> findByUrlEndingWith(String urlWithoutProtocol);
 
     Option<BlogPost> findByUid(String uid);
 
@@ -32,7 +32,7 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     int countByApprovedIsNull();
 
-    List<BlogPost> findByBlogIdOrderByPublishedDateDesc(Long blogId, Pageable page);
+    List<BlogPost> findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(Long blogId, Pageable page);
 
     int countByBlogId(Long blogId);
 

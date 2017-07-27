@@ -1,0 +1,25 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<body>
+
+<wicket:extend>
+
+    <div>
+        <div style="padding-bottom: 20px;">
+            <a href="#" wicket:id="backLink"><span class="fa-angle-left"></span> Wróć do listy blogów</a>
+        </div>
+        <h1 style="padding-bottom: 20px">
+            <a href="#" wicket:id="blogLink" target="_blank"></a> - lista wpisów
+        </h1>
+    </div>
+    <span wicket:id="pageable-wrapper" class="infinite-scroll-list">
+        <ul wicket:id="pageable" class="item">
+            <li>- <a wicket:id="link" target="_blank">[link]</a>, <span wicket:id="date">[date]</span></li>
+        </ul>
+        <div wicket:id="infinite-pager" class="padding-bottom-40-px"></div>
+    </span>
+
+</wicket:extend>
+
+</body>
+</html>

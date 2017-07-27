@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @MappedSuperclass
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-abstract class BasePopularBlogPost {
+public abstract class BasePopularBlogPost {
 
     @Column(name = "position", nullable = false)
     private Long position;

@@ -6,6 +6,8 @@ import akka.routing.RoundRobinPool;
 import com.google.common.base.Stopwatch;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.ClicksStoringActor;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick;
+import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick.Referer;
+import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick.UserAgent;
 import com.jvm_bloggers.core.utils.UriUtmComponentsBuilder;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static akka.actor.ActorRef.noSender;
@@ -50,11 +53,15 @@ public class RedirectController {
     }
 
     @RequestMapping(value = "/{uid}", method = RequestMethod.GET)
-    public void redirectToBlogPostWithUid(HttpServletResponse response, @PathVariable String uid) {
+    public void redirectToBlogPostWithUid(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @PathVariable String uid
+    ) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Option<BlogPost> blogPost = blogPostRepository.findByUid(uid);
         if (blogPost.isDefined()) {
-            actorRef.tell(new SingleClick(blogPost.get()), noSender());
+            actorRef.tell(buildSingleClick(blogPost.get(), request), noSender());
             redirectToBlogPost(response, blogPost.get());
             long executionTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
             if (executionTime > MAX_ALLOWED_EXECUTION_TIME_IN_MILLIS) {
@@ -67,6 +74,15 @@ public class RedirectController {
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
+    }
+
+    private SingleClick buildSingleClick(BlogPost blogPost, HttpServletRequest request) {
+        return new SingleClick(
+            blogPost,
+            new Referer(request.getHeader("referer")),
+            new UserAgent(request.getHeader("user-agent")),
+            new SingleClick.IpAddress(request.getRemoteAddr())
+        );
     }
 
     private void redirectToBlogPost(HttpServletResponse response, BlogPost blogPost) {
