@@ -4,15 +4,11 @@
 
 <wicket:extend>
 
-    <div class="row vertical-align">
-        <div class="col-sm-2" style="text-align: left">
-            <a href="#" wicket:id="backLink" class="btn btn-primary btn-sm icon-left">
-                <span class="icon fa-arrow-left"></span> Powrót
-            </a>
+    <div>
+        <div style="padding-bottom: 20px;">
+            <a href="#" wicket:id="backLink"><span class="fa-angle-left"></span> Wróć do listy blogów</a>
         </div>
-        <div class="col-sm-10">
-            <h3>Autorem wpisów jest <a href="#" wicket:id="blogLink"></a></h3>
-        </div>
+        <h1><a href="#" wicket:id="blogLink" target="_blank"></a> - lista wpisów</h1>
     </div>
     <span wicket:id="pageable-wrapper" class="infinite-scroll-list">
         <ul wicket:id="pageable" class="item">
