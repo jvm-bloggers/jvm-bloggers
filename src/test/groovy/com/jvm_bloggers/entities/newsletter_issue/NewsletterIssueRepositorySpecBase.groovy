@@ -29,7 +29,7 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
                 .author("John Doe")
                 .blogType(BlogType.PERSONAL)
                 .dateAdded(LocalDateTime.now())
-                .jsonId(1L)
+                .bookmarkableId("bookmarkableId-1")
                 .rss("http://example.com/rss")
                 .url("http://example.com")
                 .build()
@@ -39,7 +39,7 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
                 .author("Kate Ryan")
                 .blogType(BlogType.COMPANY)
                 .dateAdded(LocalDateTime.now())
-                .jsonId(2L)
+                .bookmarkableId("bookmarkableId-2")
                 .rss("http://another-url.com/rss")
                 .url("http://another-url.com")
                 .build()
@@ -76,7 +76,7 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
                 .newBlogs(blogs)
                 .blogPosts(posts)
                 .heading(exampleHeading)
-                .varia(exampleVaria);
+                .varia(exampleVaria)
     }
     
     protected NewsletterIssue buildNewsletterIssue(long issueNumber, List blogs, List posts, String exampleHeading, String exampleVaria) {

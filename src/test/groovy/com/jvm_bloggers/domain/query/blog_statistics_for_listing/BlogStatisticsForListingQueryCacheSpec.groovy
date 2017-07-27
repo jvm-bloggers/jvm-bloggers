@@ -43,7 +43,6 @@ class BlogStatisticsForListingQueryCacheSpec extends SpringContextAwareSpecifica
         Blog blog = blogRepository.save(Blog.builder()
                 .active(true)
                 .bookmarkableId("bookmarkableId")
-                .jsonId(1L)
                 .author("author")
                 .rss("rss")
                 .url("url")

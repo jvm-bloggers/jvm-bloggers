@@ -16,7 +16,7 @@ class BloggerEntrySpec extends Specification {
         then:
         bloggers.bloggers.size() > 0
         BloggerEntry entry = bloggers.bloggers.get(0)
-        entry.getJsonId() == 1L
+        entry.bookmarkableId == "tomasz-dziurko"
         entry.name == "Tomasz Dziurko"
         entry.hasRss()
     }

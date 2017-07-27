@@ -12,9 +12,10 @@
 
         <div class="rss-section">
             <h3>Adres:</h3>
-            <br>
-            <div>Kanał dostępny jest pod bazowym adresem:</div>
-            <a class="rss-example" wicket:id="rss_feed_url">[url]</a>
+            <br/>
+            <div>
+                Kanał dostępny jest pod bazowym adresem: <a class="rss-example" wicket:id="rss_feed_url">[url]</a>
+            </div>
         </div>
 
         <div class="rss-section">
@@ -23,15 +24,13 @@
             <span>Kanał RSS umożlwia wyświetlenie danych w formatach XML oraz JSON poprzez dodanie odpowiednie rozszerzenia (np. .json) do swojego adresu.</span>
             <div class="rss-param-section">
                 <ul>
-                    <li><strong>xml</strong> - domyślny format danych używany dla kanału, w przypadku braku określonego
-                        formatu w zapytaniu wyniki zostaną zwrócone w jego strukturze
+                    <li><strong>xml</strong> - domyślny format danych używany dla kanału, używana gdy użytkownik nie poda formatu
                         <ul>
                             <li>przykład: <a class="rss-example" wicket:id="rss_feed_xml">[url]</a>
                             </li>
                         </ul>
                     </li>
-                    <li><strong>json</strong> - popularny, szczególnie ostatnimi czasy, format JavaScript Object
-                        Notation.
+                    <li><strong>json</strong> - popularny, szczególnie ostatnimi czasy, format JavaScript Object Notation.
                         <ul>
                             <li>przykład: <a class="rss-example" wicket:id="rss_feed_json">[url]</a>
                             </li>
@@ -46,7 +45,7 @@
             <br>
             <div class="rss-param-section">
                 <ul>
-                    <li><strong>limit</strong> - oferuje limitowanie ilości wyników (tutaj wpisów) do podanej wartości.
+                    <li><strong>limit</strong> - pozwala ograniczyć ilość wpisów do podanej wartości.
                         <ul>
                             <li>przykład: <a class="rss-example" wicket:id="rss_feed_limit">[url]</a>
                             </li>
@@ -59,7 +58,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>łączenie parametrów - oczywiście możliwe jest łączenie wspomnianym powyżej parametrów
+                    <li>łączenie parametrów - oczywiście możliwe jest łączenie wspomnianych powyżej parametrów
                         <ul>
                             <li>przykład: <a class="rss-example" wicket:id="rss_feed_complex">[url]</a>
                             </li>

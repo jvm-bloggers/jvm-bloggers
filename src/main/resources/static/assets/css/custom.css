@@ -40,6 +40,8 @@
 .rss-example {
     font-family: monospace;
     font-size: 0.85rem;
+}
+
 .infinite-scroll-list .item li {
     margin-top: 0.9375rem;
 }
