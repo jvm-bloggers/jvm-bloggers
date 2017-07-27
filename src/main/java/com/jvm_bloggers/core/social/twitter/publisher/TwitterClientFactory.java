@@ -26,7 +26,7 @@ class TwitterClientFactory {
         this.factory = new TwitterFactory(builder.build());
     }
 
-    Twitter getClient() {
+    public Twitter getClient() {
         return this.factory.getInstance();
     }
 }
