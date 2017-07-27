@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.public_area.blogs;
+package com.jvm_bloggers.frontend.public_area.blogs.single_blog;
 
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogDisplayDetails;
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListing;
@@ -6,6 +6,9 @@ import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 
+import com.jvm_bloggers.frontend.public_area.blogs.CompanyBlogsPage;
+import com.jvm_bloggers.frontend.public_area.blogs.PersonalBlogsPage;
+import com.jvm_bloggers.frontend.public_area.blogs.VideoBlogsPage;
 import javaslang.control.Option;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -18,7 +21,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM;
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
 import static javaslang.API.$;
 import static javaslang.API.Case;
@@ -29,8 +32,8 @@ import static javaslang.Patterns.Some;
 @MountPath("blog/${" + BLOG_BOOKMARKABLE_ID_PARAM + "}")
 public class BlogPostsPage extends AbstractFrontendPage {
 
+    public static final String BLOG_BOOKMARKABLE_ID_PARAM = "blogBookmarkableId";
     static final String BACK_LINK = "backLink";
-    static final String BLOG_BOOKMARKABLE_ID_PARAM = "blogBookmarkableId";
     static final String BLOG_LINK = "blogLink";
     static final String DATA_VIEW_ID = "pageable";
     static final String DATA_VIEW_WRAPPER_ID = "pageable-wrapper";

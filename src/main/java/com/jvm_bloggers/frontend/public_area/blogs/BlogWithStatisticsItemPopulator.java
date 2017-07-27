@@ -2,6 +2,7 @@ package com.jvm_bloggers.frontend.public_area.blogs;
 
 import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListing;
 
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -9,7 +10,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.springframework.stereotype.Component;
 
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM;
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM;
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 @Component
@@ -50,7 +51,6 @@ public class BlogWithStatisticsItemPopulator {
     }
 
     private boolean displayCounters(BlogStatisticsForListing blogStatisticsForListing) {
-        return blogStatisticsForListing.getCountFirstRange().compareTo(0) != 0
-            && blogStatisticsForListing.getCountSecondRange().compareTo(0) != 0;
+        return blogStatisticsForListing.getCountSecondRange() > 0;
     }
 }

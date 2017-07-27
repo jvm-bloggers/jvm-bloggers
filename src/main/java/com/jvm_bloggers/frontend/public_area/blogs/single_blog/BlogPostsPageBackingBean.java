@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.public_area.blogs;
+package com.jvm_bloggers.frontend.public_area.blogs.single_blog;
 
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator;
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogDisplayDetails;
@@ -34,7 +34,6 @@ public class BlogPostsPageBackingBean {
     }
 
     public BlogPostsPageRequestHandler requestHandler(String bookmarkableId) {
-        return new BlogPostsPageRequestHandler(blogPostForListingQuery,
-            paginationConfiguration, bookmarkableId);
+        return new BlogPostsPageRequestHandler(bookmarkableId);
     }
 }

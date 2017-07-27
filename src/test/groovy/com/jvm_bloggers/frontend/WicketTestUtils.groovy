@@ -4,7 +4,7 @@ class WicketTestUtils {
 
     private static String SEPARATOR = ":"
 
-    static String pathVia(String... componentIds) {
+    static String pathVia(Object... componentIds) {
         return componentIds.toList().join(SEPARATOR)
     }
 
