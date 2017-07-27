@@ -4,6 +4,9 @@ import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogDisplayDetails
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListing
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageBackingBean
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageRequestHandler
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.utils.NowProvider
 import javaslang.control.Option
@@ -18,14 +21,14 @@ import java.time.LocalDateTime
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.BACK_LINK
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.BLOG_LINK
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.DATA_VIEW_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.DATA_VIEW_WRAPPER_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.INFINITE_SCROLL_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.LINK_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogPostsPage.PUBLISHED_DATE_ID
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BACK_LINK
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BLOG_LINK
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.DATA_VIEW_ID
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.DATA_VIEW_WRAPPER_ID
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.INFINITE_SCROLL_ID
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.LINK_ID
+import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.PUBLISHED_DATE_ID
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER
 import static java.util.UUID.randomUUID
 
