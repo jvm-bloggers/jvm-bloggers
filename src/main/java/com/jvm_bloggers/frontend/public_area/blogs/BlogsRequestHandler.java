@@ -5,24 +5,31 @@ import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsF
 import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.Iterator;
 
 @Slf4j
-@RequiredArgsConstructor
 public class BlogsRequestHandler implements IDataProvider<BlogStatisticsForListing> {
 
-    private final BlogStatisticsForListingQuery blogStatsForListingQuery;
+    @SpringBean
+    private BlogStatisticsForListingQuery blogStatsForListingQuery;
 
-    private final PaginationConfiguration paginationConfiguration;
+    @SpringBean
+    private PaginationConfiguration paginationConfiguration;
 
     private final BlogType blogType;
+
+    public BlogsRequestHandler(BlogType blogType) {
+        Injector.get().inject(this);
+        this.blogType = blogType;
+    }
 
     @Override
     public Iterator<? extends BlogStatisticsForListing> iterator(long first, long count) {
