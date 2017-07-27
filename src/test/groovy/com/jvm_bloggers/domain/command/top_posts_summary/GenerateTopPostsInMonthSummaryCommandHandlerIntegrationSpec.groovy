@@ -11,7 +11,7 @@ import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.entities.top_posts_summary.PopularPersonalPost
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Subject
 

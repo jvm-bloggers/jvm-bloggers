@@ -7,7 +7,7 @@ buildscript {
         maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.5.RELEASE'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
         classpath 'se.transmode.gradle:gradle-docker:1.2'
         classpath 'cz.alenkacz.gradle:json-validator:1.0.0'
@@ -87,7 +87,7 @@ dependencies {
     compile 'org.objenesis:objenesis:2.5.1'
     compile 'commons-validator:commons-validator:1.6'
     compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
-    compile 'io.javaslang:javaslang:2.0.6'
+    compile 'io.vavr:vavr:0.9.0'
     compile 'org.jsoup:jsoup:1.10.3'
 
     // Database related

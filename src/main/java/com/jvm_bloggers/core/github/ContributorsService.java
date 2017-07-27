@@ -2,8 +2,8 @@ package com.jvm_bloggers.core.github;
 
 import com.jvm_bloggers.GithubClient;
 import com.jvm_bloggers.entities.github.Contributor;
-import javaslang.collection.List;
-import javaslang.collection.Seq;
+import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

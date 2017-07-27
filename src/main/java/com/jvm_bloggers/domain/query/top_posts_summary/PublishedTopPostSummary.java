@@ -1,7 +1,7 @@
 package com.jvm_bloggers.domain.query.top_posts_summary;
 
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost;
-import javaslang.collection.List;
+import io.vavr.collection.List;
 import lombok.Value;
 
 import java.time.YearMonth;

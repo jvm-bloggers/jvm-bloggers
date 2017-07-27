@@ -2,7 +2,7 @@ package com.jvm_bloggers.core.rss.fetchers;
 
 import com.rometools.rome.feed.synd.SyndFeed;
 
-import javaslang.control.Try;
+import io.vavr.control.Try;
 
 public interface RssFetcher {
 

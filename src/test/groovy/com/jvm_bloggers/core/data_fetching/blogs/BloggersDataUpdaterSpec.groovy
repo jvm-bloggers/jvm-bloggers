@@ -7,7 +7,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
-import javaslang.control.Option
+import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 

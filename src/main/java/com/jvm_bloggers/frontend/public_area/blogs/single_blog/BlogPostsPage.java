@@ -9,7 +9,7 @@ import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import com.jvm_bloggers.frontend.public_area.blogs.CompanyBlogsPage;
 import com.jvm_bloggers.frontend.public_area.blogs.PersonalBlogsPage;
 import com.jvm_bloggers.frontend.public_area.blogs.VideoBlogsPage;
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -23,11 +23,11 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import static com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage.BLOG_BOOKMARKABLE_ID_PARAM;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER;
-import static javaslang.API.$;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
-import static javaslang.Patterns.None;
-import static javaslang.Patterns.Some;
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
+import static io.vavr.Patterns.$None;
+import static io.vavr.Patterns.$Some;
 
 @MountPath("blog/${" + BLOG_BOOKMARKABLE_ID_PARAM + "}")
 public class BlogPostsPage extends AbstractFrontendPage {
@@ -98,13 +98,13 @@ public class BlogPostsPage extends AbstractFrontendPage {
 
     private BookmarkablePageLink createBackLink() {
         return Match(blogDisplayDetails.map(BlogDisplayDetails::getType)).of(
-            Case(Some($(BlogType.PERSONAL)),
+            Case($Some($(BlogType.PERSONAL)),
                 new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class)),
-            Case(Some($(BlogType.COMPANY)),
+            Case($Some($(BlogType.COMPANY)),
                 new BookmarkablePageLink(BACK_LINK, CompanyBlogsPage.class)),
-            Case(Some($(BlogType.VIDEOS)),
+            Case($Some($(BlogType.VIDEOS)),
                 new BookmarkablePageLink(BACK_LINK, VideoBlogsPage.class)),
-            Case(None(), new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class))
+            Case($None(), new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class))
         );
     }
 }

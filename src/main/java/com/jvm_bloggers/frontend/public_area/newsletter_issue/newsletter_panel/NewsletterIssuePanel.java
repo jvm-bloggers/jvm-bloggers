@@ -4,7 +4,7 @@ import com.googlecode.wicket.jquery.ui.markup.html.link.BookmarkablePageLink;
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue;
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage;
-import javaslang.control.Option;
+import io.vavr.control.Option;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 

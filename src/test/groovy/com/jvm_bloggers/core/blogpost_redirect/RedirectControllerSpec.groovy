@@ -5,7 +5,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.utils.NowProvider
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
 

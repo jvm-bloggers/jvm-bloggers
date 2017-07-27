@@ -2,7 +2,7 @@ package com.jvm_bloggers.domain.query.published_newsletter_issue
 
 import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
-import javaslang.control.Option
+import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 

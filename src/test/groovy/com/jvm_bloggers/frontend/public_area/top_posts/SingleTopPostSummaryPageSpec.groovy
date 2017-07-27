@@ -5,8 +5,8 @@ import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost
 import com.jvm_bloggers.domain.query.top_posts_summary.PublishedTopPostSummary
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.utils.DateTimeUtilities
-import javaslang.collection.List as JavaslangList
-import javaslang.control.Option
+import io.vavr.collection.List as VavrList
+import io.vavr.control.Option
 
 import java.time.YearMonth
 
@@ -65,8 +65,8 @@ class SingleTopPostSummaryPageSpec extends MockSpringContextAwareSpecification {
 
     private PublishedTopPostSummary createSummary(YearMonth yearMonth) {
         return new PublishedTopPostSummary(yearMonth,
-            JavaslangList.of(createPost("Title 1"), createPost("Title 2"), createPost("Title 3")),
-            JavaslangList.of(createPost("Title A"), createPost("Title B"))
+                VavrList.of(createPost("Title 1"), createPost("Title 2"), createPost("Title 3")),
+                VavrList.of(createPost("Title A"), createPost("Title B"))
         )
     }
 

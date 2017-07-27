@@ -2,7 +2,7 @@ package com.jvm_bloggers.core.rss
 
 import com.jvm_bloggers.core.rss.fetchers.RssFetcher
 import com.rometools.rome.feed.synd.SyndFeed
-import javaslang.control.Try
+import io.vavr.control.Try
 import spock.lang.Specification
 import spock.lang.Subject
 
