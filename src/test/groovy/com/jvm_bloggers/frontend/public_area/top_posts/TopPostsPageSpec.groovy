@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.top_posts
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.domain.query.top_posts_summary.TopPostsSummaryBasicDetails
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
-import javaslang.collection.List as JavaslangList
+import io.vavr.collection.List as VavrList
 
 import java.time.YearMonth
 
@@ -21,7 +21,7 @@ class TopPostsPageSpec extends MockSpringContextAwareSpecification {
 
     def "should display two posts summaries"() {
         given:
-        backingBean.getAllSummaries() >> JavaslangList.of(
+        backingBean.getAllSummaries() >> VavrList.of(
             new TopPostsSummaryBasicDetails(YearMonth.now()),
             new TopPostsSummaryBasicDetails(YearMonth.now().minusMonths(1))
         )

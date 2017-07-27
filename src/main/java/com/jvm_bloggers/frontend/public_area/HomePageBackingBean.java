@@ -4,7 +4,7 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue;
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssueQuery;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,8 +3,8 @@ package com.jvm_bloggers.domain.query.blog_statistics_for_listing
 import com.jvm_bloggers.TestNowProvider
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection
-import javaslang.collection.List
-import javaslang.control.Option
+import io.vavr.collection.List
+import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.common_layout;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListingQuery;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

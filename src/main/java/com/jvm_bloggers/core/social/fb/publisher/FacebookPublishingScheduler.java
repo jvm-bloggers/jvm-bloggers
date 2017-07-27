@@ -5,7 +5,7 @@ import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

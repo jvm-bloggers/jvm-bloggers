@@ -6,14 +6,14 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber;
 import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY;
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
 import static com.jvm_bloggers.entities.blog.BlogType.VIDEOS;
-import static javaslang.collection.List.ofAll;
+import static io.vavr.collection.List.ofAll;
 
 @Component
 @AllArgsConstructor

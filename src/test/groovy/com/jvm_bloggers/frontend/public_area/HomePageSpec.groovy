@@ -5,8 +5,8 @@ import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssu
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel
-import javaslang.collection.List
-import javaslang.control.Option
+import io.vavr.collection.List
+import io.vavr.control.Option
 import org.apache.wicket.markup.html.basic.Label
 
 import java.time.LocalDate
@@ -15,8 +15,8 @@ import java.util.function.Consumer
 import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
 import static com.jvm_bloggers.frontend.public_area.HomePage.LATEST_ISSUE_PANEL_ID
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_FORMATTER
-import static javaslang.collection.List.empty
-import static javaslang.control.Option.none
+import static io.vavr.collection.List.empty
+import static io.vavr.control.Option.none
 import static java.time.LocalDate.now
 
 class HomePageSpec extends MockSpringContextAwareSpecification {
