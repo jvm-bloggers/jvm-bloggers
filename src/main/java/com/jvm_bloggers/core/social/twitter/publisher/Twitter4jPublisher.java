@@ -1,11 +1,8 @@
 package com.jvm_bloggers.core.social.twitter.publisher;
 
 import com.jvm_bloggers.entities.twitter.Tweet;
-
-import javaslang.control.Try;
-
+import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
-
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

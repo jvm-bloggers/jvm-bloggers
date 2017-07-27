@@ -4,7 +4,7 @@ import com.jvm_bloggers.TestNowProvider
 import com.jvm_bloggers.entities.twitter.Tweet
 import com.jvm_bloggers.entities.twitter.TweetRepository
 import com.jvm_bloggers.utils.NowProvider
-import javaslang.control.Option
+import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -169,7 +169,7 @@ class TweetContentGeneratorSpec extends Specification {
 
     private Blog blog(String twitterHandle, BlogType blogType) {
         Blog.builder()
-            .jsonId(randomJsonId.nextLong())
+            .bookmarkableId(randomJsonId.nextLong().toString())
             .author("author")
             .twitter(twitterHandle)
             .rss("rss")
