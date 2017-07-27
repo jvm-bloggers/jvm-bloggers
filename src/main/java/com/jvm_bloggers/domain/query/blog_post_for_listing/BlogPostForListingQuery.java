@@ -35,8 +35,13 @@ public class BlogPostForListingQuery {
     }
 
     public List<BlogPostForListing> findBlogPosts(Long blogId, int page, int size) {
-        return List.ofAll(blogPostRepository
-            .findByBlogIdOrderByPublishedDateDesc(blogId, new PageRequest(page, size)))
+        return List
+            .ofAll(
+                blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(
+                    blogId,
+                    new PageRequest(page, size)
+                )
+            )
             .map(BlogPostForListing::fromBlogPost);
     }
 }
