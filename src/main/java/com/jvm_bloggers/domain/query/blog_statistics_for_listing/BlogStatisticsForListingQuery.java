@@ -5,7 +5,6 @@ import com.jvm_bloggers.entities.blog.BlogType;
 
 import io.vavr.collection.List;
 import com.jvm_bloggers.utils.NowProvider;
-import javaslang.collection.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
