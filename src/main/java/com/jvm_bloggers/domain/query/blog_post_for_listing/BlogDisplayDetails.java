@@ -5,8 +5,10 @@ import com.jvm_bloggers.entities.blog.BlogType;
 
 import lombok.Value;
 
+import java.io.Serializable;
+
 @Value
-public class BlogDisplayDetails {
+public class BlogDisplayDetails implements Serializable {
 
     private String author;
     private BlogType type;

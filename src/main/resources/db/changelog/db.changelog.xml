@@ -515,4 +515,12 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="043-drop-json-id-column-in-blog-table" author="Łukasz.Drążek" >
+        <dropColumn tableName="BLOG" columnName="JSON_ID"/>
+    </changeSet>
+
+    <changeSet id="044-bookmarkable-id-column-in-blog-table-not-nullable" author="Tomasz.Dziurko" >
+        <addNotNullConstraint tableName="BLOG" columnName="BOOKMARKABLE_ID" columnDataType="varchar(30)"/>
+    </changeSet>
+
 </databaseChangeLog>

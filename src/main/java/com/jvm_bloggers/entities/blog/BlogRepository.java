@@ -17,9 +17,7 @@ import java.time.LocalDateTime;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
 
-    Option<Blog> findByBookmarkableId(String code);
-
-    Option<Blog> findByJsonId(Long jsonId);
+    Option<Blog> findByBookmarkableId(String bookmarkableId);
 
     List<Blog> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 
@@ -33,8 +31,12 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
         + "b.url as url, "
         + "b.author as author, "
         + "b.twitter as twitter, "
-        + "SUM(CASE WHEN bp.publishedDate >= :first THEN 1 ELSE 0 END) as firstCount, "
-        + "SUM(CASE WHEN bp.publishedDate >= :second THEN 1 ELSE 0 END) as secondCount "
+        + "SUM(CASE WHEN ("
+        + "     bp.publishedDate >= :first and bp.approved = true"
+        + ") THEN 1 ELSE 0 END) as firstCount, "
+        + "SUM(CASE WHEN ("
+        + "     bp.publishedDate >= :second and bp.approved = true"
+        + ") THEN 1 ELSE 0 END) as secondCount "
         + "FROM BlogPost bp JOIN bp.blog b "
         + "WHERE b.blogType = :blogType AND b.active = true "
         + "GROUP BY b.id, b.url, b.author, b.twitter "

@@ -18,7 +18,7 @@ import spock.lang.Subject
 class RssCheckingActorSpec extends Specification {
 
     static final Blog BLOG = Blog.builder()
-        .jsonId(0L)
+        .bookmarkableId("tomasz-dziurko")
         .author("Tomasz Dziurko")
         .rss("http://tomaszdziurko.pl/feed/")
         .url("url")

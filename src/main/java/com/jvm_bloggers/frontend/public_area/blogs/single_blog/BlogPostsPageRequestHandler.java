@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.public_area.blogs;
+package com.jvm_bloggers.frontend.public_area.blogs.single_blog;
 
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListing;
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListingQuery;
@@ -6,27 +6,27 @@ import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import java.util.Iterator;
 
 @Slf4j
 public class BlogPostsPageRequestHandler implements IDataProvider<BlogPostForListing> {
 
-    private final BlogPostForListingQuery blogPostForListingQuery;
+    @SpringBean
+    private BlogPostForListingQuery blogPostForListingQuery;
 
-    private final PaginationConfiguration paginationConfiguration;
+    @SpringBean
+    private PaginationConfiguration paginationConfiguration;
 
     private final Long blogId;
 
-    public BlogPostsPageRequestHandler(
-        BlogPostForListingQuery blogPostForListingQuery,
-        PaginationConfiguration paginationConfiguration,
-        String bookmarkableId) {
-        this.blogPostForListingQuery = blogPostForListingQuery;
-        this.paginationConfiguration = paginationConfiguration;
+    public BlogPostsPageRequestHandler(String bookmarkableId) {
+        Injector.get().inject(this);
         this.blogId = blogPostForListingQuery.findBlogIdByBookmarkableId(bookmarkableId)
             .getOrElse(-1L);
     }

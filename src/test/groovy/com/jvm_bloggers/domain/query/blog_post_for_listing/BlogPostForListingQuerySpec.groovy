@@ -66,7 +66,7 @@ class BlogPostForListingQuerySpec  extends Specification {
                 aBlogPost(blog),
                 aBlogPost(blog)
         ]
-        blogPostRepository.findByBlogIdOrderByPublishedDateDesc(blogId, new PageRequest(0, 10)) >> blogPosts
+        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(0, 10)) >> blogPosts
 
         when:
         List<BlogPostForListing> result = blogPostForListingQuery.findBlogPosts(blogId, 0, 10).toJavaList()
@@ -82,7 +82,6 @@ class BlogPostForListingQuerySpec  extends Specification {
         new Blog.BlogBuilder()
                 .url(randomUUID().toString())
                 .id(1)
-                .jsonId(1)
                 .bookmarkableId(randomUUID().toString())
                 .rss(randomUUID().toString())
                 .dateAdded(now())

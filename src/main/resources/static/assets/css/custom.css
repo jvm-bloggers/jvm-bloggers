@@ -18,6 +18,30 @@
     padding-top: 15px;
 }
 
+.rss-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.rss-param-section {
+    margin-left: 0.75rem;
+}
+
+.rss-param-section li {
+    list-style: disc;
+    margin-left: 0.75rem;
+}
+
+.rss-param-section li > ul > li {
+    list-style: circle;
+    margin-left: 0.75rem;
+}
+
+.rss-example {
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
 .infinite-scroll-list .item li {
     margin-top: 0.9375rem;
 }

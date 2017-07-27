@@ -33,7 +33,7 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
         int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         long start = System.currentTimeMillis();
         Iterator<BlogPost> iterator = blogPostRepository
-            .findByBlogIdOrderByPublishedDateDesc(blogId, new PageRequest(page,
+            .findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(page,
                 paginationConfiguration.getDefaultPageSize())
             ).iterator();
         long stop = System.currentTimeMillis();

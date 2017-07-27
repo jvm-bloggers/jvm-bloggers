@@ -5,13 +5,15 @@ import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssu
 
 import io.vavr.collection.Seq;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@NoArgsConstructor
 public class RightFrontendSidebarBackingBean {
 
-    private final NewsletterIssueForListingQuery query;
+    private NewsletterIssueForListingQuery query;
 
     @Autowired
     public RightFrontendSidebarBackingBean(NewsletterIssueForListingQuery query) {

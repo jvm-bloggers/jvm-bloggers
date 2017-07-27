@@ -27,11 +27,11 @@ class BloggersDataUpdaterSpec extends Specification {
     @Subject
     BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), producer, new BloggerChangedVerifier())
 
-    def "Should insert new Person for entry with new json_id"() {
+    def "Should insert new Person for entry with new bookmarkable_id"() {
         given:
-        Long jsonId = 2207L
-        BloggerEntry entry = buildBloggerEntry(jsonId, "bookmarkableId", "blog", RSS_OF_VALID_BLOG, "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Option.none()
+        String bookmarkableId = "bookmarkableId-2207"
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, "blog", RSS_OF_VALID_BLOG, "page", "twitter", PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -44,9 +44,9 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should skip insertion of new Person for entry without valid url in rss"() {
         given:
-        Long jsonId = 2207L
-        BloggerEntry entry = buildBloggerEntry(jsonId, "bookmarkableId", "blog", RSS_OF_INVALID_BLOG, "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Option.none()
+        String bookmarkableId = "bookmarkableId-2207"
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, "blog", RSS_OF_INVALID_BLOG, "page", "twitter", PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
         producer.validUrlFromRss(RSS_OF_INVALID_BLOG) >> Option.none()
 
@@ -60,9 +60,9 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should not update data if equal record already exists in DB"() {
         given:
-        Long jsonId = 2207L
-        BloggerEntry entry = buildBloggerEntry(jsonId, "bookmarkableId", "blog", "rss", "page", "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Option.of(buildBlog(entry.jsonId, entry.bookmarkableId, entry.name, entry.rss, entry.url, entry.twitter))
+        String bookmarkableId = "bookmarkableId-2207"
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, "blog", "rss", "page", "twitter", PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.of(buildBlog(entry.bookmarkableId, entry.name, entry.rss, entry.url, entry.twitter))
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -75,10 +75,10 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should update data if data in entry data differs a bit from record in DB"() {
         given:
-        Long jsonId = 2207L
+        String bookmarkableId = "bookmarkableId-2207"
         String rss = "httP://newRssAddress"
-        BloggerEntry entry = new BloggerEntry(jsonId, "bookmarkableId", "blog", rss, "twitter", PERSONAL)
-        blogRepository.findByJsonId(jsonId) >> Option.of(buildBlog(entry.jsonId, entry.bookmarkableId, entry.name, "oldRSS", entry.rss, entry.twitter))
+        BloggerEntry entry = new BloggerEntry(bookmarkableId, "blog", rss, "twitter", PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.of(buildBlog(entry.bookmarkableId, entry.name, "oldRSS", entry.rss, entry.twitter))
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -91,11 +91,11 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should update existing person if only name was changed"() {
         given:
-        Long jsonId = 2207L
+        String bookmarkableId = "bookmarkableId-2207"
         String newName = "newAuthor"
-        Blog existingPerson = buildBlog(jsonId, "bookmarkableId","oldAuthor", "http://existingRSS", "page", "twitter")
-        BloggerEntry entry = new BloggerEntry(existingPerson.jsonId, existingPerson.bookmarkableId, newName, existingPerson.rss, existingPerson.twitter, COMPANY)
-        blogRepository.findByJsonId(entry.jsonId) >> Option.of(existingPerson)
+        Blog existingPerson = buildBlog(bookmarkableId,"oldAuthor", "http://existingRSS", "page", "twitter")
+        BloggerEntry entry = new BloggerEntry(existingPerson.bookmarkableId, newName, existingPerson.rss, existingPerson.twitter, COMPANY)
+        blogRepository.findByBookmarkableId(entry.bookmarkableId) >> Option.of(existingPerson)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -103,7 +103,7 @@ class BloggersDataUpdaterSpec extends Specification {
 
         then:
         1 * blogRepository.save({
-            it.jsonId == jsonId && it.author == newName && it.rss == existingPerson.rss &&
+            it.bookmarkableId == bookmarkableId && it.author == newName && it.rss == existingPerson.rss &&
                 it.twitter == existingPerson.twitter
         })
         statistics.getUpdated() == 1
@@ -112,15 +112,14 @@ class BloggersDataUpdaterSpec extends Specification {
     def "Should update existing blog if url was changed"() {
         given:
         String newBlogUrl = "http://new.blog.pl"
-        Long jsonId = 2207L
-        Blog blog = buildBlog(
-            jsonId, "bookmarkableId", "author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
+        String bookmarkableId = "bookmarkableId-2207"
+        Blog blog = buildBlog(bookmarkableId, "author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
             "twitter", LocalDateTime.now(), PERSONAL
         )
         BloggerEntry entry = new BloggerEntry(
-            blog.jsonId, blog.author, blog.rss, newBlogUrl, blog.twitter, COMPANY
+            blog.bookmarkableId, blog.author, blog.rss, newBlogUrl, blog.twitter, COMPANY
         )
-        blogRepository.findByJsonId(entry.jsonId) >> Option.of(blog)
+        blogRepository.findByBookmarkableId(entry.bookmarkableId) >> Option.of(blog)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -135,15 +134,14 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should not update existing blog url if new address could not be retrieved"() {
         given:
-        Long jsonId = 2207L
-        Blog blog = buildBlog(
-            jsonId, "bookmarkableId","author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
+        String bookmarkableId = "bookmarkableId-2207"
+        Blog blog = buildBlog(bookmarkableId,"author", RSS_OF_VALID_BLOG, "http://old.blog.pl",
             "twitter", LocalDateTime.now(), PERSONAL
         )
         BloggerEntry entry = new BloggerEntry(
-            blog.jsonId, blog.bookmarkableId, blog.author, blog.rss, blog.twitter, COMPANY
+            blog.bookmarkableId, blog.author, blog.rss, blog.twitter, COMPANY
         )
-        blogRepository.findByJsonId(entry.jsonId) >> Option.of(blog)
+        blogRepository.findByBookmarkableId(entry.bookmarkableId) >> Option.of(blog)
         BloggersData bloggers = buildBloggersData(entry)
 
         when:
@@ -162,13 +160,12 @@ class BloggersDataUpdaterSpec extends Specification {
         return bloggersData;
     }
 
-    def buildBlog(Long jsonId, String bookmarkableId, String author, String rss, String pageUrl, String twitter) {
-        buildBlog(jsonId, bookmarkableId, author, rss, pageUrl, twitter, LocalDateTime.now(), PERSONAL)
+    def buildBlog(String bookmarkableId, String author, String rss, String pageUrl, String twitter) {
+        buildBlog(bookmarkableId, author, rss, pageUrl, twitter, LocalDateTime.now(), PERSONAL)
     }
 
-    def buildBlog(Long jsonId, String bookmarkableId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
+    def buildBlog(String bookmarkableId, String author, String rss, String url, String twitter, LocalDateTime dateAdded, BlogType type) {
         return Blog.builder()
-            .jsonId(jsonId)
             .bookmarkableId(bookmarkableId)
             .author(author)
             .rss(rss)
@@ -179,8 +176,8 @@ class BloggersDataUpdaterSpec extends Specification {
             .build()
     }
 
-    def buildBloggerEntry(Long jsonId, String bookmarkableId, String author, String rss, String pageUrl, String twitter, BlogType type) {
-        return new BloggerEntry(jsonId, bookmarkableId, author, rss, pageUrl, twitter, type)
+    def buildBloggerEntry(String bookmarkableId, String author, String rss, String pageUrl, String twitter, BlogType type) {
+        return new BloggerEntry(bookmarkableId, author, rss, pageUrl, twitter, type)
     }
 
     def syndFeedProducer() {

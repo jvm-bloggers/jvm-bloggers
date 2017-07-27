@@ -55,7 +55,7 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     private BlogPost createBlogPostAcceptedOn(LocalDateTime acceptationDate) {
         Blog blog = Blog.builder()
-            .jsonId(0L)
+            .bookmarkableId("bookmarkableId")
             .author("Blog author")
             .rss("rss")
             .url("url")

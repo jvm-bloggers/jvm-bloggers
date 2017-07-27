@@ -32,7 +32,7 @@ public class BloggersDataUpdater {
 
     private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
         return blogRepository
-            .findByJsonId(bloggerEntry.getJsonId())
+            .findByBookmarkableId(bloggerEntry.getBookmarkableId())
             .map(bloggerWithSameId ->
                 updateBloggerIfThereAreAnyChanges(bloggerEntry, bloggerWithSameId))
             .getOrElse(() -> createNewBlogger(bloggerEntry));
@@ -44,7 +44,6 @@ public class BloggersDataUpdater {
         validBlogUrl.forEach(bloggerEntry::setUrl);
 
         if (bloggerChangedVerifier.pendingChanges(existingBlogger, bloggerEntry)) {
-            existingBlogger.setJsonId(bloggerEntry.getJsonId());
             existingBlogger.setBookmarkableId(bloggerEntry.getBookmarkableId());
             existingBlogger.setAuthor(bloggerEntry.getName());
             existingBlogger.setTwitter(bloggerEntry.getTwitter());
@@ -73,7 +72,6 @@ public class BloggersDataUpdater {
         validBlogUrl.forEach(bloggerEntry::setUrl);
 
         Blog newBlog = Blog.builder()
-            .jsonId(bloggerEntry.getJsonId())
             .bookmarkableId(bloggerEntry.getBookmarkableId())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())

@@ -5,6 +5,8 @@ import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsF
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel
 import com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage
+import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageBackingBean
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import io.vavr.collection.List
 import io.vavr.control.Option
@@ -19,11 +21,11 @@ import org.apache.wicket.util.tester.TagTester
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static com.jvm_bloggers.frontend.public_area.blogs.AbstractBlogsPage.*
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogWithStatisticsItemPopulator.AUTHOR_BLOG_LINK_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogWithStatisticsItemPopulator.AUTHOR_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogWithStatisticsItemPopulator.BLOG_POSTS_LINK_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogWithStatisticsItemPopulator.FIRST_COUNTER_ID
-import static com.jvm_bloggers.frontend.public_area.blogs.BlogWithStatisticsItemPopulator.SECOND_COUNTER_ID
+import static BlogWithStatisticsItemPopulator.AUTHOR_BLOG_LINK_ID
+import static BlogWithStatisticsItemPopulator.AUTHOR_ID
+import static BlogWithStatisticsItemPopulator.BLOG_POSTS_LINK_ID
+import static BlogWithStatisticsItemPopulator.FIRST_COUNTER_ID
+import static BlogWithStatisticsItemPopulator.SECOND_COUNTER_ID
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.ACTIVE_CSS_CLASS
 import static java.util.UUID.randomUUID
 
