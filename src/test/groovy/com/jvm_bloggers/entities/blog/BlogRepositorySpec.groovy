@@ -75,6 +75,7 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
                 .blog(blog)
                 .title("title $index")
                 .url("url $index")
+                .approved(true)
                 .build())
     }
 }

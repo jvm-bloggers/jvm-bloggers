@@ -2,18 +2,14 @@ package com.jvm_bloggers.domain.query.blog_statistics_for_listing;
 
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog.BlogType;
-
 import com.jvm_bloggers.utils.NowProvider;
 import javaslang.collection.List;
 import lombok.AllArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 @Service
 @Transactional(readOnly = true)
