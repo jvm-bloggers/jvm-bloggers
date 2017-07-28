@@ -1,7 +1,10 @@
 package com.jvm_bloggers.frontend.admin_area;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
+import com.jvm_bloggers.entities.fb.FacebookPost;
+import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
@@ -12,6 +15,13 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath("social-channels")
 public class AdminSocialChannelsPage extends AbstractAdminPage {
 
+    public static final String FACEBOOK_POST_FORM_ID = "facebookPostForm";
+    public static final String SAVE_BUTTON_ID = "submitButton";
+    public static final String FEEDBACK_PANEL_ID = "feedbackPanel";
+    public static final String LINK_INPUT_ID = "link";
+    public static final String MESSAGE_INPUT_ID = "message";
+
+    private Form<AdminSocialChannelsPage> facebookPostForm;
     @SpringBean
     private AdminSocialChannelsPageBackingBean backingBean;
 
@@ -19,30 +29,34 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
     private String message;
 
     public AdminSocialChannelsPage() {
-        initGui();
+        addForm();
     }
 
-    private void initGui() {
-        Form<AdminSocialChannelsPage>
-            facebookPostForm =
-            new Form<AdminSocialChannelsPage>("facebookPostForm",
-                new CompoundPropertyModel<AdminSocialChannelsPage>(this));
+    private void addForm() {
+        facebookPostForm = new Form<AdminSocialChannelsPage>(
+            FACEBOOK_POST_FORM_ID, new CompoundPropertyModel<AdminSocialChannelsPage>(this)
+        );
+        TextField<String> linkField = new TextField<>(LINK_INPUT_ID);
+        TextArea<String> messageField = new TextArea<>(MESSAGE_INPUT_ID);
+        linkField.add(new PropertyValidator<FacebookPost>());
+        messageField.add(new PropertyValidator<FacebookPost>());
+        facebookPostForm.add(linkField.setRequired(true));
+        facebookPostForm.add(messageField.setRequired(true));
+        facebookPostForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
         add(facebookPostForm);
-        Label linkLabel = new Label("linkLabel", "Link");
-        facebookPostForm.add(linkLabel);
-        TextField<String> linkField = new TextField<String>("link");
-        facebookPostForm.add(linkField);
-        Label messageLabel = new Label("messageLabel", "Message");
-        facebookPostForm.add(messageLabel);
-        TextArea<String> messageField = new TextArea<String>("message");
-        facebookPostForm.add(messageField);
-        Button submitButton = new Button("submitButton") {
-            @Override
-            public void onSubmit() {
+        addSubmitFormButton();
+    }
 
+    private void addSubmitFormButton(){
+        AjaxButton submitButton = new AjaxButton(SAVE_BUTTON_ID, facebookPostForm) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target) {
                 backingBean.createNewFacebookPost(link, message);
-                getSession().info("Facebook post saved");
+                success("Facebook post saved successfully");
+                target.add(getForm());
             }
+            @Override
+            protected void onError(AjaxRequestTarget target) {target.add(getForm()); }
         };
         facebookPostForm.add(submitButton);
     }

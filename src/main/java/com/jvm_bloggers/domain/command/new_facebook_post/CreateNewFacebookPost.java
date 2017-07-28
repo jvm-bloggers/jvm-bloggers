@@ -8,7 +8,7 @@ import lombok.Value;
 @RequiredArgsConstructor
 public class CreateNewFacebookPost implements Command {
 
-    private String facebookMessage;
-    private String issueLink;
+    private final String facebookMessage;
+    private final String issueLink;
 
 }
