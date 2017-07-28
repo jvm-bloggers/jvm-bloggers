@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.UrlValidator;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath("social-channels")
@@ -40,7 +41,7 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
         TextArea<String> messageField = new TextArea<>(MESSAGE_INPUT_ID);
         linkField.add(new PropertyValidator<FacebookPost>());
         messageField.add(new PropertyValidator<FacebookPost>());
-        facebookPostForm.add(linkField.setRequired(true));
+        facebookPostForm.add(linkField.setRequired(true).add(new UrlValidator()));
         facebookPostForm.add(messageField.setRequired(true));
         facebookPostForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
         add(facebookPostForm);
