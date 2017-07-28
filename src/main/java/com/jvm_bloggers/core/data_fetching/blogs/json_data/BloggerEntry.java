@@ -8,7 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class BloggerEntry {
 
-    private Long jsonId;
     private String bookmarkableId;
     private String name;
     private String rss;
@@ -17,14 +16,13 @@ public class BloggerEntry {
     private BlogType blogType;
 
     public BloggerEntry(
-        Long jsonId,
         String bookmarkableId,
         String name,
         String rss,
         String twitter,
         BlogType blogType
     ) {
-        this(jsonId, bookmarkableId, name, rss, null, twitter, blogType);
+        this(bookmarkableId, name, rss, null, twitter, blogType);
     }
 
     public boolean hasRss() {

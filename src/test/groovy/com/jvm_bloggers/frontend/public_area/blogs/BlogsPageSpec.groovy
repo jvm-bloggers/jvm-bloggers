@@ -8,8 +8,8 @@ import com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem
 import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage
 import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageBackingBean
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
-import javaslang.collection.List
-import javaslang.control.Option
+import io.vavr.collection.List
+import io.vavr.control.Option
 import org.apache.wicket.Component
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.link.BookmarkablePageLink

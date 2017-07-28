@@ -5,7 +5,7 @@ import com.jvm_bloggers.core.rss.BlogPostsController;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 
-import javaslang.control.Option;
+import io.vavr.control.Option;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;

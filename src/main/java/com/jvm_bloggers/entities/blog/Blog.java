@@ -34,10 +34,7 @@ public class Blog {
     private Long id;
 
     @NonNull
-    @Column(nullable = false, name = "JSON_ID")
-    private Long jsonId;
-
-    @Column(name = "BOOKMARKABLE_ID", length = 30, unique = true)
+    @Column(nullable = false, name = "BOOKMARKABLE_ID", length = 30, unique = true)
     private String bookmarkableId;
 
     @NonNull
@@ -72,7 +69,7 @@ public class Blog {
     }
 
     public Boolean getDefaultApprovedValue() {
-        return isPersonal() ? Boolean.TRUE : null; 
+        return isPersonal() ? Boolean.TRUE : null;
     }
 
     public String getStatus() {

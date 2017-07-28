@@ -9,7 +9,7 @@ import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageBack
 import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPageRequestHandler
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.utils.NowProvider
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.apache.wicket.Component
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.link.ExternalLink

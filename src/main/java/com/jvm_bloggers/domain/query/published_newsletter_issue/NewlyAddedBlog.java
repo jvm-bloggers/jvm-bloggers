@@ -2,7 +2,7 @@ package com.jvm_bloggers.domain.query.published_newsletter_issue;
 
 import com.jvm_bloggers.entities.blog.Blog;
 
-import javaslang.collection.Seq;
+import io.vavr.collection.Seq;
 
 import lombok.Value;
 

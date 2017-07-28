@@ -5,7 +5,7 @@ import com.jvm_bloggers.domain.query.NewsletterIssueNumber
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedNewsletterIssue
 import com.jvm_bloggers.frontend.public_area.common_layout.RightFrontendSidebarBackingBean
 import com.jvm_bloggers.frontend.public_area.newsletter_issue.newsletter_panel.NewsletterIssuePanel
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.apache.wicket.markup.html.basic.Label
 import spock.lang.Subject
 
@@ -13,7 +13,7 @@ import static com.jvm_bloggers.domain.query.NewsletterIssueNumber.of
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.ISSUE_PANEL_ID
 import static com.jvm_bloggers.frontend.public_area.newsletter_issue.NewsletterIssuePage.buildShowIssueParams
 import static java.time.LocalDate.now
-import static javaslang.collection.List.empty
+import static io.vavr.collection.List.empty
 
 class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
 

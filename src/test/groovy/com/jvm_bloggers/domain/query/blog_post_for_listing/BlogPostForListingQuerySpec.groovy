@@ -4,7 +4,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
-import javaslang.control.Option
+import io.vavr.control.Option
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 import spock.lang.Subject
@@ -82,7 +82,6 @@ class BlogPostForListingQuerySpec  extends Specification {
         new Blog.BlogBuilder()
                 .url(randomUUID().toString())
                 .id(1)
-                .jsonId(1)
                 .bookmarkableId(randomUUID().toString())
                 .rss(randomUUID().toString())
                 .dateAdded(now())

@@ -3,7 +3,7 @@ package com.jvm_bloggers.core.rss.fetchers;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 
-import javaslang.control.Try;
+import io.vavr.control.Try;
 
 import lombok.extern.slf4j.Slf4j;
 

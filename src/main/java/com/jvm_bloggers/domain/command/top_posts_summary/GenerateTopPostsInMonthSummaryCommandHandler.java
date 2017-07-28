@@ -10,7 +10,7 @@ import com.jvm_bloggers.entities.top_posts_summary.PopularPersonalPost;
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary;
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import javaslang.collection.List;
+import io.vavr.collection.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

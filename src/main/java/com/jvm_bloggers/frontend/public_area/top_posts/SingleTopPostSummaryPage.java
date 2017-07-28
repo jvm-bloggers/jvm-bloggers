@@ -5,7 +5,7 @@ import com.jvm_bloggers.domain.query.top_posts_summary.PublishedTopPostSummary;
 import com.jvm_bloggers.frontend.common_components.PublishedBlogPostLink;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import com.jvm_bloggers.frontend.public_area.social_meta_data.SocialMetaData;
-import javaslang.control.Try;
+import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;

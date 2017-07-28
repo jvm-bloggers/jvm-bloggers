@@ -2,7 +2,7 @@ package com.jvm_bloggers.frontend.public_area.top_posts;
 
 import com.jvm_bloggers.domain.query.top_posts_summary.TopPostsSummaryBasicDetails;
 import com.jvm_bloggers.domain.query.top_posts_summary.TopPostsSummaryQuery;
-import javaslang.collection.List;
+import io.vavr.collection.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

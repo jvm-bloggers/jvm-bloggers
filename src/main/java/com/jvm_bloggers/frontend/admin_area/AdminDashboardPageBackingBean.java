@@ -4,7 +4,7 @@ import com.jvm_bloggers.domain.command.CommandPublisher;
 import com.jvm_bloggers.domain.command.top_posts_summary.GenerateTopPostsInMonthSummary;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import javaslang.collection.Stream;
+import io.vavr.collection.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

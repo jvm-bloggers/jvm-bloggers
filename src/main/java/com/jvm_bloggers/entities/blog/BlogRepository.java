@@ -2,8 +2,8 @@ package com.jvm_bloggers.entities.blog;
 
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection;
 
-import javaslang.collection.List;
-import javaslang.control.Option;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +17,7 @@ import java.time.LocalDateTime;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
 
-    Option<Blog> findByBookmarkableId(String code);
-
-    Option<Blog> findByJsonId(Long jsonId);
+    Option<Blog> findByBookmarkableId(String bookmarkableId);
 
     List<Blog> findByDateAddedAfter(LocalDateTime lastNewsletterSent);
 
