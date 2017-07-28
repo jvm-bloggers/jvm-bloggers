@@ -48,7 +48,7 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
         addSubmitFormButton();
     }
 
-    private void addSubmitFormButton(){
+    private void addSubmitFormButton() {
         AjaxButton submitButton = new AjaxButton(SAVE_BUTTON_ID, facebookPostForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
@@ -56,8 +56,11 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
                 success("Facebook post saved successfully");
                 target.add(getForm());
             }
+
             @Override
-            protected void onError(AjaxRequestTarget target) {target.add(getForm()); }
+            protected void onError(AjaxRequestTarget target) {
+                target.add(getForm());
+            }
         };
         facebookPostForm.add(submitButton);
     }
