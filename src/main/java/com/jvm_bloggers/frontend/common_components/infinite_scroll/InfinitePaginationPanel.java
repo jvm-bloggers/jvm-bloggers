@@ -23,16 +23,23 @@ public class InfinitePaginationPanel extends Panel {
 
         callbackUrl = new Model<>();
         pager = new AjaxPagingNavigator("pager", dataView);
+        long totalPageCountValue = pager.getPageable().getPageCount();
         Component nextLink = new Label("next-page").add(new AttributeModifier("href", callbackUrl));
+        Component totalPageCount = new Label("total-page-count", totalPageCountValue);
 
         add(pager);
         add(nextLink);
-        add(newInfiniteScrollingBehavior(nextLink));
+        add(totalPageCount);
+        if (totalPageCountValue > 1) {
+            add(newInfiniteScrollingBehavior(nextLink, totalPageCount));
+        }
     }
 
-    protected InfiniteScrollingBehavior newInfiniteScrollingBehavior(final Component nextLink) {
+    protected InfiniteScrollingBehavior newInfiniteScrollingBehavior(final Component nextLink,
+                                                           final Component totalPageCount) {
         final InfiniteScrollingBehavior scrollingBehavior = new InfiniteScrollingBehavior();
         scrollingBehavior.setNextSelector(nextLink);
+        scrollingBehavior.setTotalPageCountSelector(totalPageCount);
 
         return scrollingBehavior;
     }
