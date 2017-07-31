@@ -1,9 +1,10 @@
 package com.jvm_bloggers.entities.twitter;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tweet")
-@Data
+@Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Tweet {
 
@@ -31,6 +32,7 @@ public class Tweet {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Setter
     @NonNull
     @Column(name = "sent_date", nullable = false)
     private LocalDateTime sentDate;
