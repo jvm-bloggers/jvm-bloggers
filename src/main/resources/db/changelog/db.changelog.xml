@@ -514,8 +514,16 @@
             </column>
         </addColumn>
     </changeSet>
-  
-    <changeSet id="040-create-tweet-table" author="Michał.Chmielarz">
+
+    <changeSet id="043-drop-json-id-column-in-blog-table" author="Łukasz.Drążek" >
+        <dropColumn tableName="BLOG" columnName="JSON_ID"/>
+    </changeSet>
+
+    <changeSet id="044-bookmarkable-id-column-in-blog-table-not-nullable" author="Tomasz.Dziurko" >
+        <addNotNullConstraint tableName="BLOG" columnName="BOOKMARKABLE_ID" columnDataType="varchar(30)"/>
+    </changeSet>
+
+    <changeSet id="045-create-tweet-table" author="Michał.Chmielarz">
 
         <createSequence sequenceName="TWEET_SEQ"/>
 
@@ -528,14 +536,6 @@
             </column>
             <column name="SENT_DATE" type="timestamp without time zone"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="043-drop-json-id-column-in-blog-table" author="Łukasz.Drążek" >
-        <dropColumn tableName="BLOG" columnName="JSON_ID"/>
-    </changeSet>
-
-    <changeSet id="044-bookmarkable-id-column-in-blog-table-not-nullable" author="Tomasz.Dziurko" >
-        <addNotNullConstraint tableName="BLOG" columnName="BOOKMARKABLE_ID" columnDataType="varchar(30)"/>
     </changeSet>
 
 </databaseChangeLog>
