@@ -32,109 +32,109 @@ class TweetContentGeneratorSpec extends Specification {
 
     def "Should generate a Tweet content with an issue number and link"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(posts())
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(posts())
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            tweetContent.contains(issue.issueNumber as String)
-            tweetContent.contains(LINK)
+        tweetContent.contains(issue.issueNumber as String)
+        tweetContent.contains(LINK)
     }
 
     def "Should add two twitter handles of personal blogs"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(posts())
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(posts())
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            def personal = /@personal/
-            def personalBlogs = (tweetContent =~ /$personal/)
-            assert personalBlogs.count == 2
+        def personal = /@personal/
+        def personalBlogs = (tweetContent =~ /$personal/)
+        assert personalBlogs.count == 2
     }
 
     def "Should add one twitter handle of company blog"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(posts())
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(posts())
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            def company = /@company/
-            def companyBlogs = (tweetContent =~ /$company/)
-            assert companyBlogs.count == 1
+        def company = /@company/
+        def companyBlogs = (tweetContent =~ /$company/)
+        assert companyBlogs.count == 1
     }
 
     def "Should add company twitter handle as the second on handles list"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(posts())
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(posts())
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            def handles = /.*@personal\d{1}, @company\d{1} i @personal\d{1}.*/
-            tweetContent ==~ /$handles/
+        def handles = /.*@personal\d{1}, @company\d{1} i @personal\d{1}.*/
+        tweetContent ==~ /$handles/
     }
 
     def "Should not add the second personal twitter handle if message is too long"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(postsWithLongHandles())
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(postsWithLongHandles())
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            def handles = /.*@veryLongPersonalHandle\d{1} i @veryLongCompanyHandle\d{1}.*/
-            tweetContent ==~ /$handles/
+        def handles = /.*@veryLongPersonalHandle\d{1} i @veryLongCompanyHandle\d{1}.*/
+        tweetContent ==~ /$handles/
     }
 
     @Unroll
     def "Should always have java and jvm tags at the end"() {
         given:
-            NewsletterIssue issue = NewsletterIssue
-                    .builder()
-                    .issueNumber(ISSUE_NUMBER)
-                    .heading("issue heading")
-                    .blogPosts(posts)
-                    .build()
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(posts)
+                .build()
 
         when:
-            String tweetContent = contentGenerator.generateTweetContent(issue)
+        String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-            tweetContent.endsWith("#java #jvm")
+        tweetContent.endsWith("#java #jvm")
 
         where:
-            posts << [posts(), postsWithLongHandles()]
+        posts << [posts(), postsWithLongHandles()]
     }
 
     private Collection<BlogPost> posts() {

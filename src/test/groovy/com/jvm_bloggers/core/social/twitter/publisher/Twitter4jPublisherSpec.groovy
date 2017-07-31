@@ -18,24 +18,24 @@ class Twitter4jPublisherSpec extends Specification {
 
     def "should publish a new tweet successfully"() {
         given:
-            twitterClient.updateStatus(_) >> Mock(Status)
+        twitterClient.updateStatus(_) >> Mock(Status)
 
         when:
-            def publishingStatus = publisher.publish(tweet())
+        def publishingStatus = publisher.publish(tweet())
 
         then:
-            publishingStatus == TwitterPublisher.TwitterPublishingStatus.SUCCESS
+        publishingStatus == TwitterPublisher.TwitterPublishingStatus.SUCCESS
     }
 
     def "should not publish a new tweet in case of errors"() {
         given:
-            twitterClient.updateStatus(_) >> { throw new TwitterException("test error") }
+        twitterClient.updateStatus(_) >> { throw new TwitterException("test error") }
 
         when:
-            def publishingStatus = publisher.publish(tweet())
+        def publishingStatus = publisher.publish(tweet())
 
         then:
-            publishingStatus == TwitterPublisher.TwitterPublishingStatus.ERROR
+        publishingStatus == TwitterPublisher.TwitterPublishingStatus.ERROR
     }
 
     private Tweet tweet() {

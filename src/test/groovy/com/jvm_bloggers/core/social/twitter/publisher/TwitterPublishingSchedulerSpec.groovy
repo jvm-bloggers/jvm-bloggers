@@ -23,42 +23,42 @@ class TwitterPublishingSchedulerSpec extends Specification {
 
     def "Should save published tweet with set sentDate"() {
         given:
-            Tweet tweet = Mock(Tweet)
-            tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
-            publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.SUCCESS
+        Tweet tweet = Mock(Tweet)
+        tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
+        publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.SUCCESS
 
         when:
-            publisherScheduler.publishOnePost()
+        publisherScheduler.publishOnePost()
 
         then:
-            1 * tweet.setSentDate(NOW)
-            1 * tweetRepository.save(tweet)
+        1 * tweet.setSentDate(NOW)
+        1 * tweetRepository.save(tweet)
     }
 
     def "Should not execute any action for zero not published tweets"() {
         given:
-            tweetRepository.findFirstBySentDateNull() >> Option.none()
+        tweetRepository.findFirstBySentDateNull() >> Option.none()
 
         when:
-            publisherScheduler.publishOnePost()
+        publisherScheduler.publishOnePost()
 
         then:
-            0 * publisher.publish(_)
-            0 * tweetRepository.save(_ as Tweet)
+        0 * publisher.publish(_)
+        0 * tweetRepository.save(_ as Tweet)
     }
 
     def "Should not update sentDate for unsuccessful sending action"() {
         given:
-            Tweet tweet = Mock(Tweet)
-            tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
-            publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.ERROR
+        Tweet tweet = Mock(Tweet)
+        tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
+        publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.ERROR
 
         when:
-            publisherScheduler.publishOnePost()
+        publisherScheduler.publishOnePost()
 
         then:
-            0 * tweet.setSentDate(NOW)
-            0 * tweetRepository.save(tweet)
+        0 * tweet.setSentDate(NOW)
+        0 * tweetRepository.save(tweet)
     }
     
 }
