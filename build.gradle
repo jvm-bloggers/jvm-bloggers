@@ -80,6 +80,7 @@ dependencies {
     compile "org.projectlombok:lombok:1.16.18"
     compile 'com.google.guava:guava:22.0'
     compile 'org.apache.commons:commons-lang3:3.6'
+    compile 'org.apache.commons:commons-text:1.1'
     compile 'org.antlr:ST4:4.0.8'
     compile "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
