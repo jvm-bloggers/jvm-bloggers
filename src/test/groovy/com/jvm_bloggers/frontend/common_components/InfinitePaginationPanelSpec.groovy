@@ -32,7 +32,7 @@ class InfinitePaginationPanelSpec extends MockSpringContextAwareSpecification {
         tester.startComponentInPage(infinitePaginationPanel)
 
         then:
-        0 == tester.getComponentFromLastRenderedPage(panelId).getBehaviors(InfiniteScrollingBehavior).size()
+        tester.getComponentFromLastRenderedPage(panelId).getBehaviors(InfiniteScrollingBehavior).isEmpty()
     }
 
     @Override
