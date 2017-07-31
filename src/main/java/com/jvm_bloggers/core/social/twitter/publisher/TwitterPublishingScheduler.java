@@ -4,11 +4,14 @@ import com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPu
 import com.jvm_bloggers.entities.twitter.Tweet;
 import com.jvm_bloggers.entities.twitter.TweetRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import io.vavr.control.Option;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import io.vavr.control.Option;
 
 import static lombok.AccessLevel.PACKAGE;
 
@@ -23,9 +26,9 @@ class TwitterPublishingScheduler {
 
     @Scheduled(fixedDelayString = "${scheduler.publish-twitter}")
     public void publishOnePost() {
-        Option<Tweet> notSentEmail = tweetRepository.findFirstBySentDateNull();
+        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentDateNull();
 
-        notSentEmail.forEach(tweet -> {
+        notSentTweet.forEach(tweet -> {
             final TwitterPublishingStatus status = twitterPublisher.publish(tweet);
             log.info("Tweet published, status: {}", status);
             setSentDateForSuccessfulAction(tweet, status);
