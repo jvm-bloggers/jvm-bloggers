@@ -8,8 +8,8 @@ import twitter4j.TwitterException
 
 class Twitter4jPublisherSpec extends Specification {
 
-    TwitterClientFactory clientFactory = Mock(TwitterClientFactory)
-    Twitter twitterClient = Mock(Twitter)
+    TwitterClientFactory clientFactory = Stub(TwitterClientFactory)
+    Twitter twitterClient = Stub(Twitter)
     Twitter4jPublisher publisher = new Twitter4jPublisher(clientFactory)
 
     def setup() {
@@ -18,7 +18,7 @@ class Twitter4jPublisherSpec extends Specification {
 
     def "should publish a new tweet successfully"() {
         given:
-        twitterClient.updateStatus(_) >> Mock(Status)
+        twitterClient.updateStatus(_) >> Stub(Status)
 
         when:
         def publishingStatus = publisher.publish(tweet())
@@ -39,7 +39,7 @@ class Twitter4jPublisherSpec extends Specification {
     }
 
     private Tweet tweet() {
-        new Tweet("Testujemy konto Twittera!!! :)")
+        new Tweet("Tests, tests everywhere!!! :)")
     }
 
 }

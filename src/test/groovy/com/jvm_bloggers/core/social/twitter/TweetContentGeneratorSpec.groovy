@@ -21,7 +21,7 @@ class TweetContentGeneratorSpec extends Specification {
     private static final Random randomJsonId = new Random()
     private static final NowProvider nowProvider = new NowProvider()
 
-    private final LinkGenerator linkGenerator = Mock(LinkGenerator)
+    private final LinkGenerator linkGenerator = Stub(LinkGenerator)
 
     @Subject
     private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)

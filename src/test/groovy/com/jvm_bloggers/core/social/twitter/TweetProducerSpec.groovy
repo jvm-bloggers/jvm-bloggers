@@ -21,7 +21,7 @@ class TweetProducerSpec extends Specification {
     private static final Random randomJsonId = new Random()
     private static final NowProvider nowProvider = new NowProvider()
 
-    private LinkGenerator linkGenerator = Mock(LinkGenerator)
+    private LinkGenerator linkGenerator = Stub(LinkGenerator)
 
     def setup() {
         linkGenerator.generateIssueLink(_) >> { args -> LINK }
