@@ -5,13 +5,13 @@ import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.utils.NowProvider;
 
-import io.vavr.control.Option;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import io.vavr.control.Option;
 
 import static lombok.AccessLevel.PACKAGE;
 
@@ -26,9 +26,9 @@ class FacebookPublishingScheduler {
 
     @Scheduled(fixedDelayString = "${scheduler.publish-fb}")
     public void publishOnePost() {
-        Option<FacebookPost> notSentEmail = facebookPostRepository.findFirstBySentDateNull();
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull();
 
-        notSentEmail.forEach(post -> {
+        notSentPost.forEach(post -> {
             final FacebookPublishingStatus status = facebookPublisher.publishPost(post);
             log.info("Post on Facebook published, status: {}", status);
             setSentDateForSuccessfulAction(post, status);
