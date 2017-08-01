@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.text.RandomStringGenerator;
 
 import java.time.LocalDateTime;
 
@@ -100,7 +100,7 @@ public class BlogPost {
     }
 
     private static String generateRandomUid() {
-        return RandomStringUtils.randomAlphanumeric(UID_LENGTH);
+        return new RandomStringGenerator.Builder().build().generate(UID_LENGTH);
     }
 
     public void approve(LocalDateTime approvedDate) {
