@@ -1,19 +1,19 @@
 package com.jvm_bloggers.core.social.twitter.publisher;
 
 import com.jvm_bloggers.entities.twitter.Tweet;
-import io.vavr.control.Try;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import io.vavr.control.Try;
 
 import static com.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.ERROR;
 import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.SUCCESS;
 import static lombok.AccessLevel.PACKAGE;
-import static org.slf4j.LoggerFactory.getLogger;
 
 @Component
 @Profile(PRODUCTION)
