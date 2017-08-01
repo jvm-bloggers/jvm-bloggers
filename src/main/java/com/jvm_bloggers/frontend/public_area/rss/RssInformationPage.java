@@ -24,7 +24,8 @@ public class RssInformationPage extends AbstractFrontendPage {
         add(new ExternalLink("rss_feed_url", feedUrl, feedUrl));
 
         Arrays.stream(FeedParameter.values())
-            .forEach(e -> add(getExternalLink(e)));
+            .map(this::getExternalLink)
+            .forEach(this::add);
     }
 
     @Override
