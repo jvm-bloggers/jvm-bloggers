@@ -2,9 +2,7 @@ package com.jvm_bloggers.core.rss.converters
 
 import com.jvm_bloggers.utils.DateTimeUtilities
 import com.jvm_bloggers.utils.NowProvider
-import com.rometools.rome.feed.synd.SyndContent
-import com.rometools.rome.feed.synd.SyndEntry
-import com.rometools.rome.feed.synd.SyndFeed
+import com.rometools.rome.feed.synd.*
 import groovy.json.JsonSlurper
 import spock.lang.Specification
 import spock.lang.Subject
@@ -16,6 +14,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 class SyndFeedToJsonConverterSpec extends Specification {
 
     static final String BASE_URL = "http://localhost"
+    static final String FEED_LINK = "http://localhost/pl/rss.json"
     static final String FEED_TITLE = "JvmBloggers"
     static final LocalDateTime DATE = new NowProvider().now()
 
@@ -31,9 +30,12 @@ class SyndFeedToJsonConverterSpec extends Specification {
     SyndFeed feed = Mock() {
         SyndEntry entry1 = stubFeedEntry(AUTHOR_1, BASE_URL, DESCRIPTION_1, TITLE_1, DATE)
         SyndEntry entry2 = stubFeedEntry(AUTHOR_2, BASE_URL, null, TITLE_2, DATE)
+        SyndLink link = new SyndLinkImpl()
+        link.setRel("self")
+        link.setHref(FEED_LINK)
 
         getTitle() >> FEED_TITLE
-        getLink() >> BASE_URL
+        getLinks() >> [link]
         getGenerator() >> BASE_URL
 
         getEntries() >> [entry1, entry2]
@@ -47,7 +49,7 @@ class SyndFeedToJsonConverterSpec extends Specification {
         then:
         with(json) {
             title == FEED_TITLE
-            link == BASE_URL + "/pl/rss"
+            link == FEED_LINK
             generator == BASE_URL
 
             entries != null
