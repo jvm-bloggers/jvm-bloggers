@@ -995,6 +995,12 @@
       "name": "Bartłomiej Kiełbasa",
       "rss": "https://iamcode.guru/category/jvm/feed/",
       "twitter": "@kabanek"
+    },
+    {
+      "bookmarkableId": "bartlomiej-szwej",
+      "name": "Bartłomiej Szwej",
+      "rss": "https://medium.com/feed/@bszwej",
+      "twitter": "@bszwej"
     }
   ]
 }
