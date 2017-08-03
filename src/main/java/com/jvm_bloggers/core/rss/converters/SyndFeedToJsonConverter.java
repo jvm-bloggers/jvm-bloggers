@@ -1,10 +1,11 @@
 package com.jvm_bloggers.core.rss.converters;
 
 import com.github.openjson.JSONObject;
-import com.jvm_bloggers.core.rss.BlogPostsController;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndLink;
 
+import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 
 import lombok.experimental.UtilityClass;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.SELF_REL;
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.AUTHOR;
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.DATE;
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.DESCRIPTION;
@@ -42,9 +44,9 @@ class SyndFeedToJsonConverter {
     private static JSONObject toJson(SyndFeed feed) {
         JSONObject json = new JSONObject();
         json.put(TITLE, feed.getTitle());
-        json.put(LINK, feed.getLink());
         json.put(DESCRIPTION, feed.getDescription());
         json.put(ENTRIES, toJson(feed.getEntries()));
+        setLinkIfPresent(feed, json);
         return json;
     }
 
@@ -71,12 +73,18 @@ class SyndFeedToJsonConverter {
         return json;
     }
 
+    private static void setLinkIfPresent(SyndFeed feed, JSONObject json) {
+        Stream.ofAll(feed.getLinks())
+            .find(link -> SELF_REL.equals(link.getRel()))
+            .map(SyndLink::getHref)
+            .forEach(link -> json.put(LINK, link));
+    }
+
     public JSONObject convert(SyndFeed feed) {
         log.debug("Building JSON from the RSS feed...");
 
         JSONObject json = toJson(feed);
         json.put(GENERATOR, baseUrl);
-        json.put(LINK, baseUrl + BlogPostsController.RSS_FEED_MAPPING);
 
         log.debug("JSON content generated successfully with '{}' entries",
             feed.getEntries().size());

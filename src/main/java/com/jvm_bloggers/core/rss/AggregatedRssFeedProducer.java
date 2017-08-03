@@ -29,7 +29,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,7 +56,7 @@ public class AggregatedRssFeedProducer {
     @VisibleForTesting
     static final Set<String> INCLUDE_ALL_AUTHORS_SET = ImmutableSet.of(StringUtils.EMPTY);
 
-    private static final String SELF_REL = "self";
+    public static final String SELF_REL = "self";
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
     private final LinkGenerator linkGenerator;
@@ -137,7 +137,7 @@ public class AggregatedRssFeedProducer {
         feed.setTitle(FEED_TITLE);
         feed.setFeedType(FEED_TYPE);
         feed.setDescription(FEED_DESCRIPTION);
-        feed.setLinks(Arrays.asList(feedLink));
+        feed.setLinks(Collections.singletonList(feedLink));
         feed.setPublishedDate(DateTimeUtilities.toDate(nowProvider.now()));
         feed.setEntries(feedItems);
         return feed;
