@@ -3,6 +3,7 @@ package com.jvm_bloggers.core.rss.converters
 import com.jvm_bloggers.core.rss.TestSyndFeedProvider
 import com.rometools.rome.feed.synd.SyndFeed
 import com.rometools.rome.feed.synd.SyndFeedImpl
+import groovy.json.JsonSlurper
 import org.apache.commons.io.IOUtils
 import org.springframework.http.HttpInputMessage
 import org.springframework.http.HttpOutputMessage
@@ -25,13 +26,16 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
     @Subject
     SyndFeedJsonMessageConverter converter = new SyndFeedJsonMessageConverter(jsonConverter)
 
+    @Shared
+    Closure toJson = { new JsonSlurper().parseText(it) }
+
     @Unroll
     def "Should support #supportedClazz"() {
         when:
         def result = converter.supports(supportedClazz)
 
         then:
-        result == true
+        result
 
         where:
         supportedClazz << [SyndFeed, SyndFeedImpl]
@@ -57,6 +61,6 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
         def actual = message.getBodyAsString(Charset.defaultCharset())
         def expected = IOUtils.toString(getClass().getResource("expected-rss.json").openStream(), Charset.defaultCharset())
 
-        actual == expected
+        toJson(actual) == toJson(expected)
     }
 }
