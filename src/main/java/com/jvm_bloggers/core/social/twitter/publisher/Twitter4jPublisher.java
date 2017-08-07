@@ -2,13 +2,13 @@ package com.jvm_bloggers.core.social.twitter.publisher;
 
 import com.jvm_bloggers.entities.twitter.Tweet;
 
+import io.vavr.control.Try;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import io.vavr.control.Try;
 
 import static com.jvm_bloggers.ApplicationProfiles.PRODUCTION;
 import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.ERROR;
