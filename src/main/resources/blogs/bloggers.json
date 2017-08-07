@@ -1001,6 +1001,12 @@
       "name": "Bartłomiej Szwej",
       "rss": "https://medium.com/feed/@bszwej",
       "twitter": "@bszwej"
+    },
+    {
+      "bookmarkableId": "dmydlarz",
+      "name": "Dariusz Mydlarz Blog",
+      "rss": "http://www.dmydlarz.com/rss.xml",
+      "twitter": "@dmydlarz"
     }
   ]
 }
