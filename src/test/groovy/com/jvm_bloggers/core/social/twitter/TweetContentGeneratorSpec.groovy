@@ -100,6 +100,47 @@ class TweetContentGeneratorSpec extends Specification {
         tweetContent ==~ /$handles/
     }
 
+    def "Should add no company handle if there are no company blogs"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(noCompanyPosts())
+                .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def company = /@company/
+        def companyBlogs = (tweetContent =~ /$company/)
+        assert companyBlogs.count == 0
+    }
+
+    def "Should add one personal and one company handles only if there is no second personal handle"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+                .builder()
+                .issueNumber(ISSUE_NUMBER)
+                .heading("issue heading")
+                .blogPosts(singlePersonalPost())
+                .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def personal = /@personal/
+        def personalBlogs = (tweetContent =~ /$personal/)
+        assert personalBlogs.count == 1
+
+        and:
+        def company = /@company/
+        def companyBlogs = (tweetContent =~ /$company/)
+        assert companyBlogs.count == 1
+    }
+
     def "Should not add the second personal twitter handle if message is too long"() {
         given:
         NewsletterIssue issue = NewsletterIssue
@@ -135,6 +176,22 @@ class TweetContentGeneratorSpec extends Specification {
 
         where:
         posts << [posts(), postsWithLongHandles()]
+    }
+
+    private Collection<BlogPost> noCompanyPosts() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal2", PERSONAL)))
+        posts.add(blogPost(blog("@personal3", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> singlePersonalPost() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@company1", COMPANY)))
+        posts.add(blogPost(blog("@company2", COMPANY)))
+        return posts
     }
 
     private Collection<BlogPost> posts() {
