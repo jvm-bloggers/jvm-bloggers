@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CreateNewFacebookPostCommandHandler implements CommandHandler<CreateNewFacebookPost> {
+class CreateNewFacebookPostCommandHandler implements CommandHandler<CreateNewFacebookPost> {
 
     private final FacebookPostRepository facebookPostRepository;
 

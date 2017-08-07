@@ -14,7 +14,7 @@ class AdminSocialChannelsPageSpec extends MockSpringContextAwareSpecification {
         addBean(Stub(PaginationConfiguration))
     }
 
-    def "Should create new FacebookPost"() {
+    def "Should send a CreateNewFacebookPost command"() {
         given:
         currentUserIsAdmin()
         tester.startPage(AdminSocialChannelsPage)
@@ -28,18 +28,19 @@ class AdminSocialChannelsPageSpec extends MockSpringContextAwareSpecification {
         then:
         1 * backingBean.createNewFacebookPost(_,_)
     }
-    def "Should not save FacebookPost when link is not valid"(){
+
+    def "Should not send createNewFacebookPost command when link is not valid"(){
         given:
-            currentUserIsAdmin()
-            tester.startPage(AdminSocialChannelsPage)
+        currentUserIsAdmin()
+        tester.startPage(AdminSocialChannelsPage)
 
         when:
-            FormTester formTester = tester.newFormTester(AdminSocialChannelsPage.FACEBOOK_POST_FORM_ID)
-            formTester.setValue(AdminSocialChannelsPage.LINK_INPUT_ID,"")
-            formTester.setValue(AdminSocialChannelsPage.MESSAGE_INPUT_ID,SAMPLE_VALID_MESSAGE)
-            formTester.submit(AdminSocialChannelsPage.SAVE_BUTTON_ID)
+        FormTester formTester = tester.newFormTester(AdminSocialChannelsPage.FACEBOOK_POST_FORM_ID)
+        formTester.setValue(AdminSocialChannelsPage.LINK_INPUT_ID,"")
+        formTester.setValue(AdminSocialChannelsPage.MESSAGE_INPUT_ID,SAMPLE_VALID_MESSAGE)
+        formTester.submit(AdminSocialChannelsPage.SAVE_BUTTON_ID)
 
         then:
-            0 * backingBean.createNewFacebookPost(_)
+        0 * backingBean.createNewFacebookPost(_)
     }
 }
