@@ -1,14 +1,10 @@
 package com.jvm_bloggers.frontend.admin_area;
 
-import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.UrlValidator;
