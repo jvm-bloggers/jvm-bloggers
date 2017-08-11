@@ -49,7 +49,7 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
         AjaxButton submitButton = new AjaxButton(SAVE_BUTTON_ID, facebookPostForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
-                backingBean.createNewFacebookPost(link, message);
+                backingBean.createNewFacebookPost(message, link);
                 success("Facebook post saved successfully");
                 target.add(getForm());
             }
