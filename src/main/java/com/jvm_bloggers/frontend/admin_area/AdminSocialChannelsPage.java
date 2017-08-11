@@ -5,7 +5,9 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.UrlValidator;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -35,9 +37,9 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
             FACEBOOK_POST_FORM_ID, new CompoundPropertyModel<AdminSocialChannelsPage>(this)
         );
         RequiredTextField<String> linkField = new RequiredTextField<>(LINK_INPUT_ID);
-        RequiredTextField<String> messageField = new RequiredTextField<>(MESSAGE_INPUT_ID);
-        facebookPostForm.add(linkField.add(new UrlValidator()));
-        facebookPostForm.add(messageField);
+        TextArea<String> messageField = new TextArea<String>(MESSAGE_INPUT_ID);
+        facebookPostForm.add(linkField.add(new UrlValidator()).setLabel(new Model("Link")));
+        facebookPostForm.add(messageField.setRequired(true).setLabel(new Model("Message")));
         facebookPostForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));
         add(facebookPostForm);
         addSubmitFormButton();
