@@ -525,7 +525,7 @@
 
     <changeSet id="045-add-moderation-required-column-to-blog-table" author="vlosrutere">
         <createTable tableName="BLOG">
-            <column name="MODERATION_REQUIRED"/>
+            <column name="MODERATION_REQUIRED" type="boolean"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
