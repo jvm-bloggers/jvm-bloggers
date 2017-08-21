@@ -11,7 +11,7 @@ class NewlyAddedBlogSpec extends Specification {
     def "Should convert blog to its DTO representation"() {
         given:
         Blog blog = new Blog(1,"someCode","some author", "some rss", "some url",
-            "some twitter", now(), BlogType.PERSONAL, true)
+            "some twitter", now(), BlogType.PERSONAL, true, Boolean.TRUE)
 
         when:
         NewlyAddedBlog blogJson = NewlyAddedBlog.fromBlog(blog)
