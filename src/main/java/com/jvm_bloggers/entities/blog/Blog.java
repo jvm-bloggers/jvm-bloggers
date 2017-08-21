@@ -64,12 +64,22 @@ public class Blog {
     @Column(name = "ACTIVE")
     private boolean active;
 
+    @Column(name = "MODERATION_REQUIRED")
+    private Boolean moderationRequired;
+
+    public Boolean isModerationRequired() {
+        if (moderationRequired == null) {
+            return !isPersonal();
+        }
+        return moderationRequired;
+    }
+
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
     }
 
     public Boolean getDefaultApprovedValue() {
-        return isPersonal() ? Boolean.TRUE : null;
+        return !isModerationRequired();
     }
 
     public String getStatus() {

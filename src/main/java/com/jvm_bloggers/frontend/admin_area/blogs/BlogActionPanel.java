@@ -3,6 +3,7 @@ package com.jvm_bloggers.frontend.admin_area.blogs;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
@@ -34,6 +35,8 @@ public class BlogActionPanel extends Panel {
 
         add(createActivateBlogButton());
         add(createDeactivateBlogButton());
+        add(createRequireModerationBlogButton());
+        add(createDoNotRequireModerationBlogButton());
     }
 
     private AjaxButton createActivateBlogButton() {
@@ -50,6 +53,22 @@ public class BlogActionPanel extends Panel {
             format("'%s' blog deactivated", blogModel.getObject().getAuthor()));
         deactivate.setVisible(blogModel.getObject().isActive());
         return deactivate;
+    }
+
+    private AjaxButton createRequireModerationBlogButton() {
+        AjaxButton requireModeration = createBlogActionButton("requireModerationBlog",
+            (Consumer<Blog> & Serializable) b -> b.setModerationRequired(true),
+            format("'%s' blog require moderation", blogModel.getObject().getAuthor()));
+        requireModeration.setVisible(!blogModel.getObject().isModerationRequired());
+        return requireModeration;
+    }
+
+    private AjaxButton createDoNotRequireModerationBlogButton() {
+        AjaxButton notRequireModeration = createBlogActionButton("doNotRequireModerationBlog",
+            (Consumer<Blog> & Serializable) b -> b.setModerationRequired(false),
+            format("'%s' blog does not require moderation", blogModel.getObject().getAuthor()));
+        notRequireModeration.setVisible(blogModel.getObject().isModerationRequired());
+        return notRequireModeration;
     }
 
     private AjaxButton createBlogActionButton(String id, Consumer<Blog> blogAction,

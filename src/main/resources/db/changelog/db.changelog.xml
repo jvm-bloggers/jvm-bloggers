@@ -523,4 +523,9 @@
         <addNotNullConstraint tableName="BLOG" columnName="BOOKMARKABLE_ID" columnDataType="varchar(30)"/>
     </changeSet>
 
+    <changeSet id="045-add-moderation-required-column-to-blog-table" author="vlosrutere">
+        <createTable tableName="BLOG">
+            <column name="MODERATION_REQUIRED"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
