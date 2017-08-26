@@ -40,33 +40,49 @@ public class BlogActionPanel extends Panel {
     }
 
     private AjaxButton createActivateBlogButton() {
-        AjaxButton activate = createBlogActionButton("activateBlog",
+        AjaxButton activate = createBlogActionButton(
+            "activateBlog",
             (Consumer<Blog> & Serializable) b -> b.setActive(true),
-            format("'%s' blog activated", blogModel.getObject().getAuthor()));
+            format(
+                "'%s' blog activated", blogModel.getObject().getAuthor()
+            )
+        );
         activate.setVisible(!blogModel.getObject().isActive());
         return activate;
     }
 
     private AjaxButton createDeactivateBlogButton() {
-        AjaxButton deactivate = createBlogActionButton("deactivateBlog",
+        AjaxButton deactivate = createBlogActionButton(
+            "deactivateBlog",
             (Consumer<Blog> & Serializable) b -> b.setActive(false),
-            format("'%s' blog deactivated", blogModel.getObject().getAuthor()));
+            format(
+                "'%s' blog deactivated", blogModel.getObject().getAuthor()
+            )
+        );
         deactivate.setVisible(blogModel.getObject().isActive());
         return deactivate;
     }
 
     private AjaxButton createRequireModerationBlogButton() {
-        AjaxButton requireModeration = createBlogActionButton("requireModerationBlog",
+        AjaxButton requireModeration = createBlogActionButton(
+            "requireModerationBlog",
             (Consumer<Blog> & Serializable) b -> b.setModerationRequired(true),
-            format("'%s' blog require moderation", blogModel.getObject().getAuthor()));
+            format(
+                "'%s' blog require moderation", blogModel.getObject().getAuthor()
+            )
+        );
         requireModeration.setVisible(!blogModel.getObject().isModerationRequired());
         return requireModeration;
     }
 
     private AjaxButton createDoNotRequireModerationBlogButton() {
-        AjaxButton notRequireModeration = createBlogActionButton("doNotRequireModerationBlog",
+        AjaxButton notRequireModeration = createBlogActionButton(
+            "doNotRequireModerationBlog",
             (Consumer<Blog> & Serializable) b -> b.setModerationRequired(false),
-            format("'%s' blog does not require moderation", blogModel.getObject().getAuthor()));
+            format(
+                "'%s' blog does not require moderation", blogModel.getObject().getAuthor()
+            )
+        );
         notRequireModeration.setVisible(blogModel.getObject().isModerationRequired());
         return notRequireModeration;
     }
