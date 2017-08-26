@@ -26,9 +26,9 @@ class FacebookPublishingScheduler {
 
     @Scheduled(fixedDelayString = "${scheduler.publish-fb}")
     public void publishOnePost() {
-        Option<FacebookPost> notSentEmail = facebookPostRepository.findFirstBySentDateNull();
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull();
 
-        notSentEmail.forEach(post -> {
+        notSentPost.forEach(post -> {
             final FacebookPublishingStatus status = facebookPublisher.publishPost(post);
             log.info("Post on Facebook published, status: {}", status);
             setSentDateForSuccessfulAction(post, status);
