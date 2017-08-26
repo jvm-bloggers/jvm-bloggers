@@ -538,9 +538,17 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="045-add-moderation-required-column-to-blog-table" author="vlosrutere">
+    <changeSet id="046-add-moderation-required-column-to-blog-table" author="vlosrutere">
         <addColumn tableName="BLOG">
             <column name="MODERATION_REQUIRED" type="boolean"/>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="047-update-moderation-required-column-in-blog-table" author="vlosrutere">
+        <sql>update BLOG set MODERATION_REQUIRED = (CASE WHEN BLOG_TYPE = 'PERSONAL' THEN FALSE ELSE TRUE END)</sql>
+    </changeSet>
+
+    <changeSet id="048-moderation-required-column-in-blog-table-not-nullable" author="vlosrutere" >
+        <addNotNullConstraint tableName="BLOG" columnName="MODERATION_REQUIRED" columnDataType="boolean"/>
     </changeSet>
 </databaseChangeLog>

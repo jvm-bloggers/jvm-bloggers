@@ -64,13 +64,10 @@ public class Blog {
     @Column(name = "ACTIVE")
     private boolean active;
 
-    @Column(name = "MODERATION_REQUIRED")
+    @Column(name = "MODERATION_REQUIRED", nullable = false)
     private Boolean moderationRequired;
 
     public Boolean isModerationRequired() {
-        if (moderationRequired == null) {
-            return !isPersonal();
-        }
         return moderationRequired;
     }
 
@@ -81,7 +78,7 @@ public class Blog {
     public boolean isCompany() {
         return BlogType.COMPANY == blogType;
     }
-    
+
     public String getStatus() {
         return active ? "Active" : "Deactivated";
     }
