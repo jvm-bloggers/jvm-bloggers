@@ -81,11 +81,7 @@ public class Blog {
     public boolean isCompany() {
         return BlogType.COMPANY == blogType;
     }
-
-    public Boolean getDefaultApprovedValue() {
-        return !isModerationRequired();
-    }
-
+    
     public String getStatus() {
         return active ? "Active" : "Deactivated";
     }
