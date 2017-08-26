@@ -54,6 +54,7 @@ public class InfiniteScrollingBehavior extends Behavior {
 
     private CharSequence createScript(Component component) {
         return format(""
+            + "var $infiniteScrollTotalPageCount = parseInt(jQuery('%s').text());"
             + "var $infiniteScrollContainer = jQuery('#%s').infiniteScroll({\n"
             + "  path: function() {\n"
             + "    return document.querySelector('%s')\n"
@@ -62,7 +63,8 @@ public class InfiniteScrollingBehavior extends Behavior {
             + "  append: '.item',\n"
             + "  responseType: 'text',\n"
             + "  debug: %s\n"
-            + "});", component.getMarkupId(), jsonData.get("nextSelector"), jsonData.get("debug"));
+            + "});", jsonData.get("totalPageSelector"), component.getMarkupId(),
+            jsonData.get("nextSelector"), jsonData.get("debug"));
     }
 
     @Override
@@ -74,6 +76,12 @@ public class InfiniteScrollingBehavior extends Behavior {
     public InfiniteScrollingBehavior setNextSelector(Component component) {
         component.setOutputMarkupId(true);
         jsonData.put("nextSelector", "#" + component.getMarkupId(true));
+        return this;
+    }
+
+    public InfiniteScrollingBehavior setTotalPageCountSelector(Component component) {
+        component.setOutputMarkupId(true);
+        jsonData.put("totalPageSelector", "#" + component.getMarkupId(true));
         return this;
     }
 
