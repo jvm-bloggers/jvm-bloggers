@@ -46,29 +46,15 @@ class BlogPostFactorySpec extends Specification {
         BlogPost blogPost = blogPostFactory.create("any title", "any url", LocalDateTime.now(), blog)
 
         then:
-        blogPost.approved == defaultApprovedValue
+        blogPost.approved == !defaultApprovedValue
 
         where:
-        defaultApprovedValue << [Boolean.TRUE, Boolean.FALSE, null]
-    }
-
-    def "Should set null approvedDate for not approved posts"() {
-        given:
-        blog.isModerationRequired() >> notApproved
-
-        when:
-        BlogPost blogPost = blogPostFactory.create("any title", "any url", LocalDateTime.now(), blog)
-
-        then:
-        blogPost.approvedDate == null
-
-        where:
-        notApproved << [Boolean.FALSE, null]
+        defaultApprovedValue << [Boolean.TRUE, Boolean.FALSE]
     }
 
     def "Should set now as approved date for new posts or publishedDate for old posts"() {
         given:
-        blog.isModerationRequired() >> true
+        blog.isModerationRequired() >> false
 
         when:
         BlogPost blogPost = blogPostFactory.create("any title", "any url", publishedDate, blog)

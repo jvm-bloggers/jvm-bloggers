@@ -95,6 +95,7 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
                 .author(author)
                 .rss(rssUrl)
                 .url("url")
+                .moderationRequired(false)
                 .dateAdded(START_OF_MONTH)
                 .blogType(type)
                 .build())
