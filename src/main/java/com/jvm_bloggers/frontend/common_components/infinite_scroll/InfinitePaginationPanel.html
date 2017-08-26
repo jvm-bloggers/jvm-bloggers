@@ -5,8 +5,11 @@
 <wicket:panel>
 
     <div class="clearfix"></div>
-    <ul id="pager" wicket:id="pager" class="hidden-navigation"></ul>
-    <a wicket:id="next-page"></a>
+    <div class="hidden-navigation">
+        <ul id="pager" wicket:id="pager"></ul>
+        <a wicket:id="next-page"></a>
+        <span wicket:id="total-page-count"></span>
+    </div>
 
 </wicket:panel>
 

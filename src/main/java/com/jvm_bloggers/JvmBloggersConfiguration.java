@@ -5,6 +5,7 @@ import akka.actor.ActorSystem;
 import com.jvm_bloggers.core.github.GithubAuthenticationFilter;
 import com.jvm_bloggers.core.github.GithubProperties;
 import com.jvm_bloggers.core.social.fb.publisher.FacebookConfiguration;
+import com.jvm_bloggers.core.social.twitter.publisher.TwitterConfiguration;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,8 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
 @Configuration
-@EnableConfigurationProperties({GithubProperties.class, FacebookConfiguration.class})
+@EnableConfigurationProperties(
+    {GithubProperties.class, FacebookConfiguration.class, TwitterConfiguration.class})
 public class JvmBloggersConfiguration {
 
     @Bean

@@ -34,6 +34,7 @@ public abstract class AbstractAdminPage extends WebPage {
     private void initializeLeftPanel() {
         add(new BookmarkablePageLink<>("adminHomePage", AdminDashboardPage.class));
         add(new BookmarkablePageLink<>("dashboardLink", AdminDashboardPage.class));
+        add(new BookmarkablePageLink<>("adminSocialChannelsPage", AdminSocialChannelsPage.class));
         add(new BookmarkablePageLink<>("mailingLink", MailingPage.class));
         add(new BookmarkablePageLink<>("moderationLink", ModerationPage.class));
         add(new BookmarkablePageLink<>("blogsLink", BlogsPage.class));

@@ -523,6 +523,21 @@
         <addNotNullConstraint tableName="BLOG" columnName="BOOKMARKABLE_ID" columnDataType="varchar(30)"/>
     </changeSet>
 
+    <changeSet id="045-create-tweet-table" author="Michał.Chmielarz">
+
+        <createSequence sequenceName="TWEET_SEQ"/>
+
+        <createTable tableName="TWEET">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="CONTENT" type="varchar(140)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SENT_DATE" type="timestamp without time zone"/>
+        </createTable>
+    </changeSet>
+
     <changeSet id="045-add-moderation-required-column-to-blog-table" author="vlosrutere">
         <addColumn tableName="BLOG">
             <column name="MODERATION_REQUIRED" type="boolean"/>

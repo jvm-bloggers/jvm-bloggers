@@ -1013,6 +1013,11 @@
       "name": "Dariusz Mydlarz",
       "rss": "http://www.dmydlarz.com/rss.xml",
       "twitter": "@dmydlarz"
+    },
+    {
+      "bookmarkableId": "mikolak-net",
+      "name": "Mikołaj Koziarkiewicz",
+      "rss": "https://xn--mikoak-6db.net/feed_jvm.xml"
     }
   ]
 }

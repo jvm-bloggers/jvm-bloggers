@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
+>
+<head>
+</head>
+<body>
+
+<wicket:extend>
+    <div id="page-wrapper">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-facebook fa-fw"></i> Post on Facebook
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <form action="" wicket:id="facebookPostForm" class="form-horizontal">
+                            <div wicket:id="feedbackPanel"/>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Message</label>
+                                <div class="col-sm-10">
+                                    <textarea wicket:id="message" class="form-control" rows="10" cols="50" placeholder="Place your message here"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Link</label>
+                                <div class="col-sm-10">
+                                    <input wicket:id="link" class="form-control" placeholder="Link">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10 text-right">
+                                    <button wicket:id="submitButton" type="submit" class="btn btn-success" name="save">
+                                        <i class="icon-save"></i>Save
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</wicket:extend>
+
+</body>
+</html>

@@ -35,6 +35,7 @@ scheduler:
   send-email: 120000 # 2 minutes
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
+  publish-twitter: 36000 # 5 minutes
 
 github.api:
   token: #Personal access tokens can be created under https://github.com/settings/tokens
@@ -47,5 +48,13 @@ facebook.api:
   userToken: #User access token can be created as it is described in FACEBOOK.md
   appSecret: #To get application's secret check FACEBOOK.md
   pageId: "1059067680779426"
+
+twitter.api:
+  consumerKey: #Can be found on Twitter application's page
+  consumerSecret: #Can be found on Twitter application's page
+  accessToken: #Can be found on Twitter application's page
+  accessTokenSecret: #Can be found on Twitter application's page
+  retryCount: 3
+  retryIntervalSecs: 5
 
 wicket.external.webjars.enabled: true
