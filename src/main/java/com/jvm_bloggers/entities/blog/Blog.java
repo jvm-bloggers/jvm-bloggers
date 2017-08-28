@@ -64,16 +64,19 @@ public class Blog {
     @Column(name = "ACTIVE")
     private boolean active;
 
+    @Column(name = "MODERATION_REQUIRED", nullable = false)
+    private Boolean moderationRequired;
+
+    public Boolean isModerationRequired() {
+        return moderationRequired;
+    }
+
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
     }
 
     public boolean isCompany() {
         return BlogType.COMPANY == blogType;
-    }
-
-    public Boolean getDefaultApprovedValue() {
-        return isPersonal() ? Boolean.TRUE : null;
     }
 
     public String getStatus() {

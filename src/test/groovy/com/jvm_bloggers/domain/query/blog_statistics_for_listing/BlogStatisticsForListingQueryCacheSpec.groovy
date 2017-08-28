@@ -48,6 +48,7 @@ class BlogStatisticsForListingQueryCacheSpec extends SpringContextAwareSpecifica
                 .url("url")
                 .dateAdded(LocalDateTime.now())
                 .blogType(PERSONAL)
+                .moderationRequired(false)
                 .build())
         blogPostRepository.saveAndFlush(BlogPost.builder()
                 .publishedDate(LocalDateTime.now())

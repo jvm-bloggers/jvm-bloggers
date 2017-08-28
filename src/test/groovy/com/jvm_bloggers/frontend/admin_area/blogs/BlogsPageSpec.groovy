@@ -51,6 +51,7 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
             .dateAdded(now())
             .blogType(BlogType.PERSONAL)
             .active(true)
+            .moderationRequired(false)
             .build()
     }
 

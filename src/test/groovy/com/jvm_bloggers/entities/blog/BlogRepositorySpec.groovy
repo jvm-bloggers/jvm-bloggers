@@ -65,6 +65,7 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
                         .dateAdded(LocalDateTime.now())
                         .blogType(blogType)
                         .active(active)
+                        .moderationRequired(false)
                         .build())
     }
 

@@ -108,6 +108,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 .url("url")
                 .dateAdded(LocalDateTime.now())
                 .blogType(PERSONAL)
+                .moderationRequired(false)
                 .build());
     }
 
