@@ -548,8 +548,8 @@
         <addNotNullConstraint tableName="BLOG" columnName="MODERATION_REQUIRED" columnDataType="boolean"/>
     </changeSet>
 
-    <changeSet id="047-add-polish-collation-to-author-column-in-blog-table" author="vlosrutere">
+
+    <changeSet id="047-add-polish-collation-to-author-column-in-blog-table" author="vlosrutere" dbms="postgresql">
         <sql>ALTER TABLE BLOG ALTER COLUMN AUTHOR TYPE VARCHAR(250) COLLATE "pl_PL"</sql>
     </changeSet>
-
 </databaseChangeLog>
