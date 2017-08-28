@@ -1018,6 +1018,12 @@
       "bookmarkableId": "mikolak-net",
       "name": "Mikołaj Koziarkiewicz",
       "rss": "https://xn--mikoak-6db.net/feed_jvm.xml"
+    },
+    {
+      "bookmarkableId": "mikolaj-kania",
+      "name": "Mikołaj Kania",
+      "rss": "http://itblues.pl/atom.xml",
+      "twitter": "@mikolajkania"
     }
   ]
 }
