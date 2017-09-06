@@ -5,6 +5,7 @@ import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
+import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +84,7 @@ public class BloggersDataUpdater {
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)
+            .moderationRequired(bloggerEntry.getBlogType() != BlogType.PERSONAL)
             .build();
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
