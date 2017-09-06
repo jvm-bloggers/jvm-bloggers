@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
 
-
 @Component
 @Slf4j
 @RequiredArgsConstructor
