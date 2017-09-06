@@ -5,13 +5,15 @@ import com.jvm_bloggers.core.data_fetching.blogs.json_data.BloggersData;
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
-import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+
+import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
+
 
 @Component
 @Slf4j
@@ -84,7 +86,7 @@ public class BloggersDataUpdater {
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)
-            .moderationRequired(bloggerEntry.getBlogType() != BlogType.PERSONAL)
+            .moderationRequired(bloggerEntry.getBlogType() != PERSONAL)
             .build();
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
