@@ -1024,6 +1024,12 @@
       "name": "Mikołaj Kania",
       "rss": "http://itblues.pl/atom.xml",
       "twitter": "@mikolajkania"
+    },
+    {
+      "bookmarkableId": "sebastian-wilgosz",
+      "name": "Sebastian Wilgosz",
+      "rss": "http://blog.wilgosz.pl/feed/",
+      "twitter": "@wilgoszpl"
     }
   ]
 }
