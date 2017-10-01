@@ -1,6 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area;
 
 import com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage;
+import com.jvm_bloggers.frontend.admin_area.bot_clicks_detector.BotClicksDetectorPage;
 import com.jvm_bloggers.frontend.admin_area.mailing.MailingPage;
 import com.jvm_bloggers.frontend.admin_area.moderation.ModerationPage;
 
@@ -38,6 +39,7 @@ public abstract class AbstractAdminPage extends WebPage {
         add(new BookmarkablePageLink<>("mailingLink", MailingPage.class));
         add(new BookmarkablePageLink<>("moderationLink", ModerationPage.class));
         add(new BookmarkablePageLink<>("blogsLink", BlogsPage.class));
+        add(new BookmarkablePageLink<>("botClicksDetectorLink", BotClicksDetectorPage.class));
         add(new DebugBar("debug"));
     }
 
