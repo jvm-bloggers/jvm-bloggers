@@ -3,6 +3,7 @@ package com.jvm_bloggers.frontend.admin_area.mailing;
 import com.google.common.collect.Lists;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToolbar;
+import com.jvm_bloggers.domain.query.MetadataQuery;
 import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
@@ -42,9 +43,7 @@ public class MailingPage extends AbstractMailingPage {
     private Form<Metadata> mailingTemplateForm;
 
     @SpringBean
-    private MetadataRepository metadataRepository;
-    @SpringBean
-    private MailingPageRequestHandler requestHandler;
+    private MailingPageBackingBean backingBean;
 
     public MailingPage() {
         addFeedbackPanel();
@@ -63,8 +62,8 @@ public class MailingPage extends AbstractMailingPage {
     }
 
     private void addForm() {
-        Metadata initialSectionToEdit = metadataRepository
-            .findByName(TEMPLATE_SECTION_KEYS.get(0));
+        Metadata initialSectionToEdit = backingBean
+            .findMetadataByName(TEMPLATE_SECTION_KEYS.get(0));
         mailingTemplateForm = new Form<>(MAILING_TEMPLATE_FORM_ID, Model.of(initialSectionToEdit));
         mailingTemplateForm.setOutputMarkupId(true);
         add(mailingTemplateForm);
@@ -90,7 +89,7 @@ public class MailingPage extends AbstractMailingPage {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {
                     String metadata = newsletterSectionToEditDropdown.getModelObject();
-                    Metadata metadataToEdit = metadataRepository.findByName(metadata);
+                    Metadata metadataToEdit = backingBean.findMetadataByName(metadata);
                     mailingTemplateForm.setModelObject(metadataToEdit);
                     target.add(mailingTemplateForm);
                     target.add(wysiwygEditor);
@@ -109,7 +108,7 @@ public class MailingPage extends AbstractMailingPage {
 
             private void persistChangesInMetadata(AjaxRequestTarget target) {
                 Metadata metadataToUpdate = mailingTemplateForm.getModelObject();
-                metadataRepository.save(metadataToUpdate);
+                backingBean.saveMetadata(metadataToUpdate);
                 success("Mail template for " + metadataToUpdate.getName() + " saved successfully");
                 target.add(feedback);
             }
@@ -122,11 +121,11 @@ public class MailingPage extends AbstractMailingPage {
             new AjaxButton(RESET_MAILING_TEMPLATE_BUTTON_ID, mailingTemplateForm) {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target) {
-                    String defaultMailingTemplate = metadataRepository
-                        .findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
+                    String defaultMailingTemplate = backingBean
+                        .findMetadataByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE).getValue();
                     Metadata metadataToUpdate = mailingTemplateForm.getModelObject();
                     metadataToUpdate.setValue(defaultMailingTemplate);
-                    metadataRepository.save(metadataToUpdate);
+                    backingBean.saveMetadata(metadataToUpdate);
                     success("Mail template for " + metadataToUpdate.getName()
                         + " set to default value");
                     target.add(mailingTemplateForm);
@@ -167,7 +166,7 @@ public class MailingPage extends AbstractMailingPage {
         ) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
-                String testEmailRecipient = requestHandler.sendTestEmail();
+                String testEmailRecipient = backingBean.sendTestEmail();
                 success("Test email sent to " + testEmailRecipient + "!");
                 target.add(feedback);
             }

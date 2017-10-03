@@ -6,7 +6,6 @@ import com.jvm_bloggers.core.mailing.IssueNumberRetriever
 import com.jvm_bloggers.core.newsletter_issues.NewsletterIssueFactory
 import com.jvm_bloggers.entities.metadata.Metadata
 import com.jvm_bloggers.entities.metadata.MetadataKeys
-import com.jvm_bloggers.entities.metadata.MetadataRepository
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import com.jvm_bloggers.utils.NowProvider
 import org.apache.wicket.Page
@@ -14,11 +13,7 @@ import org.apache.wicket.util.tester.FormTester
 
 import static MetadataKeys.MAILING_GREETING
 import static MetadataKeys.MAILING_TEMPLATE
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.MAILING_SECTION_TO_EDIT_DROPDOWN_ID
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.MAILING_TEMPLATE_FORM_ID
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.RESET_MAILING_TEMPLATE_BUTTON_ID
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.SEND_TEST_MAIL_BUTTON_ID
-import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.WYSIWYG_ID
+import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.*
 
 class MailingPageSpec extends MockSpringContextAwareSpecification {
 
@@ -26,29 +21,26 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
     static final String GREETING_VALUE = "Hello all"
     static final String DEFAULT_MAILING_TEMPLATE_VALUE = "Default Mailing Template"
 
-    MailingPageRequestHandler mailingPageRequestHandler = Mock(MailingPageRequestHandler)
-    MetadataRepository metadataRepository = Mock(MetadataRepository)
-    NewsletterIssueFactory newsletterIssueFactory = Stub(NewsletterIssueFactory)
     BlogSummaryMailGenerator blogSummaryMailGenerator = Stub(BlogSummaryMailGenerator)
     IssueNumberRetriever issueNumberRetriever = Stub(IssueNumberRetriever)
+    MailingPageBackingBean backingBean = Mock(MailingPageBackingBean)
+    NewsletterIssueFactory newsletterIssueFactory = Stub(NewsletterIssueFactory)
 
     def void setupContext() {
-        NowProvider nowProvider = new NowProvider()
-        addBean(nowProvider)
-        addBean(mailingPageRequestHandler)
-        addBean(metadataRepository)
-        addBean(newsletterIssueFactory)
+        addBean(backingBean)
         addBean(blogSummaryMailGenerator)
         addBean(issueNumberRetriever)
+        addBean(newsletterIssueFactory)
+        addBean(new NowProvider())
         addBean(new PaginationConfiguration(15))
 
-        metadataRepository.findByName(MAILING_TEMPLATE) >> new Metadata(
+        backingBean.findMetadataByName(MAILING_TEMPLATE) >> new Metadata(
             0L,
             MAILING_TEMPLATE,
             MAILING_TEMPLATE_VALUE
         )
 
-        metadataRepository.findByName(MAILING_GREETING) >> new Metadata(
+        backingBean.findMetadataByName(MAILING_GREETING) >> new Metadata(
             1L,
             MAILING_GREETING,
             GREETING_VALUE
@@ -67,7 +59,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should restore default value of MailingTemplate after reset button is clicked"() {
         given:
-        metadataRepository.findByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE) >> new Metadata(
+        backingBean.findMetadataByName(MetadataKeys.DEFAULT_MAILING_TEMPLATE) >> new Metadata(
             0L,
             MetadataKeys.DEFAULT_MAILING_TEMPLATE,
             DEFAULT_MAILING_TEMPLATE_VALUE
@@ -79,7 +71,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         formTester.submit(RESET_MAILING_TEMPLATE_BUTTON_ID)
 
         then:
-        1 * metadataRepository.save({ it.name == MAILING_TEMPLATE && it.value == DEFAULT_MAILING_TEMPLATE_VALUE })
+        1 * backingBean.saveMetadata({ it.name == MAILING_TEMPLATE && it.value == DEFAULT_MAILING_TEMPLATE_VALUE })
     }
 
     def "Should send test email when button clicked"() {
@@ -91,7 +83,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         formTester.submit(SEND_TEST_MAIL_BUTTON_ID)
 
         then:
-        1 * mailingPageRequestHandler.sendTestEmail()
+        1 * backingBean.sendTestEmail()
     }
 
     def "Should change model in wysiwyg editor when dropdown value is changed to greeting section"() {
