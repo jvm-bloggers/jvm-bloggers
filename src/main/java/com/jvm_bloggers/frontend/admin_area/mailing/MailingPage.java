@@ -3,11 +3,10 @@ package com.jvm_bloggers.frontend.admin_area.mailing;
 import com.google.common.collect.Lists;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToolbar;
-import com.jvm_bloggers.domain.query.MetadataQuery;
 import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
-import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
