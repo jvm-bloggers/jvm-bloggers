@@ -7,10 +7,10 @@ import org.apache.wicket.markup.html.list.ListItem;
 
 public class PostClicksCountByUserAgentForListingPopulator {
 
-    static final String TITLE_ID = "title";
-    static final String AUTHOR_ID = "author";
-    static final String AGGREGATOR_VALUE_ID = "aggregatorValue";
-    static final String COUNTER_ID = "counter";
+    public static final String TITLE_ID = "title";
+    public static final String AUTHOR_ID = "author";
+    public static final String AGGREGATOR_VALUE_ID = "aggregatorValue";
+    public static final String COUNTER_ID = "counter";
 
     public void populateItem(final ListItem<PostClicksCountByUserAgent> item) {
         PostClicksCountByUserAgent

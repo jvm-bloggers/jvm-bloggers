@@ -26,9 +26,9 @@ import static io.vavr.API.Match;
 @MountPath("bot-clicks-detector")
 public class BotClicksDetectorPage extends AbstractAdminPage {
 
-    static final String AGGREGATOR_DROP_DOWN_ID = "aggregatorTypeDropDown";
-    static final String LIST_WRAPPER_ID = "listWrapper";
-    static final String TOP_CLICKS_LIST_VIEW_ID = "topClicksListView";
+    public static final String AGGREGATOR_DROP_DOWN_ID = "aggregatorTypeDropDown";
+    public static final String LIST_WRAPPER_ID = "listWrapper";
+    public static final String TOP_CLICKS_LIST_VIEW_ID = "topClicksListView";
 
     @SpringBean
     private BotClicksDetectorPageBackingBean backingBean;
