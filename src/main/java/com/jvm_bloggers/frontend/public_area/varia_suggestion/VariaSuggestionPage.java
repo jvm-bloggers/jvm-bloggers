@@ -31,7 +31,7 @@ public class VariaSuggestionPage extends AbstractFrontendPage {
     @SpringBean
     private VariaSuggestionPageBackingBean backingBean;
 
-    Form<VariaSuggestionModel> variaSuggestionForm;
+    private Form<VariaSuggestionModel> variaSuggestionForm;
 
     public VariaSuggestionPage() {
         addToastrBehavior();
