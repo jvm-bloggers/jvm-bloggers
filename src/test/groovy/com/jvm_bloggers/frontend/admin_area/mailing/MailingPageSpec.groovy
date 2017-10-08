@@ -101,4 +101,21 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         wysiwygModelValue == GREETING_VALUE
     }
 
+    def "Should display varia suggestion panel when dropdown value is set to viara section"() {
+        given:
+        tester.startPage(MailingPage)
+        boolean initVariaSuggestion = tester.getLastRenderedPage().get(VARIA_SUGGESTION_PANEL_ID).isVisible()
+
+        when:
+        FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
+        formTester.select(MAILING_SECTION_TO_EDIT_DROPDOWN_ID, 3)
+        tester.executeAjaxEvent(MAILING_TEMPLATE_FORM_ID + ":" + MAILING_SECTION_TO_EDIT_DROPDOWN_ID, "change")
+
+        then:
+        Page currentPage = tester.getLastRenderedPage()
+        currentPage.get(VARIA_SUGGESTION_PANEL_ID).isVisible()
+
+        and:
+        !initVariaSuggestion
+    }
 }

@@ -28,6 +28,7 @@ public class MailingPage extends AbstractMailingPage {
     public static final String RESET_MAILING_TEMPLATE_BUTTON_ID = "resetMailingTemplateButton";
     public static final String SEND_TEST_MAIL_BUTTON_ID = "sendTestMailButton";
     public static final String MAILING_SECTION_TO_EDIT_DROPDOWN_ID = "mailingToEditDropdown";
+    public static final String VARIA_SUGGESTION_PANEL_ID = "variaSuggestionPanel";
 
     private static List<String> TEMPLATE_SECTION_KEYS = Lists.newArrayList(
         MetadataKeys.MAILING_TEMPLATE,
@@ -40,6 +41,7 @@ public class MailingPage extends AbstractMailingPage {
     private CustomFeedbackPanel feedback;
     private WysiwygEditor wysiwygEditor;
     private Form<Metadata> mailingTemplateForm;
+    private VariaSuggestionListPanel variaSuggestionListPanel;
 
     @SpringBean
     private MailingPageBackingBean backingBean;
@@ -49,6 +51,7 @@ public class MailingPage extends AbstractMailingPage {
         addForm();
         addNewsletterSectionToEditDropdown();
         addWysiwygEditor();
+        addVariaSugesstionList();
         addSaveButton();
         addResetTemplateButton();
         addPreviewTemplateModal();
@@ -78,6 +81,22 @@ public class MailingPage extends AbstractMailingPage {
         mailingTemplateForm.add(toolbar, wysiwygEditor);
     }
 
+    private void addVariaSugesstionList() {
+        variaSuggestionListPanel = new VariaSuggestionListPanel(
+            VARIA_SUGGESTION_PANEL_ID,
+            backingBean,
+            defaultPaginationSize) {
+            @Override
+            public boolean isVisible() {
+                return TEMPLATE_SECTION_KEYS.get(3)
+                    .equals(newsletterSectionToEditDropdown.getModelObject());
+            }
+        };
+        variaSuggestionListPanel.setOutputMarkupId(true);
+        variaSuggestionListPanel.setOutputMarkupPlaceholderTag(true);
+        add(variaSuggestionListPanel);
+    }
+
     private void addNewsletterSectionToEditDropdown() {
         newsletterSectionToEditDropdown = new DropDownChoice<>(
             MAILING_SECTION_TO_EDIT_DROPDOWN_ID,
@@ -92,6 +111,7 @@ public class MailingPage extends AbstractMailingPage {
                     mailingTemplateForm.setModelObject(metadataToEdit);
                     target.add(mailingTemplateForm);
                     target.add(wysiwygEditor);
+                    target.add(variaSuggestionListPanel);
                 }
             }
         );

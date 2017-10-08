@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<wicket:panel>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class="fa fa-envelope-o fa-fw"></i> Varia Suggestions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div wicket:id="feedback"></div>
+                    <form wicket:id="suggestionDataForm">
+                        <table cellspacing="0"
+                               class="table table-striped table-bordered table-hover dataTable no-footer">
+                            <tr>
+                                <th>Author</th>
+                                <th>Reason</th>
+                                <th>URL</th>
+                                <th>Create date</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr wicket:id="suggestionDataView" class="gradeA">
+                                <td><span wicket:id="author">[author]</span></td>
+                                <td><span wicket:id="reason">[reason]</span></td>
+                                <td><span wicket:id="url">[url]</span></td>
+                                <td><span wicket:id="createDate">[12/12/2020]</span></td>
+                                <td class="text-center"><span wicket:id="actions">[actions]</span></td>
+                            </tr>
+                        </table>
+                        <span wicket:id="navigator">[dataview navigator]</span>
+                    </form>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+            <!-- /.col-lg-8 -->
+        </div>
+    </div>
+    <!-- /.row -->
+</wicket:panel>
+</body>
+</html>
