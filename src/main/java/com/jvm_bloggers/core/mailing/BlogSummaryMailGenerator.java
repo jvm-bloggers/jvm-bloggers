@@ -118,7 +118,13 @@ public class BlogSummaryMailGenerator {
     }
 
     private List<BlogPostForMailItem> postsToMailItems(List<BlogPost> newPosts, long issueNumber) {
-        return newPosts.stream().map(blogPost ->
+        return newPosts
+            .stream()
+            .collect(Collectors.groupingBy(blogPost -> blogPost.getBlog().getAuthor()))
+            .values()
+            .stream()
+            .flatMap(List::stream)
+            .map(blogPost ->
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)
