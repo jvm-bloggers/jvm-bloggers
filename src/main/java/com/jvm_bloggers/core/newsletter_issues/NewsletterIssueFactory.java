@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +36,7 @@ public class NewsletterIssueFactory {
         List<BlogPost> newApprovedPosts = blogPostRepository
             .findByApprovedDateAfterAndApprovedTrueOrderByApprovedDateAsc(startDate)
             .stream()
-            .collect(Collectors.groupingBy(blogPost -> blogPost.getBlog().getAuthor()))
-            .values()
-            .stream()
-            .flatMap(List::stream)
+            .sorted(Comparator.comparing(blogPost -> blogPost.getBlog().getAuthor()))
             .collect(Collectors.toList());
 
         return NewsletterIssue.builder()
