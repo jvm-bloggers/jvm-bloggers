@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -83,6 +85,7 @@ public class BloggersDataUpdater {
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)
+            .moderationRequired(bloggerEntry.getBlogType() != PERSONAL)
             .build();
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
