@@ -1036,6 +1036,12 @@
       "name": "Michal Konrad Owsiak",
       "rss": "http://www.owsiak.org/?feed=rss2",
       "twitter": "@mkowsiak"
+    },
+    {
+      "bookmarkableId": "grzegorz-piwowarek-blog",
+      "name": "Grzegorz Piwowarek",
+      "rss": "http://4comprehension.com/feed/",
+      "twitter": "@pivovarit"
     }
   ]
 }
