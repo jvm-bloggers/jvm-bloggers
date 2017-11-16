@@ -29,7 +29,7 @@ public class MailingPageRequestHandler {
     public String sendTestEmail() {
         int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(nowProvider.now());
         NewsletterIssue newsletterIssue = newsletterIssueFactory.create(
-            daysSinceLastFriday,
+            daysSinceLastFriday + 7,
             issueNumberRetriever.getCurrentIssueNumber() + 1
         );
 
