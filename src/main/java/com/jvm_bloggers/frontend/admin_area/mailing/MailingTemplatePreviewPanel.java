@@ -39,7 +39,7 @@ public class MailingTemplatePreviewPanel extends Panel {
 
                 int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(now);
                 NewsletterIssue newsletterIssue = newsletterIssueFactory.create(
-                    daysSinceLastFriday + 7,
+                    daysSinceLastFriday,
                     issueNumberRetriever.getCurrentIssueNumber() + 1
                 );
                 return blogSummaryMailGenerator.prepareMailContent(newsletterIssue);
