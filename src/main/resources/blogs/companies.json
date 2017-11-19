@@ -93,6 +93,11 @@
       "name": "GFT Polska",
       "rss": "http://blog.gft.com/pl/feed",
       "twitter": "@GFT_Polska"
+    },
+    {
+      "bookmarkableId": "tratif",
+      "name": "Tratif",
+      "rss": "https://blog.tratif.com/feed"
     }
   ]
 }
