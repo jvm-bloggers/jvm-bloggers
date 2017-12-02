@@ -25,6 +25,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import static org.apache.commons.text.CharacterPredicates.DIGITS;
+import static org.apache.commons.text.CharacterPredicates.LETTERS;
+
 @Entity
 @Table(name = "blog_post")
 @Data
@@ -100,7 +103,11 @@ public class BlogPost {
     }
 
     private static String generateRandomUid() {
-        return new RandomStringGenerator.Builder().build().generate(UID_LENGTH);
+        return new RandomStringGenerator.Builder()
+            .withinRange('0', 'z')
+            .filteredBy(LETTERS, DIGITS)
+            .build()
+            .generate(UID_LENGTH);
     }
 
     public void approve(LocalDateTime approvedDate) {
