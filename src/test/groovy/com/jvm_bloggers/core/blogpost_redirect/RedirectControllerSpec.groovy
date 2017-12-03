@@ -7,6 +7,7 @@ import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.utils.NowProvider
 import io.vavr.control.Option
 import org.springframework.test.web.servlet.MockMvc
+import spock.lang.Shared
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -16,12 +17,15 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 class RedirectControllerSpec extends Specification {
 
+    private static final String homePageUrl = "http://jvm-bloggers.com"
+
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
     private MockMvc mockMvc = standaloneSetup(
             new RedirectController(
                     blogPostRepositoryMock,
                     Stub(ClickRepository),
                     ActorSystem.create("test"),
+                    homePageUrl,
                     Stub(NowProvider)))
             .build()
 
@@ -38,13 +42,15 @@ class RedirectControllerSpec extends Specification {
                     "$url?utm_source=jvm-bloggers.com&utm_medium=link&utm_campaign=jvm-bloggers"))
     }
 
-    def "Should return 404 when blogpost does not exist"() {
+    def "Should redirect to the home page when blogpost does not exist"() {
         given:
             final String uid = '1234'
         and:
             blogPostRepositoryMock.findByUid(uid) >> Option.none()
         expect:
-            mockMvc.perform(get("/r/$uid"))
-                .andExpect(status().isNotFound())
+        mockMvc.perform(get("/r/$uid"))
+            .andExpect(status().isFound())
+            .andExpect(header().string('Location', homePageUrl))
     }
+    
 }

@@ -16,6 +16,7 @@ import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.control.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,14 +39,17 @@ public class RedirectController {
     public static final String REDIRECT_URL_PATH = "/r";
 
     private final BlogPostRepository blogPostRepository;
+    private final String applicationBaseUrl;
     private final ActorRef actorRef;
 
     @Autowired
     public RedirectController(BlogPostRepository blogPostRepository,
                               ClickRepository clickRepository,
                               ActorSystem actorSystem,
+                              @Value("${application.baseUrl}") String applicationBaseUrl,
                               NowProvider nowProvider) {
         this.blogPostRepository = blogPostRepository;
+        this.applicationBaseUrl = applicationBaseUrl;
         this.actorRef = actorSystem.actorOf(
             new RoundRobinPool(3).props(ClicksStoringActor.props(clickRepository, nowProvider)),
             "clicksStoringActor"
@@ -72,7 +76,14 @@ public class RedirectController {
                 );
             }
         } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            try {
+                response.sendRedirect(applicationBaseUrl);
+            } catch (IOException ex) {
+                throw new RuntimeException(
+                    "Error while sending redirect to " + applicationBaseUrl,
+                    ex
+                );
+            }
         }
     }
 
