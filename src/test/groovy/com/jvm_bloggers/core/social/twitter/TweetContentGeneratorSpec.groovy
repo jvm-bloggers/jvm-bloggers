@@ -178,6 +178,31 @@ class TweetContentGeneratorSpec extends Specification {
         posts << [posts(), postsWithLongHandles()]
     }
 
+    def "should have just two handles if twitter is missing for a third one"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+            .builder()
+            .issueNumber(ISSUE_NUMBER)
+            .heading("issue heading")
+            .blogPosts(blogWithoutTwitter())
+            .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def handles = /.*m\.in\. @personal\d{1} i @company\d{1}.*/
+        tweetContent ==~ /$handles/
+    }
+
+    private Collection<BlogPost> blogWithoutTwitter() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@company1", COMPANY)))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog(PERSONAL)))
+        return posts
+    }
+
     private Collection<BlogPost> noCompanyPosts() {
         List<BlogPost> posts = new ArrayList<>()
         posts.add(blogPost(blog("@personal1", PERSONAL)))
@@ -234,6 +259,10 @@ class TweetContentGeneratorSpec extends Specification {
             .dateAdded(nowProvider.now())
             .blogType(blogType)
             .build()
+    }
+
+    private Blog blog(BlogType blogType) {
+        blog(null, blogType)
     }
 
 }
