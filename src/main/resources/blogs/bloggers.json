@@ -1042,6 +1042,12 @@
       "name": "Grzegorz Piwowarek",
       "rss": "http://4comprehension.com/feed/",
       "twitter": "@pivovarit"
+    },
+        {
+      "bookmarkableId": "simple-coding",
+      "name": "SimpleCoding.pl",
+      "rss": "http://www.simplecoding.pl/feed/",
+      "twitter": "@ArturCz32"
     }
   ]
 }
