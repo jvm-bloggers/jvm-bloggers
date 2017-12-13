@@ -184,18 +184,18 @@ class TweetContentGeneratorSpec extends Specification {
             .builder()
             .issueNumber(ISSUE_NUMBER)
             .heading("issue heading")
-            .blogPosts(blogWithoutTwitter())
+            .blogPosts(notAllHavingTwitterHandlePosts())
             .build()
 
         when:
         String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-        def handles = /.*m\.in\. @personal\d{1} i @company\d{1}.*/
+        def handles = /.*m\.in\. @personal1 i @company1.*/
         tweetContent ==~ /$handles/
     }
 
-    private Collection<BlogPost> blogWithoutTwitter() {
+    private Collection<BlogPost> notAllHavingTwitterHandlePosts() {
         List<BlogPost> posts = new ArrayList<>()
         posts.add(blogPost(blog("@company1", COMPANY)))
         posts.add(blogPost(blog("@personal1", PERSONAL)))
