@@ -6,6 +6,10 @@ import twitter4j.Status
 import twitter4j.Twitter
 import twitter4j.TwitterException
 
+import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.ERROR
+import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.SUCCESS
+import static java.time.LocalDateTime.now
+
 class Twitter4jPublisherSpec extends Specification {
 
     TwitterClientFactory clientFactory = Stub(TwitterClientFactory)
@@ -24,7 +28,7 @@ class Twitter4jPublisherSpec extends Specification {
         def publishingStatus = publisher.publish(tweet())
 
         then:
-        publishingStatus == TwitterPublisher.TwitterPublishingStatus.SUCCESS
+        publishingStatus == SUCCESS
     }
 
     def "should not publish a new tweet in case of errors"() {
@@ -35,11 +39,11 @@ class Twitter4jPublisherSpec extends Specification {
         def publishingStatus = publisher.publish(tweet())
 
         then:
-        publishingStatus == TwitterPublisher.TwitterPublishingStatus.ERROR
+        publishingStatus == ERROR
     }
 
     private Tweet tweet() {
-        new Tweet("Tests, tests everywhere!!! :)")
+        new Tweet("Tests, tests everywhere!!! :)", now())
     }
 
 }

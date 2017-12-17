@@ -26,20 +26,21 @@ class FacebookPublishingScheduler {
 
     @Scheduled(fixedDelayString = "${scheduler.publish-fb}")
     public void publishOnePost() {
-        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentDateNull();
+        Option<FacebookPost> notSentPost = facebookPostRepository
+            .findFirstBySentIsFalseAndSentDateLessThan(nowProvider.now());
 
         notSentPost.forEach(post -> {
             final FacebookPublishingStatus status = facebookPublisher.publishPost(post);
             log.info("Post on Facebook published, status: {}", status);
-            setSentDateForSuccessfulAction(post, status);
+            markAsSendAfterSuccessfulAction(post, status);
         });
     }
 
-    private void setSentDateForSuccessfulAction(
+    private void markAsSendAfterSuccessfulAction(
         FacebookPost facebookPost,
         FacebookPublishingStatus status) {
         if (status.isOk()) {
-            facebookPost.setSentDate(nowProvider.now());
+            facebookPost.markAsSent();
             facebookPostRepository.save(facebookPost);
         }
     }

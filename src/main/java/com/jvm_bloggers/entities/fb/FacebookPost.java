@@ -1,12 +1,11 @@
 package com.jvm_bloggers.entities.fb;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fb_post")
-@Data
+@Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FacebookPost {
 
@@ -27,20 +26,30 @@ public class FacebookPost {
         allocationSize = 1)
     private Long id;
 
-    @NonNull
     @Column(name = "link", nullable = false)
     private String link;
 
-    @NonNull
     @Column(name = "message", nullable = false)
     private String message;
 
-    @NonNull
-    @Column(name = "sent_date", nullable = false)
+    @Column(name = "sent_date")
     private LocalDateTime sentDate;
 
-    public FacebookPost(String link, String message) {
+    @Column(name = "sent")
+    private boolean sent;
+
+    public FacebookPost(
+        @NonNull String link,
+        @NonNull String message,
+        @NonNull LocalDateTime sentDate
+    ) {
         this.link = link;
         this.message = message;
+        this.sentDate = sentDate;
     }
+
+    public void markAsSent() {
+        this.sent = true;
+    }
+
 }

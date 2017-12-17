@@ -10,6 +10,8 @@ import com.jvm_bloggers.entities.twitter.TweetRepository
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
+import java.time.LocalDateTime
+
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
@@ -42,7 +44,7 @@ class TweetProducerSpec extends Specification {
                         .build()
         )
         and:
-        TweetProducer tweetProducer = new TweetProducer(contentGenerator, tweetRepository)
+        TweetProducer tweetProducer = new TweetProducer(contentGenerator, tweetRepository, nowProvider)
 
         when:
         tweetProducer.handleNewIssueEvent(issuePublishedEvent)

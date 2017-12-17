@@ -1,9 +1,11 @@
 package com.jvm_bloggers.core.social.fb
 
+import com.jvm_bloggers.TestNowProvider
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.newsletter_issues.NewIssuePublished
 import com.jvm_bloggers.entities.fb.FacebookPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
+import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
 class FacebookPostProducerSpec extends Specification {
@@ -26,7 +28,7 @@ class FacebookPostProducerSpec extends Specification {
                         .build()
         )
         and:
-        FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository)
+        FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository, new NowProvider())
 
         when:
         facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)

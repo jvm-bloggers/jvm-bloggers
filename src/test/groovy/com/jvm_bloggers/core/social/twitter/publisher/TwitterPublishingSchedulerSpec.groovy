@@ -21,23 +21,23 @@ class TwitterPublishingSchedulerSpec extends Specification {
     @Subject
     TwitterPublishingScheduler publisherScheduler = new TwitterPublishingScheduler(tweetRepository, publisher, nowProvider)
 
-    def "Should save published tweet with set sentDate"() {
+    def "Should mark published tweet as sent"() {
         given:
         Tweet tweet = Mock(Tweet)
-        tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
+        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(tweet)
         publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.SUCCESS
 
         when:
         publisherScheduler.publishOnePost()
 
         then:
-        1 * tweet.setSentDate(NOW)
+        1 * tweet.markAsSent()
         1 * tweetRepository.save(tweet)
     }
 
-    def "Should not execute any action for zero not published tweets"() {
+    def "Should not execute any action when there are no tweets waiting for publication"() {
         given:
-        tweetRepository.findFirstBySentDateNull() >> Option.none()
+        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.none()
 
         when:
         publisherScheduler.publishOnePost()
@@ -47,17 +47,17 @@ class TwitterPublishingSchedulerSpec extends Specification {
         0 * tweetRepository.save(_ as Tweet)
     }
 
-    def "Should not update sentDate for unsuccessful sending action"() {
+    def "Should not mark tweet as sent after unsuccessful sending action"() {
         given:
         Tweet tweet = Mock(Tweet)
-        tweetRepository.findFirstBySentDateNull() >> Option.of(tweet)
+        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(tweet)
         publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.ERROR
 
         when:
         publisherScheduler.publishOnePost()
 
         then:
-        0 * tweet.setSentDate(NOW)
+        0 * tweet.markAsSent()
         0 * tweetRepository.save(tweet)
     }
     
