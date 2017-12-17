@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
+import java.util.Objects;
+
 import static lombok.AccessLevel.PACKAGE;
 
 @Component
@@ -38,6 +40,7 @@ class TweetContentGenerator {
                 .map(BlogPost::getBlog)
                 .filter(Blog::isPersonal)
                 .map(Blog::getTwitter)
+                .filter(Objects::nonNull)
                 .shuffle()
                 .take(2)
                 .padTo(2, null);
@@ -47,8 +50,9 @@ class TweetContentGenerator {
                 .map(BlogPost::getBlog)
                 .filter(Blog::isCompany)
                 .map(Blog::getTwitter)
+                .filter(Objects::nonNull)
                 .shuffle()
-                .getOrElse((String)null);
+                .getOrElse((String) null);
 
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
 
