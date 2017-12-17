@@ -36,7 +36,7 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
         facebookPostRepository.save(post2)
 
         when:
-        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndSentDateLessThan(now().plusSeconds(1))
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(now().plusSeconds(1))
 
         then:
         notSentPost.isDefined()
@@ -54,7 +54,7 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
         facebookPostRepository.save(post2)
 
         when:
-        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndSentDateLessThan(now())
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(now())
 
         then:
         notSentPost.isEmpty()
@@ -66,7 +66,7 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
         facebookPostRepository.save(post)
 
         when:
-        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndSentDateLessThan(now())
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(now())
 
         then:
         notSentPost.isEmpty()
@@ -82,7 +82,7 @@ class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecificat
         facebookPostRepository.save(post2)
 
         when:
-        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndSentDateLessThan(now().plusSeconds(1))
+        Option<FacebookPost> notSentPost = facebookPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(now().plusSeconds(1))
 
         then:
         notSentPost.isDefined()

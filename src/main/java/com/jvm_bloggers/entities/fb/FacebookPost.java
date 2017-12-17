@@ -32,8 +32,8 @@ public class FacebookPost {
     @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(name = "sent_date")
-    private LocalDateTime sentDate;
+    @Column(name = "posting_date")
+    private LocalDateTime postingDate;
 
     @Column(name = "sent")
     private boolean sent;
@@ -41,11 +41,11 @@ public class FacebookPost {
     public FacebookPost(
         @NonNull String link,
         @NonNull String message,
-        @NonNull LocalDateTime sentDate
+        @NonNull LocalDateTime postingDate
     ) {
         this.link = link;
         this.message = message;
-        this.sentDate = sentDate;
+        this.postingDate = postingDate;
     }
 
     public void markAsSent() {

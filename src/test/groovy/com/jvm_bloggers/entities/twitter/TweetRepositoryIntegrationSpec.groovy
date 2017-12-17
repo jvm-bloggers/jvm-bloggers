@@ -41,7 +41,7 @@ class TweetRepositoryIntegrationSpec extends SpringContextAwareSpecification {
         tweetRepository.save(tweet2)
 
         when:
-        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(NOW.plusSeconds(1))
+        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(NOW.plusSeconds(1))
 
         then:
         notSentTweet.isDefined()
@@ -59,7 +59,7 @@ class TweetRepositoryIntegrationSpec extends SpringContextAwareSpecification {
         tweetRepository.save(tweet2)
 
         when:
-        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(NOW.plusSeconds(1))
+        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(NOW.plusSeconds(1))
 
         then:
         notSentTweet.isEmpty()
@@ -74,7 +74,7 @@ class TweetRepositoryIntegrationSpec extends SpringContextAwareSpecification {
         tweetRepository.save(tweet2)
 
         when:
-        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(NOW.plusSeconds(1))
+        Option<Tweet> notSentTweet = tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(NOW.plusSeconds(1))
 
         then:
         notSentTweet.isDefined()

@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 @Repository
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
-    Option<Tweet> findFirstBySentIsFalseAndSentDateLessThan(LocalDateTime referenceDate);
+    Option<Tweet> findFirstBySentIsFalseAndPostingDateLessThan(LocalDateTime referenceDate);
 
 }

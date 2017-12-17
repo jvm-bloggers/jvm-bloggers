@@ -24,7 +24,7 @@ class TwitterPublishingScheduler {
     @Scheduled(fixedDelayString = "${scheduler.publish-twitter}")
     public void publishOnePost() {
         Option<Tweet> notSentTweet = tweetRepository
-            .findFirstBySentIsFalseAndSentDateLessThan(nowProvider.now());
+            .findFirstBySentIsFalseAndPostingDateLessThan(nowProvider.now());
 
         notSentTweet.forEach(tweet -> {
             final TwitterPublishingStatus status = twitterPublisher.publish(tweet);

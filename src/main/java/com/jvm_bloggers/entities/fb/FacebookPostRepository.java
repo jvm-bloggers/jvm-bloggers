@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 @Repository
 public interface FacebookPostRepository extends JpaRepository<FacebookPost, Long> {
 
-    Option<FacebookPost> findFirstBySentIsFalseAndSentDateLessThan(LocalDateTime referenceDate);
+    Option<FacebookPost> findFirstBySentIsFalseAndPostingDateLessThan(LocalDateTime referenceDate);
 
 }

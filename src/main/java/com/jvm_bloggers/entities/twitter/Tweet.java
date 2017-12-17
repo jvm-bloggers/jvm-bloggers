@@ -31,15 +31,15 @@ public class Tweet {
     private String content;
 
     @NonNull
-    @Column(name = "sent_date", nullable = false)
-    private LocalDateTime sentDate;
+    @Column(name = "posting_date", nullable = false)
+    private LocalDateTime postingDate;
 
     @Column(name = "sent")
     private boolean sent;
 
-    public Tweet(@NonNull String content, @NonNull LocalDateTime sentDate) {
+    public Tweet(@NonNull String content, @NonNull LocalDateTime postingDate) {
         this.content = content;
-        this.sentDate = sentDate;
+        this.postingDate = postingDate;
     }
 
     public void markAsSent() {

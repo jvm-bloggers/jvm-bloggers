@@ -24,7 +24,7 @@ class TwitterPublishingSchedulerSpec extends Specification {
     def "Should mark published tweet as sent"() {
         given:
         Tweet tweet = Mock(Tweet)
-        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(tweet)
+        tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(tweet)
         publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.SUCCESS
 
         when:
@@ -37,7 +37,7 @@ class TwitterPublishingSchedulerSpec extends Specification {
 
     def "Should not execute any action when there are no tweets waiting for publication"() {
         given:
-        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.none()
+        tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.none()
 
         when:
         publisherScheduler.publishOnePost()
@@ -50,7 +50,7 @@ class TwitterPublishingSchedulerSpec extends Specification {
     def "Should not mark tweet as sent after unsuccessful sending action"() {
         given:
         Tweet tweet = Mock(Tweet)
-        tweetRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(tweet)
+        tweetRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(tweet)
         publisher.publish(_) >> TwitterPublisher.TwitterPublishingStatus.ERROR
 
         when:

@@ -26,7 +26,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
     def "Should mark published FB post as sent"() {
         given:
         FacebookPost post = Mock(FacebookPost)
-        fbPostRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(post)
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(post)
         fbPublisher.publishPost(_) >> SUCCESS
 
         when:
@@ -39,7 +39,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
 
     def "Should not execute any action for zero not published FB posts"() {
         given:
-        fbPostRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.none()
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.none()
 
         when:
         fbPublisherScheduler.publishOnePost()
@@ -52,7 +52,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
     def "Should not update sentDate after unsuccessful sending action"() {
         given:
         FacebookPost post = Mock(FacebookPost)
-        fbPostRepository.findFirstBySentIsFalseAndSentDateLessThan(_) >> Option.of(post)
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(post)
         fbPublisher.publishPost(_) >> ERROR
 
         when:
