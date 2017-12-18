@@ -23,7 +23,7 @@ public class BlogPostFactory {
     }
 
     public BlogPost create(String title, String url, LocalDateTime publishedDate, Blog blog) {
-        Boolean approved = !blog.isModerationRequired();
+        Boolean approved = blog.getInitialApprovedValue();
         return BlogPost.builder()
             .title(title)
             .url(url)
