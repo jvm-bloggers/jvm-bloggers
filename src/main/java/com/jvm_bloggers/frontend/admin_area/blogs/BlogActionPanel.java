@@ -68,7 +68,7 @@ public class BlogActionPanel extends Panel {
             "requireModerationBlog",
             (Consumer<Blog> & Serializable) b -> b.setModerationRequired(true),
             format(
-                "'%s' blog require moderation", blogModel.getObject().getAuthor()
+                "'%s' blog now requires moderation", blogModel.getObject().getAuthor()
             )
         );
         requireModeration.setVisible(!blogModel.getObject().isModerationRequired());
@@ -80,7 +80,7 @@ public class BlogActionPanel extends Panel {
             "doNotRequireModerationBlog",
             (Consumer<Blog> & Serializable) b -> b.setModerationRequired(false),
             format(
-                "'%s' blog does not require moderation", blogModel.getObject().getAuthor()
+                "'%s' blog now does not require moderation", blogModel.getObject().getAuthor()
             )
         );
         notRequireModeration.setVisible(blogModel.getObject().isModerationRequired());
