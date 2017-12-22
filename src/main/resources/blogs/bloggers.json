@@ -1054,6 +1054,12 @@
       "name": "dywicki.pl",
       "rss": "http://dywicki.pl/feed/",
       "twitter": "@ldywicki"
+    },
+    {
+      "bookmarkableId": "itlibrium",
+      "name": "Szymon Janikowski, Marcin Markowski",
+      "rss": "https://itlibrium.com/index.php/feed/",
+      "twitter": "@itlibrium"
     }
   ]
 }
