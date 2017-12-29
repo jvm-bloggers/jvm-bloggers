@@ -23,7 +23,7 @@ class BlogPostFactorySpec extends Specification {
 
     def "Should create blog post"() {
         given:
-        blog.isModerationRequired() >> false
+        blog.getInitialApprovedValue() >> true
         String title = "title"
         String url = "url"
         LocalDateTime publishedDate = LocalDateTime.now()
@@ -36,17 +36,18 @@ class BlogPostFactorySpec extends Specification {
         blogPost.url == url
         blogPost.blog == blog
         blogPost.publishedDate == publishedDate
+        blogPost.approved
     }
 
     def "Should set approved according to default approved blog value"() {
         given:
-        blog.isModerationRequired() >> defaultApprovedValue
+        blog.getInitialApprovedValue() >> defaultApprovedValue
 
         when:
         BlogPost blogPost = blogPostFactory.create("any title", "any url", LocalDateTime.now(), blog)
 
         then:
-        blogPost.approved == !defaultApprovedValue
+        blogPost.approved == defaultApprovedValue
 
         where:
         defaultApprovedValue << [Boolean.TRUE, Boolean.FALSE]
@@ -54,7 +55,7 @@ class BlogPostFactorySpec extends Specification {
 
     def "Should set now as approved date for new posts or publishedDate for old posts"() {
         given:
-        blog.isModerationRequired() >> false
+        blog.getInitialApprovedValue() >> true
 
         when:
         BlogPost blogPost = blogPostFactory.create("any title", "any url", publishedDate, blog)
