@@ -56,3 +56,21 @@ tr.highlighted-post > td:first-child > span {
     height: 400px;
     max-height: 400px;
 }
+
+/* Table column header sorting indicators */
+
+
+tr.headers th.wicket_orderUp a {
+    padding-right: 1em;
+    background : url(../assets/images/arrow_up.png) no-repeat right;
+}
+
+tr.headers th.wicket_orderDown a {
+    padding-right: 1em;
+    background : url(../assets/images/arrow_down.png) no-repeat right;
+}
+
+tr.headers th.wicket_orderNone a {
+    padding-right: 1em;
+    background : url(../assets/images/arrow_off.png) no-repeat right;
+}
