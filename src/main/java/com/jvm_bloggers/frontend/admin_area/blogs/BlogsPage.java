@@ -33,10 +33,10 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 @MountPath("admin-blogs")
 public class BlogsPage extends AbstractAdminPage {
 
-    static final String BLOG_DATA_FORM_ID = "blogDataForm";
-    static final String BLOGS_DATA_TABLE_ID = "blogsDataTable";
+    protected static final String BLOG_DATA_FORM_ID = "blogDataForm";
+    protected static final String BLOGS_DATA_TABLE_ID = "blogsDataTable";
     private static final String POSTS_LINK_FRAGMENT = "postsLinkFragment";
-    static final String POSTS_LINK = "postsLink";
+    protected static final String POSTS_LINK = "postsLink";
     private static final String NEW_WINDOW_LINK_FRAGMENT = "newWindowLinkFragment";
     private static final String NEW_WINDOW_LINK = "newWindowLink";
 
@@ -90,26 +90,26 @@ public class BlogsPage extends AbstractAdminPage {
 
     private static class BlogsPageColumn extends AbstractColumn<Blog, String> {
 
-        private final SerializableBiFunction<String, IModel<Blog>, Component> panelFunction;
+        private final SerializableBiFunction<String, IModel<Blog>, Component> generator;
         private final boolean centered;
 
         private BlogsPageColumn(String columnName, String sortProperty,
-                                SerializableBiFunction<String, IModel<Blog>, Component> panelFunction,
+                                SerializableBiFunction<String, IModel<Blog>, Component> generator,
                                 boolean centered) {
             super(new Model<>(columnName), sortProperty);
-            this.panelFunction = panelFunction;
+            this.generator = generator;
             this.centered = centered;
         }
 
         private BlogsPageColumn(String columnName, String sortProperty,
-                                SerializableBiFunction<String, IModel<Blog>, Component> panelFunction) {
-            this(columnName, sortProperty, panelFunction, false);
+                                SerializableBiFunction<String, IModel<Blog>, Component> generator) {
+            this(columnName, sortProperty, generator, false);
         }
 
         @Override
         public void populateItem(Item<ICellPopulator<Blog>> cellItem, String componentId,
                                  IModel<Blog> rowModel) {
-            cellItem.add(panelFunction.apply(componentId, rowModel));
+            cellItem.add(generator.apply(componentId, rowModel));
         }
 
         @Override

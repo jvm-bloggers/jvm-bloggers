@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BootstrapTable<T, S> extends DataTable<T, S> {
     private static final long serialVersionUID = 1L;
-    static final String BOOTSTRAP_TABLE_CLASSES =
+    protected static final String BOOTSTRAP_TABLE_CLASSES =
         "table table-striped table-bordered table-hover dataTable no-footer";
 
     public BootstrapTable(final String id, final List<? extends IColumn<T, S>> columns,

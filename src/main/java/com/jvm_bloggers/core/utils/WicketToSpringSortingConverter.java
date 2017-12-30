@@ -5,7 +5,6 @@ import io.vavr.control.Option;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.springframework.data.domain.Sort;
 
-
 public class WicketToSpringSortingConverter {
     private WicketToSpringSortingConverter() {
         //static utility
