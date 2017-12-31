@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.admin_area.panels
+package com.jvm_bloggers.frontend.admin_area.panels.tables
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider

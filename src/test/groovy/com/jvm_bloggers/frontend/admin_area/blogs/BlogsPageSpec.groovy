@@ -6,6 +6,7 @@ import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import org.apache.wicket.core.util.string.ComponentRenderer
 import org.apache.wicket.util.tester.TagTester
 import org.springframework.data.domain.PageImpl
 
@@ -38,7 +39,7 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
             tester.assertRenderedPage(BlogPostsPage.class)
     }
 
-    def "Should be ordered by author asc"() {
+    def "Should be ordered by first column asc"() {
         given:
             Blog blog1 = sampleBlog(1)
             Blog blog2 = sampleBlog(2)
@@ -49,10 +50,10 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
             tester.startPage(BlogsPage.class)
 
         then:
-            "Author" == getSortedColumnHeader("wicket_orderUp")
+            assertColumnContainsImage(1, "fa-sort-asc")
     }
 
-    def "Should be ordered by author desc"() {
+    def "Should be ordered by first column desc"() {
         given:
             Blog blog1 = sampleBlog(1)
             Blog blog2 = sampleBlog(2)
@@ -62,15 +63,17 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
         when:
             tester.startPage(BlogsPage.class)
             tester.clickLink(headerLinkPath(1))
+            tester.dumpPage()
 
         then:
-            "Author" == getSortedColumnHeader("wicket_orderDown")
+            assertColumnContainsImage(8, "fa-sort-desc")
     }
 
-    private String getSortedColumnHeader(String sortingClass) {
-        TagTester authorHeaderTester = TagTester.createTagByAttribute(
-                tester.getLastResponse().getDocument(), "class", sortingClass)
-        return authorHeaderTester.getChild("a").getChild("span").getValue()
+    def assertColumnContainsImage(int columnIdNumber, String image) {
+        def component = tester.getComponentFromLastRenderedPage(headerImagePath(columnIdNumber))
+        def rendered = ComponentRenderer.renderComponent(component)
+        def tag = TagTester.createTagByAttribute(rendered.toString(), "class", "fa " + image)
+        tag != null
     }
 
     private Blog sampleBlog(int id) {
@@ -90,6 +93,10 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
 
     private String headerLinkPath(int column) {
         [BLOG_DATA_FORM_ID, BLOGS_DATA_TABLE_ID, "topToolbars:toolbars:1:headers", column, "header:orderByLink"].join(":")
+    }
+
+    private String headerImagePath(int column) {
+        [BLOG_DATA_FORM_ID, BLOGS_DATA_TABLE_ID, "topToolbars:toolbars:1:headers", column, "header:fa"].join(":")
     }
 
     private String linkPath(int row, int column, String... ids) {

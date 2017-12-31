@@ -3,9 +3,9 @@ package com.jvm_bloggers.frontend.admin_area.blogs;
 import com.google.common.collect.Lists;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.frontend.admin_area.AbstractAdminPage;
-import com.jvm_bloggers.frontend.admin_area.panels.BootstrapTable;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomPagingNavigator;
+import com.jvm_bloggers.frontend.admin_area.panels.tables.BootstrapTable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.Component;
