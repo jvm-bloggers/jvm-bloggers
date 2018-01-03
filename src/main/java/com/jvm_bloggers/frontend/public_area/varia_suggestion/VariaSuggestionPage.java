@@ -59,7 +59,9 @@ public class VariaSuggestionPage extends AbstractFrontendPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 backingBean.createVariaSuggestion(variaSuggestionForm.getModelObject());
-                target.appendJavaScript(ToastrBuilder.success("Dziękuję za Twój wkład"));
+                target.appendJavaScript(
+                    ToastrBuilder.success("Propozycja zapisana. Dziękujęmy za pomoc :)")
+                );
                 variaSuggestionForm.setDefaultModelObject(new VariaSuggestionModel());
                 target.add(variaSuggestionForm);
             }
@@ -81,6 +83,6 @@ public class VariaSuggestionPage extends AbstractFrontendPage {
 
     @Override
     protected String getPageTitle() {
-        return "Sugestie";
+        return "Propozycje do sekcji Varia";
     }
 }
