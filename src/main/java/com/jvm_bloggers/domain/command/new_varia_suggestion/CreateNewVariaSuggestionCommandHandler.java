@@ -19,9 +19,12 @@ public class CreateNewVariaSuggestionCommandHandler implements
     @Override
     @EventListener
     public void handle(CreateNewVariaSuggestion command) {
-        variaSuggestionRepository.save(new VariaSuggestion(
-            command.getUrl(),
-            command.getReason(),
-            command.getAuthor()));
+        variaSuggestionRepository.save(
+            new VariaSuggestion(
+                command.getUrl(),
+                command.getReason(),
+                command.getAuthor()
+            )
+        );
     }
 }
