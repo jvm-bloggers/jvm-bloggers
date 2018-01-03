@@ -576,5 +576,27 @@
     <!--<changeSet id="047-add-polish-collation-to-author-column-in-blog-table" author="vlosrutere" dbms="postgresql">-->
         <!--<sql>ALTER TABLE BLOG ALTER COLUMN AUTHOR TYPE VARCHAR(250) COLLATE "pl_PL"</sql>-->
     <!--</changeSet>-->
+  
+    <changeSet id="049-create-varia-suggestion-table" author="ajurasz">
+        <createSequence sequenceName="VARIA_SUGGESTION_SEQ"/>
+
+        <createTable tableName="VARIA_SUGGESTION">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="URL" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REASON" type="varchar(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="varchar(250)"/>
+            <column name="CREATE_DATE" type="timestamp without timezone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="READ" type="boolean"/>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
