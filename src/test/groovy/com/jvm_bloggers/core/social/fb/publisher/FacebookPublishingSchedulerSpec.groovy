@@ -10,6 +10,8 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+import static com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus.*
+
 class FacebookPublishingSchedulerSpec extends Specification {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
@@ -21,23 +23,23 @@ class FacebookPublishingSchedulerSpec extends Specification {
     @Subject
     FacebookPublishingScheduler fbPublisherScheduler = new FacebookPublishingScheduler(fbPostRepository, fbPublisher, nowProvider)
 
-    def "Should save published FB post with set sentDate"() {
+    def "Should mark published FB post as sent"() {
         given:
         FacebookPost post = Mock(FacebookPost)
-        fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-        fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.SUCCESS
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(post)
+        fbPublisher.publishPost(_) >> SUCCESS
 
         when:
         fbPublisherScheduler.publishOnePost()
 
         then:
-        1 * post.setSentDate(NOW)
+        1 * post.markAsSent()
         1 * fbPostRepository.save(post)
     }
 
     def "Should not execute any action for zero not published FB posts"() {
         given:
-        fbPostRepository.findFirstBySentDateNull() >> Option.none()
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.none()
 
         when:
         fbPublisherScheduler.publishOnePost()
@@ -47,17 +49,17 @@ class FacebookPublishingSchedulerSpec extends Specification {
         0 * fbPostRepository.save(_ as FacebookPost)
     }
 
-    def "Should not update sentDate for unsuccessful sending action"() {
+    def "Should not update sentDate after unsuccessful sending action"() {
         given:
         FacebookPost post = Mock(FacebookPost)
-        fbPostRepository.findFirstBySentDateNull() >> Option.of(post)
-        fbPublisher.publishPost(_) >> FacebookPublisher.FacebookPublishingStatus.ERROR
+        fbPostRepository.findFirstBySentIsFalseAndPostingDateLessThan(_) >> Option.of(post)
+        fbPublisher.publishPost(_) >> ERROR
 
         when:
         fbPublisherScheduler.publishOnePost()
 
         then:
-        0 * post.setSentDate(NOW)
+        0 * post.markAsSent()
         0 * fbPostRepository.save(post)
     }
 

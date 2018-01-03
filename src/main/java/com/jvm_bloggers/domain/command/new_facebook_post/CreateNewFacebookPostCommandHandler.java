@@ -3,6 +3,7 @@ package com.jvm_bloggers.domain.command.new_facebook_post;
 import com.jvm_bloggers.domain.command.CommandHandler;
 import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
+import com.jvm_bloggers.utils.NowProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 class CreateNewFacebookPostCommandHandler implements CommandHandler<CreateNewFacebookPost> {
 
     private final FacebookPostRepository facebookPostRepository;
+    private final NowProvider nowProvider;
 
     @Override
     @EventListener
@@ -23,7 +25,9 @@ class CreateNewFacebookPostCommandHandler implements CommandHandler<CreateNewFac
 
         FacebookPost facebookPost = new FacebookPost(
             command.getIssueLink(),
-            command.getFacebookMessage());
+            command.getFacebookMessage(),
+            nowProvider.now()
+        );
 
         facebookPostRepository.save(facebookPost);
     }

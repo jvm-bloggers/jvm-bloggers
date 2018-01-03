@@ -4,10 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,12 +30,20 @@ public class Tweet {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Setter
     @NonNull
-    @Column(name = "sent_date", nullable = false)
-    private LocalDateTime sentDate;
+    @Column(name = "posting_date", nullable = false)
+    private LocalDateTime postingDate;
 
-    public Tweet(String content) {
+    @Column(name = "sent")
+    private boolean sent;
+
+    public Tweet(@NonNull String content, @NonNull LocalDateTime postingDate) {
         this.content = content;
+        this.postingDate = postingDate;
     }
+
+    public void markAsSent() {
+        this.sent = true;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.jvm_bloggers.entities.fb.FacebookPost;
 import com.jvm_bloggers.entities.fb.FacebookPostRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 
+import com.jvm_bloggers.utils.NowProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,13 +23,20 @@ class FacebookPostProducer {
     private final LinkGenerator linkGenerator;
     private final FacebookMessageGenerator messageGenerator;
     private final FacebookPostRepository facebookPostRepository;
+    private final NowProvider nowProvider;
 
     @EventListener
     public void handleNewIssueEvent(NewIssuePublished newIssuePublished) {
         final NewsletterIssue issue = newIssuePublished.getNewsletterIssue();
         final String issueLink = linkGenerator.generateIssueLink(issue.getIssueNumber());
         final String facebookMessage = messageGenerator.generateFacebookMessage(issueLink);
-        facebookPostRepository.save(new FacebookPost(issueLink, facebookMessage));
+        facebookPostRepository.save(
+            new FacebookPost(
+                issueLink,
+                facebookMessage,
+                nowProvider.now()
+            )
+        );
     }
 
 }

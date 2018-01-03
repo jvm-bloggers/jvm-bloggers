@@ -18,3 +18,9 @@ mailing:
 facebook.api:
   userToken: "ENC(GAychZmR96oar6UjLNbhTbJ1ITfQ30G3FeDtWYqMxaWJNhHRkJzs43a1hKkLzADRmF4TaNj4tWdjFonSKdXXF5a4wvSojjHhdia7ig3lv4HObynn0zhNU/wqlkq/4hxbi5lwK4HqfoKgfiRq6TN/zN3roFXBjw6DqjtG5IRYuNl49W7zTsnmV5IbJ3+sn8WJELkrFSFLbeidjXkjXuAjn2hg7xnCY8nOhS1wAKqNOsD1oZfKCrJM9Q==)"
   appSecret: "ENC(yKI3IX9wAqx/qc+3NNsFFW31fN4uML14R9YOZqNoZJriUOYUH2WZaWbslgK+FTAJ)"
+
+twitter.api:
+  consumerKey: "ENC(nGlGqBiGb6BMiXQhkINFVv/pUggzZKsbvvL+wNdio6sfTfFPY1rdbQ==)"
+  consumerSecret: "ENC(tBXSpOSbLkK1FImGJTkiwAELqhsxtclq4XFdfl4nJNiIzLM68AkPIOJWUQ9vhuTWP3A/8DVAnGE+l2vH2ASiZg==)"
+  accessToken: "ENC(dV5065LIgT1Vms9t4ztROfptCdVjX5q/tfSma6Vkr+L+SLgDM+R3KEvE4gg1TRnI0lewg00Y9yFBuMqYUTOlXA==)"
+  accessTokenSecret: "ENC(sGO+F4/kERiTVDrqc/fqKSKexuk2fUJVDl21A9Ks+tjPnth8NyADyZKXzcPNdoDbuUCUOHE0yuA=)"

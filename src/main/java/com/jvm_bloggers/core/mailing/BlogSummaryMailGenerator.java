@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -118,7 +119,10 @@ public class BlogSummaryMailGenerator {
     }
 
     private List<BlogPostForMailItem> postsToMailItems(List<BlogPost> newPosts, long issueNumber) {
-        return newPosts.stream().map(blogPost ->
+        return newPosts
+            .stream()
+            .sorted(Comparator.comparing(b -> b.getBlog().getAuthor()))
+            .map(blogPost ->
             BlogPostForMailItem.builder()
                 .from(blogPost)
                 .withIssueNumber(issueNumber)

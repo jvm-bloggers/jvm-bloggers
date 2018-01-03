@@ -71,6 +71,10 @@ public class Blog {
         return moderationRequired;
     }
 
+    public Boolean getInitialApprovedValue() {
+        return moderationRequired ? null : true;
+    }
+
     public boolean isPersonal() {
         return BlogType.PERSONAL == blogType;
     }
