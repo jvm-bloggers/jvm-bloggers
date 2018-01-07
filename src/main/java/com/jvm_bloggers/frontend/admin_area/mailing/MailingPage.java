@@ -6,6 +6,7 @@ import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.DefaultWysiwygToo
 import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
+import com.jvm_bloggers.frontend.common_components.NonNullWysiwygEditor;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
@@ -29,6 +30,7 @@ public class MailingPage extends AbstractMailingPage {
     public static final String SEND_TEST_MAIL_BUTTON_ID = "sendTestMailButton";
     public static final String MAILING_SECTION_TO_EDIT_DROPDOWN_ID = "mailingToEditDropdown";
     public static final String VARIA_SUGGESTION_PANEL_ID = "variaSuggestionPanel";
+    public static final String SAVE_BUTTON_ID = "saveButton";
 
     private static List<String> TEMPLATE_SECTION_KEYS = Lists.newArrayList(
         MetadataKeys.MAILING_TEMPLATE,
@@ -73,7 +75,7 @@ public class MailingPage extends AbstractMailingPage {
 
     private void addWysiwygEditor() {
         DefaultWysiwygToolbar toolbar = new DefaultWysiwygToolbar("toolbar");
-        wysiwygEditor = new WysiwygEditor(
+        wysiwygEditor = new NonNullWysiwygEditor(
             WYSIWYG_ID, new PropertyModel<>(mailingTemplateForm.getModel(), "value"),
             toolbar
         );
@@ -119,7 +121,7 @@ public class MailingPage extends AbstractMailingPage {
     }
 
     private void addSaveButton() {
-        AjaxButton saveButton = new AjaxButton("saveButton", mailingTemplateForm) {
+        AjaxButton saveButton = new AjaxButton(SAVE_BUTTON_ID, mailingTemplateForm) {
             @Override
             protected void onSubmit(AjaxRequestTarget target) {
                 persistChangesInMetadata(target);
