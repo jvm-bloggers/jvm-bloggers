@@ -20,13 +20,15 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
     static final String MAILING_TEMPLATE_VALUE = "Example Mailing Template"
     static final String GREETING_VALUE = "Hello all"
     static final String DEFAULT_MAILING_TEMPLATE_VALUE = "Default Mailing Template"
+    static final int HEADING_TEMPLATE_IDX = 2
 
     BlogSummaryMailGenerator blogSummaryMailGenerator = Stub(BlogSummaryMailGenerator)
     IssueNumberRetriever issueNumberRetriever = Stub(IssueNumberRetriever)
     MailingPageBackingBean backingBean = Mock(MailingPageBackingBean)
     NewsletterIssueFactory newsletterIssueFactory = Stub(NewsletterIssueFactory)
 
-    def void setupContext() {
+    @Override
+    void setupContext() {
         addBean(backingBean)
         addBean(blogSummaryMailGenerator)
         addBean(issueNumberRetriever)
@@ -72,6 +74,25 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
 
         then:
         1 * backingBean.saveMetadata({ it.name == MAILING_TEMPLATE && it.value == DEFAULT_MAILING_TEMPLATE_VALUE })
+    }
+
+    def "Should save MailingTemplate with empty value"() {
+        given:
+            backingBean.findMetadataByName(MetadataKeys.HEADING_TEMPLATE) >> new Metadata(
+                    0L,
+                    MetadataKeys.HEADING_TEMPLATE,
+                    ""
+            )
+            tester.startPage(MailingPage.class)
+
+        when:
+            FormTester formTester = tester.newFormTester(MAILING_TEMPLATE_FORM_ID)
+            formTester.select(MAILING_SECTION_TO_EDIT_DROPDOWN_ID, HEADING_TEMPLATE_IDX)
+            tester.executeAjaxEvent(MAILING_TEMPLATE_FORM_ID + ":" + MAILING_SECTION_TO_EDIT_DROPDOWN_ID, "change")
+            formTester.submit(SAVE_BUTTON_ID)
+
+        then:
+            1 * backingBean.saveMetadata({ it.name == MetadataKeys.HEADING_TEMPLATE && it.value == "" })
     }
 
     def "Should send test email when button clicked"() {
