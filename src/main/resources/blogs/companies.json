@@ -80,7 +80,7 @@
     {
       "bookmarkableId": "consdata",
       "name": "Consdata",
-      "rss": "http://www.consdata.pl/blog?format=feed",
+      "rss": "http://www.consdata.pl/component/tags/tag/tech?format=feed",
       "twitter": "@Consdata"
     },
     {
