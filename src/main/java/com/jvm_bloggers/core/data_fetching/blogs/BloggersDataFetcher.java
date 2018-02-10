@@ -11,6 +11,7 @@ import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,15 +22,16 @@ import java.net.URL;
 
 @Component
 @Slf4j
+@NoArgsConstructor
 public class BloggersDataFetcher {
 
-    private final Option<URL> bloggersUrlOption;
-    private final Option<URL> companiesUrlOption;
-    private final Option<URL> videosUrlOption;
-    private final BloggersDataUpdater bloggersDataUpdater;
-    private final ObjectMapper mapper;
-    private final MetadataRepository metadataRepository;
-    private final NowProvider nowProvider;
+    private Option<URL> bloggersUrlOption;
+    private Option<URL> companiesUrlOption;
+    private Option<URL> videosUrlOption;
+    private BloggersDataUpdater bloggersDataUpdater;
+    private ObjectMapper mapper;
+    private MetadataRepository metadataRepository;
+    private NowProvider nowProvider;
     private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
         = new PreventConcurrentExecutionSafeguard();
 
