@@ -106,7 +106,8 @@ public class BlogSummaryMailGenerator {
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
         template.add("days", DAYS_IN_THE_PAST);
         template.add("newPosts",
-            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber()).toJavaArray()
+            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber())
+            .toJavaArray()
         );
         template.add("newPostsFromCompanies",
             postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()).toJavaList()
@@ -115,7 +116,8 @@ public class BlogSummaryMailGenerator {
             blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber())
         );
         template.add(
-            "newVideoPosts", postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()).toJavaList()
+            "newVideoPosts",
+            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()) .toJavaList()
         );
         return template.render();
     }
