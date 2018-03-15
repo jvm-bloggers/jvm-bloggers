@@ -9,9 +9,12 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
+
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+
 import lombok.NoArgsConstructor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -117,7 +120,7 @@ public class BlogSummaryMailGenerator {
         );
         template.add(
             "newVideoPosts",
-            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()) .toJavaList()
+            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()).toJavaList()
         );
         return template.render();
     }
@@ -126,12 +129,12 @@ public class BlogSummaryMailGenerator {
         return newPosts
             .sorted(Comparator.comparing(b -> b.getBlog().getAuthor()))
             .map(blogPost ->
-            BlogPostForMailItem.builder()
-                .from(blogPost)
-                .withIssueNumber(issueNumber)
-                .withUrl(linkGenerator.generateRedirectLinkFor(blogPost.getUid()))
-                .build()
-        );
+                BlogPostForMailItem.builder()
+                    .from(blogPost)
+                    .withIssueNumber(issueNumber)
+                    .withUrl(linkGenerator.generateRedirectLinkFor(blogPost.getUid()))
+                    .build()
+            );
     }
 
     private List<Blog> blogsToMailItems(List<Blog> blogs, long issueNumber) {

@@ -613,7 +613,7 @@
     {
       "bookmarkableId": "piotr-wittchen",
       "name": "Piotr Wittchen",
-      "rss": "http://blog.wittchen.biz.pl/feed/",
+      "rss": "http://wittchen.io/feed.xml",
       "twitter": "@piotr_wittchen"
     },
     {
@@ -1072,6 +1072,18 @@
       "name": "Bartosz Jędrzejewski",
       "rss": "http://e4developer.com/feed/",
       "twitter": "@bartoszjd"
-    }
+    },
+    {
+      "bookmarkableId": "artur-gajowy",
+      "name": "Artur Gajowy",
+      "rss": "http://www.thingsandstuff.eu/feeds/posts/default?alt=rss",
+      "twitter": "@ArturGajowy"
+    },
+    {
+      "bookmarkableId": "adrian-marszalek",
+      "name": "Adrian Marszałek",
+      "rss": "http://amarszalek.net/blog/feed/",
+      "twitter": "@a_mrszlk"
+     }
   ]
 }
