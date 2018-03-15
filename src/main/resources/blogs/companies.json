@@ -98,6 +98,11 @@
       "bookmarkableId": "tratif",
       "name": "Tratif",
       "rss": "https://blog.tratif.com/feed"
+    },
+    {
+      "bookmarkableId": "ecom",
+      "name": "Ecom",
+      "rss": "https://ecom.software/feed/"
     }
   ]
 }

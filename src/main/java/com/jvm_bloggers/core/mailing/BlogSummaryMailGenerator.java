@@ -110,7 +110,7 @@ public class BlogSummaryMailGenerator {
         template.add("days", DAYS_IN_THE_PAST);
         template.add("newPosts",
             postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber())
-                .toJavaArray()
+            .toJavaArray()
         );
         template.add("newPostsFromCompanies",
             postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()).toJavaList()
