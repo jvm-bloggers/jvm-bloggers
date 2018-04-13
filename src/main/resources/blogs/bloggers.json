@@ -1090,6 +1090,12 @@
       "name": "Łukasz Sroczyński",
       "rss": "http://www.braintelligence.pl/feed/",
       "twitter": "@LukSroczynski"
+    },
+    {
+      "bookmarkableId": "kubrynski",
+      "name": "Jakub Kubryński",
+      "rss": "https://kubrynski.blog/feed/",
+      "twitter": "@jkubrynski"
     }
   ]
 }
