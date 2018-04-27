@@ -13,6 +13,7 @@ import com.jvm_bloggers.utils.NowProvider;
 import lombok.AllArgsConstructor;
 
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
 public class NewsletterIssueFactory {
 
