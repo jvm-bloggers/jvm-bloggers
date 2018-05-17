@@ -103,6 +103,12 @@
       "bookmarkableId": "ecom",
       "name": "Ecom",
       "rss": "https://ecom.software/feed/"
+    },
+    {
+      "bookmarkableId": "smartup",
+      "name": "Smart Up",
+      "rss": "https://up.smartrecruiters.com/",
+      "twitter": "@SmartRecruiters"
     }
   ]
 }
