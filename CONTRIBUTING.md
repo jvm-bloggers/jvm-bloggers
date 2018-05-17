@@ -3,7 +3,7 @@
 
 ## Have any questions or problems with initial setup? Just ask :)
 
-* Please use our [Slack](https://jvm-bloggers-slack.herokuapp.com/) full of helpful people :)
+* Please use [JVM Poland Slack](http://bit.ly/join-jvm-poland-slack), channel #jvm-bloggers full of helpful people :)
 
 * Not sure which issue pick? Please check those labelled as ["For newcomers"](https://github.com/jvm-bloggers/jvm-bloggers/issues?q=is%3Aissue+is%3Aopen+label%3A%22For+newcomers%22).
 
