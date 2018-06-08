@@ -191,7 +191,7 @@ class TweetContentGeneratorSpec extends Specification {
         String tweetContent = contentGenerator.generateTweetContent(issue)
 
         then:
-        def handles = /.*m\.in\. @personal1 i @company1.*/
+        def handles = /.*między innymi @personal1 i @company1.*/
         tweetContent ==~ /$handles/
     }
 
