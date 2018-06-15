@@ -888,7 +888,8 @@
     {
       "bookmarkableId": "michal-kulinski",
       "name": "Michał Kuliński",
-      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default"
+      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default",
+      "twitter" : "@Michal_Kulinski"
     },
     {
       "bookmarkableId": "bartosz-wieczorek",
