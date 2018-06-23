@@ -1109,6 +1109,11 @@
       "name": "Mateusz Kubuszok",
       "rss": "https://kubuszok.com/feed.xml",
       "twitter": "@MateuszKubuszok"
+    },
+    {
+      "bookmarkableId": "radoslaw-domanski",
+      "name": "Radosław Domański",
+      "rss": "https://wrrathy.github.io/feed.xml"
     }
   ]
 }
