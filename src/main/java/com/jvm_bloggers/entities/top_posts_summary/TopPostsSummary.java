@@ -2,6 +2,8 @@ package com.jvm_bloggers.entities.top_posts_summary;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -10,11 +12,9 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import static javax.persistence.CascadeType.ALL;
@@ -26,9 +26,16 @@ import static javax.persistence.CascadeType.ALL;
 public class TopPostsSummary {
 
     @Id
-    @GeneratedValue(generator = "TOP_POSTS_SUMMARY_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "TOP_POSTS_SUMMARY_SEQ", sequenceName = "TOP_POSTS_SUMMARY_SEQ",
-        allocationSize = 1)
+    @GenericGenerator(
+        name = "TOP_POSTS_SUMMARY_SEQ",
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+        parameters = {
+            @Parameter(name = "sequence_name", value = "TOP_POSTS_SUMMARY_SEQ"),
+            @Parameter(name = "initial_value", value = "1"),
+            @Parameter(name = "increment_size", value = "1")
+        }
+    )
+    @GeneratedValue(generator = "TOP_POSTS_SUMMARY_SEQ")
     private Long id;
 
     @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "topPostsSummary")

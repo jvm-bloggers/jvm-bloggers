@@ -28,7 +28,7 @@ services:
       - jvm-bloggers-db
   logspout:
     image: gliderlabs/logspout:latest
-    command: 'syslog://logs5.papertrailapp.com:$JVM_BLOGGERS_LOGSPOUT_PORT'
+    command: 'syslog://logs2.papertrailapp.com:$JVM_BLOGGERS_LOGSPOUT_PORT'
     volumes:
     - '/var/run/docker.sock:/tmp/docker.sock'
 
