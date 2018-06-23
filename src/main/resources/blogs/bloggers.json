@@ -1103,6 +1103,12 @@
       "name": "Krzysztof Otrebski",
       "rss": "https://medium.com/feed/@krzysztof.otrebski",
       "twitter": "@kotrebski"
+    },
+    {
+      "bookmarkableId": "mateusz-kubuszok",
+      "name": "Mateusz Kubuszok",
+      "rss": "https://kubuszok.com/feed.xml",
+      "twitter": "@MateuszKubuszok"
     }
   ]
 }
