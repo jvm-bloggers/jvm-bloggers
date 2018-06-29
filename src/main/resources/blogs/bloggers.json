@@ -1114,6 +1114,11 @@
       "bookmarkableId": "radoslaw-domanski",
       "name": "Radosław Domański",
       "rss": "https://wrrathy.github.io/feed.xml"
+    },
+    {
+      "bookmarkableId": "kodujze",
+      "name": "Maciej Marczak",
+      "rss": "https://www.kodujze.pl/feed/" 
     }
   ]
 }
