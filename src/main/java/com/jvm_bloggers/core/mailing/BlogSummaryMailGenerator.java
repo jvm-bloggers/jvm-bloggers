@@ -116,7 +116,8 @@ public class BlogSummaryMailGenerator {
             postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()).toJavaList()
         );
         template.add("newlyAddedBlogs",
-            blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber()).toJavaList()
+            blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber())
+                .toJavaList()
         );
         template.add(
             "newVideoPosts",
