@@ -1085,11 +1085,17 @@
       "name": "Adrian Marszałek",
       "rss": "http://amarszalek.net/blog/feed/",
       "twitter": "@a_mrszlk"
-     },
+    },
     {
-      "bookmarkableId": "lukasz-sroczynski",
+      "bookmarkableId": "lukasz-sroczynski-pl",
       "name": "Łukasz Sroczyński",
-      "rss": "http://www.braintelligence.pl/feed/",
+      "rss": "http://www.braintelligence.pl/pl/feed/",
+      "twitter": "@LukSroczynski"
+    },
+    {
+      "bookmarkableId": "lukasz-sroczynski-en",
+      "name": "Łukasz Sroczyński",
+      "rss": "http://www.braintelligence.pl/en/feed/",
       "twitter": "@LukSroczynski"
     },
     {
