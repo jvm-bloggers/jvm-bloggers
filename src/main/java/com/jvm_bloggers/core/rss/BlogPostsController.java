@@ -19,20 +19,35 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 @RestController
 @RequiredArgsConstructor
 public class BlogPostsController {
-    public static final String RSS_FEED_MAPPING = "/pl/rss";
+    private static final String DEPRECATED_BLOGS_FEED = "/pl/rss";
+    public static final String BLOGS_FEED = "/feed/blogs";
+    public static final String ISSUES_FEED = "/feed/issues";
 
-    private final AggregatedRssFeedProducer rssProducer;
+    private final AggregatedRssFeedProducer blogRssProducer;
+    private final IssuesRssFeedProducer issuesRssProducer;
 
     @RequestMapping(
         method = RequestMethod.GET,
-        path = RSS_FEED_MAPPING,
+        path = {BLOGS_FEED, DEPRECATED_BLOGS_FEED},
         produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
     )
-    public SyndFeed getRss(
+    public SyndFeed getBlogRss(
         HttpServletRequest request,
         @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
         @RequestParam(required = false) Set<String> excludedAuthors) {
 
-        return rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
+        return blogRssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
+    }
+
+    @RequestMapping(
+        method = RequestMethod.GET,
+        path = ISSUES_FEED,
+        produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
+    )
+    public SyndFeed getEntriesRss(
+        HttpServletRequest request,
+        @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit) {
+
+        return issuesRssProducer.getRss(request.getRequestURL().toString(), limit);
     }
 }
