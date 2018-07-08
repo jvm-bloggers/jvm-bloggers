@@ -109,6 +109,12 @@
       "name": "Smart Up",
       "rss": "https://up.smartrecruiters.com/feed",
       "twitter": "@SmartRecruiters"
+    },
+    {
+      "bookmarkableId": "detektywi-it",
+      "name": "Detektywi IT",
+      "rss": "https://detektywi.it/feed",
+      "twitter": "@DetektywiIT"
     }
   ]
 }
