@@ -1125,6 +1125,12 @@
       "bookmarkableId": "kodujze",
       "name": "Maciej Marczak",
       "rss": "https://www.kodujze.pl/feed/" 
+    },
+    {
+      "bookmarkableId": "maciej-maciejowski",
+      "name": "Maciej Maciejowski",
+      "rss": "https://myenv.net/feed/",
+      "twitter": "@mmaciejow"	  
     }
   ]
 }
