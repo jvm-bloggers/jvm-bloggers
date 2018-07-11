@@ -1,0 +1,39 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<body>
+
+<wicket:extend>
+
+    <article class="text-sm-left blog-post blog-post-page">
+
+        <div class="col-md-8 col-md-offset-2 well-bottom">
+            <h1 style="padding-bottom: 20px;">Zaproponuj treść do sekcji Varia</h1>
+            <p style="padding-bottom: 20px;">
+                Znalazłeś coś ciekawego co zainteresowałoby innych programistów? Wypełnij formularz, a my postaramy się
+                umieścić tę informację w najbliższym wydaniu newslettera :)
+            </p>
+
+            <form wicket:id="variaSuggestionForm" role="form" autocomplete="off">
+                <div class="form-group">
+                    <label for="url"></label>
+                    <input wicket:id="url" id="url" placeholder="Url" type="text" name="url" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="author"></label>
+                    <input wicket:id="author" id="author" type="text" placeholder="Podpisz się jeśli chcesz" name="author" class="form-control">
+                </div>
+                <div class="form-group textarea">
+                    <label for="reason"></label>
+                    <textarea wicket:id="reason" id="reason" rows="3" placeholder="Dlaczego ten link powinien znaleźć się w newsletterze?" name="reason" class="form-control"></textarea>
+                </div>
+                <button wicket:id="submit" type="submit" class="btn btn-primary">Wyślij</button>
+                <div class="mfInfo"></div>
+            </form>
+        </div>
+
+    </article>
+
+</wicket:extend>
+
+</body>
+</html>

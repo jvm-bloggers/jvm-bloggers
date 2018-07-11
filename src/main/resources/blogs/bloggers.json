@@ -613,7 +613,7 @@
     {
       "bookmarkableId": "piotr-wittchen",
       "name": "Piotr Wittchen",
-      "rss": "http://blog.wittchen.biz.pl/feed/",
+      "rss": "http://wittchen.io/feed.xml",
       "twitter": "@piotr_wittchen"
     },
     {
@@ -801,7 +801,7 @@
       "bookmarkableId": "korneliusz-rabczak",
       "name": "Korneliusz Rabczak",
       "rss": "http://thecookiezen.com/blog/atom.xml",
-      "twitter": "@nikom1337"
+      "twitter": "@kornelrabczak"
     },
     {
       "bookmarkableId": "swiat-javy",
@@ -817,7 +817,7 @@
     },
     {
       "bookmarkableId": "devstyle-pl",
-      "name": "Maciej Aniserowicz",
+      "name": "DevStyle",
       "rss": "http://devstyle.pl/feed/",
       "twitter": "@maniserowicz"
     },
@@ -888,7 +888,8 @@
     {
       "bookmarkableId": "michal-kulinski",
       "name": "Michał Kuliński",
-      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default"
+      "rss": "https://michalkulinski.blogspot.com/feeds/posts/default",
+      "twitter" : "@Michal_Kulinski"
     },
     {
       "bookmarkableId": "bartosz-wieczorek",
@@ -1060,6 +1061,70 @@
       "name": "Szymon Janikowski, Marcin Markowski",
       "rss": "https://itlibrium.com/index.php/feed/",
       "twitter": "@itlibrium"
+    },
+    {
+      "bookmarkableId": "pawel-urban-medium",
+      "name": "Paweł Urban",
+      "rss": "https://medium.com/feed/pawel-urban-blog",
+      "twitter": "@urbanpawel90"
+    },
+    {
+      "bookmarkableId": "bartosz-jedrzejewski",
+      "name": "Bartosz Jędrzejewski",
+      "rss": "http://e4developer.com/feed/",
+      "twitter": "@e4developer"
+    },
+    {
+      "bookmarkableId": "artur-gajowy",
+      "name": "Artur Gajowy",
+      "rss": "http://www.thingsandstuff.eu/feeds/posts/default?alt=rss",
+      "twitter": "@ArturGajowy"
+    },
+    {
+      "bookmarkableId": "adrian-marszalek",
+      "name": "Adrian Marszałek",
+      "rss": "http://amarszalek.net/blog/feed/",
+      "twitter": "@a_mrszlk"
+    },
+    {
+      "bookmarkableId": "lukasz-sroczynski-pl",
+      "name": "Łukasz Sroczyński",
+      "rss": "http://www.braintelligence.pl/pl/feed/",
+      "twitter": "@LukSroczynski"
+    },
+    {
+      "bookmarkableId": "lukasz-sroczynski-en",
+      "name": "Łukasz Sroczyński",
+      "rss": "http://www.braintelligence.pl/en/feed/",
+      "twitter": "@LukSroczynski"
+    },
+    {
+      "bookmarkableId": "kubrynski",
+      "name": "Jakub Kubryński",
+      "rss": "https://kubrynski.blog/feed/",
+      "twitter": "@jkubrynski"
+    },
+    {
+      "bookmarkableId": "krzysztof-otrebski",
+      "name": "Krzysztof Otrebski",
+      "rss": "https://medium.com/feed/@krzysztof.otrebski",
+      "twitter": "@kotrebski"
+    },
+    {
+      "bookmarkableId": "mateusz-kubuszok",
+      "name": "Mateusz Kubuszok",
+      "rss": "https://kubuszok.com/feed.xml",
+      "twitter": "@MateuszKubuszok"
+    },
+    {
+      "bookmarkableId": "radoslaw-domanski",
+      "name": "Radosław Domański",
+      "rss": "https://wrrathy.github.io/feed.xml"
+    },
+    {
+      "bookmarkableId": "kodujze",
+      "name": "Maciej Marczak",
+      "rss": "https://www.kodujze.pl/feed/" 
     }
   ]
 }

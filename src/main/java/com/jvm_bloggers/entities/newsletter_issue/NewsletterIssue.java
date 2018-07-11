@@ -11,6 +11,8 @@ import lombok.Singular;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +20,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -38,9 +38,16 @@ import static lombok.AccessLevel.PRIVATE;
 public class NewsletterIssue {
 
     @Id
-    @GeneratedValue(generator = "NEWSLETTER_ISSUE_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "NEWSLETTER_ISSUE_SEQ", sequenceName = "NEWSLETTER_ISSUE_SEQ",
-        allocationSize = 1)
+    @GenericGenerator(
+        name = "NEWSLETTER_ISSUE_SEQ",
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+        parameters = {
+            @Parameter(name = "sequence_name", value = "NEWSLETTER_ISSUE_SEQ"),
+            @Parameter(name = "initial_value", value = "1"),
+            @Parameter(name = "increment_size", value = "1")
+        }
+    )
+    @GeneratedValue(generator = "NEWSLETTER_ISSUE_SEQ")
     @Column(name = "ID")
     private Long id;
 

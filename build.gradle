@@ -106,6 +106,7 @@ dependencies {
     compile 'org.webjars.npm:ev-emitter:1.1.1'
     compile 'org.webjars.npm:fizzy-ui-utils:2.0.5'
     compile 'org.webjars.npm:infinite-scroll:3.0.0'
+    compile 'org.webjars:toastr:2.1.2'
 
     // Test dependencies
     testCompile "org.springframework.boot:spring-boot-starter-test"
@@ -194,7 +195,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion "3.1"
+    gradleVersion "4.5.1"
 }
 
 idea {

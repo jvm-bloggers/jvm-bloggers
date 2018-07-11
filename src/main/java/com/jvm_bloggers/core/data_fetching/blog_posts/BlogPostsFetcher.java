@@ -12,18 +12,20 @@ import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.utils.NowProvider;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
+@NoArgsConstructor
 public class BlogPostsFetcher {
 
-    private final BlogRepository blogRepository;
-    private final ActorRef rssCheckingActor;
-    private final MetadataRepository metadataRepository;
-    private final NowProvider nowProvider;
-    private final PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
+    private BlogRepository blogRepository;
+    private ActorRef rssCheckingActor;
+    private MetadataRepository metadataRepository;
+    private NowProvider nowProvider;
+    private PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
         = new PreventConcurrentExecutionSafeguard();
 
     @Autowired
@@ -42,7 +44,7 @@ public class BlogPostsFetcher {
         this.nowProvider = nowProvider;
     }
 
-    public void refreshPosts() {
+    void refreshPosts() {
         concurrentExecutionSafeguard.preventConcurrentExecution(this::startFetchingProcess);
     }
 

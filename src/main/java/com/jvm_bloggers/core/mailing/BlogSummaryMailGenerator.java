@@ -9,21 +9,23 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
+
+import io.vavr.collection.List;
+import io.vavr.collection.Map;
+
 import lombok.NoArgsConstructor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.stringtemplate.v4.ST;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_CAMPAING;
 import static com.jvm_bloggers.core.utils.UriUtmComponentsBuilder.DEFAULT_UTM_SOURCE;
 import static com.jvm_bloggers.utils.HtmlEmptinessChecker.isEmpty;
-import static java.util.Collections.emptyList;
+import static io.vavr.collection.List.empty;
 
 @Component
 @NoArgsConstructor
@@ -90,54 +92,59 @@ public class BlogSummaryMailGenerator {
     }
 
     private String prepareMainSectionWithBlogs(NewsletterIssue newsletterIssue) {
-        List<Blog> blogsAddedSinceLastNewsletter = newsletterIssue.getNewBlogs();
-        List<BlogPost> newApprovedPosts = newsletterIssue.getBlogPosts();
+        List<Blog> blogsAddedSinceLastNewsletter = List.ofAll(newsletterIssue.getNewBlogs());
+        List<BlogPost> newApprovedPosts = List.ofAll(newsletterIssue.getBlogPosts());
 
         Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts
-            .stream()
-            .collect(Collectors.groupingBy(it -> it.getBlog().getBlogType()));
+            .groupBy(it -> it.getBlog().getBlogType());
 
         List<BlogPost> newPostsFromPersonalBlogs =
-            newBlogPostsByType.getOrDefault(BlogType.PERSONAL, emptyList());
+            newBlogPostsByType.getOrElse(BlogType.PERSONAL, empty());
         List<BlogPost> newPostsFromCompanies =
-            newBlogPostsByType.getOrDefault(BlogType.COMPANY, emptyList());
+            newBlogPostsByType.getOrElse(BlogType.COMPANY, empty());
         List<BlogPost> newVideoPosts =
-            newBlogPostsByType.getOrDefault(BlogType.VIDEOS, emptyList());
+            newBlogPostsByType.getOrElse(BlogType.VIDEOS, empty());
 
         String templateContent = getValueForSection(MetadataKeys.MAILING_TEMPLATE);
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
         template.add("days", DAYS_IN_THE_PAST);
         template.add("newPosts",
-            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber()));
+            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber())
+            .toJavaArray()
+        );
         template.add("newPostsFromCompanies",
-            postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()));
+            postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()).toJavaList()
+        );
         template.add("newlyAddedBlogs",
-            blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber()));
-        template.add("newVideoPosts",
-            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()));
+            blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber())
+                .toJavaList()
+        );
+        template.add(
+            "newVideoPosts",
+            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()).toJavaList()
+        );
         return template.render();
     }
 
     private List<BlogPostForMailItem> postsToMailItems(List<BlogPost> newPosts, long issueNumber) {
         return newPosts
-            .stream()
             .sorted(Comparator.comparing(b -> b.getBlog().getAuthor()))
             .map(blogPost ->
-            BlogPostForMailItem.builder()
-                .from(blogPost)
-                .withIssueNumber(issueNumber)
-                .withUrl(linkGenerator.generateRedirectLinkFor(blogPost.getUid()))
-                .build()
-        ).collect(Collectors.toList());
+                BlogPostForMailItem.builder()
+                    .from(blogPost)
+                    .withIssueNumber(issueNumber)
+                    .withUrl(linkGenerator.generateRedirectLinkFor(blogPost.getUid()))
+                    .build()
+            );
     }
 
     private List<Blog> blogsToMailItems(List<Blog> blogs, long issueNumber) {
-        return blogs.stream()
+        return blogs
             .filter(blog -> !Strings.isNullOrEmpty(blog.getUrl()))
             .map(blog -> {
                 blog.setUrl(urlWithUtmParameters(blog.getUrl(), issueNumber));
                 return blog;
-            }).collect(Collectors.toList());
+            });
     }
 
     private String urlWithUtmParameters(String url, long issueNumber) {

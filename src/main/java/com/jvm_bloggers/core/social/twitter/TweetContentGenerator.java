@@ -24,12 +24,12 @@ class TweetContentGenerator {
 
     private static final int TWEET_MAX_LENGTH = 140;
     private static final String MESSAGE_TEMPLATE =
-        "Nowy numer #<number> już online - <link> z postami m.in. <personal1>"
+        "Nowy numer #<number> już online - <link> z postami między innymi <personal1>"
             + "<if(company && personal2)>, <company> i <personal2>"
             + "<elseif(company)> i <company>"
             + "<elseif(personal2)> i <personal2><endif> #java #jvm";
     private static final String SHORT_MESSAGE_TEMPLATE =
-        "Nowy numer #<number> już online - <link> z postami m.in. <personal>"
+        "Nowy numer #<number> już online - <link> z postami między innymi <personal>"
             + "<if(company)> i <company><endif> #java #jvm";
 
     private final LinkGenerator linkGenerator;
