@@ -1124,7 +1124,12 @@
     {
       "bookmarkableId": "kodujze",
       "name": "Maciej Marczak",
-      "rss": "https://www.kodujze.pl/feed/" 
+      "rss": "https://www.kodujze.pl/feed/"
+    },
+    {
+      "bookmarkableId": "puradawid",
+      "name": "Dawid Pura",
+      "rss": "https://puradawid.pro/feed.xml" 
     },
     {
       "bookmarkableId": "maciej-maciejowski",
