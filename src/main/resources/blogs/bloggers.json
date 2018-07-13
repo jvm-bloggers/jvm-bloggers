@@ -1129,7 +1129,13 @@
     {
       "bookmarkableId": "puradawid",
       "name": "Dawid Pura",
-      "rss": "https://puradawid.pro/feed.xml"
+      "rss": "https://puradawid.pro/feed.xml" 
+    },
+    {
+      "bookmarkableId": "maciej-maciejowski",
+      "name": "Maciej Maciejowski",
+      "rss": "https://myenv.net/feed/",
+      "twitter": "@mmaciejow"	  
     }
   ]
 }
