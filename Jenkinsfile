@@ -1,8 +1,10 @@
 #!/usr/bin/env groovy
 
-
 properties(
     [
+        pipelineTriggers([
+                [$class: 'GitHubPushTrigger']
+        ]),
         overrideIndexTriggers(false),
         disableConcurrentBuilds(),
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
