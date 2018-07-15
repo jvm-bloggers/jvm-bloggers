@@ -27,6 +27,8 @@ node {
     } catch (Exception e) {
         currentBuild.result = "FAILED"
         throw e
+    } finally {
+        junit '**/build/test-results/**/TEST-*.xml'
     }
 
 }
