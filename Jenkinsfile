@@ -24,6 +24,32 @@ node {
                         ./gradlew clean build
                     """
                 }
+
+                if (env.BRANCH_NAME.equals('production')) {
+                    stage ('Build docker image') {
+                        sh """
+                            echo "Build docker image"
+                        """
+                    }
+
+                    stage ('Push image to DockerHub') {
+                        sh """
+                            echo "Push image to DockerHub"
+                        """
+                    }
+
+                    stage ('Deploy to production') {
+                        sh """
+                            echo "Deploy to production"
+                        """
+                    }
+
+                    stage ('Verify health checks') {
+                        sh """
+                            echo "Verify health checks"
+                        """
+                    }
+                }
             }
         }
     } catch (Exception e) {
