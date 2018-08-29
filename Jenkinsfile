@@ -21,14 +21,15 @@ node {
 
                 stage ('Test') {
                     sh """
+                        echo "Building the project"
                         ./gradlew clean build
                     """
                 }
 
                 if (env.BRANCH_NAME.equals('production')) {
-                    stage ('Build docker image') {
+                    stage ('Build Docker image') {
                         sh """
-                            echo "Build docker image"
+                            echo "Build Docker image"
                         """
                     }
 
@@ -57,6 +58,17 @@ node {
         throw e
     } finally {
         junit '**/build/test-results/**/TEST-*.xml'
+
+        if (currentBuild.currentResult == "SUCCESS") {
+            sh """
+                echo "Notyfying Codecov after successful build"
+                bash <(curl -s https://codecov.io/bash)
+            """
+            sh """
+                echo "Notyfying Sputnik after successful build"
+                python <(curl -s https://raw.githubusercontent.com/TouK/sputnik-ci/master/sputnik-ci.py)
+            """
+        }
     }
 
 }
