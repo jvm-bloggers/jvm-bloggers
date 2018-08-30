@@ -121,6 +121,12 @@
       "name": "Altkom Software & Consulting",
       "rss": "https://asc.altkom.pl/feed/",
       "twitter": "@AltkomSC"
+    },
+    {
+      "bookmarkableId": "devstyle-pl",
+      "name": "DevStyle",
+      "rss": "http://devstyle.pl/feed/",
+      "twitter": "@maniserowicz"
     }
   ]
 }
