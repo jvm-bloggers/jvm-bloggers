@@ -2,7 +2,7 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers)  [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
+[![Build Status](https://jenkins.jvmbloggers.sml.io/buildStatus/icon?job=JVM Bloggers/master)](https://jenkins.jvmbloggers.sml.io/job/JVM Bloggers/master)  [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
 
 ## Overview
 
