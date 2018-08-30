@@ -1136,6 +1136,11 @@
       "name": "Maciej Maciejowski",
       "rss": "https://myenv.net/feed/",
       "twitter": "@mmaciejow"	  
+    },
+    {
+      "bookmarkableId": "szatkus",
+      "name": "Tomasz Szatkowski",
+      "rss": "https://blog.szatkus.pl/rss/"
     }
   ]
 }
