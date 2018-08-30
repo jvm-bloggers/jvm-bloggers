@@ -1141,6 +1141,11 @@
       "bookmarkableId": "szatkus",
       "name": "Tomasz Szatkowski",
       "rss": "https://blog.szatkus.pl/rss/"
+    },
+    {
+      "bookmarkableId": "bmstefanski",
+      "name": "Bartłomiej Stefański",
+      "rss": "https://bmstefanski.github.io/blog/feed.xml"  
     }
   ]
 }
