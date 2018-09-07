@@ -1140,6 +1140,12 @@
       "bookmarkableId": "bmstefanski",
       "name": "Bartłomiej Stefański",
       "rss": "https://bmstefanski.github.io/blog/feed.xml"  
+    },
+    {
+      "bookmarkableId": "jdyszkiewicz",
+      "name": "Jakub Dyszkiewicz",
+      "rss": "http://dyszkiewicz.me/feed.xml",
+      "twitter": "@jdyszkiewicz"
     }
   ]
 }
