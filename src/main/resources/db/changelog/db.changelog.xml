@@ -598,5 +598,9 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="050-increase-length-of-content-in-tweet-table" author="Tomasz.Dziurko">
+        <modifyDataType tableName="tweet" columnName="content" newDataType="varchar(280)"/>
+    </changeSet>
+
 
 </databaseChangeLog>

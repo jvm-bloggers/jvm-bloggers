@@ -22,7 +22,7 @@ import static lombok.AccessLevel.PACKAGE;
 @RequiredArgsConstructor(access = PACKAGE)
 class TweetContentGenerator {
 
-    private static final int TWEET_MAX_LENGTH = 140;
+    private static final int TWEET_MAX_LENGTH = 250;
     private static final String MESSAGE_TEMPLATE =
         "Nowy numer #<number> już online - <link> z postami między innymi <personal1>"
             + "<if(company && personal2)>, <company> i <personal2>"
