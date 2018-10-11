@@ -41,6 +41,7 @@ class TweetContentGenerator {
                 .filter(Blog::isPersonal)
                 .map(Blog::getTwitter)
                 .filter(Objects::nonNull)
+                .distinct()
                 .shuffle()
                 .take(2)
                 .padTo(2, null);

@@ -197,6 +197,47 @@ class TweetContentGeneratorSpec extends Specification {
         tweetContent ==~ /$handles/
     }
 
+    def "Should add two distinct twitter handles of personal blogs"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+            .builder()
+            .issueNumber(ISSUE_NUMBER)
+            .heading("issue heading")
+            .blogPosts(twoDistinctPersonalTwitterHandlesWithOneDuplication())
+            .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def personal1 = /@personal1/
+        def personal1Blog = (tweetContent =~ /$personal1/)
+        assert personal1Blog.count == 1
+
+        and:
+        def personal2 = /@personal2/
+        def personal2Blog = (tweetContent =~ /$personal2/)
+        assert personal2Blog.count == 1
+    }
+
+    def "Should add only one personal handle if there is no other distinct"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+            .builder()
+            .issueNumber(ISSUE_NUMBER)
+            .heading("issue heading")
+            .blogPosts(onlyOneDistinctPersonalTwitterHandle())
+            .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def personal = /@personal/
+        def personalBlogs = (tweetContent =~ /$personal/)
+        assert personalBlogs.count == 1
+    }
+
     private Collection<BlogPost> notAllHavingTwitterHandlePosts() {
         List<BlogPost> posts = new ArrayList<>()
         posts.add(blogPost(blog("@company1", COMPANY)))
@@ -238,6 +279,21 @@ class TweetContentGeneratorSpec extends Specification {
         posts.add(blogPost(blog("@veryLongCompanyHandle1", COMPANY)))
         posts.add(blogPost(blog("@veryLongCompanyHandle2", COMPANY)))
         posts.add(blogPost(blog("@veryLongPersonalHandle3", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> twoDistinctPersonalTwitterHandlesWithOneDuplication() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal2", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> onlyOneDistinctPersonalTwitterHandle() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
         return posts
     }
 
