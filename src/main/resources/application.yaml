@@ -31,7 +31,7 @@ logging.level.com.jvm_bloggers: INFO
 scheduler:
   fetch-bloggers-data: 0 0 7,9,10,13,15,17,19,21,23 * * *
   fetch-rss-for-new-blogs: 0 30 * * * *
-  publish-new-issue: 0 0 12 * * FRI
+  publish-new-issue: 0 0 8 * * FRI
   send-email: 120000 # 2 minutes
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
