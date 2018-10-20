@@ -63,6 +63,12 @@
       "name": "jSession",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjBzbSV4De3Bjt_9BtBGsmQ",
       "twitter": "@jSessionPL"
+    },
+    {
+      "bookmarkableId": "spring-academy",
+      "name": "Spring Academy",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCslYinLbZnzzUdG0BMaiDKw",
+      "twitter": "@maciejwalkowiak"
     }
   ]
 }
