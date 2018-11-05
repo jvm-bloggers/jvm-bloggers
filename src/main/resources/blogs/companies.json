@@ -127,6 +127,11 @@
       "name": "DevStyle",
       "rss": "http://devstyle.pl/feed/",
       "twitter": "@maniserowicz"
+    },
+    {
+      "bookmarkableId": "jit",
+      "name": "Clever Thoughts by JIT",
+      "rss": "https://medium.com/feed/jitsolutions/"
     }
   ]
 }
