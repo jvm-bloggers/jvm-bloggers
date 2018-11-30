@@ -10,26 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired
  * Simply replace PASSWORD and textToEncrypt with your values and run this spec, then put generated values in properties file.
  *
  */
-
 class JasyptShouldEncryptPropertiesSpec extends SpringContextAwareSpecification {
 
-    static String PASSWORD = "secretPassword";
+    static String PASSWORD = "secretPassword"
 
     @Override
     def setupSpec() {
-        System.setProperty("jasypt.encryptor.password", PASSWORD);
+        System.setProperty("jasypt.encryptor.password", PASSWORD)
     }
 
     @Autowired
-    StringEncryptor encryptor;
+    StringEncryptor encryptor
 
     def "Should encrypt and decrypt given value"() {
         given:
         String textToEncrypt = "textToEncrypt"
 
         when:
-        String encrypted = encryptor.encrypt(textToEncrypt);
-        String decryptedText = encryptor.decrypt(encrypted);
+        String encrypted = encryptor.encrypt(textToEncrypt)
+        String decryptedText = encryptor.decrypt(encrypted)
         println """
                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                 Encrypting...
@@ -40,6 +39,4 @@ class JasyptShouldEncryptPropertiesSpec extends SpringContextAwareSpecification 
         then:
         textToEncrypt == decryptedText
     }
-
-
 }
