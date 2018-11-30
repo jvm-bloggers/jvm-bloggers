@@ -8,9 +8,9 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+@Subject(TweetRepository)
 class TweetRepositoryIntegrationSpec extends SpringContextAwareSpecification {
 
-    @Subject
     @Autowired
     TweetRepository tweetRepository
 
