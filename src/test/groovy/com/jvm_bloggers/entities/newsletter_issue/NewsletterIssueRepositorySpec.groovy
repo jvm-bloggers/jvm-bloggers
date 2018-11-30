@@ -2,7 +2,9 @@ package com.jvm_bloggers.entities.newsletter_issue
 
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog_post.BlogPost
+import spock.lang.Subject
 
+@Subject(NewsletterIssueRepository)
 class NewsletterIssueRepositorySpec extends NewsletterIssueRepositorySpecBase {
 
     def "Should check existence of issue base on issueNumber"() {
