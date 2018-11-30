@@ -1,8 +1,10 @@
 package com.jvm_bloggers.utils
 
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
+@Subject(HtmlEmptinessChecker)
 class HtmlEmptinessCheckerSpec extends Specification {
 
     @Unroll
