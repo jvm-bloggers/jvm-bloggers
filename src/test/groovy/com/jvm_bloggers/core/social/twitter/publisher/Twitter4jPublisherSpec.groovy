@@ -2,6 +2,7 @@ package com.jvm_bloggers.core.social.twitter.publisher
 
 import com.jvm_bloggers.entities.twitter.Tweet
 import spock.lang.Specification
+import spock.lang.Subject
 import twitter4j.Status
 import twitter4j.Twitter
 import twitter4j.TwitterException
@@ -10,6 +11,7 @@ import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.Tw
 import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.SUCCESS
 import static java.time.LocalDateTime.now
 
+@Subject(Twitter4jPublisher)
 class Twitter4jPublisherSpec extends Specification {
 
     TwitterClientFactory clientFactory = Stub(TwitterClientFactory)
