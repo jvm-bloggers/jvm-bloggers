@@ -12,13 +12,13 @@ import javax.ws.rs.core.Response
 
 import static org.assertj.core.api.Assertions.assertThat
 
+@Subject(ContributorsService)
 class ContributorsServiceSpec extends Specification {
 
-    public static final String ORG = "ORG"
-    public static final String REPO = "REPO"
-    public static final String URL = "URL"
+    public static final String ORG = 'ORG'
+    public static final String REPO = 'REPO'
+    public static final String URL = 'URL'
 
-    @Subject
     ContributorsService testObj
 
     Client client = Mock()
