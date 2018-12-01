@@ -17,6 +17,7 @@ import java.time.LocalDateTime
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
 import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 
+@Subject(AggregatedRssFeedProducer)
 class AggregatedRssFeedProducerSpec extends Specification {
 
     public static final String BASE_URL = "http://test"
@@ -53,7 +54,6 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL)
 
-    @Subject
     AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider, linkGenerator)
 
     def "Should produce aggregated RSS feed with all entries having valid url"() {
