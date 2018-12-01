@@ -9,6 +9,7 @@ import spock.lang.Subject
 import java.time.LocalDateTime
 import java.time.Month
 
+@Subject(BlogPostFactory)
 class BlogPostFactorySpec extends Specification {
     private final static int MAX_NEW_POST_AGE_DAYS = 30;
     private final static LocalDateTime NOW = LocalDateTime.of(2016, Month.MARCH, 11, 12, 0, 0)
@@ -18,14 +19,13 @@ class BlogPostFactorySpec extends Specification {
     }
     Blog blog = Stub(Blog)
 
-    @Subject
     BlogPostFactory blogPostFactory = new BlogPostFactory(MAX_NEW_POST_AGE_DAYS, nowProvider);
 
     def "Should create blog post"() {
         given:
         blog.getInitialApprovedValue() >> true
-        String title = "title"
-        String url = "url"
+        String title = 'title'
+        String url = 'url'
         LocalDateTime publishedDate = LocalDateTime.now()
 
         when:
@@ -44,7 +44,7 @@ class BlogPostFactorySpec extends Specification {
         blog.getInitialApprovedValue() >> defaultApprovedValue
 
         when:
-        BlogPost blogPost = blogPostFactory.create("any title", "any url", LocalDateTime.now(), blog)
+        BlogPost blogPost = blogPostFactory.create('any title', 'any url', LocalDateTime.now(), blog)
 
         then:
         blogPost.approved == defaultApprovedValue
@@ -58,7 +58,7 @@ class BlogPostFactorySpec extends Specification {
         blog.getInitialApprovedValue() >> true
 
         when:
-        BlogPost blogPost = blogPostFactory.create("any title", "any url", publishedDate, blog)
+        BlogPost blogPost = blogPostFactory.create('any title', 'any url', publishedDate, blog)
 
         then:
         blogPost.approvedDate == expectedApprovedDate
