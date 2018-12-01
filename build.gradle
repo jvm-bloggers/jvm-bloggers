@@ -3,8 +3,8 @@ buildscript {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
     }
     dependencies {
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
@@ -28,8 +28,6 @@ apply plugin: 'docker'
 apply plugin: 'cz.alenkacz.gradle.jsonvalidator'
 apply plugin: 'com.ofg.uptodate'
 
-mainClassName = 'com.jvm_bloggers.JvmBloggersApplication'
-
 jar {
     baseName = 'jvm-bloggers'
     version = '1.14.0'
@@ -41,22 +39,22 @@ repositories {
     mavenLocal()
     jcenter()
     mavenCentral()
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/milestone" }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
 }
 
 ext {
     wicketVersion = '8.0.0-M8'
     akkaVersion = '2.5.7'
-    scalaVersion = "2.11"
+    scalaVersion = '2.11'
     jacksonVersion = '2.25'
 }
 
 dependencies {
     // Spring Boot stuff
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.16'
     compile 'org.springframework.boot:spring-boot-devtools'
 
@@ -79,10 +77,10 @@ dependencies {
     compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
     compile "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
     compile "org.apache.wicket:wicket-bean-validation:$wicketVersion"
-    compile "de.agilecoders.wicket.webjars:wicket-webjars:2.0.3"
+    compile 'de.agilecoders.wicket.webjars:wicket-webjars:2.0.3'
 
     // Utils and helpers
-    compile "org.projectlombok:lombok:1.16.18"
+    compile 'org.projectlombok:lombok:1.16.18'
     compile 'com.google.guava:guava:23.5-jre'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'org.apache.commons:commons-text:1.1'
@@ -97,7 +95,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.11.2'
 
     // Database related
-    compile "org.postgresql:postgresql:42.1.4"
+    compile 'org.postgresql:postgresql:42.1.4'
     compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
@@ -111,7 +109,7 @@ dependencies {
     compile 'org.webjars:toastr:2.1.2'
 
     // Test dependencies
-    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
     testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
     testCompile 'org.springframework:spring-test'
@@ -124,11 +122,11 @@ dependencies {
 }
 
 checkstyle {
-    toolVersion = "8.1"
+    toolVersion = '8.1'
 }
 
 jacoco {
-    toolVersion = "0.7.9"
+    toolVersion = '0.7.9'
 }
 
 jacocoTestReport {
@@ -162,7 +160,7 @@ bootRun {
 }
 
 test {
-    systemProperty "file.encoding", "utf-8"
+    systemProperty 'file.encoding', 'utf-8'
     dependsOn 'validateBlogsData'
 }
 
@@ -181,12 +179,12 @@ String getTimestampWithGitHash() {
 }
 
 task validateBlogsData() {
-    def blogsDir = "src/main/resources/blogs"
-    def blogsData = ["bloggers", "videos", "companies"]
+    def blogsDir = 'src/main/resources/blogs'
+    def blogsData = ['bloggers', 'videos', 'companies']
     blogsData.each { fileName ->
-        def taskName = "validate" + fileName.capitalize()
+        def taskName = 'validate' + fileName.capitalize()
         tasks.create(taskName, cz.alenkacz.gradle.jsonvalidator.ValidateJsonTask) {
-            jsonSchema = new File(blogsDir, "schema.json")
+            jsonSchema = new File(blogsDir, 'schema.json')
             targetJsonFile = new File(blogsDir, "${fileName}.json")
         }
         dependsOn taskName
@@ -197,7 +195,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion "4.5.1"
+    gradleVersion '4.5.1'
 }
 
 idea {
