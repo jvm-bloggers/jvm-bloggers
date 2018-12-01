@@ -20,21 +20,18 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 @Subject(AggregatedRssFeedProducer)
 class AggregatedRssFeedProducerSpec extends Specification {
 
-    public static final String BASE_URL = "http://test"
-    public static final String ISSUE_URL = "http://test/issue"
-    String DESCRIPTION = "description"
-    String TITLE_1 = "title_1"
-    String TITLE_2 = "title_2"
-    String URL_1 = "http://blogPostUrl-1.com"
-    String URL_2 = "http://blogPostUrl-2.com"
-    String INVALID_URL = "http://invalid-url"
-    String AUTHOR_1 = "author_1"
-    String AUTHOR_2 = "author_2"
+    public static final String BASE_URL = 'http://test'
+    public static final String ISSUE_URL = 'http://test/issue'
+    String TITLE_1 = 'title_1', TITLE_2 = 'title_2'
+    String URL_1 = 'http://blogPostUrl-1.com', URL_2 = 'http://blogPostUrl-2.com'
+    String AUTHOR_1 = 'author_1', AUTHOR_2 = 'author_2'
+    String DESCRIPTION = 'description'
+    String INVALID_URL = 'http://invalid-url'
+    String REQUEST_URL = 'http://jvm-bloggers.com/rss'
     LocalDateTime DATE = new NowProvider().now()
     String UID_1 = UUID.randomUUID().toString()
     String UID_2 = UUID.randomUUID().toString()
     String UID_3 = UUID.randomUUID().toString()
-    String REQUEST_URL = "http://jvm-bloggers.com/rss"
 
     BlogPostRepository blogPostRepository = Mock() {
         BlogPost blogPost1 = stubBlogPost(UID_1, DESCRIPTION, TITLE_1, URL_1, AUTHOR_1, DATE)
@@ -63,7 +60,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         then:
         Date date = toDate(DATE)
         with(feed) {
-            links[0].rel == "self"
+            links[0].rel == 'self'
             links[0].href == REQUEST_URL
             feedType == AggregatedRssFeedProducer.FEED_TYPE
             uri == AggregatedRssFeedProducer.FEED_TITLE
@@ -104,7 +101,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         then:
         Date date = toDate(DATE)
         with(feed) {
-            links[0].rel == "self"
+            links[0].rel == 'self'
             links[0].href == REQUEST_URL
             feedType == AggregatedRssFeedProducer.FEED_TYPE
             uri == AggregatedRssFeedProducer.FEED_TITLE
@@ -127,7 +124,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
     }
 
     private String redirectUrlForUid(String uid) {
-        return BASE_URL + RedirectController.REDIRECT_URL_PATH + "/" + uid
+        return BASE_URL + RedirectController.REDIRECT_URL_PATH + '/' + uid
     }
 
     @Unroll
@@ -137,10 +134,10 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
         then:
         IllegalArgumentException e = thrown()
-        e.getMessage() == "feedUrl parameter cannot be blank"
+        e.getMessage() == 'feedUrl parameter cannot be blank'
 
         where:
-        blankFeedUrl << [" ", "", null]
+        blankFeedUrl << [' ', '', null]
     }
 
     def "Should filter out given authors"() {
