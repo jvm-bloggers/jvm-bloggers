@@ -14,6 +14,7 @@ import spock.lang.Unroll
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(TweetContentGenerator)
 class TweetContentGeneratorSpec extends Specification {
 
     private static final long ISSUE_NUMBER = 999L
@@ -24,7 +25,6 @@ class TweetContentGeneratorSpec extends Specification {
 
     private final LinkGenerator linkGenerator = Stub(LinkGenerator)
 
-    @Subject
     private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)
 
     def setup() {
