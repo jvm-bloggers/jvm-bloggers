@@ -4,8 +4,10 @@ import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.domain.command.CommandPublisher
 import com.jvm_bloggers.entities.varia_suggestion.VariaSuggestion
 import com.jvm_bloggers.entities.varia_suggestion.VariaSuggestionRepository
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Subject;
 
+@Subject(MarkVariaSuggestionCommandHandler)
 class MarkVariaSuggestionCommandHandlerSpec extends SpringContextAwareSpecification {
 
     @Autowired
