@@ -28,6 +28,8 @@ apply plugin: 'docker'
 apply plugin: 'cz.alenkacz.gradle.jsonvalidator'
 apply plugin: 'com.ofg.uptodate'
 
+mainClassName = 'com.jvm_bloggers.JvmBloggersApplication'
+
 jar {
     baseName = 'jvm-bloggers'
     version = '1.14.0'
