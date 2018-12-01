@@ -6,6 +6,7 @@ import io.vavr.control.Try
 import spock.lang.Specification
 import spock.lang.Subject
 
+@Subject(SyndFeedProducer)
 class SyndFeedProducerSpec extends Specification {
 
     private final RssFetcher primaryFetcher = Mock()
@@ -15,7 +16,6 @@ class SyndFeedProducerSpec extends Specification {
 
     static final String URL = "URL"
 
-    @Subject
     SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(primaryFetcher, fallbackFetcher, lastFallbackFetcher))
     private Try<SyndFeed> failure = Try.failure(new RuntimeException())
 
