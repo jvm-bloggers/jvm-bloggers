@@ -9,16 +9,13 @@ import spock.lang.Subject
 @Subject(UnreadVariaSuggestionQuery)
 class UnreadVariaSuggestionQuerySpec extends Specification {
 
-    UnreadVariaSuggestionQuery unreadVariaSuggestionQuery = new UnreadVariaSuggestionQuery(variaSuggestionRepository)
-
-    VariaSuggestionRepository variaSuggestionRepository = Stub()
-
     def "Should find unread VariaSuggestions"() {
         given:
-        VariaSuggestion variaSuggestion = new VariaSuggestion('url', 'reason', 'author')
+        VariaSuggestionRepository variaSuggestionRepository = Stub()
+        UnreadVariaSuggestionQuery unreadVariaSuggestionQuery = new UnreadVariaSuggestionQuery(variaSuggestionRepository)
 
         when:
-        variaSuggestionRepository.findByReadFalseOrReadNull(_) >> List.of(variaSuggestion)
+        variaSuggestionRepository.findByReadFalseOrReadNull(_) >> List.of(new VariaSuggestion('url', 'reason', 'author'))
 
         then:
         unreadVariaSuggestionQuery.findUnreadSuggestions(0, 10).size() == 1
