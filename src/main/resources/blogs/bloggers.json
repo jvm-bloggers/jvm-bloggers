@@ -1146,6 +1146,11 @@
       "name": "Tomasz Fijałkowski",
       "rss": "http://chi.pl/feed.xml",
       "twitter": "@TomaszFijalkows"
+    },
+    {
+      "bookmarkableId": "mokaz",
+      "name": "Mariusz Okaz",
+      "rss": "https://socodeit.pl/feed"
     }
   ]
 }
