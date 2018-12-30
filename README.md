@@ -2,7 +2,7 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://jenkins.jvmbloggers.sml.io/buildStatus/icon?job=JVM Bloggers/master)](https://jenkins.jvmbloggers.sml.io/job/JVM Bloggers/master)  [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
+[![Build Status](https://jenkins.jvmbloggers.sml.io/buildStatus/icon?job=JVM%20Bloggers/master)](https://jenkins.jvmbloggers.sml.io/job/JVM%20Bloggers/master)  [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers) [![jvm-bloggers@JVM Poland](https://img.shields.io/badge/jvmbloggers-@JVM%20Poland-green.svg?logo=slack&longCache=true&style=flat)](https://jvm-poland.slack.com/messages/C4R5VSNP9) [![Sputnik Status](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
 
 ## Overview
 
@@ -79,5 +79,5 @@ More details about contributing and how project is organized please check
 If you need a direct contact, you can reach out to the JVM Bloggers project via:
 
 * GMail: jvmbloggers (at) (you know that).(and you know that too) :)
-* [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com)
+* [![jvm-bloggers@JVM Poland](https://img.shields.io/badge/jvmbloggers-@JVM%20Poland-green.svg?logo=slack&longCache=true&style=flat)](https://jvm-poland.slack.com/messages/C4R5VSNP9)
 
