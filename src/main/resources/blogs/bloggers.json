@@ -583,7 +583,7 @@
     {
       "bookmarkableId": "jakub-kozlowski",
       "name": "Jakub Kozłowski",
-      "rss": "https://medium.com/feed/@kubukoz",
+      "rss": "https://blog.kubukoz.com/feed.xml",
       "twitter": "@kubukoz"
     },
     {
@@ -1146,6 +1146,12 @@
       "name": "Tomasz Fijałkowski",
       "rss": "http://chi.pl/feed.xml",
       "twitter": "@TomaszFijalkows"
+    },
+    {
+      "bookmarkableId": "marcin-piczkowski",
+      "name": "Marcin Piczkowski",
+      "rss": "https://medium.com/feed/@piczmar",
+      "twitter": "@piczmar"
     },
     {
       "bookmarkableId": "mokaz",

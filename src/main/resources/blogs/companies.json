@@ -63,7 +63,7 @@
     {
       "bookmarkableId": "espeo",
       "name": "Espeo",
-      "rss": "http://espeo.eu/blog/category/all/feed/",
+      "rss": "https://espeo.eu/blog/category/technology/feed/",
       "twitter": "@espeo_software"
     },
     {
@@ -119,7 +119,7 @@
     {
       "bookmarkableId": "altkom-sc",
       "name": "Altkom Software & Consulting",
-      "rss": "https://asc.altkom.pl/feed/",
+      "rss": "https://altkomsoftware.pl/feed/",
       "twitter": "@AltkomSC"
     },
     {
