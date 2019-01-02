@@ -17,8 +17,7 @@ import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 @Subject(BlogPostRepository)
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
-    @Autowired
-    BlogPostRepository blogPostRepository
+    
     static NOT_MODERATED = null
     static APPROVED = Boolean.TRUE
     static REJECTED = Boolean.FALSE
@@ -26,6 +25,9 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     static EXCLUDED_AUTHOR = "Excluded Author"
 
+    @Autowired
+    BlogPostRepository blogPostRepository
+    
     @Autowired
     BlogRepository blogRepository
 
