@@ -1,4 +1,4 @@
- JVM Bloggers
+# JVM Bloggers
 
     Never miss any blog post from developers around JVM in Poland :)
 
