@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
 
+@Subject(VariaSuggestionRepository)
 class VariaSuggestionRepositorySpec extends SpringContextAwareSpecification {
 
-    @Subject
     @Autowired
     VariaSuggestionRepository variaSuggestionRepository
 

@@ -14,18 +14,20 @@ import java.time.LocalDateTime
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(BlogPostRepository)
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
+    
     static NOT_MODERATED = null
     static APPROVED = Boolean.TRUE
     static REJECTED = Boolean.FALSE
     static PAGEABLE = new PageRequest(0, Integer.MAX_VALUE)
+
     static EXCLUDED_AUTHOR = "Excluded Author"
 
-    @Subject
     @Autowired
     BlogPostRepository blogPostRepository
-
+    
     @Autowired
     BlogRepository blogRepository
 
@@ -109,7 +111,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 .dateAdded(LocalDateTime.now())
                 .blogType(PERSONAL)
                 .moderationRequired(false)
-                .build());
+                .build())
     }
 
     private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate,
@@ -120,6 +122,6 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             .blog(blog)
             .title("title" + index)
             .url("url" + index)
-            .build();
+            .build()
     }
 }

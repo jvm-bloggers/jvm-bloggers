@@ -13,13 +13,13 @@ import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static java.time.LocalDateTime.now
 import static java.util.UUID.randomUUID
 
+@Subject(BlogPostForListingQuery)
 class BlogPostForListingQuerySpec  extends Specification {
 
     BlogRepository blogRepository = Stub()
 
     BlogPostRepository blogPostRepository = Stub()
 
-    @Subject
     BlogPostForListingQuery blogPostForListingQuery = new BlogPostForListingQuery(blogRepository, blogPostRepository)
 
     def "Should query blog by code"() {
@@ -97,6 +97,6 @@ class BlogPostForListingQuerySpec  extends Specification {
                 .blog(blog)
                 .title(randomUUID().toString())
                 .url(randomUUID().toString())
-                .build();
+                .build()
     }
 }

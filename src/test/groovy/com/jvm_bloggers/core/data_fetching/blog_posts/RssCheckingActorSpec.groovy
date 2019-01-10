@@ -15,29 +15,28 @@ import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
 
+@Subject(ActorRef)
 class RssCheckingActorSpec extends Specification {
 
     static final Blog BLOG = Blog.builder()
-        .bookmarkableId("tomasz-dziurko")
-        .author("Tomasz Dziurko")
-        .rss("http://tomaszdziurko.pl/feed/")
-        .url("url")
+        .bookmarkableId('tomasz-dziurko')
+        .author('Tomasz Dziurko')
+        .rss('http://tomaszdziurko.pl/feed/')
+        .url('url')
         .dateAdded(new NowProvider().now())
         .blogType(BlogType.PERSONAL)
-        .build();
+        .build()
 
     JavaTestKit testProbe
     SyndFeedProducer syndFeedProducer
-
-    @Subject
     ActorRef rssCheckingActor
 
     def setup() {
-        ActorSystem system = ActorSystem.create("test")
-        testProbe = new JavaTestKit(system);
+        ActorSystem system = ActorSystem.create('test')
+        testProbe = new JavaTestKit(system)
         syndFeedProducer = Mock(SyndFeedProducer)
         Props props = RssCheckingActor.props(testProbe.getRef(), syndFeedProducer)
-        rssCheckingActor = system.actorOf(props, "rssCheckingActor")
+        rssCheckingActor = system.actorOf(props, 'rssCheckingActor')
     }
 
     def cleanup() {
@@ -63,7 +62,7 @@ class RssCheckingActorSpec extends Specification {
         rssCheckingActor.tell(new RssLink(BLOG), ActorRef.noSender())
 
         then:
-        testProbe.expectNoMsg(FiniteDuration.apply(3, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(3, 'second'))
     }
 
     private void mockFeedToReturnNumberOfPosts(SyndFeedProducer factory, int numberOfPosts) {

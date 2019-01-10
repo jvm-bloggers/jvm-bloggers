@@ -6,9 +6,9 @@ import com.jvm_bloggers.entities.metadata.MetadataRepository
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Subject
 
+@Subject(SaveMetadataCommandHandler)
 class SaveMetadataCommandHandlerSpec extends SpringContextAwareSpecification {
 
-    @Subject
     @Autowired
     SaveMetadataCommandHandler saveMetadataCommandHandler
 

@@ -9,12 +9,14 @@ import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.entities.twitter.TweetRepository
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
+import spock.lang.Subject
 
 import java.time.LocalDateTime
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(TweetProducer)
 class TweetProducerSpec extends Specification {
 
     private static final long ISSUE_NUMBER = 999L

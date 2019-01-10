@@ -2,7 +2,9 @@ package com.jvm_bloggers.core.mailing
 
 import com.jvm_bloggers.SpringContextAwareSpecification
 import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Subject
 
+@Subject(IssueNumberRetriever)
 class IssueNumberRetrieverSpec extends SpringContextAwareSpecification {
 
     @Autowired

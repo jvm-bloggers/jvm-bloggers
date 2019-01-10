@@ -3,9 +3,11 @@ package com.jvm_bloggers.entities.email
 import com.jvm_bloggers.SpringContextAwareSpecification
 import io.vavr.control.Option
 import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+@Subject(EmailRepository)
 class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
 
     @Autowired
@@ -64,5 +66,4 @@ class EmailRepositoryIntegrationSpec extends SpringContextAwareSpecification {
             "anyContent"
         )
     }
-
 }
