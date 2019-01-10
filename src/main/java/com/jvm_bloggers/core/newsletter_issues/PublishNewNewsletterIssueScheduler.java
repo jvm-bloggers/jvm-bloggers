@@ -11,7 +11,7 @@ import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE_NAME;
 @Slf4j
 public class PublishNewNewsletterIssueScheduler {
 
-    private static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE = 14;
+    private static final int DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE = 7;
 
     private final NewNewsletterIssuePublisher newIssuePublisher;
 

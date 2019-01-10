@@ -31,7 +31,7 @@ import static io.vavr.collection.List.empty;
 @NoArgsConstructor
 public class BlogSummaryMailGenerator {
 
-    private static final int DAYS_IN_THE_PAST = 14;
+    private static final int DAYS_IN_THE_PAST = 7;
     private static final char TEMPLATE_DELIMITER = '$';
     private static final String UTM_MEDIUM = "newsletter";
 
