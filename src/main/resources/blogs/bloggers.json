@@ -1157,6 +1157,12 @@
       "bookmarkableId": "mokaz",
       "name": "Mariusz Okaz",
       "rss": "https://socodeit.pl/feed"
+    },
+    {
+      "bookmarkableId": "igor-kupczynski",
+      "name": "Igor Kupczyński",
+      "rss": "https://kupczynski.info/rss.xml",
+      "twitter": "@ikupczynski"
     }
   ]
 }
