@@ -1163,6 +1163,11 @@
       "name": "Igor Kupczyński",
       "rss": "https://kupczynski.info/rss.xml",
       "twitter": "@ikupczynski"
+    },
+	{
+      "bookmarkableId": "CupOfCodes-pl",
+      "name": "Sebastian Kozak",
+      "rss": "https://cupofcodes.pl/feed",
     }
   ]
 }
