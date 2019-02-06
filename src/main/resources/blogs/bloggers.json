@@ -1117,7 +1117,8 @@
     {
       "bookmarkableId": "puradawid",
       "name": "Dawid Pura",
-      "rss": "https://puradawid.pro/feed.xml" 
+      "rss": "https://puradawid.pro/feed.xml",
+      "twitter": "@puradawid"
     },
     {
       "bookmarkableId": "maciej-maciejowski",
@@ -1165,10 +1166,16 @@
       "twitter": "@ikupczynski"
     },
     {
+      "bookmarkableId": "devrev-pl",
+      "name": "Maciej Waksmański",
+      "rss": "https://devrev.pl/feed/",
+      "twitter": "@DevrevP"
+    },
+    {
       "bookmarkableId": "cupofcodes-pl",
       "name": "Sebastian Kozak",
       "rss": "https://cupofcodes.pl/feed",
       "twitter": "@cupofcodes"
-    }
+    }  
   ]
 }
