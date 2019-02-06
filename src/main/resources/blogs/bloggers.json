@@ -1163,6 +1163,12 @@
       "name": "Igor Kupczyński",
       "rss": "https://kupczynski.info/rss.xml",
       "twitter": "@ikupczynski"
+    },
+    {
+      "bookmarkableId": "devrev-pl",
+      "name": "Maciej Waksmański",
+      "rss": "https://devrev.pl/feed/",
+      "twitter": "@DevrevP"
     }
   ]
 }
