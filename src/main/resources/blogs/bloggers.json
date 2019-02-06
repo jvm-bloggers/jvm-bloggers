@@ -1170,6 +1170,12 @@
       "name": "Maciej Waksmański",
       "rss": "https://devrev.pl/feed/",
       "twitter": "@DevrevP"
-    }
+    },
+    {
+      "bookmarkableId": "cupofcodes-pl",
+      "name": "Sebastian Kozak",
+      "rss": "https://cupofcodes.pl/feed",
+      "twitter": "@cupofcodes"
+    }  
   ]
 }
