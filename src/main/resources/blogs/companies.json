@@ -9,7 +9,7 @@
     {
       "bookmarkableId": "touk",
       "name": "TouK",
-      "rss": "http://touk.pl/blog/feed/",
+      "rss": "https://touk.pl/blog/feed/",
       "twitter": "@touk_pl"
     },
     {
@@ -27,7 +27,7 @@
     {
       "bookmarkableId": "allegro-tech",
       "name": "Allegro.Tech",
-      "rss": "http://allegro.tech/feed.xml",
+      "rss": "https://allegro.tech/feed.xml",
       "twitter": "@allegrotech"
     },
     {
@@ -51,7 +51,7 @@
     {
       "bookmarkableId": "pragmatic-coders",
       "name": "Pragmatic Coders",
-      "rss": "http://pragmaticcoders.com/blog/feed/",
+      "rss": "https://pragmaticcoders.com/blog/feed/",
       "twitter": "@pragmaticcoders"
     },
     {
@@ -69,7 +69,7 @@
     {
       "bookmarkableId": "codete",
       "name": "Codete",
-      "rss": "http://codete.com/blog/feed/"
+      "rss": "https://codete.com/blog/feed/"
     },
     {
       "bookmarkableId": "sages",
@@ -80,13 +80,13 @@
     {
       "bookmarkableId": "consdata",
       "name": "Consdata",
-      "rss": "https://www.consdata.com/en/blog?format=feed",
+      "rss": "https://www.consdata.com/pl/blog?format=feed",
       "twitter": "@Consdata"
     },
     {
       "bookmarkableId": "zooplus",
       "name": "Zooplus",
-      "rss": "http://tech.zooplus.com/rss"
+      "rss": "https://tech.zooplus.com/rss"
     },
     {
       "bookmarkableId": "gft-polska",
