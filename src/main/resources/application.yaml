@@ -23,6 +23,7 @@ cache.spec: expireAfterWrite=1d
 
 application.baseUrl: http://jvm-bloggers.com
 application.issueUrl: ${application.baseUrl}/issue/
+application.topPostsUrl: ${application.baseUrl}/top-articles/
 
 # Logging
 logging.level.root: INFO

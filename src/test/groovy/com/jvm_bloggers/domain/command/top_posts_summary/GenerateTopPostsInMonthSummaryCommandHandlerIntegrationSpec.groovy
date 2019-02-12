@@ -8,6 +8,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.click.Click
 import com.jvm_bloggers.entities.click.ClickRepository
+import com.jvm_bloggers.entities.fb.FacebookPostRepository
 import com.jvm_bloggers.entities.top_posts_summary.PopularPersonalPost
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummary
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
@@ -41,30 +42,33 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
     @Autowired
     TopPostsSummaryRepository topPostsSummaryRepository
 
-    def "should calculate and store top blog posts from given period"() {
-        given: "there are ten personal blogs"
+    @Autowired
+    FacebookPostRepository facebookPostRepository
+
+    def 'should calculate and store top blog posts from given period'() {
+        given: 'there are ten personal blogs'
         List<Blog> personalBlogs = (1..10).collect { it ->
             saveBlog(it, "Blogger $it", "exampleRss $it", PERSONAL)
         }
 
-        and: "each blog has a one post"
+        and: 'each blog has a one post'
         List<BlogPost> personalPosts = personalBlogs.collect { b ->
             savePost(b.id, START_OF_MONTH, true, b)
         }
 
-        and: "posts have increasing number of clicks"
+        and: 'posts have increasing number of clicks'
         Collections.shuffle(personalBlogs)
         personalPosts.withIndex(1).forEach({ it ->
             int index = it.getSecond()
             BlogPost post = it.getFirst()
             for (int i = 0; i < index; i++) {
                 clickRepository.save(new Click(
-                    post, START_OF_MONTH, "anyIp", "anyReferer", "anyUserAgent")
+                    post, START_OF_MONTH, 'anyIp', 'anyReferer', 'anyUserAgent')
                 )
             }
         })
 
-        and: "there are some clicks outside of analysed period"
+        and: 'there are some clicks outside of analysed period'
         saveClicksForPost(personalPosts[0], START_OF_MONTH.plusMonths(2), 50)
         saveClicksForPost(personalPosts[1], START_OF_MONTH.minusMinutes(1), 50)
 
@@ -73,7 +77,7 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
             new GenerateTopPostsInMonthSummary(ANALYZED_MONTH, 5, 5)
         )
 
-        then: "last post from collection should have most clicks"
+        then: 'last post from collection should have most clicks'
         Option<TopPostsSummary> postsSummary = topPostsSummaryRepository
             .findOneByYearAndMonth(ANALYZED_MONTH.getYear(), ANALYZED_MONTH.getMonthValue())
 
@@ -84,17 +88,20 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
         popularPosts.first().getPosition() == 1
         popularPosts.first().getNumberOfClicks() == 10
 
-        and: "each clicks count should be one less starting from 10"
+        and: 'each clicks count should be one less starting from 10'
         popularPosts.collect {it.getNumberOfClicks()} == [10L, 9L, 8L, 7L, 6L]
+
+        and: 'there was an event generated informing about successful summary generation'
+        !facebookPostRepository.findAll().isEmpty()
     }
 
     private Blog saveBlog(Long nr,String author, String rssUrl, BlogType type) {
         return blogRepository.save(
             Blog.builder()
-                .bookmarkableId("bookmarkableId" + nr)
+                .bookmarkableId('bookmarkableId' + nr)
                 .author(author)
                 .rss(rssUrl)
-                .url("url")
+                .url('url')
                 .moderationRequired(false)
                 .dateAdded(START_OF_MONTH)
                 .blogType(type)
@@ -109,8 +116,8 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
                 .publishedDate(publishedDate)
                 .approved(approved)
                 .blog(blog)
-                .title("title" + index)
-                .url("url" + index)
+                .title('title' + index)
+                .url('url' + index)
                 .build()
             )
     }
@@ -118,7 +125,7 @@ class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends Spring
     private void saveClicksForPost(BlogPost post, LocalDateTime dateTime, int howMany) {
         for (int i = 0; i < howMany; i++) {
             clickRepository.save(
-                new Click(post, dateTime, "anyIp", "anyReferer", "anyUserAgent")
+                new Click(post, dateTime, 'anyIp', 'anyReferer', 'anyUserAgent')
             )
         }
     }
