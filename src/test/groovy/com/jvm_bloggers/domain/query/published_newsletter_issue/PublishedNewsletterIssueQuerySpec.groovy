@@ -6,12 +6,12 @@ import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 
+@Subject(PublishedNewsletterIssueQuery)
 class PublishedNewsletterIssueQuerySpec extends Specification {
 
     NewsletterIssueRepository newsletterIssueRepository = Mock(NewsletterIssueRepository)
     PublishedNewsletterIssueBuilder publishedNewsletterIssueBuilder = Mock(PublishedNewsletterIssueBuilder)
 
-    @Subject
     PublishedNewsletterIssueQuery publishedNewsletterIssueQuery = new PublishedNewsletterIssueQuery(
             newsletterIssueRepository, publishedNewsletterIssueBuilder)
 

@@ -1,13 +1,15 @@
 package com.jvm_bloggers.core.social.fb
 
-import com.jvm_bloggers.TestNowProvider
+
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.newsletter_issues.NewIssuePublished
 import com.jvm_bloggers.entities.fb.FacebookPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
+import spock.lang.Subject
 
+@Subject(FacebookPostProducer)
 class FacebookPostProducerSpec extends Specification {
 
     private static final String LINK_BASE = "http://jvm-bloggers.com/issues/"

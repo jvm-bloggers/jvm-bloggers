@@ -1,10 +1,12 @@
 package com.jvm_bloggers.utils
 
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
+@Subject(DateTimeUtilities)
 class DateTimeUtilitiesSpec extends Specification {
 
     @Unroll

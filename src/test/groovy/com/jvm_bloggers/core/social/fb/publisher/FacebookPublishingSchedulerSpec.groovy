@@ -12,15 +12,15 @@ import java.time.LocalDateTime
 
 import static com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus.*
 
+@Subject(FacebookPublishingScheduler)
 class FacebookPublishingSchedulerSpec extends Specification {
 
-    private static final LocalDateTime NOW = LocalDateTime.now();
+    private static final LocalDateTime NOW = LocalDateTime.now()
 
     private final FacebookPostRepository fbPostRepository = Mock(FacebookPostRepository)
     private final FacebookPublisher fbPublisher = Mock(FacebookPublisher)
     private final NowProvider nowProvider = new TestNowProvider(NOW)
 
-    @Subject
     FacebookPublishingScheduler fbPublisherScheduler = new FacebookPublishingScheduler(fbPostRepository, fbPublisher, nowProvider)
 
     def "Should mark published FB post as sent"() {

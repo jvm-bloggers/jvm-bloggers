@@ -1,7 +1,9 @@
 package com.jvm_bloggers.core.social.fb
 
 import spock.lang.Specification
+import spock.lang.Subject
 
+@Subject(FacebookMessageGenerator)
 class FacebookMessageGeneratorSpec extends Specification {
 
     def "Should generate a Facebook message with an issue link"() {

@@ -12,9 +12,9 @@ import java.time.LocalDateTime
 import static BlogType.COMPANY
 import static BlogType.PERSONAL
 
+@Subject(BloggerChangedVerifier)
 class BloggerChangedVerifierSpec extends Specification {
 
-    @Subject
     BloggerChangedVerifier testObj = new BloggerChangedVerifier();
 
     @Unroll
@@ -39,43 +39,43 @@ class BloggerChangedVerifierSpec extends Specification {
     }
 
     private BloggerEntry entryWithCompanyBlogData() {
-        buildBloggerEntry("bookmarkableId", "blog", "rss", "page", "twitter", COMPANY)
+        buildBloggerEntry('bookmarkableId', 'blog', 'rss', 'page', 'twitter', COMPANY)
     }
 
     private BloggerEntry entryWithDifferentPage() {
-        buildBloggerEntry("bookmarkableId", "blog", "rss", "newPage", "twitter", PERSONAL)
+        buildBloggerEntry('bookmarkableId', 'blog', 'rss', "newPage", 'twitter', PERSONAL)
     }
 
     private Blog standardPersonalBlog() {
-        buildBlog("bookmarkableId", "blog", "rss", "page", "twitter")
+        buildBlog('bookmarkableId', 'blog', 'rss', 'page', 'twitter')
     }
 
     private BloggerEntry entryWithStandardBlogData() {
-        buildBloggerEntry("bookmarkableId", "blog", "rss", "page", "twitter", PERSONAL)
+        buildBloggerEntry('bookmarkableId', 'blog', 'rss', 'page', 'twitter', PERSONAL)
     }
 
     private Blog blogWithDifferentAuthorRssAndTwitter() {
-        buildBlog("bookmarkableId","authoX", "rsX", "page", "twitteX")
+        buildBlog('bookmarkableId',"authoX", "rsX", 'page', "twitteX")
     }
 
     private Blog blogWithDifferentBookmarkableId() {
-        buildBlog("bookmarkableIdX","author", "rss", "page", "twitter")
+        buildBlog("bookmarkableIdX","author", 'rss', 'page', 'twitter')
     }
 
     private Blog blogWithDifferentTwitter() {
-        buildBlog("bookmarkableId", "blog", "rss", "page", "twitterX")
+        buildBlog('bookmarkableId', 'blog', 'rss', 'page', "twitterX")
     }
 
     private Blog blogWithDifferentRss() {
-        buildBlog("bookmarkableId", "blog", "Xss", "page", "twitter")
+        buildBlog('bookmarkableId', 'blog', "Xss", 'page', 'twitter')
     }
 
     private Blog blogWithDifferentAuthor() {
-        buildBlog("bookmarkableId", "Author", "rss", "page", "twitter")
+        buildBlog('bookmarkableId', "Author", 'rss', 'page', 'twitter')
     }
 
     private Blog blogWithUppercasedRss() {
-        buildBlog("bookmarkableId", "blog", "RSS", "page", "twitter")
+        buildBlog('bookmarkableId', 'blog', 'rss', 'page', 'twitter')
     }
 
     def buildBlog(String bookmarkableId, String author, String rss, String pageUrl, String twitter) {

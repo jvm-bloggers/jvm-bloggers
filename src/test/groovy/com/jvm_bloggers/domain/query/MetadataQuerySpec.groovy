@@ -5,11 +5,11 @@ import com.jvm_bloggers.entities.metadata.MetadataRepository
 import spock.lang.Specification
 import spock.lang.Subject
 
+@Subject(MetadataRepository)
 class MetadataQuerySpec extends Specification {
 
     MetadataRepository metadataRepository = Stub(MetadataRepository)
 
-    @Subject
     MetadataQuery metadataQuery = new MetadataQuery(metadataRepository)
 
     def "Should find Metadata by name"() {

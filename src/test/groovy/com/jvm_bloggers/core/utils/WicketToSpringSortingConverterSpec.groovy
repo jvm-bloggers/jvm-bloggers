@@ -3,8 +3,11 @@ package com.jvm_bloggers.core.utils
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam
 import org.springframework.data.domain.Sort
 import spock.lang.Specification
+import spock.lang.Subject
 
+@Subject(WicketToSpringSortingConverter)
 class WicketToSpringSortingConverterSpec extends Specification {
+
     def "Should convert to spring sort testProperty asc"() {
         given:
             def param = new SortParam<String>("testProperty", true)

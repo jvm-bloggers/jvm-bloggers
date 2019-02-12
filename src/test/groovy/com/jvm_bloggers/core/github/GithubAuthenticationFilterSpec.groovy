@@ -9,16 +9,16 @@ import javax.ws.rs.core.HttpHeaders
 import javax.ws.rs.core.MultivaluedHashMap
 import javax.ws.rs.core.MultivaluedMap
 
+@Subject(GithubAuthenticationFilter)
 class GithubAuthenticationFilterSpec extends Specification {
 
-    public static final String TOKEN = "TOKEN"
+    public static final String TOKEN = 'TOKEN'
 
     def "Should set not empty access token"() {
         given:
         GithubProperties properties = new GithubProperties()
         properties.setToken(TOKEN)
 
-        @Subject
         GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
 
         MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
@@ -30,7 +30,7 @@ class GithubAuthenticationFilterSpec extends Specification {
         testObj.filter(requestContext)
 
         then:
-        headers.getFirst(HttpHeaders.AUTHORIZATION) == "token " + TOKEN
+        headers.getFirst(HttpHeaders.AUTHORIZATION) == 'token ' + TOKEN
     }
 
     @Unroll
@@ -39,7 +39,6 @@ class GithubAuthenticationFilterSpec extends Specification {
         GithubProperties properties = new GithubProperties()
         properties.setToken(token)
 
-        @Subject
         GithubAuthenticationFilter testObj = new GithubAuthenticationFilter(properties)
 
         MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>()
@@ -55,8 +54,5 @@ class GithubAuthenticationFilterSpec extends Specification {
 
         where:
         token << [null, ""]
-//            token | _
-//            null | _
-//            "" | _
     }
 }

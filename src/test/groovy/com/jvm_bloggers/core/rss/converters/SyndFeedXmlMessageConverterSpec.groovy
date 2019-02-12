@@ -17,12 +17,12 @@ import java.nio.charset.Charset
 import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace
 import static spock.util.matcher.HamcrestSupport.that
 
+@Subject(SyndFeedXmlMessageConverter)
 class SyndFeedXmlMessageConverterSpec extends Specification {
 
     @Shared
     TestSyndFeedProvider testSyndFeedProvider = new TestSyndFeedProvider()
 
-    @Subject
     SyndFeedXmlMessageConverter converter = new SyndFeedXmlMessageConverter()
 
     @Unroll

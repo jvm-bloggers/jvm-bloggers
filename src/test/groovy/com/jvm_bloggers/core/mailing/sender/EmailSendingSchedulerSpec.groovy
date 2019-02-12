@@ -10,14 +10,14 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+@Subject(EmailSendingScheduler)
 class EmailSendingSchedulerSpec extends Specification {
 
-    LocalDateTime NOW = LocalDateTime.now();
+    private final static LocalDateTime NOW = LocalDateTime.now()
     EmailRepository emailRepository = Mock(EmailRepository)
     MailSender mailSender = Mock(MailSender)
     NowProvider nowProvider = new TestNowProvider(NOW)
 
-    @Subject
     EmailSendingScheduler emailSendingScheduler = new EmailSendingScheduler(emailRepository, mailSender, nowProvider)
 
     def "Should save sent email with set sentDate"() {

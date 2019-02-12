@@ -2,14 +2,16 @@ package com.jvm_bloggers.utils
 
 import com.jvm_bloggers.core.utils.Validators
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
+@Subject(Validators)
 class ValidatorsSpec extends Specification {
 
     @Unroll
     def "Should validate url #url as valid = #expectedValidationResult"() {
         when:
-        boolean isValid = Validators.isUrlValid(url);
+        boolean isValid = Validators.isUrlValid(url)
 
         then:
         isValid == expectedValidationResult

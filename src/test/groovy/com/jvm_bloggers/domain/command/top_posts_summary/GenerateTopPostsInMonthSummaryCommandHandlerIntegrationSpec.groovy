@@ -20,12 +20,12 @@ import java.time.YearMonth
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(GenerateTopPostsInMonthSummaryCommandHandler)
 class GenerateTopPostsInMonthSummaryCommandHandlerIntegrationSpec extends SpringContextAwareSpecification {
 
     static YearMonth ANALYZED_MONTH = YearMonth.of(2017, 7)
     static LocalDateTime START_OF_MONTH = ANALYZED_MONTH.atDay(1).atStartOfDay()
 
-    @Subject
     @Autowired
     GenerateTopPostsInMonthSummaryCommandHandler generateTopPostsCommandHandler
 

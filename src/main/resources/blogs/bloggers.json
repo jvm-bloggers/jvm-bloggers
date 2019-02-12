@@ -15,7 +15,7 @@
     {
       "bookmarkableId": "tomek-nurkiewicz",
       "name": "Tomek Nurkiewicz",
-      "rss": "http://www.nurkiewicz.com/feeds/posts/default?alt=rss",
+      "rss": "https://www.nurkiewicz.com/feeds/posts/default?alt=rss",
       "twitter": "@tnurkiewicz"
     },
     {
@@ -105,7 +105,7 @@
     {
       "bookmarkableId": "lukasz-lenart",
       "name": "Łukasz Lenart",
-      "rss": "http://dailylog.lenart.org.pl/feed/",
+      "rss": "https://medium.com/feed/@lukaszlenart",
       "twitter": "@lukaszlenart"
     },
     {
@@ -129,12 +129,12 @@
     {
       "bookmarkableId": "andrzej-ludwikowski",
       "name": "Andrzej Ludwikowski",
-      "rss": "http://aludwikowski.blogspot.com/feeds/posts/default"
+      "rss": "http://www.ludwikowski.info/feeds/posts/default"
     },
     {
       "bookmarkableId": "michal-bartyzel",
       "name": "Michał Bartyzel",
-      "rss": "http://mbartyzel.blogspot.com/feeds/posts/default",
+      "rss": "http://blog.gettingthingsprogrammed.pl/feeds/posts/default",
       "twitter": "@MichalBartyzel"
     },
     {
@@ -181,7 +181,7 @@
     {
       "bookmarkableId": "mariusz-sieraczkiewicz",
       "name": "Mariusz Sieraczkiewicz",
-      "rss": "http://msieraczkiewicz.blogspot.com/feeds/posts/default",
+      "rss": "http://blog.technicalleadership.pl/feeds/posts/default",
       "twitter": "@ms_bnsit_pl"
     },
     {
@@ -193,7 +193,7 @@
     {
       "bookmarkableId": "bartek-andrzejczak",
       "name": "Bartek Andrzejczak",
-      "rss": "http://bandrzejczak.com/atom.xml",
+      "rss": "https://medium.com/feed/@andrzejczak",
       "twitter": "@baandrzejczak"
     },
     {
@@ -327,7 +327,7 @@
     {
       "bookmarkableId": "jaroslaw-palka",
       "name": "Jarosław Pałka",
-      "rss": "https://geekyprimitives.wordpress.com/feed/",
+      "rss": "https://geekyprimitives.com/feed/",
       "twitter": "@j_palka"
     },
     {
@@ -489,7 +489,7 @@
     {
       "bookmarkableId": "marcin-bialon",
       "name": "Marcin Białoń",
-      "rss": "http://bialon.net//index.xml",
+      "rss": "https://bialon.net/index.xml",
       "twitter": "@mbialon"
     },
     {
@@ -525,7 +525,7 @@
     {
       "bookmarkableId": "dariusz-luksza",
       "name": "Dariusz Łuksza",
-      "rss": "http://luksza.org/feed/atom/",
+      "rss": "https://luksza.org/feed/atom/",
       "twitter": "@dluksza"
     },
     {
@@ -583,7 +583,7 @@
     {
       "bookmarkableId": "jakub-kozlowski",
       "name": "Jakub Kozłowski",
-      "rss": "https://medium.com/feed/@kubukoz",
+      "rss": "https://blog.kubukoz.com/feed",
       "twitter": "@kubukoz"
     },
     {
@@ -795,7 +795,7 @@
     {
       "bookmarkableId": "ania-dobrowolska",
       "name": "Ania Dobrowolska",
-      "rss": "http://aniakodzi.pl/feed/"
+      "rss": "https://aniakodzi.pl/feed/"
     },
     {
       "bookmarkableId": "korneliusz-rabczak",
@@ -842,7 +842,7 @@
     {
       "bookmarkableId": "kobiety-do-kodu",
       "name": "Anna Pietras, Jakub Derda",
-      "rss": "http://kobietydokodu.pl/feed/"
+      "rss": "https://kobietydokodu.pl/feed/"
     },
     {
       "bookmarkableId": "marek-berkun",
@@ -938,13 +938,13 @@
     {
       "bookmarkableId": "piotr-wyczesany",
       "name": "Piotr Wyczesany",
-      "rss": "http://www.eventuallyinconsistent.com/feeds/posts/default",
+      "rss": "https://www.eventuallyinconsistent.com/feeds/posts/default",
       "twitter": "@pwyczes"
     },
     {
       "bookmarkableId": "pawel-dobrzanski",
       "name": "Paweł Dobrzański",
-      "rss": "http://paweldobrzanski.pl/feed/",
+      "rss": "https://paweldobrzanski.pl/feed/",
       "twitter": "@dobskip"
     },
     {
@@ -976,7 +976,7 @@
     {
       "bookmarkableId": "mateusz-kupilas",
       "name": "Mateusz Kupilas",
-      "rss": "http://www.javadevmatt.pl/feed/",
+      "rss": "https://www.javadevmatt.pl/feed/",
       "twitter": "@JavaDevMatt"
     },
     {
@@ -1065,7 +1065,7 @@
     {
       "bookmarkableId": "adrian-marszalek",
       "name": "Adrian Marszałek",
-      "rss": "http://amarszalek.net/blog/feed/",
+      "rss": "https://amarszalek.net/blog/feed/",
       "twitter": "@a_mrszlk"
     },
     {
@@ -1117,7 +1117,8 @@
     {
       "bookmarkableId": "puradawid",
       "name": "Dawid Pura",
-      "rss": "https://puradawid.pro/feed.xml" 
+      "rss": "https://puradawid.pro/feed.xml",
+      "twitter": "@puradawid"
     },
     {
       "bookmarkableId": "maciej-maciejowski",
@@ -1146,6 +1147,41 @@
       "name": "Tomasz Fijałkowski",
       "rss": "http://chi.pl/feed.xml",
       "twitter": "@TomaszFijalkows"
+    },
+    {
+      "bookmarkableId": "marcin-piczkowski",
+      "name": "Marcin Piczkowski",
+      "rss": "https://medium.com/feed/@piczmar",
+      "twitter": "@piczmar"
+    },
+    {
+      "bookmarkableId": "mokaz",
+      "name": "Mariusz Okaz",
+      "rss": "https://socodeit.pl/feed"
+    },
+    {
+      "bookmarkableId": "igor-kupczynski",
+      "name": "Igor Kupczyński",
+      "rss": "https://kupczynski.info/rss.xml",
+      "twitter": "@ikupczynski"
+    },
+    {
+      "bookmarkableId": "devrev-pl",
+      "name": "Maciej Waksmański",
+      "rss": "https://devrev.pl/feed/",
+      "twitter": "@DevrevP"
+    },
+    {
+      "bookmarkableId": "cupofcodes-pl",
+      "name": "Sebastian Kozak",
+      "rss": "https://cupofcodes.pl/feed",
+      "twitter": "@cupofcodes"
+    },
+    {
+      "bookmarkableId": "dariusz-mydlarz-2",
+      "name": "Dariusz Mydlarz",
+      "rss": "https://sztukakodu.pl/feed/",
+      "twitter": "@dmydlarz"
     }
   ]
 }

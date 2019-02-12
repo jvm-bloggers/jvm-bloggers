@@ -9,12 +9,12 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+@Subject(LocalDateToTimestampConverter)
 class LocalDateToTimestampConverterSpec extends Specification {
 
-    @Subject
     LocalDateToTimestampConverter converter = new LocalDateToTimestampConverter()
 
-    def "Should convert"() {
+    def "Should convert local date to timestamp"() {
         given:
         LocalDateTime localDateTime = LocalDateTime.of(2016, 05, 7, 8, 44, 0)
         Timestamp timestamp = convertToTimestamp(localDateTime)
