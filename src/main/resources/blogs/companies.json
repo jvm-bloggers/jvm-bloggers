@@ -143,6 +143,12 @@
       "name": "Inspeerity",
       "rss": "https://blog.inspeerity.com/feed.xml",
       "twitter": "@inspeerity"
+    },
+    {
+      "bookmarkableId": "azimo-labs",
+      "name": "Azimo Labs",
+      "rss": "https://medium.com/feed/azimolabs",
+      "twitter": "@AzimoLabs"
     }
   ]
 }
