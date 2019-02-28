@@ -1193,6 +1193,12 @@
       "bookmarkableId": "przemyslaw-bykowski",
       "name": "Przemysław Bykowski",
       "rss": "http://bykowski.pl/feed/"
+    },
+    {
+      "bookmarkableId": "mateusz-mazurek",
+      "name": "Mateusz Mazurek",
+      "rss": "https://mmazur.eu.org/feed/",
+      "twitter": "@kajzur"
     }
   ]
 }
