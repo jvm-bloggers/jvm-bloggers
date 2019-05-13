@@ -132,6 +132,12 @@
       "bookmarkableId": "jit",
       "name": "Clever Thoughts by JIT",
       "rss": "https://medium.com/feed/jitsolutions/"
+    },
+    {
+      "bookmarkableId": "inspeerity",
+      "name": "Inspeerity",
+      "rss": "https://blog.inspeerity.com/feed.xml",
+      "twitter": "@inspeerity"
     }
   ]
 }
