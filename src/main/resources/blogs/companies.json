@@ -134,6 +134,11 @@
       "rss": "https://medium.com/feed/jitsolutions/"
     },
     {
+      "bookmarkableId": "applantic",
+      "name": "Applantic",
+      "rss": "https://medium.com/feed/applantic"
+    },
+    {
       "bookmarkableId": "inspeerity",
       "name": "Inspeerity",
       "rss": "https://blog.inspeerity.com/feed.xml",
