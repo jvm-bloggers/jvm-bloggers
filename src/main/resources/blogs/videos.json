@@ -81,6 +81,11 @@
       "name": "Konferencje SegFault",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCV38Do_3C5uVk3lWePkyxTA",
       "twitter": "@SegFaultConf"
+    },
+    {
+      "bookmarkableId": "j-santa-conf",
+      "name": "J-Santa Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2IFpEO6fHK4_fKn-gymwKw",
     }
   ]
 }
