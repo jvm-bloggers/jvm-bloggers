@@ -1223,6 +1223,12 @@
       "name": "Daniel Olszewski",
       "rss": "http://feeds.feedburner.com/dolszewski",
       "twitter": "@daolszewski"
+    },
+    {
+      "bookmarkableId": "adam-smolarek",
+      "name": "Adam Smolarek",
+      "rss": "https://chaindev.pl/feed/",
+      "twitter": "@smolarek_adam"
     }
   ]
 }
