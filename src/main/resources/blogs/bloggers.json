@@ -1217,6 +1217,12 @@
       "name": "Włodek Krakowski",
       "rss": "https://refactoring.pl/pl/feed/",
       "twitter": "@wlodekkr"
+    },
+    {
+      "bookmarkableId": "daniel-olszewski",
+      "name": "Daniel Olszewski",
+      "rss": "http://feeds.feedburner.com/dolszewski",
+      "twitter": "@daolszewski"
     }
   ]
 }
