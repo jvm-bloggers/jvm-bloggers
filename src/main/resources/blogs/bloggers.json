@@ -1205,6 +1205,12 @@
       "name": "Mateusz Dąbrowski",
       "rss": "http://nullpointerexception.pl/feed/",
       "twitter": "@matdabski"
+    },
+    {
+      "bookmarkableId": "waldemar-panas",
+      "name": "Waldemar Panas",
+      "rss": "https://wpanas.github.io/feed.xml",
+      "twitter": "@PanasWaldemar"
     }
   ]
 }
