@@ -75,6 +75,12 @@
       "name": "Bydgoszcz JUG",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCaA4Zh3F8KRbtB1GW4ZW2lw",
       "twitter": "@BydgoszczJUG"
+    },
+    {
+      "bookmarkableId": "segfault",
+      "name": "Konferencje SegFault",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCV38Do_3C5uVk3lWePkyxTA",
+      "twitter": "@SegFaultConf"
     }
   ]
 }
