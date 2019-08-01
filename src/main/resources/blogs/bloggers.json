@@ -1211,6 +1211,12 @@
       "name": "Waldemar Panas",
       "rss": "https://wpanas.github.io/feed.xml",
       "twitter": "@PanasWaldemar"
+    },
+    {
+      "bookmarkableId": "wlodek-krakowski",
+      "name": "Włodek Krakowski",
+      "rss": "https://refactoring.pl/pl/feed/",
+      "twitter": "@wlodekkr"
     }
   ]
 }
