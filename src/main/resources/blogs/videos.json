@@ -85,7 +85,13 @@
     {
       "bookmarkableId": "j-santa-conf",
       "name": "J-Santa Conference",
-      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2IFpEO6fHK4_fKn-gymwKw",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2IFpEO6fHK4_fKn-gymwKw"
+    },
+    {
+      "bookmarkableId": "greenfield-conf",
+      "name": "Greenfield Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UChG7hsrjUYyYG13AkSIfQIw",
+      "twitter": "@Greenfield_Conf"
     }
   ]
 }
