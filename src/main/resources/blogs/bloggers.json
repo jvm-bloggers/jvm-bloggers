@@ -1235,6 +1235,12 @@
       "name": "Serverless Polska",
       "rss": "https://serverlesspolska.pl/atom.xml",
       "twitter": "@pzubkiewicz"
+    },
+    {
+      "bookmarkableId": "tomek-stolarczyk",
+      "name": "Tomek Stolarczyk",
+      "rss": "https://mrpicky.dev/feed/",
+      "twitter": "@stolarczykt"
     }
   ]
 }
