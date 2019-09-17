@@ -32,7 +32,7 @@ public class WgetRssFetcher implements RssFetcher {
             tempFile = loadRssToFile(rssUrl);
             return Try.success(new SyndFeedInput().build(tempFile));
         } catch (Exception ex) {
-            log.debug("Problem during wget execution for url {}: {}", rssUrl, ex.getMessage());
+            log.info("Problem during wget execution for url {}: {}", rssUrl, ex.getMessage());
             return Try.failure(ex);
         } finally {
             if (tempFile != null) {
