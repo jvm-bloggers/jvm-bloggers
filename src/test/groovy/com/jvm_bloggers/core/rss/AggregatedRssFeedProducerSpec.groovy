@@ -22,6 +22,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
 
     public static final String BASE_URL = 'http://test'
     public static final String ISSUE_URL = 'http://test/issue'
+    public static final String TOP_POSTS_URL = 'http://test/topPosts'
     String TITLE_1 = 'title_1', TITLE_2 = 'title_2'
     String URL_1 = 'http://blogPostUrl-1.com', URL_2 = 'http://blogPostUrl-2.com'
     String AUTHOR_1 = 'author_1', AUTHOR_2 = 'author_2'
@@ -49,7 +50,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         now() >> DATE
     }
 
-    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL)
+    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL, TOP_POSTS_URL)
 
     AggregatedRssFeedProducer rssProducer = new AggregatedRssFeedProducer(blogPostRepository, nowProvider, linkGenerator)
 
