@@ -14,7 +14,7 @@ setupProperties() {
   export JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD=secret
   export JVM_BLOGGERS_CORE_PORT=9000
 
-  export JVM_BLOGGERS_LOGSPOUT_PORT=1
+  export LOGSENSE_TOKEN=token_value
 }
 
 start() {
