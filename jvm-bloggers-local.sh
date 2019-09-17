@@ -11,7 +11,7 @@ setupProperties() {
 }
 
 start() {
-    docker-compose -f docker-compose-local.yml up -d
+    docker-compose -f docker-compose-local.yml up -d --force-recreate
     echo "Started JVM Bloggers Database"
 }
 
