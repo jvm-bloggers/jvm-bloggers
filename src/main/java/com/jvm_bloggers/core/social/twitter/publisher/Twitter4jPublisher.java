@@ -25,7 +25,7 @@ class Twitter4jPublisher implements TwitterPublisher {
 
     @Override
     public TwitterPublishingStatus publish(Tweet tweet) {
-        return Try.of(() -> clientFactory.getClient())
+        return Try.of(clientFactory::getClient)
             .mapTry(twitter -> twitter.updateStatus(tweet.getContent()))
             .onSuccess(status -> log.info("Tweet published successfully {}", status))
             .map(status -> SUCCESS)

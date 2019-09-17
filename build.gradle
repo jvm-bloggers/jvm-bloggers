@@ -80,7 +80,7 @@ dependencies {
     compile 'de.agilecoders.wicket.webjars:wicket-webjars:2.0.3'
 
     // Utils and helpers
-    compile 'org.projectlombok:lombok:1.16.18'
+    compile 'org.projectlombok:lombok:1.18.8'
     compile 'com.google.guava:guava:23.5-jre'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'org.apache.commons:commons-text:1.1'
