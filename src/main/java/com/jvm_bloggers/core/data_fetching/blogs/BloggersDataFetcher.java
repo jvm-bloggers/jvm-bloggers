@@ -87,7 +87,7 @@ public class BloggersDataFetcher {
                 UpdateStatistic updateStatistic = bloggersDataUpdater.updateData(bloggers);
                 log.info("Refreshed {} blogs: {}", blogType, updateStatistic);
             } catch (Exception exception) {
-                log.error("Exception during parse process for {}", blogType, exception);
+                log.error("Exception during parse process for " + blogType, exception);
             }
         } else {
             log.warn("No valid URL specified for {}. Skipping.", blogType);
