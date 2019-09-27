@@ -92,6 +92,13 @@
       "name": "Greenfield Conference",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UChG7hsrjUYyYG13AkSIfQIw",
       "twitter": "@Greenfield_Conf"
+    },
+    {
+      "bookmarkableId": "bitconf",
+      "name": "Bydgoszcz IT Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBpSxlHqk4-jjYyfrmX3ikQ",
+      "twitter": "@bitconf_pl"
     }
+    
   ]
 }
