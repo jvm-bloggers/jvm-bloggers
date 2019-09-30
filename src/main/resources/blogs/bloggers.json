@@ -1195,6 +1195,11 @@
       "rss": "http://bykowski.pl/feed/"
     },
     {
+      "bookmarkableId": "jakub-gardo",
+      "name": "Jakub Gardo",
+      "rss": "https://jgardo.dev/feed/"
+    },
+    {
       "bookmarkableId": "mateusz-mazurek",
       "name": "Mateusz Mazurek",
       "rss": "https://mmazur.eu.org/feed/",
