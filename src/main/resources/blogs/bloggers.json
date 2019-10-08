@@ -1241,6 +1241,12 @@
       "name": "Tomek Stolarczyk",
       "rss": "https://mrpicky.dev/feed/",
       "twitter": "@stolarczykt"
+    },
+    {
+      "bookmarkableId": "lukasz-chrzaszcz",
+      "name": "Łukasz Chrząszcz",
+      "rss": "https://chrzaszcz.dev/index.xml",
+      "twitter": "@ChrzaszczL"
     }
   ]
 }
