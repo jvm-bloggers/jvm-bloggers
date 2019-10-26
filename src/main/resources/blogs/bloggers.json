@@ -1252,6 +1252,13 @@
       "name": "Łukasz Chrząszcz",
       "rss": "https://chrzaszcz.dev/index.xml",
       "twitter": "@ChrzaszczL"
+    },
+    ,
+	  {
+      "bookmarkableId": "javaleader",
+      "name": "Marcin Warycha",
+      "rss": "https://javaleader.pl/feed/",
+      "twitter": ""
     }
   ]
 }
