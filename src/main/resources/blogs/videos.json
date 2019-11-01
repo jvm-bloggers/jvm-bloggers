@@ -100,11 +100,15 @@
       "twitter": "@bitconf_pl"
     },
     {
+      "bookmarkableId": "programuj-z-bykiem",
+      "name": "Programuj z Bykiem",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCslYinLbZnzzUdG0BMaiDKw"
+    },
+    {
       "bookmarkableId": "programistok",
       "name": "Programistok",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCoyU8Ehx9tbRJhYXrbt5lgA",
       "twitter": "@programistok"
     }
-    
   ]
 }
