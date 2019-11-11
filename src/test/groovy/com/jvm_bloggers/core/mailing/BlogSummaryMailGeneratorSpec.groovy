@@ -12,7 +12,7 @@ import spock.lang.Subject
 class BlogSummaryMailGeneratorSpec extends Specification {
 
     private static final Long SAMPLE_ISSUE_NUMBER = 59L
-    private static final String SAMPLE_ISSUE_LINK = "http://jvm-bloggers.com/issue/59"
+    private static final String SAMPLE_ISSUE_LINK = "https://jvm-bloggers.com/issue/59"
 
     MetadataRepository metadataRepository = Stub(MetadataRepository)
     LinkGenerator linkGenerator = Stub(LinkGenerator)

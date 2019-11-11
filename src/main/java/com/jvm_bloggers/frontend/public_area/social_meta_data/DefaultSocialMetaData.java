@@ -12,7 +12,7 @@ public class DefaultSocialMetaData implements SocialMetaData {
     public static final String DEFAULT_DESCRIPTION = "Wszystkie blogi o Javie, ekosystemie JVM"
         + " i programowaniu pisane przez polskich programistów i polskie firmy w jednym miejscu,"
         + " co tydzień nowe wydanie, co tydzień nowa porcja wiedzy";
-    public static final String DEFAULT_IMAGE = "http://jvm-bloggers.com/jvm-bloggers.png";
+    public static final String DEFAULT_IMAGE = "https://jvm-bloggers.com/jvm-bloggers.png";
 
     private static final DefaultSocialMetaData INSTANCE = new DefaultSocialMetaData();
 

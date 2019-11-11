@@ -2,6 +2,7 @@ version: '2'
 services:
   jvm-bloggers-db:
     image: sameersbn/postgresql:9.4-22
+    container_name: jvm-bloggers-db
     environment:
       DB_USER: $JVM_BLOGGERS_DB_USER
       DB_PASS: $JVM_BLOGGERS_DB_PASSWORD
@@ -10,23 +11,18 @@ services:
       - "$JVM_BLOGGERS_DB_PUBLISHED_PORT:5432"
     volumes:
       - "$JVM_BLOGGERS_DB_PATH:/var/lib/postgresql"
-    depends_on:
-      - logsense-forwarder
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: "127.0.0.1:24224"
+    restart: on-failure
   jvm-bloggers-core:
     image: jvmbloggers/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
+    container_name: jvm-bloggers-core
     environment:
       spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
       jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
     ports:
-      - "$JVM_BLOGGERS_CORE_PORT:8080"
+      - "8080:8080"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
-      - /home/jvm-bloggers/jvm-bloggers-app/logs:/home/blogger/app/logs
       - /tmp
     links:
       - jvm-bloggers-db
@@ -37,10 +33,20 @@ services:
       driver: fluentd
       options:
         fluentd-address: "127.0.0.1:24224"
+    restart: on-failure
   logsense-forwarder:
     image: collectivesense/logsense-forwarder
+    container_name: jvm-bloggers-logsense
     environment:
       - LOGSENSE_TOKEN=$LOGSENSE_TOKEN
     ports:
       - "127.0.0.1:24224:24224"
-
+  nginx:
+    image: nginx:1.17.5-alpine
+    container_name: jvm-bloggers-nginx
+    restart: on-failure
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /home/jvm-bloggers/jvm-bloggers-app/nginx/conf.d:/etc/nginx/conf.d

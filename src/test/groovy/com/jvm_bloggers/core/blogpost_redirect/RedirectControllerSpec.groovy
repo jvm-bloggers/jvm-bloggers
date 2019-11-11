@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @Subject(RedirectController)
 class RedirectControllerSpec extends Specification {
 
-    private static final String homePageUrl = 'http://jvm-bloggers.com'
+    private static final String homePageUrl = 'https://jvm-bloggers.com'
 
     private BlogPostRepository blogPostRepositoryMock = Mock(BlogPostRepository)
     private MockMvc mockMvc = standaloneSetup(

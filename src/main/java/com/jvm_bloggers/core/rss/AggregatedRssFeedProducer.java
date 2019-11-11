@@ -47,7 +47,7 @@ public class AggregatedRssFeedProducer {
     static final String FEED_DESCRIPTION =
         "JVMBloggers aggregated feed. You can customize your rss results by using parameters "
         + "`limit` and 'excludedAuthors` (comma delimited names) parameters. "
-        + "Example: http://jvm-bloggers.com/pl/rss?limit=5&excludedAuthors=Tomasz Dziurko Adam Warski";
+        + "Example: https://jvm-bloggers.com/pl/rss?limit=5&excludedAuthors=Tomasz Dziurko Adam Warski";
 
     @VisibleForTesting
     static final String FEED_TITLE = "JVMBloggers";

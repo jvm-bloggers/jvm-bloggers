@@ -22,7 +22,7 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
     TestSyndFeedProvider testSyndFeedProvider = new TestSyndFeedProvider()
 
     @Shared
-    SyndFeedToJsonConverter jsonConverter = new SyndFeedToJsonConverter("http://jvm-bloggers.com")
+    SyndFeedToJsonConverter jsonConverter = new SyndFeedToJsonConverter("https://jvm-bloggers.com")
 
     SyndFeedJsonMessageConverter converter = new SyndFeedJsonMessageConverter(jsonConverter)
 

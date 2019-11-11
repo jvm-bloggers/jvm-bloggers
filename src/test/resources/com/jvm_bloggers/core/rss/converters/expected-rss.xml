@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <title>JVMBloggers</title>
-  <link rel="self" href="http://jvm-bloggers.com/pl/rss" />
-  <subtitle>JVMBloggers aggregated feed. You can customize your rss results by using parameters `limit` and 'excludedAuthors` (comma delimited names) parameters. Example: http://jvm-bloggers.com/pl/rss?limit=5&amp;excludedAuthors=Tomasz Dziurko Adam Warski</subtitle>
+  <link rel="self" href="https://jvm-bloggers.com/pl/rss" />
+  <subtitle>JVMBloggers aggregated feed. You can customize your rss results by using parameters `limit` and 'excludedAuthors` (comma delimited names) parameters. Example: https://jvm-bloggers.com/pl/rss?limit=5&amp;excludedAuthors=Tomasz Dziurko Adam Warski</subtitle>
   <id>URI</id>
   <updated>1970-01-01T00:00:00Z</updated>
   <dc:date>1970-01-01T00:00:00Z</dc:date>

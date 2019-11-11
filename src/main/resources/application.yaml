@@ -21,7 +21,7 @@ items.pagination.size: 15
 max.new.post.age.days: 30
 cache.spec: expireAfterWrite=1d
 
-application.baseUrl: http://jvm-bloggers.com
+application.baseUrl: https://jvm-bloggers.com
 application.issueUrl: ${application.baseUrl}/issue/
 application.topPostsUrl: ${application.baseUrl}/top-articles/
 

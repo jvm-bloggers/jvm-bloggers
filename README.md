@@ -35,7 +35,7 @@ __Done__
 - [x] Add technical blogs from Polish companies
 - [x] Add moderation to discard off-topic content
 - [x] Write some admin panel to manage moderation. etc.
-- [x] Publish global [RSS](http://jvm-bloggers.com/pl/rss) feed with all blog posts. You can limit and exclude authors using parameters. example: http://jvm-bloggers.com/pl/rss?limit=15&excludedAuthors=author1,author2
+- [x] Publish global [RSS](https://jvm-bloggers.com/pl/rss) feed with all blog posts. You can limit and exclude authors using parameters. example: https://jvm-bloggers.com/pl/rss?limit=15&excludedAuthors=author1,author2
 - [x] Add videos from JUGs and conferences in Poland
 - [x] Create website with all newsletter (latest and old ones)
 

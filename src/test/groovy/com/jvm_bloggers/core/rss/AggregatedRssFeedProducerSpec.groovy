@@ -28,7 +28,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
     String AUTHOR_1 = 'author_1', AUTHOR_2 = 'author_2'
     String DESCRIPTION = 'description'
     String INVALID_URL = 'http://invalid-url'
-    String REQUEST_URL = 'http://jvm-bloggers.com/rss'
+    String REQUEST_URL = 'https://jvm-bloggers.com/rss'
     LocalDateTime DATE = new NowProvider().now()
     String UID_1 = UUID.randomUUID().toString()
     String UID_2 = UUID.randomUUID().toString()
