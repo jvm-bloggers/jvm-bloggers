@@ -149,6 +149,12 @@
       "name": "Azimo Labs",
       "rss": "https://medium.com/feed/azimolabs",
       "twitter": "@AzimoLabs"
+    },
+    {
+      "bookmarkableId": "tornimo.io",
+      "name": "Tornimo.io",
+      "rss": "http://tornimo.io/news/feed/",
+      "twitter": "@tornimoio"
     }
   ]
 }
