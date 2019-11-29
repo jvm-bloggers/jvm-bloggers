@@ -21,31 +21,31 @@ class BlogsPageRequestHandlerSpec extends MockSpringContextAwareSpecification {
 
     def "Should ask for sorted by author asc"() {
         given:
-            BlogsPageRequestHandler handler = new BlogsPageRequestHandler()
+        BlogsPageRequestHandler handler = new BlogsPageRequestHandler()
 
         when:
-            handler.iterator(0, 10)
+        handler.iterator(0, 10)
 
         then:
-            1 * blogRepository.findAll((PageRequest) _) >> { args ->
-                assert new Sort(Sort.Direction.ASC, "author") == args[0].sort
-                new PageImpl<>([])
-            }
+        1 * blogRepository.findAll((PageRequest) _) >> { args ->
+            assert Sort.by(Sort.Direction.ASC, "author") == args[0].sort
+            new PageImpl<>([])
+        }
     }
 
     def "Should ask for sorted by rss desc"() {
         given:
-            BlogsPageRequestHandler handler = new BlogsPageRequestHandler()
-            handler.setSort("rss", SortOrder.DESCENDING)
+        BlogsPageRequestHandler handler = new BlogsPageRequestHandler()
+        handler.setSort("rss", SortOrder.DESCENDING)
 
         when:
-            handler.iterator(0, 10)
+        handler.iterator(0, 10)
 
         then:
-            1 * blogRepository.findAll((PageRequest) _) >> { args ->
-                assert new Sort(Sort.Direction.DESC, "rss") == args[0].sort
-                new PageImpl<>([])
-            }
+        1 * blogRepository.findAll((PageRequest) _) >> { args ->
+            assert Sort.by(Sort.Direction.DESC, "rss") == args[0].getSort()
+            new PageImpl<>([])
+        }
     }
 
 }

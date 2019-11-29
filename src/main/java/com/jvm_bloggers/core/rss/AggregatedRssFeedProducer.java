@@ -45,12 +45,12 @@ public class AggregatedRssFeedProducer {
     public static final String RSS_CACHE = "Aggregated RSS feed cache";
     @VisibleForTesting
     static final String FEED_DESCRIPTION =
-        "JVMBloggers aggregated feed. You can customize your rss results by using parameters "
+        "JVM Bloggers aggregated feed. You can customize your rss results by using parameters "
         + "`limit` and 'excludedAuthors` (comma delimited names) parameters. "
         + "Example: http://jvm-bloggers.com/pl/rss?limit=5&excludedAuthors=Tomasz Dziurko Adam Warski";
 
     @VisibleForTesting
-    static final String FEED_TITLE = "JVMBloggers";
+    static final String FEED_TITLE = "JVM Bloggers";
     @VisibleForTesting
     static final String FEED_TYPE = "atom_1.0";
     @VisibleForTesting
@@ -88,14 +88,12 @@ public class AggregatedRssFeedProducer {
             stopWatch.start();
         }
 
-        final Pageable pageRequest = new PageRequest(0, limit > 0 ? limit : Integer.MAX_VALUE);
+        final Pageable pageRequest = PageRequest.of(0, limit > 0 ? limit : Integer.MAX_VALUE);
         if (CollectionUtils.isEmpty(excludedAuthors)) {
             excludedAuthors = INCLUDE_ALL_AUTHORS_SET;
         }
-        final List<BlogPost> approvedPosts =
-            blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(
-                pageRequest, excludedAuthors
-                );
+        final List<BlogPost> approvedPosts = blogPostRepository
+            .findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(pageRequest, excludedAuthors);
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .filter(it -> Validators.isUrlValid(it.getUrl()))
             .map(this::toRssEntry)

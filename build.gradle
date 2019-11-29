@@ -1,159 +1,163 @@
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url 'https://repo.spring.io/snapshot' }
-        maven { url 'https://repo.spring.io/milestone' }
+        gradlePluginPortal()
     }
+
+    ext {
+    }
+
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
-        classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE"
+        classpath "com.bmuschko:gradle-docker-plugin:6.0.0"
         classpath 'cz.alenkacz.gradle:json-validator:1.1.1'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'checkstyle'
-apply plugin: 'jacoco'
-apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'application'
-apply plugin: 'docker'
-apply plugin: 'cz.alenkacz.gradle.jsonvalidator'
-apply plugin: 'com.ofg.uptodate'
+plugins {
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'groovy'
+    id 'idea'
+    id 'eclipse'
+    id 'net.saliman.cobertura' version '3.0.0'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
+    id 'io.freefair.lombok' version '3.7.5'
+    id 'com.bmuschko.docker-spring-boot-application' version '6.0.0'
+    id 'jacoco'
+    id "cz.alenkacz.gradle.jsonvalidator" version "1.2.1"
+    id "com.ofg.uptodate" version "1.6.3"
 
-jar {
-    baseName = 'jvm-bloggers'
-    version = '1.14.0'
 }
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+group = 'com.jvm-bloggers'
+version = '2.0.0'
+sourceCompatibility = '12'
 
 repositories {
-    mavenLocal()
     jcenter()
+    mavenLocal()
     mavenCentral()
-    maven { url 'https://repo.spring.io/snapshot' }
-    maven { url 'https://repo.spring.io/milestone' }
 }
 
 ext {
-    wicketVersion = '8.0.0-M8'
+    wicketVersion = '8.6.1'
     akkaVersion = '2.5.7'
     scalaVersion = '2.11'
-    jacksonVersion = '2.25'
+    jacksonVersion = '2.29.1'
 }
 
 dependencies {
     // Spring Boot stuff
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'com.github.ulisesbocchio:jasypt-spring-boot:1.16'
-    compile 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot:1.16'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    runtime 'org.springframework.boot:spring-boot-properties-migrator'
+
 
     // Logic
-    compile "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
-    compile "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
-    compile 'com.rometools:rome:1.9.0'
+    implementation "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
+    implementation "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
+    implementation 'com.rometools:rome:1.9.0'
 
     // Facebook
-    compile 'com.restfb:restfb:1.49.0'
+    implementation 'com.restfb:restfb:1.49.0'
 
     // Twitter
-    compile 'org.twitter4j:twitter4j-core:4.0.6'
+    implementation 'org.twitter4j:twitter4j-core:4.0.6'
 
     // View
-    compile 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.0.4'
-    compile "org.apache.wicket:wicket-devutils:$wicketVersion"
-    compile "org.apache.wicket:wicket-auth-roles:$wicketVersion"
-    compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:$wicketVersion"
-    compile "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:$wicketVersion"
-    compile "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
-    compile "org.apache.wicket:wicket-bean-validation:$wicketVersion"
-    compile 'de.agilecoders.wicket.webjars:wicket-webjars:2.0.3'
+    implementation 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:2.1.9'
+    implementation "org.apache.wicket:wicket-devutils:$wicketVersion"
+    implementation "org.apache.wicket:wicket-auth-roles:$wicketVersion"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:8.6.0"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:8.6.0"
+    implementation "org.wicketstuff:wicketstuff-annotation:8.6.0"
+    implementation "org.apache.wicket:wicket-bean-validation:$wicketVersion"
+    implementation 'de.agilecoders.wicket.webjars:wicket-webjars:2.0.16'
+    implementation 'org.webjars:jquery:2.2.4'
+
+    implementation 'org.webjars:webjars-locator:0.32-1'
+    implementation 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
+    implementation 'org.webjars:html5shiv:3.7.3-1'
+    implementation 'org.webjars:respond:1.4.2-1'
+
 
     // Utils and helpers
-    compile 'org.projectlombok:lombok:1.18.8'
-    compile 'com.google.guava:guava:23.5-jre'
-    compile 'org.apache.commons:commons-lang3:3.7'
-    compile 'org.apache.commons:commons-text:1.1'
-    compile 'org.antlr:ST4:4.0.8'
-    compile "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
-    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
-    compile 'net.jcip:jcip-annotations:1.0'
-    compile 'org.objenesis:objenesis:2.6'
-    compile 'commons-validator:commons-validator:1.6'
-    compile 'net.ftlines.wicket-source:wicket-source:7.0.0'
-    compile 'io.vavr:vavr:0.9.2'
-    compile 'org.jsoup:jsoup:1.11.2'
+    implementation 'org.projectlombok:lombok:1.18.8'
+    implementation 'com.google.guava:guava:23.5-jre'
+    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation 'org.apache.commons:commons-text:1.1'
+    implementation 'org.antlr:ST4:4.0.8'
+    implementation "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
+    implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
+    implementation 'net.jcip:jcip-annotations:1.0'
+    implementation 'org.objenesis:objenesis:2.6'
+    implementation 'commons-validator:commons-validator:1.6'
+    implementation 'io.vavr:vavr:0.9.3'
+    implementation 'org.jsoup:jsoup:1.11.2'
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.0'
 
     // Database related
-    compile 'org.postgresql:postgresql:42.1.4'
-    compile 'org.liquibase:liquibase-core:3.5.3'
-    compile 'com.mattbertolini:liquibase-slf4j:2.0.0'
+    implementation 'org.postgresql:postgresql:42.1.4'
+    implementation 'org.liquibase:liquibase-core:3.8.1'
+    implementation 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
-    compile 'org.webjars:webjars-locator:0.32-1'
-    compile 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
-    compile 'org.webjars:html5shiv:3.7.3-1'
-    compile 'org.webjars:respond:1.4.2-1'
-    compile 'org.webjars.npm:ev-emitter:1.1.1'
-    compile 'org.webjars.npm:fizzy-ui-utils:2.0.5'
-    compile 'org.webjars.npm:infinite-scroll:3.0.0'
-    compile 'org.webjars:toastr:2.1.2'
+//    implementation 'org.webjars.npm:ev-emitter:1.1.1'
+//    implementation 'org.webjars.npm:fizzy-ui-utils:2.0.5'
+//    implementation 'org.webjars.npm:infinite-scroll:3.0.0'
+
+//    implementation 'org.webjars:toastr:2.1.2'
 
     // Test dependencies
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
-    testCompile 'org.spockframework:spock-spring:1.1-groovy-2.4'
-    testCompile 'org.springframework:spring-test'
-    testCompile 'com.jayway.jsonpath:json-path:2.4.0'
-    testCompile 'cglib:cglib-nodep:3.2.5'
-    testCompile 'org.codehaus.groovy:groovy:2.4.13'
-    testCompile "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.spockframework:spock-core:1.3-groovy-2.5'
+    testImplementation 'org.spockframework:spock-spring:1.3-groovy-2.5'
+    testImplementation 'org.springframework:spring-test'
+    testImplementation 'com.jayway.jsonpath:json-path:2.4.0'
+    testImplementation 'cglib:cglib-nodep:3.3.0'
+    testImplementation 'org.codehaus.groovy:groovy:2.5.8'
+    testImplementation "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
     runtime 'com.h2database:h2'
 
 }
 
-checkstyle {
-    toolVersion = '8.1'
-}
+cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
 
-jacoco {
-    toolVersion = '0.7.9'
-}
+docker {
+    dockerCreateDockerfile {
+        instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
+    }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
+    dockerBuildImage {
+        images = [
+            'jvmbloggers/jvm-bloggers:' + project.version +"-" + getTimestampWithGitHash(),
+            'jvmbloggers/jvm-bloggers:latest',
+
+        ]
+    }
+
+    registryCredentials {
+//        url = 'https://registry-1.docker.io/v2/'
+        username = 'jvmbloggers'
+        password = 'qYparRay'
+        email = "tdziurko at gmail dottt com"
+    }
+
+    springBootApplication {
+        baseImage = 'adoptopenjdk/openjdk12:alpine-jre'
+        maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
+        ports = [8080, 8080]
+//
     }
 }
 
-tasks.coveralls {
-    dependsOn 'check'
-}
 
-group = 'jvmbloggers'
-
-task buildDocker(type: Docker, dependsOn: build) {
-    push = true
-    applicationName = jar.baseName
-    dockerfile = file('src/main/docker/Dockerfile')
-    tagVersion = jar.version + '-' + getTimestampWithGitHash()
-    doFirst {
-        copy {
-            from jar
-            into stageDir
-        }
-    }
-}
 
 bootRun {
     systemProperties = System.properties
@@ -167,8 +171,6 @@ test {
 uptodate {
     connectionTimeout 10000
 }
-
-check.dependsOn 'uptodate'
 
 String getTimestampWithGitHash() {
     String timeStamp = new Date().format('yyyyMMdd-HHmmss')
@@ -195,7 +197,7 @@ task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
 wrapper {
-    gradleVersion '4.5.1'
+    gradleVersion '5.6.4'
 }
 
 idea {

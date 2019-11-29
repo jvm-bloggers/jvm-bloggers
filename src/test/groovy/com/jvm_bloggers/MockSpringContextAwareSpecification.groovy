@@ -1,8 +1,8 @@
 package com.jvm_bloggers
 
 import com.jvm_bloggers.frontend.admin_area.session.UserSession
-import de.agilecoders.wicket.webjars.WicketWebjars
-import de.agilecoders.wicket.webjars.settings.WebjarsSettings
+//import de.agilecoders.wicket.webjars.WicketWebjars
+//import de.agilecoders.wicket.webjars.settings.WebjarsSettings
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import com.jvm_bloggers.frontend.wicket.RenderJavaScriptToFooterHeaderResponseDecorator
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -17,9 +17,9 @@ import static org.apache.wicket.authroles.authorization.strategies.role.Roles.AD
 
 abstract class MockSpringContextAwareSpecification extends Specification {
 
-    private final ApplicationContextMock mockApplicationContext = new ApplicationContextMock()
+    private ApplicationContextMock mockApplicationContext = new ApplicationContextMock()
 
-    protected final WicketTester tester = new WicketTester([
+    protected WicketTester tester = new WicketTester([
         "newSession": {
             request, response -> new UserSession(request)
         }
@@ -31,7 +31,7 @@ abstract class MockSpringContextAwareSpecification extends Specification {
                 new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container"))
         webApp.getComponentInstantiationListeners()
                 .add(new SpringComponentInjector(webApp, mockApplicationContext))
-        WicketWebjars.install(webApp, new WebjarsSettings())
+//        WicketWebjars.install(webApp, new WebjarsSettings())
         new BeanValidationConfiguration().configure(webApp)
         setupContext()
     }

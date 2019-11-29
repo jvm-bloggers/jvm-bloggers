@@ -21,10 +21,9 @@ class BloggersDataUpdaterSpec extends Specification {
 
     public static final String RSS_OF_VALID_BLOG = 'http://blog.pl/rss'
     public static final String RSS_OF_INVALID_BLOG = 'http://invalidblog.pl/rss'
+
     BlogRepository blogRepository = Mock(BlogRepository)
-
-    private SyndFeedProducer producer = syndFeedProducer()
-
+    SyndFeedProducer producer = syndFeedProducer()
     BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), producer, new BloggerChangedVerifier())
 
     def "Should insert new Person for entry with new bookmarkable_id"() {
@@ -126,7 +125,7 @@ class BloggersDataUpdaterSpec extends Specification {
 
         then:
         1 * blogRepository.save({
-            it.url = 'http://new.blog.pl'
+            it.url == 'http://new.blog.pl'
         })
         statistics.getUpdated() == 1
     }
@@ -182,7 +181,7 @@ class BloggersDataUpdaterSpec extends Specification {
     def syndFeedProducer() {
         SyndFeedProducer producer = Stub(SyndFeedProducer)
         producer.validUrlFromRss('') >> Option.none()
-        producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Option.of('http://new.blog.pl/')
+        producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Option.of('http://new.blog.pl')
         return producer
     }
 }

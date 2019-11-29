@@ -7,7 +7,7 @@ spring:
   http.encoding.force: true
   mandatory-file-encoding: UTF-8 
   jpa.hibernate.ddl-auto: validate
-liquibase.change-log: classpath:db/changelog/db.changelog.xml
+  liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
 server.compression:
   enabled: true

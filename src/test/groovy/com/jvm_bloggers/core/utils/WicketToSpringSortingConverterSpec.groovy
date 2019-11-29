@@ -16,7 +16,7 @@ class WicketToSpringSortingConverterSpec extends Specification {
             def springSort = WicketToSpringSortingConverter.convert(param)
 
         then:
-            new Sort(Sort.Direction.ASC, "testProperty") == springSort.get()
+            Sort.by(Sort.Direction.ASC, "testProperty") == springSort.get()
     }
 
     def "Should convert to spring sort anotherTestProperty desc"() {
@@ -27,7 +27,7 @@ class WicketToSpringSortingConverterSpec extends Specification {
             def springSort = WicketToSpringSortingConverter.convert(param)
 
         then:
-            new Sort(Sort.Direction.DESC, "anotherTestProperty") == springSort.get()
+            Sort.by(Sort.Direction.DESC, "anotherTestProperty") == springSort.get()
     }
 
     def "Should return empty Option"() {

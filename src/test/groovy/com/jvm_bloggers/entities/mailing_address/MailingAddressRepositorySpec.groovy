@@ -19,7 +19,7 @@ class MailingAddressRepositorySpec extends SpringContextAwareSpecification {
         mailingAddressRepository.save(address)
 
         then:
-        MailingAddress savedAddress = mailingAddressRepository.findOne(address.id)
+        MailingAddress savedAddress = mailingAddressRepository.findById(address.id).get()
         savedAddress != null
         savedAddress.address == email
     }

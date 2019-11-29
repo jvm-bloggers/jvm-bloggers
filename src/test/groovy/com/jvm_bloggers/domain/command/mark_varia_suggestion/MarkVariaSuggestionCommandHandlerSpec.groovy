@@ -24,6 +24,6 @@ class MarkVariaSuggestionCommandHandlerSpec extends SpringContextAwareSpecificat
         commandPublisher.publish(new MarkVariaSuggestion(id))
 
         then:
-        variaSuggestionRepository.findOne(id).read
+        variaSuggestionRepository.findById(id).get().read
     }
 }

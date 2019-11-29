@@ -28,7 +28,7 @@ public class TopPostsSummaryQuery {
 
     public List<TopPostsSummaryBasicDetails> loadBasicDetailsForAllSummaries() {
         List<TopPostsSummary> allSummaries = List
-            .ofAll(repository.findAll(new Sort(DESC, "year", "month")));
+            .ofAll(repository.findAll(Sort.by(DESC, "year", "month")));
         return allSummaries.map(s -> new TopPostsSummaryBasicDetails(s.getYearMonth()));
     }
 

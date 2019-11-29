@@ -10,11 +10,11 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 import de.agilecoders.wicket.webjars.WicketWebjars;
 import de.agilecoders.wicket.webjars.settings.WebjarsSettings;
 
-import net.ftlines.wicketsource.WicketSource;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
+import org.apache.wicket.markup.head.ResourceAggregator;
 import org.apache.wicket.markup.html.WebPage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -39,15 +39,17 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
     @Override
     protected void init() {
         super.init();
+
+        setHeaderResponseDecorator(response -> {
+            return new ResourceAggregator(
+              new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container")
+            )
+        })
         setHeaderResponseDecorator(
             new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container"));
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         new AnnotatedMountScanner().scanPackage("com.jvm_bloggers").mount(this);
         getMarkupSettings().setStripWicketTags(true);
-        RuntimeConfigurationType configurationType = getConfigurationType();
-        if (configurationType == RuntimeConfigurationType.DEVELOPMENT) {
-            WicketSource.configure(this);
-        }
         WicketWebjars.install(this, new WebjarsSettings());
     }
 

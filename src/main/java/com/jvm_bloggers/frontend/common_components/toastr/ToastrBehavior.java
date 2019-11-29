@@ -1,7 +1,7 @@
 package com.jvm_bloggers.frontend.common_components.toastr;
 
-import de.agilecoders.wicket.webjars.request.resource.WebjarsCssResourceReference;
-import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
+//import de.agilecoders.wicket.webjars.request.resource.WebjarsCssResourceReference;
+//import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
@@ -18,9 +18,9 @@ public class ToastrBehavior extends Behavior {
     @Override
     public void renderHead(Component component, IHeaderResponse response) {
         super.renderHead(component, response);
-        response.render(CssHeaderItem.forReference(
-                new WebjarsCssResourceReference(TOASTR_CSS)));
-        response.render(JavaScriptHeaderItem.forReference(
-                new WebjarsJavaScriptResourceReference(TOASTR_JS)));
+//        response.render(CssHeaderItem.forReference(
+//                new WebjarsCssResourceReference(TOASTR_CSS)));
+//        response.render(JavaScriptHeaderItem.forReference(
+//                new WebjarsJavaScriptResourceReference(TOASTR_JS)));
     }
 }

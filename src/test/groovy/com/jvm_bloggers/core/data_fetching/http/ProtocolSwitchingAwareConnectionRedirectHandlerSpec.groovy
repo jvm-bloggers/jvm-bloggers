@@ -12,7 +12,7 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
     static final REQUEST_HEADERS = ['header': 'value 1']
     static final String redirectLocation = 'https://redirect.location'
 
-    final HttpURLConnection httpConnection = Mock();
+    HttpURLConnection httpConnection = Mock();
 
     def "Should proceed if no redirect"() {
         given:

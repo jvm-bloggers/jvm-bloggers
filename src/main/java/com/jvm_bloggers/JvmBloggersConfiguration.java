@@ -11,7 +11,7 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.guava.GuavaCacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,9 +57,9 @@ public class JvmBloggersConfiguration {
 
     @Bean
     public CacheManager cacheManager(@Value("${cache.spec}") String cacheSpec) {
-        GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
-        guavaCacheManager.setCacheSpecification(cacheSpec);
-        return guavaCacheManager;
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.setCacheSpecification(cacheSpec);
+        return cacheManager;
     }
 
     @Bean

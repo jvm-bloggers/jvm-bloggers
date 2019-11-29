@@ -41,7 +41,7 @@ class BlogPostForListingQuerySpec  extends Specification {
         given:
         Long blogId = 1L
         Blog blog = aBlog()
-        blogRepository.findOne(blogId) >> blog
+        blogRepository.findById(blogId) >> Optional.of(blog)
 
         when:
         Option<BlogDisplayDetails> blogDisplayDetailsOption = blogPostForListingQuery.findBlogDisplayDetails(blogId)
@@ -66,7 +66,7 @@ class BlogPostForListingQuerySpec  extends Specification {
                 aBlogPost(blog),
                 aBlogPost(blog)
         ]
-        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(0, 10)) >> blogPosts
+        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, PageRequest.of(0, 10)) >> blogPosts
 
         when:
         List<BlogPostForListing> result = blogPostForListingQuery.findBlogPosts(blogId, 0, 10).toJavaList()

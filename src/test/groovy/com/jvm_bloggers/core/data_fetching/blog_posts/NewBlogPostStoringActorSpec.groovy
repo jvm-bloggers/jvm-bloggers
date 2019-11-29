@@ -24,8 +24,8 @@ class NewBlogPostStoringActorSpec extends Specification {
     JavaTestKit testProbe
     ActorRef blogPostingActor
 
-    private final String postTitle = 'Title'
-    private final String postDescription = 'description'
+    String postTitle = 'Title'
+    String postDescription = 'description'
 
     def setup() {
         ActorSystem system = ActorSystem.create('test')
@@ -118,7 +118,7 @@ class NewBlogPostStoringActorSpec extends Specification {
     def "Should use updatedDate if publishedDate is null"() {
         given:
         String postUrl = 'http://blogpost.com/blog'
-        Date updatedDate = new Date().minus(1)
+        Date updatedDate = new Date()
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
         blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.none()

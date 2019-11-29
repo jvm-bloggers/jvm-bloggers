@@ -9,12 +9,12 @@ import spock.lang.Subject
 @Subject(SyndFeedProducer)
 class SyndFeedProducerSpec extends Specification {
 
-    private final RssFetcher primaryFetcher = Mock()
-    private final RssFetcher fallbackFetcher = Mock()
-    private final RssFetcher lastFallbackFetcher = Mock()
-    private final SyndFeed syndFeed = Mock()
+    static String URL = "URL"
 
-    static final String URL = "URL"
+    private RssFetcher primaryFetcher = Mock()
+    private RssFetcher fallbackFetcher = Mock()
+    private RssFetcher lastFallbackFetcher = Mock()
+    private SyndFeed syndFeed = Mock()
 
     SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(primaryFetcher, fallbackFetcher, lastFallbackFetcher))
     private Try<SyndFeed> failure = Try.failure(new RuntimeException())

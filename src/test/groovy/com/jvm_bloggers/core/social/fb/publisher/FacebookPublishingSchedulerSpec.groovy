@@ -17,9 +17,9 @@ class FacebookPublishingSchedulerSpec extends Specification {
 
     private static final LocalDateTime NOW = LocalDateTime.now()
 
-    private final FacebookPostRepository fbPostRepository = Mock(FacebookPostRepository)
-    private final FacebookPublisher fbPublisher = Mock(FacebookPublisher)
-    private final NowProvider nowProvider = new TestNowProvider(NOW)
+    private FacebookPostRepository fbPostRepository = Mock(FacebookPostRepository)
+    private FacebookPublisher fbPublisher = Mock(FacebookPublisher)
+    private NowProvider nowProvider = new TestNowProvider(NOW)
 
     FacebookPublishingScheduler fbPublisherScheduler = new FacebookPublishingScheduler(fbPostRepository, fbPublisher, nowProvider)
 
