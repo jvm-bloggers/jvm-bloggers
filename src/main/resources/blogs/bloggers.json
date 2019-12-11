@@ -1270,6 +1270,12 @@
       "name": "Piotr Kubowicz",
       "rss": "http://pkubowicz.pl/feed/",
       "twitter": "@pkubowicz"
+    },
+    {
+      "bookmarkableId": "mloza",
+      "name": "Michał Łoza",
+      "rss": "https://blog.mloza.pl/feed/",
+      "twitter": "@LozaMichal"
     }
   ]
 }
