@@ -1270,6 +1270,12 @@
       "name": "Piotr Kubowicz",
       "rss": "http://pkubowicz.pl/feed/",
       "twitter": "@pkubowicz"
+    },
+    {
+      "bookmarkableId": "marcin-skalski",
+      "name": "Marcin Skalski",
+      "rss": "https://mskalski.dev/index.xml",
+      "twitter": "@mskalski_"
     }
   ]
 }
