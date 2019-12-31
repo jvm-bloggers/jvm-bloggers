@@ -28,6 +28,8 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     @Subject
     List<BloggerEntry> jsonEntries
 
+    private static final int TWITTER_USER_TAG_MAXIMUM_LENGTH = 16
+
     def setup() {
         JsonSlurper slurper = new JsonSlurper()
         jsonEntries = [bloggersJson, companiesJson, videosJson]
@@ -73,5 +75,47 @@ class JsonBlogsDataFileValidationSpec extends Specification {
         assert duplicateIds.isEmpty() : "Duplicate bookmarkable IDs found in json files: $duplicateIds"
     }
 
-}
+    def "should check that all twitter user tags starts with @ and are less than 16 characters"() {
+        given:
+        Collection<String> violatingTags = []
 
+        when:
+            allTwitterUsersTags().forEach({ tag ->
+            if (!tag.startsWith("@")) {
+                violatingTags.add(tag)
+            } else if (tag.length() > TWITTER_USER_TAG_MAXIMUM_LENGTH) {
+                violatingTags.add(tag)
+            }
+        })
+
+        then:
+        assert violatingTags.isEmpty():
+                "All twitter user tags should start with @ and be less than 16 chars. Found violations: $violatingTags"
+    }
+
+    def "should check that all twitter usernames are alphanumeric or underscore"() {
+        given:
+        Collection<String> violatingNames = []
+
+        when:
+            allTwitterUsersTags().forEach({ tag ->
+            String username = tag.substring(1)
+            CharMatcher alphanumericOrUnderscore = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
+                    .or(CharMatcher.inRange('A' as char, 'Z' as char) as CharMatcher)
+                    .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
+                    .or(CharMatcher.is('_' as char) as CharMatcher)
+            if (!alphanumericOrUnderscore.matchesAllOf(username)) {
+                violatingNames.add(username)
+            }
+        })
+
+        then:
+        assert violatingNames.isEmpty():
+                "All twitter usernames should be alphanumeric or underscore. Found violations: $violatingNames"
+    }
+
+    private List<String> allTwitterUsersTags() {
+        jsonEntries.findAll{ it.twitter != null }
+                .twitter
+    }
+}

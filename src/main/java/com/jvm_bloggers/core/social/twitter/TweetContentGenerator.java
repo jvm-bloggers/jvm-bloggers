@@ -22,15 +22,11 @@ import static lombok.AccessLevel.PACKAGE;
 @RequiredArgsConstructor(access = PACKAGE)
 class TweetContentGenerator {
 
-    private static final int TWEET_MAX_LENGTH = 250;
     private static final String MESSAGE_TEMPLATE =
         "Nowy numer #<number> już online - <link> z postami między innymi <personal1>"
             + "<if(company && personal2)>, <company> i <personal2>"
             + "<elseif(company)> i <company>"
             + "<elseif(personal2)> i <personal2><endif> #java #jvm";
-    private static final String SHORT_MESSAGE_TEMPLATE =
-        "Nowy numer #<number> już online - <link> z postami między innymi <personal>"
-            + "<if(company)> i <company><endif> #java #jvm";
 
     private final LinkGenerator linkGenerator;
 
@@ -63,22 +59,6 @@ class TweetContentGenerator {
         template.add("personal1", personals.head());
         template.add("personal2", personals.last());
         template.add("company", company);
-        final String tweetContent = template.render();
-
-        if (tweetIsTooLong(tweetContent, issueLink.length())) {
-            final ST shortTemplate = new ST(SHORT_MESSAGE_TEMPLATE);
-            shortTemplate.add("number", issue.getIssueNumber());
-            shortTemplate.add("link", issueLink);
-            shortTemplate.add("personal", personals.head());
-            shortTemplate.add("company", company);
-            return shortTemplate.render();
-        } else {
-            return tweetContent;
-        }
+        return template.render();
     }
-
-    private boolean tweetIsTooLong(String tweetContent, int originalIssuesLinkLength) {
-        return (tweetContent.length() - originalIssuesLinkLength + 23) > TWEET_MAX_LENGTH;
-    }
-
 }
