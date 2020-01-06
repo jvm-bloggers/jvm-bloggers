@@ -1282,6 +1282,12 @@
       "name": "Marcin Skalski",
       "rss": "https://mskalski.dev/index.xml",
       "twitter": "@mskalski_"
+    },
+    {
+      "bookmarkableId": "bartek-chmielewski",
+      "name": "Bartłomiej Chmielewski",
+      "rss": "https://bartlomiejchmielewski.pl/feed/",
+      "twitter": "@itbrainspl"
     }
   ]
 }
