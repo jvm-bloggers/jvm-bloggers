@@ -1282,6 +1282,12 @@
       "name": "Marcin Skalski",
       "rss": "https://mskalski.dev/index.xml",
       "twitter": "@mskalski_"
+    },
+    {
+      "bookmarkableId": "ostrapila",
+      "name": "Ostra Piła",
+      "rss": "http://feeds.feedburner.com/PodcastOstrapila",
+      "twitter": "@ostrapila"
     }
   ]
 }
