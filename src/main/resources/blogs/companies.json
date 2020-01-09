@@ -155,6 +155,12 @@
       "name": "Tornimo.io",
       "rss": "http://tornimo.io/news/feed/",
       "twitter": "@tornimoio"
+    },
+    {
+      "bookmarkableId": "nexocode",
+      "name": "nexocode",
+      "rss": "https://www.nexocode.com/blog/index.xml",
+      "twitter": "@nexocode_com"
     }
   ]
 }
