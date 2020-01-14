@@ -1,39 +1,36 @@
 package com.jvm_bloggers.core.data_fetching.blogs.json_data
 
 import com.google.common.base.CharMatcher
-import com.jvm_bloggers.JvmBloggersApplication
 import groovy.json.JsonSlurper
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.core.io.Resource
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.ContextConfiguration
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Unroll
 
-@ContextConfiguration
-@SpringBootTest(classes = JvmBloggersApplication)
-@ActiveProfiles("test")
 class JsonBlogsDataFileValidationSpec extends Specification {
 
-    @Value("classpath:blogs/bloggers.json")
-    Resource bloggersJson
-
-    @Value("classpath:blogs/companies.json")
-    Resource companiesJson
-
-    @Value("classpath:blogs/videos.json")
-    Resource videosJson
-
     @Subject
+    @Shared
     List<BloggerEntry> jsonEntries
 
     private static final int TWITTER_USER_TAG_MAXIMUM_LENGTH = 16
 
-    def setup() {
+    private static final CharMatcher alphanumericOrUnderscore = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
+            .or(CharMatcher.inRange('A' as char, 'Z' as char) as CharMatcher)
+            .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
+            .or(CharMatcher.is('_' as char) as CharMatcher)
+
+    private static final CharMatcher lowercaseOrHyphen = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
+            .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
+            .or(CharMatcher.is('-' as char) as CharMatcher)
+
+    def setupSpec() {
+        File bloggersJson = new File('src/main/resources/blogs/bloggers.json')
+        File companiesJson = new File('src/main/resources/blogs/companies.json')
+        File videosJson = new File('src/main/resources/blogs/videos.json')
+
         JsonSlurper slurper = new JsonSlurper()
         jsonEntries = [bloggersJson, companiesJson, videosJson]
-            .collect {json -> json.inputStream}
             .collect({stream ->
                BloggersData data = slurper.parse(stream)
                data.getBloggers()
@@ -41,21 +38,14 @@ class JsonBlogsDataFileValidationSpec extends Specification {
             .flatten()
     }
 
-    def "should check that all bookmarkable IDs are lower-case, alphanumeric or hyphen"() {
-        List<String> violatingIds = []
+    @Unroll
+    def "should check that bookmarkable ID is lower-case, alphanumeric or hyphen"() {
+        expect:
+        lowercaseOrHyphen.matchesAllOf(id)
 
-        when:
-        jsonEntries.bookmarkableId.forEach({id ->
-            CharMatcher lowercaseOrHyphen = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
-                .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
-                .or(CharMatcher.is('-' as char) as CharMatcher)
-            if (!lowercaseOrHyphen.matchesAllOf(id)) {
-                violatingIds.add(id)
-            }
-        })
-
-        then:
-        assert violatingIds.isEmpty() : "All bookmarkable IDs should be lower-cased, alphanumeric or hyphen. Found violations: $violatingIds"
+        where:
+        jsonHandle << jsonEntries
+        id = jsonHandle.bookmarkableId
     }
 
     def "should check that all bookmarkable IDs are unique"() {
@@ -75,43 +65,33 @@ class JsonBlogsDataFileValidationSpec extends Specification {
         assert duplicateIds.isEmpty() : "Duplicate bookmarkable IDs found in json files: $duplicateIds"
     }
 
-    def "should check that all twitter user tags starts with @ and are less than 16 characters"() {
-        given:
-        Collection<String> violatingTags = []
+    @Unroll
+    def "should check that twitter user tag starts with @"() {
+        expect:
+        tag.startsWith("@")
 
-        when:
-            allTwitterUsersTags().forEach({ tag ->
-            if (!tag.startsWith("@")) {
-                violatingTags.add(tag)
-            } else if (tag.length() > TWITTER_USER_TAG_MAXIMUM_LENGTH) {
-                violatingTags.add(tag)
-            }
-        })
-
-        then:
-        assert violatingTags.isEmpty():
-                "All twitter user tags should start with @ and be less than 16 chars. Found violations: $violatingTags"
+        where:
+        tag << allTwitterUsersTags()
     }
 
-    def "should check that all twitter usernames are alphanumeric or underscore"() {
-        given:
-        Collection<String> violatingNames = []
 
-        when:
-            allTwitterUsersTags().forEach({ tag ->
-            String username = tag.substring(1)
-            CharMatcher alphanumericOrUnderscore = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
-                    .or(CharMatcher.inRange('A' as char, 'Z' as char) as CharMatcher)
-                    .or(CharMatcher.inRange('0' as char, '9' as char) as CharMatcher)
-                    .or(CharMatcher.is('_' as char) as CharMatcher)
-            if (!alphanumericOrUnderscore.matchesAllOf(username)) {
-                violatingNames.add(username)
-            }
-        })
+    @Unroll
+    def "should check that twitter user tag is less than 16 characters"() {
+        expect:
+        tag.length() <= TWITTER_USER_TAG_MAXIMUM_LENGTH
 
-        then:
-        assert violatingNames.isEmpty():
-                "All twitter usernames should be alphanumeric or underscore. Found violations: $violatingNames"
+        where:
+        tag << allTwitterUsersTags()
+    }
+
+    @Unroll
+    def "should check that twitter username is alphanumeric or underscore"() {
+        expect:
+        alphanumericOrUnderscore.matchesAllOf(username)
+
+        where:
+        tag << allTwitterUsersTags()
+        username = tag.substring(1)
     }
 
     private List<String> allTwitterUsersTags() {
