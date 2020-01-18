@@ -48,4 +48,5 @@ public class BlogPostsController {
 
         return rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
     }
+
 }

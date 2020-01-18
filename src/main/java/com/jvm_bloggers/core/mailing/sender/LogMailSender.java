@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.ApplicationProfiles.DEV;
+import static com.jvm_bloggers.ApplicationProfiles.STAGE;
 import static com.jvm_bloggers.ApplicationProfiles.TEST;
 import static com.jvm_bloggers.core.mailing.sender.MailSender.EmailSendingStatus.SUCCESS;
 
 @Component
-@Profile({DEV, TEST})
+@Profile({DEV, STAGE, TEST})
 @Slf4j
 public class LogMailSender implements MailSender {
 

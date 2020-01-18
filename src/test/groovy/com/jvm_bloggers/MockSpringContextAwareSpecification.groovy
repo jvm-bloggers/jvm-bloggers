@@ -4,8 +4,11 @@ import com.jvm_bloggers.frontend.admin_area.session.UserSession
 //import de.agilecoders.wicket.webjars.WicketWebjars
 //import de.agilecoders.wicket.webjars.settings.WebjarsSettings
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
-import com.jvm_bloggers.frontend.wicket.RenderJavaScriptToFooterHeaderResponseDecorator
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
+import org.apache.wicket.markup.head.IHeaderResponse
+import org.apache.wicket.markup.head.ResourceAggregator
+import org.apache.wicket.markup.head.filter.JavaScriptFilteredIntoFooterHeaderResponse
+import org.apache.wicket.markup.html.IHeaderResponseDecorator
 import org.apache.wicket.mock.MockApplication
 import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector
@@ -27,8 +30,14 @@ abstract class MockSpringContextAwareSpecification extends Specification {
 
     def setup() {
         WebApplication webApp = tester.getApplication()
-        webApp.setHeaderResponseDecorator(
-                new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container"))
+        webApp.setHeaderResponseDecorator(new IHeaderResponseDecorator() {
+            @Override
+            IHeaderResponse decorate(IHeaderResponse response) {
+                return new ResourceAggregator(
+                    new JavaScriptFilteredIntoFooterHeaderResponse(response, "footer-container")
+                );
+            }
+        })
         webApp.getComponentInstantiationListeners()
                 .add(new SpringComponentInjector(webApp, mockApplicationContext))
 //        WicketWebjars.install(webApp, new WebjarsSettings())

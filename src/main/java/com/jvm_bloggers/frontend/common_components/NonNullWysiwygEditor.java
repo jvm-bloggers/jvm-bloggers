@@ -4,7 +4,6 @@ import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.WysiwygEditor;
 import com.googlecode.wicket.jquery.ui.plugins.wysiwyg.toolbar.IWysiwygToolbar;
 
 import org.apache.wicket.markup.html.form.HiddenField;
-import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.IModel;
 import org.springframework.util.ReflectionUtils;
 

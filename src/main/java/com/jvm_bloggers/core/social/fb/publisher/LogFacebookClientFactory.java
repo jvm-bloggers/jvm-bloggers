@@ -14,11 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static com.jvm_bloggers.ApplicationProfiles.DEV;
+import static com.jvm_bloggers.ApplicationProfiles.STAGE;
 import static com.jvm_bloggers.ApplicationProfiles.TEST;
 
 @Slf4j
 @Component
-@Profile({DEV, TEST})
+@Profile({DEV, STAGE, TEST})
 class LogFacebookClientFactory implements FacebookClientFactory {
 
     @Override

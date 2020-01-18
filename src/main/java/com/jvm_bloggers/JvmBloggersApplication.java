@@ -4,17 +4,14 @@ import com.giffing.wicket.spring.boot.starter.app.WicketBootSecuredWebApplicatio
 import com.jvm_bloggers.frontend.admin_area.login.LoginPage;
 import com.jvm_bloggers.frontend.admin_area.session.UserSession;
 import com.jvm_bloggers.frontend.public_area.HomePage;
-import com.jvm_bloggers.frontend.wicket.RenderJavaScriptToFooterHeaderResponseDecorator;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
-
 import de.agilecoders.wicket.webjars.WicketWebjars;
 import de.agilecoders.wicket.webjars.settings.WebjarsSettings;
-
 import org.apache.wicket.Page;
-import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
 import org.apache.wicket.markup.head.ResourceAggregator;
+import org.apache.wicket.markup.head.filter.JavaScriptFilteredIntoFooterHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -32,8 +29,8 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder()
-            .sources(JvmBloggersApplication.class)
-            .run(args);
+          .sources(JvmBloggersApplication.class)
+          .run(args);
     }
 
     @Override
@@ -42,11 +39,9 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
 
         setHeaderResponseDecorator(response -> {
             return new ResourceAggregator(
-              new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container")
-            )
-        })
-        setHeaderResponseDecorator(
-            new RenderJavaScriptToFooterHeaderResponseDecorator("footer-container"));
+              new JavaScriptFilteredIntoFooterHeaderResponse(response, "footer-container")
+            );
+        });
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         new AnnotatedMountScanner().scanPackage("com.jvm_bloggers").mount(this);
         getMarkupSettings().setStripWicketTags(true);

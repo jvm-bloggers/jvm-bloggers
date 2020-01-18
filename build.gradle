@@ -108,11 +108,11 @@ dependencies {
     implementation 'org.liquibase:liquibase-core:3.8.1'
     implementation 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
-//    implementation 'org.webjars.npm:ev-emitter:1.1.1'
-//    implementation 'org.webjars.npm:fizzy-ui-utils:2.0.5'
-//    implementation 'org.webjars.npm:infinite-scroll:3.0.0'
+    implementation 'org.webjars.npm:ev-emitter:1.1.1'
+    implementation 'org.webjars.npm:fizzy-ui-utils:2.0.5'
+    implementation 'org.webjars.npm:infinite-scroll:3.0.6'
 
-//    implementation 'org.webjars:toastr:2.1.2'
+    implementation 'org.webjars:toastr:2.1.2'
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -136,16 +136,14 @@ docker {
 
     dockerBuildImage {
         images = [
-            'jvmbloggers/jvm-bloggers:' + project.version +"-" + getTimestampWithGitHash(),
-            'jvmbloggers/jvm-bloggers:latest',
-
+            'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
+            'jvmbloggers/jvm-bloggers:latest'
         ]
     }
 
     registryCredentials {
-//        url = 'https://registry-1.docker.io/v2/'
-        username = 'jvmbloggers'
-        password = 'qYparRay'
+        username = 'TODO'
+        password = 'TODO'
         email = "tdziurko at gmail dottt com"
     }
 
@@ -153,11 +151,8 @@ docker {
         baseImage = 'adoptopenjdk/openjdk12:alpine-jre'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
-//
     }
 }
-
-
 
 bootRun {
     systemProperties = System.properties

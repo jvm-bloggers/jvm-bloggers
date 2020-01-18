@@ -1,17 +1,19 @@
+server.port: 8080
+
 spring:
   datasource:
-    url: jdbc:postgresql://jvm-bloggers-db:5432/jvm_bloggers
-    username: jvm_bloggers
-    password: jvm_bloggers
+    url: jdbc:postgresql://jvm-bloggers.com:5432/xxx
+    username: "ENC(UCI18sY7gx2IG8jU2w3/zcCxE80YLmTfFIjfmiw/IWc=)"
+    password: "ENC(paRXsy9M7apHY2C4vvD6Otf4FO40xqdYm/7Ctt+s+58=)"
     driver: org.postgresql.Driver
     test-on-borrow: true
     validation-query: SELECT 1
 
 # Mail Configuration
 mailing:
-  apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
-  fromEmail: "ENC(UwnuhOY69dp6qFvEDHhl45nGY8iIe+wqm5Yk0pyLS9A=)"
-  throttleDelayInSeconds: 1
+  apiKey: "empty"
+  fromEmail: "empty"
+  throttleDelayInSeconds: 180
 
 # Wicket configuration
 wicket.core.settings.general.runtime-configuration: development
@@ -20,3 +22,11 @@ wicket.core.settings.debug.enabled: true
 wicket.core.settings.debug.developmentUtilitiesEnabled: true
 wicket.core.settings.debug.ajaxDebugModeEnabled: true
 wicket.core.settings.debug.componentUseCheck: true
+
+logging.level.com.jvm_bloggers: DEBUG
+
+application.baseUrl: http://localhost:${server.port}
+
+facebook.api:
+  userToken: #User access token can be created as it is described in FACEBOOK.md
+  appSecret: #To get application's secret check FACEBOOK.md
