@@ -19,10 +19,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static com.jvm_bloggers.ApplicationProfiles.PRODUCTION;
-import static com.jvm_bloggers.ApplicationProfiles.STAGE;
 
 @Component
-@Profile({PRODUCTION, STAGE})
+@Profile({PRODUCTION})
 @Slf4j
 class MailgunSender implements MailSender {
 

@@ -13,15 +13,17 @@ import java.time.LocalDateTime
 
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
+import static java.lang.Boolean.FALSE
+import static java.lang.Boolean.TRUE
+import static java.lang.Integer.MAX_VALUE
 
 @Subject(BlogPostRepository)
 class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
-    
     static NOT_MODERATED = null
-    static APPROVED = Boolean.TRUE
-    static REJECTED = Boolean.FALSE
-    static PAGEABLE = new PageRequest(0, Integer.MAX_VALUE)
+    static APPROVED = TRUE
+    static REJECTED = FALSE
+    static PAGEABLE = PageRequest.of(0, MAX_VALUE)
 
     static EXCLUDED_AUTHOR = "Excluded Author"
 
@@ -44,7 +46,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             aBlogPost(6, LocalDateTime.of(2016, 1, 6, 12, 00), NOT_MODERATED, blog)
         ]
 
-        blogPostRepository.save(blogPosts)
+        blogPostRepository.saveAll(blogPosts)
 
         when:
         List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(PAGEABLE)
@@ -77,7 +79,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             aBlogPost(2, publishedDate, APPROVED, excludedBlog),
         ]
 
-        blogPostRepository.save(excludedblogPosts)
+        blogPostRepository.saveAll(excludedblogPosts)
 
         Blog includedBlog = aBlog("bookmarkId-2","Included Author", "http://included.pl/")
 
@@ -86,7 +88,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
             aBlogPost(4, publishedDate, APPROVED, includedBlog),
         ]
 
-        blogPostRepository.save(includedBlogPosts)
+        blogPostRepository.saveAll(includedBlogPosts)
 
         when:
         List<BlogPost> filteredPosts = blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(PAGEABLE, excludedAuthors)

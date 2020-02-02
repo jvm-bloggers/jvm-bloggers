@@ -26,7 +26,7 @@ public class BlogStatisticsForListingQuery {
         return blogRepository.findBlogStatistics(
             nowProvider.today().minusMonths(3).atStartOfDay(),
             nowProvider.today().minusMonths(12).atStartOfDay(),
-            blogType, new PageRequest(page, size))
+            blogType, PageRequest.of(page, size))
             .map(BlogStatisticsForListing::fromBlogPostStatisticProjection);
     }
 

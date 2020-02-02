@@ -17,7 +17,7 @@ public class WicketToSpringSortingConverter {
 
         Sort.Direction direction = toSpringDirection(wicketSortState.isAscending());
 
-        return Option.of(new Sort(direction, wicketSortState.getProperty()));
+        return Option.of(Sort.by(direction, wicketSortState.getProperty()));
     }
 
     private static Sort.Direction toSpringDirection(boolean ascending) {

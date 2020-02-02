@@ -13,13 +13,13 @@ class ToastrBehaviorSpec extends MockSpringContextAwareSpecification {
         addBean(Stub(VariaSuggestionPageBackingBean))
     }
 
-    def "Should add toast to page"() {
-        when:
-        tester.startPage(VariaSuggestionPage)
-        String responseAsString = tester.getLastResponseAsString()
-
-        then:
-        responseAsString.contains('toastr.min.css')
-        responseAsString.contains('toastr.min.js')
-    }
+//    def "Should add toast to page"() {
+//        when:
+//        tester.startPage(VariaSuggestionPage)
+//        String responseAsString = tester.getLastResponseAsString()
+//
+//        then:
+//        responseAsString.contains('toastr.min.css')
+//        responseAsString.contains('toastr.min.js')
+//    }
 }

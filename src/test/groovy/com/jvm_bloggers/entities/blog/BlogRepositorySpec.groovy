@@ -45,7 +45,7 @@ class BlogRepositorySpec extends SpringContextAwareSpecification {
                 LocalDate.now().minusMonths(3).atStartOfDay(),
                 LocalDate.now().minusMonths(6).atStartOfDay(),
                 PERSONAL,
-                new PageRequest(0, 10))
+                PageRequest.of(0, 10))
 
         then:
         result.length() == 2

@@ -14,7 +14,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.MediaType.APPLICATION_ATOM_XML_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,15 +24,29 @@ public class BlogPostsController {
     private final AggregatedRssFeedProducer rssProducer;
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        path = RSS_FEED_MAPPING,
-        produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
+      method = RequestMethod.GET,
+      path = { RSS_FEED_MAPPING + ".xml", RSS_FEED_MAPPING},
+      produces = APPLICATION_ATOM_XML_VALUE
     )
-    public SyndFeed getRss(
-        HttpServletRequest request,
-        @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
-        @RequestParam(required = false) Set<String> excludedAuthors) {
+    public SyndFeed getRssAxXml(
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
+      @RequestParam(required = false) Set<String> excludedAuthors) {
 
         return rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
     }
+
+    @RequestMapping(
+      method = RequestMethod.GET,
+      path = RSS_FEED_MAPPING + ".json",
+      produces = APPLICATION_JSON_VALUE
+    )
+    public SyndFeed getRssAsJson(
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
+      @RequestParam(required = false) Set<String> excludedAuthors) {
+
+        return rssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
+    }
+
 }

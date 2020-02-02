@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.common_components.infinite_scroll;
 
 import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.wicket.Component;
@@ -22,8 +21,8 @@ public class InfiniteScrollingBehavior extends Behavior {
 
     private static final String AJAX_INTERCEPTOR = "js/ajax-request-interceptor.js";
 
-    private static final String
-        INFINITE_SCROLL = "infinite-scroll/current/dist/infinite-scroll.pkgd.min.js";
+    // FIXME: 10.01.2020 Hardcoded version number, for some reason `current` was resolved to null
+    private static final String INFINITE_SCROLL = "infinite-scroll/current/dist/infinite-scroll.pkgd.min.js";
 
     private static final String
         INFINITE_SCROLL_EVENT_LISTENER = "js/infinite-scroll-event-listener.js";

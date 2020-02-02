@@ -11,8 +11,8 @@ import com.jvm_bloggers.utils.NowProvider
 import org.apache.wicket.Page
 import org.apache.wicket.util.tester.FormTester
 
-import static MetadataKeys.MAILING_GREETING
-import static MetadataKeys.MAILING_TEMPLATE
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.MAILING_GREETING
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.MAILING_TEMPLATE
 import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.*
 
 class MailingPageSpec extends MockSpringContextAwareSpecification {

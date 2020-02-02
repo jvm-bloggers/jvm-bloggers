@@ -21,6 +21,9 @@ public class BlogModel extends LoadableDetachableModel<Blog> {
 
     @Override
     protected Blog load() {
-        return blogRepository.findOne(blogId);
+        return blogRepository
+          .findById(blogId)
+          .orElseThrow(() -> new RuntimeException("Blog with id " + blogId + " not found"));
     }
+
 }

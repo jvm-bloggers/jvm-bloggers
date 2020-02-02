@@ -3,7 +3,7 @@ language: java
 sudo: required
 
 jdk:
-    - openjdk8
+    - openjdk12
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)

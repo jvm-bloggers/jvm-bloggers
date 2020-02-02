@@ -26,7 +26,7 @@ public class NewsletterIssueForListingQuery {
     }
 
     public Seq<NewsletterIssueForListing> findLatestIssues(int count) {
-        PageRequest page = new PageRequest(0, count);
+        PageRequest page = PageRequest.of(0, count);
         return repository.findByOrderByPublishedDateDesc(page)
             .map(convertToDomainObject());
     }

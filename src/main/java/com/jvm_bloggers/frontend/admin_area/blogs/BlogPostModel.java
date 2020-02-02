@@ -24,6 +24,9 @@ public class BlogPostModel extends LoadableDetachableModel<BlogPost> {
     @Override
     protected BlogPost load() {
         log.debug("Loading post with id " + blogPostId);
-        return blogPostRepository.findOne(blogPostId);
+        return blogPostRepository
+          .findById(blogPostId)
+          .orElseThrow(() -> new RuntimeException("Blog post with id " + blogPostId + " not found"));
     }
+
 }

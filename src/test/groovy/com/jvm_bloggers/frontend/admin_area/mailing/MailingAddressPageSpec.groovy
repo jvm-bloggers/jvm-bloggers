@@ -21,7 +21,7 @@ class MailingAddressPageSpec extends MockSpringContextAwareSpecification {
     MailingAddressPageRequestHandler requestHandler = Mock(MailingAddressPageRequestHandler)
     MailingAddressRepository mailingAddressRepository = Mock(MailingAddressRepository)
 
-    def void setupContext() {
+    void setupContext() {
         addBean(paginationConfiguration)
         addBean(requestHandler)
         addBean(mailingAddressRepository)

@@ -31,7 +31,7 @@ public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
         int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         long start = System.currentTimeMillis();
         Iterator<BlogPost> iterator = blogPostRepository
-            .findLatestPosts(new PageRequest(page, paginationConfiguration.getDefaultPageSize()))
+            .findLatestPosts(PageRequest.of(page, paginationConfiguration.getDefaultPageSize()))
             .iterator();
         long stop = System.currentTimeMillis();
         log.debug("Iterator() execution time = " + (stop - start) + " ms");

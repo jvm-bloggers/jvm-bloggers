@@ -23,7 +23,7 @@ class TweetContentGeneratorSpec extends Specification {
     private static final Random randomJsonId = new Random()
     private static final NowProvider nowProvider = new NowProvider()
 
-    private final LinkGenerator linkGenerator = Stub(LinkGenerator)
+    private LinkGenerator linkGenerator = Stub(LinkGenerator)
 
     private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)
 
