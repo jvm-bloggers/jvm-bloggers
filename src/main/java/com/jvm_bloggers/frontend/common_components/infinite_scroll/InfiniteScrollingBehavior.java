@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.common_components.infinite_scroll;
 
-//import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
-
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.wicket.Component;
@@ -42,9 +41,9 @@ public class InfiniteScrollingBehavior extends Behavior {
             JavaScriptHeaderItem.forReference(
                 new JavaScriptResourceReference(
                     InfiniteScrollingBehavior.class, AJAX_INTERCEPTOR)));
-//        headerResponse.render(
-//            JavaScriptHeaderItem.forReference(
-//                new WebjarsJavaScriptResourceReference(INFINITE_SCROLL)));
+        headerResponse.render(
+            JavaScriptHeaderItem.forReference(
+                new WebjarsJavaScriptResourceReference(INFINITE_SCROLL)));
         headerResponse.render(JavaScriptHeaderItem.forScript(createScript(component), INIT_JS_ID));
         headerResponse.render(
             JavaScriptHeaderItem.forReference(
