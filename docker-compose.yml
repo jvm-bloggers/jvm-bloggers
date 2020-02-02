@@ -1,8 +1,8 @@
 version: '3.4'
-
 services:
   jvm-bloggers-db:
     image: sameersbn/postgresql:9.4-22
+    container_name: jvm-bloggers-db
     environment:
       DB_USER: $JVM_BLOGGERS_DB_USER
       DB_PASS: $JVM_BLOGGERS_DB_PASSWORD
@@ -11,37 +11,35 @@ services:
       - "$JVM_BLOGGERS_DB_PUBLISHED_PORT:5432"
     volumes:
       - "$JVM_BLOGGERS_DB_PATH:/var/lib/postgresql"
-    depends_on:
-      - logsense-forwarder
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: "127.0.0.1:24224"
+    restart: on-failure
   jvm-bloggers-core:
     image: jvmbloggers/jvm-bloggers:$JVM_BLOGGERS_CORE_IMAGE_VERSION
+    container_name: jvm-bloggers-core
     environment:
       spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
       jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
     ports:
-      - "$JVM_BLOGGERS_CORE_PORT:8080"
+      - "80:8080"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
-      - /home/jvm-bloggers/jvm-bloggers-app/logs:/home/blogger/app/logs
       - /tmp
     links:
       - jvm-bloggers-db
     depends_on:
       - jvm-bloggers-db
-      - logsense-forwarder
-    logging:
-      driver: fluentd
-      options:
-        fluentd-address: "127.0.0.1:24224"
-  logsense-forwarder:
-    image: collectivesense/logsense-forwarder
+  datadog:
+    links:
+      - jvm-bloggers-core
+      - jvm-bloggers-db
+    image: datadog/agent:latest
     environment:
-      - LOGSENSE_TOKEN=$LOGSENSE_TOKEN
-    ports:
-      - "127.0.0.1:24224:24224"
+      - DD_API_KEY=$DATADOG_API_KEY
+      - DD_SITE=datadoghq.eu
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
 
