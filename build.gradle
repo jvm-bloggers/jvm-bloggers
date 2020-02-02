@@ -143,9 +143,9 @@ docker {
     }
 
     registryCredentials {
-        username = 'TODO'
-        password = 'TODO'
-        email = "tdziurko at gmail dottt com"
+        username = getConfigurationProperty('DOCKER_USERNAME', 'docker.username')
+        password = getConfigurationProperty('DOCKER_PASSWORD', 'docker.password')
+        email = getConfigurationProperty('DOCKER_EMAIL', 'docker.email')
     }
 
     springBootApplication {
@@ -153,6 +153,10 @@ docker {
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
     }
+}
+
+String getConfigurationProperty(String envVar, String sysProp) {
+    System.getenv(envVar) ?: project.findProperty(sysProp)
 }
 
 bootRun {
