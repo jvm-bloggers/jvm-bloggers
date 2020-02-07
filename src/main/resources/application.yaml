@@ -33,7 +33,7 @@ scheduler:
   fetch-bloggers-data: 0 5/10 * * * *
   fetch-rss-for-new-blogs: 0 30 * * * *
   publish-new-issue: 0 0 8 * * FRI
-  send-email: 120000 # 2 minutes
+  send-email: 30000 # 30 seconds
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
   publish-twitter: 36000 # 5 minutes
