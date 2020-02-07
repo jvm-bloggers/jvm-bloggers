@@ -47,7 +47,7 @@ ext {
     wicketVersion = '8.6.1'
     akkaVersion = '2.5.7'
     scalaVersion = '2.11'
-    jacksonVersion = '2.30'
+    jacksonVersion = '2.29.1'
 }
 
 dependencies {
@@ -103,6 +103,7 @@ dependencies {
     implementation 'org.antlr:ST4:4.3'
     implementation "org.glassfish.jersey.core:jersey-client:$jacksonVersion"
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jacksonVersion"
+    implementation "org.glassfish.jersey.inject:jersey-hk2:$jacksonVersion"
     implementation 'net.jcip:jcip-annotations:1.0'
     implementation 'org.objenesis:objenesis:3.1'
     implementation 'commons-validator:commons-validator:1.6'
