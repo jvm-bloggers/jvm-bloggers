@@ -1,8 +1,9 @@
 package com.jvm_bloggers
 
 import com.jvm_bloggers.frontend.admin_area.session.UserSession
-//import de.agilecoders.wicket.webjars.WicketWebjars
-//import de.agilecoders.wicket.webjars.settings.WebjarsSettings
+
+import de.agilecoders.wicket.webjars.WicketWebjars
+import de.agilecoders.wicket.webjars.settings.WebjarsSettings
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
 import org.apache.wicket.markup.head.IHeaderResponse
@@ -40,7 +41,7 @@ abstract class MockSpringContextAwareSpecification extends Specification {
         })
         webApp.getComponentInstantiationListeners()
                 .add(new SpringComponentInjector(webApp, mockApplicationContext))
-//        WicketWebjars.install(webApp, new WebjarsSettings())
+        WicketWebjars.install(webApp, new WebjarsSettings())
         new BeanValidationConfiguration().configure(webApp)
         setupContext()
     }
