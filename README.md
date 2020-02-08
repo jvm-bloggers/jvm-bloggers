@@ -2,7 +2,7 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers/branches) [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers) [![jvm-bloggers@JVM Poland](https://img.shields.io/badge/jvmbloggers-@JVM%20Poland-green.svg?logo=slack&longCache=true&style=flat)](https://jvm-poland.slack.com/messages/C4R5VSNP9)
+[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers/branches) [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers)
 [![Sputnik Status](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
 
 ## Overview
