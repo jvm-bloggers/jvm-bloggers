@@ -23,8 +23,6 @@ plugins {
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'net.saliman.cobertura' version '3.0.0'
-    id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'io.freefair.lombok' version '4.1.6'
     id 'com.bmuschko.docker-spring-boot-application' version '6.1.2'
     id 'jacoco'
@@ -129,8 +127,6 @@ dependencies {
 
 }
 
-cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
-
 docker {
     dockerCreateDockerfile {
         instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
@@ -167,6 +163,7 @@ bootRun {
 test {
     systemProperty 'file.encoding', 'utf-8'
     dependsOn 'validateBlogsData'
+    useJUnitPlatform()
 }
 
 uptodate {
@@ -191,6 +188,12 @@ task validateBlogsData() {
             targetJsonFile = new File(blogsDir, "${fileName}.json")
         }
         dependsOn taskName
+    }
+}
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
     }
 }
 
