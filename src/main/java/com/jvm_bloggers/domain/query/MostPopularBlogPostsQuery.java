@@ -44,7 +44,7 @@ public class MostPopularBlogPostsQuery {
             startDate,
             endDate,
             type,
-            new PageRequest(0, count)
+            PageRequest.of(0, count)
         ));
     }
 

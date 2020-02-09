@@ -49,7 +49,7 @@ public class HttpRssFetcher implements RssFetcher {
             inputStream = gzipStreamWrapper.wrap(urlConnection.getInputStream());
             return Try.success(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
-            log.debug("Problem during fetching RSS {} url: {}", rssUrl, ex.getMessage());
+            log.info("Problem during fetching RSS {} url: {}", rssUrl, ex.getMessage());
             return Try.failure(ex);
         } finally {
             closeQuietly(inputStream);

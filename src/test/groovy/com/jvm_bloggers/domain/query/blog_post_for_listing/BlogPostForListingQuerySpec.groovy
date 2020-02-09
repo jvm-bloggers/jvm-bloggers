@@ -13,13 +13,13 @@ import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static java.time.LocalDateTime.now
 import static java.util.UUID.randomUUID
 
+@Subject(BlogPostForListingQuery)
 class BlogPostForListingQuerySpec  extends Specification {
 
     BlogRepository blogRepository = Stub()
 
     BlogPostRepository blogPostRepository = Stub()
 
-    @Subject
     BlogPostForListingQuery blogPostForListingQuery = new BlogPostForListingQuery(blogRepository, blogPostRepository)
 
     def "Should query blog by code"() {
@@ -41,7 +41,7 @@ class BlogPostForListingQuerySpec  extends Specification {
         given:
         Long blogId = 1L
         Blog blog = aBlog()
-        blogRepository.findOne(blogId) >> blog
+        blogRepository.findById(blogId) >> Optional.of(blog)
 
         when:
         Option<BlogDisplayDetails> blogDisplayDetailsOption = blogPostForListingQuery.findBlogDisplayDetails(blogId)
@@ -66,7 +66,7 @@ class BlogPostForListingQuerySpec  extends Specification {
                 aBlogPost(blog),
                 aBlogPost(blog)
         ]
-        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(0, 10)) >> blogPosts
+        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, PageRequest.of(0, 10)) >> blogPosts
 
         when:
         List<BlogPostForListing> result = blogPostForListingQuery.findBlogPosts(blogId, 0, 10).toJavaList()
@@ -97,6 +97,6 @@ class BlogPostForListingQuerySpec  extends Specification {
                 .blog(blog)
                 .title(randomUUID().toString())
                 .url(randomUUID().toString())
-                .build();
+                .build()
     }
 }

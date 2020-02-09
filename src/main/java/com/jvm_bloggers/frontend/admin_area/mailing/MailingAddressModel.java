@@ -21,6 +21,8 @@ public class MailingAddressModel extends LoadableDetachableModel<MailingAddress>
 
     @Override
     protected MailingAddress load() {
-        return mailingAddressRepository.findOne(mailingAddressId);
+        return mailingAddressRepository
+          .findById(mailingAddressId)
+          .orElseThrow(() -> new RuntimeException("Mailing address with id " + mailingAddressId + " not found"));
     }
 }

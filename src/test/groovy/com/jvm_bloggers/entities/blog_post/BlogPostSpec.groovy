@@ -4,11 +4,13 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
 import java.time.LocalDateTime
 import java.time.Month
 
+@Subject(BlogPost)
 class BlogPostSpec extends Specification {
     private static final Boolean NOT_MODERATED = null
 
@@ -70,7 +72,7 @@ class BlogPostSpec extends Specification {
     def "Should approve post"() {
         given:
         BlogPost blogPost = createBlogPost(NOT_MODERATED)
-        LocalDateTime approvedDate = new NowProvider().now();
+        LocalDateTime approvedDate = new NowProvider().now()
 
         when:
         blogPost.approve(approvedDate)
@@ -113,5 +115,4 @@ class BlogPostSpec extends Specification {
         then:
         blogPost.uid != null
     }
-
 }

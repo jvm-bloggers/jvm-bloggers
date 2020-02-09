@@ -7,6 +7,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import spock.lang.Specification
 import spock.lang.Subject
 
+@Subject(InitialBlogDataPopulationTrigger)
 class InitialBlogDataPopulationTriggerSpec extends Specification {
 
     BlogRepository blogRepository = Mock()
@@ -14,7 +15,6 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
     BloggersDataFetchingScheduler bloggersDataFetchingScheduler = Mock();
     BlogPostsFetchingScheduler blogPostsFetchingScheduler = Mock();
 
-    @Subject
     InitialBlogDataPopulationTrigger tested = new InitialBlogDataPopulationTrigger(blogRepository, blogPostRepository, bloggersDataFetchingScheduler, blogPostsFetchingScheduler)
 
     def "Should trigger bloggers data population if there is no data"() {
@@ -26,8 +26,8 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
         tested.initializeDatabaseWithBlogDataIfEmpty()
 
         then:
-        1 * bloggersDataFetchingScheduler.fetchBloggersData();
-        1 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
+        1 * bloggersDataFetchingScheduler.fetchBloggersData()
+        1 * blogPostsFetchingScheduler.checkRssForNewBlogPosts()
     }
 
     def "Should skip if bloggers data already exists"() {
@@ -39,8 +39,7 @@ class InitialBlogDataPopulationTriggerSpec extends Specification {
         tested.initializeDatabaseWithBlogDataIfEmpty()
 
         then:
-        0 * bloggersDataFetchingScheduler.fetchBloggersData();
-        0 * blogPostsFetchingScheduler.checkRssForNewBlogPosts();
+        0 * bloggersDataFetchingScheduler.fetchBloggersData()
+        0 * blogPostsFetchingScheduler.checkRssForNewBlogPosts()
     }
-
 }

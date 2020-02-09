@@ -3,11 +3,13 @@ package com.jvm_bloggers.entities.fb
 import com.jvm_bloggers.SpringContextAwareSpecification
 import io.vavr.control.Option
 import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Subject
 
 import java.time.LocalDateTime
 
 import static java.time.LocalDateTime.now
 
+@Subject(FacebookPostRepository)
 class FacebookPostRepositoryIntegrationSpec extends SpringContextAwareSpecification {
 
     @Autowired

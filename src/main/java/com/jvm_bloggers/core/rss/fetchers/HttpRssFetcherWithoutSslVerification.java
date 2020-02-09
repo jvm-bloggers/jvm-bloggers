@@ -57,7 +57,7 @@ public class HttpRssFetcherWithoutSslVerification implements RssFetcher {
             inputStream = gzipStreamWrapper.wrap(urlConnection.getInputStream());
             return Try.success(new SyndFeedInput().build(new XmlReader(inputStream)));
         } catch (Exception ex) {
-            log.debug("Problem during fetching RSS without https check for {} url: {}",
+            log.info("Problem during fetching RSS without https check for {} url: {}",
                 rssUrl,
                 ex.getMessage()
             );

@@ -7,7 +7,7 @@ spring:
   http.encoding.force: true
   mandatory-file-encoding: UTF-8 
   jpa.hibernate.ddl-auto: validate
-liquibase.change-log: classpath:db/changelog/db.changelog.xml
+  liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
 server.compression:
   enabled: true
@@ -23,16 +23,17 @@ cache.spec: expireAfterWrite=1d
 
 application.baseUrl: http://jvm-bloggers.com
 application.issueUrl: ${application.baseUrl}/issue/
+application.topPostsUrl: ${application.baseUrl}/top-articles/
 
 # Logging
 logging.level.root: INFO
 logging.level.com.jvm_bloggers: INFO
 
 scheduler:
-  fetch-bloggers-data: 0 0 7,9,10,13,15,17,19,21,23 * * *
+  fetch-bloggers-data: 0 5/10 * * * *
   fetch-rss-for-new-blogs: 0 30 * * * *
-  publish-new-issue: 0 0 12 * * FRI
-  send-email: 120000 # 2 minutes
+  publish-new-issue: 0 0 7 * * FRI
+  send-email: 30000 # 30 seconds
   top-posts-in-month-summary: 0 0 13 12 * *
   publish-fb: 600000 # 10 minutes
   publish-twitter: 36000 # 5 minutes

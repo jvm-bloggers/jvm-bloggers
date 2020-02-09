@@ -11,6 +11,7 @@ import java.time.LocalDateTime
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 
+@Subject(SyndFeedToJsonConverter)
 class SyndFeedToJsonConverterSpec extends Specification {
 
     static final String BASE_URL = "http://localhost"
@@ -24,7 +25,6 @@ class SyndFeedToJsonConverterSpec extends Specification {
     static final String TITLE_1 = "title1"
     static final String TITLE_2 = "title2"
 
-    @Subject
     SyndFeedToJsonConverter converter = new SyndFeedToJsonConverter(BASE_URL)
 
     SyndFeed feed = Mock() {

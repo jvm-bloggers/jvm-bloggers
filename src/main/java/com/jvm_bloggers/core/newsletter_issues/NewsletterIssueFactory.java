@@ -1,11 +1,14 @@
 package com.jvm_bloggers.core.newsletter_issues;
 
+import static com.jvm_bloggers.core.newsletter_issues.PublishingConstants.STARTING_HOUR_TO_INCLUDE_IN_NEW_ISSUE;
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.HEADING_TEMPLATE;
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.VARIA_TEMPLATE;
+
 import com.jvm_bloggers.core.mailing.IssueNumberRetriever;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
-import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.NowProvider;
@@ -22,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 @NoArgsConstructor
 public class NewsletterIssueFactory {
 
@@ -47,8 +50,8 @@ public class NewsletterIssueFactory {
             .publishedDate(nowProvider.today())
             .newBlogs(newBlogs)
             .blogPosts(newApprovedPosts)
-            .heading(metadataRepository.findByName(MetadataKeys.HEADING_TEMPLATE).getValue())
-            .varia(metadataRepository.findByName(MetadataKeys.VARIA_TEMPLATE).getValue())
+            .heading(metadataRepository.findByName(HEADING_TEMPLATE).getValue())
+            .varia(metadataRepository.findByName(VARIA_TEMPLATE).getValue())
             .build();
     }
 
@@ -59,10 +62,10 @@ public class NewsletterIssueFactory {
 
     private LocalDateTime calculateStartDate(int daysInThePastToIncludeInNewIssue) {
         return nowProvider.now()
-            .minusDays(daysInThePastToIncludeInNewIssue)
-            .withHour(10)
-            .withMinute(0)
-            .withSecond(0)
-            .withNano(0);
+          .minusDays(daysInThePastToIncludeInNewIssue)
+          .withHour(STARTING_HOUR_TO_INCLUDE_IN_NEW_ISSUE)
+          .withMinute(0)
+          .withSecond(0)
+          .withNano(0);
     }
 }

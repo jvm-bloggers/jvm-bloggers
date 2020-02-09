@@ -2,14 +2,15 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 
-[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers)  [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Version Eye](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7/badge.svg)](https://www.versioneye.com/user/projects/5798bd4874848d004b927ac7) [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com) [![Sputnik](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
+[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers/branches) [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers)
+[![Sputnik Status](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
 
 ## Overview
 
 The goal of the **jvm-bloggers** project is to collect information about developers and companies blogging about JVM-related technologies in Poland, despite these bloggers being old-school
 Java fanboys, fancy Scala lovers or niche Gosu experts.
 
-On Fridays 12am, this application is sending a newsletter with all new blog posts from the past 7 days.
+On Fridays 7am, this application is sending a newsletter with all new blog posts from the past 7 days.
 
 If you want to have your group or personal e-mail added, please reach out to me (address below).
 
@@ -38,19 +39,18 @@ __Done__
 - [x] Publish global [RSS](http://jvm-bloggers.com/pl/rss) feed with all blog posts. You can limit and exclude authors using parameters. example: http://jvm-bloggers.com/pl/rss?limit=15&excludedAuthors=author1,author2
 - [x] Add videos from JUGs and conferences in Poland
 - [x] Create website with all newsletter (latest and old ones)
+- [x] Publishing a new issue information on Facebook
+- [x] Publishing on Twitter
 
 __Planned__
-
-- [ ] Fetch data about number of comments in articles
-- [ ] Analyze tweets from developers and highlight those with most RTs, stars and the most active conversations
-- [ ] Maybe export the idea to another country? :)
-- [ ] Publishing a new issue information on Facebook
-- [ ] Publishing on Twitter
+- [ ] Auto post link to the last newsletter on Wykop and 4programmers.net
+- [ ] searching for specific key words
+- [ ] Slack bot publishing new isses with searching feature
 - [ ] .... this is a place for __YOUR__ idea :)
 
 ## Technical details
 
-* Application is written using Java 8, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. It's currently running on a server hosted by the one and only [SoftwareMill](http://SoftwareMill.com).
+* Application is written using Java 12, Spring Boot, Liquibase, Akka and JPA, running on PostgreSQL database. It's currently running on a server hosted by the one and only [SoftwareMill](http://SoftwareMill.com).
 
 * To import the project into your IDE execute `./gradlew eclipse` or `./gradlew idea` first (depending on your IDE) to generate project files and import them into IDE.
 
@@ -74,10 +74,12 @@ More details about contributing and how project is organized please check
 * [Bartłomiej Piech](https://github.com/delor)
 * [Sławomir Łęski](https://github.com/sleski)
 
+More up-to date list can be found at http://jvm-bloggers.com/contributors
+
 #### Contact
 
 If you need a direct contact, you can reach out to the JVM Bloggers project via:
 
 * GMail: jvmbloggers (at) (you know that).(and you know that too) :)
-* [![Slack Status](https://jvm-bloggers-slack.herokuapp.com/badge.svg)](https://jvm-bloggers-slack.herokuapp.com)
+* \#jvm-bloggers channel at JVM-Poland Slack
 

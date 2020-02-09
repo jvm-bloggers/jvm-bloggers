@@ -6,18 +6,20 @@ import spock.lang.Subject
 import static ProtocolSwitchingAwareConnectionRedirectHandler.DEFAULT_TIMEOUT
 import static ProtocolSwitchingAwareConnectionRedirectHandler.LOCATION_HEADER
 
+@Subject(ProtocolSwitchingAwareConnectionRedirectHandler)
 class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification {
 
-    static final REQUEST_HEADERS = ["header": "value 1"]
+    static final REQUEST_HEADERS = ['header': 'value 1']
+    static final String redirectLocation = 'https://redirect.location'
 
-    final HttpURLConnection httpConnection = Mock();
+    HttpURLConnection httpConnection = Mock()
 
     def "Should proceed if no redirect"() {
         given:
-        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler();
+        ProtocolSwitchingAwareConnectionRedirectHandler tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
 
         when:
-        def conn = tested.handle(httpConnection, null)
+        HttpURLConnection conn = tested.handle(httpConnection, null)
 
         then:
         conn == httpConnection
@@ -25,11 +27,10 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should handle redirect between protocols"() {
         given:
-        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
+        ProtocolSwitchingAwareConnectionRedirectHandler tested = new ProtocolSwitchingAwareConnectionRedirectHandler()
 
         and:
-        def redirectLocation = "https://redirect.location"
-        httpConnection.getURL() >> new URL("http://redirected.url")
+        httpConnection.getURL() >> new URL('http://redirected.url')
         httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_TEMP
         httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
 
@@ -44,11 +45,10 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should throw exception when redirect limit reached"() {
         given:
-        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+        ProtocolSwitchingAwareConnectionRedirectHandler tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0)
 
         and:
-        def redirectLocation = "https://redirect.location"
-        httpConnection.getURL() >> new URL("http://redirected.url")
+        httpConnection.getURL() >> new URL('http://redirected.url')
         httpConnection.getResponseCode() >> HttpURLConnection.HTTP_MOVED_PERM
         httpConnection.getHeaderField(LOCATION_HEADER) >> redirectLocation
 
@@ -62,23 +62,22 @@ class ProtocolSwitchingAwareConnectionRedirectHandlerSpec extends Specification 
 
     def "Should throw NPE on null connection parameter"() {
         given:
-        @Subject tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0);
+        ProtocolSwitchingAwareConnectionRedirectHandler tested = new ProtocolSwitchingAwareConnectionRedirectHandler(0)
 
         when:
         tested.handle(null, null)
 
         then:
         NullPointerException e = thrown()
-        e.message.contains("urlConnection")
+        e.message.contains('urlConnection')
     }
 
     private def commonInteractions() {
         with(httpConnection) {
-            1 * setRequestProperty("header", "value 1")
+            1 * setRequestProperty('header', 'value 1')
             1 * setInstanceFollowRedirects(true)
             1 * setReadTimeout(DEFAULT_TIMEOUT)
             1 * setConnectTimeout(DEFAULT_TIMEOUT)
         }
-
     }
 }

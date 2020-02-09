@@ -33,8 +33,9 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
         int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         long start = System.currentTimeMillis();
         Iterator<BlogPost> iterator = blogPostRepository
-            .findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(page,
-                paginationConfiguration.getDefaultPageSize())
+            .findByBlogIdOrderByPublishedDateDesc(
+              blogId,
+              PageRequest.of(page, paginationConfiguration.getDefaultPageSize())
             ).iterator();
         long stop = System.currentTimeMillis();
         log.debug("Iterator() execution time = " + (stop - start) + " ms");
@@ -61,7 +62,7 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPost> {
     }
 
     String getPageHeader() {
-        return Option.of(blogRepository.findOne(blogId))
+        return Option.ofOptional(blogRepository.findById(blogId))
             .map(b -> b.getAuthor() + "'s posts")
             .getOrElse("No such blog found");
     }

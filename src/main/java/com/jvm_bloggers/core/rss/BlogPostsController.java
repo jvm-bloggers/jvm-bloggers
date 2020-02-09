@@ -14,40 +14,65 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.MediaType.APPLICATION_ATOM_XML_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequiredArgsConstructor
 public class BlogPostsController {
-    private static final String DEPRECATED_BLOGS_FEED = "/pl/rss";
-    public static final String BLOGS_FEED = "/feed/blogs";
-    public static final String ISSUES_FEED = "/feed/issues";
+    public static final String RSS_FEED_MAPPING = "/pl/rss";
+    public static final String ISSUES_FEED = "/pl/issues-rss";
 
     private final AggregatedRssFeedProducer blogRssProducer;
     private final IssuesRssFeedProducer issuesRssProducer;
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        path = {BLOGS_FEED, DEPRECATED_BLOGS_FEED},
-        produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
+      method = RequestMethod.GET,
+      path = { RSS_FEED_MAPPING + ".xml", RSS_FEED_MAPPING},
+      produces = APPLICATION_ATOM_XML_VALUE
     )
-    public SyndFeed getBlogRss(
-        HttpServletRequest request,
-        @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
-        @RequestParam(required = false) Set<String> excludedAuthors) {
+    public SyndFeed getRssAxXml(
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
+      @RequestParam(required = false) Set<String> excludedAuthors) {
 
         return blogRssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
     }
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        path = ISSUES_FEED,
-        produces = {APPLICATION_ATOM_XML_VALUE, APPLICATION_JSON_UTF8_VALUE}
+      method = RequestMethod.GET,
+      path = RSS_FEED_MAPPING + ".json",
+      produces = APPLICATION_JSON_VALUE
+    )
+    public SyndFeed getRssAsJson(
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit,
+      @RequestParam(required = false) Set<String> excludedAuthors) {
+
+        return blogRssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
+    }
+
+    @RequestMapping(
+      method = RequestMethod.GET,
+      path = { ISSUES_FEED, ISSUES_FEED + ".xml" },
+      produces = APPLICATION_ATOM_XML_VALUE
     )
     public SyndFeed getEntriesRss(
-        HttpServletRequest request,
-        @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit) {
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit) {
 
         return issuesRssProducer.getRss(request.getRequestURL().toString(), limit);
     }
+
+    @RequestMapping(
+      method = RequestMethod.GET,
+      path = ISSUES_FEED + ".json",
+      produces = { APPLICATION_JSON_VALUE}
+    )
+    public SyndFeed getEntriesRssAsJson(
+      HttpServletRequest request,
+      @RequestParam(defaultValue = "${generated.rss.entries.limit}") Integer limit) {
+
+        return issuesRssProducer.getRss(request.getRequestURL().toString(), limit);
+    }
+
 }

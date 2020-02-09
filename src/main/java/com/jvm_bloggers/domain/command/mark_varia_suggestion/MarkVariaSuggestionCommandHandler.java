@@ -20,7 +20,9 @@ public class MarkVariaSuggestionCommandHandler implements CommandHandler<MarkVar
     @EventListener
     @Transactional
     public void handle(MarkVariaSuggestion command) {
-        VariaSuggestion variaSuggestion = variaSuggestionRepository.findOne(command.getId());
+        VariaSuggestion variaSuggestion = variaSuggestionRepository
+          .findById(command.getId())
+          .orElseThrow(() -> new RuntimeException("Varia Suggestion with id " + command.getId() + " not found"));
         variaSuggestion.setRead(true);
         variaSuggestionRepository.save(variaSuggestion);
     }

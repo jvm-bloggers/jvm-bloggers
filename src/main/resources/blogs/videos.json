@@ -63,6 +63,57 @@
       "name": "jSession",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjBzbSV4De3Bjt_9BtBGsmQ",
       "twitter": "@jSessionPL"
+    },
+    {
+      "bookmarkableId": "spring-academy",
+      "name": "Spring Academy",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCslYinLbZnzzUdG0BMaiDKw",
+      "twitter": "@maciejwalkowiak"
+    },
+    {
+      "bookmarkableId": "bydgoszcz-jug",
+      "name": "Bydgoszcz JUG",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCaA4Zh3F8KRbtB1GW4ZW2lw",
+      "twitter": "@BydgoszczJUG"
+    },
+    {
+      "bookmarkableId": "segfault",
+      "name": "Konferencje SegFault",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCV38Do_3C5uVk3lWePkyxTA",
+      "twitter": "@SegFaultConf"
+    },
+    {
+      "bookmarkableId": "j-santa-conf",
+      "name": "J-Santa Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2IFpEO6fHK4_fKn-gymwKw"
+    },
+    {
+      "bookmarkableId": "greenfield-conf",
+      "name": "Greenfield Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UChG7hsrjUYyYG13AkSIfQIw",
+      "twitter": "@Greenfield_Conf"
+    },
+    {
+      "bookmarkableId": "bitconf",
+      "name": "Bydgoszcz IT Conference",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBpSxlHqk4-jjYyfrmX3ikQ",
+      "twitter": "@bitconf_pl"
+    },
+    {
+      "bookmarkableId": "programuj-z-bykiem",
+      "name": "Programuj z Bykiem",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjWnQvpQgSRLeDEYQC0ZuLg"
+    },
+    {
+      "bookmarkableId": "programistok",
+      "name": "Programistok",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCoyU8Ehx9tbRJhYXrbt5lgA",
+      "twitter": "@programistok"
+    },
+    {
+      "bookmarkableId": "inkubator-programisty",
+      "name": "Inkubator programisty",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgdx9yAQ2nblw8cZvKHUClw"
     }
   ]
 }

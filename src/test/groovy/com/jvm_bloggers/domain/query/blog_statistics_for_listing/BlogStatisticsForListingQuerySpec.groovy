@@ -13,18 +13,17 @@ import java.time.LocalDateTime
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static java.time.LocalDateTime.now
 
+@Subject(BlogStatisticsForListingQuery)
 class BlogStatisticsForListingQuerySpec extends Specification {
 
     BlogRepository blogRepository = Stub(BlogRepository)
-
-    @Subject
     BlogStatisticsForListingQuery blogStatisticsForListingQuery = new BlogStatisticsForListingQuery(
-        blogRepository, new TestNowProvider(now())
+            blogRepository, new TestNowProvider(now())
     )
 
     def "Should return blog statistics"() {
         given:
-        BlogStatisticsProjection blogStatisticsProjection = [getBookmarkableId      : { "bookmarkableId" },
+        BlogStatisticsProjection blogStatisticsProjection = [getBookmarkableId      : { 'bookmarkableId' },
                                                              getUrl: { 'url' },
                                                              getAuthor    : { 'author' },
                                                              getTwitter: { 'twitter' },

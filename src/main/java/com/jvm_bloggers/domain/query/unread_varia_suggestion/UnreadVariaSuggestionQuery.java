@@ -17,7 +17,7 @@ public class UnreadVariaSuggestionQuery {
     private final VariaSuggestionRepository variaSuggestionRepository;
 
     public List<UnreadVariaSuggestion> findUnreadSuggestions(int page, int size) {
-        return variaSuggestionRepository.findByReadFalseOrReadNull(new PageRequest(page, size))
+        return variaSuggestionRepository.findByReadFalseOrReadNull(PageRequest.of(page, size))
             .map(UnreadVariaSuggestion::from);
     }
 

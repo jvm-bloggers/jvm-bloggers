@@ -7,7 +7,7 @@ spring:
     test-on-borrow: true
     validation-query: SELECT 1
 
-endpoints.enabled: false
+  endpoints.enabled: false
 
 # Mail Configuration
 mailing:

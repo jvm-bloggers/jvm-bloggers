@@ -2,9 +2,10 @@ package com.jvm_bloggers.entities.blog
 
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
-
+@Subject(Blog)
 class BlogSpec extends Specification {
 
     @Unroll

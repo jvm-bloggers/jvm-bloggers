@@ -6,6 +6,7 @@ import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -13,6 +14,7 @@ import spock.lang.Unroll
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(TweetContentGenerator)
 class TweetContentGeneratorSpec extends Specification {
 
     private static final long ISSUE_NUMBER = 999L
@@ -21,9 +23,8 @@ class TweetContentGeneratorSpec extends Specification {
     private static final Random randomJsonId = new Random()
     private static final NowProvider nowProvider = new NowProvider()
 
-    private final LinkGenerator linkGenerator = Stub(LinkGenerator)
+    private LinkGenerator linkGenerator = Stub(LinkGenerator)
 
-    @Subject
     private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)
 
     def setup() {
@@ -141,6 +142,7 @@ class TweetContentGeneratorSpec extends Specification {
         assert companyBlogs.count == 1
     }
 
+    @Ignore // This won't happen until we increase length of base template for tweet messages
     def "Should not add the second personal twitter handle if message is too long"() {
         given:
         NewsletterIssue issue = NewsletterIssue
@@ -195,6 +197,47 @@ class TweetContentGeneratorSpec extends Specification {
         tweetContent ==~ /$handles/
     }
 
+    def "Should add two distinct twitter handles of personal blogs"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+            .builder()
+            .issueNumber(ISSUE_NUMBER)
+            .heading("issue heading")
+            .blogPosts(twoDistinctPersonalTwitterHandlesWithOneDuplication())
+            .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def personal1 = /@personal1/
+        def personal1Blog = (tweetContent =~ /$personal1/)
+        assert personal1Blog.count == 1
+
+        and:
+        def personal2 = /@personal2/
+        def personal2Blog = (tweetContent =~ /$personal2/)
+        assert personal2Blog.count == 1
+    }
+
+    def "Should add only one personal handle if there is no other distinct"() {
+        given:
+        NewsletterIssue issue = NewsletterIssue
+            .builder()
+            .issueNumber(ISSUE_NUMBER)
+            .heading("issue heading")
+            .blogPosts(onlyOneDistinctPersonalTwitterHandle())
+            .build()
+
+        when:
+        String tweetContent = contentGenerator.generateTweetContent(issue)
+
+        then:
+        def personal = /@personal/
+        def personalBlogs = (tweetContent =~ /$personal/)
+        assert personalBlogs.count == 1
+    }
+
     private Collection<BlogPost> notAllHavingTwitterHandlePosts() {
         List<BlogPost> posts = new ArrayList<>()
         posts.add(blogPost(blog("@company1", COMPANY)))
@@ -236,6 +279,21 @@ class TweetContentGeneratorSpec extends Specification {
         posts.add(blogPost(blog("@veryLongCompanyHandle1", COMPANY)))
         posts.add(blogPost(blog("@veryLongCompanyHandle2", COMPANY)))
         posts.add(blogPost(blog("@veryLongPersonalHandle3", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> twoDistinctPersonalTwitterHandlesWithOneDuplication() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal2", PERSONAL)))
+        return posts
+    }
+
+    private Collection<BlogPost> onlyOneDistinctPersonalTwitterHandle() {
+        List<BlogPost> posts = new ArrayList<>()
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
+        posts.add(blogPost(blog("@personal1", PERSONAL)))
         return posts
     }
 

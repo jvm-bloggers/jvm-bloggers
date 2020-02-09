@@ -13,6 +13,7 @@ import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.collection.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ class GenerateTopPostsInMonthSummaryCommandHandler
     private final TopPostsSummaryRepository topPostsSummaryRepository;
     private final BlogPostRepository blogPostRepository;
     private final NowProvider nowProvider;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     @EventListener
@@ -59,6 +61,7 @@ class GenerateTopPostsInMonthSummaryCommandHandler
             companyPosts.toJavaList()
         );
         topPostsSummaryRepository.save(topPostsSummary);
+        eventPublisher.publishEvent(new TopPostsSummaryGenerated(command.getYearMonth()));
     }
 
     private LocalDateTime calculateStartDate(YearMonth yearMonth) {

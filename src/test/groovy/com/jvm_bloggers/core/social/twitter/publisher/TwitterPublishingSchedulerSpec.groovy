@@ -10,15 +10,15 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+@Subject(TwitterPublishingScheduler)
 class TwitterPublishingSchedulerSpec extends Specification {
 
-    private static final LocalDateTime NOW = LocalDateTime.now();
+    private static final LocalDateTime NOW = LocalDateTime.now()
 
-    private final TweetRepository tweetRepository = Mock(TweetRepository)
-    private final TwitterPublisher publisher = Mock(TwitterPublisher)
-    private final NowProvider nowProvider = new TestNowProvider(NOW)
+    private TweetRepository tweetRepository = Mock(TweetRepository)
+    private TwitterPublisher publisher = Mock(TwitterPublisher)
+    private NowProvider nowProvider = new TestNowProvider(NOW)
 
-    @Subject
     TwitterPublishingScheduler publisherScheduler = new TwitterPublishingScheduler(tweetRepository, publisher, nowProvider)
 
     def "Should mark published tweet as sent"() {
