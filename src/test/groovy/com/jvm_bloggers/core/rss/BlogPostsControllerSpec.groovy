@@ -29,18 +29,18 @@ class BlogPostsControllerSpec extends SpringContextAwareSpecification {
             .build()
 
         expect:
-        mockMvc.perform(get("$endpoint.$format")
+        mockMvc.perform(get("$endpoint$format")
             .header("Accept", BROWSER_ACCEPT_HEADER))
             .andExpect(status().isOk())
             .andExpect(content().contentType(mediaType))
 
         where:
         endpoint         | format || mediaType
-        "/pl/rss"        | "json" || APPLICATION_JSON_UTF8_VALUE
-        "/pl/rss"        | "xml"  || APPLICATION_ATOM_XML_VALUE
+        "/pl/rss"        | ".json" || APPLICATION_JSON_UTF8_VALUE
+        "/pl/rss"        | ".xml"  || APPLICATION_ATOM_XML_VALUE
         "/pl/rss"        | ""     || APPLICATION_ATOM_XML_VALUE
-        "/pl/issues-rss" | "json" || APPLICATION_JSON_UTF8_VALUE
-        "/pl/issues-rss" | "xml"  || APPLICATION_ATOM_XML_VALUE
+        "/pl/issues-rss" | ".json" || APPLICATION_JSON_UTF8_VALUE
+        "/pl/issues-rss" | ".xml"  || APPLICATION_ATOM_XML_VALUE
         "/pl/issues-rss" | ""     || APPLICATION_ATOM_XML_VALUE
     }
 

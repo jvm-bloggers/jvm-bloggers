@@ -32,12 +32,12 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class IssuesRssFeedProducer {
 
     @VisibleForTesting
-    static final String FEED_TITLE = "JVMBloggers Issues";
+    static final String FEED_TITLE = "JVM Bloggers Issues";
     @VisibleForTesting
     static final String FEED_TYPE = "atom_1.0";
     private static final String SELF_REL = "self";
     @VisibleForTesting
-    static final String FEED_DESCRIPTION = "JVMBloggers Issues feed. "
+    static final String FEED_DESCRIPTION = "JVM Bloggers Issues feed. "
         + "Weekly aggregation of JVM related blog posts from Poland.";
 
     private final NewsletterIssueRepository issueRepository;
@@ -59,7 +59,7 @@ public class IssuesRssFeedProducer {
     public SyndFeed getRss(String feedUrl, Integer limit) {
         Preconditions.checkArgument(isNotBlank(feedUrl), "feedUrl parameter cannot be blank");
 
-        final Pageable pageRequest = new PageRequest(0, limit > 0 ? limit : Integer.MAX_VALUE);
+        final Pageable pageRequest = PageRequest.of(0, limit > 0 ? limit : Integer.MAX_VALUE);
         Seq<NewsletterIssue> issues = issueRepository.findByOrderByPublishedDateDesc(pageRequest);
         final Seq<SyndEntry> feedItems = issues
             .map(this::toRssEntry);

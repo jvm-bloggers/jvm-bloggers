@@ -15,7 +15,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 class SyndFeedToJsonConverterSpec extends Specification {
 
     static final String BASE_URL = "http://localhost"
-    static final String FEED_LINK = "http://localhost/feed/blogs.json"
+    static final String FEED_LINK = "http://localhost/pl/rss.json"
     static final String FEED_TITLE = "JvmBloggers"
     static final LocalDateTime DATE = new NowProvider().now()
 

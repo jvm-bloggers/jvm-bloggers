@@ -19,15 +19,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 public class BlogPostsController {
-    public static final String RSS_FEED_MAPPING = "/pl/rss";
-    public static final String ISSUES_FEED = "/pl/issues-rss";
+    public static final String ENTRIES_RSS_FEED = "/pl/rss";
+    public static final String ISSUES_RSS_FEED = "/pl/issues-rss";
 
     private final AggregatedRssFeedProducer blogRssProducer;
     private final IssuesRssFeedProducer issuesRssProducer;
 
     @RequestMapping(
       method = RequestMethod.GET,
-      path = { RSS_FEED_MAPPING + ".xml", RSS_FEED_MAPPING},
+      path = { ENTRIES_RSS_FEED + ".xml", ENTRIES_RSS_FEED},
       produces = APPLICATION_ATOM_XML_VALUE
     )
     public SyndFeed getRssAxXml(
@@ -40,7 +40,7 @@ public class BlogPostsController {
 
     @RequestMapping(
       method = RequestMethod.GET,
-      path = RSS_FEED_MAPPING + ".json",
+      path = ENTRIES_RSS_FEED + ".json",
       produces = APPLICATION_JSON_VALUE
     )
     public SyndFeed getRssAsJson(
@@ -53,7 +53,7 @@ public class BlogPostsController {
 
     @RequestMapping(
       method = RequestMethod.GET,
-      path = { ISSUES_FEED, ISSUES_FEED + ".xml" },
+      path = {ISSUES_RSS_FEED, ISSUES_RSS_FEED + ".xml" },
       produces = APPLICATION_ATOM_XML_VALUE
     )
     public SyndFeed getEntriesRss(
@@ -65,7 +65,7 @@ public class BlogPostsController {
 
     @RequestMapping(
       method = RequestMethod.GET,
-      path = ISSUES_FEED + ".json",
+      path = ISSUES_RSS_FEED + ".json",
       produces = { APPLICATION_JSON_VALUE}
     )
     public SyndFeed getEntriesRssAsJson(

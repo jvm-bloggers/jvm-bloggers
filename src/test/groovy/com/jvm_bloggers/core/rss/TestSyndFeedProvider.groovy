@@ -11,7 +11,7 @@ class TestSyndFeedProvider {
     def getSyndFeed() {
         SyndLink link = new SyndLinkImpl()
         link.rel = "self"
-        link.href = "http://jvm-bloggers.com/feed/blogs"
+        link.href = "http://jvm-bloggers.com/pl/rss"
 
         SyndFeed feed = new SyndFeedImpl()
         feed.links = [link]

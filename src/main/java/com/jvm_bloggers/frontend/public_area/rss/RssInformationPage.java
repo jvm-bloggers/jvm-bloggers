@@ -10,8 +10,8 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.Arrays;
 
-import static com.jvm_bloggers.core.rss.BlogPostsController.BLOGS_FEED;
-import static com.jvm_bloggers.core.rss.BlogPostsController.ISSUES_FEED;
+import static com.jvm_bloggers.core.rss.BlogPostsController.ENTRIES_RSS_FEED;
+import static com.jvm_bloggers.core.rss.BlogPostsController.ISSUES_RSS_FEED;
 
 @MountPath("rss")
 public class RssInformationPage extends AbstractFrontendPage {
@@ -20,8 +20,8 @@ public class RssInformationPage extends AbstractFrontendPage {
     private final String feedUrl;
 
     public RssInformationPage() {
-        this.feedUrl = String.format(FEED_URL_PATTERN, getRootUrl(), BLOGS_FEED);
-        String issuesFeedUrl = String.format(FEED_URL_PATTERN, getRootUrl(), ISSUES_FEED);
+        feedUrl = String.format(FEED_URL_PATTERN, getRootUrl(), ENTRIES_RSS_FEED);
+        String issuesFeedUrl = String.format(FEED_URL_PATTERN, getRootUrl(), ISSUES_RSS_FEED);
 
         add(new ExternalLink("rss_feed_url", feedUrl, feedUrl));
         add(new ExternalLink("issues_feed_url", issuesFeedUrl, issuesFeedUrl));
@@ -33,7 +33,7 @@ public class RssInformationPage extends AbstractFrontendPage {
 
     @Override
     protected String getPageTitle() {
-        return "Kanał RSS - informacje";
+        return "Kanały RSS - informacje";
     }
 
     private String getRootUrl() {

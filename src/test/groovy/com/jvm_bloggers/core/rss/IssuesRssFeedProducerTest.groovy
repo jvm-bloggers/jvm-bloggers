@@ -19,6 +19,7 @@ import java.time.Month
 import static com.jvm_bloggers.utils.DateTimeUtilities.toDate
 
 class IssuesRssFeedProducerTest extends Specification {
+
     private static final String BASE_URL = "http://test"
     private static final String ISSUE_URL = "http://test/issue/"
     private static final String APP_NAME = "JVM Bloggers"
@@ -52,7 +53,7 @@ class IssuesRssFeedProducerTest extends Specification {
         }
     }
 
-    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL)
+    LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL, "")
     NowProvider nowProvider = Stub() {
         now() >> DATE
     }
