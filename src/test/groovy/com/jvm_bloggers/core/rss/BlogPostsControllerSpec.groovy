@@ -23,22 +23,25 @@ class BlogPostsControllerSpec extends SpringContextAwareSpecification {
     WebApplicationContext webApplicationContext
 
     @Unroll
-    def "Should get OK status for RSS feed in #format format request"() {
+    def "Should get OK status for RSS feed at #endpoint in #format format request"() {
         given:
         MockMvc mockMvc = webAppContextSetup(webApplicationContext)
-                .build()
+            .build()
 
         expect:
-        mockMvc.perform(get("/pl/rss$format")
-                .header("Accept", BROWSER_ACCEPT_HEADER))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(mediaType))
+        mockMvc.perform(get("$endpoint$format")
+            .header("Accept", BROWSER_ACCEPT_HEADER))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(mediaType))
 
         where:
-        format  || mediaType
-        ".json" || APPLICATION_JSON_UTF8_VALUE
-        ".xml"  || APPLICATION_ATOM_XML_VALUE
-        ""      || APPLICATION_ATOM_XML_VALUE
+        endpoint         | format || mediaType
+        "/pl/rss"        | ".json" || APPLICATION_JSON_UTF8_VALUE
+        "/pl/rss"        | ".xml"  || APPLICATION_ATOM_XML_VALUE
+        "/pl/rss"        | ""     || APPLICATION_ATOM_XML_VALUE
+        "/pl/issues-rss" | ".json" || APPLICATION_JSON_UTF8_VALUE
+        "/pl/issues-rss" | ".xml"  || APPLICATION_ATOM_XML_VALUE
+        "/pl/issues-rss" | ""     || APPLICATION_ATOM_XML_VALUE
     }
 
 }
