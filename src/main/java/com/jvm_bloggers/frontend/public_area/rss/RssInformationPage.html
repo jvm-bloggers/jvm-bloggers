@@ -3,24 +3,25 @@
 <body>
 <wicket:extend>
 
-    <h1 class="padding-bottom-40-px">Kanał RSS - informacje</h1>
+    <h1 class="padding-bottom-40-px">Kanały RSS - informacje</h1>
 
     <div>
         <div>
-            Poniżej znajdziesz informacje na temat naszego kanału RSS i możliwości, jakie on daje swojemu użytkownikowi.
+            Poniżej znajdziesz informacje na temat naszych kanałów RSS.
         </div>
 
         <div class="rss-section">
-            <h3>Adres:</h3>
+            <h3>Adresy:</h3>
             <br/>
             <div>
-                Kanał dostępny jest pod bazowym adresem: <a class="rss-example" wicket:id="rss_feed_url">[url]</a>
+                Kanał z poszczególnymi wpisami z bogów: <a class="rss-example" wicket:id="rss_feed_url">[url]</a><br/>
+                Kanał z wydaniami newslettera: <a class="rss-example" wicket:id="issues_feed_url">[url]</a>
             </div>
         </div>
 
         <div class="rss-section">
             <h3>Dostępne formaty danych:</h3>
-            <br>
+            <br/>
             <span>Kanał RSS umożlwia wyświetlenie danych w formatach XML oraz JSON poprzez dodanie odpowiednie rozszerzenia (np. .json) do swojego adresu.</span>
             <div class="rss-param-section">
                 <ul>
@@ -51,7 +52,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><strong>excludedAuthors</strong> - umożlwia wykluczenie poszczególnych autorów z wyników danego
+                    <li><strong>excludedAuthors</strong> (tylko kanał wpisów) - umożlwia wykluczenie poszczególnych autorów z wyników danego
                         zapytania. Kolejni autorzy oddzieleni powinni być przecinkiem.
                         <ul>
                             <li>przykład: <a class="rss-example" wicket:id="rss_feed_exclude">[url]</a>
