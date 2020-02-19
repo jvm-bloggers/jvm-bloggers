@@ -1305,6 +1305,11 @@
       "bookmarkableId": "bdabek",
       "name": "Bartosz Dąbek",
       "rss": "https://www.bdabek.pl/feed/"
+    },
+    {
+      "bookmarkableId": "pater",
+      "name": "Mateusz Pater",
+      "rss": "https://pater.dev/feed/"
     }
   ]
 }
