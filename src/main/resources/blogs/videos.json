@@ -114,6 +114,12 @@
       "bookmarkableId": "inkubator-programisty",
       "name": "Inkubator programisty",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgdx9yAQ2nblw8cZvKHUClw"
+    },
+    {
+      "bookmarkableId": "ostrapila",
+      "name": "Ostra Piła",
+      "rss": "http://feeds.feedburner.com/PodcastOstrapila",
+      "twitter": "@ostrapila"
     }
   ]
 }
