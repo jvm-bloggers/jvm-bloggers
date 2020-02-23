@@ -58,4 +58,7 @@ twitter.api:
   retryCount: 3
   retryIntervalSecs: 5
 
+slack:
+  invitation-link: https://jvm-poland.slack.com/
+
 wicket.external.webjars.enabled: true
