@@ -15,25 +15,25 @@ class JvmPolandSlackPageSpec extends MockSpringContextAwareSpecification {
         addBean(backingBean)
     }
 
-    def "Should contains invitation link"() {
+    def "Should contain invitation link"() {
         when:
-            tester.startPage(JvmPolandSlackPage)
+        tester.startPage(JvmPolandSlackPage)
 
         then:
-            tester.assertComponent("slack_invitation_link", ExternalLink)
+        tester.assertComponent("slack_invitation_link", ExternalLink)
     }
 
-    def "Should contains link from properties"() {
+    def "Should contain link from properties"() {
         given:
-            backingBean.getInvitationLink() >> defaultInvitationLink
+        backingBean.getInvitationLink() >> defaultInvitationLink
 
         when:
-            tester.startPage(JvmPolandSlackPage)
+        tester.startPage(JvmPolandSlackPage)
 
         then:
-            tester.assertContains(backingBean.getInvitationLink())
+        tester.assertContains(backingBean.getInvitationLink())
 
         where:
-            defaultInvitationLink << ["http://example-invititation-link"]
+        defaultInvitationLink << ["http://example-invititation-link"]
     }
 }
