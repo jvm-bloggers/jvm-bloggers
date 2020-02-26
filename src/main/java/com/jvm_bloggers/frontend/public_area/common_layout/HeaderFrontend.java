@@ -5,6 +5,7 @@ import com.jvm_bloggers.frontend.public_area.AboutPage;
 import com.jvm_bloggers.frontend.public_area.all_issues.AllIssuesPage;
 import com.jvm_bloggers.frontend.public_area.blogs.PersonalBlogsPage;
 import com.jvm_bloggers.frontend.public_area.contributors.ContributorsPage;
+import com.jvm_bloggers.frontend.public_area.jvm_poland_slack.JvmPolandSlackPage;
 import com.jvm_bloggers.frontend.public_area.rss.RssInformationPage;
 import com.jvm_bloggers.frontend.public_area.top_posts.TopPostsPage;
 
@@ -20,5 +21,6 @@ public class HeaderFrontend extends Panel {
         add(new BookmarkablePageLink<>("contributors", ContributorsPage.class));
         add(new BookmarkablePageLink<>("about", AboutPage.class));
         add(new BookmarkablePageLink<>("rss", RssInformationPage.class));
+        add(new BookmarkablePageLink<>("jvm-poland-slack", JvmPolandSlackPage.class));
     }
 }
