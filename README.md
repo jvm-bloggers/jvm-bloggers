@@ -81,5 +81,5 @@ More up-to date list can be found at http://jvm-bloggers.com/contributors
 If you need a direct contact, you can reach out to the JVM Bloggers project via:
 
 * GMail: jvmbloggers (at) (you know that).(and you know that too) :)
-* \#jvm-bloggers channel at JVM-Poland Slack
+* \#jvm-bloggers channel at [JVM-Poland Slack](http://jvm-bloggers.com/jvm-poland-slack)
 
