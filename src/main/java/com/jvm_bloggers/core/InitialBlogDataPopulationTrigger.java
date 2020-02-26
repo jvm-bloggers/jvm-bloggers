@@ -41,6 +41,7 @@ public class InitialBlogDataPopulationTrigger {
         if (blogPostRepository.count() == 0) {
             log.info("No blog post entries found - populating database with data");
             blogPostsFetchingScheduler.checkRssForNewBlogPosts();
+
         }
 
     }

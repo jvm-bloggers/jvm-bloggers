@@ -1,9 +1,11 @@
 package com.jvm_bloggers.entities.blog_post;
 
+import com.jvm_bloggers.entities.blog.BlogType;
 import io.vavr.control.Option;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -37,5 +39,9 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     List<BlogPost> findByBlogIdOrderByPublishedDateDesc(Long blogId, Pageable page);
 
     int countByBlogId(Long blogId);
+
+    @Query("FROM BlogPost bp JOIN bp.blog b " +
+            "WHERE b.blogType = :blogType")
+    List<BlogPost> selectBlogPostsOfType(@Param("blogType") BlogType blogType);
 
 }

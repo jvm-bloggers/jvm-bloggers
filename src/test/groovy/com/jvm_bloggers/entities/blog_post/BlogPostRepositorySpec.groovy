@@ -3,6 +3,8 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.blog.BlogType
+import com.jvm_bloggers.utils.NowProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -29,7 +31,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     @Autowired
     BlogPostRepository blogPostRepository
-    
+
     @Autowired
     BlogRepository blogRepository
 
@@ -39,12 +41,12 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         LocalDateTime baseTime = LocalDateTime.of(2016, 1, 1, 12, 00)
 
         List<BlogPost> blogPosts = [
-            aBlogPost(publishedDate: baseTime.plusDays(0), approved: REJECTED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(1), approved: REJECTED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(2), approved: APPROVED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(3), approved: APPROVED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(4), approved: NOT_MODERATED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(5), approved: NOT_MODERATED, blog: blog)
+                aBlogPost(publishedDate: baseTime.plusDays(0), approved: REJECTED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(1), approved: REJECTED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(2), approved: APPROVED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(3), approved: APPROVED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(4), approved: NOT_MODERATED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(5), approved: NOT_MODERATED, blog: blog)
         ]
 
         blogPostRepository.saveAll(blogPosts)
@@ -99,4 +101,35 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         [EXCLUDED_AUTHOR] as Set       || 1
         INCLUDE_ALL_AUTHORS_SET as Set || 2
     }
+
+    def "Should count blog posts with BlogType = #blogType"() {
+        given:
+        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
+        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
+        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
+
+        List<BlogPost> blogPosts = [
+                aBlogPost(blog:  personalBlog),
+                aBlogPost(blog: videoBlog),
+                aBlogPost(blog: personalBlog),
+                aBlogPost(blog: companyBlog),
+                aBlogPost(blog: personalBlog),
+                aBlogPost(blog: companyBlog)
+        ]
+
+        blogPostRepository.saveAll(blogPosts);
+
+        when:
+        List<BlogPost> blogPostsByBlogType = blogPostRepository.selectBlogPostsOfType(blogType)
+
+        then:
+        blogPostsByBlogType.size() == expectedBlogPostCount
+
+        where:
+        blogType          || expectedBlogPostCount
+        BlogType.COMPANY  || 2
+        BlogType.VIDEOS   || 1
+        BlogType.PERSONAL || 3
+    }
+
 }
