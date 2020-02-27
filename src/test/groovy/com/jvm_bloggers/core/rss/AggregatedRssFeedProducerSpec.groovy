@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.rss
 
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.blogpost_redirect.RedirectController
 import com.jvm_bloggers.entities.blog.Blog
@@ -29,7 +30,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
     String DESCRIPTION = 'description'
     String INVALID_URL = 'http://invalid-url'
     String REQUEST_URL = 'http://jvm-bloggers.com/rss'
-    LocalDateTime DATE = new NowProvider().now()
+    LocalDateTime DATE = LocalDateTime.now(NowProvider.DEFAULT_ZONE)
     String UID_1 = UUID.randomUUID().toString()
     String UID_2 = UUID.randomUUID().toString()
     String UID_3 = UUID.randomUUID().toString()
@@ -46,9 +47,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
         }
     }
 
-    NowProvider nowProvider = Stub() {
-        now() >> DATE
-    }
+    NowProvider nowProvider = new TestTimeProvider(DATE);
 
     LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL, TOP_POSTS_URL)
 

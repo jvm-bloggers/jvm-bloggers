@@ -3,6 +3,7 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -72,7 +73,7 @@ class BlogPostSpec extends Specification {
     def "Should approve post"() {
         given:
         BlogPost blogPost = createBlogPost(NOT_MODERATED)
-        LocalDateTime approvedDate = new NowProvider().now()
+        LocalDateTime approvedDate = LocalDateTime.now(NowProvider.DEFAULT_ZONE)
 
         when:
         blogPost.approve(approvedDate)
@@ -84,9 +85,9 @@ class BlogPostSpec extends Specification {
 
     private BlogPost createBlogPost(final Boolean approved) {
         createBlogPost(approved,
-            Boolean.TRUE == approved
-                ? new NowProvider().now()
-                : null)
+                Boolean.TRUE == approved
+                        ? new ZoneTimeProvider().now()
+                        : null)
     }
 
     private BlogPost createBlogPost(final Boolean approved, LocalDateTime postApprovedDate) {
@@ -95,7 +96,7 @@ class BlogPostSpec extends Specification {
             .approved(approved)
             .title("title")
             .url("url")
-            .publishedDate(new NowProvider().now())
+            .publishedDate(LocalDateTime.now(NowProvider.DEFAULT_ZONE))
             .approvedDate(postApprovedDate)
             .blog(Blog.builder()
             .bookmarkableId("bookmarkableId")
@@ -103,7 +104,7 @@ class BlogPostSpec extends Specification {
             .author("author")
             .rss("rss")
             .url("url")
-            .dateAdded(new NowProvider().now())
+            .dateAdded(LocalDateTime.now(NowProvider.DEFAULT_ZONE))
             .build())
             .build()
     }

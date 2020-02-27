@@ -15,6 +15,8 @@ import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
 
+import java.time.LocalDateTime
+
 @Subject(ActorRef)
 class RssCheckingActorSpec extends Specification {
 
@@ -23,7 +25,7 @@ class RssCheckingActorSpec extends Specification {
         .author('Tomasz Dziurko')
         .rss('http://tomaszdziurko.pl/feed/')
         .url('url')
-        .dateAdded(new NowProvider().now())
+        .dateAdded(LocalDateTime.now(NowProvider.DEFAULT_ZONE))
         .blogType(BlogType.PERSONAL)
         .build()
 

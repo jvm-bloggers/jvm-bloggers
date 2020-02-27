@@ -1,6 +1,6 @@
 package com.jvm_bloggers.core.social.fb.publisher
 
-import com.jvm_bloggers.TestNowProvider
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.fb.FacebookPost
 import com.jvm_bloggers.entities.fb.FacebookPostRepository
 import com.jvm_bloggers.utils.NowProvider
@@ -10,7 +10,8 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
-import static com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus.*
+import static com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus.ERROR
+import static com.jvm_bloggers.core.social.fb.publisher.FacebookPublisher.FacebookPublishingStatus.SUCCESS
 
 @Subject(FacebookPublishingScheduler)
 class FacebookPublishingSchedulerSpec extends Specification {
@@ -19,7 +20,7 @@ class FacebookPublishingSchedulerSpec extends Specification {
 
     private FacebookPostRepository fbPostRepository = Mock(FacebookPostRepository)
     private FacebookPublisher fbPublisher = Mock(FacebookPublisher)
-    private NowProvider nowProvider = new TestNowProvider(NOW)
+    private NowProvider nowProvider = new TestTimeProvider(NOW)
 
     FacebookPublishingScheduler fbPublisherScheduler = new FacebookPublishingScheduler(fbPostRepository, fbPublisher, nowProvider)
 

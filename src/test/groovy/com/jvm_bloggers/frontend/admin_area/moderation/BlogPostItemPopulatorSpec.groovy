@@ -1,6 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area.moderation
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
@@ -18,9 +19,7 @@ class BlogPostItemPopulatorSpec extends MockSpringContextAwareSpecification {
 
     static LocalDateTime SATURDAY_19TH_12_00 = LocalDateTime.of(2016, Month.MARCH, 19, 12, 0, 0)
 
-    NowProvider nowProvider = Stub(NowProvider) {
-        now() >> SATURDAY_19TH_12_00
-    }
+    NowProvider nowProvider = new TestTimeProvider(SATURDAY_19TH_12_00)
 
     @Subject
     private BlogPostItemPopulator blogPostItemPopulator = new BlogPostItemPopulator(nowProvider)

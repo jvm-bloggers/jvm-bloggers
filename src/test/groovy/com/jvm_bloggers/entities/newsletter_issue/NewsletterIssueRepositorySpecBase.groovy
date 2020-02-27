@@ -7,7 +7,7 @@ import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.springframework.beans.factory.annotation.Autowired
 
 import java.time.LocalDateTime
@@ -74,7 +74,7 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
     protected NewsletterIssue.NewsletterIssueBuilder prepareNewsletterIssue(long issueNumber, List blogs, List posts, String exampleHeading, String exampleVaria) {
         return NewsletterIssue.builder()
                 .issueNumber(issueNumber)
-                .publishedDate(new NowProvider().today())
+                .publishedDate(new ZoneTimeProvider().today())
                 .newBlogs(blogs)
                 .blogPosts(posts)
                 .heading(exampleHeading)

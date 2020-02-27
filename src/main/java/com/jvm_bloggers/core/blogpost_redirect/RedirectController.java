@@ -3,6 +3,7 @@ package com.jvm_bloggers.core.blogpost_redirect;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.routing.RoundRobinPool;
+
 import com.google.common.base.Stopwatch;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.ClicksStoringActor;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick;
@@ -13,8 +14,11 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.entities.click.ClickRepository;
 import com.jvm_bloggers.utils.NowProvider;
+
 import io.vavr.control.Option;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
