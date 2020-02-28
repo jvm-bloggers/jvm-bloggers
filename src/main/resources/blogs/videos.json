@@ -120,6 +120,12 @@
       "name": "Ostra Piła",
       "rss": "http://feeds.feedburner.com/PodcastOstrapila",
       "twitter": "@ostrapila"
+    },
+    {
+      "bookmarkableId": "codebait",
+      "name": "CODEBAIT",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdfcbPJ_zXlisMfRIirHX8w",
+      "twitter": "@code_bait"
     }
   ]
 }
