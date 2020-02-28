@@ -1,7 +1,5 @@
 package com.jvm_bloggers.entities.blog_post
 
-import com.jvm_bloggers.entities.blog.Blog
-import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
@@ -10,6 +8,9 @@ import spock.lang.Unroll
 import java.time.LocalDateTime
 import java.time.Month
 
+import static com.jvm_bloggers.ObjectMother.aBlogPost
+import static java.time.LocalDateTime.of
+
 @Subject(BlogPost)
 class BlogPostSpec extends Specification {
     private static final Boolean NOT_MODERATED = null
@@ -17,7 +18,7 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
         given:
-        BlogPost blogPost = createBlogPost(approved)
+        BlogPost blogPost = aBlogPost(approved: approved)
 
         when:
         String approvalState = blogPost.getApprovalState()
@@ -35,7 +36,7 @@ class BlogPostSpec extends Specification {
     @Unroll
     def "Should return #expected when isModerated called for post with approved = #approved"() {
         given:
-        BlogPost blogPost = createBlogPost(approved)
+        BlogPost blogPost = aBlogPost(approved: approved)
 
         when:
         boolean isModerated = blogPost.isModerated()
@@ -54,7 +55,7 @@ class BlogPostSpec extends Specification {
     def "Should return whether post is going in newsletter"() {
 
         given:
-        BlogPost blogPost = createBlogPost(approved, postApprovedDate)
+        BlogPost blogPost = aBlogPost(approved: approved, approvedDate: postApprovedDate)
 
         when:
         boolean inNewsletter = blogPost.isGoingInNewsletter(lastNewsletterDate)
@@ -63,15 +64,15 @@ class BlogPostSpec extends Specification {
         inNewsletter == expected
 
         where:
-        approved | postApprovedDate                                || lastNewsletterDate                              || expected
-        true     | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || true
-        true     | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 21, 12, 00) || false
-        false    | LocalDateTime.of(2016, Month.MARCH, 20, 12, 00) || LocalDateTime.of(2016, Month.MARCH, 19, 12, 00) || false
+        approved | postApprovedDate                  || lastNewsletterDate                || expected
+        true     | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 19, 12, 00) || true
+        true     | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 21, 12, 00) || false
+        false    | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 19, 12, 00) || false
     }
 
     def "Should approve post"() {
         given:
-        BlogPost blogPost = createBlogPost(NOT_MODERATED)
+        BlogPost blogPost = aBlogPost(approved: NOT_MODERATED)
         LocalDateTime approvedDate = new NowProvider().now()
 
         when:
@@ -82,35 +83,9 @@ class BlogPostSpec extends Specification {
         blogPost.approvedDate == approvedDate
     }
 
-    private BlogPost createBlogPost(final Boolean approved) {
-        createBlogPost(approved,
-            Boolean.TRUE == approved
-                ? new NowProvider().now()
-                : null)
-    }
-
-    private BlogPost createBlogPost(final Boolean approved, LocalDateTime postApprovedDate) {
-
-        return BlogPost.builder()
-            .approved(approved)
-            .title("title")
-            .url("url")
-            .publishedDate(new NowProvider().now())
-            .approvedDate(postApprovedDate)
-            .blog(Blog.builder()
-            .bookmarkableId("bookmarkableId")
-            .blogType(BlogType.PERSONAL)
-            .author("author")
-            .rss("rss")
-            .url("url")
-            .dateAdded(new NowProvider().now())
-            .build())
-            .build()
-    }
-
     def "Should create BlogPost with random uid"() {
         when:
-        BlogPost blogPost = createBlogPost(false)
+        BlogPost blogPost = aBlogPost(approved: false)
 
         then:
         blogPost.uid != null
