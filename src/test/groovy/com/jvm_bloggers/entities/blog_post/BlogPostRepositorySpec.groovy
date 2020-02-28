@@ -120,7 +120,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        List<BlogPost> blogPostsByBlogType = blogPostRepository.selectBlogPostsOfType(blogType)
+        List<BlogPost> blogPostsByBlogType = blogPostRepository.findBlogPostsOfType(blogType)
 
         then:
         blogPostsByBlogType.size() == expectedBlogPostCount

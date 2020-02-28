@@ -42,6 +42,6 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     @Query("FROM BlogPost bp JOIN bp.blog b " +
             "WHERE b.blogType = :blogType")
-    List<BlogPost> selectBlogPostsOfType(@Param("blogType") BlogType blogType);
+    io.vavr.collection.List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType);
 
 }
