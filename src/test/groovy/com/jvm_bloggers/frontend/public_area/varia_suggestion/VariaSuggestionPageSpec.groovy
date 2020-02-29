@@ -9,11 +9,7 @@ import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.util.tester.FormTester
 
 import static com.jvm_bloggers.frontend.WicketTestUtils.pathVia
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.AUTHOR_ID
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.FORM_ID
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.REASON_ID
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.SUBMIT_ID
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.URL_ID
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.*
 
 class VariaSuggestionPageSpec extends MockSpringContextAwareSpecification {
 
@@ -89,6 +85,30 @@ class VariaSuggestionPageSpec extends MockSpringContextAwareSpecification {
             it.reason == model.reason
         })
     }
+
+    def "Should create suggestion with uppercase url"() {
+        given:
+        VariaSuggestionModel model = new VariaSuggestionModel()
+        model.url = 'HTTPS://JVM-BLOGGERS.COM'
+        model.author = 'author'
+        model.reason = 'reason'
+
+        when:
+        tester.startPage(VariaSuggestionPage)
+        FormTester formTester = tester.newFormTester(FORM_ID)
+        formTester.setValue(URL_ID, model.url)
+        formTester.setValue(AUTHOR_ID, model.author)
+        formTester.setValue(REASON_ID, model.reason)
+        formTester.submit(SUBMIT_ID)
+
+        then:
+        1 * backingBean.createVariaSuggestion({
+            it.url == model.url &&
+            it.author == model.author &&
+            it.reason == model.reason
+        })
+    }
+
 
     def "Should not create suggestion from invalid form"() {
         when:
