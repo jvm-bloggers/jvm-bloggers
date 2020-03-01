@@ -1316,6 +1316,12 @@
       "bookmarkableId": "pater",
       "name": "Mateusz Pater",
       "rss": "https://pater.dev/feed/"
+    },
+    {
+      "bookmarkableId": "ldziedziul",
+      "name": "Łukasz Dziedziul",
+      "rss": "https://isolveproblems.pl/feed.xml",
+      "twitter": "@ldziedziul"
     }
   ]
 }
