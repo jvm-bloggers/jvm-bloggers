@@ -3,7 +3,6 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
-import com.jvm_bloggers.utils.NowProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -11,8 +10,9 @@ import spock.lang.Unroll
 
 import java.time.LocalDateTime
 
+import static com.jvm_bloggers.ObjectMother.aBlog
+import static com.jvm_bloggers.ObjectMother.aBlogPost
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
-import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static java.lang.Boolean.FALSE
 import static java.lang.Boolean.TRUE
 import static java.lang.Integer.MAX_VALUE
@@ -35,15 +35,16 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     def "Should order latest posts by moderation and publication date"() {
         given:
-        Blog blog = aBlog("bookmarkId", "Top Blogger", "http://topblogger.pl/")
+        Blog blog = blogRepository.save(aBlog())
+        LocalDateTime baseTime = LocalDateTime.of(2016, 1, 1, 12, 00)
 
         List<BlogPost> blogPosts = [
-            aBlogPost(1, LocalDateTime.of(2016, 1, 1, 12, 00), REJECTED, blog),
-            aBlogPost(2, LocalDateTime.of(2016, 1, 4, 12, 00), REJECTED, blog),
-            aBlogPost(3, LocalDateTime.of(2016, 1, 2, 12, 00), APPROVED, blog),
-            aBlogPost(4, LocalDateTime.of(2016, 1, 5, 12, 00), APPROVED, blog),
-            aBlogPost(5, LocalDateTime.of(2016, 1, 3, 12, 00), NOT_MODERATED, blog),
-            aBlogPost(6, LocalDateTime.of(2016, 1, 6, 12, 00), NOT_MODERATED, blog)
+            aBlogPost(publishedDate: baseTime.plusDays(0), approved: REJECTED, blog: blog),
+            aBlogPost(publishedDate: baseTime.plusDays(1), approved: REJECTED, blog: blog),
+            aBlogPost(publishedDate: baseTime.plusDays(2), approved: APPROVED, blog: blog),
+            aBlogPost(publishedDate: baseTime.plusDays(3), approved: APPROVED, blog: blog),
+            aBlogPost(publishedDate: baseTime.plusDays(4), approved: NOT_MODERATED, blog: blog),
+            aBlogPost(publishedDate: baseTime.plusDays(5), approved: NOT_MODERATED, blog: blog)
         ]
 
         blogPostRepository.saveAll(blogPosts)
@@ -51,13 +52,12 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         when:
         List<BlogPost> latestPosts = blogPostRepository.findLatestPosts(PAGEABLE)
 
-        then:
-        // not moderated posts first ...
+        then: 'not moderated posts first'
         !latestPosts[0].isModerated()
         !latestPosts[1].isModerated()
         latestPosts[0].getPublishedDate().isAfter(latestPosts[1].getPublishedDate())
 
-        // ... then moderated ones ordered by published date regardless of an approval
+        and: 'then moderated ones ordered by published date regardless of an approval'
         latestPosts[2].isModerated()
         latestPosts[3].isModerated()
         latestPosts[4].isModerated()
@@ -71,27 +71,24 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     @Unroll
     def "Should filter out posts by authors = #excludedAuthors"() {
         given:
-        Blog excludedBlog = aBlog("bookmarkId-1", EXCLUDED_AUTHOR, "http://excluded.pl/")
-        LocalDateTime publishedDate = new NowProvider().now()
+        Blog excludedBlog = blogRepository.save(aBlog(author: EXCLUDED_AUTHOR))
+        Blog includedBlog = blogRepository.save(aBlog(author: 'Included Author'))
 
         List<BlogPost> excludedblogPosts = [
-            aBlogPost(1, publishedDate, REJECTED, excludedBlog),
-            aBlogPost(2, publishedDate, APPROVED, excludedBlog),
+                aBlogPost(approved: REJECTED, blog: excludedBlog),
+                aBlogPost(approved: APPROVED, blog: excludedBlog)
         ]
-
-        blogPostRepository.saveAll(excludedblogPosts)
-
-        Blog includedBlog = aBlog("bookmarkId-2","Included Author", "http://included.pl/")
 
         List<BlogPost> includedBlogPosts = [
-            aBlogPost(3, publishedDate, REJECTED, includedBlog),
-            aBlogPost(4, publishedDate, APPROVED, includedBlog),
+                aBlogPost(approved: REJECTED, blog: includedBlog),
+                aBlogPost(approved: APPROVED, blog: includedBlog),
         ]
 
-        blogPostRepository.saveAll(includedBlogPosts)
+        blogPostRepository.saveAll(includedBlogPosts + excludedblogPosts)
 
         when:
-        List<BlogPost> filteredPosts = blogPostRepository.findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(PAGEABLE, excludedAuthors)
+        List<BlogPost> filteredPosts = blogPostRepository.
+                findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(PAGEABLE, excludedAuthors)
 
         then:
         filteredPosts.size == expectedPostsCount
@@ -101,29 +98,5 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         [] as Set                      || 0
         [EXCLUDED_AUTHOR] as Set       || 1
         INCLUDE_ALL_AUTHORS_SET as Set || 2
-    }
-
-    private Blog aBlog(String bookmarkableId, String author, String rssUrl) {
-        return blogRepository.save(
-            Blog.builder()
-                .bookmarkableId(bookmarkableId)
-                .author(author)
-                .rss(rssUrl)
-                .url("url")
-                .dateAdded(LocalDateTime.now())
-                .blogType(PERSONAL)
-                .moderationRequired(false)
-                .build())
-    }
-
-    private BlogPost aBlogPost(final int index, final LocalDateTime publishedDate,
-                               final Boolean approved, final Blog blog) {
-        return BlogPost.builder()
-            .publishedDate(publishedDate)
-            .approved(approved)
-            .blog(blog)
-            .title("title" + index)
-            .url("url" + index)
-            .build()
     }
 }
