@@ -13,7 +13,7 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     @Shared
     List<BloggerEntry> jsonEntries
 
-    private static final int TWITTER_USER_TAG_MAXIMUM_LENGTH = 16
+    private static final int AT_PLUS_TWITTER_HANDLE_MAX_LENGTH = 16
 
     private static final CharMatcher alphanumericOrUnderscore = (CharMatcher.inRange('a' as char, 'z' as char) as CharMatcher)
             .or(CharMatcher.inRange('A' as char, 'Z' as char) as CharMatcher)
@@ -39,7 +39,7 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     }
 
     @Unroll
-    def "should check that bookmarkable ID is lower-case, alphanumeric or hyphen"() {
+    def "should check that bookmarkable ID  #id is lower-case, alphanumeric or hyphen"() {
         expect:
         lowercaseOrHyphen.matchesAllOf(id)
 
@@ -66,35 +66,35 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     }
 
     @Unroll
-    def "should check that twitter user tag starts with @"() {
+    def "should check that @ + twitter handle #atPlusTwitterHandle starts with @"() {
         expect:
-        tag.startsWith("@")
+        atPlusTwitterHandle.startsWith("@")
 
         where:
-        tag << allTwitterUsersTags()
+        atPlusTwitterHandle << allAtPlusTwitterUserNames()
     }
 
 
     @Unroll
-    def "should check that twitter user tag is less than 16 characters"() {
+    def "should check that @ + twitter handle #atPlusTwitterHandle is less than 16 characters"() {
         expect:
-        tag.length() <= TWITTER_USER_TAG_MAXIMUM_LENGTH
+        atPlusTwitterHandle.length() <= AT_PLUS_TWITTER_HANDLE_MAX_LENGTH
 
         where:
-        tag << allTwitterUsersTags()
+        atPlusTwitterHandle << allAtPlusTwitterUserNames()
     }
 
     @Unroll
-    def "should check that twitter username is alphanumeric or underscore"() {
+    def "should check that twitter username #username is alphanumeric or underscore"() {
         expect:
         alphanumericOrUnderscore.matchesAllOf(username)
 
         where:
-        tag << allTwitterUsersTags()
-        username = tag.substring(1)
+        atPlusTwitterHandle << allAtPlusTwitterUserNames()
+        username = atPlusTwitterHandle.substring(1)
     }
 
-    private List<String> allTwitterUsersTags() {
+    private List<String> allAtPlusTwitterUserNames() {
         jsonEntries.findAll{ it.twitter != null }
                 .twitter
     }
