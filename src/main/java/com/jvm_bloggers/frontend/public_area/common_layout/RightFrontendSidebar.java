@@ -4,6 +4,7 @@ import com.googlecode.wicket.jquery.ui.markup.html.link.BookmarkablePageLink;
 import com.jvm_bloggers.domain.query.newsletter_issue_for_listing.NewsletterIssueForListing;
 import com.jvm_bloggers.frontend.common_components.NewsletterIssueLink;
 import com.jvm_bloggers.frontend.public_area.all_issues.AllIssuesPage;
+import com.jvm_bloggers.frontend.public_area.jvm_poland_slack.JvmPolandSlackPage;
 import com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage;
 
 import io.vavr.collection.Seq;
@@ -49,6 +50,7 @@ public class RightFrontendSidebar extends Panel {
         };
         add(latestIssuesList);
         add(new BookmarkablePageLink<AllIssuesPage>("allIssuesLink", AllIssuesPage.class));
+        add(new BookmarkablePageLink<JvmPolandSlackPage>("jvm-poland-slack", JvmPolandSlackPage.class));
         add(new BookmarkablePageLink<VariaSuggestionPage>("variaSuggestionLink",
             VariaSuggestionPage.class));
     }
