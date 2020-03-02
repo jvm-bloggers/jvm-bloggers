@@ -9,7 +9,11 @@ import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.util.tester.FormTester
 
 import static com.jvm_bloggers.frontend.WicketTestUtils.pathVia
-import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.*
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.AUTHOR_ID
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.FORM_ID
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.REASON_ID
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.SUBMIT_ID
+import static com.jvm_bloggers.frontend.public_area.varia_suggestion.VariaSuggestionPage.URL_ID
 
 class VariaSuggestionPageSpec extends MockSpringContextAwareSpecification {
 
