@@ -6,7 +6,6 @@ import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.utils.NowProvider
-import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -140,24 +139,6 @@ class TweetContentGeneratorSpec extends Specification {
         def company = /@company/
         def companyBlogs = (tweetContent =~ /$company/)
         assert companyBlogs.count == 1
-    }
-
-    @Ignore // This won't happen until we increase length of base template for tweet messages
-    def "Should not add the second personal twitter handle if message is too long"() {
-        given:
-        NewsletterIssue issue = NewsletterIssue
-                .builder()
-                .issueNumber(ISSUE_NUMBER)
-                .heading("issue heading")
-                .blogPosts(postsWithLongHandles())
-                .build()
-
-        when:
-        String tweetContent = contentGenerator.generateTweetContent(issue)
-
-        then:
-        def handles = /.*@veryLongPersonalHandle\d{1} i @veryLongCompanyHandle\d{1}.*/
-        tweetContent ==~ /$handles/
     }
 
     @Unroll
