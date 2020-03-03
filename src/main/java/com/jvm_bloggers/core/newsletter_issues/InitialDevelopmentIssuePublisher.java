@@ -4,16 +4,14 @@ import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
+import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.collection.List;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.CountDownLatch;
 
 @Component
 @Slf4j
@@ -30,18 +28,39 @@ public class InitialDevelopmentIssuePublisher {
 
 	static final int REQUIRED_AMOUNT_OF_POSTS = 10;
 	static final int AMOUNT_OF_POSTS_TO_APPROVE = 2;
+	private final NowProvider nowProvider;
 	private final NewNewsletterIssuePublisher newNewsletterIssuePublisher;
 	private final NewsletterIssueRepository newsletterIssueRepository;
 	private final BlogPostRepository blogPostRepository;
 	private final PageRequest requiredAmountOfRecordsPageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS);
 	private final PageRequest amountOfRecordsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE);
 
-	@Scheduled(initialDelay = 10000, fixedDelayString = "${scheduler.publish-test-issue}")
+	@Scheduled(initialDelay = 5000, fixedDelayString = "${scheduler.publish-test-issue}")
 	public void publishTestDevelopmentIssue() {
 		log.info("Trying to publish a development issue if no exist...");
 		if (!existsAnIssue() && existRequiredAmountOfPosts()) {
 			log.info("PUBLISHED AN ISSUE");
+			approveBlogPostsAndPublishDevIssue();
+		}
+	}
+
+	private void approveBlogPostsAndPublishDevIssue() {
+		if (getAndApproveUnapprovedBlogPosts())
 			newNewsletterIssuePublisher.publishNewIssue(2);
+	}
+
+	//TODO: Fix class cast exception
+	private boolean getAndApproveUnapprovedBlogPosts(){
+		List<BlogPost> unapprovedVideoBlogPosts =
+						blogPostRepository.findUnapprovedPostsByBlogType(BlogType.VIDEOS, amountOfRecordsToApprovePageRequest);
+		List<BlogPost> unapprovedCompanyBlogPosts =
+						blogPostRepository.findUnapprovedPostsByBlogType(BlogType.COMPANY, amountOfRecordsToApprovePageRequest);
+		if (unapprovedCompanyBlogPosts.size() > 0 && unapprovedVideoBlogPosts.size() > 0){
+			unapprovedVideoBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
+			unapprovedCompanyBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -65,7 +84,6 @@ public class InitialDevelopmentIssuePublisher {
 		return isRequiredAmountOfPosts;
 	}
 
-	//TODO: Limit amount of found blog posts to the required amount
 	private boolean existRequiredAmountOfPostsOfType(BlogType blogType) {
 		List<BlogPost> blogPosts =
 						blogPostRepository.findBlogPostsOfType(blogType, requiredAmountOfRecordsPageRequest);

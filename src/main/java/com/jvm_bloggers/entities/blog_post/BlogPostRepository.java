@@ -45,5 +45,9 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
             "WHERE b.blogType = :blogType")
     io.vavr.collection.List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType, Pageable page);
 
-    List<BlogPost> findByApprovedFalseOrderByPublishedDateDesc(Pageable page);
+    @Query("FROM BlogPost bp JOIN bp.blog b " +
+            "WHERE b.blogType = :blogType " +
+            "AND bp.approved = null " +
+            "ORDER BY bp.publishedDate DESC")
+    io.vavr.collection.List<BlogPost> findUnapprovedPostsByBlogType(@Param("blogType") BlogType blogType, Pageable page);
 }
