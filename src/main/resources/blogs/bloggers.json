@@ -1322,6 +1322,11 @@
       "name": "Łukasz Dziedziul",
       "rss": "https://isolveproblems.pl/feed.xml",
       "twitter": "@ldziedziul"
+    },
+    {
+      "bookmarkableId": "maczkowski-dev",
+      "name": "Mariusz Mączkowski",
+      "rss": "https://blog.maczkowski.dev/feeds/posts/default"
     }
   ]
 }
