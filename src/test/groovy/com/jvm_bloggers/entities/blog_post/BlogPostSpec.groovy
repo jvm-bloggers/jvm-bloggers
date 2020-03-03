@@ -4,12 +4,10 @@ import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
-
 import java.time.LocalDateTime
-import java.time.Month
 
 import static com.jvm_bloggers.ObjectMother.aBlogPost
-import static java.time.LocalDateTime.of
+import static java.time.Month.*
 
 @Subject(BlogPost)
 class BlogPostSpec extends Specification {
@@ -52,7 +50,7 @@ class BlogPostSpec extends Specification {
     }
 
     @Unroll
-    def "Should return whether post is going in newsletter"() {
+    def "Should return #expected whether post with approval #approved posted on #postApprovedDate is going in newsletter if last issue date was #lastNewsletterDate"() {
 
         given:
         BlogPost blogPost = aBlogPost(approved: approved, approvedDate: postApprovedDate)
@@ -64,10 +62,15 @@ class BlogPostSpec extends Specification {
         inNewsletter == expected
 
         where:
-        approved | postApprovedDate                  || lastNewsletterDate                || expected
-        true     | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 19, 12, 00) || true
-        true     | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 21, 12, 00) || false
-        false    | of(2016, Month.MARCH, 20, 12, 00) || of(2016, Month.MARCH, 19, 12, 00) || false
+        approved | postApprovedDate                             || lastNewsletterDate               || expected
+        true     | LocalDateTime.of(2016, MARCH, 20, 12, 00)    || postApprovedDate.minusDays(1)    || true
+        true     | LocalDateTime.of(1999, DECEMBER, 31, 23, 59) || postApprovedDate.plusDays(1)     || false
+        true     | LocalDateTime.of(2016, MARCH, 20, 12, 00)    || postApprovedDate.minusMinutes(1) || true
+        true     | LocalDateTime.of(2020, JANUARY, 1, 00, 00)   || postApprovedDate.plusMinutes(1)  || false
+        false    | LocalDateTime.of(2016, MARCH, 20, 12, 00)    || postApprovedDate.minusDays(1)    || false
+        false    | null                                         || LocalDateTime.now()              || false
+        true     | LocalDateTime.now()                          || postApprovedDate.plusHours(1)    || false
+        true     | LocalDateTime.now().plusDays(1)              || postApprovedDate.minusHours(1)   || true
     }
 
     def "Should approve post"() {
