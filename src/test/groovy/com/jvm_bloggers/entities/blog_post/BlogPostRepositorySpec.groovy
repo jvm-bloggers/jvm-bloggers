@@ -5,6 +5,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
+import org.apache.wicket.PageReference
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -120,7 +121,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        List<BlogPost> blogPostsByBlogType = blogPostRepository.findBlogPostsOfType(blogType)
+        io.vavr.collection.List<BlogPost> blogPostsByBlogType = blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0,3))
 
         then:
         blogPostsByBlogType.size() == expectedBlogPostCount

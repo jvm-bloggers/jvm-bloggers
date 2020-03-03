@@ -11,6 +11,7 @@ import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
 import com.jvm_bloggers.utils.NowProvider
 import io.vavr.collection.List
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
 
 import java.time.LocalDateTime
@@ -18,22 +19,21 @@ import java.time.LocalDateTime
 @Subject(InitialDevelopmentIssuePublisher)
 class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecification {
 
-    @Autowired
-    BlogRepository blogRepository
-
     NewNewsletterIssuePublisher newNewsletterIssuePublisher = Mock()
     NewsletterIssueRepository newsletterIssueRepository = Mock()
     BlogPostRepository blogPostRepository = Mock()
 
     InitialDevelopmentIssuePublisher initialDevelopmentIssuePublisher =
             new InitialDevelopmentIssuePublisher(newNewsletterIssuePublisher, newsletterIssueRepository, blogPostRepository)
+    private int REQUIRED_AMOUNT_OF_POSTS = initialDevelopmentIssuePublisher.REQUIRED_AMOUNT_OF_POSTS
+    private PageRequest requiredSizePageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS)
 
     def "Shouldn't post a dev issue when there aren't enough blog posts"() {
         given:
         newsletterIssueRepository.count() >> 0
-        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY) >> List.empty()
-        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS) >> List.empty()
-        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL) >> List.empty()
+        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY, requiredSizePageRequest) >> List.empty()
+        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS, requiredSizePageRequest) >> List.empty()
+        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL, requiredSizePageRequest) >> List.empty()
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
@@ -53,12 +53,11 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         0 * newNewsletterIssuePublisher.publishNewIssue(_)
     }
 
-    //TODO
-    def "Should post an issue when enough posts appear"() {
+    def "Should post an issue when there are enough posts"() {
         java.util.List<BlogPost> companyBlogPosts = new ArrayList<>()
         java.util.List<BlogPost> personalBlogPosts = new ArrayList<>()
         java.util.List<BlogPost> videoBlogPosts = new ArrayList<>()
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < REQUIRED_AMOUNT_OF_POSTS; i++) {
             companyBlogPosts.add(aBlogPost(i,BlogType.COMPANY))
             personalBlogPosts.add(aBlogPost(i,BlogType.PERSONAL))
             videoBlogPosts.add(aBlogPost(i,BlogType.VIDEOS))
@@ -66,9 +65,9 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
 
         given:
         newsletterIssueRepository.count() >> 0
-        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY) >> [List.empty(), List.empty(), List.ofAll(companyBlogPosts)]
-        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS) >> [List.empty(), List.empty(), List.ofAll(videoBlogPosts)]
-        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL) >> [List.empty(), List.empty(), List.ofAll(personalBlogPosts)]
+        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL, requiredSizePageRequest) >> List.ofAll(personalBlogPosts)
+        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY, requiredSizePageRequest) >> List.ofAll(companyBlogPosts)
+        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS, requiredSizePageRequest) >> List.ofAll(videoBlogPosts)
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()

@@ -26,6 +26,9 @@ logging.level.com.jvm_bloggers: DEBUG
 
 application.baseUrl: http://localhost:${server.port}
 
+scheduler:
+  publish-test-issue: 30000 # 30 seconds
+
 facebook.api:
   userToken: #User access token can be created as it is described in FACEBOOK.md
   appSecret: #To get application's secret check FACEBOOK.md
