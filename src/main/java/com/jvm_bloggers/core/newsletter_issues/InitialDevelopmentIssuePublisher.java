@@ -1,5 +1,7 @@
 package com.jvm_bloggers.core.newsletter_issues;
 
+import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE_NAME;
+
 import com.jvm_bloggers.entities.blog.BlogType;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
@@ -13,6 +15,7 @@ import org.hibernate.validator.cfg.defs.pl.REGONDef;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CountDownLatch;
@@ -37,54 +40,34 @@ public class InitialDevelopmentIssuePublisher {
     private final BlogPostRepository blogPostRepository;
     private final int REQUIRED_AMOUNT_OF_POSTS = 10;
 
-    @EventListener(ApplicationReadyEvent.class)
+    @Scheduled(cron = "${scheduler.publish-test-issue}")
     public void publishTestDevelopmentIssue() {
-        if (!existsAnIssue()) {
-            Try.run(this::waitForEnoughPostsToExistAndCreateDevIssue)
-                    .onFailure(ex -> log.error("Waiting for blog posts interrupted" + ex));
-        }
-    }
-
-    private void waitForEnoughPostsToExistAndCreateDevIssue() throws InterruptedException {
-        log.info("Checking if enough posts exist");
-        startPostAmountCheckerThread();
-        log.info("Awaiting results");
-        if (blogPostCountLatch.await(10, TimeUnit.SECONDS)) {
-            blogPostCountLatch.countDown();
-            log.debug("Publishing test issue");
+        log.info("Trying to publish a development issue if no exist...");
+        if (!existsAnIssue() && existRequiredAmountOfPosts()) {
             newNewsletterIssuePublisher.publishNewIssue(2);
-            log.debug("Published test issue");
-        } else {
-            blogPostCountLatch.countDown();
-            log.error("Couldn't get required amount of posts to create a Dev issue : " + REQUIRED_AMOUNT_OF_POSTS);
         }
     }
-
-    private void startPostAmountCheckerThread() {
-        Thread postAmountChecker = new Thread(this::existEnoughPosts);
-        postAmountChecker.start();
-    }
-
     private boolean existsAnIssue() {
-        return newsletterIssueRepository.count() > 0;
-    }
-
-    private void existEnoughPosts() {
-        log.info("Starting loop");
-        while (!existRequiredAmountOfPosts() || blogPostCountLatch.getCount() > 0) {
-            Try.run(() -> Thread.sleep(1000))
-                    .onFailure(ex -> log.error("Waiting for blog posts interrupted" + ex));
-        }
-        log.info("Found enough posts, proceeding");
-        blogPostCountLatch.countDown();
+        boolean isExistAnIssue = newsletterIssueRepository.count() > 0;
+        String message = isExistAnIssue ?
+                "There already is an issue published. Aborting publishing of dev issue." :
+                "There isn't an issue published.";
+        log.info(message);
+        return isExistAnIssue;
     }
 
     private boolean existRequiredAmountOfPosts() {
-        return existRequiredAmountOfPostsOfType(BlogType.PERSONAL)
+        log.info("Checking if enough posts exist.");
+        boolean isRequiredAmountOfPosts = existRequiredAmountOfPostsOfType(BlogType.PERSONAL)
                 && existRequiredAmountOfPostsOfType(BlogType.COMPANY)
                 && existRequiredAmountOfPostsOfType(BlogType.VIDEOS);
+        String message = isRequiredAmountOfPosts ?
+                "There are enough posts for a dev issue." : "There aren't enough posts for a dev issue.";
+        log.info(message);
+        return isRequiredAmountOfPosts;
     }
 
+    //TODO: Limit amount of found blog posts to the required amount
     private boolean existRequiredAmountOfPostsOfType(BlogType blogType) {
         List<BlogPost> blogPosts = blogPostRepository.findBlogPostsOfType(blogType);
         return blogPosts.size() > REQUIRED_AMOUNT_OF_POSTS;

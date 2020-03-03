@@ -66,12 +66,9 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
 
         given:
         newsletterIssueRepository.count() >> 0
-        2 * blogPostRepository.findBlogPostsOfType(BlogType.COMPANY) >> List.empty()
-        2 * blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS) >> List.empty()
-        2 * blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL) >> List.empty()
-        1 * blogPostRepository.findBlogPostsOfType(BlogType.COMPANY) >> List.ofAll(companyBlogPosts)
-        1 * blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS) >> List.ofAll(personalBlogPosts)
-        1 * blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL) >> List.ofAll(videoBlogPosts)
+        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY) >> [List.empty(), List.empty(), List.ofAll(companyBlogPosts)]
+        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS) >> [List.empty(), List.empty(), List.ofAll(videoBlogPosts)]
+        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL) >> [List.empty(), List.empty(), List.ofAll(personalBlogPosts)]
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
@@ -80,20 +77,8 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         1 * newNewsletterIssuePublisher.publishNewIssue(_)
     }
 
-    private Blog aBlog(String bookmarkableId, BlogType blogType) {
-                return Blog.builder()
-                        .bookmarkableId(bookmarkableId)
-                        .author("testAuthor")
-                        .rss("testRssUrl")
-                        .url("url")
-                        .dateAdded(LocalDateTime.now())
-                        .blogType(blogType)
-                        .moderationRequired(false)
-                        .build()
-    }
-
     private BlogPost aBlogPost(final int index, final BlogType blogType) {
-        Blog blog =  Blog.builder()
+        Blog testBlog =  Blog.builder()
                 .bookmarkableId(String.valueOf(index))
                 .author("testAuthor")
                 .rss("testRssUrl")
@@ -102,10 +87,11 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
                 .blogType(blogType)
                 .moderationRequired(false)
                 .build();
+
         return BlogPost.builder()
                 .publishedDate(LocalDateTime.now())
                 .approved(true)
-                .blog(blog)
+                .blog(testBlog)
                 .title("title" + index)
                 .url("url" + index)
                 .build()
