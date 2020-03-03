@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.newsletter_issues;
 
 import static com.jvm_bloggers.core.newsletter_issues.PublishingConstants.DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE;
-import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE_NAME;
+import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE_NAME;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

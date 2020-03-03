@@ -15,6 +15,8 @@ import java.time.Month
 class BlogPostSpec extends Specification {
     private static final Boolean NOT_MODERATED = null
 
+    private NowProvider nowProvider = new ZoneTimeProvider()
+
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
         given:
@@ -73,7 +75,7 @@ class BlogPostSpec extends Specification {
     def "Should approve post"() {
         given:
         BlogPost blogPost = createBlogPost(NOT_MODERATED)
-        LocalDateTime approvedDate = LocalDateTime.now(NowProvider.DEFAULT_ZONE)
+        LocalDateTime approvedDate = nowProvider.now()
 
         when:
         blogPost.approve(approvedDate)
@@ -85,9 +87,9 @@ class BlogPostSpec extends Specification {
 
     private BlogPost createBlogPost(final Boolean approved) {
         createBlogPost(approved,
-                Boolean.TRUE == approved
-                        ? new ZoneTimeProvider().now()
-                        : null)
+            Boolean.TRUE == approved
+                ? nowProvider.now()
+                : null)
     }
 
     private BlogPost createBlogPost(final Boolean approved, LocalDateTime postApprovedDate) {
@@ -96,7 +98,7 @@ class BlogPostSpec extends Specification {
             .approved(approved)
             .title("title")
             .url("url")
-            .publishedDate(LocalDateTime.now(NowProvider.DEFAULT_ZONE))
+            .publishedDate(nowProvider.now())
             .approvedDate(postApprovedDate)
             .blog(Blog.builder()
             .bookmarkableId("bookmarkableId")
@@ -104,7 +106,7 @@ class BlogPostSpec extends Specification {
             .author("author")
             .rss("rss")
             .url("url")
-            .dateAdded(LocalDateTime.now(NowProvider.DEFAULT_ZONE))
+            .dateAdded(nowProvider.now())
             .build())
             .build()
     }

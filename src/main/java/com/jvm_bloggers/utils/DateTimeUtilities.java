@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
+import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
 import static java.lang.String.format;
 import static java.time.format.TextStyle.FULL_STANDALONE;
 

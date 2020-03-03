@@ -7,6 +7,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
@@ -30,7 +31,7 @@ class AggregatedRssFeedProducerSpec extends Specification {
     String DESCRIPTION = 'description'
     String INVALID_URL = 'http://invalid-url'
     String REQUEST_URL = 'http://jvm-bloggers.com/rss'
-    LocalDateTime DATE = LocalDateTime.now(NowProvider.DEFAULT_ZONE)
+    LocalDateTime DATE = new ZoneTimeProvider().now()
     String UID_1 = UUID.randomUUID().toString()
     String UID_2 = UUID.randomUUID().toString()
     String UID_3 = UUID.randomUUID().toString()
