@@ -1,16 +1,15 @@
 package com.jvm_bloggers.entities.newsletter_issue
 
-import com.google.common.collect.Lists
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
-import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.springframework.beans.factory.annotation.Autowired
 
-import java.time.LocalDateTime
+import static com.jvm_bloggers.ObjectMother.aBlog
+import static com.jvm_bloggers.ObjectMother.aBlogPost
 
 class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification {
 
@@ -24,29 +23,9 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
     BlogPostRepository blogPostRepository
 
     protected List<Blog> prepareBlogs() {
-        Blog blog1 = Blog.builder()
-                .active(true)
-                .author("John Doe")
-                .blogType(BlogType.PERSONAL)
-                .dateAdded(LocalDateTime.now())
-                .bookmarkableId("bookmarkableId-1")
-                .rss("http://example.com/rss")
-                .url("http://example.com")
-                .moderationRequired(false)
-                .build()
-        blogRepository.save(blog1)
-        Blog blog2 = Blog.builder()
-                .active(true)
-                .author("Kate Ryan")
-                .blogType(BlogType.COMPANY)
-                .dateAdded(LocalDateTime.now())
-                .bookmarkableId("bookmarkableId-2")
-                .rss("http://another-url.com/rss")
-                .url("http://another-url.com")
-                .moderationRequired(false)
-                .build()
-        blogRepository.save(blog2)
-        return Lists.asList(blog1, blog2)
+        [aBlog(author: 'John Doe'), aBlog(author: 'Kate Ryan')].each {
+            blogRepository.save(it)
+        }
     }
 
     protected List<BlogPost> prepareBlogPosts(Blog blog1, Blog blog2) {
@@ -54,19 +33,14 @@ class NewsletterIssueRepositorySpecBase extends SpringContextAwareSpecification 
         BlogPost blogPost2 = createAndSaveBlogPost(blog2, "http://abc.pl/2")
         BlogPost blogPost3 = createAndSaveBlogPost(blog2, "http://abc.pl/3")
         BlogPost blogPost4 = createAndSaveBlogPost(blog2, "http://abc.pl/4")
-        return Lists.newArrayList(blogPost1, blogPost2, blogPost3, blogPost4)
+        return [blogPost1, blogPost2, blogPost3, blogPost4]
     }
 
     protected BlogPost createAndSaveBlogPost(Blog blog, String url) {
-        BlogPost blogPost = BlogPost
-                .builder()
-                .approved(true)
-                .blog(blog)
-                .description("Example description")
-                .publishedDate(LocalDateTime.now())
-                .title("Example title")
-                .url(url)
-                .build()
+        BlogPost blogPost = aBlogPost(
+                blog: blog,
+                url: url
+        )
         blogPostRepository.save(blogPost)
         return blogPost
     }
