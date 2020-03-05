@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core.rss
 
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
@@ -54,9 +55,7 @@ class IssuesRssFeedProducerTest extends Specification {
     }
 
     LinkGenerator linkGenerator = new LinkGenerator(BASE_URL, ISSUE_URL, "")
-    NowProvider nowProvider = Stub() {
-        now() >> DATE
-    }
+    NowProvider nowProvider = new TestTimeProvider(DATE)
 
     @Subject
     IssuesRssFeedProducer testObj = new IssuesRssFeedProducer(issueRepository, linkGenerator, nowProvider, APP_NAME)

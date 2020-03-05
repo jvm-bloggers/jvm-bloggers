@@ -1,14 +1,12 @@
 package com.jvm_bloggers.domain.query.blog_statistics_for_listing
 
-import com.jvm_bloggers.TestNowProvider
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.projections.BlogStatisticsProjection
 import io.vavr.collection.List
 import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
-
-import java.time.LocalDateTime
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static java.time.LocalDateTime.now
@@ -18,7 +16,7 @@ class BlogStatisticsForListingQuerySpec extends Specification {
 
     BlogRepository blogRepository = Stub(BlogRepository)
     BlogStatisticsForListingQuery blogStatisticsForListingQuery = new BlogStatisticsForListingQuery(
-            blogRepository, new TestNowProvider(now())
+            blogRepository, new TestTimeProvider(now())
     )
 
     def "Should return blog statistics"() {

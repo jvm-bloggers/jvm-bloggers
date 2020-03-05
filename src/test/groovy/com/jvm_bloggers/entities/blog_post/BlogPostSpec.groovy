@@ -3,6 +3,7 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -13,6 +14,8 @@ import java.time.Month
 @Subject(BlogPost)
 class BlogPostSpec extends Specification {
     private static final Boolean NOT_MODERATED = null
+
+    private NowProvider nowProvider = new ZoneTimeProvider()
 
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
@@ -72,7 +75,7 @@ class BlogPostSpec extends Specification {
     def "Should approve post"() {
         given:
         BlogPost blogPost = createBlogPost(NOT_MODERATED)
-        LocalDateTime approvedDate = new NowProvider().now()
+        LocalDateTime approvedDate = nowProvider.now()
 
         when:
         blogPost.approve(approvedDate)
@@ -85,7 +88,7 @@ class BlogPostSpec extends Specification {
     private BlogPost createBlogPost(final Boolean approved) {
         createBlogPost(approved,
             Boolean.TRUE == approved
-                ? new NowProvider().now()
+                ? nowProvider.now()
                 : null)
     }
 
@@ -95,7 +98,7 @@ class BlogPostSpec extends Specification {
             .approved(approved)
             .title("title")
             .url("url")
-            .publishedDate(new NowProvider().now())
+            .publishedDate(nowProvider.now())
             .approvedDate(postApprovedDate)
             .blog(Blog.builder()
             .bookmarkableId("bookmarkableId")
@@ -103,7 +106,7 @@ class BlogPostSpec extends Specification {
             .author("author")
             .rss("rss")
             .url("url")
-            .dateAdded(new NowProvider().now())
+            .dateAdded(nowProvider.now())
             .build())
             .build()
     }

@@ -1,5 +1,6 @@
 package com.jvm_bloggers.frontend.admin_area.login.attack
 
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 
@@ -11,12 +12,12 @@ import java.time.Month
  */
 class BruteForceAttackMailGeneratorSpec extends Specification {
 
-    NowProvider nowProvider;
-    BruteForceAttackMailGenerator bruteForceAttackMailGenerator
+    private static final LocalDateTime DATE = LocalDateTime.of(2016, Month.MARCH, 11, 12, 0, 0)
+    private NowProvider nowProvider
+    private BruteForceAttackMailGenerator bruteForceAttackMailGenerator
 
     def setup() {
-        nowProvider = Mock(NowProvider)
-        nowProvider.now() >> LocalDateTime.of(2016, Month.MARCH, 11, 12, 0, 0)
+        nowProvider = new TestTimeProvider(DATE)
         bruteForceAttackMailGenerator = new BruteForceAttackMailGenerator(nowProvider)
     }
 

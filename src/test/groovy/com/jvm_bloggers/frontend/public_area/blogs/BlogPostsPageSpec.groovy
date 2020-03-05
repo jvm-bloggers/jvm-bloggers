@@ -1,6 +1,7 @@
 package com.jvm_bloggers.frontend.public_area.blogs
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogDisplayDetails
 import com.jvm_bloggers.domain.query.blog_post_for_listing.BlogPostForListing
 import com.jvm_bloggers.frontend.common_components.infinite_scroll.InfinitePaginationPanel
@@ -28,7 +29,7 @@ import static java.util.UUID.randomUUID
 
 class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
 
-    NowProvider nowProvider = Stub() { now() >> LocalDateTime.now() }
+    NowProvider nowProvider = new TestTimeProvider(LocalDateTime.now())
     BlogPostsPageBackingBean backingBean = GroovyMock()
 
     @Override

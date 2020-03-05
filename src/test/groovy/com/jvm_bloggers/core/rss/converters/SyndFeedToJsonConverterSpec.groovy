@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.rss.converters
 
 import com.jvm_bloggers.utils.DateTimeUtilities
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import com.rometools.rome.feed.synd.*
 import groovy.json.JsonSlurper
 import spock.lang.Specification
@@ -17,7 +17,7 @@ class SyndFeedToJsonConverterSpec extends Specification {
     static final String BASE_URL = "http://localhost"
     static final String FEED_LINK = "http://localhost/pl/rss.json"
     static final String FEED_TITLE = "JvmBloggers"
-    static final LocalDateTime DATE = new NowProvider().now()
+    static final LocalDateTime DATE = new ZoneTimeProvider().now()
 
     static final String AUTHOR_1 = "author1"
     static final String AUTHOR_2 = "author2"

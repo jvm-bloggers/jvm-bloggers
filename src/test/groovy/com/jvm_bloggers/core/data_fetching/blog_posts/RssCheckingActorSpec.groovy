@@ -7,13 +7,15 @@ import akka.testkit.JavaTestKit
 import com.jvm_bloggers.core.rss.SyndFeedProducer
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
 import io.vavr.control.Option
 import scala.concurrent.duration.FiniteDuration
 import spock.lang.Specification
 import spock.lang.Subject
+
+import java.time.LocalDateTime
 
 @Subject(ActorRef)
 class RssCheckingActorSpec extends Specification {
@@ -23,7 +25,7 @@ class RssCheckingActorSpec extends Specification {
         .author('Tomasz Dziurko')
         .rss('http://tomaszdziurko.pl/feed/')
         .url('url')
-        .dateAdded(new NowProvider().now())
+        .dateAdded(new ZoneTimeProvider().now())
         .blogType(BlogType.PERSONAL)
         .build()
 

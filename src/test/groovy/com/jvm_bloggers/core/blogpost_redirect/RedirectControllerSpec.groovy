@@ -7,7 +7,6 @@ import com.jvm_bloggers.entities.click.ClickRepository
 import com.jvm_bloggers.utils.NowProvider
 import io.vavr.control.Option
 import org.springframework.test.web.servlet.MockMvc
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 

@@ -1,6 +1,6 @@
 package com.jvm_bloggers.core.social.twitter.publisher
 
-import com.jvm_bloggers.TestNowProvider
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.twitter.Tweet
 import com.jvm_bloggers.entities.twitter.TweetRepository
 import com.jvm_bloggers.utils.NowProvider
@@ -17,7 +17,7 @@ class TwitterPublishingSchedulerSpec extends Specification {
 
     private TweetRepository tweetRepository = Mock(TweetRepository)
     private TwitterPublisher publisher = Mock(TwitterPublisher)
-    private NowProvider nowProvider = new TestNowProvider(NOW)
+    private NowProvider nowProvider = new TestTimeProvider(NOW)
 
     TwitterPublishingScheduler publisherScheduler = new TwitterPublishingScheduler(tweetRepository, publisher, nowProvider)
 
