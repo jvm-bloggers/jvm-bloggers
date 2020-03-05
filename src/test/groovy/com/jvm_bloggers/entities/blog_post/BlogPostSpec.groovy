@@ -79,7 +79,7 @@ class BlogPostSpec extends Specification {
     def "Should approve post"() {
         given:
         BlogPost blogPost = aBlogPost(approved: NOT_MODERATED)
-        LocalDateTime approvedDate = new NowProvider().now()
+        LocalDateTime approvedDate = nowProvider.now()
 
         when:
         blogPost.approve(approvedDate)
