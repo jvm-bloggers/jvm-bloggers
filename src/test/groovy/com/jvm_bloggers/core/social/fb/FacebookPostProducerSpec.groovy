@@ -5,7 +5,7 @@ import com.jvm_bloggers.core.blogpost_redirect.LinkGenerator
 import com.jvm_bloggers.core.newsletter_issues.NewIssuePublished
 import com.jvm_bloggers.entities.fb.FacebookPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -30,7 +30,7 @@ class FacebookPostProducerSpec extends Specification {
                         .build()
         )
         and:
-        FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository, new NowProvider())
+        FacebookPostProducer facebookPostProducer = new FacebookPostProducer(linkGenerator, messageGenerator, postRepository, new ZoneTimeProvider())
 
         when:
         facebookPostProducer.handleNewIssueEvent(issuePublishedEvent)

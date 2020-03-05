@@ -102,7 +102,8 @@
     {
       "bookmarkableId": "programuj-z-bykiem",
       "name": "Programuj z Bykiem",
-      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjWnQvpQgSRLeDEYQC0ZuLg"
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjWnQvpQgSRLeDEYQC0ZuLg",
+      "twitter": "@przemekbykowski"
     },
     {
       "bookmarkableId": "programistok",
@@ -120,6 +121,12 @@
       "name": "Ostra Piła",
       "rss": "http://feeds.feedburner.com/PodcastOstrapila",
       "twitter": "@ostrapila"
+    },
+    {
+      "bookmarkableId": "codebait",
+      "name": "CODEBAIT",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdfcbPJ_zXlisMfRIirHX8w",
+      "twitter": "@code_bait"
     }
   ]
 }

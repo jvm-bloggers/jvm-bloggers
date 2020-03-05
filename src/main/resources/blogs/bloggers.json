@@ -278,12 +278,6 @@
       "twitter": "@maneo"
     },
     {
-      "bookmarkableId": "bartek-kowalczyk",
-      "name": "Bartek Kowalczyk",
-      "rss": "http://dzawowo.blogspot.com/feeds/posts/default",
-      "twitter": "@bkowalczyk"
-    },
-    {
       "bookmarkableId": "jakub-kubrynski",
       "name": "Jakub Kubryński",
       "rss": "http://www.kubrynski.com/feeds/posts/default",
@@ -874,12 +868,6 @@
       "rss": "https://blog.pchudzik.com/index.xml"
     },
     {
-      "bookmarkableId": "grzegorz-ziemonski",
-      "name": "Grzegorz Ziemoński",
-      "rss": "http://tidyjava.com/feed/",
-      "twitter": "@grzegorztj"
-    },
-    {
       "bookmarkableId": "bartek-kalinka",
       "name": "Bartek Kalinka",
       "rss": "https://bartekkalinka.github.io/feed.xml",
@@ -1204,7 +1192,8 @@
     {
       "bookmarkableId": "przemyslaw-bykowski",
       "name": "Przemysław Bykowski",
-      "rss": "http://bykowski.pl/feed/"
+      "rss": "http://bykowski.pl/feed/",
+      "twitter": "@przemekbykowski"
     },
     {
       "bookmarkableId": "jakub-gardo",
@@ -1316,6 +1305,17 @@
       "bookmarkableId": "pater",
       "name": "Mateusz Pater",
       "rss": "https://pater.dev/feed/"
+    },
+    {
+      "bookmarkableId": "ldziedziul",
+      "name": "Łukasz Dziedziul",
+      "rss": "https://isolveproblems.pl/feed.xml",
+      "twitter": "@ldziedziul"
+    },
+    {
+      "bookmarkableId": "maczkowski-dev",
+      "name": "Mariusz Mączkowski",
+      "rss": "https://blog.maczkowski.dev/feeds/posts/default"
     }
   ]
 }

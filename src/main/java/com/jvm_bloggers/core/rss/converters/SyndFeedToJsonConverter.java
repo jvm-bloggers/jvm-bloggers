@@ -28,7 +28,7 @@ import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJs
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.LINK;
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.TITLE;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
-import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
+import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
 
 @Component
 @Slf4j

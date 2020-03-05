@@ -1,7 +1,7 @@
 package com.jvm_bloggers.core.data_fetching.blogs
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.jvm_bloggers.TestNowProvider
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.metadata.MetadataRepository
 import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
@@ -17,7 +17,7 @@ class BloggersDataFetcherSpec extends Specification {
     def "Should not throw exception when url is not valid"() {
         given:
         LocalDateTime NOW = LocalDateTime.now()
-        NowProvider nowProvider = new TestNowProvider(NOW)
+        NowProvider nowProvider = new TestTimeProvider(NOW)
         String urlString = 'invalid', urlString2 = 'invalid', urlString3 = 'invalid'
         BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, Stub(BloggersDataUpdater), MAPPER, Stub(MetadataRepository), nowProvider)
 
@@ -31,7 +31,7 @@ class BloggersDataFetcherSpec extends Specification {
     def "Should update bloggers data from valid url"() {
         given:
         LocalDateTime NOW = LocalDateTime.now()
-        NowProvider nowProvider = new TestNowProvider(NOW)
+        NowProvider nowProvider = new TestTimeProvider(NOW)
         String urlString = getClass().getResource('test_bloggers.json').toExternalForm()
         String urlString2 = getClass().getResource('test_companies.json').toExternalForm()
         String urlString3 = getClass().getResource('test_videos.json').toExternalForm()

@@ -27,6 +27,8 @@ public class VariaSuggestionPage extends AbstractFrontendPage {
     public static final String REASON_ID = "reason";
     public static final String SUBMIT_ID = "submit";
     public static final String URL_ID = "url";
+    public static final String[] ALLOWED_URL_SCHEMAS = {"http", "https", "HTTP", "HTTPS"};
+
 
     @SpringBean
     private VariaSuggestionPageBackingBean backingBean;
@@ -44,10 +46,11 @@ public class VariaSuggestionPage extends AbstractFrontendPage {
     }
 
     private void createForm() {
-        variaSuggestionForm =
-            new Form<>(FORM_ID, new CompoundPropertyModel<>(new VariaSuggestionModel()));
-        variaSuggestionForm.add(new TextField<String>(URL_ID).setRequired(true)
-            .add(new UrlValidator(new String[]{"http", "https"})));
+        variaSuggestionForm = new Form<>(FORM_ID, new CompoundPropertyModel<>(new VariaSuggestionModel()));
+
+        variaSuggestionForm.add(new TextField<String>(URL_ID)
+            .setRequired(true)
+            .add(new UrlValidator(ALLOWED_URL_SCHEMAS)));
         variaSuggestionForm.add(new TextArea<>(REASON_ID).setRequired(true));
         variaSuggestionForm.add(new TextField<>(AUTHOR_ID));
         variaSuggestionForm.setOutputMarkupId(true);

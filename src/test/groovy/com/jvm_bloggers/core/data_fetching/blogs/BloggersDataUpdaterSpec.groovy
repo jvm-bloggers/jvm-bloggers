@@ -6,7 +6,7 @@ import com.jvm_bloggers.core.rss.SyndFeedProducer
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
@@ -24,7 +24,7 @@ class BloggersDataUpdaterSpec extends Specification {
 
     BlogRepository blogRepository = Mock(BlogRepository)
     SyndFeedProducer producer = syndFeedProducer()
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new NowProvider(), producer, new BloggerChangedVerifier())
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new ZoneTimeProvider(), producer, new BloggerChangedVerifier())
 
     def "Should insert new Person for entry with new bookmarkable_id"() {
         given:

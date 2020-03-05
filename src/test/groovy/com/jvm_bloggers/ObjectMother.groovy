@@ -14,8 +14,8 @@ class ObjectMother {
         [
                 bookmarkableId    : "bookmarkableId $id".subSequence(0,29),
                 author            : 'author',
-                rss               : "rss $id",
-                url               : "url $id",
+                rss               : "http://example.com/feed/$id",
+                url               : "http://example.com/$id",
                 dateAdded         : LocalDateTime.now(),
                 blogType          : PERSONAL,
                 active            : true,
@@ -30,7 +30,7 @@ class ObjectMother {
                 publishedDate   : LocalDateTime.now(),
                 blog            : aBlog(),
                 title           : "title $id",
-                url             : "url $id",
+                url             : "http://example.com/posts/$id",
                 approved        : true,
                 description     : "Example description"
         ] + params as BlogPost

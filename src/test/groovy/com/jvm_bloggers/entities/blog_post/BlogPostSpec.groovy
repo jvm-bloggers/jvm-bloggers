@@ -1,6 +1,7 @@
 package com.jvm_bloggers.entities.blog_post
 
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -12,6 +13,8 @@ import static java.time.Month.*
 @Subject(BlogPost)
 class BlogPostSpec extends Specification {
     private static final Boolean NOT_MODERATED = null
+
+    private NowProvider nowProvider = new ZoneTimeProvider()
 
     @Unroll
     def "Should return \"#expectedState\" state when approved is #approved "() {
@@ -85,6 +88,7 @@ class BlogPostSpec extends Specification {
         blogPost.approved == Boolean.TRUE
         blogPost.approvedDate == approvedDate
     }
+
 
     def "Should create BlogPost with random uid"() {
         when:

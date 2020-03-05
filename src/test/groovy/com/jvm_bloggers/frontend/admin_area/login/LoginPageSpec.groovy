@@ -7,7 +7,7 @@ import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPageBackingBean
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
 import com.jvm_bloggers.frontend.admin_area.login.attack.BruteForceLoginAttackDetector
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.apache.wicket.authroles.authorization.strategies.role.Roles
 import org.apache.wicket.util.tester.FormTester
 
@@ -24,7 +24,7 @@ class LoginPageSpec extends MockSpringContextAwareSpecification {
     }
 
     void setupContext() {
-        NowProvider nowProvider = new NowProvider()
+        ZoneTimeProvider nowProvider = new ZoneTimeProvider()
         addBean(nowProvider)
         addBean(userAuthenticator)
         addBean(new BruteForceLoginAttackDetector())
