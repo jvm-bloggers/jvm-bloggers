@@ -12,7 +12,15 @@ setupProperties() {
 
 start() {
     docker-compose -f docker-compose-local.yml up -d --force-recreate
-    echo "Started JVM Bloggers Database"
+    echo ""
+    echo "============================================"
+    echo " Started JVM Bloggers Database on localhost"
+    echo "      port: $JVM_BLOGGERS_DB_PUBLISHED_PORT"
+    echo "      user: $JVM_BLOGGERS_DB_USER"
+    echo "      pass: $JVM_BLOGGERS_DB_PASSWORD"
+    echo "    schema: $JVM_BLOGGERS_DB_PASSWORD"
+    echo "    volume: $JVM_BLOGGERS_DB_PATH"
+    echo "============================================"
 }
 
 stop() {
