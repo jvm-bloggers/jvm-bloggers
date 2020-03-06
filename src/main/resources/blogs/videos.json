@@ -127,6 +127,12 @@
       "name": "CODEBAIT",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdfcbPJ_zXlisMfRIirHX8w",
       "twitter": "@code_bait"
+    },
+    {
+      "bookmarkableId": "allegro-tech-podcast",
+      "name": "Allegro Tech Podcast",
+      "rss": "https://feeds.buzzsprout.com/887914.rss",
+      "twitter": "@allegrotech"
     }
   ]
 }
