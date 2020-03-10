@@ -24,6 +24,7 @@ public class InitialDevelopmentIssuePublisher {
 	static final int AMOUNT_OF_POSTS_TO_APPROVE = 2;
 	private final PageRequest requiredAmountOfRecordsPageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS);
 	private final PageRequest amountOfRecordsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE);
+
 	private final NowProvider nowProvider;
 	private final NewNewsletterIssuePublisher newNewsletterIssuePublisher;
 	private final NewsletterIssueRepository newsletterIssueRepository;

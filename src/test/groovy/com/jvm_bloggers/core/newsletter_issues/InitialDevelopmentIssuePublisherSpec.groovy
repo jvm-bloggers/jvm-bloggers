@@ -8,10 +8,11 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
-
-import java.time.LocalDateTime
+import static com.jvm_bloggers.ObjectMother.aBlog
+import static com.jvm_bloggers.ObjectMother.aBlogPost
 
 @Subject(InitialDevelopmentIssuePublisher)
 class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecification {
@@ -19,7 +20,7 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
     NewNewsletterIssuePublisher newNewsletterIssuePublisher = Mock()
     NewsletterIssueRepository newsletterIssueRepository = Mock()
     BlogPostRepository blogPostRepository = Mock()
-    NowProvider nowProvider = new NowProvider();
+    NowProvider nowProvider = new ZoneTimeProvider()
 
     InitialDevelopmentIssuePublisher initialDevelopmentIssuePublisher =
             new InitialDevelopmentIssuePublisher(nowProvider, newNewsletterIssuePublisher, newsletterIssueRepository, blogPostRepository)
@@ -54,13 +55,17 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
     }
 
     def "Should post an issue when there are enough posts"() {
-        java.util.List<BlogPost> companyBlogPosts = new ArrayList<>()
-        java.util.List<BlogPost> personalBlogPosts = new ArrayList<>()
-        java.util.List<BlogPost> videoBlogPosts = new ArrayList<>()
+        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
+        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
+        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
+
+        List<BlogPost> companyBlogPosts = new ArrayList<>()
+        List<BlogPost> personalBlogPosts = new ArrayList<>()
+        List<BlogPost> videoBlogPosts = new ArrayList<>()
         for (int i = 0; i < REQUIRED_AMOUNT_OF_POSTS; i++) {
-            companyBlogPosts.add(aBlogPost(i, true, BlogType.COMPANY))
-            personalBlogPosts.add(aBlogPost(i, true, BlogType.PERSONAL))
-            videoBlogPosts.add(aBlogPost(i, true, BlogType.VIDEOS))
+            companyBlogPosts.add(aBlogPost(blog: companyBlog))
+            personalBlogPosts.add(aBlogPost(blog: personalBlog))
+            videoBlogPosts.add(aBlogPost(blog: videoBlog))
         }
 
         given:
@@ -79,13 +84,17 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
     }
 
     def "Should approve posts"() {
-        java.util.List<BlogPost> unapprovedCompanyBlogPosts = new ArrayList<>()
-        java.util.List<BlogPost> personalBlogPosts = new ArrayList<>()
-        java.util.List<BlogPost> unapprovedVideoBlogPosts = new ArrayList<>()
+        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
+        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
+        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
+
+        List<BlogPost> unapprovedCompanyBlogPosts = new ArrayList<>()
+        List<BlogPost> personalBlogPosts = new ArrayList<>()
+        List<BlogPost> unapprovedVideoBlogPosts = new ArrayList<>()
         for (int i = 0; i < REQUIRED_AMOUNT_OF_POSTS; i++) {
-            unapprovedCompanyBlogPosts.add(aBlogPost(i, false, BlogType.COMPANY))
-            personalBlogPosts.add(aBlogPost(i, true, BlogType.PERSONAL))
-            unapprovedVideoBlogPosts.add(aBlogPost(i, false, BlogType.VIDEOS))
+            unapprovedCompanyBlogPosts.add(aBlogPost(blog: companyBlog))
+            personalBlogPosts.add(aBlogPost(blog: personalBlog))
+            unapprovedVideoBlogPosts.add(aBlogPost(blog: videoBlog))
         }
 
         given:
@@ -103,25 +112,4 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         for (BlogPost post : unapprovedCompanyBlogPosts) post.getApprovalState().equalsIgnoreCase("Approved")
         for (BlogPost post : unapprovedVideoBlogPosts) post.getApprovalState().equalsIgnoreCase("Approved")
     }
-
-    private BlogPost aBlogPost(final int index, boolean isApproved, final BlogType blogType) {
-        Blog testBlog = Blog.builder()
-                .bookmarkableId(String.valueOf(index))
-                .author("testAuthor")
-                .rss("testRssUrl")
-                .url("url")
-                .dateAdded(LocalDateTime.now())
-                .blogType(blogType)
-                .moderationRequired(false)
-                .build();
-
-        return BlogPost.builder()
-                .publishedDate(LocalDateTime.now())
-                .approved(isApproved)
-                .blog(testBlog)
-                .title("title" + index)
-                .url("url" + index)
-                .build()
-    }
-
 }

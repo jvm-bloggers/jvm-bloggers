@@ -4,7 +4,6 @@ import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
-import com.jvm_bloggers.utils.NowProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -103,36 +102,36 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     }
 
 
-    def "Should return proper amount of unapproved posts with BlogType = #blogType"(){
+    def "Should return proper amount of unapproved posts with BlogType = #blogType"() {
         given:
-        LocalDateTime publishedDate = new NowProvider().now()
-
-        Blog companyBlog = aBlog("bookmarkId1", "Company Blogger", "http://topblogger1.pl/", BlogType.COMPANY)
-        Blog videoBlog = aBlog("bookmarkId2", "Video Blogger", "http://topblogger2.pl/", BlogType.VIDEOS)
+        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
+        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
 
         List<BlogPost> blogPosts = [
-                aBlogPost(1, publishedDate, null, companyBlog),
-                aBlogPost(2, publishedDate, REJECTED, videoBlog),
-                aBlogPost(3, publishedDate, null, videoBlog),
-                aBlogPost(4, publishedDate, APPROVED, companyBlog),
-                aBlogPost(5, publishedDate, null, videoBlog),
-                aBlogPost(6, publishedDate, null, companyBlog),
-                aBlogPost(7, publishedDate, null, companyBlog)
+                aBlogPost(approved: null, blog: companyBlog),
+                aBlogPost(approved: REJECTED, blog: videoBlog),
+                aBlogPost(approved: null, blog: videoBlog),
+                aBlogPost(approved: APPROVED, blog: companyBlog),
+                aBlogPost(approved: null, blog: videoBlog),
+                aBlogPost(approved: null, blog: companyBlog),
+                aBlogPost(approved: null, blog: companyBlog)
         ]
 
+        blogRepository.save(companyBlog)
+        blogRepository.save(videoBlog)
         blogPostRepository.saveAll(blogPosts);
 
         when:
         List<BlogPost> unapprovedBlogPostsByBlogType =
-                blogPostRepository.findUnapprovedPostsByBlogType(blogType, PageRequest.of(0,3))
+                blogPostRepository.findUnapprovedPostsByBlogType(blogType, PageRequest.of(0, 3))
 
         then:
         unapprovedBlogPostsByBlogType.size() == expectedBlogPostCount
 
         where:
-        blogType          || expectedBlogPostCount
-        BlogType.COMPANY  || 3
-        BlogType.VIDEOS   || 2
+        blogType         || expectedBlogPostCount
+        BlogType.COMPANY || 3
+        BlogType.VIDEOS  || 2
     }
 
     def "Should return proper amount of blog posts with BlogType = #blogType"() {
@@ -142,7 +141,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
 
         List<BlogPost> blogPosts = [
-                aBlogPost(blog:  personalBlog),
+                aBlogPost(blog: personalBlog),
                 aBlogPost(blog: videoBlog),
                 aBlogPost(blog: personalBlog),
                 aBlogPost(blog: companyBlog),
@@ -150,11 +149,14 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 aBlogPost(blog: companyBlog)
         ]
 
+        blogRepository.save(companyBlog)
+        blogRepository.save(videoBlog)
+        blogRepository.save(personalBlog)
         blogPostRepository.saveAll(blogPosts);
 
         when:
         List<BlogPost> blogPostsByBlogType =
-                blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0,4))
+                blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0, 4))
 
         then:
         blogPostsByBlogType.size() == expectedBlogPostCount
