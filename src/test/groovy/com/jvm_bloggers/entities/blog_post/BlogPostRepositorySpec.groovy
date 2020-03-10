@@ -123,7 +123,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        io.vavr.collection.List<BlogPost> unapprovedBlogPostsByBlogType =
+        List<BlogPost> unapprovedBlogPostsByBlogType =
                 blogPostRepository.findUnapprovedPostsByBlogType(blogType, PageRequest.of(0,3))
 
         then:
@@ -153,7 +153,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        io.vavr.collection.List<BlogPost> blogPostsByBlogType =
+        List<BlogPost> blogPostsByBlogType =
                 blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0,4))
 
         then:

@@ -5,7 +5,6 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository;
 import com.jvm_bloggers.utils.NowProvider;
-import io.vavr.collection.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -13,54 +12,44 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Slf4j
 @Profile("dev")
 @RequiredArgsConstructor
 public class InitialDevelopmentIssuePublisher {
-// TODO
-//1.  Sprawdzam czy istnieje już jakiś issue
-//2.  Metoda czeka aż do bazy zostaną załadowane przykładowe dane
-//    *   X blog postów z każdej kategorii
-//    *   Scheduler? waitUntil?
-//            3.  Ustawi varia i metadane
-//4.  Zrobić approve kilku postom z kategorii VIDEO i COMPANY
 
 	static final int REQUIRED_AMOUNT_OF_POSTS = 10;
 	static final int AMOUNT_OF_POSTS_TO_APPROVE = 2;
+	private final PageRequest requiredAmountOfRecordsPageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS);
+	private final PageRequest amountOfRecordsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE);
 	private final NowProvider nowProvider;
 	private final NewNewsletterIssuePublisher newNewsletterIssuePublisher;
 	private final NewsletterIssueRepository newsletterIssueRepository;
 	private final BlogPostRepository blogPostRepository;
-	private final PageRequest requiredAmountOfRecordsPageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS);
-	private final PageRequest amountOfRecordsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE);
 
 	@Scheduled(initialDelay = 5000, fixedDelayString = "${scheduler.publish-test-issue}")
 	public void publishTestDevelopmentIssue() {
-		log.info("Trying to publish a development issue if no exist...");
+		log.info("Trying to publish a developer issue if no exist...");
 		if (!existsAnIssue() && existRequiredAmountOfPosts()) {
-			log.info("PUBLISHED AN ISSUE");
-			approveBlogPostsAndPublishDevIssue();
+			getAndApproveUnapprovedBlogPosts();
+			newNewsletterIssuePublisher.publishNewIssue(2);
+			log.info("Published a developer issue");
 		}
 	}
 
-	private void approveBlogPostsAndPublishDevIssue() {
-		if (getAndApproveUnapprovedBlogPosts())
-			newNewsletterIssuePublisher.publishNewIssue(2);
-	}
-
-	//TODO: Fix class cast exception
-	private boolean getAndApproveUnapprovedBlogPosts(){
+	private void getAndApproveUnapprovedBlogPosts(){
 		List<BlogPost> unapprovedVideoBlogPosts =
 						blogPostRepository.findUnapprovedPostsByBlogType(BlogType.VIDEOS, amountOfRecordsToApprovePageRequest);
 		List<BlogPost> unapprovedCompanyBlogPosts =
 						blogPostRepository.findUnapprovedPostsByBlogType(BlogType.COMPANY, amountOfRecordsToApprovePageRequest);
 		if (unapprovedCompanyBlogPosts.size() > 0 && unapprovedVideoBlogPosts.size() > 0){
+			log.info("Approving posts for dev issue.");
 			unapprovedVideoBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
 			unapprovedCompanyBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
-			return true;
 		} else {
-			return false;
+			log.info("No unapproved posts found.");
 		}
 	}
 

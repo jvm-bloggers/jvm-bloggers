@@ -40,14 +40,13 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     int countByBlogId(Long blogId);
 
-    //TODO: Limit amount of found blog posts to the required amount
     @Query("FROM BlogPost bp JOIN bp.blog b " +
             "WHERE b.blogType = :blogType")
-    io.vavr.collection.List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType, Pageable page);
+   List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType, Pageable page);
 
     @Query("FROM BlogPost bp JOIN bp.blog b " +
             "WHERE b.blogType = :blogType " +
             "AND bp.approved = null " +
             "ORDER BY bp.publishedDate DESC")
-    io.vavr.collection.List<BlogPost> findUnapprovedPostsByBlogType(@Param("blogType") BlogType blogType, Pageable page);
+    List<BlogPost> findUnapprovedPostsByBlogType(@Param("blogType") BlogType blogType, Pageable page);
 }
