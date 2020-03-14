@@ -27,7 +27,8 @@ public class NavigationTabItem extends Panel {
     public enum Icon {
         MALE("fa-male"),
         USERS("fa-black-tie"),
-        TELEVISION("fa-youtube-play");
+        PODCAST("fa-podcast"),
+        YOUTUBE("fa-youtube-play");
         private String value;
     }
 

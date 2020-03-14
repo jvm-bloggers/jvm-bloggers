@@ -27,10 +27,11 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     def setupSpec() {
         File bloggersJson = new File('src/main/resources/blogs/bloggers.json')
         File companiesJson = new File('src/main/resources/blogs/companies.json')
-        File videosJson = new File('src/main/resources/blogs/videos.json')
+        File presentationsJson = new File('src/main/resources/blogs/presentations.json')
+        File podcastsJson = new File('src/main/resources/blogs/podcasts.json')
 
         JsonSlurper slurper = new JsonSlurper()
-        jsonEntries = [bloggersJson, companiesJson, videosJson]
+        jsonEntries = [bloggersJson, companiesJson, presentationsJson, podcastsJson]
             .collect({stream ->
                BloggersData data = slurper.parse(stream)
                data.getBloggers()
@@ -39,7 +40,7 @@ class JsonBlogsDataFileValidationSpec extends Specification {
     }
 
     @Unroll
-    def "should check that bookmarkable ID  #id is lower-case, alphanumeric or hyphen"() {
+    def "should check that bookmarkable ID #id is lower-case, alphanumeric or hyphen"() {
         expect:
         lowercaseOrHyphen.matchesAllOf(id)
 
@@ -73,7 +74,6 @@ class JsonBlogsDataFileValidationSpec extends Specification {
         where:
         atPlusTwitterHandle << allAtPlusTwitterUserNames()
     }
-
 
     @Unroll
     def "should check that @ + twitter handle #atPlusTwitterHandle is less than 16 characters"() {

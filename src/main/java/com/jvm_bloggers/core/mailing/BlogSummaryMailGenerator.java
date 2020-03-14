@@ -98,31 +98,39 @@ public class BlogSummaryMailGenerator {
         Map<BlogType, List<BlogPost>> newBlogPostsByType = newApprovedPosts
             .groupBy(it -> it.getBlog().getBlogType());
 
-        List<BlogPost> newPostsFromPersonalBlogs =
+        List<BlogPost> newPersonalPosts =
             newBlogPostsByType.getOrElse(BlogType.PERSONAL, empty());
-        List<BlogPost> newPostsFromCompanies =
+        List<BlogPost> newCompanyPosts =
             newBlogPostsByType.getOrElse(BlogType.COMPANY, empty());
-        List<BlogPost> newVideoPosts =
-            newBlogPostsByType.getOrElse(BlogType.VIDEOS, empty());
+        List<BlogPost> newPresentations =
+            newBlogPostsByType.getOrElse(BlogType.PRESENTATION, empty());
+        List<BlogPost> newPodcasts =
+                newBlogPostsByType.getOrElse(BlogType.PODCAST, empty());
 
         String templateContent = getValueForSection(MetadataKeys.MAILING_TEMPLATE);
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
         template.add("days", DAYS_IN_THE_PAST);
-        template.add("newPosts",
-            postsToMailItems(newPostsFromPersonalBlogs, newsletterIssue.getIssueNumber())
+        template.add("newPersonalPosts",
+            postsToMailItems(newPersonalPosts, newsletterIssue.getIssueNumber())
             .toJavaArray()
         );
-        template.add("newPostsFromCompanies",
-            postsToMailItems(newPostsFromCompanies, newsletterIssue.getIssueNumber()).toJavaList()
+        template.add("newCompanyPosts",
+            postsToMailItems(newCompanyPosts, newsletterIssue.getIssueNumber()).toJavaList()
         );
+        template.add(
+                "newPresentationPosts",
+                postsToMailItems(newPresentations, newsletterIssue.getIssueNumber()).toJavaList()
+        );
+        template.add(
+                "newPodcastPosts",
+                postsToMailItems(newPodcasts, newsletterIssue.getIssueNumber()).toJavaList()
+        );
+
         template.add("newlyAddedBlogs",
             blogsToMailItems(blogsAddedSinceLastNewsletter, newsletterIssue.getIssueNumber())
                 .toJavaList()
         );
-        template.add(
-            "newVideoPosts",
-            postsToMailItems(newVideoPosts, newsletterIssue.getIssueNumber()).toJavaList()
-        );
+
         return template.render();
     }
 

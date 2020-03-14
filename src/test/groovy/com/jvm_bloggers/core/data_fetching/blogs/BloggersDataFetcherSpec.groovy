@@ -18,8 +18,8 @@ class BloggersDataFetcherSpec extends Specification {
         given:
         LocalDateTime NOW = LocalDateTime.now()
         NowProvider nowProvider = new TestTimeProvider(NOW)
-        String urlString = 'invalid', urlString2 = 'invalid', urlString3 = 'invalid'
-        BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, Stub(BloggersDataUpdater), MAPPER, Stub(MetadataRepository), nowProvider)
+        String urlString = 'invalid', urlString2 = 'invalid', urlString3 = 'invalid', urlString4 = 'invalid'
+        BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, urlString4, Stub(BloggersDataUpdater), MAPPER, Stub(MetadataRepository), nowProvider)
 
         when:
         fetcher.refreshData()
@@ -34,9 +34,10 @@ class BloggersDataFetcherSpec extends Specification {
         NowProvider nowProvider = new TestTimeProvider(NOW)
         String urlString = getClass().getResource('test_bloggers.json').toExternalForm()
         String urlString2 = getClass().getResource('test_companies.json').toExternalForm()
-        String urlString3 = getClass().getResource('test_videos.json').toExternalForm()
+        String urlString3 = getClass().getResource('test_presentations.json').toExternalForm()
+        String urlString4 = getClass().getResource('test_podcasts.json').toExternalForm()
         BloggersDataUpdater bloggersDataUpdater = Mock(BloggersDataUpdater)
-        BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, bloggersDataUpdater, MAPPER, Stub(MetadataRepository), nowProvider)
+        BloggersDataFetcher fetcher = new BloggersDataFetcher(urlString, urlString2, urlString3, urlString4, bloggersDataUpdater, MAPPER, Stub(MetadataRepository), nowProvider)
 
         when:
         fetcher.refreshData()
@@ -44,6 +45,7 @@ class BloggersDataFetcherSpec extends Specification {
         then:
         1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
         1 * bloggersDataUpdater.updateData({ it.bloggers.size == 2 })
+        1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
         1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
     }
 

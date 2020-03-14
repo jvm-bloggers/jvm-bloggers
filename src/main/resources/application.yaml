@@ -15,7 +15,8 @@ server.compression:
  
 bloggers.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/bloggers.json
 companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/companies.json
-youtube.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/videos.json
+presentations.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/presentations.json
+podcasts.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/src/main/resources/blogs/podcasts.json
 generated.rss.entries.limit: 50
 items.pagination.size: 15
 max.new.post.age.days: 30
