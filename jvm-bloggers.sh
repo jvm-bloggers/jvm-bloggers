@@ -5,8 +5,11 @@ setupProperties() {
   export JVM_BLOGGERS_DB_USER=jvm_bloggers
   export JVM_BLOGGERS_DB_PASSWORD=jvm_bloggers
   export JVM_BLOGGERS_DB_NAME=jvm_bloggers
-  export JVM_BLOGGERS_DB_PATH="~/postgresql-data/"
+  export JVM_BLOGGERS_DB_PATH="${HOME}/postgresql-data/"
   export JVM_BLOGGERS_DB_PUBLISHED_PORT=5432
+
+  # Reverse proxy settings
+  export JVM_BLOGGERS_CADDY_PATH="${HOME}/caddy-data"
 
   # Core Application settings:
   export JVM_BLOGGERS_CORE_IMAGE_VERSION=2.0.0-20200202-180146-11c524a7
