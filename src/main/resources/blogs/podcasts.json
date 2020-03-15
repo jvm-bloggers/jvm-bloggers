@@ -1,0 +1,50 @@
+{
+    "bloggers": [
+        {
+            "bookmarkableId": "allegro-tech-podcast",
+            "name": "Allegro Tech Podcast",
+            "rss": "https://feeds.buzzsprout.com/887914.rss",
+            "twitter": "@allegrotech"
+        },
+        {
+            "bookmarkableId": "ostrapila",
+            "name": "Ostra Piła",
+            "rss": "http://feeds.feedburner.com/PodcastOstrapila",
+            "twitter": "@ostrapila"
+        },
+        {
+            "bookmarkableId": "codebait",
+            "name": "CODEBAIT",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdfcbPJ_zXlisMfRIirHX8w",
+            "twitter": "@code_bait"
+        },
+        {
+            "bookmarkableId": "inkubator-programisty",
+            "name": "Inkubator programisty",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgdx9yAQ2nblw8cZvKHUClw"
+        },
+        {
+            "bookmarkableId": "spring-academy",
+            "name": "Spring Academy",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCslYinLbZnzzUdG0BMaiDKw",
+            "twitter": "@maciejwalkowiak"
+        },
+        {
+            "bookmarkableId": "coding-skills-pl",
+            "name": "CodingSkills PL",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNQHxE5dFZ6GQ8orZC5116g"
+        },
+        {
+            "bookmarkableId": "programuj-z-bykiem",
+            "name": "Programuj z Bykiem",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjWnQvpQgSRLeDEYQC0ZuLg",
+            "twitter": "@przemekbykowski"
+        },
+        {
+            "bookmarkableId": "podcast-oli-kunysz",
+            "name": "Podcast Oli Kunysz",
+            "rss": "https://www.spreaker.com/show/4194770/episodes/feed",
+            "twitter": "@OlaQnysz"
+        }
+    ]
+}

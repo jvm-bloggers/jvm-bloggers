@@ -602,5 +602,14 @@
         <modifyDataType tableName="tweet" columnName="content" newDataType="varchar(280)"/>
     </changeSet>
 
+    <changeSet id="051-rename-videos-blog-type-to-presentation" author="Tomasz.Dziurko">
+        <sql>
+            update blog set blog_type = 'PRESENTATION' where blog_type='VIDEOS'
+        </sql>
+    </changeSet>
+    <changeSet id="052-add-podcasts-to-mailing-template" author="Tomasz.Dziurko">
+        <sqlFile path="052-update_mailing_template_add_podcasts.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
 </databaseChangeLog>

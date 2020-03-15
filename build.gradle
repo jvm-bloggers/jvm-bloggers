@@ -179,7 +179,7 @@ String getTimestampWithGitHash() {
 
 task validateBlogsData() {
     def blogsDir = 'src/main/resources/blogs'
-    def blogsData = ['bloggers', 'videos', 'companies']
+    def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts']
     blogsData.each { fileName ->
         def taskName = 'validate' + fileName.capitalize()
         tasks.create(taskName, cz.alenkacz.gradle.jsonvalidator.ValidateJsonTask) {

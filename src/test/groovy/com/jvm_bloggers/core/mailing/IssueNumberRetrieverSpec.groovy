@@ -24,5 +24,4 @@ class IssueNumberRetrieverSpec extends SpringContextAwareSpecification {
         issueNumber2 == 9L
     }
 
-
 }
