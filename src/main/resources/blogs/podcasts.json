@@ -39,6 +39,12 @@
             "name": "Programuj z Bykiem",
             "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjWnQvpQgSRLeDEYQC0ZuLg",
             "twitter": "@przemekbykowski"
+        },
+        {
+            "bookmarkableId": "podcast-oli-kunysz",
+            "name": "Podcast Oli Kunysz",
+            "rss": "https://www.spreaker.com/show/4194770/episodes/feed",
+            "twitter": "@OlaQnysz"
         }
     ]
 }
