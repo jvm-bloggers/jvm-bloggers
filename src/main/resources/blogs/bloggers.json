@@ -1322,6 +1322,11 @@
       "name": "Kodujmy.pl",
       "rss": "https://kodujmy.pl/feed/",
       "twitter": "@owczarektomek"
+     },
+    {
+      "bookmarkableId": "dawid-kotarba",
+      "name": "Dawid Kotarba",
+      "rss": "https://dawidkotarba.github.io/blog/feed/"
      }
   ]
 }
