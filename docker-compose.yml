@@ -18,8 +18,6 @@ services:
     environment:
       spring.profiles.active: $JVM_BLOGGERS_CORE_SPRING_PROFILES
       jasypt.encryptor.password: $JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
-    ports:
-      - "80:8080"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /usr/share/zoneinfo/Europe/Warsaw:/etc/timezone:ro
@@ -28,6 +26,20 @@ services:
       - jvm-bloggers-db
     depends_on:
       - jvm-bloggers-db
+  jvm-bloggers-proxy:
+    image: caddy/caddy:latest
+    container_name: jvm-bloggers-proxy
+    command: caddy reverse-proxy --from jvm-bloggers.com --to jvm-bloggers-core:8080
+    volumes:
+      - "$JVM_BLOGGERS_CADDY_PATH/data:/data/caddy"
+      - "$JVM_BLOGGERS_CADDY_PATH/config:/config/caddy"
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - jvm-bloggers-core
+    depends_on:
+      - jvm-bloggers-core
   datadog:
     links:
       - jvm-bloggers-core

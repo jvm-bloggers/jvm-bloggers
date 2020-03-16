@@ -102,7 +102,7 @@ public class BlogPostsPage extends AbstractFrontendPage {
                 new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class)),
             Case($Some($(BlogType.COMPANY)),
                 new BookmarkablePageLink(BACK_LINK, CompanyBlogsPage.class)),
-            Case($Some($(BlogType.VIDEOS)),
+            Case($Some($(BlogType.PRESENTATION)),
                 new BookmarkablePageLink(BACK_LINK, VideoBlogsPage.class)),
             Case($None(), new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class))
         );

@@ -19,7 +19,8 @@ public class PublishedNewsletterIssue {
     private String variaSection;
     private Seq<PublishedPost> personalPosts;
     private Seq<PublishedPost> companyPosts;
-    private Seq<PublishedPost> videos;
+    private Seq<PublishedPost> podcasts;
+    private Seq<PublishedPost> presentations;
     private Seq<NewlyAddedBlog> newBlogs;
 
 }
