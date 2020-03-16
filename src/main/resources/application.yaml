@@ -9,6 +9,12 @@ spring:
   jpa.hibernate.ddl-auto: validate
   liquibase.change-log: classpath:db/changelog/db.changelog.xml
 
+# Wicket configuration
+wicket:
+  core:
+    csrf.accepted-origins.*: jvm-bloggers.com
+  external.webjars.enabled: true
+
 server.compression:
   enabled: true
   mime-types: application/atom+xml,text/html,text/xml,text/plain,text/css,text/javascript,application/javascript
@@ -62,6 +68,3 @@ twitter.api:
 slack:
   invitation-link: https://join.slack.com/t/jvm-poland/shared_invite/enQtODE2ODgwMzU4NzA2LWUyZTIyZGRiOThjMDQ1NzI0OWVjZDVkZjc0ZjQ4OTZmMGM0NWNlNTQ3OTBhZmI5MGQ5Y2VlMmU1MGE4OGY2NTQ
 
-wicket:
-  external.webjars.enabled: true
-  core.csrf.accepted-origins.*: jvm-bloggers.com

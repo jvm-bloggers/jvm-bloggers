@@ -9,6 +9,18 @@ spring:
 
   endpoints.enabled: false
 
+# Wicket configuration
+wicket:
+  core:
+    settings:
+      general:
+        configuration-type: deployment
+      debug:
+        enabled: false
+        component-use-check: false
+        development-utilities-enabled: false
+        ajaxDebugModeEnabled: false
+
 # Mail Configuration
 mailing:
   apiKey: "ENC(MDVhnYiewqWfHfbTepYqnvflkaFRXGDveOVONA24uzWeW74zx1wzB/akhnWxL839)"
