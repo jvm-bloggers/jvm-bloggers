@@ -27,8 +27,7 @@ public class HomePageBackingBean {
         return publishedNewsletterIssueQuery.findNextIssueNumber(issueNumber);
     }
 
-    public Option<NewsletterIssueNumber> findPreviousIssueNumber(
-            NewsletterIssueNumber issueNumber) {
+    public Option<NewsletterIssueNumber> findPreviousIssueNumber(NewsletterIssueNumber issueNumber) {
         return publishedNewsletterIssueQuery.findPreviousIssueNumber(issueNumber);
     }
 }

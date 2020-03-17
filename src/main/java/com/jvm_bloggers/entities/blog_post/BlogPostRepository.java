@@ -20,14 +20,14 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
     Option<BlogPost> findByUid(String uid);
 
     List<BlogPost> findByApprovedDateAfterAndApprovedTrueOrderByApprovedDateAsc(
-        LocalDateTime publishedDate);
+            LocalDateTime publishedDate);
 
     List<BlogPost> findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(
-        Pageable page, Set<String> excludedAuthors);
+            Pageable page, Set<String> excludedAuthors);
 
     @Query("from BlogPost bp order by "
-           + "case when bp.approved is null then 0 else 1 end, "
-           + "bp.publishedDate desc")
+            + "case when bp.approved is null then 0 else 1 end, "
+            + "bp.publishedDate desc")
     List<BlogPost> findLatestPosts(Pageable page);
 
     int countByPublishedDateAfter(LocalDateTime publishedDate);
@@ -42,7 +42,7 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     @Query("FROM BlogPost bp JOIN bp.blog b " +
             "WHERE b.blogType = :blogType")
-   List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType, Pageable page);
+    List<BlogPost> findBlogPostsOfType(@Param("blogType") BlogType blogType, Pageable page);
 
     @Query("FROM BlogPost bp JOIN bp.blog b " +
             "WHERE b.blogType = :blogType " +

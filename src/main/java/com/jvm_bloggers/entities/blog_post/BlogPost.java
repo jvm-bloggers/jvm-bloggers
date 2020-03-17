@@ -123,5 +123,4 @@ public class BlogPost {
     public void reject() {
         approved = Boolean.FALSE;
     }
-
 }

@@ -134,6 +134,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         BlogType.VIDEOS  || 2
     }
 
+    @Unroll
     def "Should return proper amount of blog posts with BlogType = #blogType"() {
         given:
         Blog companyBlog = aBlog(blogType: BlogType.COMPANY)

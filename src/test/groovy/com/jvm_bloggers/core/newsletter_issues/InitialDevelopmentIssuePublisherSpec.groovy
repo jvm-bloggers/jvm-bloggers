@@ -9,10 +9,16 @@ import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
 import com.jvm_bloggers.utils.NowProvider
 import com.jvm_bloggers.utils.ZoneTimeProvider
+import net.minidev.json.JSONUtil
+import org.jboss.logging.BasicLogger
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import spock.lang.Subject
 import static com.jvm_bloggers.ObjectMother.aBlog
 import static com.jvm_bloggers.ObjectMother.aBlogPost
+
+import static com.jvm_bloggers.entities.blog.BlogType.*
+import static java.util.Collections.EMPTY_LIST
 
 @Subject(InitialDevelopmentIssuePublisher)
 class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecification {
@@ -24,17 +30,11 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
 
     InitialDevelopmentIssuePublisher initialDevelopmentIssuePublisher =
             new InitialDevelopmentIssuePublisher(nowProvider, newNewsletterIssuePublisher, newsletterIssueRepository, blogPostRepository)
-    private int REQUIRED_AMOUNT_OF_POSTS = initialDevelopmentIssuePublisher.REQUIRED_AMOUNT_OF_POSTS
-    private int AMOUNT_OF_POSTS_TO_APPROVE = initialDevelopmentIssuePublisher.AMOUNT_OF_POSTS_TO_APPROVE
-    private PageRequest requiredSizePageRequest = PageRequest.of(0, REQUIRED_AMOUNT_OF_POSTS)
-    private PageRequest amountOfPostsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE)
 
-    def "Shouldn't post a dev issue when there aren't enough blog posts"() {
+    def "Shouldn't create a dev issue when there aren't enough blog posts"() {
         given:
         newsletterIssueRepository.count() >> 0
-        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY, requiredSizePageRequest) >> Lists.newArrayList()
-        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS, requiredSizePageRequest) >> Lists.newArrayList()
-        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL, requiredSizePageRequest) >> Lists.newArrayList()
+        blogPostRepository.findBlogPostsOfType(_ as BlogType, _ as Pageable) >> EMPTY_LIST
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
@@ -43,7 +43,7 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         0 * newNewsletterIssuePublisher.publishNewIssue(_)
     }
 
-    def "Shouldn't post a dev issue when there is an issue published"() {
+    def "Shouldn't create a dev issue when there is an issue published"() {
         given:
         newsletterIssueRepository.count() >> 1
 
@@ -54,27 +54,21 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         0 * newNewsletterIssuePublisher.publishNewIssue(_)
     }
 
-    def "Should post an issue when there are enough posts"() {
-        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
-        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
-        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
-
-        List<BlogPost> companyBlogPosts = new ArrayList<>()
-        List<BlogPost> personalBlogPosts = new ArrayList<>()
-        List<BlogPost> videoBlogPosts = new ArrayList<>()
-        for (int i = 0; i < REQUIRED_AMOUNT_OF_POSTS; i++) {
-            companyBlogPosts.add(aBlogPost(blog: companyBlog))
-            personalBlogPosts.add(aBlogPost(blog: personalBlog))
-            videoBlogPosts.add(aBlogPost(blog: videoBlog))
-        }
-
+    def "Should create an issue when there are enough posts"() {
         given:
+        def companyBlogPosts = prepareBlogPostListOfType(COMPANY, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def personalBlogPosts = prepareBlogPostListOfType(PERSONAL, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def podcastBlogPosts = prepareBlogPostListOfType(PODCAST, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def presentationBlogPosts = prepareBlogPostListOfType(PRESENTATION, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+
         newsletterIssueRepository.count() >> 0
-        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL, requiredSizePageRequest) >> personalBlogPosts
-        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY, requiredSizePageRequest) >> companyBlogPosts
-        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS, requiredSizePageRequest) >> videoBlogPosts
-        blogPostRepository.findUnapprovedPostsByBlogType(BlogType.COMPANY, amountOfPostsToApprovePageRequest) >> companyBlogPosts
-        blogPostRepository.findUnapprovedPostsByBlogType(BlogType.VIDEOS, amountOfPostsToApprovePageRequest) >> videoBlogPosts
+        blogPostRepository.findBlogPostsOfType(PERSONAL, _ as Pageable) >> personalBlogPosts
+        blogPostRepository.findBlogPostsOfType(COMPANY, _ as Pageable) >> companyBlogPosts
+        blogPostRepository.findBlogPostsOfType(PODCAST, _ as Pageable) >> podcastBlogPosts
+        blogPostRepository.findBlogPostsOfType(PRESENTATION, _ as Pageable) >> presentationBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(COMPANY, _ as Pageable) >> companyBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(PODCAST, _ as Pageable) >> podcastBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(PRESENTATION, _ as Pageable) >> presentationBlogPosts
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
@@ -84,32 +78,35 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
     }
 
     def "Should approve posts"() {
-        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
-        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
-        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
-
-        List<BlogPost> unapprovedCompanyBlogPosts = new ArrayList<>()
-        List<BlogPost> personalBlogPosts = new ArrayList<>()
-        List<BlogPost> unapprovedVideoBlogPosts = new ArrayList<>()
-        for (int i = 0; i < REQUIRED_AMOUNT_OF_POSTS; i++) {
-            unapprovedCompanyBlogPosts.add(aBlogPost(blog: companyBlog))
-            personalBlogPosts.add(aBlogPost(blog: personalBlog))
-            unapprovedVideoBlogPosts.add(aBlogPost(blog: videoBlog))
-        }
-
         given:
+        def unapprovedCompanyBlogPosts = prepareBlogPostListOfType(COMPANY, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def personalBlogPosts = prepareBlogPostListOfType(PERSONAL, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def unapprovedPodcastBlogPosts = prepareBlogPostListOfType(PODCAST, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def unapprovedPresentationBlogPosts = prepareBlogPostListOfType(PRESENTATION, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+
         newsletterIssueRepository.count() >> 0
-        blogPostRepository.findBlogPostsOfType(BlogType.COMPANY, requiredSizePageRequest) >> unapprovedCompanyBlogPosts
-        blogPostRepository.findBlogPostsOfType(BlogType.PERSONAL, requiredSizePageRequest) >> personalBlogPosts
-        blogPostRepository.findBlogPostsOfType(BlogType.VIDEOS, requiredSizePageRequest) >> unapprovedVideoBlogPosts
-        blogPostRepository.findUnapprovedPostsByBlogType(BlogType.COMPANY, amountOfPostsToApprovePageRequest) >> unapprovedCompanyBlogPosts
-        blogPostRepository.findUnapprovedPostsByBlogType(BlogType.VIDEOS, amountOfPostsToApprovePageRequest) >> unapprovedVideoBlogPosts
+        blogPostRepository.findBlogPostsOfType(COMPANY, _ as Pageable) >> unapprovedCompanyBlogPosts
+        blogPostRepository.findBlogPostsOfType(PERSONAL, _ as Pageable) >> personalBlogPosts
+        blogPostRepository.findBlogPostsOfType(PODCAST, _ as Pageable) >> unapprovedPodcastBlogPosts
+        blogPostRepository.findBlogPostsOfType(PRESENTATION, _ as Pageable) >> unapprovedPresentationBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(COMPANY, _ as Pageable) >> unapprovedCompanyBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(PODCAST, _ as Pageable) >> unapprovedPodcastBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(PRESENTATION, _ as Pageable) >> unapprovedPresentationBlogPosts
+
 
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
 
         then:
-        for (BlogPost post : unapprovedCompanyBlogPosts) post.getApprovalState().equalsIgnoreCase("Approved")
-        for (BlogPost post : unapprovedVideoBlogPosts) post.getApprovalState().equalsIgnoreCase("Approved")
+        for (BlogPost post : unapprovedCompanyBlogPosts)
+            assert post.isApproved()
+        for (BlogPost post : unapprovedPresentationBlogPosts)
+            assert post.isApproved()
+        for (BlogPost post : unapprovedPodcastBlogPosts)
+            assert post.isApproved()
+    }
+
+    def prepareBlogPostListOfType(BlogType type, int listSize){
+        return Collections.nCopies(listSize, aBlogPost(blogType: type));
     }
 }
