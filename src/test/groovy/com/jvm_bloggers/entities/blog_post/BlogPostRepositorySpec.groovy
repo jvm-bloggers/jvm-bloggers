@@ -3,7 +3,6 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
-import com.jvm_bloggers.entities.blog.BlogType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -14,6 +13,7 @@ import java.time.LocalDateTime
 import static com.jvm_bloggers.ObjectMother.aBlog
 import static com.jvm_bloggers.ObjectMother.aBlogPost
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
+import static com.jvm_bloggers.entities.blog.BlogType.*
 import static java.lang.Boolean.FALSE
 import static java.lang.Boolean.TRUE
 import static java.lang.Integer.MAX_VALUE
@@ -102,23 +102,26 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     }
 
 
+    @Unroll
     def "Should return proper amount of unapproved posts with BlogType = #blogType"() {
         given:
-        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
-        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
+        Blog companyBlog = aBlog(blogType: COMPANY)
+        Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog presentationBlog = aBlog(blogType: PRESENTATION)
 
         List<BlogPost> blogPosts = [
                 aBlogPost(approved: null, blog: companyBlog),
-                aBlogPost(approved: REJECTED, blog: videoBlog),
-                aBlogPost(approved: null, blog: videoBlog),
+                aBlogPost(approved: REJECTED, blog: presentationBlog),
+                aBlogPost(approved: null, blog: presentationBlog),
                 aBlogPost(approved: APPROVED, blog: companyBlog),
-                aBlogPost(approved: null, blog: videoBlog),
+                aBlogPost(approved: null, blog: podcastBlog),
                 aBlogPost(approved: null, blog: companyBlog),
                 aBlogPost(approved: null, blog: companyBlog)
         ]
 
         blogRepository.save(companyBlog)
-        blogRepository.save(videoBlog)
+        blogRepository.save(podcastBlog)
+        blogRepository.save(presentationBlog)
         blogPostRepository.saveAll(blogPosts);
 
         when:
@@ -129,21 +132,24 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         unapprovedBlogPostsByBlogType.size() == expectedBlogPostCount
 
         where:
-        blogType         || expectedBlogPostCount
-        BlogType.COMPANY || 3
-        BlogType.VIDEOS  || 2
+        blogType     || expectedBlogPostCount
+        COMPANY      || 3
+        PRESENTATION || 1
+        PODCAST      || 1
     }
 
     @Unroll
     def "Should return proper amount of blog posts with BlogType = #blogType"() {
         given:
-        Blog companyBlog = aBlog(blogType: BlogType.COMPANY)
-        Blog videoBlog = aBlog(blogType: BlogType.VIDEOS)
-        Blog personalBlog = aBlog(blogType: BlogType.PERSONAL)
+        Blog companyBlog = aBlog(blogType: COMPANY)
+        Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog presentationBlog = aBlog(blogType: PRESENTATION)
+        Blog personalBlog = aBlog(blogType: PERSONAL)
 
         List<BlogPost> blogPosts = [
                 aBlogPost(blog: personalBlog),
-                aBlogPost(blog: videoBlog),
+                aBlogPost(blog: podcastBlog),
+                aBlogPost(blog: presentationBlog),
                 aBlogPost(blog: personalBlog),
                 aBlogPost(blog: companyBlog),
                 aBlogPost(blog: personalBlog),
@@ -151,7 +157,8 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         ]
 
         blogRepository.save(companyBlog)
-        blogRepository.save(videoBlog)
+        blogRepository.save(presentationBlog)
+        blogRepository.save(podcastBlog)
         blogRepository.save(personalBlog)
         blogPostRepository.saveAll(blogPosts);
 
@@ -163,10 +170,11 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostsByBlogType.size() == expectedBlogPostCount
 
         where:
-        blogType          || expectedBlogPostCount
-        BlogType.COMPANY  || 2
-        BlogType.VIDEOS   || 1
-        BlogType.PERSONAL || 3
+        blogType     || expectedBlogPostCount
+        COMPANY      || 2
+        PRESENTATION || 1
+        PRESENTATION || 1
+        PERSONAL     || 3
     }
 
 }
