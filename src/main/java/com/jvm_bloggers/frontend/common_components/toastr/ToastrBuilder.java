@@ -4,6 +4,10 @@ import static java.lang.String.format;
 
 public class ToastrBuilder {
 
+    private ToastrBuilder() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final String command = ""
         + "toastr.%s('%s', null, {"
         + " 'positionClass': 'toast-top-center',"

@@ -47,7 +47,7 @@ public class VariaSuggestionListPanel extends Panel {
 
     private DataView<UnreadVariaSuggestion> createDataView(Form<Void> form,
                                                            CustomFeedbackPanel feedbackPanel) {
-        return new DataView<UnreadVariaSuggestion>(SUGGESTION_DATA_VIEW_ID,
+        return new DataView<>(SUGGESTION_DATA_VIEW_ID,
             new VariaSuggestionRequestHandler(backingBean, defaultPageSize)) {
             @Override
             protected void populateItem(Item<UnreadVariaSuggestion> item) {

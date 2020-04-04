@@ -72,7 +72,7 @@ public class SingleTopPostSummaryPage extends AbstractFrontendPage {
             }
         });
 
-        add(new ListView<PublishedPost>(
+        add(new ListView<>(
             TOP_COMPANY_POSTS_ID,
             summary.getTopCompanyPosts().toJavaList()
         ) {

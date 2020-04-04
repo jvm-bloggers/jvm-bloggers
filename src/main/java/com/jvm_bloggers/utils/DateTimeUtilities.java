@@ -14,6 +14,10 @@ import static java.time.format.TextStyle.FULL_STANDALONE;
 
 public class DateTimeUtilities {
 
+    private DateTimeUtilities() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static final int DAY_OF_MONTH_ENDING_SUMMARY_PERIOD = 11;
 
     private static final Locale POLISH_LOCALE = new Locale("PL");

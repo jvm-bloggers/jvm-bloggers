@@ -15,7 +15,7 @@ class BlogLinksSection extends Panel {
     BlogLinksSection(String id, Seq<NewlyAddedBlog> blogs) {
         super(id);
         add(new Label("sectionHeading", "Nowe blogi i kanały video"));
-        add(new ListView<NewlyAddedBlog>("blogItems", blogs.toJavaList()) {
+        add(new ListView<>("blogItems", blogs.toJavaList()) {
             @Override
             protected void populateItem(ListItem<NewlyAddedBlog> item) {
                 NewlyAddedBlog blog = item.getModelObject();

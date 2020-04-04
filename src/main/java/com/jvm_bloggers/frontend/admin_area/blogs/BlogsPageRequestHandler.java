@@ -29,7 +29,7 @@ public class BlogsPageRequestHandler extends SortableDataProvider<Blog, String> 
 
     @Override
     public Iterator<? extends Blog> iterator(long first, long count) {
-        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
+        int page = (int) (first / paginationConfiguration.getDefaultPageSize());
 
         return blogRepository
             .findAll(PageRequest.of(page,

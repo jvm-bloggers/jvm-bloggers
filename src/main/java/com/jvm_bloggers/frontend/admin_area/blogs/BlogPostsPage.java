@@ -45,7 +45,7 @@ public class BlogPostsPage extends AbstractAdminPage {
     }
 
     private DataView<BlogPost> createBlogPostDataView() {
-        return new DataView<BlogPost>(
+        return new DataView<>(
             "blogPostsDataView", requestHandler, defaultPaginationSize) {
 
             @Override

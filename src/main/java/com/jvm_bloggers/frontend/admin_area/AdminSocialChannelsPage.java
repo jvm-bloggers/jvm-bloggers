@@ -33,11 +33,11 @@ public class AdminSocialChannelsPage extends AbstractAdminPage {
     }
 
     private void addForm() {
-        facebookPostForm = new Form<AdminSocialChannelsPage>(
-            FACEBOOK_POST_FORM_ID, new CompoundPropertyModel<AdminSocialChannelsPage>(this)
+        facebookPostForm = new Form<>(
+            FACEBOOK_POST_FORM_ID, new CompoundPropertyModel<>(this)
         );
         RequiredTextField<String> linkField = new RequiredTextField<>(LINK_INPUT_ID);
-        TextArea<String> messageField = new TextArea<String>(MESSAGE_INPUT_ID);
+        TextArea<String> messageField = new TextArea<>(MESSAGE_INPUT_ID);
         facebookPostForm.add(linkField.add(new UrlValidator()).setLabel(new Model("Link")));
         facebookPostForm.add(messageField.setRequired(true).setLabel(new Model("Message")));
         facebookPostForm.add(new CustomFeedbackPanel(FEEDBACK_PANEL_ID));

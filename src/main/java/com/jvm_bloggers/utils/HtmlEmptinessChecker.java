@@ -4,6 +4,10 @@ import org.jsoup.Jsoup;
 
 public class HtmlEmptinessChecker {
 
+    private HtmlEmptinessChecker() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static boolean isNotEmpty(String htmlContent) {
         return htmlContent != null && Jsoup
             .parse(
