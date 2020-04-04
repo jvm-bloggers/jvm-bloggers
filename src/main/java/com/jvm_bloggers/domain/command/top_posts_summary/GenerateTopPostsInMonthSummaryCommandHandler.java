@@ -91,7 +91,7 @@ class GenerateTopPostsInMonthSummaryCommandHandler
         return bestPersonalPosts
             .zipWithIndex()
             .map(postWithIndex -> {
-                long position = postWithIndex._2 + 1;
+                long position = (long) postWithIndex._2 + 1;
                 PostIdWithCount postIdWithCount = postWithIndex._1;
                 BlogPost post = blogPostRepository.getOne(postIdWithCount.getBlogPostId());
                 return new PopularPersonalPost(post, position, postIdWithCount.getCount());
@@ -112,7 +112,7 @@ class GenerateTopPostsInMonthSummaryCommandHandler
         return bestCompanyPosts
             .zipWithIndex()
             .map(postWithIndex -> {
-                long position = postWithIndex._2 + 1;
+                long position = (long) postWithIndex._2 + 1;
                 PostIdWithCount postIdWithCount = postWithIndex._1;
                 BlogPost post = blogPostRepository.getOne(postIdWithCount.getBlogPostId());
                 return new PopularCompanyPost(post, position, postIdWithCount.getCount());

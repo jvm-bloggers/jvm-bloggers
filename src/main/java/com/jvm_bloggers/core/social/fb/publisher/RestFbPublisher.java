@@ -30,7 +30,7 @@ class RestFbPublisher implements FacebookPublisher {
 
     private final FacebookClient facebook;
 
-    RestFbPublisher(RestFbFacebookClientFactory clientFactory) throws IOException {
+    RestFbPublisher(RestFbFacebookClientFactory clientFactory) {
         this.facebook = clientFactory.createFacebookClient();
     }
 

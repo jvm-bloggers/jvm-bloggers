@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 public class ContributorsService {
 
     private static final GenericType<java.util.List<Contributor>> CONTRIBUTORS_LIST_TYPE =
-        new GenericType<java.util.List<Contributor>>() {
+        new GenericType<>() {
         };
 
     private final Client client;

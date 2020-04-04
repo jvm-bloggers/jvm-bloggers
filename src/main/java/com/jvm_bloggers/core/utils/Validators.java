@@ -5,6 +5,10 @@ import org.springframework.util.StringUtils;
 
 public class Validators {
 
+    private Validators() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final UrlValidator URL_VALIDATOR =
         new UrlValidator(new String[]{"http", "https"});
 
