@@ -1327,6 +1327,12 @@
       "bookmarkableId": "dawid-kotarba",
       "name": "Dawid Kotarba",
       "rss": "https://dawidkotarba.github.io/blog/feed/"
-     }
+     },
+    {
+      "bookmarkableId": "zamiensmokinapandy",
+      "name": "Mateusz Budzar",
+      "rss": "https://zamiensmokinapandy.pl/feed/",
+      "twitter": "@MateuszBudzar"
+    }
   ]
 }
