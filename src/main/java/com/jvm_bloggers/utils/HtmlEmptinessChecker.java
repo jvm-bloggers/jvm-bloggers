@@ -1,12 +1,11 @@
 package com.jvm_bloggers.utils;
 
+import lombok.experimental.UtilityClass;
+
 import org.jsoup.Jsoup;
 
+@UtilityClass
 public class HtmlEmptinessChecker {
-
-    private HtmlEmptinessChecker() {
-        throw new IllegalStateException("Utility class");
-    }
 
     public static boolean isNotEmpty(String htmlContent) {
         return htmlContent != null && Jsoup

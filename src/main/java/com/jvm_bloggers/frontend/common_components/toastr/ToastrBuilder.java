@@ -1,12 +1,11 @@
 package com.jvm_bloggers.frontend.common_components.toastr;
 
+import lombok.experimental.UtilityClass;
+
 import static java.lang.String.format;
 
+@UtilityClass
 public class ToastrBuilder {
-
-    private ToastrBuilder() {
-        throw new IllegalStateException("Utility class");
-    }
 
     private static final String command = ""
         + "toastr.%s('%s', null, {"

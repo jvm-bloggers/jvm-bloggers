@@ -1,10 +1,9 @@
 package com.jvm_bloggers;
 
-public class ApplicationProfiles {
+import lombok.experimental.UtilityClass;
 
-    private ApplicationProfiles() {
-        throw new IllegalStateException("Utility class");
-    }
+@UtilityClass
+public class ApplicationProfiles {
 
     public static final String PRODUCTION = "prod";
     public static final String STAGE = "stage";

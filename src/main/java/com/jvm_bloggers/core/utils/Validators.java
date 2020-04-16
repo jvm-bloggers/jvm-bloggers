@@ -1,13 +1,12 @@
 package com.jvm_bloggers.core.utils;
 
+import lombok.experimental.UtilityClass;
+
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.util.StringUtils;
 
+@UtilityClass
 public class Validators {
-
-    private Validators() {
-        throw new IllegalStateException("Utility class");
-    }
 
     private static final UrlValidator URL_VALIDATOR =
         new UrlValidator(new String[]{"http", "https"});
