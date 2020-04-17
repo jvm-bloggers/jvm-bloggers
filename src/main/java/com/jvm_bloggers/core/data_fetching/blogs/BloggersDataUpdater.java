@@ -85,9 +85,14 @@ public class BloggersDataUpdater {
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)
-            .moderationRequired(bloggerEntry.getBlogType() != PERSONAL)
+            .moderationRequired(isModerationRequired(bloggerEntry))
             .build();
         blogRepository.save(newBlog);
         return UpdateStatus.CREATED;
+    }
+
+    private boolean isModerationRequired(BloggerEntry bloggerEntry) {
+        return bloggerEntry.getBlogType() != PERSONAL
+            || bloggerEntry.getRss() != null && bloggerEntry.getRss().contains("//medium.com");
     }
 }
