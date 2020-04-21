@@ -39,7 +39,7 @@ public class BlogPostsFetcher {
         final ActorRef blogPostStoringActor =
             actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
-            .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
+            .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory, nowProvider)), "rss-checkers");
         this.metadataRepository = metadataRepository;
         this.nowProvider = nowProvider;
     }
