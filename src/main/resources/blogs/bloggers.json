@@ -1332,6 +1332,12 @@
       "bookmarkableId": "wprostychslowach",
       "name": "W prostych słowach",
       "rss": "https://wprostychslowach.pl/feed/"
-     }
+    },
+    {
+      "bookmarkableId": "peterdev",
+      "name": "Piotr Horzycki",
+      "rss": "https://peterdev.pl/feed/",
+      "twitter": "@peterdevpl"
+    }
   ]
 }
