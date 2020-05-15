@@ -286,7 +286,7 @@
     {
       "bookmarkableId": "marcin-jasion",
       "name": "Marcin Jasion",
-      "rss": "http://blog.mjasion.pl/feeds/posts/default",
+      "rss": "https://mjasion.pl/feed/",
       "twitter": "@marcinjasion"
     },
     {
@@ -883,7 +883,7 @@
       "bookmarkableId": "michal-kulinski",
       "name": "Michał Kuliński",
       "rss": "https://michalkulinski.blogspot.com/feeds/posts/default",
-      "twitter" : "@Michal_Kulinski"
+      "twitter": "@Michal_Kulinski"
     },
     {
       "bookmarkableId": "bartosz-wieczorek",
@@ -909,7 +909,7 @@
     {
       "bookmarkableId": "bartlomiej-slota",
       "name": "Bartłomiej Słota",
-      "rss": "http://bartslota.blogspot.com/feeds/posts/default",
+      "rss": "https://bartslota.com/feed",
       "twitter": "@bartekslota"
     },
     {
@@ -1124,7 +1124,7 @@
       "bookmarkableId": "maciej-maciejowski",
       "name": "Maciej Maciejowski",
       "rss": "https://myenv.net/feed/",
-      "twitter": "@mmaciejow"	  
+      "twitter": "@mmaciejow"
     },
     {
       "bookmarkableId": "szatkus",
@@ -1134,7 +1134,7 @@
     {
       "bookmarkableId": "bmstefanski",
       "name": "Bartłomiej Stefański",
-      "rss": "https://bmstefanski.github.io/blog/feed.xml"  
+      "rss": "https://bmstefanski.github.io/blog/feed.xml"
     },
     {
       "bookmarkableId": "jdyszkiewicz",
@@ -1322,17 +1322,29 @@
       "name": "Kodujmy.pl",
       "rss": "https://kodujmy.pl/feed/",
       "twitter": "@owczarektomek"
-     },
+    },
     {
       "bookmarkableId": "dawid-kotarba",
       "name": "Dawid Kotarba",
       "rss": "https://dawidkotarba.github.io/blog/feed/"
-     },
+    },
     {
       "bookmarkableId": "wprostychslowach",
       "name": "W prostych słowach",
       "rss": "https://wprostychslowach.pl/feed/"
-     },
+    },
+    {
+      "bookmarkableId": "bartosz-gajda",
+      "name": "Bartosz Gajda",
+      "rss": "https://bartoszgajda.com/feed/",
+      "twitter": "@bartoszgajda55"
+    },
+    {
+      "bookmarkableId": "peterdev",
+      "name": "Piotr Horzycki",
+      "rss": "https://peterdev.pl/feed/",
+      "twitter": "@peterdevpl"
+    },
     {
       "bookmarkableId": "zamiensmokinapandy",
       "name": "Mateusz Budzar",
