@@ -45,6 +45,12 @@
             "name": "Podcast Oli Kunysz",
             "rss": "https://www.spreaker.com/show/4194770/episodes/feed",
             "twitter": "@OlaQnysz"
+        },
+        {
+            "bookmarkableId": "better-software-design",
+            "name": "Better Software Design",
+            "rss": "https://feeds.simplecast.com/KIo9ot3b",
+            "twitter": "@mariuszgil"
         }
     ]
 }

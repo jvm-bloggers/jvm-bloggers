@@ -883,7 +883,7 @@
       "bookmarkableId": "michal-kulinski",
       "name": "Michał Kuliński",
       "rss": "https://michalkulinski.blogspot.com/feeds/posts/default",
-      "twitter" : "@Michal_Kulinski"
+      "twitter": "@Michal_Kulinski"
     },
     {
       "bookmarkableId": "bartosz-wieczorek",
@@ -1124,7 +1124,7 @@
       "bookmarkableId": "maciej-maciejowski",
       "name": "Maciej Maciejowski",
       "rss": "https://myenv.net/feed/",
-      "twitter": "@mmaciejow"	  
+      "twitter": "@mmaciejow"
     },
     {
       "bookmarkableId": "szatkus",
@@ -1134,7 +1134,7 @@
     {
       "bookmarkableId": "bmstefanski",
       "name": "Bartłomiej Stefański",
-      "rss": "https://bmstefanski.github.io/blog/feed.xml"  
+      "rss": "https://bmstefanski.github.io/blog/feed.xml"
     },
     {
       "bookmarkableId": "jdyszkiewicz",
@@ -1322,16 +1322,22 @@
       "name": "Kodujmy.pl",
       "rss": "https://kodujmy.pl/feed/",
       "twitter": "@owczarektomek"
-     },
+    },
     {
       "bookmarkableId": "dawid-kotarba",
       "name": "Dawid Kotarba",
       "rss": "https://dawidkotarba.github.io/blog/feed/"
-     },
+    },
     {
       "bookmarkableId": "wprostychslowach",
       "name": "W prostych słowach",
       "rss": "https://wprostychslowach.pl/feed/"
+    },
+    {
+      "bookmarkableId": "bartosz-gajda",
+      "name": "Bartosz Gajda",
+      "rss": "https://bartoszgajda.com/feed/",
+      "twitter": "@bartoszgajda55"
     },
     {
       "bookmarkableId": "peterdev",
