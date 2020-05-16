@@ -30,7 +30,7 @@ public class BlogPostForListingQuery {
     }
 
     public Option<BlogDisplayDetails> findBlogDisplayDetails(Long blogId) {
-        return Option.of(blogRepository.findOne(blogId))
+        return Option.ofOptional(blogRepository.findById(blogId))
             .map(BlogDisplayDetails::fromBlog);
     }
 
@@ -39,7 +39,7 @@ public class BlogPostForListingQuery {
             .ofAll(
                 blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(
                     blogId,
-                    new PageRequest(page, size)
+                    PageRequest.of(page, size)
                 )
             )
             .map(BlogPostForListing::fromBlogPost);

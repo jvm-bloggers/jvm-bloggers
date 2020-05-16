@@ -34,6 +34,8 @@ public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
 
     List<BlogPost> findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(Long blogId, Pageable page);
 
+    List<BlogPost> findByBlogIdOrderByPublishedDateDesc(Long blogId, Pageable page);
+
     int countByBlogId(Long blogId);
 
 }

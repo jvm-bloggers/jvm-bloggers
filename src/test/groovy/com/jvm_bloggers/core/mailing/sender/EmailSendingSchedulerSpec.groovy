@@ -1,6 +1,6 @@
 package com.jvm_bloggers.core.mailing.sender
 
-import com.jvm_bloggers.TestNowProvider
+import com.jvm_bloggers.TestTimeProvider
 import com.jvm_bloggers.entities.email.Email
 import com.jvm_bloggers.entities.email.EmailRepository
 import com.jvm_bloggers.utils.NowProvider
@@ -10,14 +10,14 @@ import spock.lang.Subject
 
 import java.time.LocalDateTime
 
+@Subject(EmailSendingScheduler)
 class EmailSendingSchedulerSpec extends Specification {
 
-    LocalDateTime NOW = LocalDateTime.now();
+    private final static LocalDateTime NOW = LocalDateTime.now()
     EmailRepository emailRepository = Mock(EmailRepository)
     MailSender mailSender = Mock(MailSender)
-    NowProvider nowProvider = new TestNowProvider(NOW)
+    NowProvider nowProvider = new TestTimeProvider(NOW)
 
-    @Subject
     EmailSendingScheduler emailSendingScheduler = new EmailSendingScheduler(emailRepository, mailSender, nowProvider)
 
     def "Should save sent email with set sentDate"() {

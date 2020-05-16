@@ -7,12 +7,12 @@ import com.jvm_bloggers.core.newsletter_issues.NewsletterIssueFactory
 import com.jvm_bloggers.entities.metadata.Metadata
 import com.jvm_bloggers.entities.metadata.MetadataKeys
 import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
-import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.apache.wicket.Page
 import org.apache.wicket.util.tester.FormTester
 
-import static MetadataKeys.MAILING_GREETING
-import static MetadataKeys.MAILING_TEMPLATE
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.MAILING_GREETING
+import static com.jvm_bloggers.entities.metadata.MetadataKeys.MAILING_TEMPLATE
 import static com.jvm_bloggers.frontend.admin_area.mailing.MailingPage.*
 
 class MailingPageSpec extends MockSpringContextAwareSpecification {
@@ -33,7 +33,7 @@ class MailingPageSpec extends MockSpringContextAwareSpecification {
         addBean(blogSummaryMailGenerator)
         addBean(issueNumberRetriever)
         addBean(newsletterIssueFactory)
-        addBean(new NowProvider())
+        addBean(new ZoneTimeProvider())
         addBean(new PaginationConfiguration(15))
 
         backingBean.findMetadataByName(MAILING_TEMPLATE) >> new Metadata(

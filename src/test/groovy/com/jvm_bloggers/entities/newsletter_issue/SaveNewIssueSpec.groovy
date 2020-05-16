@@ -3,7 +3,9 @@ package com.jvm_bloggers.entities.newsletter_issue
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import io.vavr.control.Option
+import spock.lang.Subject
 
+@Subject(NewsletterIssueRepository)
 class SaveNewIssueSpec extends NewsletterIssueRepositorySpecBase {
 
     def "Should save new issue"() {

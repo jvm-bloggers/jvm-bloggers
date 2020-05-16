@@ -5,14 +5,22 @@ setupProperties() {
   export JVM_BLOGGERS_DB_USER=jvm_bloggers
   export JVM_BLOGGERS_DB_PASSWORD=jvm_bloggers
   export JVM_BLOGGERS_DB_NAME=jvm_bloggers
-  export JVM_BLOGGERS_DB_PATH="~/jvm-bloggers-postgresql-data"
+  export JVM_BLOGGERS_DB_PATH="${HOME}/jvm-bloggers-postgresql-data"
   export JVM_BLOGGERS_DB_PUBLISHED_PORT=5432
 
 }
 
 start() {
-    docker-compose -f docker-compose-local.yml up -d
-    echo "Started JVM Bloggers Database"
+    docker-compose -f docker-compose-local.yml up -d --force-recreate
+    echo ""
+    echo "============================================"
+    echo " Started JVM Bloggers Database on localhost"
+    echo "      port: $JVM_BLOGGERS_DB_PUBLISHED_PORT"
+    echo "      user: $JVM_BLOGGERS_DB_USER"
+    echo "      pass: $JVM_BLOGGERS_DB_PASSWORD"
+    echo "    schema: $JVM_BLOGGERS_DB_PASSWORD"
+    echo "    volume: $JVM_BLOGGERS_DB_PATH"
+    echo "============================================"
 }
 
 stop() {

@@ -1,13 +1,14 @@
 package com.jvm_bloggers.utils;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE;
+import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
 import static java.lang.String.format;
 import static java.time.format.TextStyle.FULL_STANDALONE;
 
@@ -32,6 +33,10 @@ public class DateTimeUtilities {
 
     public static Date toDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(DEFAULT_ZONE).toInstant());
+    }
+
+    public static Date toDate(LocalDate localDate) {
+        return toDate(localDate.atStartOfDay());
     }
 
     public static int daysBetweenDateAndLastFriday(LocalDateTime date) {

@@ -25,7 +25,7 @@ public class MailingAddressPageRequestHandler implements IDataProvider<MailingAd
     public Iterator<? extends MailingAddress> iterator(long first, long count) {
         int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
         return mailingAddressRepository
-                .findAllByOrderByAddressAsc(new PageRequest(page,
+                .findAllByOrderByAddressAsc(PageRequest.of(page,
                         paginationConfiguration.getDefaultPageSize())
                 ).iterator();
     }
@@ -50,6 +50,6 @@ public class MailingAddressPageRequestHandler implements IDataProvider<MailingAd
     }
 
     public void delete(Long mailingAddressId) {
-        mailingAddressRepository.delete(mailingAddressId);
+        mailingAddressRepository.deleteById(mailingAddressId);
     }
 }

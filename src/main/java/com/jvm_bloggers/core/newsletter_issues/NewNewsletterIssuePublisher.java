@@ -20,8 +20,7 @@ class NewNewsletterIssuePublisher {
     public NewNewsletterIssuePublisher(
         NewsletterIssueFactory newsletterIssueFactory,
         NewsletterIssueRepository newsletterIssueRepository,
-        ApplicationEventPublisher eventPublisher
-    ) {
+        ApplicationEventPublisher eventPublisher) {
         this.newsletterIssueFactory = newsletterIssueFactory;
         this.newsletterIssueRepository = newsletterIssueRepository;
         this.eventPublisher = eventPublisher;

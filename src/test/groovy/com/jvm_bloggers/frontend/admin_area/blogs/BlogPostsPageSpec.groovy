@@ -30,7 +30,7 @@ class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should generate header from Blog's author"() {
         given:
-        blogRepository.findOne(SAMPLE_BLOG_ID) >> sampleBlog()
+        blogRepository.findById(SAMPLE_BLOG_ID) >> Optional.of(sampleBlog())
         String expectedHeader = sampleBlog().author + APOSTROPHE + "s posts"
 
         when:
@@ -42,7 +42,7 @@ class BlogPostsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should generate exceptional header when no blog with given id found"() {
         given:
-        blogRepository.findOne(SAMPLE_BLOG_ID) >> null
+        blogRepository.findById(SAMPLE_BLOG_ID) >> Optional.empty()
 
         when:
         tester.startPage(BlogPostsPage.class, new PageParameters().add(BLOG_ID_PARAM, SAMPLE_BLOG_ID.toString()))

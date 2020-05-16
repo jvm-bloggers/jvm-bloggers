@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
 
+@Subject(VariaSuggestionRepository)
 class VariaSuggestionRepositorySpec extends SpringContextAwareSpecification {
 
-    @Subject
     @Autowired
     VariaSuggestionRepository variaSuggestionRepository
 
@@ -55,6 +55,6 @@ class VariaSuggestionRepositorySpec extends SpringContextAwareSpecification {
 
         then:
         variaSuggestionRepository.count() == 2
-        variaSuggestionRepository.findByReadFalseOrReadNull(new PageRequest(0, 10)).size() == 1
+        variaSuggestionRepository.findByReadFalseOrReadNull(PageRequest.of(0, 10)).size() == 1
     }
 }

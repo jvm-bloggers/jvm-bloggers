@@ -12,7 +12,8 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.MALE;
-import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.TELEVISION;
+import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.PODCAST;
+import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.YOUTUBE;
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.USERS;
 
 public abstract class AbstractBlogsPage extends AbstractFrontendPage {
@@ -22,6 +23,7 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
     static final String INFINITE_SCROLL_ID = "infinite-pager";
     static final String PERSONAL_TAB_ID = "personal";
     static final String COMPANY_TAB_ID = "company";
+    static final String PODCAST_TAB_ID = "podcast";
     static final String VIDEO_TAB_ID = "video";
 
     @SpringBean
@@ -46,7 +48,9 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
             PersonalBlogsPage.class, this.getActiveClass()));
         add(new NavigationTabItem(COMPANY_TAB_ID, "Firmowe", USERS,
             CompanyBlogsPage.class, this.getActiveClass()));
-        add(new NavigationTabItem(VIDEO_TAB_ID, "Video", TELEVISION,
+        add(new NavigationTabItem(PODCAST_TAB_ID, "Podcasty", PODCAST,
+                PodcastBlogsPage.class, this.getActiveClass()));
+        add(new NavigationTabItem(VIDEO_TAB_ID, "Prezentacje", YOUTUBE,
             VideoBlogsPage.class, this.getActiveClass()));
     }
 

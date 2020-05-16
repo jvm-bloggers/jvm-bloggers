@@ -7,7 +7,19 @@ spring:
     test-on-borrow: true
     validation-query: SELECT 1
 
-endpoints.enabled: false
+  endpoints.enabled: false
+
+# Wicket configuration
+wicket:
+  core:
+    settings:
+      general:
+        configuration-type: deployment
+      debug:
+        enabled: false
+        component-use-check: false
+        development-utilities-enabled: false
+        ajaxDebugModeEnabled: false
 
 # Mail Configuration
 mailing:

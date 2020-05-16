@@ -8,20 +8,21 @@ import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
 import com.jvm_bloggers.entities.twitter.TweetRepository
 import com.jvm_bloggers.utils.NowProvider
+import com.jvm_bloggers.utils.ZoneTimeProvider
 import spock.lang.Specification
-
-import java.time.LocalDateTime
+import spock.lang.Subject
 
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
+@Subject(TweetProducer)
 class TweetProducerSpec extends Specification {
 
     private static final long ISSUE_NUMBER = 999L
     private static final String LINK = "http://jvm-bloggers.com/issue/$ISSUE_NUMBER"
 
     private static final Random randomJsonId = new Random()
-    private static final NowProvider nowProvider = new NowProvider()
+    private static final NowProvider nowProvider = new ZoneTimeProvider()
 
     private LinkGenerator linkGenerator = Stub(LinkGenerator)
 

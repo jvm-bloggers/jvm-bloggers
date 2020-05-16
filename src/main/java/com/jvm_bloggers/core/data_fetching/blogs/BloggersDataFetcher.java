@@ -27,7 +27,8 @@ public class BloggersDataFetcher {
 
     private Option<URL> bloggersUrlOption;
     private Option<URL> companiesUrlOption;
-    private Option<URL> videosUrlOption;
+    private Option<URL> presentationsUrlOption;
+    private Option<URL> podcastsUrlString;
     private BloggersDataUpdater bloggersDataUpdater;
     private ObjectMapper mapper;
     private MetadataRepository metadataRepository;
@@ -38,13 +39,15 @@ public class BloggersDataFetcher {
     @Autowired
     public BloggersDataFetcher(@Value("${bloggers.data.file.url}") String bloggersDataUrlString,
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
-                               @Value("${youtube.data.file.url}") String videosDataUrlString,
+                               @Value("${presentations.data.file.url}") String presentationsDataUrlString,
+                               @Value("${podcasts.data.file.url}") String podcastsDataUrlString,
                                BloggersDataUpdater bloggersDataUpdater,
                                ObjectMapper mapper, MetadataRepository metadataRepository,
                                NowProvider nowProvider) {
         bloggersUrlOption = convertToUrl(bloggersDataUrlString);
         companiesUrlOption = convertToUrl(companiesDataUrlString);
-        videosUrlOption = convertToUrl(videosDataUrlString);
+        presentationsUrlOption = convertToUrl(presentationsDataUrlString);
+        podcastsUrlString = convertToUrl(podcastsDataUrlString);
         this.bloggersDataUpdater = bloggersDataUpdater;
         this.mapper = mapper;
         this.metadataRepository = metadataRepository;
@@ -70,7 +73,8 @@ public class BloggersDataFetcher {
     private Void startFetchingProcess() {
         refreshBloggersDataFor(bloggersUrlOption, BlogType.PERSONAL);
         refreshBloggersDataFor(companiesUrlOption, BlogType.COMPANY);
-        refreshBloggersDataFor(videosUrlOption, BlogType.VIDEOS);
+        refreshBloggersDataFor(presentationsUrlOption, BlogType.PRESENTATION);
+        refreshBloggersDataFor(podcastsUrlString, BlogType.PODCAST);
 
         final Metadata dateOfLastFetch = metadataRepository
             .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOGGERS);
@@ -87,7 +91,7 @@ public class BloggersDataFetcher {
                 UpdateStatistic updateStatistic = bloggersDataUpdater.updateData(bloggers);
                 log.info("Refreshed {} blogs: {}", blogType, updateStatistic);
             } catch (Exception exception) {
-                log.error("Exception during parse process for {}", blogType, exception);
+                log.error("Exception during parse process for " + blogType, exception);
             }
         } else {
             log.warn("No valid URL specified for {}. Skipping.", blogType);

@@ -9,22 +9,20 @@ import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
-import static java.time.LocalDateTime.now
-import static java.util.UUID.randomUUID
+import static com.jvm_bloggers.ObjectMother.aBlog
+import static com.jvm_bloggers.ObjectMother.aBlogPost
 
+@Subject(BlogPostForListingQuery)
 class BlogPostForListingQuerySpec  extends Specification {
 
     BlogRepository blogRepository = Stub()
 
     BlogPostRepository blogPostRepository = Stub()
 
-    @Subject
     BlogPostForListingQuery blogPostForListingQuery = new BlogPostForListingQuery(blogRepository, blogPostRepository)
 
     def "Should query blog by code"() {
         given:
-        Long blogId = 1L
         String code = "someCode"
         Blog blog = aBlog()
         blogRepository.findByBookmarkableId(code) >> Option.of(blog)
@@ -34,14 +32,14 @@ class BlogPostForListingQuerySpec  extends Specification {
 
         then:
         result.isDefined()
-        result.get() == blogId
+        result.get() == blog.id
     }
 
     def "Should transform Blog to BlogDisplayDetails"() {
         given:
         Long blogId = 1L
         Blog blog = aBlog()
-        blogRepository.findOne(blogId) >> blog
+        blogRepository.findById(blogId) >> Optional.of(blog)
 
         when:
         Option<BlogDisplayDetails> blogDisplayDetailsOption = blogPostForListingQuery.findBlogDisplayDetails(blogId)
@@ -57,46 +55,17 @@ class BlogPostForListingQuerySpec  extends Specification {
     def "Should query posts by blog id"() {
         given:
         Long blogId = 1L
-        Blog blog = aBlog()
-        List<BlogPost> blogPosts = [
-                aBlogPost(blog),
-                aBlogPost(blog),
-                aBlogPost(blog),
-                aBlogPost(blog),
-                aBlogPost(blog),
-                aBlogPost(blog)
-        ]
-        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, new PageRequest(0, 10)) >> blogPosts
+        List<BlogPost> blogPosts = [aBlogPost()] * 6
+
+        blogPostRepository.findByBlogIdAndApprovedTrueOrderByPublishedDateDesc(blogId, PageRequest.of(0, 10)) >> blogPosts
 
         when:
         List<BlogPostForListing> result = blogPostForListingQuery.findBlogPosts(blogId, 0, 10).toJavaList()
 
         then:
-        result.size() == 6
+        result.size() == blogPosts.size()
         result[0].uid == blogPosts[0].uid
         result[0].title == blogPosts[0].title
         result[0].publishedDate == blogPosts[0].publishedDate
-    }
-
-    private Blog aBlog() {
-        new Blog.BlogBuilder()
-                .url(randomUUID().toString())
-                .id(1)
-                .bookmarkableId(randomUUID().toString())
-                .rss(randomUUID().toString())
-                .dateAdded(now())
-                .author(randomUUID().toString())
-                .blogType(PERSONAL)
-                .build()
-    }
-
-    private BlogPost aBlogPost(final Blog blog) {
-        return BlogPost.builder()
-                .publishedDate(now())
-                .approved(true)
-                .blog(blog)
-                .title(randomUUID().toString())
-                .url(randomUUID().toString())
-                .build();
     }
 }

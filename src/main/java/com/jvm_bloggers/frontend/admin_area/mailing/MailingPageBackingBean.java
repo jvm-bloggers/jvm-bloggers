@@ -14,17 +14,15 @@ import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.DateTimeUtilities;
 import com.jvm_bloggers.utils.NowProvider;
-
 import io.vavr.collection.List;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class MailingPageBackingBean {
 
     private CommandPublisher commandPublisher;

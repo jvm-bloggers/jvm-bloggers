@@ -1,6 +1,5 @@
 package com.jvm_bloggers.core.utils
 
-import com.jvm_bloggers.utils.NowProvider
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -9,12 +8,14 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 
+import static java.time.ZoneId.systemDefault
+
+@Subject(LocalDateToTimestampConverter)
 class LocalDateToTimestampConverterSpec extends Specification {
 
-    @Subject
     LocalDateToTimestampConverter converter = new LocalDateToTimestampConverter()
 
-    def "Should convert"() {
+    def "Should convert local date to timestamp"() {
         given:
         LocalDateTime localDateTime = LocalDateTime.of(2016, 05, 7, 8, 44, 0)
         Timestamp timestamp = convertToTimestamp(localDateTime)
@@ -28,8 +29,8 @@ class LocalDateToTimestampConverterSpec extends Specification {
         localDate.getYear() == localDateTime.getYear()
     }
 
-    private Timestamp convertToTimestamp(LocalDateTime localDateTime) {
-        Instant instant = localDateTime.atZone(NowProvider.DEFAULT_ZONE).toInstant()
+    private static Timestamp convertToTimestamp(LocalDateTime localDateTime) {
+        Instant instant = localDateTime.atZone(systemDefault()).toInstant()
         Timestamp timestamp = Timestamp.from(instant)
         return timestamp
     }

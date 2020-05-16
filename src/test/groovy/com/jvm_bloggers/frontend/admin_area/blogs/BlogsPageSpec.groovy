@@ -27,46 +27,51 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
 
     def "Should redirect to blog's posts page"() {
         given:
-            Blog blog = sampleBlog(1)
-            blogRepository.findAll(_) >> new PageImpl<>([blog])
-            blogRepository.count() >> 1
+        Blog blog = sampleBlog(1)
+        blogRepository.findAll(_) >> new PageImpl<>([blog])
+        blogRepository.findById(1) >> Optional.of(blog)
+        blogRepository.count() >> 1
 
         when:
-            tester.startPage(BlogsPage.class)
-            tester.clickLink(linkPath(1, 7, POSTS_LINK))
+        tester.startPage(BlogsPage.class)
+        tester.clickLink(linkPath(1, 7, POSTS_LINK))
 
         then:
-            tester.assertRenderedPage(BlogPostsPage.class)
+        tester.assertRenderedPage(BlogPostsPage.class)
     }
 
     def "Should be ordered by first column asc"() {
         given:
-            Blog blog1 = sampleBlog(1)
-            Blog blog2 = sampleBlog(2)
-            blogRepository.findAll(_) >> new PageImpl<>([blog1, blog2])
-            blogRepository.count() >> 2
+        Blog blog1 = sampleBlog(1)
+        Blog blog2 = sampleBlog(2)
+        blogRepository.findAll(_) >> new PageImpl<>([blog1, blog2])
+        blogRepository.findById(1) >> Optional.of(blog1)
+        blogRepository.findById(2) >> Optional.of(blog2)
+        blogRepository.count() >> 2
 
         when:
-            tester.startPage(BlogsPage.class)
+        tester.startPage(BlogsPage.class)
 
         then:
-            assertColumnContainsImage(1, "fa-sort-asc")
+        assertColumnContainsImage(1, "fa-sort-asc")
     }
 
     def "Should be ordered by first column desc"() {
         given:
-            Blog blog1 = sampleBlog(1)
-            Blog blog2 = sampleBlog(2)
-            blogRepository.findAll(_) >> new PageImpl<>([blog1, blog2])
-            blogRepository.count() >> 2
+        Blog blog1 = sampleBlog(1)
+        Blog blog2 = sampleBlog(2)
+        blogRepository.findAll(_) >> new PageImpl<>([blog1, blog2])
+        blogRepository.findById(1) >> Optional.of(blog1)
+        blogRepository.findById(2) >> Optional.of(blog2)
+        blogRepository.count() >> 2
 
         when:
-            tester.startPage(BlogsPage.class)
-            tester.clickLink(headerLinkPath(1))
-            tester.dumpPage()
+        tester.startPage(BlogsPage.class)
+        tester.clickLink(headerLinkPath(1))
+        tester.dumpPage()
 
         then:
-            assertColumnContainsImage(8, "fa-sort-desc")
+        assertColumnContainsImage(8, "fa-sort-desc")
     }
 
     def assertColumnContainsImage(int columnIdNumber, String image) {
@@ -78,17 +83,17 @@ class BlogsPageSpec extends MockSpringContextAwareSpecification {
 
     private Blog sampleBlog(int id) {
         Blog.builder()
-                .id(id)
-                .bookmarkableId("bookmarkableId " + id)
-                .author("some author " + id)
-                .rss("some rss " + id)
-                .url("some url")
-                .twitter("some twitter")
-                .dateAdded(now())
-                .blogType(BlogType.PERSONAL)
-                .active(true)
-                .moderationRequired(false)
-                .build()
+            .id(id)
+            .bookmarkableId("bookmarkableId " + id)
+            .author("some author " + id)
+            .rss("some rss " + id)
+            .url("some url")
+            .twitter("some twitter")
+            .dateAdded(now())
+            .blogType(BlogType.PERSONAL)
+            .active(true)
+            .moderationRequired(false)
+            .build()
     }
 
     private String headerLinkPath(int column) {

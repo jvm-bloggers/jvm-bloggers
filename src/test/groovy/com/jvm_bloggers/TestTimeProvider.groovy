@@ -5,11 +5,11 @@ import com.jvm_bloggers.utils.NowProvider
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class TestNowProvider extends NowProvider {
+class TestTimeProvider implements NowProvider {
 
     private final LocalDateTime stubbedNow;
 
-    TestNowProvider(LocalDateTime stubbedNow) {
+    TestTimeProvider(LocalDateTime stubbedNow) {
         this.stubbedNow = stubbedNow
     }
 

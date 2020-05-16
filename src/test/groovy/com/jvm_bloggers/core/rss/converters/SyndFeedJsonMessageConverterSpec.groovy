@@ -15,6 +15,7 @@ import spock.lang.Unroll
 
 import java.nio.charset.Charset
 
+@Subject(SyndFeedJsonMessageConverter)
 class SyndFeedJsonMessageConverterSpec extends Specification {
 
     @Shared
@@ -23,7 +24,6 @@ class SyndFeedJsonMessageConverterSpec extends Specification {
     @Shared
     SyndFeedToJsonConverter jsonConverter = new SyndFeedToJsonConverter("http://jvm-bloggers.com")
 
-    @Subject
     SyndFeedJsonMessageConverter converter = new SyndFeedJsonMessageConverter(jsonConverter)
 
     @Shared

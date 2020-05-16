@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
 
-import static com.jvm_bloggers.utils.NowProvider.DEFAULT_ZONE_NAME;
+import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE_NAME;
 
 @Service
 @RequiredArgsConstructor

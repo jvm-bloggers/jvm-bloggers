@@ -16,22 +16,24 @@ import spock.lang.Subject
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.toLocalDateTime
 
+@Subject(ActorRef)
 class NewBlogPostStoringActorSpec extends Specification {
 
     BlogPostRepository blogPostRepository
     BlogPostFactory blogPostFactory
     JavaTestKit testProbe
-
-    @Subject
     ActorRef blogPostingActor
 
+    String postTitle = 'Title'
+    String postDescription = 'description'
+
     def setup() {
-        ActorSystem system = ActorSystem.create("test")
+        ActorSystem system = ActorSystem.create('test')
         testProbe = new JavaTestKit(system)
         blogPostRepository = Mock(BlogPostRepository)
         blogPostFactory = Mock(BlogPostFactory)
         Props props = NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory)
-        blogPostingActor = system.actorOf(props, "blogPostingActor")
+        blogPostingActor = system.actorOf(props, 'blogPostingActor')
     }
 
     def cleanup() {
@@ -40,9 +42,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should persist new blog post"() {
         given:
-        String postUrl = "http://blogpost.com/blog"
-        String postTitle = "Title"
-        String postDescription = "description"
+        String postUrl = 'http://blogpost.com/blog'
         Blog blog = Mock(Blog)
         BlogPost blogPost = Mock(BlogPost)
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
@@ -52,7 +52,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
-        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(1, 'second'))
 
         then:
         1 * blogPostRepository.save(blogPost)
@@ -60,16 +60,14 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should not persist blog post with invalid URL"() {
         given:
-        String invalidLink = "invalidLink"
-        String postTitle = "Title"
-        String postDescription = "description"
+        String invalidLink = 'invalidLink'
         SyndEntry entry = mockSyndEntry(invalidLink, postTitle, postDescription)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
         blogPostRepository.findByUrlEndingWith(invalidLink) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
-        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(1, 'second'))
 
         then:
         0 * blogPostRepository.save({
@@ -81,9 +79,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should update description if post already exists"() {
         given:
-        String postUrl = "http://blogpost.com/blog"
-        String postTitle = "Title"
-        String postDescription = "description"
+        String postUrl = 'http://blogpost.com/blog'
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         BlogPost blogPost = Mock()
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
@@ -91,7 +87,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
-        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(1, 'second'))
 
         then:
         1 * blogPost.setDescription(postDescription)
@@ -102,9 +98,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should update only description if post already exists with different protocol"() {
         given:
-        String postUrl = "http://blogpost.com/blog"
-        String postTitle = "Title"
-        String postDescription = "description"
+        String postUrl = 'http://blogpost.com/blog'
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, postDescription)
         BlogPost blogPost = Mock()
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
@@ -112,7 +106,7 @@ class NewBlogPostStoringActorSpec extends Specification {
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
-        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(1, 'second'))
 
         then:
         1 * blogPost.setDescription(postDescription)
@@ -123,16 +117,15 @@ class NewBlogPostStoringActorSpec extends Specification {
 
     def "Should use updatedDate if publishedDate is null"() {
         given:
-        String postUrl = "http://blogpost.com/blog"
-        String postTitle = "Title"
-        Date updatedDate = new Date().minus(1)
+        String postUrl = 'http://blogpost.com/blog'
+        Date updatedDate = new Date()
         SyndEntry entry = mockSyndEntry(postUrl, postTitle, null, null, updatedDate)
         RssEntryWithAuthor message = new RssEntryWithAuthor(Mock(Blog), entry)
         blogPostRepository.findByUrlEndingWith(removeHttpProtocolFrom(postUrl)) >> Option.none()
 
         when:
         blogPostingActor.tell(message, ActorRef.noSender())
-        testProbe.expectNoMsg(FiniteDuration.apply(1, "second"))
+        testProbe.expectNoMsg(FiniteDuration.apply(1, 'second'))
 
         then:
         1 * blogPostFactory.create(postTitle, postUrl, toLocalDateTime(updatedDate), _ as Blog)
@@ -155,7 +148,7 @@ class NewBlogPostStoringActorSpec extends Specification {
     }
 
     private String removeHttpProtocolFrom(String link) {
-        return link.replaceAll("^http", "")
+        return link.replaceAll('^http', '')
     }
 
 }

@@ -32,7 +32,7 @@ public class BlogsPageRequestHandler extends SortableDataProvider<Blog, String> 
         int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
 
         return blogRepository
-            .findAll(new PageRequest(page,
+            .findAll(PageRequest.of(page,
                 paginationConfiguration.getDefaultPageSize(),
                 WicketToSpringSortingConverter.convert(getSort()).getOrNull())
             )

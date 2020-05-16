@@ -2,6 +2,10 @@
     padding-bottom: 40px;
 }
 
+.padding-bottom-20-px {
+    padding-bottom: 20px;
+}
+
 .top-posts-section {
     padding: 30px 0 30px 30px;
 }
@@ -53,4 +57,13 @@
 .vertical-align {
     align-items: center;
     display: flex;
+}
+
+.rd-navbar-nav > li > a.slack {
+    color: #E11859;
+}
+
+span.slack {
+    color: #E11859;
+    font-weight: 700;
 }

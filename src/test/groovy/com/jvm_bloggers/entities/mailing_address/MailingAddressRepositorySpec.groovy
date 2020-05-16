@@ -2,7 +2,9 @@ package com.jvm_bloggers.entities.mailing_address
 
 import com.jvm_bloggers.SpringContextAwareSpecification
 import org.springframework.beans.factory.annotation.Autowired
+import spock.lang.Subject
 
+@Subject(MailingAddressRepository)
 class MailingAddressRepositorySpec extends SpringContextAwareSpecification {
 
     @Autowired
@@ -14,10 +16,10 @@ class MailingAddressRepositorySpec extends SpringContextAwareSpecification {
         MailingAddress address = new MailingAddress(email)
 
         when:
-        mailingAddressRepository.save(address);
+        mailingAddressRepository.save(address)
 
         then:
-        MailingAddress savedAddress = mailingAddressRepository.findOne(address.id)
+        MailingAddress savedAddress = mailingAddressRepository.findById(address.id).get()
         savedAddress != null
         savedAddress.address == email
     }

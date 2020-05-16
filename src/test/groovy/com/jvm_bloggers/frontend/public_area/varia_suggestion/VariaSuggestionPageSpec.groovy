@@ -90,6 +90,30 @@ class VariaSuggestionPageSpec extends MockSpringContextAwareSpecification {
         })
     }
 
+    def "Should create suggestion with uppercase url"() {
+        given:
+        VariaSuggestionModel model = new VariaSuggestionModel()
+        model.url = 'HTTPS://JVM-BLOGGERS.COM'
+        model.author = 'author'
+        model.reason = 'reason'
+
+        when:
+        tester.startPage(VariaSuggestionPage)
+        FormTester formTester = tester.newFormTester(FORM_ID)
+        formTester.setValue(URL_ID, model.url)
+        formTester.setValue(AUTHOR_ID, model.author)
+        formTester.setValue(REASON_ID, model.reason)
+        formTester.submit(SUBMIT_ID)
+
+        then:
+        1 * backingBean.createVariaSuggestion({
+            it.url == model.url &&
+            it.author == model.author &&
+            it.reason == model.reason
+        })
+    }
+
+
     def "Should not create suggestion from invalid form"() {
         when:
         tester.startPage(VariaSuggestionPage)
