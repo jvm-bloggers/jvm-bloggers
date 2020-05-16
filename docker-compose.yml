@@ -27,7 +27,7 @@ services:
     depends_on:
       - jvm-bloggers-db
   jvm-bloggers-proxy:
-    image: caddy/caddy:2
+    image: caddy:2.0.0
     container_name: jvm-bloggers-proxy
     command: caddy reverse-proxy --from jvm-bloggers.com --to jvm-bloggers-core:8080
     volumes:
