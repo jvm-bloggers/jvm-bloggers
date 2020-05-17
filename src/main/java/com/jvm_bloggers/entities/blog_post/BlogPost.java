@@ -2,23 +2,32 @@ package com.jvm_bloggers.entities.blog_post;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.tag.Tag;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
 import org.apache.commons.text.RandomStringGenerator;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -79,6 +88,11 @@ public class BlogPost {
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "POST_TAG", joinColumns = @JoinColumn(name = "POST_ID"),
+        inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
+    private Set<Tag> tags;
 
     public boolean isApproved() {
         return Boolean.TRUE.equals(approved);
