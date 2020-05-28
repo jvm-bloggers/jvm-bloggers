@@ -26,7 +26,7 @@ Please create a Pull Request adding it to
 
 * [videos.json](src/main/resources/blogs/videos.json) for videos from JUGs/Meetups/Conferences/personal vblogs
 
-* [podcasts.json](src/main/resources/blogs/podcasts.json) for personal and company podasts
+* [podcasts.json](src/main/resources/blogs/podcasts.json) for personal and company podcasts
 
 and that's all. Once it is merged, you are in the list!
 
