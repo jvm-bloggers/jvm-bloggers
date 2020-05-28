@@ -1350,6 +1350,12 @@
       "name": "Mateusz Budzar",
       "rss": "https://zamiensmokinapandy.pl/feed/",
       "twitter": "@MateuszBudzar"
+    },
+    {
+      "bookmarkableId": "software-garden",
+      "name": "Piotr Przybył",
+      "rss": "https://softwaregarden.dev/pl/posts/index.xml",
+      "twitter": "@piotrprz"
     }
   ]
 }
