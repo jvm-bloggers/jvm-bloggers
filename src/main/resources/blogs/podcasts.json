@@ -57,6 +57,12 @@
             "name": "Around IT In 256 Seconds",
             "rss": "https://anchor.fm/s/155e7134/podcast/rss",
             "twitter": "@tnurkiewicz"
+        },
+        {
+            "bookmarkableId": "segfault-audio",
+            "name": "Segfault Audio",
+            "rss": "https://anchor.fm/s/184c0cd0/podcast/rss",
+            "twitter": "@segfaultevents"
         }
     ]
 }
