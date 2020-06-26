@@ -67,3 +67,8 @@ span.slack {
     color: #E11859;
     font-weight: 700;
 }
+
+.newsletter-issue-next-prev-panel {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
