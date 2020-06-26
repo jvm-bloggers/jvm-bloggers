@@ -125,8 +125,8 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        List<BlogPost> unapprovedBlogPostsByBlogType =
-                blogPostRepository.findUnapprovedPostsByBlogType(blogType, PageRequest.of(0, 3))
+        List<BlogPost> unapprovedBlogPostsByBlogType = blogPostRepository
+                .findUnapprovedPostsByBlogType(blogType, PageRequest.of(0, 3))
 
         then:
         unapprovedBlogPostsByBlogType.size() == expectedBlogPostCount
@@ -163,8 +163,8 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogPostRepository.saveAll(blogPosts);
 
         when:
-        List<BlogPost> blogPostsByBlogType =
-                blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0, 4))
+        List<BlogPost> blogPostsByBlogType = blogPostRepository
+                .findBlogPostsOfType(blogType, PageRequest.of(0, 4))
 
         then:
         blogPostsByBlogType.size() == expectedBlogPostCount

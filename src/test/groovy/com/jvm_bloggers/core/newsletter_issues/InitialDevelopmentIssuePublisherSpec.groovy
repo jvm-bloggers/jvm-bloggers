@@ -1,23 +1,21 @@
 package com.jvm_bloggers.core.newsletter_issues
 
-import com.google.common.collect.Lists
+
 import com.jvm_bloggers.SpringContextAwareSpecification
-import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
 import com.jvm_bloggers.utils.NowProvider
 import com.jvm_bloggers.utils.ZoneTimeProvider
-import net.minidev.json.JSONUtil
-import org.jboss.logging.BasicLogger
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import spock.lang.Subject
-import static com.jvm_bloggers.ObjectMother.aBlog
-import static com.jvm_bloggers.ObjectMother.aBlogPost
 
-import static com.jvm_bloggers.entities.blog.BlogType.*
+import static com.jvm_bloggers.ObjectMother.aBlogPost
+import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
+import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
+import static com.jvm_bloggers.entities.blog.BlogType.PODCAST
+import static com.jvm_bloggers.entities.blog.BlogType.PRESENTATION
 import static java.util.Collections.EMPTY_LIST
 
 @Subject(InitialDevelopmentIssuePublisher)
@@ -93,7 +91,6 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         blogPostRepository.findUnapprovedPostsByBlogType(PODCAST, _ as Pageable) >> unapprovedPodcastBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(PRESENTATION, _ as Pageable) >> unapprovedPresentationBlogPosts
 
-
         when:
         initialDevelopmentIssuePublisher.publishTestDevelopmentIssue()
 
@@ -106,7 +103,7 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
             assert post.isApproved()
     }
 
-    def prepareBlogPostListOfType(BlogType type, int listSize){
+    def prepareBlogPostListOfType(BlogType type, int listSize) {
         return Collections.nCopies(listSize, aBlogPost(blogType: type));
     }
 }

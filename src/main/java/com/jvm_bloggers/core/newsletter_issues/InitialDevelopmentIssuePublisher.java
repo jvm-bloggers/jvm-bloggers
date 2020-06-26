@@ -24,9 +24,8 @@ import static com.jvm_bloggers.entities.blog.BlogType.*;
 @RequiredArgsConstructor
 public class InitialDevelopmentIssuePublisher {
 
-    static final int REQUIRED_NUMBER_OF_POSTS = 5;
+    static final int REQUIRED_NUMBER_OF_POSTS = 3;
     static final int AMOUNT_OF_POSTS_TO_APPROVE = 2;
-    private final PageRequest requiredAmountOfRecordsPageRequest = PageRequest.of(0, REQUIRED_NUMBER_OF_POSTS);
     private final PageRequest amountOfRecordsToApprovePageRequest = PageRequest.of(0, AMOUNT_OF_POSTS_TO_APPROVE);
 
     private final NowProvider nowProvider;
@@ -36,7 +35,7 @@ public class InitialDevelopmentIssuePublisher {
 
     @Scheduled(initialDelay = 5000, fixedDelayString = "${scheduler.publish-test-issue}")
     public void publishTestDevelopmentIssue() {
-        if (!atLeastOneIssueExists() && databaseContainsEnoughPostsForOneIssue()) {
+        if (thereAreNoIssuesPublished() && databaseContainsEnoughPostsForOneIssue()) {
             findAndApproveUnapprovedBlogPosts();
             newNewsletterIssuePublisher.publishNewIssue(DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE);
             log.info("Published a developer issue");
@@ -50,9 +49,9 @@ public class InitialDevelopmentIssuePublisher {
                 .findUnapprovedPostsByBlogType(PRESENTATION, amountOfRecordsToApprovePageRequest);
         List<BlogPost> unapprovedCompanyBlogPosts = blogPostRepository
                 .findUnapprovedPostsByBlogType(COMPANY, amountOfRecordsToApprovePageRequest);
-        if (!unapprovedCompanyBlogPosts.isEmpty()
-                || !unapprovedPodcastBlogPosts.isEmpty()
-                || !unapprovedPresentationBlogPosts.isEmpty()) {
+        if (unapprovedCompanyBlogPosts.size() > 0
+                || unapprovedPodcastBlogPosts.size() > 0
+                || unapprovedPresentationBlogPosts.size() > 0) {
             log.info("Approving posts for dev issue.");
             unapprovedPodcastBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
             unapprovedPresentationBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
@@ -62,30 +61,32 @@ public class InitialDevelopmentIssuePublisher {
         }
     }
 
-    private boolean atLeastOneIssueExists() {
-        boolean anIssueExists = newsletterIssueRepository.count() > 0;
-        if(!anIssueExists)
-            log.info("There isn't an issue published. Publishing dev issue.");
-        return anIssueExists;
+    private boolean thereAreNoIssuesPublished() {
+        boolean thereAreNoIssuesPublished = newsletterIssueRepository.count() == 0;
+        if (thereAreNoIssuesPublished) {
+            log.info("There are no published issues.");
+        }
+        return thereAreNoIssuesPublished;
     }
 
     private boolean databaseContainsEnoughPostsForOneIssue() {
         log.info("Checking if enough posts exist.");
-        boolean enoughPostsExistInDatabase =
-                databaseContainsEnoughBlogPostsOfType(PERSONAL)
-                || databaseContainsEnoughBlogPostsOfType(COMPANY)
-                || databaseContainsEnoughBlogPostsOfType(PODCAST)
-                || databaseContainsEnoughBlogPostsOfType(PRESENTATION);
-        if (enoughPostsExistInDatabase)
+        boolean enoughPostsExistInDatabase = databaseContainsEnoughBlogPostsOfType(PERSONAL)
+                && databaseContainsEnoughBlogPostsOfType(COMPANY)
+                && databaseContainsEnoughBlogPostsOfType(PODCAST)
+                && databaseContainsEnoughBlogPostsOfType(PRESENTATION);
+        if (enoughPostsExistInDatabase) {
             log.info("There are enough posts for a dev issue.");
-        else
+        } else {
             log.info("There aren't enough posts for a dev issue.");
+        }
         return enoughPostsExistInDatabase;
     }
 
     private boolean databaseContainsEnoughBlogPostsOfType(BlogType blogType) {
         List<BlogPost> blogPosts = blogPostRepository
-                .findBlogPostsOfType(blogType, requiredAmountOfRecordsPageRequest);
+                .findBlogPostsOfType(blogType, PageRequest.of(0, REQUIRED_NUMBER_OF_POSTS));
         return blogPosts.size() >= REQUIRED_NUMBER_OF_POSTS;
     }
+
 }
