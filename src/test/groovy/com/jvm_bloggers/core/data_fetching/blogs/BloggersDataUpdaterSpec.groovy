@@ -152,6 +152,41 @@ class BloggersDataUpdaterSpec extends Specification {
         statistics.getUpdated() == 1
     }
 
+    def "Should set moderation required if address is from medium"() {
+        given:
+        String rssFromMedium = "https://medium.com/feed/@user"
+        String bookmarkableId = 'bookmarkableId-2207'
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, 'blog', rssFromMedium, 'page', 'twitter', PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.none()
+        BloggersData bloggers = buildBloggersData(entry)
+
+        when:
+        UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
+
+        then:
+        1 * blogRepository.save({
+            it.moderationRequired == true
+        })
+        statistics.getCreated() == 1
+    }
+
+    def "Should set moderation not required if blog is personal and not from medium"() {
+        given:
+        String bookmarkableId = 'bookmarkableId-2207'
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, 'blog', RSS_OF_VALID_BLOG, 'page', 'twitter', PERSONAL)
+        blogRepository.findByBookmarkableId(bookmarkableId) >> Option.none()
+        BloggersData bloggers = buildBloggersData(entry)
+
+        when:
+        UpdateStatistic statistics = bloggersDataUpdater.updateData(bloggers)
+
+        then:
+        1 * blogRepository.save({
+            it.moderationRequired == false
+        })
+        statistics.getCreated() == 1
+    }
+
     def buildBloggersData(BloggerEntry bloggerEntry) {
         BloggersData bloggersData = new BloggersData()
         bloggersData.getBloggers().add(bloggerEntry)
