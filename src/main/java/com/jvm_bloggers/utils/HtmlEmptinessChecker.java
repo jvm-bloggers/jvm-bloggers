@@ -1,7 +1,10 @@
 package com.jvm_bloggers.utils;
 
+import lombok.experimental.UtilityClass;
+
 import org.jsoup.Jsoup;
 
+@UtilityClass
 public class HtmlEmptinessChecker {
 
     public static boolean isNotEmpty(String htmlContent) {

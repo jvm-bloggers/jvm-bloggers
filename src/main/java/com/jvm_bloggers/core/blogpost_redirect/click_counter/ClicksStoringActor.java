@@ -36,9 +36,8 @@ public class ClicksStoringActor extends AbstractActor {
     }
 
     public static Props props(ClickRepository clickRepository, NowProvider nowProvider) {
-        return Props.create(ClicksStoringActor.class, () -> {
-                return new ClicksStoringActor(clickRepository, nowProvider);
-            }
+        return Props.create(ClicksStoringActor.class, () ->
+                new ClicksStoringActor(clickRepository, nowProvider)
         );
     }
 

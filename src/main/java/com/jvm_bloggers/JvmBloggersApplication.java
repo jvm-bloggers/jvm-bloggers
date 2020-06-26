@@ -37,11 +37,11 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
     protected void init() {
         super.init();
 
-        setHeaderResponseDecorator(response -> {
-            return new ResourceAggregator(
+        setHeaderResponseDecorator(response ->
+            new ResourceAggregator(
               new JavaScriptFilteredIntoFooterHeaderResponse(response, "footer-container")
-            );
-        });
+            )
+        );
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
         new AnnotatedMountScanner().scanPackage("com.jvm_bloggers").mount(this);
         getMarkupSettings().setStripWicketTags(true);

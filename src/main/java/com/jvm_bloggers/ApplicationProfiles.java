@@ -1,5 +1,8 @@
 package com.jvm_bloggers;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ApplicationProfiles {
 
     public static final String PRODUCTION = "prod";

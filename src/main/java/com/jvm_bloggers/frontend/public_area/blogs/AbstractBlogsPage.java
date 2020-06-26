@@ -56,7 +56,7 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
 
     private DataView<BlogStatisticsForListing> createBlogChannelList(String id) {
         final DataView<BlogStatisticsForListing> dataView =
-            new DataView<BlogStatisticsForListing>(id, backingBean.requestHandler(getBlogType())) {
+            new DataView<>(id, backingBean.requestHandler(getBlogType())) {
                 @Override
                 protected void populateItem(Item<BlogStatisticsForListing> item) {
                     backingBean.itemPopulator(item);

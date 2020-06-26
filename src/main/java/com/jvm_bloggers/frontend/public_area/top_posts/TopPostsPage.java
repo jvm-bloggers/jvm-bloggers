@@ -18,7 +18,7 @@ public class TopPostsPage extends AbstractFrontendPage {
     private TopPostsPageBackingBean backingBean;
 
     public TopPostsPage() {
-        add(new ListView<TopPostsSummaryBasicDetails>(
+        add(new ListView<>(
             TOP_POST_SUMMARIES_ID,
             backingBean.getAllSummaries().toJavaList()
             ) {

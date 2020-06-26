@@ -23,7 +23,7 @@ public class MailingAddressPageRequestHandler implements IDataProvider<MailingAd
 
     @Override
     public Iterator<? extends MailingAddress> iterator(long first, long count) {
-        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
+        int page = (int) (first / paginationConfiguration.getDefaultPageSize());
         return mailingAddressRepository
                 .findAllByOrderByAddressAsc(PageRequest.of(page,
                         paginationConfiguration.getDefaultPageSize())

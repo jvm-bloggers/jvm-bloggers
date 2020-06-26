@@ -43,9 +43,9 @@ public class EmailsWithNewIssueProducer {
         NewsletterIssue newIssue = newIssuePublished.getNewsletterIssue();
         String emailTitle = prepareEmailTitle(newIssue);
 
-        mailingAddressRepository.findAll().stream().forEach(mailingAddress -> {
-            saveEmailWithNewsletterIssue(newIssue, emailTitle, mailingAddress.getAddress());
-        });
+        mailingAddressRepository.findAll().stream().forEach(mailingAddress ->
+            saveEmailWithNewsletterIssue(newIssue, emailTitle, mailingAddress.getAddress())
+        );
     }
 
     public void saveEmailWithNewsletterIssue(NewsletterIssue newIssue, String emailTitle,

@@ -34,15 +34,14 @@ public class SyndFeedJsonMessageConverter extends AbstractHttpMessageConverter<S
     }
 
     @Override
-    protected SyndFeed readInternal(Class<? extends SyndFeed> clazz, HttpInputMessage inputMessage)
-        throws IOException, HttpMessageNotReadableException {
+    protected SyndFeed readInternal(Class<? extends SyndFeed> clazz, HttpInputMessage inputMessage) {
         throw new UnsupportedOperationException(
             "Reading SyndFeed from a JSON file is currently not supported!");
     }
 
     @Override
     protected void writeInternal(SyndFeed syndFeed, HttpOutputMessage outputMessage)
-        throws IOException, HttpMessageNotWritableException {
+        throws IOException {
 
         JSONObject json = converter.convert(syndFeed);
         outputMessage.getBody().write(json.toString().getBytes());

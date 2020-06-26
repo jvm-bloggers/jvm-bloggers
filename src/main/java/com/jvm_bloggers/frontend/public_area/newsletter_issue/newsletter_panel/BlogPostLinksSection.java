@@ -14,7 +14,7 @@ class BlogPostLinksSection extends Panel {
     BlogPostLinksSection(String id, String heading, Seq<PublishedPost> blogPosts) {
         super(id);
         add(new Label("sectionHeading", heading));
-        add(new ListView<PublishedPost>("postItems", blogPosts.toJavaList()) {
+        add(new ListView<>("postItems", blogPosts.toJavaList()) {
             @Override
             protected void populateItem(ListItem<PublishedPost> item) {
                 PublishedPost post = item.getModelObject();

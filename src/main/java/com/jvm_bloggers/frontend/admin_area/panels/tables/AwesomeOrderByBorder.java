@@ -33,7 +33,7 @@ class AwesomeOrderByBorder<S> extends Border {
 
     protected OrderByLink<S> newOrderByLink(final String id, final S property,
                                             final ISortStateLocator<S> stateLocator) {
-        return new OrderByLink<S>(id, property, stateLocator) {
+        return new OrderByLink<>(id, property, stateLocator) {
             private static final long serialVersionUID = 1L;
 
             @Override

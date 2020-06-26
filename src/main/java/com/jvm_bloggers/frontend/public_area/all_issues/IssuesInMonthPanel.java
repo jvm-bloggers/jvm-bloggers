@@ -20,7 +20,7 @@ class IssuesInMonthPanel extends Panel {
                        Seq<NewsletterIssueForListing> monthIssues) {
         super(id);
         add(new Label("groupLabel", stringify(yearMonth)));
-        add(new ListView<NewsletterIssueForListing>("issuesList", monthIssues.toJavaList()) {
+        add(new ListView<>("issuesList", monthIssues.toJavaList()) {
             @Override
             protected void populateItem(ListItem<NewsletterIssueForListing> item) {
                 item.add(new NewsletterIssueLink("issueLink", item.getModelObject()));

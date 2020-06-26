@@ -33,16 +33,15 @@ public class SyndFeedXmlMessageConverter extends AbstractHttpMessageConverter<Sy
     }
 
     @Override
-    protected SyndFeed readInternal(Class<? extends SyndFeed> clazz, HttpInputMessage inputMessage)
-        throws IOException, HttpMessageNotReadableException {
+    protected SyndFeed readInternal(Class<? extends SyndFeed> clazz,
+                                    HttpInputMessage inputMessage) {
         throw new UnsupportedOperationException(
             "Reading SyndFeed from a XML file is currently not supported!");
     }
 
     @Override
     @SneakyThrows
-    protected void writeInternal(SyndFeed syndFeed, HttpOutputMessage outputMessage)
-        throws IOException, HttpMessageNotWritableException {
+    protected void writeInternal(SyndFeed syndFeed, HttpOutputMessage outputMessage) {
 
         Writer writer = new PrintWriter(outputMessage.getBody());
         new SyndFeedOutput().output(syndFeed, writer);

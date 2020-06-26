@@ -22,7 +22,7 @@ public class ContributorsPage extends AbstractFrontendPage {
 
     public ContributorsPage() {
         Seq<Contributor> contributors = contributorsService.fetchContributors();
-        add(new ListView<Contributor>(
+        add(new ListView<>(
             FIRST_LEVEL_CONTRIBUTORS_LIST_ID,
             contributors.slice(0, 6).toJavaList()
         ) {
@@ -32,7 +32,7 @@ public class ContributorsPage extends AbstractFrontendPage {
             }
         });
 
-        add(new ListView<Contributor>(
+        add(new ListView<>(
             SECOND_LEVEL_CONTRIBUTORS_LIST_ID,
             contributors.drop(6).toJavaList()
         ) {

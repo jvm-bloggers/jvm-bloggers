@@ -1,5 +1,7 @@
 package com.jvm_bloggers.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
 import static java.lang.String.format;
 import static java.time.format.TextStyle.FULL_STANDALONE;
 
+@UtilityClass
 public class DateTimeUtilities {
 
     public static final int DAY_OF_MONTH_ENDING_SUMMARY_PERIOD = 11;

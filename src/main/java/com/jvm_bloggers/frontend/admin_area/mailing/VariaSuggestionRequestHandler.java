@@ -21,7 +21,7 @@ public class VariaSuggestionRequestHandler implements IDataProvider<UnreadVariaS
     @Override
     public Iterator<? extends UnreadVariaSuggestion> iterator(long first, long count) {
         log.debug("Refreshing data, first {}, count {}", first, count);
-        int page = Long.valueOf(first / pageSize).intValue();
+        int page = (int) (first / pageSize);
         long start = System.currentTimeMillis();
         Iterator<UnreadVariaSuggestion> iterator = backingBean.findUnreadSuggestions(page, pageSize)
             .iterator();

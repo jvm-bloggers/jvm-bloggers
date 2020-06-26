@@ -4,8 +4,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +24,7 @@ public class BlogPostsController {
     private final AggregatedRssFeedProducer blogRssProducer;
     private final IssuesRssFeedProducer issuesRssProducer;
 
-    @RequestMapping(
-      method = RequestMethod.GET,
+    @GetMapping(
       path = { ENTRIES_RSS_FEED + ".xml", ENTRIES_RSS_FEED},
       produces = APPLICATION_ATOM_XML_VALUE
     )
@@ -38,8 +36,7 @@ public class BlogPostsController {
         return blogRssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
     }
 
-    @RequestMapping(
-      method = RequestMethod.GET,
+    @GetMapping(
       path = ENTRIES_RSS_FEED + ".json",
       produces = APPLICATION_JSON_VALUE
     )
@@ -51,8 +48,7 @@ public class BlogPostsController {
         return blogRssProducer.getRss(request.getRequestURL().toString(), limit, excludedAuthors);
     }
 
-    @RequestMapping(
-      method = RequestMethod.GET,
+    @GetMapping(
       path = {ISSUES_RSS_FEED, ISSUES_RSS_FEED + ".xml" },
       produces = APPLICATION_ATOM_XML_VALUE
     )
@@ -63,8 +59,7 @@ public class BlogPostsController {
         return issuesRssProducer.getRss(request.getRequestURL().toString(), limit);
     }
 
-    @RequestMapping(
-      method = RequestMethod.GET,
+    @GetMapping(
       path = ISSUES_RSS_FEED + ".json",
       produces = { APPLICATION_JSON_VALUE}
     )

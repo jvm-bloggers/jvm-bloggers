@@ -34,7 +34,7 @@ public class BlogPostsPageRequestHandler implements IDataProvider<BlogPostForLis
     @Override
     public Iterator<? extends BlogPostForListing> iterator(long first, long count) {
         log.debug("Refreshing data, first {}, count {}", first, count);
-        int page = Long.valueOf(first / paginationConfiguration.getDefaultPageSize()).intValue();
+        int page = (int) (first / paginationConfiguration.getDefaultPageSize());
         long start = System.currentTimeMillis();
         Iterator<BlogPostForListing> iterator = blogPostForListingQuery
             .findBlogPosts(blogId, page, paginationConfiguration.getDefaultPageSize())
