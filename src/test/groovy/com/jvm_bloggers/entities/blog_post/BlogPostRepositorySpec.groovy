@@ -13,6 +13,7 @@ import java.time.LocalDateTime
 import static com.jvm_bloggers.ObjectMother.aBlog
 import static com.jvm_bloggers.ObjectMother.aBlogPost
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.INCLUDE_ALL_AUTHORS_SET
+import static com.jvm_bloggers.entities.blog.BlogType.*
 import static java.lang.Boolean.FALSE
 import static java.lang.Boolean.TRUE
 import static java.lang.Integer.MAX_VALUE
@@ -29,7 +30,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
 
     @Autowired
     BlogPostRepository blogPostRepository
-    
+
     @Autowired
     BlogRepository blogRepository
 
@@ -39,12 +40,12 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         LocalDateTime baseTime = LocalDateTime.of(2016, 1, 1, 12, 00)
 
         List<BlogPost> blogPosts = [
-            aBlogPost(publishedDate: baseTime.plusDays(0), approved: REJECTED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(1), approved: REJECTED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(2), approved: APPROVED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(3), approved: APPROVED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(4), approved: NOT_MODERATED, blog: blog),
-            aBlogPost(publishedDate: baseTime.plusDays(5), approved: NOT_MODERATED, blog: blog)
+                aBlogPost(publishedDate: baseTime.plusDays(0), approved: REJECTED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(1), approved: REJECTED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(2), approved: APPROVED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(3), approved: APPROVED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(4), approved: NOT_MODERATED, blog: blog),
+                aBlogPost(publishedDate: baseTime.plusDays(5), approved: NOT_MODERATED, blog: blog)
         ]
 
         blogPostRepository.saveAll(blogPosts)
@@ -99,4 +100,81 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         [EXCLUDED_AUTHOR] as Set       || 1
         INCLUDE_ALL_AUTHORS_SET as Set || 2
     }
+
+
+    @Unroll
+    def "Should return proper amount of unapproved posts with BlogType = #blogType"() {
+        given:
+        Blog companyBlog = aBlog(blogType: COMPANY)
+        Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog presentationBlog = aBlog(blogType: PRESENTATION)
+
+        List<BlogPost> blogPosts = [
+                aBlogPost(approved: null, blog: companyBlog),
+                aBlogPost(approved: REJECTED, blog: presentationBlog),
+                aBlogPost(approved: null, blog: presentationBlog),
+                aBlogPost(approved: APPROVED, blog: companyBlog),
+                aBlogPost(approved: null, blog: podcastBlog),
+                aBlogPost(approved: null, blog: companyBlog),
+                aBlogPost(approved: null, blog: companyBlog)
+        ]
+
+        blogRepository.save(companyBlog)
+        blogRepository.save(podcastBlog)
+        blogRepository.save(presentationBlog)
+        blogPostRepository.saveAll(blogPosts);
+
+        when:
+        List<BlogPost> unapprovedBlogPostsByBlogType =
+                blogPostRepository.findUnapprovedPostsByBlogType(blogType, PageRequest.of(0, 3))
+
+        then:
+        unapprovedBlogPostsByBlogType.size() == expectedBlogPostCount
+
+        where:
+        blogType     || expectedBlogPostCount
+        COMPANY      || 3
+        PRESENTATION || 1
+        PODCAST      || 1
+    }
+
+    @Unroll
+    def "Should return proper amount of blog posts with BlogType = #blogType"() {
+        given:
+        Blog companyBlog = aBlog(blogType: COMPANY)
+        Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog presentationBlog = aBlog(blogType: PRESENTATION)
+        Blog personalBlog = aBlog(blogType: PERSONAL)
+
+        List<BlogPost> blogPosts = [
+                aBlogPost(blog: personalBlog),
+                aBlogPost(blog: podcastBlog),
+                aBlogPost(blog: presentationBlog),
+                aBlogPost(blog: personalBlog),
+                aBlogPost(blog: companyBlog),
+                aBlogPost(blog: personalBlog),
+                aBlogPost(blog: companyBlog)
+        ]
+
+        blogRepository.save(companyBlog)
+        blogRepository.save(presentationBlog)
+        blogRepository.save(podcastBlog)
+        blogRepository.save(personalBlog)
+        blogPostRepository.saveAll(blogPosts);
+
+        when:
+        List<BlogPost> blogPostsByBlogType =
+                blogPostRepository.findBlogPostsOfType(blogType, PageRequest.of(0, 4))
+
+        then:
+        blogPostsByBlogType.size() == expectedBlogPostCount
+
+        where:
+        blogType     || expectedBlogPostCount
+        COMPANY      || 2
+        PRESENTATION || 1
+        PRESENTATION || 1
+        PERSONAL     || 3
+    }
+
 }
