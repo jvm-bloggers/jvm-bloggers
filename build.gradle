@@ -110,7 +110,7 @@ dependencies {
 
     // Database related
     implementation 'org.postgresql:postgresql:42.1.4'
-    implementation 'org.liquibase:liquibase-core:3.8.5'
+    implementation 'org.liquibase:liquibase-core:3.10.1'
     implementation 'com.mattbertolini:liquibase-slf4j:2.0.0'
 
     // Test dependencies
