@@ -1,7 +1,10 @@
 package com.jvm_bloggers.entities.tag;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 
+import java.util.HashSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,9 +25,10 @@ import javax.persistence.ManyToMany;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString(of = "tag")
+@NoArgsConstructor(access = PRIVATE)
+@ToString(of = "value")
 public class Tag {
+
     @Id
     @GenericGenerator(
         name = "TAG_SEQ",
@@ -37,13 +41,15 @@ public class Tag {
     )
     @GeneratedValue(generator = "PERSON_SEQ")
     private Long id;
-    @Column(nullable = false, unique = true, updatable = false)
-    private String tag;
-    @ManyToMany(mappedBy = "tags")
-    private Set<BlogPost> posts;
 
-    public Tag(String tag) {
-        this.tag = tag;
+    @Column(nullable = false, unique = true, updatable = false)
+    private String value;
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<BlogPost> posts = new HashSet<>();
+
+    public Tag(String value) {
+        this.value = value.toLowerCase();
     }
 
     @Override
@@ -55,11 +61,12 @@ public class Tag {
             return false;
         }
         Tag tag1 = (Tag) o;
-        return tag.equals(tag1.tag);
+        return value.equals(tag1.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tag);
+        return Objects.hash(value);
     }
+
 }

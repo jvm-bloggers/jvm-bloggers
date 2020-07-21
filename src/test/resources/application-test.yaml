@@ -4,6 +4,7 @@ bloggers.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-blogg
 companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/companies.json
 
 spring.jpa.hibernate.ddl-auto: none
+spring.jpa.show-sql: true
 # Mail Configuration
 mailing:
   apiKey: "apiKey"

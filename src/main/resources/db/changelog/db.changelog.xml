@@ -613,11 +613,11 @@
 
     <changeSet id="052-add-tags-for-posts" author="asciborek">
         <createSequence sequenceName="TAG_SEQ"/>
-        <createTable tableName="tag">
+        <createTable tableName="TAG">
             <column name="ID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="TAG" type="varchar(100)">
+            <column name="VALUE" type="varchar(100)">
                 <constraints unique="true"/>
             </column>
         </createTable>

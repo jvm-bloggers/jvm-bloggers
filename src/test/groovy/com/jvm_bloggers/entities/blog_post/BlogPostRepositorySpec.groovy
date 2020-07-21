@@ -3,6 +3,7 @@ package com.jvm_bloggers.entities.blog_post
 import com.jvm_bloggers.SpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
+import com.jvm_bloggers.entities.tag.TagRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import spock.lang.Subject
@@ -32,6 +33,9 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
     
     @Autowired
     BlogRepository blogRepository
+
+    @Autowired
+    TagRepository tagRepository
 
     def "Should order latest posts by moderation and publication date"() {
         given:
@@ -99,4 +103,5 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         [EXCLUDED_AUTHOR] as Set       || 1
         INCLUDE_ALL_AUTHORS_SET as Set || 2
     }
+
 }

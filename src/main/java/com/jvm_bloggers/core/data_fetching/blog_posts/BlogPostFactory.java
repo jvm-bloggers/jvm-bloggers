@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 @Component
 public class BlogPostFactory {
@@ -33,7 +32,6 @@ public class BlogPostFactory {
             .approvedDate(getApprovedDate(approved, publishedDate))
             .approved(approved)
             .blog(blog)
-            .tags(Collections.emptySet())
             .build();
     }
 
