@@ -611,8 +611,9 @@
         <sqlFile path="052-update_mailing_template_add_podcasts.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet id="052-add-tags-for-posts" author="asciborek">
+    <changeSet id="053-add-tags-for-posts" author="asciborek">
         <createSequence sequenceName="TAG_SEQ"/>
+
         <createTable tableName="TAG">
             <column name="ID" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
