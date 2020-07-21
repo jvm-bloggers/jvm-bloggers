@@ -26,4 +26,5 @@ public class MarkVariaSuggestionCommandHandler implements CommandHandler<MarkVar
         variaSuggestion.setRead(true);
         variaSuggestionRepository.save(variaSuggestion);
     }
+
 }

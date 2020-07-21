@@ -611,5 +611,27 @@
         <sqlFile path="052-update_mailing_template_add_podcasts.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="052-add-tags-for-posts" author="asciborek">
+        <createSequence sequenceName="TAG_SEQ"/>
+        <createTable tableName="TAG">
+            <column name="ID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="VALUE" type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="POST_TAG">
+            <column name="POST_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TAG_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="POST_TAG" baseColumnNames="POST_ID" constraintName="TAG_TO_POST" referencedTableName="BLOG_POST" referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="POST_TAG" baseColumnNames="TAG_ID" constraintName="POST_TO_TAG" referencedTableName="TAG" referencedColumnNames="ID"/>
+    </changeSet>
+
 
 </databaseChangeLog>

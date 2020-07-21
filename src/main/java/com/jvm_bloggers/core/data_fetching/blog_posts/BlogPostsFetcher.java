@@ -7,7 +7,6 @@ import com.jvm_bloggers.core.data_fetching.blogs.PreventConcurrentExecutionSafeg
 import com.jvm_bloggers.core.rss.SyndFeedProducer;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
-import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
 import com.jvm_bloggers.entities.metadata.MetadataRepository;
@@ -26,20 +25,19 @@ public class BlogPostsFetcher {
     private MetadataRepository metadataRepository;
     private NowProvider nowProvider;
     private PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
-        = new PreventConcurrentExecutionSafeguard();
+            = new PreventConcurrentExecutionSafeguard();
 
     @Autowired
     public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
-                            BlogPostRepository blogPostRepository,
-                            BlogPostFactory blogPostFactory,
-                            SyndFeedProducer syndFeedFactory,
-                            MetadataRepository metadataRepository,
-                            NowProvider nowProvider) {
+            BlogPostService blogPostService,
+            SyndFeedProducer syndFeedFactory,
+            MetadataRepository metadataRepository,
+            NowProvider nowProvider) {
         this.blogRepository = blogRepository;
-        final ActorRef blogPostStoringActor =
-            actorSystem.actorOf(NewBlogPostStoringActor.props(blogPostRepository, blogPostFactory));
+        final ActorRef blogPostStoringActor = actorSystem
+                .actorOf(NewBlogPostStoringActor.props(blogPostService));
         rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
-            .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
+                .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
         this.metadataRepository = metadataRepository;
         this.nowProvider = nowProvider;
     }
@@ -55,11 +53,11 @@ public class BlogPostsFetcher {
 
     private Void startFetchingProcess() {
         blogRepository.findAllActiveBlogs()
-            .filter(Blog::isActive)
-            .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
+                .filter(Blog::isActive)
+                .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
 
         final Metadata dateOfLastFetch = metadataRepository
-            .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOG_POSTS);
+                .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOG_POSTS);
         dateOfLastFetch.setValue(nowProvider.now().toString());
         metadataRepository.save(dateOfLastFetch);
         return null;

@@ -2,23 +2,35 @@ package com.jvm_bloggers.entities.blog_post;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.jvm_bloggers.entities.blog.Blog;
+import com.jvm_bloggers.entities.tag.Tag;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
 import org.apache.commons.text.RandomStringGenerator;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -80,6 +92,12 @@ public class BlogPost {
     @JoinColumn(name = "BLOG_ID", nullable = false)
     private Blog blog;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "POST_TAG", joinColumns = @JoinColumn(name = "POST_ID"),
+        inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
+    @Builder.Default
+    private Set<Tag> tags = new HashSet<>();
+
     public boolean isApproved() {
         return Boolean.TRUE.equals(approved);
     }
@@ -103,6 +121,23 @@ public class BlogPost {
         }
     }
 
+    public void setTags(Set<Tag> tags) {
+        removeNoLongerPresentTags(tags);
+        tags.forEach(t -> {
+            this.tags.add(t);
+            t.getPosts().add(this);
+
+        });
+    }
+
+    private void removeNoLongerPresentTags(Set<Tag> tags) {
+        var tagsToRemove = getTags().stream().filter(t -> !tags.contains(t)).collect(Collectors.toSet());
+        tagsToRemove.forEach(toRemove -> {
+            toRemove.getPosts().remove(this);
+            getTags().remove(toRemove);
+        });
+    }
+
     public boolean isGoingInNewsletter(final LocalDateTime lastPublicationDate) {
         return isApproved() && approvedDate.isAfter(lastPublicationDate);
     }
@@ -123,4 +158,22 @@ public class BlogPost {
     public void reject() {
         approved = Boolean.FALSE;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BlogPost)) {
+            return false;
+        }
+        BlogPost blogPost = (BlogPost) o;
+        return Objects.equals(getUid(), blogPost.getUid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUid());
+    }
+
 }
