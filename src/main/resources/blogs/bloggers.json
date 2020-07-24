@@ -1356,6 +1356,12 @@
       "name": "Piotr Przybył",
       "rss": "https://softwaregarden.dev/pl/posts/index.xml",
       "twitter": "@piotrprz"
+    },
+    {
+      "bookmarkableId": "softwareskill",
+      "name": "SoftwareSkill: Piotr Pelczar i Damian Rudczyk",
+      "rss": "https://softwareskill.pl/tematyka/java/feed",
+      "twitter": "@softwareskill"
     }
   ]
 }
