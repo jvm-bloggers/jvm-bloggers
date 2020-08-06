@@ -5,8 +5,10 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPost
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue
+import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssueRepository
 import com.jvm_bloggers.utils.NowProvider
 import com.jvm_bloggers.utils.ZoneTimeProvider
+import io.vavr.control.Option
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Unroll
@@ -24,8 +26,9 @@ class TweetContentGeneratorSpec extends Specification {
     private static final NowProvider nowProvider = new ZoneTimeProvider()
 
     private LinkGenerator linkGenerator = Stub(LinkGenerator)
+    private NewsletterIssueRepository newsletterIssueRepository = Stub()
 
-    private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator)
+    private TweetContentGenerator contentGenerator = new TweetContentGenerator(this.linkGenerator, newsletterIssueRepository)
 
     def setup() {
         linkGenerator.generateIssueLink(_) >> { args -> LINK }
@@ -218,6 +221,67 @@ class TweetContentGeneratorSpec extends Specification {
         def personal = /@personal/
         def personalBlogs = (tweetContent =~ /$personal/)
         assert personalBlogs.count == 1
+    }
+
+    def "Should generate Tweet content for new blog"() {
+        given:
+        Blog newBlog = blog(PERSONAL)
+
+        and:
+        newsletterIssueRepository.findFirstByOrderByPublishedDateDesc() >> Option.of(
+                NewsletterIssue.builder().issueNumber(ISSUE_NUMBER).build())
+
+        when:
+        NewBlogTweetContents tweetContent = contentGenerator.generateTweetContent(newBlog)
+
+        then:
+        tweetContent.firstTweetContent.contains(ISSUE_NUMBER.toString())
+        tweetContent.secondTweetContent.contains(ISSUE_NUMBER.toString())
+
+        def author = /$newBlog.author/
+        def authorsInFirstTweet = (tweetContent.firstTweetContent =~ /$author/)
+        def authorsInSecondTweet = (tweetContent.secondTweetContent =~ /$author/)
+        authorsInFirstTweet.count == 1
+        authorsInSecondTweet.count == 1
+
+        tweetContent.firstTweetContent != tweetContent.secondTweetContent
+    }
+
+    def "Should use author's Twitter handle if present"() {
+        given:
+        Blog newBlog = blog(PERSONAL)
+        newBlog.twitter = '@foobar'
+
+        and:
+        newsletterIssueRepository.findFirstByOrderByPublishedDateDesc() >> Option.of(
+                NewsletterIssue.builder().issueNumber(ISSUE_NUMBER).build())
+
+        when:
+        NewBlogTweetContents tweetContent = contentGenerator.generateTweetContent(newBlog)
+
+        then:
+        def handle = /@foobar/
+        def handlesInFirstTweet = (tweetContent.firstTweetContent =~ /$handle/)
+        def handlesInSecondTweet = (tweetContent.secondTweetContent =~ /$handle/)
+        handlesInFirstTweet.count == 1
+        handlesInSecondTweet.count == 1
+
+        tweetContent.firstTweetContent != tweetContent.secondTweetContent
+    }
+
+    def "Should throw if no new newsletter issue was found"() {
+        given:
+        Blog newBlog = blog(PERSONAL)
+
+        and:
+        newsletterIssueRepository.findFirstByOrderByPublishedDateDesc() >> Option.none()
+
+        when:
+        contentGenerator.generateTweetContent(newBlog)
+
+        then:
+        IllegalStateException e = thrown(IllegalStateException)
+        e.message == "No newsletter issue found"
     }
 
     private Collection<BlogPost> notAllHavingTwitterHandlePosts() {

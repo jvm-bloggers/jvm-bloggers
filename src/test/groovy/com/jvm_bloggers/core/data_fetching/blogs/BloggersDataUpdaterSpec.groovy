@@ -8,6 +8,7 @@ import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import io.vavr.control.Option
+import org.springframework.context.ApplicationEventPublisher
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -20,13 +21,15 @@ import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 class BloggersDataUpdaterSpec extends Specification {
 
     public static final String RSS_OF_VALID_BLOG = 'http://blog.pl/rss'
+    public static final String RSS_OF_VALID_MEDIUM_BLOG = 'https://medium.com/feed/@user'
     public static final String RSS_OF_INVALID_BLOG = 'http://invalidblog.pl/rss'
 
     BlogRepository blogRepository = Mock(BlogRepository)
     SyndFeedProducer producer = syndFeedProducer()
-    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new ZoneTimeProvider(), producer, new BloggerChangedVerifier())
+    ApplicationEventPublisher eventPublisher = Mock()
+    BloggersDataUpdater bloggersDataUpdater = new BloggersDataUpdater(blogRepository, new ZoneTimeProvider(), producer, new BloggerChangedVerifier(), eventPublisher)
 
-    def "Should insert new Person for entry with new bookmarkable_id"() {
+    def "Should insert new Person for entry with new bookmarkable_id and publish NewBlogAdded event"() {
         given:
         String bookmarkableId = 'bookmarkableId-2207'
         BloggerEntry entry = buildBloggerEntry(bookmarkableId, 'blog', RSS_OF_VALID_BLOG, 'page', 'twitter', PERSONAL)
@@ -38,6 +41,7 @@ class BloggersDataUpdaterSpec extends Specification {
 
         then:
         1 * blogRepository.save(_ as Blog)
+        1 * eventPublisher.publishEvent(_ as NewBlogAdded)
         statistics.getCreated() == 1
     }
 
@@ -154,9 +158,8 @@ class BloggersDataUpdaterSpec extends Specification {
 
     def "Should set moderation required if address is from medium"() {
         given:
-        String rssFromMedium = "https://medium.com/feed/@user"
         String bookmarkableId = 'bookmarkableId-2207'
-        BloggerEntry entry = buildBloggerEntry(bookmarkableId, 'blog', rssFromMedium, 'page', 'twitter', PERSONAL)
+        BloggerEntry entry = buildBloggerEntry(bookmarkableId, 'blog', RSS_OF_VALID_MEDIUM_BLOG, 'page', 'twitter', PERSONAL)
         blogRepository.findByBookmarkableId(bookmarkableId) >> Option.none()
         BloggersData bloggers = buildBloggersData(entry)
 
@@ -217,6 +220,7 @@ class BloggersDataUpdaterSpec extends Specification {
         SyndFeedProducer producer = Stub(SyndFeedProducer)
         producer.validUrlFromRss('') >> Option.none()
         producer.validUrlFromRss(RSS_OF_VALID_BLOG) >> Option.of('http://new.blog.pl')
+        producer.validUrlFromRss(RSS_OF_VALID_MEDIUM_BLOG) >> Option.of('https://medium.com/new-blog')
         return producer
     }
 }

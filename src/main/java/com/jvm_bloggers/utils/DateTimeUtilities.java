@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
 import static java.lang.String.format;
@@ -61,6 +63,17 @@ public class DateTimeUtilities {
     public static String stringify(YearMonth yearMonth) {
         String monthName = yearMonth.getMonth().getDisplayName(FULL_STANDALONE, POLISH_LOCALE);
         return format("%s %d", monthName, yearMonth.getYear());
+    }
+
+    public static LocalDateTime randomDateTimeStartingFrom(LocalDateTime startTime,
+                                                           int minValue,
+                                                           int maxValue,
+                                                           TemporalUnit unit) {
+        if (minValue >= maxValue) {
+            throw new IllegalArgumentException("Max value must be greater than min value");
+        }
+        int diff = ThreadLocalRandom.current().nextInt(minValue, maxValue + 1);
+        return startTime.plus(diff, unit);
     }
 
 }

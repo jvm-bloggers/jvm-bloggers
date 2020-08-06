@@ -10,6 +10,7 @@ import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
@@ -23,6 +24,7 @@ public class BloggersDataUpdater {
     private final NowProvider nowProvider;
     private final SyndFeedProducer syndFeedFactory;
     private final BloggerChangedVerifier bloggerChangedVerifier;
+    private final ApplicationEventPublisher eventPublisher;
 
     public UpdateStatistic updateData(BloggersData data) {
         return data.getBloggers()
@@ -66,29 +68,33 @@ public class BloggersDataUpdater {
     }
 
     private UpdateStatus createNewBlogger(BloggerEntry bloggerEntry) {
-        Option<String> validBlogUrl = extractValidBlogUrlFromFeed(bloggerEntry.getRss());
-        if (validBlogUrl.isEmpty()) {
+        return extractValidBlogUrlFromFeed(bloggerEntry.getRss())
+        .map(blogUrl -> createNewBlogWithExtractedUrl(bloggerEntry, blogUrl))
+        .map(this::publishNewBlogCreated)
+        .getOrElse(() -> {
             log.warn("No url found for blog {}, Skipping", bloggerEntry.getRss());
             return UpdateStatus.INVALID;
-        }
-        validBlogUrl.forEach(bloggerEntry::setUrl);
+        });
+    }
 
-        Blog newBlog = Blog.builder()
+    private UpdateStatus publishNewBlogCreated(Blog newBlog) {
+        eventPublisher.publishEvent(new NewBlogAdded(newBlog));
+        return UpdateStatus.CREATED;
+    }
+
+    private Blog createNewBlogWithExtractedUrl(BloggerEntry bloggerEntry, String blogUrl) {
+        return blogRepository.save(
+            Blog.builder()
             .bookmarkableId(bloggerEntry.getBookmarkableId())
             .author(bloggerEntry.getName())
             .rss(bloggerEntry.getRss())
-            .url(syndFeedFactory.validUrlFromRss(
-                bloggerEntry.getRss()).getOrElse(() -> null)
-            )
             .twitter(bloggerEntry.getTwitter())
-            .url(bloggerEntry.getUrl())
+            .url(blogUrl)
             .dateAdded(nowProvider.now())
             .blogType(bloggerEntry.getBlogType())
             .active(true)
             .moderationRequired(isModerationRequired(bloggerEntry))
-            .build();
-        blogRepository.save(newBlog);
-        return UpdateStatus.CREATED;
+            .build());
     }
 
     private boolean isModerationRequired(BloggerEntry bloggerEntry) {
