@@ -1356,6 +1356,11 @@
       "name": "Piotr Przybył",
       "rss": "https://softwaregarden.dev/pl/posts/index.xml",
       "twitter": "@piotrprz"
+    },
+    {
+      "bookmarkableId": "devwords",
+      "name": "Iwona Adamkiewicz",
+      "rss": "https://devwords.pl/feed/"
     }
   ]
 }
