@@ -10,7 +10,7 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.2.RELEASE"
-        classpath "com.bmuschko:gradle-docker-plugin:6.1.2"
+        classpath "com.bmuschko:gradle-docker-plugin:6.6.1"
         classpath 'cz.alenkacz.gradle:json-validator:1.2.0'
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
@@ -104,9 +104,9 @@ dependencies {
     implementation 'net.jcip:jcip-annotations:1.0'
     implementation 'org.objenesis:objenesis:3.1'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation 'io.vavr:vavr:0.10.2'
-    implementation 'org.jsoup:jsoup:1.12.1'
-    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.1'
+    implementation 'io.vavr:vavr:0.10.3'
+    implementation 'org.jsoup:jsoup:1.13.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.5'
 
     // Database related
     implementation 'org.postgresql:postgresql:42.1.4'
