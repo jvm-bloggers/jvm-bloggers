@@ -63,6 +63,12 @@
             "name": "Segfault Audio",
             "rss": "https://anchor.fm/s/184c0cd0/podcast/rss",
             "twitter": "@segfaultevents"
+        },
+        {
+            "bookmarkableId": "devupgrade-online",
+            "name": "DevUpgrade Online",
+            "rss": "https://devupgrade.online/feed/",
+            "twitter": "@bottega_it"
         }
     ]
 }
