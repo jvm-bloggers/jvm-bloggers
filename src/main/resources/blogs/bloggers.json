@@ -1367,6 +1367,11 @@
       "bookmarkableId": "devwords",
       "name": "Iwona Adamkiewicz",
       "rss": "https://devwords.pl/feed/"
+    },
+    {
+      "bookmarkableId": "andronicus",
+      "name": "Jędrzej Biedrzycki",
+      "rss": "https://patternmatchers.wordpress.com/feed/"
     }
   ]
 }
