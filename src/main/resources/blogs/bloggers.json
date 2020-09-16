@@ -1367,6 +1367,12 @@
       "bookmarkableId": "devwords",
       "name": "Iwona Adamkiewicz",
       "rss": "https://devwords.pl/feed/"
+    },
+    {
+      "bookmarkableId": "0xmarcin",
+      "name": "0xmarcin",
+      "rss": "https://marcin-chwedczuk.github.io/tag/jvmbloggers/rss.xml",
+      "twitter": "@0xmarcin"
     }
   ]
 }
