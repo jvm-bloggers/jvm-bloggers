@@ -1372,6 +1372,12 @@
       "bookmarkableId": "andronicus",
       "name": "Jędrzej Biedrzycki",
       "rss": "https://patternmatchers.wordpress.com/feed/"
+    },
+    {
+      "bookmarkableId": "0xmarcin",
+      "name": "0xmarcin",
+      "rss": "https://marcin-chwedczuk.github.io/tag/jvmbloggers/rss.xml",
+      "twitter": "@0xmarcin"
     }
   ]
 }
