@@ -613,7 +613,7 @@
     {
       "bookmarkableId": "piotr-wittchen",
       "name": "Piotr Wittchen",
-      "rss": "http://wittchen.io/feed.xml",
+      "rss": "https://wittchen.io/posts/index.xml",
       "twitter": "@piotr_wittchen"
     },
     {
@@ -1367,6 +1367,11 @@
       "bookmarkableId": "devwords",
       "name": "Iwona Adamkiewicz",
       "rss": "https://devwords.pl/feed/"
+    },
+    {
+      "bookmarkableId": "andronicus",
+      "name": "Jędrzej Biedrzycki",
+      "rss": "https://patternmatchers.wordpress.com/feed/"
     },
     {
       "bookmarkableId": "0xmarcin",
