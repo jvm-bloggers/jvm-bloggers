@@ -69,6 +69,12 @@
             "name": "DevUpgrade Online",
             "rss": "https://devupgrade.online/feed/",
             "twitter": "@bottega_it"
+        },
+        {
+            "bookmarkableId": "bITcast",
+            "name": "Bydgoszcz IT Podcast",
+            "rss": "http://bydgoszcz.jug.pl/feed/podcast",
+            "twitter": "@BydgoszczJUG"
         }
     ]
 }
