@@ -1378,6 +1378,11 @@
       "name": "0xmarcin",
       "rss": "https://marcin-chwedczuk.github.io/tag/jvmbloggers/rss.xml",
       "twitter": "@0xmarcin"
+    },
+    {
+      "bookmarkableId": "devdar",
+      "name": "Dariusz Mozgowoj",
+      "rss": "https://darmoz.github.io/blog/index.xml"
     }
   ]
 }
