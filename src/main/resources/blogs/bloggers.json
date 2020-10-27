@@ -1378,6 +1378,12 @@
       "name": "0xmarcin",
       "rss": "https://marcin-chwedczuk.github.io/tag/jvmbloggers/rss.xml",
       "twitter": "@0xmarcin"
+    },
+    {
+      "bookmarkableId": "konkit.tech",
+      "name": "Łukasz Tenerowicz",
+      "rss": "https://konkit.tech/category/jvm/feed",
+      "twitter": "@konkit"
     }
   ]
 }
