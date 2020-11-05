@@ -1383,6 +1383,12 @@
       "bookmarkableId": "devdar",
       "name": "Dariusz Mozgowoj",
       "rss": "https://darmoz.github.io/blog/index.xml"
+    },
+    {
+      "bookmarkableId": "konkit-tech",
+      "name": "Łukasz Tenerowicz",
+      "rss": "https://konkit.tech/feed",
+      "twitter": "@konkit"
     }
   ]
 }
