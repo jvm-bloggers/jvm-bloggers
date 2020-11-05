@@ -1378,6 +1378,11 @@
       "name": "Effective Spring - Łukasz Monkiewicz",
       "rss": "https://effectivespring.pl/blog/feed/atom/",
       "twitter": "@lmonkiewiczdev"
+    },
+    {
+      "bookmarkableId": "devdar",
+      "name": "Dariusz Mozgowoj",
+      "rss": "https://darmoz.github.io/blog/index.xml"
     }
   ]
 }
