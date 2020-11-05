@@ -121,12 +121,6 @@
       "twitter": "@pawelstawicki"
     },
     {
-      "bookmarkableId": "szimano",
-      "name": "Tomek Szymański",
-      "rss": "http://szimano.org/feed/",
-      "twitter": "@szimano"
-    },
-    {
       "bookmarkableId": "andrzej-ludwikowski",
       "name": "Andrzej Ludwikowski",
       "rss": "http://www.ludwikowski.info/feeds/posts/default"
@@ -1380,6 +1374,23 @@
       "twitter": "@0xmarcin"
     },
     {
+      "bookmarkableId": "effective-spring",
+      "name": "Effective Spring - Łukasz Monkiewicz",
+      "rss": "https://effectivespring.pl/blog/feed/atom/",
+      "twitter": "@lmonkiewiczdev"
+    },
+    {
+      "bookmarkableId": "devdar",
+      "name": "Dariusz Mozgowoj",
+      "rss": "https://darmoz.github.io/blog/index.xml"
+    },
+    {
+      "bookmarkableId": "konkit-tech",
+      "name": "Łukasz Tenerowicz",
+      "rss": "https://konkit.tech/feed",
+      "twitter": "@konkit"
+    },
+    { 
       "bookmarkableId": "michal-jaszczyk",
       "name": "Michał Jaszczyk",
       "rss": "https://blog.jaszczyk.net/feed/"
