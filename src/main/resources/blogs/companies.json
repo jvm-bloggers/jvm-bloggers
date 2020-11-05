@@ -161,6 +161,12 @@
       "name": "nexocode",
       "rss": "https://www.nexocode.com/blog/index.xml",
       "twitter": "@nexocode_com"
+    },
+    {
+      "bookmarkableId": "cogtech",
+      "name": "Cognifide Tech",
+      "rss": "https://tech.cognifide.com/rss.xml",
+      "twitter": "@Cognifide"
     }
   ]
 }
