@@ -1389,6 +1389,11 @@
       "name": "Łukasz Tenerowicz",
       "rss": "https://konkit.tech/feed",
       "twitter": "@konkit"
+    },
+    { 
+      "bookmarkableId": "michal-jaszczyk",
+      "name": "Michał Jaszczyk",
+      "rss": "https://blog.jaszczyk.net/feed/"
     }
   ]
 }
