@@ -1394,6 +1394,12 @@
       "bookmarkableId": "michal-jaszczyk",
       "name": "Michał Jaszczyk",
       "rss": "https://blog.jaszczyk.net/feed/"
+    },
+    {
+      "bookmarkableId": "niezawodnykod-blog",
+      "name": "Paweł Rębisz",
+      "rss": "https://niezawodnykod.pl/feed/",
+      "twitter": "@niezawodnykod"
     }
   ]
 }
