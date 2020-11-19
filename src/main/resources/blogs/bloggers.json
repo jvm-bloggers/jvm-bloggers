@@ -1394,6 +1394,12 @@
       "bookmarkableId": "michal-jaszczyk",
       "name": "Michał Jaszczyk",
       "rss": "https://blog.jaszczyk.net/feed/"
+    },
+    {
+      "bookmarkableId": "kuczma-dev",
+      "name": "Kuczma.dev - Tomasz Kuczma",
+      "rss": "https://kuczma.dev/index.xml",
+      "twitter": "@DevKuczma"
     }
   ]
 }
