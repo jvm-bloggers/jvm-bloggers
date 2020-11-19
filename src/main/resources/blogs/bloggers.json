@@ -1400,6 +1400,12 @@
       "name": "Kuczma.dev - Tomasz Kuczma",
       "rss": "https://kuczma.dev/index.xml",
       "twitter": "@DevKuczma"
+    },
+    {
+      "bookmarkableId": "niezawodnykod-blog",
+      "name": "Paweł Rębisz",
+      "rss": "https://niezawodnykod.pl/feed/",
+      "twitter": "@niezawodnykod"
     }
   ]
 }
