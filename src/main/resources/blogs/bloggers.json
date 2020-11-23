@@ -1406,6 +1406,12 @@
       "name": "Paweł Rębisz",
       "rss": "https://niezawodnykod.pl/feed/",
       "twitter": "@niezawodnykod"
+    },
+    {
+      "bookmarkableId": "piotrek-st-dev",
+      "name": "Piotrek Stankiewicz",
+      "rss": "https://dev.to/feed/piotrekst",
+      "twitter": "@PiotrekSta"
     }
   ]
 }
