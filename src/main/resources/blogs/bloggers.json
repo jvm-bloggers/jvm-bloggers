@@ -1413,6 +1413,12 @@
       "name": "Piotrek Stankiewicz",
       "rss": "https://dev.to/feed/piotrekst",
       "twitter": "@PiotrekSta"
+    },
+    {
+      "bookmarkableId": "adgadev",
+      "name": "Adam Gaj",
+      "rss": "https://adgadev.com/categories/blog/index.xml",
+      "twitter": "@adgadev"
     }
   ]
 }
