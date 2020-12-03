@@ -65,6 +65,7 @@ public class SyndFeedProducer {
         String rssUrl = "https://wrrathy.github.io/feed.xml";
 
         Option<SyndFeed> syndFeed = feedProducer.createFor(rssUrl);
+        System.out.println("Rss = " + rssUrl);
         System.out.println("Url = " + syndFeed.get().getLink());
         System.out.println("Url is valid = " + Validators.isUrlValid(syndFeed.get().getLink()));
         System.out.println("Number of articles in feed = " + syndFeed.get().getEntries().size());
