@@ -1419,6 +1419,12 @@
       "name": "Adam Gaj",
       "rss": "https://adgadev.com/categories/blog/index.xml",
       "twitter": "@adgadev"
+    },
+    {
+      "bookmarkableId": "devcezz",
+      "name": "Cezary Sanecki",
+      "rss": "https://devcezz.pl/feed/",
+      "twitter": "@cezzdev"
     }
   ]
 }
