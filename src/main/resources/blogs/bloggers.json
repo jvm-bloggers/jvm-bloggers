@@ -1419,6 +1419,12 @@
       "name": "Adam Gaj",
       "rss": "https://adgadev.com/categories/blog/index.xml",
       "twitter": "@adgadev"
+    },
+    {
+      "bookmarkableId": "clockwork-java",
+      "name": "Paweł Ćwik",
+      "rss": "https://clockworkjava.pl/feed/",
+      "twitter": "@clockworkjava01"
     }
   ]
 }
