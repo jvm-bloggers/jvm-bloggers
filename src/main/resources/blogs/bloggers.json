@@ -1184,12 +1184,6 @@
       "twitter": "@arek_fajdek"
     },
     {
-      "bookmarkableId": "przemyslaw-bykowski",
-      "name": "Przemysław Bykowski",
-      "rss": "http://bykowski.pl/feed/",
-      "twitter": "@przemekbykowski"
-    },
-    {
       "bookmarkableId": "jakub-gardo",
       "name": "Jakub Gardo",
       "rss": "https://jgardo.dev/feed/"
@@ -1419,6 +1413,12 @@
       "name": "Adam Gaj",
       "rss": "https://adgadev.com/categories/blog/index.xml",
       "twitter": "@adgadev"
+    },
+    {
+      "bookmarkableId": "przemyslaw-bykowski",
+      "name": "Przemysław Bykowski",
+      "rss": "http://bykowski.pl/feed/",
+      "twitter": "@przemekbykowski"
     }
   ]
 }
