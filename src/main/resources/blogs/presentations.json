@@ -93,6 +93,11 @@
       "name": "Programistok",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCoyU8Ehx9tbRJhYXrbt5lgA",
       "twitter": "@programistok"
+    },
+    {
+      "bookmarkableId": "consdata-tech",
+      "name": "Consdata Tech",
+      "rss": "https://www.youtube.com/feeds/videos.xml?playlist_id=PL0eqT4yC2wENZJjS3HsCCP1EIDHc80pED"
     }
   ]
 }
