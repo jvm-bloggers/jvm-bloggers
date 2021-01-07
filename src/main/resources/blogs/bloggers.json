@@ -1425,6 +1425,12 @@
       "name": "Cezary Sanecki",
       "rss": "https://devcezz.pl/feed/",
       "twitter": "@cezzdev"
+    },
+    {
+      "bookmarkableId": "clockwork-java",
+      "name": "Paweł Ćwik",
+      "rss": "https://clockworkjava.pl/feed/",
+      "twitter": "@clockworkjava01"
     }
   ]
 }
