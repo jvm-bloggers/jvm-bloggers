@@ -21,12 +21,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = PRIVATE)
 @ToString(of = "value")
+@Indexed(index = "idx_tag")
 public class Tag {
 
     @Id
@@ -43,6 +46,7 @@ public class Tag {
     private Long id;
 
     @Column(nullable = false, unique = true, updatable = false)
+    @Field(name = "tag")
     private String value;
 
     @ManyToMany(mappedBy = "tags")

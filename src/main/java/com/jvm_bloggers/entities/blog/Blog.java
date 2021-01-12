@@ -17,6 +17,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "blog")
@@ -24,6 +26,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Indexed(index = "idx_blog")
 public class Blog {
 
     @Id
@@ -46,6 +49,7 @@ public class Blog {
 
     @NonNull
     @Column(name = "AUTHOR", nullable = false, length = 250)
+    @Field
     private String author;
 
     @NonNull
@@ -54,18 +58,22 @@ public class Blog {
 
     @NonNull
     @Column(name = "URL", unique = true, nullable = false, length = 250)
+    @Field
     private String url;
 
     @Column(name = "TWITTER", length = 100)
+    @Field
     private String twitter;
 
     @NonNull
     @Column(name = "DATE_ADDED", nullable = false)
+    @Field
     private LocalDateTime dateAdded;
 
     @NonNull
     @Column(name = "BLOG_TYPE", nullable = false)
     @Enumerated(value = EnumType.STRING)
+    @Field
     private BlogType blogType;
 
     @Column(name = "ACTIVE")
