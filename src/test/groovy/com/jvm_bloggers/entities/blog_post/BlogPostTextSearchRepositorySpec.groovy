@@ -37,21 +37,25 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
 
     Tag functionalProgrammingTag = new Tag('Functional Programming')
 
-    BlogPost javaConcurrencyBlogPost = aBlogPost(title: 'Java Concurrency', blog: personalBlog)
-    BlogPost lambdaExpressionsInJavaBlogPost = aBlogPost(title: 'Lambda Expressions in JAVA', blog: companyBlog, tags: [functionalProgrammingTag])
-    BlogPost parallelStreamsBlogPost = aBlogPost(title: 'Parallel Streams', blog: personalBlog, tags: [functionalProgrammingTag])
+    BlogPost javaHttpClient = aBlogPost(title:  'Java 9 HTTP Client', approved: false, blog: personalBlog)
+    BlogPost javaConcurrencyBlogPost = aBlogPost(title: 'Java Concurrency', approved: true, blog: personalBlog)
+    BlogPost lambdaExpressionsInJavaBlogPost = aBlogPost(title: 'Lambda Expressions in JAVA', approved: true, blog: companyBlog, tags: [functionalProgrammingTag])
+    BlogPost parallelStreamsBlogPost = aBlogPost(title: 'Parallel Streams', approved: true, blog: personalBlog, tags: [functionalProgrammingTag])
 
     createTransactionTemplate().execute({
       blogRepository.saveAll([personalBlog, companyBlog])
       tagRepository.save(functionalProgrammingTag)
-      blogPostRepository.saveAll([javaConcurrencyBlogPost, lambdaExpressionsInJavaBlogPost, parallelStreamsBlogPost])
+      blogPostRepository.saveAll([javaHttpClient, javaConcurrencyBlogPost, lambdaExpressionsInJavaBlogPost, parallelStreamsBlogPost])
     })
 
     String keyword = 'Java'
+    int acceptedPostsWithGivenKeywordInTitleCount = 2
+
     when:
-    List<BlogPost> searchResult = blogPostRepository.findByTagOrTitle(keyword, 0, 10)
+    List<BlogPost> searchResult = blogPostRepository.findApprovedPostsByTagOrTitle(keyword, 0, 10)
     then:
-    searchResult.count { StringUtils.containsIgnoreCase(it.title, keyword) } == 2
+    searchResult.count { StringUtils.containsIgnoreCase(it.title, keyword) } == acceptedPostsWithGivenKeywordInTitleCount
+    searchResult.count {it.approved} == acceptedPostsWithGivenKeywordInTitleCount
   }
 
 
@@ -63,23 +67,27 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
     Tag concurrentProgrammingTag = new Tag('Concurrent Programming')
     Tag jvmTag = new Tag('JVM')
 
-    BlogPost executorServiceBlogPost = aBlogPost(title: 'Executor Service 101', blog: personalBlog, tags: [concurrentProgrammingTag])
-    BlogPost akkaBlogPost = aBlogPost(title: 'Akka Introduction', blog: companyBlog, tags: [concurrentProgrammingTag, jvmTag])
-    BlogPost clojurePost = aBlogPost(title: "Clojure Introduction", blog: companyBlog, tags: [jvmTag])
+    BlogPost completableFutureBlogPost = aBlogPost(title: 'How to use CompletableFuture', approved: false, blog: personalBlog, tags: [concurrentProgrammingTag])
+    BlogPost executorServiceBlogPost = aBlogPost(title: 'Executor Service 101', approved: true, blog: personalBlog, tags: [concurrentProgrammingTag])
+    BlogPost akkaBlogPost = aBlogPost(title: 'Akka Introduction', approved: true, blog: companyBlog, tags: [concurrentProgrammingTag, jvmTag])
+    BlogPost clojurePost = aBlogPost(title: "Clojure Introduction", approved: true, blog: companyBlog, tags: [jvmTag])
 
     createTransactionTemplate().execute({
       blogRepository.saveAll([personalBlog, companyBlog])
       tagRepository.saveAll([concurrentProgrammingTag, jvmTag])
-      blogPostRepository.saveAll([executorServiceBlogPost, akkaBlogPost, clojurePost])
+      blogPostRepository.saveAll([completableFutureBlogPost, executorServiceBlogPost, akkaBlogPost, clojurePost])
     })
 
     String keyword = 'concurrent'
+    int acceptedPostsWithGivenTagCount = 2
 
     when:
-    List<BlogPost> searchResult = blogPostRepository.findByTagOrTitle(keyword, 0, 10)
+    List<BlogPost> searchResult = blogPostRepository.findApprovedPostsByTagOrTitle(keyword, 0, 10)
 
     then:
-    searchResult.count {it.tags.collect {it.value}.contains(concurrentProgrammingTag.value)} == 2
+    searchResult.count {it.tags.collect {it.value}.contains(concurrentProgrammingTag.value)} == acceptedPostsWithGivenTagCount
+    searchResult.count {it.approved} == acceptedPostsWithGivenTagCount
+
   }
 
 
