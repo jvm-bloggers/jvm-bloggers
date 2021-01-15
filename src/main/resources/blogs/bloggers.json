@@ -1431,6 +1431,12 @@
       "name": "Paweł Ćwik",
       "rss": "https://clockworkjava.pl/feed/",
       "twitter": "@clockworkjava01"
+    },
+    {
+      "bookmarkableId": "piotrminkowski",
+      "name": "Piotr Mińkowski",
+      "rss": "https://piotrminkowski.com/feed/",
+      "twitter": "@piotr_minkowski"
     }
   ]
 }
