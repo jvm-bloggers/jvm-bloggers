@@ -1431,6 +1431,12 @@
       "name": "Paweł Ćwik",
       "rss": "https://clockworkjava.pl/feed/",
       "twitter": "@clockworkjava01"
+    },
+    {
+      "bookmarkableId": "krzysztofslusarski",
+      "name": "Krzysztof Ślusarski",
+      "rss": "https://krzysztofslusarski.github.io/feed.xml",
+      "twitter": "@Krzysztoflusar5"
     }
   ]
 }
