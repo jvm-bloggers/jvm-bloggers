@@ -11,7 +11,7 @@ spring:
     hibernate.ddl-auto: validate
     properties.hibernate.search.default:
       directory_provider: filesystem
-      indexBase: ${user.home}/.jvm-bloggers
+      indexBase: ${user.home}/.jvm-bloggers/lucene
 
 # Wicket configuration
 wicket:
