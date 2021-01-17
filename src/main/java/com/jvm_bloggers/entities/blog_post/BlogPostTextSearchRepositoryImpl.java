@@ -21,16 +21,27 @@ class BlogPostTextSearchRepositoryImpl implements BlogPostTextSearchRepository {
   public List<BlogPost> findApprovedPostsByTagOrTitle(String searchPhrase, int page, int pageSize) {
     var fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
-    BooleanQuery query = new BooleanQuery.Builder()
-        .add(new BooleanClause(keywordQuery(searchPhrase, fullTextEntityManager), Occur.MUST))
-        .add(new BooleanClause(approvedQuery(fullTextEntityManager), Occur.MUST))
-        .build();
-
     return (List<BlogPost>) fullTextEntityManager
-        .createFullTextQuery(query, BlogPost.class)
+        .createFullTextQuery(createQuery(searchPhrase, fullTextEntityManager), BlogPost.class)
         .setFirstResult(page * pageSize)
         .setMaxResults(pageSize)
         .getResultList();
+  }
+
+  @Override
+  public int countApprovedPostsByTagOrTitle(String searchPhrase) {
+    var fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+    return fullTextEntityManager
+        .createFullTextQuery(createQuery(searchPhrase, fullTextEntityManager), BlogPost.class)
+        .getResultSize();
+  }
+
+  private Query createQuery(String searchPhrase, FullTextEntityManager fullTextEntityManager) {
+    return new BooleanQuery.Builder()
+        .add(new BooleanClause(keywordQuery(searchPhrase, fullTextEntityManager), Occur.MUST))
+        .add(new BooleanClause(approvedQuery(fullTextEntityManager), Occur.MUST))
+        .build();
   }
 
   private Query approvedQuery(FullTextEntityManager fullTextEntityManager) {

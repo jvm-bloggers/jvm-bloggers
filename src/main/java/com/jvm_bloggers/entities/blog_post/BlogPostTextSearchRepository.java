@@ -6,4 +6,6 @@ public interface BlogPostTextSearchRepository {
 
   List<BlogPost> findApprovedPostsByTagOrTitle(String searchPhrase, int page, int pageSize);
 
+  int countApprovedPostsByTagOrTitle(String  searchPhrase);
+
 }

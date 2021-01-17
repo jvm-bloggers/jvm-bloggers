@@ -14,6 +14,7 @@ import org.springframework.transaction.support.TransactionTemplate
 
 import static com.jvm_bloggers.ObjectMother.aBlog
 import static com.jvm_bloggers.ObjectMother.aBlogPost
+import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 
 class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
@@ -30,7 +31,7 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
   @Autowired
   PlatformTransactionManager platformTransactionManager
 
-  def "should find blog posts containing given keyword in title"() {
+  def "should find approved blog posts containing given keyword in title"() {
     given:
     Blog personalBlog = aBlog(author: 'title author', blogType: PERSONAL)
     Blog companyBlog = aBlog(author: 'title company', blogType: BlogType.COMPANY)
@@ -58,8 +59,30 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
     searchResult.count {it.approved} == acceptedPostsWithGivenKeywordInTitleCount
   }
 
+  def "should count all approved blog posts containing given keyword in title"() {
+    given:
+    Blog personalBlog = aBlog(author: 'title another_author', blogType: PERSONAL)
+    Blog companyBlog = aBlog(author: 'title another_company', blogType: PERSONAL)
+    BlogPost lambdaExpressionsInKotlinPost = aBlogPost(title: 'Lambda Expressions in Kotlin', approved: false, blog: personalBlog)
+    BlogPost topKotlinLibrariesPost = aBlogPost(title: 'Top Kotlin Libraries', approved: true, blog: personalBlog)
+    BlogPost desktopAppInKotlinPost = aBlogPost(title: 'Ktor - backend in Kotlin', approved: true, blog: companyBlog)
+    BlogPost kotlinForCSharpDevelopersPost = aBlogPost(title: 'Kotlin for C# developers', approved: true, blog: personalBlog)
+    BlogPost introductionToClojurePost = aBlogPost(title: 'Introduction to Clojure', approved: true, blog: personalBlog)
+    createTransactionTemplate().execute({
+      blogRepository.saveAll([personalBlog, companyBlog])
+      blogPostRepository.saveAll([lambdaExpressionsInKotlinPost, topKotlinLibrariesPost, desktopAppInKotlinPost, kotlinForCSharpDevelopersPost, introductionToClojurePost])
+    })
+    String keyword = 'Kotlin'
+    int expectedKotlinBlogPostsCount = 3
+    when:
+    int kotlinBlogPostsCount  = blogPostRepository.countApprovedPostsByTagOrTitle(keyword)
+    then:
+    kotlinBlogPostsCount == expectedKotlinBlogPostsCount
 
-  def "should find blog posts containing given keyword in tag"() {
+  }
+
+
+  def "should find approved blog posts containing given keyword in tag"() {
     given:
     Blog personalBlog = aBlog(author: 'tag author', blogType: PERSONAL)
     Blog companyBlog = aBlog(author: 'tag company', blogType: BlogType.COMPANY)
@@ -87,7 +110,34 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
     then:
     searchResult.count {it.tags.collect {it.value}.contains(concurrentProgrammingTag.value)} == acceptedPostsWithGivenTagCount
     searchResult.count {it.approved} == acceptedPostsWithGivenTagCount
+  }
 
+  def "should count all approved blog posts by tag" () {
+    given:
+    Blog personalBlog = aBlog(author: 'tag another_author', blogType: PERSONAL)
+    Blog companyBlog = aBlog(author: 'tag another_company', blogType: COMPANY)
+
+    Tag devopsTag = new Tag('Devops')
+    Tag groovyTag = new Tag('Groovy')
+
+    BlogPost introductionToDockerPost = aBlogPost(title: 'Introduction to Docker', approved: false, blog: personalBlog, tags: [devopsTag])
+    BlogPost dockerQuickStartPost = aBlogPost(title: 'Docker quick start', approved: true, blog: personalBlog, tags: [devopsTag])
+    BlogPost dockerForNonDevopsPost = aBlogPost(title: 'Docker for non Devops ', approved: true, blog: personalBlog, tags: [devopsTag])
+    BlogPost dockerComposePost = aBlogPost(title: 'docker-compose 101', approved: true, blog: companyBlog, tags: [devopsTag])
+    BlogPost groovyIntroductionPost = aBlogPost(title: 'Groovy Introduction', approved: true, blog: personalBlog, tags: [groovyTag])
+
+    createTransactionTemplate().execute({
+      blogRepository.saveAll([personalBlog, companyBlog])
+      tagRepository.saveAll([devopsTag, groovyTag])
+      blogPostRepository.saveAll([introductionToDockerPost, dockerQuickStartPost, dockerForNonDevopsPost, dockerComposePost, groovyIntroductionPost])
+    })
+
+    String keyword = 'Devops'
+    int expectedDevopsBlogPostsCount = 3
+    when:
+    int devopsBlogPostsCount  = blogPostRepository.countApprovedPostsByTagOrTitle(keyword)
+    then:
+    devopsBlogPostsCount == expectedDevopsBlogPostsCount
   }
 
 
