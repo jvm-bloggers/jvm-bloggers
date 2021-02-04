@@ -1455,6 +1455,12 @@
       "name": "Michał Kowalski",
       "rss": "https://mikemybytes.com/rss/",
       "twitter": "@mikemybytes"
+    },
+    {
+      "bookmarkableId": "jakub-nabrdalik",
+      "name": "Jakub Nabrdalik",
+      "rss": "https://nabrdalik.dev/feed",
+      "twitter": "@jnabrdalik"
     }
   ]
 }
