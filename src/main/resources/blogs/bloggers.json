@@ -730,7 +730,7 @@
     {
       "bookmarkableId": "grzegorz-poznachowski",
       "name": "Grzegorz Poznachowski",
-      "rss": "http://blog.poznachowski.pl/atom.xml",
+      "rss": "http://blog.poznachowski.pl/index.xml",
       "twitter": "@poznachowski"
     },
     {
@@ -1431,6 +1431,36 @@
       "name": "Paweł Ćwik",
       "rss": "https://clockworkjava.pl/feed/",
       "twitter": "@clockworkjava01"
+    },
+    {
+      "bookmarkableId": "kotlintesting",
+      "name": "Jarosław Michalik",
+      "rss": "https://kotlintesting.com/rss",
+      "twitter": "@rozkminia"
+    },
+    {
+      "bookmarkableId": "piotrminkowski",
+      "name": "Piotr Mińkowski",
+      "rss": "https://piotrminkowski.com/feed/",
+      "twitter": "@piotr_minkowski"
+    },
+    {
+      "bookmarkableId": "krzysztofslusarski",
+      "name": "Krzysztof Ślusarski",
+      "rss": "https://krzysztofslusarski.github.io/feed.xml",
+      "twitter": "@Krzysztoflusar5"
+    },
+    {
+      "bookmarkableId": "mikemybytes",
+      "name": "Michał Kowalski",
+      "rss": "https://mikemybytes.com/rss/",
+      "twitter": "@mikemybytes"
+    },
+    {
+      "bookmarkableId": "jakub-nabrdalik",
+      "name": "Jakub Nabrdalik",
+      "rss": "https://nabrdalik.dev/feed",
+      "twitter": "@jnabrdalik"
     },
     {
       "bookmarkableId": "zycienakodach-mateusz-nowak",
