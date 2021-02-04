@@ -1431,6 +1431,12 @@
       "name": "Paweł Ćwik",
       "rss": "https://clockworkjava.pl/feed/",
       "twitter": "@clockworkjava01"
+    },
+    {
+      "bookmarkableId": "zycienakodach-mateusz-nowak",
+      "name": "ZycieNaKodach.pl - Mateusz Nowak",
+      "rss": "https://zycienakodach.pl/feed.xml",
+      "twitter": "@MateuszNaKodach"
     }
   ]
 }
