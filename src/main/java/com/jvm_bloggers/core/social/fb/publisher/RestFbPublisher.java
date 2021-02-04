@@ -25,7 +25,7 @@ import static io.vavr.Patterns.$Success;
 
 @Slf4j
 @Component
-@Profile(PRODUCTION)
+@Profile("none")
 class RestFbPublisher implements FacebookPublisher {
 
     private final FacebookClient facebook;
