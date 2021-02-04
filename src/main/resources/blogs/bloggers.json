@@ -1461,6 +1461,12 @@
       "name": "Jakub Nabrdalik",
       "rss": "https://nabrdalik.dev/feed",
       "twitter": "@jnabrdalik"
+    },
+    {
+      "bookmarkableId": "zycienakodach-mateusz-nowak",
+      "name": "ZycieNaKodach.pl - Mateusz Nowak",
+      "rss": "https://zycienakodach.pl/feed.xml",
+      "twitter": "@MateuszNaKodach"
     }
   ]
 }
