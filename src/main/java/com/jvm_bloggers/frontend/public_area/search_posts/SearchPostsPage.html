@@ -10,7 +10,24 @@
         <input wicket:id="searchPhrase" type="text" class="form-control">
       </div>
       <button wicket:id="submit" type="submit"  class="btn btn-primary">Szukaj</button>
+      <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer">
+        <tr>
+          <th>Autor</th>
+          <th>Tytuł</th>
+          <th>Link</th>
+          <th>Data Publikacji</th>
+          <th>Twitter</th>
+        </tr>
+        <tr wicket:id="postsListView" class="gradeA">
+          <td><span wicket:id="author">[author]</span></td>
+          <td><span wicket:id="title">[title]</span></td>
+          <td><a href="" wicket:id="link" target="_blank">[link]</a></td>
+          <td><span wicket:id="publishedDate">[published]</span></td>
+          <td><a href="" wicket:id="twitter" target="_blank">[twitter]</a></td>
+        </tr>
+      </table>
     </form>
+
 
 </wicket:extend>
 
