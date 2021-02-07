@@ -1,7 +1,6 @@
 package com.jvm_bloggers.frontend.public_area.search_posts;
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
-import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListing;
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListingQuery;
@@ -80,13 +79,13 @@ public class SearchPostsPage extends AbstractFrontendPage {
       protected void populateItem(Item<SearchedBlogPostForListing> item) {
         var post = item.getModelObject();
         item.add(new Label("author", post.getAuthor()));
-        item.add(new Label("title", post.getTitle()));
-        item.add(new ExternalLink("link", post.getUrl(), abbreviate(post.getUrl(), 90)));
+        item.add(new ExternalLink("link", post.getUrl(), post.getTitle()));
         item.add(new Label("publishedDate", post.getPublishedTime().format(DATE_TIME_FORMATTER)));
         item.add(new ExternalLink("twitter",
-            TWITTER_HOME_URL + post.getAuthorTwitterHandle(),
-            post.getAuthorTwitterHandle())
-            .setVisible(StringUtils.isNotEmpty(post.getAuthorTwitterHandle())));
+              TWITTER_HOME_URL + post.getAuthorTwitterHandle(),
+              post.getAuthorTwitterHandle()
+            ).setVisible(StringUtils.isNotEmpty(post.getAuthorTwitterHandle()))
+        );
       }
     };
   }
