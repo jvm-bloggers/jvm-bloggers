@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -29,25 +31,21 @@ public class SearchPostsPage extends AbstractFrontendPage {
   private final String SEARCH_FORM = "searchForm";
   private final String SEARCH_PHRASE = "searchPhrase";
   private final String DATA_VIEW = "postsListView";
-
+  private final String WEB_MARKUP_CONTAINER = "wrapper";
+  private final String NAVIGATOR = "navigator";
   private final String SUBMIT_ID = "submit";
 
   private final Form<SearchPostsModel> searchPostsModelForm;
-  private DataView<SearchedBlogPostForListing> dataView;
-  private final IDataProvider<SearchedBlogPostForListing> requestHandler;
 
   @SpringBean
   private SearchedBlogPostForListingQuery query;
 
-  public SearchPostsPage(PageParameters parameters) {
-    log.info("page parameters {} ", parameters);
+  public SearchPostsPage() {
     searchPostsModelForm = new Form<>(SEARCH_FORM, new CompoundPropertyModel<>(new SearchPostsModel()));
     add(searchPostsModelForm);
-    requestHandler = new SearchBlogPostsRequestHandler(searchPostsModelForm, query);
     initSearchPhraseInput();
     initSubmitButton();
-    dataView = dataView(requestHandler);
-    searchPostsModelForm.add(dataView);
+    initDataView();
   }
 
   private void initSearchPhraseInput() {
@@ -72,6 +70,18 @@ public class SearchPostsPage extends AbstractFrontendPage {
     };
     searchPostsModelForm.add(searchSubmitButton);
   }
+
+  private void initDataView() {
+    WebMarkupContainer container = new WebMarkupContainer(WEB_MARKUP_CONTAINER);
+    var requestHandler = new SearchBlogPostsRequestHandler(searchPostsModelForm, query);
+    searchPostsModelForm.add(container);
+    var dataView = dataView(requestHandler);
+    container.add(dataView);
+    dataView.setItemsPerPage(SearchBlogPostsRequestHandler.PAGE_SIZE);
+    var pagingNavigator = new AjaxPagingNavigator(NAVIGATOR, dataView);
+    searchPostsModelForm.add(pagingNavigator);
+  }
+
 
   private DataView<SearchedBlogPostForListing> dataView(IDataProvider<SearchedBlogPostForListing> requestHandler) {
     return new DataView<>(DATA_VIEW, requestHandler) {

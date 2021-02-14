@@ -10,7 +10,7 @@
         <input wicket:id="searchPhrase" type="text" class="form-control">
       </div>
       <button wicket:id="submit" type="submit"  class="btn btn-primary">Szukaj</button>
-      <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer">
+      <table cellspacing="0" class="table table-striped table-bordered table-hover dataTable no-footer" wicket:id="wrapper">
         <tr>
           <th>Autor</th>
           <th>Link</th>
@@ -24,7 +24,8 @@
           <td><a href="" wicket:id="twitter" target="_blank">[twitter]</a></td>
         </tr>
       </table>
-    </form>
+      <span wicket:id="navigator">[dataview navigator]</span>
+  </form>
   </div>
 
 </wicket:extend>
