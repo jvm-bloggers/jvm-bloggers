@@ -5,7 +5,7 @@ import com.jvm_bloggers.entities.blog_post.BlogPostRepository
 import com.jvm_bloggers.entities.top_posts_summary.TopPostsSummaryRepository
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPage
 import com.jvm_bloggers.frontend.admin_area.AdminDashboardPageBackingBean
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import com.jvm_bloggers.frontend.admin_area.login.attack.BruteForceLoginAttackDetector
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.apache.wicket.authroles.authorization.strategies.role.Roles

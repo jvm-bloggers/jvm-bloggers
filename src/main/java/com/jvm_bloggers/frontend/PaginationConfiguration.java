@@ -1,4 +1,4 @@
-package com.jvm_bloggers.frontend.admin_area;
+package com.jvm_bloggers.frontend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

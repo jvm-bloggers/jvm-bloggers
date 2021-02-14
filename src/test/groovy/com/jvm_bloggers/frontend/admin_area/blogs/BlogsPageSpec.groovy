@@ -5,7 +5,7 @@ import com.jvm_bloggers.entities.blog.Blog
 import com.jvm_bloggers.entities.blog.BlogRepository
 import com.jvm_bloggers.entities.blog.BlogType
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import org.apache.wicket.core.util.string.ComponentRenderer
 import org.apache.wicket.util.tester.TagTester
 import org.springframework.data.domain.PageImpl

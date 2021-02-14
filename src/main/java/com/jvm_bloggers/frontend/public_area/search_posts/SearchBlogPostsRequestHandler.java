@@ -18,9 +18,9 @@ import org.apache.wicket.model.Model;
 @RequiredArgsConstructor
 public final class SearchBlogPostsRequestHandler implements IDataProvider<SearchedBlogPostForListing> {
 
-  public static final int PAGE_SIZE = 10;
   private final Form<SearchPostsModel> searchPostsModelForm;
   private final SearchedBlogPostForListingQuery query;
+  private final int pageSize;
 
   @Override
   public Iterator<? extends SearchedBlogPostForListing> iterator(long first, long count) {
@@ -31,10 +31,10 @@ public final class SearchBlogPostsRequestHandler implements IDataProvider<Search
       return Collections.emptyIterator();
     }
 
-    int page = (int) (first / PAGE_SIZE);
+    int page = (int) (first / pageSize);
     var stopWatch = Stopwatch.createStarted();
     var iterator = query
-        .findByTitleOrTag(searchPhrase, page, PAGE_SIZE)
+        .findByTitleOrTag(searchPhrase, page, pageSize)
         .iterator();
     long elapsed = stopWatch.stop().elapsed(TimeUnit.MILLISECONDS);
     log.debug("iterator() execution time = {} ms", elapsed);

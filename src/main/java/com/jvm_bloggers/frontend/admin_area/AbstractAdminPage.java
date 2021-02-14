@@ -1,5 +1,6 @@
 package com.jvm_bloggers.frontend.admin_area;
 
+import com.jvm_bloggers.frontend.PaginationConfiguration;
 import com.jvm_bloggers.frontend.admin_area.blogs.BlogsPage;
 import com.jvm_bloggers.frontend.admin_area.mailing.MailingPage;
 import com.jvm_bloggers.frontend.admin_area.moderation.ModerationPage;

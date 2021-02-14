@@ -4,6 +4,7 @@ import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListing;
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListingQuery;
+import com.jvm_bloggers.frontend.PaginationConfiguration;
 import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,8 @@ public class SearchPostsPage extends AbstractFrontendPage {
 
   @SpringBean
   private SearchedBlogPostForListingQuery query;
+  @SpringBean
+  private PaginationConfiguration paginationConfiguration;
 
   public SearchPostsPage() {
     searchPostsModelForm = new Form<>(SEARCH_FORM, new CompoundPropertyModel<>(new SearchPostsModel()));
@@ -73,11 +76,11 @@ public class SearchPostsPage extends AbstractFrontendPage {
 
   private void initDataView() {
     WebMarkupContainer container = new WebMarkupContainer(WEB_MARKUP_CONTAINER);
-    var requestHandler = new SearchBlogPostsRequestHandler(searchPostsModelForm, query);
+    var requestHandler = new SearchBlogPostsRequestHandler(searchPostsModelForm, query, paginationConfiguration.getDefaultPageSize());
     searchPostsModelForm.add(container);
     var dataView = dataView(requestHandler);
     container.add(dataView);
-    dataView.setItemsPerPage(SearchBlogPostsRequestHandler.PAGE_SIZE);
+    dataView.setItemsPerPage(paginationConfiguration.getDefaultPageSize());
     var pagingNavigator = new AjaxPagingNavigator(NAVIGATOR, dataView);
     searchPostsModelForm.add(pagingNavigator);
   }
