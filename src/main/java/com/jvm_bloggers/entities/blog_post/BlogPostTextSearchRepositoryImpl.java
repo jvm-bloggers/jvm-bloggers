@@ -3,6 +3,7 @@ package com.jvm_bloggers.entities.blog_post;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
@@ -11,10 +12,10 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
+@RequiredArgsConstructor
 class BlogPostTextSearchRepositoryImpl implements BlogPostTextSearchRepository {
 
-  @PersistenceContext
-  private EntityManager entityManager;
+  private final EntityManager entityManager;
 
   @Override
   @SuppressWarnings("unchecked")
