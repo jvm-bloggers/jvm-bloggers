@@ -11,6 +11,7 @@ import spock.lang.Subject
 
 import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
+import java.time.LocalDateTime
 
 import static com.jvm_bloggers.ObjectMother.aBlog
 import static com.jvm_bloggers.ObjectMother.aBlogPost
@@ -129,6 +130,39 @@ class BlogPostTextSearchRepositorySpec extends SpringContextAwareSpecification {
     int devopsBlogPostsCount  = blogPostTextSearchRepository.countApprovedPostsByTagOrTitle(keyword)
     then:
     devopsBlogPostsCount == expectedDevopsBlogPostsCount
+  }
+
+  def "should return first page by tag or title and sorting by the published date desc"() {
+    given:
+    Blog personalBlog = aBlog(blogType: PERSONAL)
+    Blog companyBlog = aBlog(blogType: COMPANY)
+    Tag springTag = new Tag("Spring")
+    Tag devopsTag = new Tag("Devops")
+    BlogPost introductionToDockerPost = aBlogPost(title: 'Introduction to Docker', approved: true,  blog: personalBlog,
+        tags: [devopsTag], publishedDate: LocalDateTime.of(2021, 3, 1, 10, 2))
+    BlogPost springAopPost = aBlogPost(title: "Spring AOP explained ", approved: false,  blog: personalBlog,
+        tags: [springTag], publishedDate: LocalDateTime.of(2021, 3, 1, 10, 2))
+    BlogPost springIoCIntroduction = aBlogPost(title: "Custom HealthCheck in Actuator", approved: true,  blog: personalBlog,
+        tags: [springTag], publishedDate: LocalDateTime.of(2016, 3, 1, 9, 0))
+    BlogPost customActuatorHealthCheckPost =  aBlogPost(title: "Custom HealthCheck in Actuator", approved: true,  blog: personalBlog,
+        tags: [springTag], publishedDate: LocalDateTime.of(2021, 3, 1, 10, 1))
+    BlogPost transactionsInSpringPost =  aBlogPost(title: "Transaction in Spring ", approved: true,  blog: companyBlog,
+        tags: [springTag], publishedDate: LocalDateTime.of(2021, 3, 1, 10, 1))
+    BlogPost springDataElasticSearchPost =  aBlogPost(title: "Spring Data ElasticSearch" , approved: true,  blog: companyBlog,
+        tags: [springTag], publishedDate: LocalDateTime.of(2021, 3, 1, 9, 20))
+
+    flushData([personalBlog, companyBlog],
+        [devopsTag, springTag],
+        [introductionToDockerPost, springAopPost, springIoCIntroduction, customActuatorHealthCheckPost, transactionsInSpringPost, springDataElasticSearchPost]
+    )
+
+    String keyword = "Spring"
+    List expectedFirstThreeTitles = [customActuatorHealthCheckPost.title, transactionsInSpringPost.title, springDataElasticSearchPost.title]
+    when:
+    List firstThreeTitles = blogPostTextSearchRepository.findApprovedPostsByTagOrTitle(keyword, 0, 3)
+      .collect {it.title}
+    then:
+    firstThreeTitles == expectedFirstThreeTitles
   }
 
   private flushData(Collection<Blog> blogs, Collection<Tag> tags, Collection<BlogPost> posts) {

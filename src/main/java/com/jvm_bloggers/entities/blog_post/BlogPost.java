@@ -36,6 +36,7 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.SortableField;
 
 @Entity
 @Table(name = "blog_post")
@@ -84,6 +85,7 @@ public class BlogPost {
     @NonNull
     @Column(name = "PUBLISHED_DATE", nullable = false)
     @Field
+    @SortableField
     private LocalDateTime publishedDate;
 
     @Column(name = "APPROVED")

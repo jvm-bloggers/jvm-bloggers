@@ -2,12 +2,14 @@ package com.jvm_bloggers.entities.blog_post;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
+import org.apache.lucene.search.SortField.Type;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -16,6 +18,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 class BlogPostTextSearchRepositoryImpl implements BlogPostTextSearchRepository {
 
   private final EntityManager entityManager;
+  private static final Sort publishedDateSort = new Sort(new SortField("publishedDate", Type.STRING, true));
 
   @Override
   @SuppressWarnings("unchecked")
@@ -26,6 +29,7 @@ class BlogPostTextSearchRepositoryImpl implements BlogPostTextSearchRepository {
         .createFullTextQuery(createQuery(searchPhrase, fullTextEntityManager), BlogPost.class)
         .setFirstResult(page * pageSize)
         .setMaxResults(pageSize)
+        .setSort(publishedDateSort)
         .getResultList();
   }
 
