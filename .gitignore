@@ -38,6 +38,9 @@
 
 # IntelliJ
 /out/
+#IntelliJ DataSources
+/dataSources
+/.ideaDataSources
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
