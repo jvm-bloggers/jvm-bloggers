@@ -1,5 +1,6 @@
 package com.jvm_bloggers.frontend.common_components;
 
+import com.jvm_bloggers.core.utils.LinkUtils;
 import com.jvm_bloggers.domain.query.published_newsletter_issue.PublishedPost;
 import com.jvm_bloggers.utils.CleanString;
 import org.apache.wicket.markup.html.basic.Label;
@@ -7,8 +8,6 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 public class PublishedBlogPostLink extends Panel {
-
-    private static final String TWITTER_HOME_URL = "https://twitter.com/";
 
     public PublishedBlogPostLink(String id, PublishedPost post) {
         super(id);
@@ -20,7 +19,7 @@ public class PublishedBlogPostLink extends Panel {
         add(authorLabel);
         add(new ExternalLink(
                 "authorTwitterLink",
-                TWITTER_HOME_URL + post.getAuthorTwitterHandle(),
+                LinkUtils.getFullTwitterAccountUrl(post.getAuthorTwitterHandle()),
                 post.getAuthorName()
             ).setVisible(authorHasTwitterHandle)
         );

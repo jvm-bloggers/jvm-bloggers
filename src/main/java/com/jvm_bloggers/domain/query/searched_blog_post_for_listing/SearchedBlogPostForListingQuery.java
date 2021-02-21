@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class SearchedBlogPostForListingQuery {
 
-  private BlogPostRepository blogPostRepository;
+  private final BlogPostRepository blogPostRepository;
 
   public Traversable<SearchedBlogPostForListing> findByTitleOrTag(String searchPhrase, int page, int pageSize) {
     return blogPostRepository.findApprovedPostsByTagOrTitle(searchPhrase, page, pageSize).stream()

@@ -2,6 +2,7 @@ package com.jvm_bloggers.frontend.public_area.search_posts;
 
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 
+import com.jvm_bloggers.core.utils.LinkUtils;
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListing;
 import com.jvm_bloggers.domain.query.searched_blog_post_for_listing.SearchedBlogPostForListingQuery;
 import com.jvm_bloggers.frontend.PaginationConfiguration;
@@ -20,7 +21,6 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -28,7 +28,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 @Slf4j
 public class SearchPostsPage extends AbstractFrontendPage {
 
-  private static final String TWITTER_HOME_URL = "https://twitter.com/";
   private final String SEARCH_FORM = "searchForm";
   private final String SEARCH_PHRASE = "searchPhrase";
   private final String DATA_VIEW = "postsListView";
@@ -40,6 +39,7 @@ public class SearchPostsPage extends AbstractFrontendPage {
 
   @SpringBean
   private SearchedBlogPostForListingQuery query;
+
   @SpringBean
   private PaginationConfiguration paginationConfiguration;
 
@@ -76,13 +76,12 @@ public class SearchPostsPage extends AbstractFrontendPage {
 
   private void initDataView() {
     WebMarkupContainer container = new WebMarkupContainer(WEB_MARKUP_CONTAINER);
-    var requestHandler = new SearchBlogPostsRequestHandler(searchPostsModelForm, query, paginationConfiguration.getDefaultPageSize());
     searchPostsModelForm.add(container);
+    var requestHandler = new SearchPostsRequestHandler(searchPostsModelForm, query, paginationConfiguration.getDefaultPageSize());
     var dataView = dataView(requestHandler);
     container.add(dataView);
     dataView.setItemsPerPage(paginationConfiguration.getDefaultPageSize());
-    var pagingNavigator = new AjaxPagingNavigator(NAVIGATOR, dataView);
-    searchPostsModelForm.add(pagingNavigator);
+    searchPostsModelForm.add(new AjaxPagingNavigator(NAVIGATOR, dataView));
   }
 
 
@@ -95,7 +94,7 @@ public class SearchPostsPage extends AbstractFrontendPage {
         item.add(new ExternalLink("link", post.getUrl(), post.getTitle()));
         item.add(new Label("publishedDate", post.getPublishedTime().format(DATE_TIME_FORMATTER)));
         item.add(new ExternalLink("twitter",
-              TWITTER_HOME_URL + post.getAuthorTwitterHandle(),
+            LinkUtils.getFullTwitterAccountUrl(post.getAuthorTwitterHandle()),
               post.getAuthorTwitterHandle()
             ).setVisible(StringUtils.isNotEmpty(post.getAuthorTwitterHandle()))
         );

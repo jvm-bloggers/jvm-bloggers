@@ -16,7 +16,7 @@ import org.apache.wicket.model.Model;
 
 @Slf4j
 @RequiredArgsConstructor
-public final class SearchBlogPostsRequestHandler implements IDataProvider<SearchedBlogPostForListing> {
+public final class SearchPostsRequestHandler implements IDataProvider<SearchedBlogPostForListing> {
 
   private final Form<SearchPostsModel> searchPostsModelForm;
   private final SearchedBlogPostForListingQuery query;

@@ -1,6 +1,7 @@
 package com.jvm_bloggers.frontend.admin_area.blogs;
 
 import com.google.common.collect.Lists;
+import com.jvm_bloggers.core.utils.LinkUtils;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.frontend.admin_area.AbstractAdminPage;
 import com.jvm_bloggers.frontend.admin_area.panels.CustomFeedbackPanel;
@@ -124,11 +125,9 @@ public class BlogsPage extends AbstractAdminPage {
 
     private class TwitterLinkFragment extends Fragment {
 
-        private static final String TWITTER_BASE_URL = "https://twitter.com/";
-
         private TwitterLinkFragment(String id, String userName) {
             super(id, NEW_WINDOW_LINK_FRAGMENT, BlogsPage.this);
-            add(new ExternalLink(NEW_WINDOW_LINK, TWITTER_BASE_URL + userName, userName));
+            add(new ExternalLink(NEW_WINDOW_LINK, LinkUtils.getFullTwitterAccountUrl(userName), userName));
             setVisible(StringUtils.isNotBlank(userName));
         }
     }

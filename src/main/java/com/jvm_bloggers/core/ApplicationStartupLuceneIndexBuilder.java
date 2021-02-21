@@ -1,6 +1,7 @@
-package com.jvm_bloggers.utils;
+package com.jvm_bloggers.core;
 
 import com.google.common.base.Stopwatch;
+import com.jvm_bloggers.ApplicationProfiles;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,9 +10,11 @@ import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile(ApplicationProfiles.NOT_TEST)
 @Slf4j
 public class ApplicationStartupLuceneIndexBuilder implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -30,7 +33,7 @@ public class ApplicationStartupLuceneIndexBuilder implements ApplicationListener
       log.info("Start creating lucene indices");
       fullTextEntityManager.createIndexer().startAndWait();
     } catch (InterruptedException e) {
-      log.error("indexing error ", e);
+      log.error("Lucene indexing error ", e);
     } finally {
       var elapsed = stopwatch.stop().elapsed(TimeUnit.MILLISECONDS);
       log.info("Finish startup indexing after {} ms ", elapsed);

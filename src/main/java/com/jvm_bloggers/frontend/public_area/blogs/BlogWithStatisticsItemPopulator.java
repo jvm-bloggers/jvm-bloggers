@@ -1,5 +1,6 @@
 package com.jvm_bloggers.frontend.public_area.blogs;
 
+import com.jvm_bloggers.core.utils.LinkUtils;
 import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListing;
 
 import com.jvm_bloggers.frontend.public_area.blogs.single_blog.BlogPostsPage;
@@ -16,7 +17,6 @@ import static org.apache.commons.lang3.StringUtils.abbreviate;
 @Component
 public class BlogWithStatisticsItemPopulator {
 
-    private static final String TWITTER_HOME_URL = "https://twitter.com/";
     static final String BLOG_POSTS_LINK_ID = "blogPostsLinkId";
     static final String AUTHOR_BLOG_LINK_ID = "authorLink";
     static final String AUTHOR_ID = "author";
@@ -35,7 +35,7 @@ public class BlogWithStatisticsItemPopulator {
             abbreviate(blogStatisticsForListing.getUrl(), 40)));
         item.add(blogPostsLink);
         item.add(new ExternalLink(AUTHOR_BLOG_LINK_ID,
-            TWITTER_HOME_URL + blogStatisticsForListing.getTwitter().getOrElse(""),
+            LinkUtils.getFullTwitterAccountUrl(blogStatisticsForListing.getTwitter().getOrElse("")),
             blogStatisticsForListing.getAuthor())
             .setVisible(blogStatisticsForListing.getTwitter().isDefined()));
         item.add(new Label(AUTHOR_ID, blogStatisticsForListing.getAuthor())
