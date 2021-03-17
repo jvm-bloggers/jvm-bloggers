@@ -82,7 +82,7 @@ public class BloggersDataUpdater {
             )
             .twitter(bloggerEntry.getTwitter())
             .url(bloggerEntry.getUrl())
-            .dateAdded(nowProvider.now())
+            .dateAdded(nowProvider.now().minusWeeks(2))
             .blogType(bloggerEntry.getBlogType())
             .active(true)
             .moderationRequired(isModerationRequired(bloggerEntry))
