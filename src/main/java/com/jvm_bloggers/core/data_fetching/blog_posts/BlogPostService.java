@@ -14,6 +14,7 @@ import com.rometools.rome.feed.synd.SyndCategory;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import io.vavr.control.Option;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,6 +33,8 @@ public class BlogPostService {
 
     private static final String HTTPS_PREFIX = "https";
     private static final String HTTP_PREFIX = "http";
+    private static final LocalDateTime OVH_FUCKUP_LAST_ISSUE_DATE = LocalDateTime
+            .of(2021, 3, 5, 0,0);
 
     private final BlogPostRepository blogPostRepository;
     private final BlogPostFactory blogPostFactory;
@@ -40,13 +43,16 @@ public class BlogPostService {
     @Transactional
     public Option<BlogPost> addOrUpdate(RssEntryWithAuthor rssEntry) {
         String blogPostLink = rssEntry.getRssEntry().getLink();
+
         if (isUrlValid(blogPostLink)) {
             BlogPost blogPost = blogPostRepository
                     .findByUrlEndingWith(removeProtocolFrom(blogPostLink))
                     .getOrElse(() -> createBlogPost(rssEntry));
             updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
             updateTags(blogPost, rssEntry.getRssEntry());
-            blogPostRepository.save(blogPost);
+            if (entryWasPublishedAfterLastIssueBeforeOvhFuckup(blogPost.getPublishedDate())) {
+                blogPostRepository.save(blogPost);
+            }
             return Option.of(blogPost);
         } else {
             log.warn(
@@ -112,6 +118,10 @@ public class BlogPostService {
                 .filter(StringUtils::isNotBlank)
                 .map(String::toLowerCase)
                 .collect(Collectors.toUnmodifiableSet());
+    }
+
+    private boolean entryWasPublishedAfterLastIssueBeforeOvhFuckup(LocalDateTime dateOfPublication) {
+        return dateOfPublication.isAfter(OVH_FUCKUP_LAST_ISSUE_DATE);
     }
 
 }
