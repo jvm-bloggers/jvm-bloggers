@@ -1,0 +1,35 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+
+<body>
+
+<wicket:extend>
+
+    <article class="text-sm-left blog-post blog-post-page">
+
+        <div class="caption full-width">
+            <p style="text-align: center">
+                <img src="images/ovh_fire.jpg" class="img-wide">
+            </p>
+        </div>
+
+        <div id="q1" class="col-xs-12 well border-bottom">
+            <h2>Pożar serwerów OVH</h2>
+            <p class="text-darker">
+                10 marca w Strasburgu wybuchł pożar serwerów OVH (więcej do poczytania na między innymi na
+                <a href="https://niebezpiecznik.pl/post/splonela-serwerownia-ovh/" target="_blank">Niebezpieczniku</a>. Niestety JVM Bloggers było
+                hostowane w datacenter SGB2, które spłoneło całkowicie. Kopie zapasowe były trzymane w innym DC, niestety okazało się, że było to SGB1,
+                które znajdowało się w tej samej fizycznej lokalizacji co SGB2 i też ucierpiało w pożarze.
+            </p>
+            <p class="text-darker">
+                W związku z tym utracone zostały wszystkie archiwalne wydania (numery starsze niż 283), statystyki itp. Morał z tego jest dość oczywisty:
+                poleganie na jakimkolwiek pojedynczym backupie to proszenie się o kłopoty, zwłaszcza jeśli nie sprawdzicie co kryje
+                się pod terminem "different data center" :) I mimo to, że to jest projekt prowadzony hobbystycznie, to i tak taka strata danych mocno boli.
+            </p>
+        </div>
+
+    </article>
+
+</wicket:extend>
+
+</body>
+</html>
