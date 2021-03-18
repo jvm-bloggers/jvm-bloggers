@@ -37,12 +37,6 @@
       "twitter": "@scalac_io"
     },
     {
-      "bookmarkableId": "spring-blog",
-      "name": "Spring Blog",
-      "rss": "http://spring.io/blog.atom",
-      "twitter": "@springcentral"
-    },
-    {
       "bookmarkableId": "virtus-lab",
       "name": "VirtusLab",
       "rss": "https://medium.com/feed/virtuslab",
