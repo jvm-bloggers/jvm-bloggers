@@ -161,6 +161,12 @@
       "name": "Wunderman Thompson Tech Hub",
       "rss": "https://wttech.blog/rss.xml",
       "twitter": "@WunThompsonTECH"
+    },
+    {
+      "bookmarkableId": "softwareskill",
+      "name": "SoftwareSkill",
+      "rss": "https://softwareskill.pl/tematyka/java/feed",
+      "twitter": "@softwareskillpl"
     }
   ]
 }
