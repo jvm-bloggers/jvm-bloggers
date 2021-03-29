@@ -1287,5 +1287,10 @@
       "rss": "https://zycienakodach.pl/feed.xml",
       "twitter": "@MateuszNaKodach"
     }
+    {
+      "bookmarkableId": "pydyniak",
+      "name": "Rafał Pydyniak",
+      "rss": "https://pydyniak.com/feed/"
+    }
   ]
 }
