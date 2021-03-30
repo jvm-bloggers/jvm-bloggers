@@ -161,6 +161,12 @@
       "name": "Wunderman Thompson Tech Hub",
       "rss": "https://wttech.blog/rss.xml",
       "twitter": "@WunThompsonTECH"
+    },
+    {
+      "bookmarkableId": "klub-prelegenta",
+      "name": "Klub Prelegenta",
+      "rss": "http://klubprelegenta.pl/feed/",
+      "twitter": "@KlubPrelegenta"
     }
   ]
 }
