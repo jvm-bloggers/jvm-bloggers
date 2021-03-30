@@ -98,6 +98,12 @@
       "bookmarkableId": "consdata-tech",
       "name": "Consdata Tech",
       "rss": "https://www.youtube.com/feeds/videos.xml?playlist_id=PL0eqT4yC2wENZJjS3HsCCP1EIDHc80pED"
+    },
+    {
+      "bookmarkableId": "klub-prelegenta",
+      "name": "Klub Prelegenta",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLIyKl66SK61vBj850uV9Gg",
+      "twitter": "@KlubPrelegenta"
     }
   ]
 }
