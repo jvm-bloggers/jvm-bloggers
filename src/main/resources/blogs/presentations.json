@@ -98,6 +98,12 @@
       "bookmarkableId": "consdata-tech",
       "name": "Consdata Tech",
       "rss": "https://www.youtube.com/feeds/videos.xml?playlist_id=PL0eqT4yC2wENZJjS3HsCCP1EIDHc80pED"
+    },
+    {
+      "bookmarkableId": "developers-world",
+      "name": "Developers World Academy",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1qvnHo-Jxsj95A0rLgRxQ",
+      "twitter": "@programistok"
     }
   ]
 }
