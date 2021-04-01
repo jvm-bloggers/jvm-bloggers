@@ -1292,6 +1292,11 @@
       "name": "ProductionReady.dev",
       "rss": "https://productionready.dev/feed",
       "twitter": "@prodReadyDev"
+    },
+    {
+      "bookmarkableId": "pydyniak",
+      "name": "Rafał Pydyniak",
+      "rss": "https://pydyniak.com/feed/"
     }
   ]
 }
