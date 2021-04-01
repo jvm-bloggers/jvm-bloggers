@@ -27,7 +27,7 @@
     {
       "bookmarkableId": "allegro-tech",
       "name": "Allegro Tech",
-      "rss": "https://allegro.tech/feed.xml",
+      "rss": "https://blog.allegro.tech/feed.xml",
       "twitter": "@allegrotech"
     },
     {
@@ -163,10 +163,16 @@
       "twitter": "@WunThompsonTECH"
     },
     {
-      "bookmarkableId": "klub-prelegenta",
+      "bookmarkableId": "softwareskill",
+      "name": "SoftwareSkill",
+      "rss": "https://softwareskill.pl/tematyka/java/feed",
+      "twitter": "@softwareskillpl"
+    },
+    {
+     "bookmarkableId": "klub-prelegenta",
       "name": "Klub Prelegenta",
       "rss": "http://klubprelegenta.pl/feed/",
-      "twitter": "@KlubPrelegenta"
+      "twitter": "@KlubPrelegenta" 
     }
   ]
 }
