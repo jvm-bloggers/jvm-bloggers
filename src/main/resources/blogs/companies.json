@@ -27,7 +27,7 @@
     {
       "bookmarkableId": "allegro-tech",
       "name": "Allegro Tech",
-      "rss": "https://allegro.tech/feed.xml",
+      "rss": "https://blog.allegro.tech/feed.xml",
       "twitter": "@allegrotech"
     },
     {
@@ -161,6 +161,12 @@
       "name": "Wunderman Thompson Tech Hub",
       "rss": "https://wttech.blog/rss.xml",
       "twitter": "@WunThompsonTECH"
+    },
+    {
+      "bookmarkableId": "softwareskill",
+      "name": "SoftwareSkill",
+      "rss": "https://softwareskill.pl/tematyka/java/feed",
+      "twitter": "@softwareskillpl"
     }
   ]
 }

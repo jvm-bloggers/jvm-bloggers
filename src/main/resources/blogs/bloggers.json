@@ -1,6 +1,12 @@
 {
   "bloggers": [
     {
+      "bookmarkableId": "wiadro-danych",
+      "name": "Maciej Szymczyk",
+      "rss": "https://wiadrodanych.pl/feed/",
+      "twitter": "@maciej_szymczyk"
+    },
+    {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.com/feed/",
@@ -143,7 +149,7 @@
       "twitter": "@tkaczanowski"
     },
     {
-      "bookmarkableId": "jakub-nabrdalik",
+      "bookmarkableId": "jakub-nabrdalik-2",
       "name": "Jakub Nabrdalik",
       "rss": "http://blog.solidcraft.eu/feeds/posts/default",
       "twitter": "@jnabrdalik"
@@ -1171,12 +1177,6 @@
       "twitter": "@piotrprz"
     },
     {
-      "bookmarkableId": "softwareskill",
-      "name": "SoftwareSkill: Piotr Pelczar i Damian Rudczyk",
-      "rss": "https://softwareskill.pl/tematyka/java/feed",
-      "twitter": "@softwareskillpl"
-    },
-    {
       "bookmarkableId": "devwords",
       "name": "Iwona Adamkiewicz",
       "rss": "https://devwords.pl/feed/"
@@ -1286,6 +1286,12 @@
       "name": "ZycieNaKodach.pl - Mateusz Nowak",
       "rss": "https://zycienakodach.pl/feed.xml",
       "twitter": "@MateuszNaKodach"
+    },
+    {
+      "bookmarkableId": "production-ready-dev",
+      "name": "ProductionReady.dev",
+      "rss": "https://productionready.dev/feed",
+      "twitter": "@prodReadyDev"
     },
     {
       "bookmarkableId": "pydyniak",
