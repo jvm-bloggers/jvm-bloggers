@@ -167,6 +167,12 @@
       "name": "SoftwareSkill",
       "rss": "https://softwareskill.pl/tematyka/java/feed",
       "twitter": "@softwareskillpl"
+    },
+    {
+     "bookmarkableId": "klub-prelegenta",
+      "name": "Klub Prelegenta",
+      "rss": "http://klubprelegenta.pl/feed/",
+      "twitter": "@KlubPrelegenta" 
     }
   ]
 }
