@@ -81,6 +81,12 @@
             "name": "Bydgoszcz IT Podcast",
             "rss": "http://bydgoszcz.jug.pl/feed/podcast",
             "twitter": "@BydgoszczJUG"
+        },
+        {
+            "bookmarkableId": "technology-radar",
+            "name": "Technology Radar Review",
+            "rss": "https://anchor.fm/s/45fc9744/podcast/rss",
+            "twitter": "@grzegorzduda"
         }
     ]
 }
