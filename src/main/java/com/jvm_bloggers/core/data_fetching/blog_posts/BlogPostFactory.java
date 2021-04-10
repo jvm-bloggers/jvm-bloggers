@@ -39,8 +39,7 @@ public class BlogPostFactory {
         if (!Boolean.TRUE.equals(approved)) {
             return null;
         }
-        LocalDateTime now = nowProvider.now();
-        return (postIsNew(publishedDate, now)) ? now : publishedDate;
+        return publishedDate;
     }
 
     private boolean postIsNew(LocalDateTime publishedDate, LocalDateTime now) {
