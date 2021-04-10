@@ -1,12 +1,6 @@
 {
   "bloggers": [
     {
-      "bookmarkableId": "wiadro-danych",
-      "name": "Maciej Szymczyk",
-      "rss": "https://wiadrodanych.pl/feed/",
-      "twitter": "@maciej_szymczyk"
-    },
-    {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.com/feed/",
@@ -1297,6 +1291,12 @@
       "bookmarkableId": "pydyniak",
       "name": "Rafał Pydyniak",
       "rss": "https://pydyniak.com/feed/"
+    },
+    {
+      "bookmarkableId": "wiadro-danych",
+      "name": "Maciej Szymczyk",
+      "rss": "https://wiadrodanych.pl/feed/",
+      "twitter": "@maciej_szymczyk"
     }
   ]
 }
