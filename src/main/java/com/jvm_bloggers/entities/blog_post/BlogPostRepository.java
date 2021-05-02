@@ -12,7 +12,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BlogPostRepository extends JpaRepository<BlogPost, Long> {
+public interface BlogPostRepository extends JpaRepository<BlogPost, Long>,
+    BlogPostTextSearchRepository {
 
     Option<BlogPost> findByUrlEndingWith(String urlWithoutProtocol);
 

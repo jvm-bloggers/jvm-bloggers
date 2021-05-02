@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.public_area.blogs;
 import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListing;
 import com.jvm_bloggers.domain.query.blog_statistics_for_listing.BlogStatisticsForListingQuery;
 import com.jvm_bloggers.entities.blog.BlogType;
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration;
+import com.jvm_bloggers.frontend.PaginationConfiguration;
 
 import lombok.extern.slf4j.Slf4j;
 

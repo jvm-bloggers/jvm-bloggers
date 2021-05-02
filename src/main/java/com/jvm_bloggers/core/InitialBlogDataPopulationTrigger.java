@@ -1,5 +1,6 @@
 package com.jvm_bloggers.core;
 
+import com.jvm_bloggers.ApplicationProfiles;
 import com.jvm_bloggers.core.data_fetching.blog_posts.BlogPostsFetchingScheduler;
 import com.jvm_bloggers.core.data_fetching.blogs.BloggersDataFetchingScheduler;
 import com.jvm_bloggers.entities.blog.BlogRepository;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author Marcin Kłopotek
  */
 @Component
-@Profile("!test")
+@Profile(ApplicationProfiles.NOT_TEST)
 @RequiredArgsConstructor
 @Slf4j
 public class InitialBlogDataPopulationTrigger {

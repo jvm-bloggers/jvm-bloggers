@@ -3,30 +3,29 @@ package com.jvm_bloggers.entities.tag;
 import static lombok.AccessLevel.PRIVATE;
 
 import com.jvm_bloggers.entities.blog_post.BlogPost;
-
 import java.util.HashSet;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import java.util.Objects;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = PRIVATE)
 @ToString(of = "value")
+@Indexed(index = "idx_tag")
 public class Tag {
 
     @Id
@@ -43,6 +42,7 @@ public class Tag {
     private Long id;
 
     @Column(nullable = false, unique = true, updatable = false)
+    @Field(name = "tag")
     private String value;
 
     @ManyToMany(mappedBy = "tags")

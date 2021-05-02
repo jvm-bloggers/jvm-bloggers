@@ -1,5 +1,6 @@
 package com.jvm_bloggers.frontend.admin_area
 import com.jvm_bloggers.MockSpringContextAwareSpecification
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import org.apache.wicket.util.tester.FormTester
 
 class AdminSocialChannelsPageSpec extends MockSpringContextAwareSpecification {

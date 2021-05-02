@@ -2,7 +2,7 @@ package com.jvm_bloggers.frontend.admin_area.blogs
 
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.entities.blog.BlogRepository
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest

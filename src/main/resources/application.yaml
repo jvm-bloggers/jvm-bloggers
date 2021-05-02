@@ -5,9 +5,13 @@ info:
 
 spring:
   http.encoding.force: true
-  mandatory-file-encoding: UTF-8 
-  jpa.hibernate.ddl-auto: validate
+  mandatory-file-encoding: UTF-8
   liquibase.change-log: classpath:db/changelog/db.changelog.xml
+  jpa:
+    hibernate.ddl-auto: validate
+    properties.hibernate.search.default:
+      directory_provider: filesystem
+      indexBase: ${user.home}/.jvm-bloggers/lucene
 
 # Wicket configuration
 wicket:

@@ -6,7 +6,7 @@ import com.jvm_bloggers.core.mailing.IssueNumberRetriever
 import com.jvm_bloggers.core.newsletter_issues.NewsletterIssueFactory
 import com.jvm_bloggers.entities.metadata.Metadata
 import com.jvm_bloggers.entities.metadata.MetadataKeys
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import org.apache.wicket.Page
 import org.apache.wicket.util.tester.FormTester

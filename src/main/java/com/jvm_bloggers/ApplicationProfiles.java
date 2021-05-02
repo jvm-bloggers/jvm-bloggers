@@ -9,5 +9,6 @@ public class ApplicationProfiles {
     public static final String STAGE = "stage";
     public static final String DEV = "dev";
     public static final String TEST = "test";
+    public static final String NOT_TEST = "!test";
 
 }

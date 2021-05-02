@@ -3,7 +3,7 @@ package com.jvm_bloggers.frontend.admin_area.mailing
 import com.jvm_bloggers.MockSpringContextAwareSpecification
 import com.jvm_bloggers.entities.mailing_address.MailingAddress
 import com.jvm_bloggers.entities.mailing_address.MailingAddressRepository
-import com.jvm_bloggers.frontend.admin_area.PaginationConfiguration
+import com.jvm_bloggers.frontend.PaginationConfiguration
 import org.apache.wicket.model.Model
 import org.apache.wicket.util.tester.FormTester
 
