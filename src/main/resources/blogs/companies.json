@@ -173,6 +173,30 @@
       "name": "Klub Prelegenta",
       "rss": "http://klubprelegenta.pl/feed/",
       "twitter": "@KlubPrelegenta" 
+    },
+    {
+      "bookmarkableId": "arkency",
+      "name": "Arkency",
+      "rss": "https://blog.arkency.com/feed.xml",
+      "twitter": "@arkency"
+    },
+    {
+      "bookmarkableId": "nofluffjobs",
+      "name": "NoFluffJobs",
+      "rss": "https://nofluffjobs.com/blog/feed/",
+      "twitter": "@nofluffjobs"
+    },
+    {
+      "bookmarkableId": "justjoinit",
+      "name": "JustJoinIT",
+      "rss": "https://geek.justjoin.it/feed",
+      "twitter": "@JUSTJOIN_IT"
+    },
+    {
+      "bookmarkableId": "bulldogjob",
+      "name": "BulldogJob",
+      "rss": "https://bulldogjob.pl/feeds/blog"
     }
+
   ]
 }
