@@ -196,6 +196,11 @@
       "bookmarkableId": "bulldogjob",
       "name": "BulldogJob",
       "rss": "https://bulldogjob.pl/feeds/blog"
+    },
+    {
+      "bookmarkableId": "j-labs",
+      "name": "j-labs",
+      "rss": "https://blog.j-labs.pl/feed.rss"
     }
 
   ]
