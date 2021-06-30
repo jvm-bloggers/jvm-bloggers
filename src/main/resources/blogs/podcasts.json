@@ -87,6 +87,12 @@
             "name": "Technology Radar Review",
             "rss": "https://anchor.fm/s/45fc9744/podcast/rss",
             "twitter": "@grzegorzduda"
+        },
+        {
+            "bookmarkableId": "piatki-na-produkcji",
+            "name": "Piątki Na Produkcji",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkv21uaELm8MTdV1L7Qm9ww",
+            "twitter": "@PiatkiNaProd"
         }
     ]
 }
