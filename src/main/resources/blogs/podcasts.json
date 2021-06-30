@@ -93,6 +93,12 @@
             "name": "Piątki Na Produkcji",
             "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkv21uaELm8MTdV1L7Qm9ww",
             "twitter": "@PiatkiNaProd"
+        },
+        {
+            "bookmarkableId": "bottega-it-minds",
+            "name": "Bottega It Minds",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNeyWe1dv6dRl9iypnFqHdA",
+            "twitter": "@bottega_it"
         }
     ]
 }
