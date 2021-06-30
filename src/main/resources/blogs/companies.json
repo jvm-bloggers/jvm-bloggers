@@ -206,7 +206,11 @@
       "bookmarkableId": "vived",
       "name": "Vived",
       "rss": "https://blog.vived.io/tag/jvm/rss/"
+    },
+    {
+      "bookmarkableId": "viacomcbs",
+      "name": "ViacomCBS",
+      "rss": "http://viacom.tech/feed.xml"
     }
-
   ]
 }

@@ -309,7 +309,7 @@
     {
       "bookmarkableId": "marcin-cylke",
       "name": "Marcin Cylke",
-      "rss": "http://marcin.cylke.com.pl/atom.xml",
+      "rss": "http://marcin.cylke.com.pl/index.xml",
       "twitter": "@zygm0nt"
     },
     {
@@ -1014,12 +1014,6 @@
       "rss": "https://jgardo.dev/feed/"
     },
     {
-      "bookmarkableId": "mateusz-mazurek",
-      "name": "Mateusz Mazurek",
-      "rss": "https://mmazur.eu.org/feed/",
-      "twitter": "@kajzur"
-    },
-    {
       "bookmarkableId": "mateusz-dabrowski",
       "name": "Mateusz Dąbrowski",
       "rss": "http://nullpointerexception.pl/feed/",
@@ -1139,7 +1133,7 @@
     {
       "bookmarkableId": "dawid-kotarba",
       "name": "Dawid Kotarba",
-      "rss": "https://dawidkotarba.github.io/blog/feed"
+      "rss": "https://unknownexception.eu/feed"
     },
     {
       "bookmarkableId": "wprostychslowach",
@@ -1204,7 +1198,7 @@
       "rss": "https://konkit.tech/feed",
       "twitter": "@konkit"
     },
-    { 
+    {
       "bookmarkableId": "michal-jaszczyk",
       "name": "Michał Jaszczyk",
       "rss": "https://blog.jaszczyk.net/feed/"
