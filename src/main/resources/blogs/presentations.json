@@ -109,6 +109,12 @@
       "bookmarkableId": "developers-world",
       "name": "Developers World Academy",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCh1qvnHo-Jxsj95A0rLgRxQ"
+    },
+    {
+      "bookmarkableId": "klub-prelegenta",
+      "name": "Klub Prelegenta",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLIyKl66SK61vBj850uV9Gg",
+      "twitter": "@KlubPrelegenta"
     }
   ]
 }
