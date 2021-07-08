@@ -1296,6 +1296,11 @@
       "bookmarkableId": "Hex.log",
       "name": "Hex.log",
       "rss": "https://hexlog.dev/pl/feed"
+    },
+    {
+      "bookmarkableId": "kuba86",
+      "name": "Jakub Blaszczyk",
+      "rss": "https://kuba86.com/index.xml"
     }
   ]
 }
