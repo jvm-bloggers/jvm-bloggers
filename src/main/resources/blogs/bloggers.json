@@ -1291,6 +1291,11 @@
       "name": "Maciej Szymczyk",
       "rss": "https://wiadrodanych.pl/feed/",
       "twitter": "@maciej_szymczyk"
+    },
+    {
+      "bookmarkableId": "Hex.log",
+      "name": "Hex.log",
+      "rss": "https://hexlog.dev/pl/feed"
     }
   ]
 }
