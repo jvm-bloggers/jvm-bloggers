@@ -1,0 +1,6 @@
+apiVersion: v2
+name: jvm-bloggers
+description: JVM Bloggers - website and newsletter with JVM blogs from Poland
+type: application
+version: 0.1.0
+appVersion: "2.0.0"

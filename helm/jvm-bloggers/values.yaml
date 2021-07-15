@@ -1,0 +1,79 @@
+# Default values for jvm-bloggers.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: jvmbloggers/jvm-bloggers
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
+  hosts:
+    - host: jvm-bloggers.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: jvm-bloggers-tls
+      hosts:
+        - jvm-bloggers.com
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+spring:
+  profile: dev
+
+jasypt:
+  encryptor:
+    name: jvm-bloggers-secrets
+    key: JVM_BLOGGERS_CORE_ENCRYPTOR_PASSWORD
+    kind: secret
+
+db:
+  hostConfig:
+    name: pgsql-configuration
+    key: DB_HOST
+    kind: configMap
+  portConfig:
+    name: pgsql-configuration
+    key: DB_PORT
+    kind: configMap
+  nameConfig:
+    name: jvm-bloggers-pgsql
+    key: DB_NAME
+    kind: secret
+  usernameConfig:
+    name: jvm-bloggers-pgsql
+    key: USERNAME
+    kind: secret
+  passwordConfig:
+    name: jvm-bloggers-pgsql
+    key: PASSWORD
+    kind: secret
