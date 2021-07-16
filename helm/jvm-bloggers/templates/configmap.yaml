@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Chart.Name }}
-  labels:
-  {{- include "jvm-bloggers.labels" . | nindent 4 }}
-data:
