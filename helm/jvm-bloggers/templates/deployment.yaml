@@ -65,9 +65,6 @@ spec:
                 {{ include "dbPasswordConfigSource" . }}:
                   key: {{ .Values.db.passwordConfig.key }}
                   name: {{ .Values.db.passwordConfig.name }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "jvm-bloggers.fullname" . }}
           ports:
             - name: http
               containerPort: 80
