@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "jvm-bloggers.fullname" . }}
+  labels:
+    {{- include "jvm-bloggers.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "jvm-bloggers.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "jvm-bloggers.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: spring.profiles.active
+              value: {{ .Values.spring.profile }}
+            - name: jasypt.encryptor.password
+              valueFrom:
+                {{ include "jasyptEncryptorConfigSource" . }}:
+                  key: {{ .Values.jasypt.encryptor.key }}
+                  name: {{ .Values.jasypt.encryptor.name }}
+            - name: PGSQL_HOST
+              valueFrom:
+                {{ include "dbHostConfigSource" . }}:
+                  key: {{ .Values.db.hostConfig.key }}
+                  name: {{ .Values.db.hostConfig.name }}
+            - name: PGSQL_PORT
+              valueFrom:
+                {{ include "dbPortConfigSource" . }}:
+                  key: {{ .Values.db.portConfig.key }}
+                  name: {{ .Values.db.portConfig.name }}
+            - name: PGSQL_DB
+              valueFrom:
+                {{ include "dbNameConfigSource" . }}:
+                  key: {{ .Values.db.nameConfig.key }}
+                  name: {{ .Values.db.nameConfig.name }}
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://$(PGSQL_HOST):$(PGSQL_PORT)/$(PGSQL_DB)
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                {{ include "dbUsernameConfigSource" . }}:
+                  key: {{ .Values.db.usernameConfig.key }}
+                  name: {{ .Values.db.usernameConfig.name }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                {{ include "dbPasswordConfigSource" . }}:
+                  key: {{ .Values.db.passwordConfig.key }}
+                  name: {{ .Values.db.passwordConfig.name }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "jvm-bloggers.fullname" . }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
