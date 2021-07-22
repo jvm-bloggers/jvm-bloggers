@@ -34,12 +34,12 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '12'
+      - name: Set up environment variables for Docker
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV
+          echo "DOCKER_EMAIL=${{ secrets.DOCKER_EMAIL }}" >> $GITHUB_ENV
       - name: Build
-        run: ./gradlew build
-      - name: Get release or tag
-        uses: tenhaus/get-release-or-tag@v2
-        id: tag
+        run: ./gradlew clean build
       - name: Build Docker image and push to Docker Hub
-        env:
-          IMAGE_TAG: ${{ steps.tag.outputs.tag }}
         run: ./gradlew dockerPush
