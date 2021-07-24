@@ -12,11 +12,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
+import org.apache.wicket.feedback.ExactLevelFeedbackMessageFilter;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -28,14 +31,16 @@ import org.wicketstuff.annotation.mount.MountPath;
 @Slf4j
 public class SearchPostsPage extends AbstractFrontendPage {
 
-  private final String SEARCH_FORM = "searchForm";
-  private final String SEARCH_PHRASE = "searchPhrase";
-  private final String DATA_VIEW = "postsListView";
-  private final String WEB_MARKUP_CONTAINER = "wrapper";
-  private final String NAVIGATOR = "navigator";
-  private final String SUBMIT_ID = "submit";
+  private static final String FEEDBACK_PANEL = "feedbackPanel";
+  private static final String SEARCH_FORM = "searchForm";
+  private static final String SEARCH_PHRASE = "searchPhrase";
+  private static final String DATA_VIEW = "postsListView";
+  private static final String WEB_MARKUP_CONTAINER = "wrapper";
+  private static final String NAVIGATOR = "navigator";
+  private static final String SUBMIT_ID = "submit";
 
   private final Form<SearchPostsModel> searchPostsModelForm;
+
 
   @SpringBean
   private SearchedBlogPostForListingQuery query;
@@ -53,7 +58,10 @@ public class SearchPostsPage extends AbstractFrontendPage {
 
   private void initSearchPhraseInput() {
     var searchInput = new TextField<String>(SEARCH_PHRASE);
-    searchPostsModelForm.add(searchInput);
+    searchInput.add(new SearchPhraseValidator());
+    FeedbackPanel feedbackPanel = new FeedbackPanel(FEEDBACK_PANEL,
+        new ExactLevelFeedbackMessageFilter(FeedbackMessage.ERROR));
+    searchPostsModelForm.add(searchInput, feedbackPanel);
   }
 
   private void initSubmitButton() {
@@ -68,7 +76,8 @@ public class SearchPostsPage extends AbstractFrontendPage {
       @Override
       protected void onError(AjaxRequestTarget target) {
         log.error("an ajax request error");
-        super.onError(target);
+        searchPostsModelForm.setOutputMarkupId(true);
+        target.add(searchPostsModelForm);
       }
     };
     searchPostsModelForm.add(searchSubmitButton);
@@ -106,4 +115,5 @@ public class SearchPostsPage extends AbstractFrontendPage {
   protected String getPageTitle() {
     return "Wyszukaj posty";
   }
+
 }
