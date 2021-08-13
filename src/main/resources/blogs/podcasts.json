@@ -103,8 +103,14 @@
         {
             "bookmarkableId": "jakub-kozlowski-podcast",
             "name": "Jakub Kozłowski",
-            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSBUwLT9zXhUalKfJrc2q2A",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBSRCuGz9laxVv0rAnn2O9Q",
             "twitter": "@kubukoz"
+        },
+        {
+            "bookmarkableId": "dev-inside-you-podcast",
+            "name": "DevInsideYou",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSBUwLT9zXhUalKfJrc2q2A",
+            "twitter": "@devinsideyou"
         },
         {
             "bookmarkableId": "klub-prelegenta-podcast",
