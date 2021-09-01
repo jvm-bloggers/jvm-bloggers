@@ -211,6 +211,12 @@
       "bookmarkableId": "viacomcbs",
       "name": "ViacomCBS",
       "rss": "http://viacom.tech/feed.xml"
+    },
+    {
+      "bookmarkableId": "iterators",
+      "name": "Iterators",
+      "rss": "https://www.iteratorshq.com/feed",
+      "twitter": "@iteratorshq"
     }
   ]
 }
