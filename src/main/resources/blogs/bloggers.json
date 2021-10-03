@@ -1312,6 +1312,12 @@
       "bookmarkableId": "kodowanie-bez-cenzury",
       "name": "Kodowanie bez cenzury",
       "rss": "https://www.kodowaniebezcenzury.pl/feed"
-    }
+    },
+    {
+      "bookmarkableId": "baremetaldev",
+      "name": "Michał Piotrowski",
+      "rss": "https://www.baremetaldev.com/feed",
+      "twitter": "@Chlebosz"
+    },
   ]
 }
