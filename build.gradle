@@ -201,10 +201,6 @@ jacocoTestReport {
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
-wrapper {
-    gradleVersion '5.6.4'
-}
-
 idea {
     module {
         downloadJavadoc = true
