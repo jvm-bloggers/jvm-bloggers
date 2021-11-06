@@ -1318,6 +1318,12 @@
       "name": "Michał Piotrowski",
       "rss": "https://www.baremetaldev.com/feed",
       "twitter": "@Chlebosz"
+    },
+    {
+      "bookmarkableId": "michalik-tech",
+      "name": "Jarosław Michalik",
+      "rss": "https://michalik.tech/tag/techblog/rss/",
+      "twitter": "@rozkminia"
     }
   ]
 }
