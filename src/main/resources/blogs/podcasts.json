@@ -117,6 +117,12 @@
             "name": "Klub Prelegenta",
             "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLIyKl66SK61vBj850uV9Gg",
             "twitter": "@KlubPrelegenta"
+        },
+        {
+            "bookmarkableId": "vived-podcast",
+            "name": "Root Cause by Vived",
+            "rss": "https://anchor.fm/s/71799d90/podcast/rss",
+            "twitter": "@VivedIO"
         }
     ]
 }
