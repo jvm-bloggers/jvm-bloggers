@@ -1318,6 +1318,12 @@
       "name": "Michał Piotrowski",
       "rss": "https://www.baremetaldev.com/feed",
       "twitter": "@Chlebosz"
+    },
+    {
+      "bookmarkableId": "pawel-stepniewski",
+      "name": "Paweł Stępniewski",
+      "rss": "https://stepniewski.tech/blog/index.xml",
+      "twitter": "@psstepniewski"
     }
   ]
 }
