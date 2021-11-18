@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         gradlePluginPortal()
     }
 
@@ -36,7 +35,6 @@ version = '2.0.0'
 sourceCompatibility = '12'
 
 repositories {
-    jcenter()
     mavenLocal()
     mavenCentral()
 }
