@@ -1324,6 +1324,12 @@
       "name": "Jarosław Michalik",
       "rss": "https://michalik.tech/tag/techblog/rss/",
       "twitter": "@rozkminia"
+    },
+    {
+      "bookmarkableId": "pawel-stepniewski",
+      "name": "Paweł Stępniewski",
+      "rss": "https://stepniewski.tech/blog/index.xml",
+      "twitter": "@psstepniewski"
     }
   ]
 }
