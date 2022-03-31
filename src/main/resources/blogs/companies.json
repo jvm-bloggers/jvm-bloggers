@@ -208,9 +208,9 @@
       "rss": "https://blog.vived.io/tag/jvm/rss/"
     },
     {
-      "bookmarkableId": "viacomcbs",
-      "name": "ViacomCBS",
-      "rss": "http://viacom.tech/feed.xml"
+      "bookmarkableId": "paramount",
+      "name": "Paramount",
+      "rss": "https://paramount.tech/feed.xml"
     },
     {
       "bookmarkableId": "iterators",
