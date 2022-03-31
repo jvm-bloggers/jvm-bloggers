@@ -113,6 +113,12 @@
             "twitter": "@devinsideyou"
         },
         {
+            "bookmarkableId": "devstory",
+            "name": "Dev Story",
+            "rss": "https://anchor.fm/s/83c08c34/podcast/rss",
+            "twitter": "@nexocode_com"
+        },
+        {
             "bookmarkableId": "klub-prelegenta-podcast",
             "name": "Klub Prelegenta",
             "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLIyKl66SK61vBj850uV9Gg",
