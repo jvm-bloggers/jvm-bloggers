@@ -18,6 +18,8 @@ wicket:
   core:
     csrf.accepted-origins.*: jvm-bloggers.com
   external.webjars.enabled: true
+  ioc:
+      useByteBuddy: true
 
 server.compression:
   enabled: true

@@ -7,8 +7,6 @@ import org.apache.wicket.model.IModel
 import org.apache.wicket.model.Model
 import spock.lang.Subject
 
-import static org.junit.Assert.assertEquals
-
 class ContributorDetailsSpec extends MockSpringContextAwareSpecification {
 
     public static final int CONTRIBUTIONS = 666
@@ -54,8 +52,8 @@ class ContributorDetailsSpec extends MockSpringContextAwareSpecification {
 
         then:
         AbstractLink link = tester.getComponentFromLastRenderedPage("contributorDetails:link")
-        assertEquals(PROFILE_URL, link.getDefaultModelObject())
-        assertEquals(LOGIN, link.getBody().getObject())
+        PROFILE_URL == link.getDefaultModelObject()
+        LOGIN == link.getBody().getObject()
     }
 
     def "Should have avatar linking to profile page"() {

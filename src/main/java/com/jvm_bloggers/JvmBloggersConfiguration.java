@@ -66,4 +66,5 @@ public class JvmBloggersConfiguration {
     public ExecutorService singleThreadExecutor() {
         return Executors.newSingleThreadExecutor();
     }
+
 }

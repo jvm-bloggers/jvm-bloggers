@@ -1,7 +1,5 @@
 package com.jvm_bloggers.core.github;
 
-import lombok.RequiredArgsConstructor;
-
 import org.apache.wicket.util.string.Strings;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +10,13 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 
 @Component
-@RequiredArgsConstructor
 public class GithubAuthenticationFilter implements ClientRequestFilter {
 
     private final GithubProperties githubProperties;
+
+    public GithubAuthenticationFilter(GithubProperties githubProperties) {
+        this.githubProperties = githubProperties;
+    }
 
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
