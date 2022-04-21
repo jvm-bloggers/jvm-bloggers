@@ -1137,9 +1137,14 @@
       "twitter": "@owczarektomek"
     },
     {
-      "bookmarkableId": "dawid-kotarba",
+      "bookmarkableId": "unknown-exception",
       "name": "Dawid Kotarba",
       "rss": "https://unknownexception.eu/feed"
+    },
+    {
+      "bookmarkableId": "dawid-kotarba",
+      "name": "Dawid Kotarba",
+      "rss": "https://dawidkotarba.eu/feed"
     },
     {
       "bookmarkableId": "wprostychslowach",
