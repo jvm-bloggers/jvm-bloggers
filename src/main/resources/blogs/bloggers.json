@@ -1347,6 +1347,12 @@
       "name": "ZONE 84 - Tomasz Jędrzejewski",
       "rss": "https://zone84.tech/feed",
       "twitter": "@zone84_tech"
+    },
+    {
+      "bookmarkableId": "szymon-sawicki",
+      "name": "Szymon's tech blog",
+      "rss": "https://szymonsawicki.net/feed",
+      "twitter": "@sz_sawicki"
     }
   ]
 }
