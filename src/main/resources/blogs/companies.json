@@ -217,6 +217,12 @@
       "name": "Iterators",
       "rss": "https://www.iteratorshq.com/feed",
       "twitter": "@iteratorshq"
+    },
+    {
+      "bookmarkableId": "glovo",
+      "name": "Glovo Engineering",
+      "rss": "https://medium.com/feed/glovo-engineering/",
+      "twitter": "@glovo"
     }
   ]
 }
