@@ -129,6 +129,11 @@
             "name": "Root Cause by Vived",
             "rss": "https://anchor.fm/s/71799d90/podcast/rss",
             "twitter": "@VivedIO"
+        },
+        {
+            "bookmarkableId": "youtube-jarek-michalik",
+            "name": "Jarek Michalik",
+            "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCIy6viL5g5qbt7ejbmQ1gtA",
         }
     ]
 }
