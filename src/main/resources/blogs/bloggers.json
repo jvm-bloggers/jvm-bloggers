@@ -1347,6 +1347,12 @@
       "name": "ZONE 84 - Tomasz Jędrzejewski",
       "rss": "https://zone84.tech/feed",
       "twitter": "@zone84_tech"
+    },
+    {
+      "bookmarkableId": "effectivedev",
+      "name": "EffectiveDev - Łukasz Monkiewicz",
+      "rss": "https://effectivedev.pl/blog/feed",
+      "twitter": "@lmonkiewiczdev"
     }
   ]
 }
