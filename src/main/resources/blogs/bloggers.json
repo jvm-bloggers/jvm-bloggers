@@ -1,5 +1,11 @@
 {
   "bloggers": [
+     {
+      "bookmarkableId": "developeronthego",
+      "name": "Mariusz Czarny",
+      "rss": "https://developeronthego.pl/feed/",
+      "twitter": "@developerontheg"
+    },
     {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
