@@ -1352,6 +1352,12 @@
       "bookmarkableId": "devspeaker",
       "name": "DevSpeaker",
       "rss":"https://devspeaker.pl/feed/"
+    },
+    {
+      "bookmarkableId": "effectivedev",
+      "name": "EffectiveDev - Łukasz Monkiewicz",
+      "rss": "https://effectivedev.pl/blog/feed",
+      "twitter": "@lmonkiewiczdev"
     }
   ]
 }
