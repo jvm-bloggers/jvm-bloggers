@@ -9,7 +9,7 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.6.2"
-        classpath "com.bmuschko:gradle-docker-plugin:6.7.0"
+        classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
 }
@@ -41,7 +41,7 @@ ext {
     wicketVersion = '9.10.0'
     akkaVersion = '2.5.7'
     scalaVersion = '2.11'
-    jacksonVersion = '2.35'
+    jacksonVersion = '2.36'
 }
 
 dependencies {
