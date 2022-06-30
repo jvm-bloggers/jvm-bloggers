@@ -43,8 +43,8 @@ logging.level.root: INFO
 logging.level.com.jvm_bloggers: INFO
 
 scheduler:
-  fetch-bloggers-data: 0 5/10 * * * *
-  fetch-rss-for-new-blogs: 0 30 * * * *
+  fetch-bloggers-data: 0 30 * * * *
+  fetch-rss-for-new-blogs: 0 0/10 * * * *
   publish-new-issue: 0 10 9 * * FRI
   send-email: 30000 # 30 seconds
   top-posts-in-month-summary: 0 0 13 12 * *
