@@ -1343,6 +1343,12 @@
       "twitter": "@zone84_tech"
     },
     {
+      "bookmarkableId": "szymon-sawicki",
+      "name": "Szymon's tech blog",
+      "rss": "https://szymonsawicki.net/feed",
+      "twitter": "@sz_sawicki"
+    },
+    {
       "bookmarkableId": "devspeaker",
       "name": "DevSpeaker",
       "rss":"https://devspeaker.pl/feed/"
