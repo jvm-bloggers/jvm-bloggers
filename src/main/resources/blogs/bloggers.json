@@ -1325,12 +1325,6 @@
       "twitter": "@Chlebosz"
     },
     {
-      "bookmarkableId": "michalik-tech",
-      "name": "Jarosław Michalik",
-      "rss": "https://michalik.tech/tag/techblog/rss/",
-      "twitter": "@rozkminia"
-    },
-    {
       "bookmarkableId": "pawel-stepniewski",
       "name": "Paweł Stępniewski",
       "rss": "https://stepniewski.tech/blog/index.xml",
@@ -1347,6 +1341,17 @@
       "name": "ZONE 84 - Tomasz Jędrzejewski",
       "rss": "https://zone84.tech/feed",
       "twitter": "@zone84_tech"
+    },
+    {
+      "bookmarkableId": "szymon-sawicki",
+      "name": "Szymon's tech blog",
+      "rss": "https://szymonsawicki.net/feed",
+      "twitter": "@sz_sawicki"
+    },
+    {
+      "bookmarkableId": "devspeaker",
+      "name": "DevSpeaker",
+      "rss":"https://devspeaker.pl/feed/"
     },
     {
       "bookmarkableId": "effectivedev",
