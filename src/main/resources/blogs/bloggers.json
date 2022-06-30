@@ -1,5 +1,11 @@
 {
   "bloggers": [
+     {
+      "bookmarkableId": "developeronthego",
+      "name": "Mariusz Czarny",
+      "rss": "https://developeronthego.pl/feed/",
+      "twitter": "@developerontheg"
+    },
     {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
@@ -1137,9 +1143,14 @@
       "twitter": "@owczarektomek"
     },
     {
-      "bookmarkableId": "dawid-kotarba",
+      "bookmarkableId": "unknown-exception",
       "name": "Dawid Kotarba",
       "rss": "https://unknownexception.eu/feed"
+    },
+    {
+      "bookmarkableId": "dawid-kotarba",
+      "name": "Dawid Kotarba",
+      "rss": "https://dawidkotarba.eu/feed"
     },
     {
       "bookmarkableId": "wprostychslowach",
@@ -1201,7 +1212,7 @@
     {
       "bookmarkableId": "konkit-tech",
       "name": "Łukasz Tenerowicz",
-      "rss": "https://konkit.tech/feed",
+      "rss": "https://konkit.tech/index.xml",
       "twitter": "@konkit"
     },
     {
@@ -1320,16 +1331,39 @@
       "twitter": "@Chlebosz"
     },
     {
-      "bookmarkableId": "michalik-tech",
-      "name": "Jarosław Michalik",
-      "rss": "https://michalik.tech/tag/techblog/rss/",
-      "twitter": "@rozkminia"
-    },
-    {
       "bookmarkableId": "pawel-stepniewski",
       "name": "Paweł Stępniewski",
       "rss": "https://stepniewski.tech/blog/index.xml",
       "twitter": "@psstepniewski"
+    },
+    {
+      "bookmarkableId": "akjaw",
+      "name": "Aleksander Jaworski",
+      "rss": "https://akjaw.com/rss/",
+      "twitter": "@akjaw1"
+    },
+    {
+      "bookmarkableId": "zone84-tech",
+      "name": "ZONE 84 - Tomasz Jędrzejewski",
+      "rss": "https://zone84.tech/feed",
+      "twitter": "@zone84_tech"
+    },
+    {
+      "bookmarkableId": "szymon-sawicki",
+      "name": "Szymon's tech blog",
+      "rss": "https://szymonsawicki.net/feed",
+      "twitter": "@sz_sawicki"
+    },
+    {
+      "bookmarkableId": "devspeaker",
+      "name": "DevSpeaker",
+      "rss":"https://devspeaker.pl/feed/"
+    },
+    {
+      "bookmarkableId": "effectivedev",
+      "name": "EffectiveDev - Łukasz Monkiewicz",
+      "rss": "https://effectivedev.pl/blog/feed",
+      "twitter": "@lmonkiewiczdev"
     }
   ]
 }

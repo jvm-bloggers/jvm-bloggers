@@ -208,15 +208,21 @@
       "rss": "https://blog.vived.io/tag/jvm/rss/"
     },
     {
-      "bookmarkableId": "viacomcbs",
-      "name": "ViacomCBS",
-      "rss": "http://viacom.tech/feed.xml"
+      "bookmarkableId": "paramount",
+      "name": "Paramount",
+      "rss": "https://paramount.tech/feed.xml"
     },
     {
       "bookmarkableId": "iterators",
       "name": "Iterators",
       "rss": "https://www.iteratorshq.com/feed",
       "twitter": "@iteratorshq"
+    },
+    {
+      "bookmarkableId": "glovo",
+      "name": "Glovo Engineering",
+      "rss": "https://medium.com/feed/glovo-engineering/",
+      "twitter": "@glovo"
     }
   ]
 }
