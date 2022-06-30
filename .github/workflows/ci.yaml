@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '12'
+          java-version: '17'
       - name: Check
         run: ./gradlew check
 
@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
-          java-version: '12'
+          java-version: '17'
       - name: Set up environment variables for Docker
         run: |
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV
