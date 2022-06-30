@@ -53,6 +53,7 @@ public class BlogPostsFetcher {
 
     private Void startFetchingProcess() {
         blogRepository.findAllActiveBlogs()
+                .shuffle()
                 .filter(Blog::isActive)
                 .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
 
