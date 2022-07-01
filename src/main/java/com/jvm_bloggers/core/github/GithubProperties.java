@@ -3,23 +3,24 @@ package com.jvm_bloggers.core.github;
 import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 @Data
-@Validated
+//@Validated
 @ConfigurationProperties("github.api")
 public class GithubProperties {
 
     private String token;
-    @NotNull
+//    @NonNull
     private String apiUrl;
-    @NotNull
+//    @NonNull
     private String org;
-    @NotNull
+//    @NonNull
     private String repo;
-    @NotNull
+//    @NonNull
     private String pageSize;
 
 }

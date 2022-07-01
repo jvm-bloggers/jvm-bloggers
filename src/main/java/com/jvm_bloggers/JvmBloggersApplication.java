@@ -46,6 +46,8 @@ public class JvmBloggersApplication extends WicketBootSecuredWebApplication {
         new AnnotatedMountScanner().scanPackage("com.jvm_bloggers").mount(this);
         getMarkupSettings().setStripWicketTags(true);
         WicketWebjars.install(this, new WebjarsSettings());
+
+        getCspSettings().blocking().disabled();
     }
 
     @Override

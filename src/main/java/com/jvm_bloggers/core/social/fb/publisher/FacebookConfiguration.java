@@ -5,18 +5,18 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 @Data
-@Validated
+//@Validated
 @ConfigurationProperties("facebook.api")
 public class FacebookConfiguration {
 
-    @NotNull
+//    @NonNull
     private String pageId;
-    @NotNull
+//    @NonNull
     private String appSecret;
-    @NotNull
+//    @NonNull
     private String userToken;
 
 }

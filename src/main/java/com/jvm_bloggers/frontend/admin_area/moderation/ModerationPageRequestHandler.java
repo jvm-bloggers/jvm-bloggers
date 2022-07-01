@@ -4,7 +4,6 @@ import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
 import com.jvm_bloggers.frontend.PaginationConfiguration;
 import com.jvm_bloggers.frontend.admin_area.blogs.BlogPostModel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -18,12 +17,16 @@ import java.util.Iterator;
 @Component
 @Slf4j
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class ModerationPageRequestHandler implements IDataProvider<BlogPost> {
 
     private BlogPostRepository blogPostRepository;
-
     private PaginationConfiguration paginationConfiguration;
+
+    @Autowired
+    public ModerationPageRequestHandler(BlogPostRepository blogPostRepository, PaginationConfiguration paginationConfiguration) {
+        this.blogPostRepository = blogPostRepository;
+        this.paginationConfiguration = paginationConfiguration;
+    }
 
     @Override
     public Iterator<? extends BlogPost> iterator(long first, long count) {

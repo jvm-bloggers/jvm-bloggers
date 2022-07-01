@@ -28,7 +28,7 @@ class ContributorsPageSpec extends MockSpringContextAwareSpecification {
         tester.startPage(ContributorsPage)
 
         then:
-        tester.assertListView(FIRST_LEVEL_CONTRIBUTORS_LIST_ID, contributors.toJavaList())
+        tester.assertModelValue(FIRST_LEVEL_CONTRIBUTORS_LIST_ID, contributors.toJavaList())
     }
 
 }

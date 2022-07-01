@@ -15,14 +15,12 @@ import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.DateTimeUtilities;
 import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.collection.List;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @NoArgsConstructor
-@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class MailingPageBackingBean {
 
     private CommandPublisher commandPublisher;
@@ -32,6 +30,24 @@ public class MailingPageBackingBean {
     private EmailsWithNewIssueProducer emailsWithNewIssueProducer;
     private MetadataQuery metadataQuery;
     private UnreadVariaSuggestionQuery unreadVariaSuggestionQuery;
+
+    @Autowired
+    public MailingPageBackingBean(
+            CommandPublisher commandPublisher,
+            NowProvider nowProvider,
+            IssueNumberRetriever issueNumberRetriever,
+            NewsletterIssueFactory newsletterIssueFactory,
+            EmailsWithNewIssueProducer emailsWithNewIssueProducer,
+            MetadataQuery metadataQuery,
+            UnreadVariaSuggestionQuery unreadVariaSuggestionQuery) {
+        this.commandPublisher = commandPublisher;
+        this.nowProvider = nowProvider;
+        this.issueNumberRetriever = issueNumberRetriever;
+        this.newsletterIssueFactory = newsletterIssueFactory;
+        this.emailsWithNewIssueProducer = emailsWithNewIssueProducer;
+        this.metadataQuery = metadataQuery;
+        this.unreadVariaSuggestionQuery = unreadVariaSuggestionQuery;
+    }
 
     public String sendTestEmail() {
         int daysSinceLastFriday = DateTimeUtilities.daysBetweenDateAndLastFriday(nowProvider.now());

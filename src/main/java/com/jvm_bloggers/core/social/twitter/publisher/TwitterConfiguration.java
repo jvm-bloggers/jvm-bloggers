@@ -5,24 +5,24 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 
 @Data
-@Validated
+//@Validated
 @ConfigurationProperties("twitter.api")
 public class TwitterConfiguration {
 
-    @NotNull
+//    @NonNull
     private String consumerKey;
-    @NotNull
+//    @NonNull
     private String consumerSecret;
-    @NotNull
+//    @NonNull
     private String accessToken;
-    @NotNull
+//    @NonNull
     private String accessTokenSecret;
-    @NotNull
+
     private int retryCount;
-    @NotNull
+
     private int retryIntervalSecs;
 
 }

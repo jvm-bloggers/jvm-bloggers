@@ -13,8 +13,6 @@ import com.jvm_bloggers.entities.metadata.MetadataRepository;
 import com.jvm_bloggers.entities.newsletter_issue.NewsletterIssue;
 import com.jvm_bloggers.utils.NowProvider;
 
-import lombok.AllArgsConstructor;
-
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor(onConstructor_ = {@Autowired})
 @NoArgsConstructor
 public class NewsletterIssueFactory {
 
@@ -34,6 +31,20 @@ public class NewsletterIssueFactory {
     private BlogRepository blogRepository;
     private BlogPostRepository blogPostRepository;
     private MetadataRepository metadataRepository;
+
+    @Autowired
+    public NewsletterIssueFactory(
+            IssueNumberRetriever issueNumberRetriever,
+            NowProvider nowProvider,
+            BlogRepository blogRepository,
+            BlogPostRepository blogPostRepository,
+            MetadataRepository metadataRepository) {
+        this.issueNumberRetriever = issueNumberRetriever;
+        this.nowProvider = nowProvider;
+        this.blogRepository = blogRepository;
+        this.blogPostRepository = blogPostRepository;
+        this.metadataRepository = metadataRepository;
+    }
 
     public NewsletterIssue create(int daysInThePastToIncludeInNewIssue, long issueNumber) {
 
