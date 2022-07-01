@@ -29,7 +29,7 @@ plugins {
 }
 
 group = 'com.jvm-bloggers'
-version = '2.1.0'
+version = '3.0.0'
 sourceCompatibility = '17'
 
 repositories {
@@ -143,9 +143,10 @@ docker {
     }
 
     springBootApplication {
-        baseImage = 'adoptopenjdk/openjdk17:alpine-jre'
+        baseImage = 'eclipse-temurin:17.0.3_7-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
+        jvmArgs = ['-Dwicket.ioc.useByteBuddy=true']
     }
 }
 
