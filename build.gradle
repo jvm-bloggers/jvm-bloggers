@@ -16,13 +16,13 @@ buildscript {
 
 plugins {
     id 'org.springframework.boot' version '2.6.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
     id 'groovy'
     id 'idea'
     id 'eclipse'
     id 'io.freefair.lombok' version '6.3.0'
-    id 'com.bmuschko.docker-spring-boot-application' version '6.1.2'
+    id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
     id 'jacoco'
     id "com.ofg.uptodate" version "1.6.3"
 
@@ -78,7 +78,7 @@ dependencies {
 
     implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.4'
     implementation 'org.webjars:jquery:3.6.0'
-    implementation 'org.webjars:webjars-locator:0.42'
+    implementation 'org.webjars:webjars-locator:0.43'
 
     implementation 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
     implementation 'org.webjars:html5shiv:3.7.3-1'
@@ -90,7 +90,7 @@ dependencies {
 
 
     // Utils and helpers
-    implementation 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.apache.commons:commons-text:1.9'
     implementation 'org.antlr:ST4:4.3.1'
@@ -100,9 +100,8 @@ dependencies {
     implementation 'net.jcip:jcip-annotations:1.0'
     implementation 'org.objenesis:objenesis:3.2'
     implementation 'commons-validator:commons-validator:1.7'
-//    implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'io.vavr:vavr:0.10.4'
-    implementation 'org.jsoup:jsoup:1.14.3'
+    implementation 'org.jsoup:jsoup:1.15.1'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
 
     // Database related
@@ -118,8 +117,8 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:2.1-M2-groovy-3.0'
     testImplementation 'org.springframework:spring-test'
     testImplementation 'com.jayway.jsonpath:json-path:2.6.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.9'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.9'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.10'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.10'
     testImplementation "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
     testRuntimeOnly 'com.h2database:h2'
 
