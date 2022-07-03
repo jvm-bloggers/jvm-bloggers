@@ -25,7 +25,6 @@ plugins {
     id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
     id 'jacoco'
     id "com.ofg.uptodate" version "1.6.3"
-
 }
 
 group = 'com.jvm-bloggers'
@@ -156,6 +155,7 @@ bootRun {
 
 test {
     systemProperty 'file.encoding', 'utf-8'
+    dependsOn 'validateBlogsData'
     useJUnitPlatform()
 }
 
@@ -188,7 +188,22 @@ idea {
     }
 }
 
+task validateBlogsData() {
+    def blogsDir = java.nio.file.Paths.get("${projectDir}", "src", "main", "resources", "blogs")
+    def schema = blogsDir.resolve("schema.json")
+
+    def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts']
+
+    blogsData.each { fileName ->
+        def taskName = 'validate' + fileName.capitalize()
+        def json = blogsDir.resolve("${fileName}.json")
+
+        tasks.create(taskName, com.jvm_bloggers.validation.BlogsDataValidationTask, schema, json)
+
+        dependsOn taskName
+    }
+}
+
 sourceSets.main.resources.srcDir 'src/main/java'
 
 apply plugin: 'application'
-//your code
