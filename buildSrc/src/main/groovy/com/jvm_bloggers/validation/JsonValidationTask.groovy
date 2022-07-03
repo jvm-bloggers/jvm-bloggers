@@ -9,7 +9,7 @@ import org.gradle.api.tasks.TaskAction
 import javax.inject.Inject
 import java.nio.file.Path
 
-abstract class BlogsDataValidationTask extends DefaultTask {
+abstract class JsonValidationTask extends DefaultTask {
 
     private static final ObjectMapper mapper = new ObjectMapper()
     private static final JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4)
@@ -18,7 +18,7 @@ abstract class BlogsDataValidationTask extends DefaultTask {
     private final Path jsonFile
 
     @Inject
-    BlogsDataValidationTask(final Path schemaFile, final Path jsonFile) {
+    JsonValidationTask(final Path schemaFile, final Path jsonFile) {
         this.schemaFile = schemaFile
         this.jsonFile = jsonFile
     }

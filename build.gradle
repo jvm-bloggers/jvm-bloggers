@@ -198,7 +198,7 @@ task validateBlogsData() {
         def taskName = 'validate' + fileName.capitalize()
         def json = blogsDir.resolve("${fileName}.json")
 
-        tasks.create(taskName, com.jvm_bloggers.validation.BlogsDataValidationTask, schema, json)
+        tasks.create(taskName, com.jvm_bloggers.validation.JsonValidationTask, schema, json)
 
         dependsOn taskName
     }
