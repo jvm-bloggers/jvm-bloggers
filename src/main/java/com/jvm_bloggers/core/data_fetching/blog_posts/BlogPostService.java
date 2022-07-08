@@ -1,7 +1,6 @@
 package com.jvm_bloggers.core.data_fetching.blog_posts;
 
 
-import static com.google.common.base.MoreObjects.firstNonNull;
 import static com.jvm_bloggers.core.utils.Validators.isUrlValid;
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
@@ -14,6 +13,7 @@ import com.rometools.rome.feed.synd.SyndCategory;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import io.vavr.control.Option;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -38,6 +38,10 @@ public class BlogPostService {
 
     @Transactional
     public Option<BlogPost> addOrUpdate(RssEntryWithAuthor rssEntry) {
+        log.info("Attempting to store post {} by {}",
+                rssEntry.getRssEntry().getTitle(),
+                rssEntry.getRssEntry().getAuthor()
+        );
         String blogPostLink = rssEntry.getRssEntry().getLink();
 
         if (isUrlValid(blogPostLink)) {
@@ -47,6 +51,7 @@ public class BlogPostService {
             updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
             updateTags(blogPost, rssEntry.getRssEntry());
             blogPostRepository.save(blogPost);
+            log.info("-- storing of `{}` done", rssEntry.getRssEntry().getTitle());
             return Option.of(blogPost);
         } else {
             log.warn(
@@ -65,14 +70,27 @@ public class BlogPostService {
 
     private BlogPost createBlogPost(RssEntryWithAuthor rssEntry) {
         SyndEntry postInRss = rssEntry.getRssEntry();
-        Date dateToStore = firstNonNull(postInRss.getPublishedDate(), postInRss.getUpdatedDate());
         log.info("Creating new post '{}' by {}", postInRss.getTitle(),
                 rssEntry.getBlog().getAuthor());
+        Date dateToStore = getPublishedDate(postInRss);
         return blogPostFactory.create(
                 postInRss.getTitle(),
                 postInRss.getLink(),
                 DateTimeUtilities.toLocalDateTime(dateToStore),
                 rssEntry.getBlog());
+    }
+
+    private Date getPublishedDate(SyndEntry postInRss) {
+        if (postInRss.getPublishedDate() != null) {
+            return postInRss.getPublishedDate();
+        } else if (postInRss.getUpdatedDate() != null) {
+            return postInRss.getUpdatedDate();
+        } else {
+            log.warn("Null published/updated dates for {} by {}, falling back to 01-01-1980",
+                    postInRss.getTitle(),
+                    postInRss.getAuthor());
+            return DateTimeUtilities.toDate(LocalDate.of(1980, 1, 1));
+        }
     }
 
     private void updateDescription(BlogPost blogPost, SyndContent descriptionContent) {
