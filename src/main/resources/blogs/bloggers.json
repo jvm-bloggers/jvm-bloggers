@@ -190,12 +190,6 @@
       "rss": "http://blog.dragonia.org.pl/feeds/posts/default"
     },
     {
-      "bookmarkableId": "przemyslaw-bielicki",
-      "name": "Przemysław Bielicki",
-      "rss": "http://blog.bielu.com/feeds/posts/default",
-      "twitter": "@pbielicki"
-    },
-    {
       "bookmarkableId": "sebastian-malaca",
       "name": "Sebastian Malaca",
       "rss": "http://letstalkaboutjava.blogspot.com/feeds/posts/default",
@@ -277,12 +271,6 @@
       "rss": "http://blog.piotrturski.net/feeds/posts/default"
     },
     {
-      "bookmarkableId": "krzysztof-siejkowski",
-      "name": "Krzysztof Siejkowski",
-      "rss": "http://culturalcoder.com/rss",
-      "twitter": "@_siejkowski"
-    },
-    {
       "bookmarkableId": "jaroslaw-palka",
       "name": "Jarosław Pałka",
       "rss": "https://geekyprimitives.com/feed/",
@@ -293,12 +281,6 @@
       "name": "Dariusz Stefański",
       "rss": "http://dst.github.io/feed",
       "twitter": "@dastefanski"
-    },
-    {
-      "bookmarkableId": "piotr-dyraga",
-      "name": "Piotr Dyraga",
-      "rss": "http://www.ontheserverside.com/atom.xml",
-      "twitter": "@piotrdyraga"
     },
     {
       "bookmarkableId": "tomek-borek",
@@ -608,12 +590,6 @@
       "twitter": "@prondzyn"
     },
     {
-      "bookmarkableId": "piotr-jarzemski",
-      "name": "Piotr Jarzemski",
-      "rss": "http://kazuhiro.github.io/feed.xml",
-      "twitter": "@kh1ramatsu"
-    },
-    {
       "bookmarkableId": "michal-gellert",
       "name": "Michał Gellert",
       "rss": "http://www.michalgellert.pl/feed/",
@@ -636,12 +612,6 @@
       "name": "Jakub Spręga",
       "rss": "http://cslysy.github.io/feed.xml",
       "twitter": "@cslysy"
-    },
-    {
-      "bookmarkableId": "piotr-jagielski",
-      "name": "Piotr Jagielski",
-      "rss": "http://overtone-recipes.github.io/feed.xml",
-      "twitter": "@pjagielski"
     },
     {
       "bookmarkableId": "krzysztof-goralski",
@@ -758,17 +728,6 @@
       "bookmarkableId": "lodz-jug-blog",
       "name": "JUG Łódź",
       "rss": "http://blog.juglodz.pl/feeds/posts/default"
-    },
-    {
-      "bookmarkableId": "pawel-barszcz",
-      "name": "Paweł Barszcz",
-      "rss": "https://timbercode.pl/blog/tag/jvm-bloggers/feed.xml",
-      "twitter": "@nkoder"
-    },
-    {
-      "bookmarkableId": "sprawny-programista",
-      "name": "Sprawny Programista",
-      "rss": "http://sprawnyprogramista.pl/feed/"
     },
     {
       "bookmarkableId": "bartlomiej-slota",
@@ -898,29 +857,11 @@
       "twitter": "@e4developer"
     },
     {
-      "bookmarkableId": "lukasz-sroczynski-pl",
-      "name": "Łukasz Sroczyński",
-      "rss": "http://www.braintelligence.pl/pl/feed/",
-      "twitter": "@LukSroczynski"
-    },
-    {
-      "bookmarkableId": "lukasz-sroczynski-en",
-      "name": "Łukasz Sroczyński",
-      "rss": "http://www.braintelligence.pl/en/feed/",
-      "twitter": "@LukSroczynski"
-    },
-    {
       "bookmarkableId": "lukasz-sroczynski",
       "name": "Łukasz Sroczyński",
       "rss": "http://www.braintelligence.pl/feed/",
       "twitter": "@LukSroczynski"
-    },
-    {
-      "bookmarkableId": "kubrynski",
-      "name": "Jakub Kubryński",
-      "rss": "https://kubrynski.blog/feed/",
-      "twitter": "@jkubrynski"
-    },
+    }
     {
       "bookmarkableId": "krzysztof-otrebski",
       "name": "Krzysztof Otrebski",
@@ -949,11 +890,6 @@
       "name": "Maciej Maciejowski",
       "rss": "https://myenv.net/feed/",
       "twitter": "@mmaciejow"
-    },
-    {
-      "bookmarkableId": "szatkus",
-      "name": "Tomasz Szatkowski",
-      "rss": "https://blog.szatkus.pl/rss/"
     },
     {
       "bookmarkableId": "jdyszkiewicz",
@@ -1143,11 +1079,6 @@
       "twitter": "@owczarektomek"
     },
     {
-      "bookmarkableId": "unknown-exception",
-      "name": "Dawid Kotarba",
-      "rss": "https://unknownexception.eu/feed"
-    },
-    {
       "bookmarkableId": "dawid-kotarba",
       "name": "Dawid Kotarba",
       "rss": "https://dawidkotarba.eu/feed"
@@ -1156,12 +1087,6 @@
       "bookmarkableId": "wprostychslowach",
       "name": "W prostych słowach",
       "rss": "https://wprostychslowach.pl/feed/"
-    },
-    {
-      "bookmarkableId": "bartosz-gajda",
-      "name": "Bartosz Gajda",
-      "rss": "https://bartoszgajda.com/feed/",
-      "twitter": "@bartoszgajda55"
     },
     {
       "bookmarkableId": "peterdev",

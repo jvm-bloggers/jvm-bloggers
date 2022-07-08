@@ -13,12 +13,6 @@
       "twitter": "@touk_pl"
     },
     {
-      "bookmarkableId": "goyello",
-      "name": "Goyello",
-      "rss": "http://blog.goyello.com/pl/feed/",
-      "twitter": "@goyello"
-    },
-    {
       "bookmarkableId": "pragmatists",
       "name": "Pragmatists",
       "rss": "https://blog.pragmatists.com/feed/",
@@ -33,7 +27,7 @@
     {
       "bookmarkableId": "scalac",
       "name": "ScalaC",
-      "rss": "http://blog.scalac.io/feeds/index.xml",
+      "rss": "https://scalac.io/blog/feed/",
       "twitter": "@scalac_io"
     },
     {
@@ -45,7 +39,7 @@
     {
       "bookmarkableId": "pragmatic-coders",
       "name": "Pragmatic Coders",
-      "rss": "https://pragmaticcoders.com/blog/feed/",
+      "rss": "https://www.pragmaticcoders.com/blog/rss.xml",
       "twitter": "@pragmaticcoders"
     },
     {
@@ -135,7 +129,7 @@
     {
       "bookmarkableId": "inspeerity",
       "name": "Inspeerity",
-      "rss": "https://blog.inspeerity.com/feed.xml",
+      "rss": "https://blog.inspeerity.com/feed",
       "twitter": "@inspeerity"
     },
     {
