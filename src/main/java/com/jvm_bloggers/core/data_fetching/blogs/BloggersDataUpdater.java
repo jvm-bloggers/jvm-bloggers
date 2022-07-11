@@ -88,6 +88,7 @@ public class BloggersDataUpdater {
             .moderationRequired(isModerationRequired(bloggerEntry))
             .build();
         blogRepository.save(newBlog);
+        log.info("Added new blog: {} | {} | {}", newBlog.getAuthor(), newBlog.getBookmarkableId(), newBlog.getUrl());
         return UpdateStatus.CREATED;
     }
 
