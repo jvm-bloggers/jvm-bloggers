@@ -11,6 +11,7 @@ import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +51,7 @@ public class SyndFeedProducer {
     }
 
     public Option<String> validUrlFromRss(String rss) {
-        Option<String> url = createFor(rss).map(SyndFeed::getLink);
+        Option<String> url = createFor(rss).map(SyndFeed::getLink).map(StringUtils::trim);
         return url.filter(Validators::isUrlValid);
     }
 
