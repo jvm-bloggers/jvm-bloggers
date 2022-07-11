@@ -38,10 +38,6 @@ public class BlogPostService {
 
     @Transactional
     public Option<BlogPost> addOrUpdate(RssEntryWithAuthor rssEntry) {
-        log.info("Attempting to store post {} by {}",
-                rssEntry.getRssEntry().getTitle(),
-                rssEntry.getRssEntry().getAuthor()
-        );
         String blogPostLink = rssEntry.getRssEntry().getLink();
 
         if (isUrlValid(blogPostLink)) {
@@ -51,7 +47,12 @@ public class BlogPostService {
             updateDescription(blogPost, rssEntry.getRssEntry().getDescription());
             updateTags(blogPost, rssEntry.getRssEntry());
             blogPostRepository.save(blogPost);
-            log.info("-- storing of `{}` done", rssEntry.getRssEntry().getTitle());
+            if (blogPost.getId() == null) {
+                log.info("Storing done: `{}` by {}",
+                        rssEntry.getRssEntry().getTitle(),
+                        rssEntry.getRssEntry().getAuthor()
+                );
+            }
             return Option.of(blogPost);
         } else {
             log.warn(
