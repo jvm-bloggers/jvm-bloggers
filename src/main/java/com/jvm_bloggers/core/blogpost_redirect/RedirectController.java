@@ -1,18 +1,13 @@
 package com.jvm_bloggers.core.blogpost_redirect;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.routing.RoundRobinPool;
 import com.google.common.base.Stopwatch;
-import com.jvm_bloggers.core.blogpost_redirect.click_counter.ClicksStoringActor;
+import com.jvm_bloggers.core.blogpost_redirect.click_counter.ClickStoringService;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick.Referer;
 import com.jvm_bloggers.core.blogpost_redirect.click_counter.SingleClick.UserAgent;
 import com.jvm_bloggers.core.utils.UriUtmComponentsBuilder;
 import com.jvm_bloggers.entities.blog_post.BlogPost;
 import com.jvm_bloggers.entities.blog_post.BlogPostRepository;
-import com.jvm_bloggers.entities.click.ClickRepository;
-import com.jvm_bloggers.utils.NowProvider;
 import io.vavr.control.Option;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +22,6 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static akka.actor.ActorRef.noSender;
-
 @RestController
 @RequestMapping(path = RedirectController.REDIRECT_URL_PATH)
 @Slf4j
@@ -40,20 +33,15 @@ public class RedirectController {
 
     private final BlogPostRepository blogPostRepository;
     private final String applicationBaseUrl;
-    private final ActorRef actorRef;
+    private final ClickStoringService clickStoringService;
 
     @Autowired
     public RedirectController(BlogPostRepository blogPostRepository,
-                              ClickRepository clickRepository,
-                              ActorSystem actorSystem,
-                              @Value("${application.baseUrl}") String applicationBaseUrl,
-                              NowProvider nowProvider) {
+                              ClickStoringService clickStoringService,
+                              @Value("${application.baseUrl}") String applicationBaseUrl) {
         this.blogPostRepository = blogPostRepository;
+        this.clickStoringService = clickStoringService;
         this.applicationBaseUrl = applicationBaseUrl;
-        this.actorRef = actorSystem.actorOf(
-            new RoundRobinPool(3).props(ClicksStoringActor.props(clickRepository, nowProvider)),
-            "clicksStoringActor"
-        );
     }
 
     @GetMapping(value = "/{uid}")
@@ -65,7 +53,7 @@ public class RedirectController {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Option<BlogPost> blogPost = blogPostRepository.findByUid(uid);
         if (blogPost.isDefined()) {
-            actorRef.tell(buildSingleClick(blogPost.get(), request), noSender());
+            clickStoringService.persistClick(buildSingleClick(blogPost.get(), request));
             redirectToBlogPost(response, blogPost.get());
             long executionTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
             if (executionTime > MAX_ALLOWED_EXECUTION_TIME_IN_MILLIS) {
