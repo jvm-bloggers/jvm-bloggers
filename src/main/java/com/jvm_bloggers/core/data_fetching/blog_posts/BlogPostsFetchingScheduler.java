@@ -15,7 +15,7 @@ public class BlogPostsFetchingScheduler {
 
     @Scheduled(cron = "${scheduler.fetch-rss-for-new-blogs}")
     public void checkRssForNewBlogPosts() {
-        log.info("Starting scheduler: fetching blog posts");
+        log.info("Starting scheduler: fetching new blog posts");
         blogPostsFetcher.refreshPosts();
     }
 }

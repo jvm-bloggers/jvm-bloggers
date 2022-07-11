@@ -39,7 +39,6 @@ repositories {
 
 ext {
     wicketVersion = '9.10.0'
-    akkaVersion = '2.5.7'
     scalaVersion = '2.11'
     jacksonVersion = '2.36'
 }
@@ -54,8 +53,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools'
 
     // Logic
-    implementation "com.typesafe.akka:akka-actor_$scalaVersion:$akkaVersion"
-    implementation "com.typesafe.akka:akka-slf4j_$scalaVersion:$akkaVersion"
     implementation 'com.rometools:rome:1.18.0'
 
     // Facebook
@@ -119,7 +116,6 @@ dependencies {
     testImplementation 'com.jayway.jsonpath:json-path:2.6.0'
     testImplementation 'org.codehaus.groovy:groovy:3.0.10'
     testImplementation 'org.codehaus.groovy:groovy-json:3.0.10'
-    testImplementation "com.typesafe.akka:akka-testkit_$scalaVersion:$akkaVersion"
     testRuntimeOnly 'com.h2database:h2'
 
 }
