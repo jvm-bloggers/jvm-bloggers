@@ -22,6 +22,7 @@ class ValidatorsSpec extends Specification {
         "https://softwaremill.com/2015-in-numbers/"                                    || true
         "http://overtone-recipes.github.io//remake/2016/04/03/recreating-da-funk.html" || true
         "https://softwaremill.com//2015-in-numbers/"                                   || true
+        "\n https://blog.kubukoz.com"                                                  || true
         "ftp://some-ftp-server.com"                                                    || false
         "//relative-address.pl/some-blog-post"                                         || false
         ""                                                                             || false
