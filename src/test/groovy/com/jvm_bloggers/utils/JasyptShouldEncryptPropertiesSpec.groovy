@@ -34,6 +34,7 @@ class JasyptShouldEncryptPropertiesSpec extends SpringContextAwareSpecification 
                 Encrypting...
                     original text = $textToEncrypt
                     encrypted text = $encrypted
+                    decryptedText text = $decryptedText
                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                 """
         then:
