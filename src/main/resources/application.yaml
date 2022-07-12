@@ -13,6 +13,11 @@ spring:
       directory_provider: filesystem
       indexBase: ${user.home}/.jvm-bloggers/lucene
 
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
 # Wicket configuration
 wicket:
   core:
