@@ -1,11 +1,6 @@
 package com.jvm_bloggers.core.data_fetching.blog_posts;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.routing.RoundRobinPool;
 import com.jvm_bloggers.core.data_fetching.blogs.PreventConcurrentExecutionSafeguard;
-import com.jvm_bloggers.core.rss.SyndFeedProducer;
-import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.blog.BlogRepository;
 import com.jvm_bloggers.entities.metadata.Metadata;
 import com.jvm_bloggers.entities.metadata.MetadataKeys;
@@ -21,25 +16,21 @@ import org.springframework.stereotype.Component;
 public class BlogPostsFetcher {
 
     private BlogRepository blogRepository;
-    private ActorRef rssCheckingActor;
     private MetadataRepository metadataRepository;
+    private SingleRssChecker singleRssChecker;
     private NowProvider nowProvider;
-    private PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard
-            = new PreventConcurrentExecutionSafeguard();
+    private PreventConcurrentExecutionSafeguard concurrentExecutionSafeguard;
 
     @Autowired
-    public BlogPostsFetcher(ActorSystem actorSystem, BlogRepository blogRepository,
-            BlogPostService blogPostService,
-            SyndFeedProducer syndFeedFactory,
+    public BlogPostsFetcher(BlogRepository blogRepository,
             MetadataRepository metadataRepository,
+            SingleRssChecker singleRssChecker,
             NowProvider nowProvider) {
         this.blogRepository = blogRepository;
-        final ActorRef blogPostStoringActor = actorSystem
-                .actorOf(NewBlogPostStoringActor.props(blogPostService));
-        rssCheckingActor = actorSystem.actorOf(new RoundRobinPool(10)
-                .props(RssCheckingActor.props(blogPostStoringActor, syndFeedFactory)), "rss-checkers");
+        this.singleRssChecker = singleRssChecker;
         this.metadataRepository = metadataRepository;
         this.nowProvider = nowProvider;
+        concurrentExecutionSafeguard = new PreventConcurrentExecutionSafeguard();
     }
 
     void refreshPosts() {
@@ -54,8 +45,9 @@ public class BlogPostsFetcher {
     private Void startFetchingProcess() {
         blogRepository.findAllActiveBlogs()
                 .shuffle()
-                .filter(Blog::isActive)
-                .forEach(person -> rssCheckingActor.tell(new RssLink(person), ActorRef.noSender()));
+                .forEach(
+                        person -> singleRssChecker.checkForNewEntries(person)
+                );
 
         final Metadata dateOfLastFetch = metadataRepository
                 .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOG_POSTS);

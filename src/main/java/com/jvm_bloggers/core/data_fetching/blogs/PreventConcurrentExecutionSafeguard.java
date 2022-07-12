@@ -15,12 +15,13 @@ public class PreventConcurrentExecutionSafeguard {
     public void preventConcurrentExecution(Callable<Void> task) {
         try {
             if (isExecuting.compareAndSet(false, true)) {
-                log.debug("About to execute task {} in thread {}", task, Thread.currentThread());
+                log.info("About to execute task {} in thread {}", task, Thread.currentThread());
                 task.call();
             } else {
                 log.info("The {} is being executed by another thread. Skipping...", task);
             }
         } finally {
+            log.info("Finished executing/skipping {} in thread {}", task, Thread.currentThread());
             isExecuting.set(false);
         }
     }

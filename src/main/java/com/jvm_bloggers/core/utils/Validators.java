@@ -13,7 +13,7 @@ public class Validators {
 
     public static boolean isUrlValid(String url) {
 
-        boolean isValid = URL_VALIDATOR.isValid(url);
+        boolean isValid = URL_VALIDATOR.isValid(org.apache.commons.lang3.StringUtils.trim(url));
 
         // maybe it is the problem with 2nd '//' in address e.g. http://example.com//something
         if (!isValid && oneNotNeededDoubleSlashIsPresent(url)) {

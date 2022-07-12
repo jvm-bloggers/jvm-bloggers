@@ -1,7 +1,5 @@
 package com.jvm_bloggers;
 
-import akka.actor.ActorSystem;
-
 import com.jvm_bloggers.core.github.GithubAuthenticationFilter;
 import com.jvm_bloggers.core.github.GithubProperties;
 import com.jvm_bloggers.core.social.fb.publisher.FacebookConfiguration;
@@ -25,11 +23,6 @@ import javax.ws.rs.client.ClientBuilder;
 @EnableConfigurationProperties(
     {GithubProperties.class, FacebookConfiguration.class, TwitterConfiguration.class})
 public class JvmBloggersConfiguration {
-
-    @Bean
-    public ActorSystem getActorSystem() {
-        return ActorSystem.create("jvm-bloggers-akka");
-    }
 
     @Bean
     @MailingClient

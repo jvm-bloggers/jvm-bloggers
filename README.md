@@ -52,7 +52,7 @@ __Planned__
 
 ## Technical details
 
-* Application is written using Java 12, Spring Boot, Liquibase, Akka, and JPA, running on the PostgreSQL database. It's currently running on a server hosted by the one and only [SoftwareMill](http://SoftwareMill.com).
+* Application is written using Java 17, Spring Boot, Liquibase, and JPA, running on the PostgreSQL database. It's currently running on a GCP thanks to [SoftwareMill](http://SoftwareMill.com).
 
 * To import the project into your IDE execute `./gradlew eclipse` or `./gradlew idea` first (depending on your IDE) to generate project files and import them into IDE.
 
