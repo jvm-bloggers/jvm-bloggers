@@ -34,11 +34,16 @@ public class BloggersDataUpdater {
 
     private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
         log.info("Parsing blogger entry {}", bloggerEntry.getBookmarkableId());
-        return blogRepository
-            .findByBookmarkableId(bloggerEntry.getBookmarkableId())
-            .map(bloggerWithSameId ->
-                updateBloggerIfThereAreAnyChanges(bloggerEntry, bloggerWithSameId))
-            .getOrElse(() -> createNewBlogger(bloggerEntry));
+        try {
+            return blogRepository
+                    .findByBookmarkableId(bloggerEntry.getBookmarkableId())
+                    .map(bloggerWithSameId ->
+                            updateBloggerIfThereAreAnyChanges(bloggerEntry, bloggerWithSameId))
+                    .getOrElse(() -> createNewBlogger(bloggerEntry));
+        } catch (Exception ex) {
+            log.warn("Problem when parsing blogger entry " + bloggerEntry.getBookmarkableId(), ex);
+            return UpdateStatus.INVALID;
+        }
     }
 
     private UpdateStatus updateBloggerIfThereAreAnyChanges(BloggerEntry bloggerEntry,
