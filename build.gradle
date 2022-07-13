@@ -109,12 +109,12 @@ dependencies {
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.spockframework:spock-core:2.1-M2-groovy-3.0'
-    testImplementation 'org.spockframework:spock-spring:2.1-M2-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
     testImplementation 'org.springframework:spring-test'
-    testImplementation 'com.jayway.jsonpath:json-path:2.6.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.10'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.10'
+    testImplementation 'com.jayway.jsonpath:json-path:2.7.0'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.11'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.11'
     testRuntimeOnly 'com.h2database:h2'
 
 }
