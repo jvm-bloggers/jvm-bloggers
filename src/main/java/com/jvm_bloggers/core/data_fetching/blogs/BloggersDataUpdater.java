@@ -33,6 +33,7 @@ public class BloggersDataUpdater {
     }
 
     private UpdateStatus updateSingleEntry(BloggerEntry bloggerEntry) {
+        log.info("Parsing blogger entry {}", bloggerEntry.getBookmarkableId());
         return blogRepository
             .findByBookmarkableId(bloggerEntry.getBookmarkableId())
             .map(bloggerWithSameId ->
