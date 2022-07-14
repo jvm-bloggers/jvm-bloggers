@@ -1,0 +1,32 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'groovy'
+    id 'idea'
+    id 'eclipse'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation 'com.networknt:json-schema-validator:1.0.71'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+
+    testImplementation 'org.spockframework:spock-core:2.1-M2-groovy-3.0'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.10'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.10'
+}
+
+test {
+    systemProperty 'file.encoding', 'utf-8'
+    useJUnitPlatform()
+}
