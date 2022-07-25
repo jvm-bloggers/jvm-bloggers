@@ -96,7 +96,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 findByApprovedTrueAndBlogAuthorNotInOrderByApprovedDateDesc(PAGEABLE, excludedAuthors)
 
         then:
-        filteredPosts.size == expectedPostsCount
+        filteredPosts.size() == expectedPostsCount
 
         where:
         excludedAuthors                || expectedPostsCount

@@ -43,10 +43,10 @@ class BloggersDataFetcherSpec extends Specification {
         fetcher.refreshData()
 
         then:
-        1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
-        1 * bloggersDataUpdater.updateData({ it.bloggers.size == 2 })
-        1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
-        1 * bloggersDataUpdater.updateData({ it.bloggers.size == 1 })
+        1 * bloggersDataUpdater.updateData({ it.bloggers.size() == 1 })
+        1 * bloggersDataUpdater.updateData({ it.bloggers.size() == 2 })
+        1 * bloggersDataUpdater.updateData({ it.bloggers.size() == 1 })
+        1 * bloggersDataUpdater.updateData({ it.bloggers.size() == 1 })
     }
 
 }
