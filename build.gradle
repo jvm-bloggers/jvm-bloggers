@@ -8,14 +8,14 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.6.9"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.6.10"
         classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.6.9'
+    id 'org.springframework.boot' version '2.6.10'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
     id 'groovy'
