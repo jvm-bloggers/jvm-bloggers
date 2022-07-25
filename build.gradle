@@ -21,7 +21,7 @@ plugins {
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.0.2'
+    id 'io.freefair.lombok' version '6.5.0.3'
     id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
     id 'jacoco'
     id "com.ofg.uptodate" version "1.6.3"
@@ -71,7 +71,7 @@ dependencies {
     implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:9.8.1"
     implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:9.8.1"
 
-    implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.4'
+    implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.6'
     implementation 'org.webjars:jquery:3.6.0'
     implementation 'org.webjars:webjars-locator:0.43'
 
@@ -96,7 +96,7 @@ dependencies {
     implementation 'org.objenesis:objenesis:3.2'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'io.vavr:vavr:0.10.4'
-    implementation 'org.jsoup:jsoup:1.15.1'
+    implementation 'org.jsoup:jsoup:1.15.2'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
 
     // Database related
