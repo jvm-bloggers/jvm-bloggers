@@ -2,7 +2,7 @@ package com.jvm_bloggers.frontend.public_area.social_meta_data;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
 
-import static org.apache.wicket.markup.head.MetaDataHeaderItem.forMetaTag;
+import static com.jvm_bloggers.utils.WicketUtilities.forMetaTag;
 
 public class SocialMetaDataHeadRenderer {
 
