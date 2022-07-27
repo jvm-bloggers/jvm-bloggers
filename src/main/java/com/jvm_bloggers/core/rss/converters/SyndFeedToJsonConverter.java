@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.jvm_bloggers.core.rss.AggregatedRssFeedProducer.SELF_REL;
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.AUTHOR;
@@ -29,6 +28,7 @@ import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJs
 import static com.jvm_bloggers.core.rss.converters.SyndFeedToJsonConverter.RssJsonKey.TITLE;
 import static com.jvm_bloggers.utils.DateTimeUtilities.DATE_TIME_FORMATTER;
 import static com.jvm_bloggers.utils.ZoneTimeProvider.DEFAULT_ZONE;
+
 
 @Component
 @Slf4j
@@ -53,7 +53,7 @@ class SyndFeedToJsonConverter {
     private static List<JSONObject> toJson(List<SyndEntry> entries) {
         return entries.stream()
             .map(SyndFeedToJsonConverter::toJson)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     private static JSONObject toJson(SyndEntry entry) {
