@@ -16,7 +16,7 @@ class SyndFeedProducerSpec extends Specification {
     private RssFetcher lastFallbackFetcher = Mock()
     private SyndFeed syndFeed = Mock()
 
-    SyndFeedProducer feedProducer = new SyndFeedProducer(Arrays.asList(primaryFetcher, fallbackFetcher, lastFallbackFetcher))
+    SyndFeedProducer feedProducer = new SyndFeedProducer([primaryFetcher, fallbackFetcher, lastFallbackFetcher])
     private Try<SyndFeed> failure = Try.failure(new RuntimeException())
 
     def "Should fetch through primary fetcher"() {
