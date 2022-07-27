@@ -55,11 +55,11 @@ class TweetProducerSpec extends Specification {
     }
 
     private Collection<BlogPost> posts() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal2", PERSONAL)))
-        posts.add(blogPost(blog("@company1", COMPANY)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal2", PERSONAL)),
+                blogPost(blog("@company1", COMPANY))
+        ]
     }
 
     private BlogPost blogPost(Blog blog) {

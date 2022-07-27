@@ -221,62 +221,62 @@ class TweetContentGeneratorSpec extends Specification {
     }
 
     private Collection<BlogPost> notAllHavingTwitterHandlePosts() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@company1", COMPANY)))
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog(PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@company1", COMPANY)),
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog(PERSONAL))
+        ]
     }
 
     private Collection<BlogPost> noCompanyPosts() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal2", PERSONAL)))
-        posts.add(blogPost(blog("@personal3", PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal2", PERSONAL)),
+                blogPost(blog("@personal3", PERSONAL))
+        ]
     }
 
     private Collection<BlogPost> singlePersonalPost() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@company1", COMPANY)))
-        posts.add(blogPost(blog("@company2", COMPANY)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@company1", COMPANY)),
+                blogPost(blog("@company2", COMPANY))
+        ]
     }
 
     private Collection<BlogPost> posts() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal2", PERSONAL)))
-        posts.add(blogPost(blog("@company1", COMPANY)))
-        posts.add(blogPost(blog("@company2", COMPANY)))
-        posts.add(blogPost(blog("@personal3", PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal2", PERSONAL)),
+                blogPost(blog("@company1", COMPANY)),
+                blogPost(blog("@company2", COMPANY)),
+                blogPost(blog("@personal3", PERSONAL))
+        ]
     }
 
     private Collection<BlogPost> postsWithLongHandles() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@veryLongPersonalHandle1", PERSONAL)))
-        posts.add(blogPost(blog("@veryLongPersonalHandle2", PERSONAL)))
-        posts.add(blogPost(blog("@veryLongCompanyHandle1", COMPANY)))
-        posts.add(blogPost(blog("@veryLongCompanyHandle2", COMPANY)))
-        posts.add(blogPost(blog("@veryLongPersonalHandle3", PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@veryLongPersonalHandle1", PERSONAL)),
+                blogPost(blog("@veryLongPersonalHandle2", PERSONAL)),
+                blogPost(blog("@veryLongCompanyHandle1", COMPANY)),
+                blogPost(blog("@veryLongCompanyHandle2", COMPANY)),
+                blogPost(blog("@veryLongPersonalHandle3", PERSONAL))
+        ]
     }
 
     private Collection<BlogPost> twoDistinctPersonalTwitterHandlesWithOneDuplication() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal2", PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal2", PERSONAL))
+        ]
     }
 
     private Collection<BlogPost> onlyOneDistinctPersonalTwitterHandle() {
-        List<BlogPost> posts = new ArrayList<>()
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        posts.add(blogPost(blog("@personal1", PERSONAL)))
-        return posts
+        [
+                blogPost(blog("@personal1", PERSONAL)),
+                blogPost(blog("@personal1", PERSONAL))
+        ]
     }
 
     private BlogPost blogPost(Blog blog) {
