@@ -70,8 +70,7 @@ public class HttpRssFetcherWithoutSslVerification implements RssFetcher {
 
     private void configureHttpsConnectionToTrustAnyone(URLConnection urlConnection)
         throws NoSuchAlgorithmException, KeyManagementException {
-        if (urlConnection instanceof HttpsURLConnection) {
-            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlConnection;
+        if (urlConnection instanceof HttpsURLConnection httpsConnection) {
 
             TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {

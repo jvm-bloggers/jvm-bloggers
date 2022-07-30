@@ -48,9 +48,9 @@ public class InfinitePaginationPanel extends Panel {
     protected void onConfigure() {
         super.onConfigure();
         for (Behavior behavior : pager.get("next").getBehaviors()) {
-            if (behavior instanceof AjaxPagingNavigationBehavior) {
-                callbackUrl.setObject(((AjaxPagingNavigationBehavior) behavior)
-                    .getCallbackUrl().toString());
+            if (behavior instanceof AjaxPagingNavigationBehavior ajaxPagingNavigation) {
+                callbackUrl.setObject(
+                        ajaxPagingNavigation.getCallbackUrl().toString());
                 break;
             }
         }

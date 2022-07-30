@@ -40,7 +40,7 @@ class ContributorsServiceSpec extends Specification {
         Response response = Mock(Response)
         Contributor contributor1 = Stub(Contributor)
         Contributor contributor2 = Stub(Contributor)
-        response.readEntity(_) >> Arrays.asList(contributor1, contributor2)
+        response.readEntity(_) >> [contributor1, contributor2]
 
         target.request() >> Stub(Invocation.Builder) {
             get() >> response

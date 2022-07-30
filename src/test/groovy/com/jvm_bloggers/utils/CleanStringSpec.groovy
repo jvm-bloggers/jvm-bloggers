@@ -35,16 +35,18 @@ class CleanStringSpec extends Specification {
     }
 
     private static List<String> titlesNotExceedingUpperCaseLimit() {
-        return Arrays.asList("",
-        "THIS is VERY interestin blog\npost title 20 percent",
-        "THIS is VERY interestin\tblog post ąęśćł 20 percent",
-        "abc defgh",
-        "123-456-789 \$% 09\n",
-        "A 123 456",
-        //some real world examples
-        "WJUG #274 Piotr Przybył - \"Java 15: Nowości warte uwagi\"",
-        "O prawie Demeter, Clean Code i zasadach SOLID z Piotrem Stawirejem",
-        "Czy zmiany w JPK-V7 wpłyną na rozliczanie IP BOX",
-        "SSH like a Pro")
+        [
+                "",
+                "THIS is VERY interestin blog\npost title 20 percent",
+                "THIS is VERY interestin\tblog post ąęśćł 20 percent",
+                "abc defgh",
+                "123-456-789 \$% 09\n",
+                "A 123 456",
+                //some real world examples
+                "WJUG #274 Piotr Przybył - \"Java 15: Nowości warte uwagi\"",
+                "O prawie Demeter, Clean Code i zasadach SOLID z Piotrem Stawirejem",
+                "Czy zmiany w JPK-V7 wpłyną na rozliczanie IP BOX",
+                "SSH like a Pro"
+        ]
     }
 }

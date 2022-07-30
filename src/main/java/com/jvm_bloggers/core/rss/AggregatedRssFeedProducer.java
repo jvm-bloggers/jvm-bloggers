@@ -32,9 +32,9 @@ import org.springframework.util.StopWatch;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 
 @Service
 @CacheConfig(cacheNames = AggregatedRssFeedProducer.RSS_CACHE)
@@ -97,7 +97,7 @@ public class AggregatedRssFeedProducer {
         final List<SyndEntry> feedItems = approvedPosts.stream()
             .filter(it -> Validators.isUrlValid(it.getUrl()))
             .map(this::toRssEntry)
-            .collect(Collectors.toList());
+            .toList();
         final SyndFeed feed = buildFeed(feedItems, feedUrl);
 
         if (log.isDebugEnabled()) {
