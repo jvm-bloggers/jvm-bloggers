@@ -5,7 +5,7 @@ companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-blog
 
 spring:
   datasource:
-    url: "jdbc:h2:mem:test-db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;NON_KEYWORDS=VALUE,value"
+    url: "jdbc:h2:mem:test-db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;NON_KEYWORDS=VALUE,value,month,year"
   jpa:
     hibernate.ddl-auto: none
     properties:
