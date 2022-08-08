@@ -3,10 +3,15 @@ spring.liquibase.change-log: classpath:db/changelog/db.changelog.xml
 bloggers.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/bloggers.json
 companies.data.file.url: https://raw.githubusercontent.com/jvm-bloggers/jvm-bloggers/master/companies.json
 
-spring.jpa:
-  hibernate.ddl-auto: none
-  properties.hibernate.search.default.directory_provider: ram
-  show-sql: true
+spring:
+  datasource:
+    url: "jdbc:h2:mem:test-db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;NON_KEYWORDS=VALUE,value"
+  jpa:
+    hibernate.ddl-auto: none
+    properties:
+      hibernate.search.default.directory_provider: local-heap
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
+    show-sql: true
 # Mail Configuration
 mailing:
   apiKey: "apiKey"
