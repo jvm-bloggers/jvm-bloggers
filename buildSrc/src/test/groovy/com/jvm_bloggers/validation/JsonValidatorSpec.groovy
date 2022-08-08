@@ -38,7 +38,7 @@ class JsonValidatorSpec extends Specification {
         then:
         def e = thrown(JsonValidator.JsonValidationException)
 
-        e.message == "Unable to validate '{\"item\":\"too-short\"}' due to '[\$.item: must be at least 10 characters long]'!"
+        e.message == "Unable to validate '{\"item\":\"too-short\"}' due to: \nElement '\$.item' has an invalid 'minLength' length - the valid one is '[10]'!"
     }
 
     def "Should throw an exception when the schema file is invalid"() {
