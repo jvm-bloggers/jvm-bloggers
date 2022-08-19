@@ -16,7 +16,7 @@ buildscript {
 
 plugins {
     id 'org.springframework.boot' version '2.7.3'
-    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
     id 'groovy'
     id 'idea'
@@ -93,7 +93,7 @@ dependencies {
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
     implementation "org.glassfish.jersey.inject:jersey-hk2:$jerseyVersion"
     implementation 'net.jcip:jcip-annotations:1.0'
-    implementation 'org.objenesis:objenesis:3.2'
+    implementation 'org.objenesis:objenesis:3.3'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'io.vavr:vavr:0.10.4'
     implementation 'org.jsoup:jsoup:1.15.2'
