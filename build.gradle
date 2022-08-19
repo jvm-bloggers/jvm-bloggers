@@ -176,8 +176,8 @@ String getTimestampWithGitHash() {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        csv.enabled false
+        xml.required.set(true)
+        csv.required.set(false)
     }
 }
 
