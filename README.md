@@ -1,9 +1,8 @@
 # JVM Bloggers
 
     Never miss any blog post from developers around JVM in Poland :)
-
-[![Build Status](https://travis-ci.org/jvm-bloggers/jvm-bloggers.svg?branch=master)](https://travis-ci.org/jvm-bloggers/jvm-bloggers/branches) [![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers) [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers)
-[![Sputnik Status](https://sputnik.ci/conf/badge)](https://sputnik.ci/app#/builds/jvm-bloggers/jvm-bloggers)
+[![Github Workflow](https://github.com/jvm-bloggers/jvm-bloggers/actions/workflows/ci.yaml/badge.svg)](https://github.com/jvm-bloggers/jvm-bloggers/actions/workflows/ci.yaml)
+[![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers)
 
 ## Overview
 
