@@ -23,6 +23,13 @@ jobs:
         run: ./gradlew check jacocoTestReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
+
+  snyk:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
         continue-on-error: true # To make sure that SARIF upload gets called
