@@ -2,6 +2,7 @@
 
     Never miss any blog post from developers around JVM in Poland :)
 [![Github Workflow](https://github.com/jvm-bloggers/jvm-bloggers/actions/workflows/ci.yaml/badge.svg)](https://github.com/jvm-bloggers/jvm-bloggers/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/jvm-bloggers/jvm-bloggers/branch/master/graph/badge.svg)](https://codecov.io/gh/jvm-bloggers/jvm-bloggers)
 [![Snyk Status](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers/badge.svg)](https://app.snyk.io/test/github/jvm-bloggers/jvm-bloggers)
 
 ## Overview

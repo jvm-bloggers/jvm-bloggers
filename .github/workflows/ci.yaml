@@ -20,7 +20,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
       - name: Check
-        run: ./gradlew check
+        run: ./gradlew check jacocoTestReport
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
 
   deploy:
     if: startsWith(github.ref, 'refs/tags/v')
