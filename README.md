@@ -24,7 +24,7 @@ Please create a Pull Request adding it to
 
 * [companies.json](src/main/resources/blogs/companies.json) for company blogs
 
-* [videos.json](src/main/resources/blogs/videos.json) for videos from JUGs/Meetups/Conferences/personal vblogs
+* [presentations.json](src/main/resources/blogs/presentations.json) for videos from JUGs/Meetups/Conferences/personal vblogs
 
 * [podcasts.json](src/main/resources/blogs/podcasts.json) for personal and company podcasts
 
