@@ -141,7 +141,7 @@ docker {
     }
 
     springBootApplication {
-        baseImage = 'eclipse-temurin:17.0.3_7-jre-alpine'
+        baseImage = 'eclipse-temurin:17.0.4.1_1-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
         jvmArgs = ['-Dwicket.ioc.useByteBuddy=true']
