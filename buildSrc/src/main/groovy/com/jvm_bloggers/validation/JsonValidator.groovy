@@ -31,7 +31,7 @@ class JsonValidator {
 
             validateData(schema, json)
         } catch (JacksonException | JsonSchemaException e) {
-            throw new JsonValidationException("Unable to setup validation process!", e)
+            throw new JsonValidationException("Unable to process the JSON validation - probably the validated file and/or schema file have an invalid structure or format!", e)
         }
     }
 
@@ -39,7 +39,8 @@ class JsonValidator {
         def errors = schema.validate(json)
 
         if (!errors.isEmpty()) {
-            throw new JsonValidationException("Unable to validate '${json.toString()}' due to '${errors}'!")
+            def violations = ValidatorMessageTranslator.translate(errors)
+            throw new JsonValidationException("Unable to validate '${json.toString()}' due to: \n${violations}")
         }
     }
 
