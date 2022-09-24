@@ -98,6 +98,10 @@ dependencies {
     implementation 'io.vavr:vavr:0.10.4'
     implementation 'org.jsoup:jsoup:1.15.2'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+    implementation 'org.json:json:20220320'
+    implementation('com.vdurmont:emoji-java:5.1.1') {
+        exclude group: 'org.json', module: 'json'
+    }
 
     // Database related
     implementation 'org.postgresql:postgresql'
