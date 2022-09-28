@@ -18,12 +18,12 @@ repositories {
 
 dependencies {
     implementation gradleApi()
-    implementation 'com.networknt:json-schema-validator:1.0.72'
+    implementation 'com.networknt:json-schema-validator:1.0.73'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
 
     testImplementation 'org.spockframework:spock-core:2.2-groovy-3.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.12'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.12'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.13'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.13'
 }
 
 test {

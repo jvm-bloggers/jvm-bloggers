@@ -16,12 +16,12 @@ buildscript {
 
 plugins {
     id 'org.springframework.boot' version '2.7.4'
-    id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.0.3'
+    id 'io.freefair.lombok' version '6.5.1'
     id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
     id 'jacoco'
     id "com.ofg.uptodate" version "1.6.3"
@@ -88,7 +88,7 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.apache.commons:commons-text:1.9'
-    implementation 'org.antlr:ST4:4.3.3'
+    implementation 'org.antlr:ST4:4.3.4'
     implementation "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
     implementation "org.glassfish.jersey.inject:jersey-hk2:$jerseyVersion"
@@ -96,9 +96,9 @@ dependencies {
     implementation 'org.objenesis:objenesis:3.3'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'io.vavr:vavr:0.10.4'
-    implementation 'org.jsoup:jsoup:1.15.2'
+    implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
-    implementation 'org.json:json:20220320'
+    implementation 'org.json:json:20220924'
     implementation('com.vdurmont:emoji-java:5.1.1') {
         exclude group: 'org.json', module: 'json'
     }
@@ -116,8 +116,8 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:2.2-groovy-3.0'
     testImplementation 'org.springframework:spring-test'
     testImplementation 'com.jayway.jsonpath:json-path:2.7.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.12'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.12'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.13'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.13'
     testRuntimeOnly 'com.h2database:h2'
 
 }
