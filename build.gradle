@@ -68,12 +68,12 @@ dependencies {
     implementation "org.apache.wicket:wicket-auth-roles:$wicketVersion"
     implementation "org.apache.wicket:wicket-bean-validation:$wicketVersion"
     implementation "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
-    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:9.8.1"
-    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:9.8.1"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:9.11.0"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:9.11.0"
 
     implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.6'
-    implementation 'org.webjars:jquery:3.6.0'
-    implementation 'org.webjars:webjars-locator:0.43'
+    implementation 'org.webjars:jquery:3.6.1'
+    implementation 'org.webjars:webjars-locator:0.45'
 
     implementation 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
     implementation 'org.webjars:html5shiv:3.7.3-1'
