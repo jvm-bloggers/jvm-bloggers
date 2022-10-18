@@ -37,7 +37,7 @@ repositories {
 }
 
 ext {
-    wicketVersion = '9.11.0'
+    wicketVersion = '9.12.0'
     jerseyVersion = '2.36'
 }
 
