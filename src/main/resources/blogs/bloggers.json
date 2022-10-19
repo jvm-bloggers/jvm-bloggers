@@ -1289,6 +1289,12 @@
       "name": "EffectiveDev - Łukasz Monkiewicz",
       "rss": "https://effectivedev.pl/blog/feed",
       "twitter": "@lmonkiewiczdev"
+    },
+    {
+      "bookmarkableId": "jakubpradzynski",
+      "name": "Jakub Prądzyński's Blog",
+      "rss": "https://jakubpradzynski.pl/feed.xml",
+      "twitter": "@PradzynskiJakub"
     }
   ]
 }
