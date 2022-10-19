@@ -57,7 +57,7 @@ class ValidatorMessageTranslatorSpec extends Specification {
         def result = ValidatorMessageTranslator.translate(Set.of(message1, message2))
 
         then:
-        result.contains("Element '\$.element' violates 'maxItems' rule - 'there must be a maximum of 4 items in the array'\n")
+        result.contains("Element '\$.element' violates 'maxItems' rule - 'there must be a maximum of 4 items in the array'")
         result.contains("Array '\$.array' contains not unique elements!")
     }
 }
