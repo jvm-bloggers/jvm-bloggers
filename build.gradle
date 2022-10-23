@@ -39,6 +39,7 @@ repositories {
 ext {
     wicketVersion = '9.12.0'
     jerseyVersion = '2.37'
+    hibernateSearchVersion = '6.1.7.Final'
 }
 
 dependencies {
@@ -107,8 +108,9 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
     implementation 'com.mattbertolini:liquibase-slf4j:4.1.0'
-    implementation 'org.hibernate:hibernate-search-orm:5.11.11.Final'
-    implementation 'org.hibernate:hibernate-search-engine:5.11.11.Final'
+    implementation "org.hibernate.search:hibernate-search-mapper-orm:$hibernateSearchVersion"
+    implementation "org.hibernate.search:hibernate-search-engine:$hibernateSearchVersion"
+    implementation "org.hibernate.search:hibernate-search-backend-lucene:$hibernateSearchVersion"
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -129,8 +131,8 @@ docker {
 
     dockerBuildImage {
         images = [
-            'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
-            'jvmbloggers/jvm-bloggers:latest'
+                'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
+                'jvmbloggers/jvm-bloggers:latest'
         ]
     }
 
