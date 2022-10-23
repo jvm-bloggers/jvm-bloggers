@@ -1,16 +1,33 @@
 package com.jvm_bloggers.entities.blog_post;
 
-import static org.apache.commons.text.CharacterPredicates.DIGITS;
-import static org.apache.commons.text.CharacterPredicates.LETTERS;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.jvm_bloggers.entities.blog.Blog;
 import com.jvm_bloggers.entities.tag.Tag;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import org.apache.commons.text.RandomStringGenerator;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.search.engine.backend.types.Sortable;
+import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexingDependency;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,20 +40,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.apache.commons.text.RandomStringGenerator;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.SortableField;
+
+import static org.apache.commons.text.CharacterPredicates.DIGITS;
+import static org.apache.commons.text.CharacterPredicates.LETTERS;
 
 @Entity
 @Table(name = "blog_post")
@@ -70,36 +76,36 @@ public class BlogPost {
 
     @NonNull
     @Column(name = "TITLE", nullable = false, length = 250)
-    @Field(analyze = Analyze.YES)
+    @FullTextField
     private String title;
 
     @Column(name = "DESCRIPTION", length = MAX_DESCRIPTION_LENGTH)
-    @Field
+    @FullTextField
     private String description;
 
     @NonNull
     @Column(name = "URL", unique = true, nullable = false, length = 500)
-    @Field
+    @FullTextField
     private String url;
 
     @NonNull
     @Column(name = "PUBLISHED_DATE", nullable = false)
-    @Field
-    @SortableField
+    @GenericField(sortable = Sortable.YES)
     private LocalDateTime publishedDate;
 
     @Column(name = "APPROVED")
-    @Field
+    @GenericField
     private Boolean approved;
 
     @Column(name = "APPROVED_DATE")
-    @Field
+    @GenericField
     private LocalDateTime approvedDate;
 
     @NonNull
     @ManyToOne
     @JoinColumn(name = "BLOG_ID", nullable = false)
     @IndexedEmbedded
+    @IndexingDependency(reindexOnUpdate = ReindexOnUpdate.SHALLOW)
     private Blog blog;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
