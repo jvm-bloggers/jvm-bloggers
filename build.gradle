@@ -8,15 +8,15 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.4"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.6"
         classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
         classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.7.4'
-    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'org.springframework.boot' version '2.7.6'
+    id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
     id 'groovy'
     id 'idea'
@@ -38,7 +38,7 @@ repositories {
 
 ext {
     wicketVersion = '9.12.0'
-    jerseyVersion = '2.36'
+    jerseyVersion = '2.37'
 }
 
 dependencies {
@@ -97,7 +97,7 @@ dependencies {
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'io.vavr:vavr:0.10.4'
     implementation 'org.jsoup:jsoup:1.15.3'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.2'
     implementation 'org.json:json:20220924'
     implementation('com.vdurmont:emoji-java:5.1.1') {
         exclude group: 'org.json', module: 'json'
@@ -107,8 +107,8 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
     implementation 'com.mattbertolini:liquibase-slf4j:4.1.0'
-    implementation 'org.hibernate:hibernate-search-orm:5.11.10.Final'
-    implementation 'org.hibernate:hibernate-search-engine:5.11.10.Final'
+    implementation 'org.hibernate:hibernate-search-orm:5.11.11.Final'
+    implementation 'org.hibernate:hibernate-search-engine:5.11.11.Final'
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -141,7 +141,7 @@ docker {
     }
 
     springBootApplication {
-        baseImage = 'eclipse-temurin:17.0.4.1_1-jre-alpine'
+        baseImage = 'eclipse-temurin:17.0.5_8-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
         jvmArgs = ['-Dwicket.ioc.useByteBuddy=true']
