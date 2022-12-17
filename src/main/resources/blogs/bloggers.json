@@ -1,6 +1,12 @@
 {
   "bloggers": [
     {
+      "bookmarkableId": "lambda-spot-dev",
+      "name": "Lambda Spot - Marcin Szałomski",
+      "rss": "https://blog.lambdaspot.dev/rss.xml",
+      "twitter": "@baldram"
+    },
+    {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.com/feed/",
