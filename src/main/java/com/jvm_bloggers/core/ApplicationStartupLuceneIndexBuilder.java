@@ -35,13 +35,13 @@ public class ApplicationStartupLuceneIndexBuilder implements ApplicationListener
 
         try {
             final var searchSession = Search.session(entityManager);
-            log.info("Start creating lucene indices");
+            log.info("Start creating Lucene indices...");
             searchSession.massIndexer().startAndWait();
-        } catch (InterruptedException e) {
-            log.error("Lucene indexing error ", e);
+        } catch (Exception e) {
+            log.error("Lucene indexing error!", e);
         } finally {
             final var elapsed = stopwatch.stop().elapsed(TimeUnit.MILLISECONDS);
-            log.info("Finish startup indexing after {} ms ", elapsed);
+            log.info("Finish startup indexing after '{}' ms ", elapsed);
             entityManager.close();
         }
     }
