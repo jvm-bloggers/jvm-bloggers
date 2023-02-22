@@ -1295,6 +1295,12 @@
       "name": "Jakub Prądzyński's Blog",
       "rss": "https://jakubpradzynski.pl/feed.xml",
       "twitter": "@PradzynskiJakub"
+    },
+    {
+      "bookmarkableId": "mtalaga",
+      "name": "Michał Talaga",
+      "rss": "https://dev.to/feed/michaltalaga",
+      "twitter": "@michaltalaga"
     }
   ]
 }
