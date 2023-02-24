@@ -1295,6 +1295,12 @@
       "name": "Jakub Prądzyński's Blog",
       "rss": "https://jakubpradzynski.pl/feed.xml",
       "twitter": "@PradzynskiJakub"
+    },
+    {
+      "bookmarkableId": "kkisiele",
+      "name": "Aesthetically Appealing Software Development",
+      "rss": "https://kkisiele.com/feed.xml",
+      "twitter": "@kkisiele"
     }
   ]
 }
