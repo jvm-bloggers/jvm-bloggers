@@ -1313,6 +1313,11 @@
       "name": "Lambda Spot - Marcin Szałomski",
       "rss": "https://blog.lambdaspot.dev/rss.xml",
       "twitter": "@baldram"
+    },
+    {
+      "bookmarkableId": "michal-p-dev-notes",
+      "name": "Michał Pawlik",
+      "rss": "https://blog.michalp.net/index.xml"
     }
   ]
 }
