@@ -1,6 +1,12 @@
 {
   "bloggers": [
     {
+      "bookmarkableId": "lambda-spot-dev",
+      "name": "Lambda Spot - Marcin Szałomski",
+      "rss": "https://blog.lambdaspot.dev/rss.xml",
+      "twitter": "@baldram"
+    },
+    {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.com/feed/",
@@ -859,7 +865,7 @@
     {
       "bookmarkableId": "lukasz-sroczynski",
       "name": "Łukasz Sroczyński",
-      "rss": "http://www.braintelligence.pl/feed/",
+      "rss": "https://jvm-lukas.com/feed.xml",
       "twitter": "@LukSroczynski"
     },
     {
@@ -1242,7 +1248,7 @@
     {
       "bookmarkableId": "kuba86",
       "name": "Jakub Blaszczyk",
-      "rss": "https://kuba86.com/posts/index.xml"
+      "rss": "https://kuba86.com/tags/jvm-bloggers/index.xml"
     },
     {
       "bookmarkableId": "kodowanie-bez-cenzury",
@@ -1295,6 +1301,12 @@
       "name": "Jakub Prądzyński's Blog",
       "rss": "https://jakubpradzynski.pl/feed.xml",
       "twitter": "@PradzynskiJakub"
+    },
+    {
+      "bookmarkableId": "mtalaga",
+      "name": "Michał Talaga",
+      "rss": "https://dev.to/feed/michaltalaga",
+      "twitter": "@michaltalaga"
     },
     {
       "bookmarkableId": "kkisiele",
