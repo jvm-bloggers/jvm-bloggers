@@ -1307,6 +1307,12 @@
       "name": "Michał Talaga",
       "rss": "https://dev.to/feed/michaltalaga",
       "twitter": "@michaltalaga"
+    },
+    {
+      "bookmarkableId": "kkisiele",
+      "name": "Aesthetically Appealing Software Development",
+      "rss": "https://kkisiele.com/feed.xml",
+      "twitter": "@kkisiele"
     }
   ]
 }
