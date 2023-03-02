@@ -171,6 +171,19 @@ public class BlogPost {
     }
 
     @Override
+    public String toString() {
+        return "BlogPost{" +
+                "uid='" + uid + '\'' +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", publishedDate=" + publishedDate +
+                ", approved=" + approved +
+                ", approvedDate=" + approvedDate +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
