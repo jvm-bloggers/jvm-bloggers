@@ -1,12 +1,6 @@
 {
   "bloggers": [
     {
-      "bookmarkableId": "lambda-spot-dev",
-      "name": "Lambda Spot - Marcin Szałomski",
-      "rss": "https://blog.lambdaspot.dev/rss.xml",
-      "twitter": "@baldram"
-    },
-    {
       "bookmarkableId": "tomasz-dziurko",
       "name": "Tomasz Dziurko",
       "rss": "http://tomaszdziurko.com/feed/",
@@ -1313,6 +1307,12 @@
       "name": "Aesthetically Appealing Software Development",
       "rss": "https://kkisiele.com/feed.xml",
       "twitter": "@kkisiele"
+    },
+    {
+      "bookmarkableId": "lambda-spot-dev",
+      "name": "Lambda Spot - Marcin Szałomski",
+      "rss": "https://blog.lambdaspot.dev/rss.xml",
+      "twitter": "@baldram"
     }
   ]
 }
