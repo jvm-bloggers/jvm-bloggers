@@ -1318,6 +1318,11 @@
       "bookmarkableId": "michal-p-dev-notes",
       "name": "Michał Pawlik",
       "rss": "https://blog.michalp.net/index.xml"
+    },
+    {
+      "bookmarkableId": "the-bee",
+      "name": "Mateusz Zacki",
+      "rss": "https://mzacki.github.io/feed.xml"
     }
   ]
 }
