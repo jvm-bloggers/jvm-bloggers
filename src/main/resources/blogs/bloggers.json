@@ -1320,6 +1320,11 @@
       "rss": "https://blog.michalp.net/index.xml"
     },
     {
+      "bookmarkableId": "the-bee",
+      "name": "Mateusz Zacki",
+      "rss": "https://mzacki.github.io/feed.xml"
+    },
+    {
       "bookmarkableId": "swistak-codes",
       "name": "świstak.codes",
       "rss": "https://swistak.codes/rss-all/feed.xml"
