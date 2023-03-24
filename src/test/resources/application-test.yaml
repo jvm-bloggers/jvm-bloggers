@@ -9,7 +9,7 @@ spring:
   jpa:
     hibernate.ddl-auto: none
     properties:
-      hibernate.search.default.directory_provider: local-heap
+      hibernate.search.backend.directory.type: local-heap
       hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
     show-sql: true
 # Mail Configuration
