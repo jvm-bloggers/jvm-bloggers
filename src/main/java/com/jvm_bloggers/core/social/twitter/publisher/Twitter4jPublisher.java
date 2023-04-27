@@ -15,8 +15,6 @@ import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.Tw
 import static com.jvm_bloggers.core.social.twitter.publisher.TwitterPublisher.TwitterPublishingStatus.SUCCESS;
 import static lombok.AccessLevel.PACKAGE;
 
-@Component
-@Profile(PRODUCTION)
 @RequiredArgsConstructor(access = PACKAGE)
 @Slf4j
 class Twitter4jPublisher implements TwitterPublisher {

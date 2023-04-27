@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import static lombok.AccessLevel.PACKAGE;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor(access = PACKAGE)
 class TwitterPublishingScheduler {
