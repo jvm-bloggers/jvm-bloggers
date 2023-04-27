@@ -26,18 +26,18 @@ public class ApplicationStartupLuceneIndexBuilder implements ApplicationListener
 
   @Override
   public void onApplicationEvent(ApplicationReadyEvent event) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    Stopwatch stopwatch = Stopwatch.createStarted();
-    try {
-      FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
-      log.info("Start creating lucene indices");
-      fullTextEntityManager.createIndexer().startAndWait();
-    } catch (InterruptedException e) {
-      log.error("Lucene indexing error ", e);
-    } finally {
-      var elapsed = stopwatch.stop().elapsed(TimeUnit.MILLISECONDS);
-      log.info("Finish startup indexing after {} ms ", elapsed);
-      entityManager.close();
-    }
+//    EntityManager entityManager = entityManagerFactory.createEntityManager();
+//    Stopwatch stopwatch = Stopwatch.createStarted();
+//    try {
+//      FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+//      log.info("Start creating lucene indices");
+//      fullTextEntityManager.createIndexer().startAndWait();
+//    } catch (InterruptedException e) {
+//      log.error("Lucene indexing error ", e);
+//    } finally {
+//      var elapsed = stopwatch.stop().elapsed(TimeUnit.MILLISECONDS);
+//      log.info("Finish startup indexing after {} ms ", elapsed);
+//      entityManager.close();
+//    }
   }
 }
