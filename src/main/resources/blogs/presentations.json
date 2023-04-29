@@ -115,6 +115,11 @@
       "name": "ScalaWAW",
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCZ1_F9NCZGwEwGq5fbQVAAA",
       "twitter": "@ScalaWAW"
+    },
+    {
+      "bookmarkableId": "cyber-champions",
+      "name": "CyberChampions",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQUYcgzmEkUCIRtjQUM2FnQ"
     }
   ]
 }
