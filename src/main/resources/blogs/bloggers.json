@@ -1328,6 +1328,12 @@
       "bookmarkableId": "swistak-codes",
       "name": "świstak.codes",
       "rss": "https://swistak.codes/rss-all/feed.xml"
+    },
+    {
+      "bookmarkableId": "devdawn",
+      "name": "Wojciech Szlosek",
+      "rss": "https://wszlosek.github.io/DevDawn/feed.xml",
+      "twitter": "@szlosek_"
     }
   ]
 }
