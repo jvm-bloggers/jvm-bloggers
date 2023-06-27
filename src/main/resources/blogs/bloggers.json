@@ -1333,6 +1333,12 @@
       "bookmarkableId": "handsonarchitects",
       "name": "Hands-on Software Architects",
       "rss": "https://handsonarchitects.com/rss.xml"
+    },
+    {
+      "bookmarkableId": "przemek-malirz",
+      "name": "Przemek Malirz",
+      "rss": "https://przemek.malirz.pl/blog/index.xml",
+      "twitter": "@pmalirz"
     }
   ]
 }
