@@ -1172,7 +1172,7 @@
     {
       "bookmarkableId": "devcezz",
       "name": "Cezary Sanecki",
-      "rss": "https://devcezz.pl/feed/",
+      "rss": "https://devcezz.pl/feed.xml",
       "twitter": "@cezzdev"
     },
     {
@@ -1328,6 +1328,17 @@
       "bookmarkableId": "swistak-codes",
       "name": "świstak.codes",
       "rss": "https://swistak.codes/rss-all/feed.xml"
+    },
+    {
+      "bookmarkableId": "handsonarchitects",
+      "name": "Hands-on Software Architects",
+      "rss": "https://handsonarchitects.com/rss.xml"
+    },
+    {
+      "bookmarkableId": "przemek-malirz",
+      "name": "Przemek Malirz",
+      "rss": "https://przemek.malirz.pl/blog/index.xml",
+      "twitter": "@pmalirz"
     },
     {
       "bookmarkableId": "devdawn",
