@@ -1339,6 +1339,12 @@
       "name": "Przemek Malirz",
       "rss": "https://przemek.malirz.pl/blog/index.xml",
       "twitter": "@pmalirz"
+    },
+    {
+      "bookmarkableId": "devdawn",
+      "name": "Wojciech Szlosek",
+      "rss": "https://wszlosek.github.io/DevDawn/feed.xml",
+      "twitter": "@szlosek_"
     }
   ]
 }
