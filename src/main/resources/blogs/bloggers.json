@@ -1328,6 +1328,11 @@
       "bookmarkableId": "swistak-codes",
       "name": "świstak.codes",
       "rss": "https://swistak.codes/rss-all/feed.xml"
+    },
+    {
+      "bookmarkableId": "handsonarchitects",
+      "name": "Hands-on Software Architects",
+      "rss": "https://handsonarchitects.com/rss.xml"
     }
   ]
 }
