@@ -1345,6 +1345,11 @@
       "name": "Wojciech Szlosek",
       "rss": "https://wszlosek.github.io/DevDawn/feed.xml",
       "twitter": "@szlosek_"
+    },
+    {
+      "bookmarkableId": "rpost",
+      "name": "Radek Postołowicz",
+      "rss": "https://rpost.github.io/feed.xml"
     }
   ]
 }
