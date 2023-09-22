@@ -105,6 +105,13 @@
       "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAu3kLPVR1KScr5BReBJTvg",
       "twitter": "@DevoxxPL"
     },
+    
+    {
+      "bookmarkableId": "beyond-code",
+      "name": "Beyond Code",
+      "rss": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-_HdAqNGY7X_8o7-1w3eUQ",
+      "twitter": "@BeyondCodePL"
+    },
     {
       "bookmarkableId": "developers-world",
       "name": "Developers World Academy",
