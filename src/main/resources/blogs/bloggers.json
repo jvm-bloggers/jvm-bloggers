@@ -1345,6 +1345,12 @@
       "name": "Wojciech Szlosek",
       "rss": "https://wszlosek.github.io/DevDawn/feed.xml",
       "twitter": "@szlosek_"
+    },
+    {
+      "bookmarkableId": "robert-niestroj",
+      "name": "Robert Niestrój",
+      "rss": "https://robertniestroj.hashnode.dev/rss.xml",
+      "twitter": "@NiestrojRobert"
     }
   ]
 }
