@@ -1351,6 +1351,11 @@
       "name": "Robert Niestrój",
       "rss": "https://robertniestroj.hashnode.dev/rss.xml",
       "twitter": "@NiestrojRobert"
+    },
+    {
+     "bookmarkableId": "rpost",
+      "name": "Radek Postołowicz",
+      "rss": "https://rpost.github.io/feed.xml" 
     }
   ]
 }
