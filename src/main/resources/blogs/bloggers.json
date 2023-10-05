@@ -1170,9 +1170,9 @@
       "twitter": "@adgadev"
     },
     {
-      "bookmarkableId": "devcezz",
+      "bookmarkableId": "cezary-sanecki",
       "name": "Cezary Sanecki",
-      "rss": "https://devcezz.pl/feed.xml",
+      "rss": "https://cezarysanecki.pl/feed.xml",
       "twitter": "@cezzdev"
     },
     {
@@ -1212,9 +1212,9 @@
       "twitter": "@jnabrdalik"
     },
     {
-      "bookmarkableId": "zycienakodach-mateusz-nowak",
-      "name": "ZycieNaKodach.pl - Mateusz Nowak",
-      "rss": "https://zycienakodach.pl/feed.xml",
+      "bookmarkableId": "nakodach-mateusz-nowak",
+      "name": "(Życie)NaKodach.pl - Mateusz Nowak",
+      "rss": "https://nakodach.pl/feed.xml",
       "twitter": "@MateuszNaKodach"
     },
     {
@@ -1347,9 +1347,15 @@
       "twitter": "@szlosek_"
     },
     {
-      "bookmarkableId": "rpost",
+      "bookmarkableId": "robert-niestroj",
+      "name": "Robert Niestrój",
+      "rss": "https://robertniestroj.hashnode.dev/rss.xml",
+      "twitter": "@NiestrojRobert"
+    },
+    {
+     "bookmarkableId": "rpost",
       "name": "Radek Postołowicz",
-      "rss": "https://rpost.github.io/feed.xml"
+      "rss": "https://rpost.github.io/feed.xml" 
     }
   ]
 }
