@@ -6,7 +6,7 @@
       "rss": "http://tomaszdziurko.com/feed/",
       "twitter": "@TomaszDziurko"
     },
-     {
+    {
       "bookmarkableId": "developeronthego",
       "name": "Mariusz Czarny",
       "rss": "https://developeronthego.pl/feed/",
@@ -1282,7 +1282,7 @@
     {
       "bookmarkableId": "devspeaker",
       "name": "DevSpeaker",
-      "rss":"https://devspeaker.pl/feed/"
+      "rss": "https://devspeaker.pl/feed/"
     },
     {
       "bookmarkableId": "effectivedev",
@@ -1353,9 +1353,9 @@
       "twitter": "@NiestrojRobert"
     },
     {
-     "bookmarkableId": "rpost",
+      "bookmarkableId": "rpost",
       "name": "Radek Postołowicz",
-      "rss": "https://rpost.github.io/feed.xml" 
+      "rss": "https://rpost.github.io/feed.xml"
     }
   ]
 }
