@@ -1356,6 +1356,11 @@
       "bookmarkableId": "rpost",
       "name": "Radek Postołowicz",
       "rss": "https://rpost.github.io/feed.xml"
+    },
+    {
+      "bookmarkableId": "core-dumps",
+      "name": "Marcin Kłopotek",
+      "rss": "https://blog.coredumps.io/posts/index.xml"
     }
   ]
 }
