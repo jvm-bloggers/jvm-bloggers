@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY;
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL;
 import static com.jvm_bloggers.entities.blog.BlogType.PODCAST;
+import static com.jvm_bloggers.entities.blog.BlogType.MEETING;
 import static com.jvm_bloggers.entities.blog.BlogType.PRESENTATION;
 import static io.vavr.collection.List.ofAll;
 
@@ -33,6 +34,7 @@ public class PublishedNewsletterIssueBuilder {
                 .companyPosts(filterBlogPosts(issue.getBlogPosts(), COMPANY))
                 .presentations(filterBlogPosts(issue.getBlogPosts(), PRESENTATION))
                 .podcasts(filterBlogPosts(issue.getBlogPosts(), PODCAST))
+                .meetings(filterBlogPosts(issue.getBlogPosts(), MEETING))
                 .build();
     }
 

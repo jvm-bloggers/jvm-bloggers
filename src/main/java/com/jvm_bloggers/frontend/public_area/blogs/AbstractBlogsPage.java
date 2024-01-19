@@ -14,6 +14,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.MALE;
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.PODCAST;
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.YOUTUBE;
+import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.MEETING;
 import static com.jvm_bloggers.frontend.public_area.blogs.navigation.NavigationTabItem.Icon.USERS;
 
 public abstract class AbstractBlogsPage extends AbstractFrontendPage {
@@ -25,6 +26,7 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
     static final String COMPANY_TAB_ID = "company";
     static final String PODCAST_TAB_ID = "podcast";
     static final String VIDEO_TAB_ID = "video";
+    static final String MEETING_TAB_ID = "meeting";
 
     @SpringBean
     private AbstractBlogsPageBackingBean backingBean;
@@ -52,6 +54,8 @@ public abstract class AbstractBlogsPage extends AbstractFrontendPage {
                 PodcastBlogsPage.class, this.getActiveClass()));
         add(new NavigationTabItem(VIDEO_TAB_ID, "Prezentacje", YOUTUBE,
             VideoBlogsPage.class, this.getActiveClass()));
+        add(new NavigationTabItem(MEETING_TAB_ID, "Spotkania", MEETING,
+            MeetingBlogsPage.class, this.getActiveClass()));
     }
 
     private DataView<BlogStatisticsForListing> createBlogChannelList(String id) {

@@ -38,6 +38,7 @@ public class NewsletterIssuePanel extends Panel {
         );
         add(new BlogPostLinksSection("linksFromPodcastChannels", "Nowe podcasty", issue.getPodcasts()));
         add(new BlogPostLinksSection("linksFromVideoChannels", "Nowe prezentacje", issue.getPresentations()));
+        add(new BlogPostLinksSection("linksFromMeetingChannels", "Nowe spotkania", issue.getMeetings()));
         add(new BlogLinksSection("newBlogs", issue.getNewBlogs()));
         addVaria(issue.getVariaSection());
         addNextLink(nextIssueNumber);

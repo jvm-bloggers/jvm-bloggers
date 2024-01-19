@@ -28,6 +28,8 @@ Please create a Pull Request adding it to
 
 * [podcasts.json](src/main/resources/blogs/podcasts.json) for personal and company podcasts
 
+* [meetings.json](src/main/resources/blogs/meetings.json) for upcoming meetings
+
 and that's all. Once it is merged, you are on the list!
 
 ## Roadmap

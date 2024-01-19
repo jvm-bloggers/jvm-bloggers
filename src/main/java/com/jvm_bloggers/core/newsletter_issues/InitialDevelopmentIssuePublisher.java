@@ -49,13 +49,17 @@ public class InitialDevelopmentIssuePublisher {
                 .findUnapprovedPostsByBlogType(PRESENTATION, amountOfRecordsToApprovePageRequest);
         List<BlogPost> unapprovedCompanyBlogPosts = blogPostRepository
                 .findUnapprovedPostsByBlogType(COMPANY, amountOfRecordsToApprovePageRequest);
+        List<BlogPost> unapprovedMeetingBlogPosts = blogPostRepository
+                .findUnapprovedPostsByBlogType(MEETING, amountOfRecordsToApprovePageRequest);
         if (unapprovedCompanyBlogPosts.size() > 0
                 || unapprovedPodcastBlogPosts.size() > 0
-                || unapprovedPresentationBlogPosts.size() > 0) {
+                || unapprovedPresentationBlogPosts.size() > 0
+                || unapprovedMeetingBlogPosts.size() > 0) {
             log.info("Approving posts for dev issue.");
             unapprovedPodcastBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
             unapprovedPresentationBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
             unapprovedCompanyBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
+            unapprovedMeetingBlogPosts.forEach(blogPost -> blogPost.approve(nowProvider.now()));
         } else {
             log.info("No unapproved posts found.");
         }
@@ -74,7 +78,8 @@ public class InitialDevelopmentIssuePublisher {
         boolean enoughPostsExistInDatabase = databaseContainsEnoughBlogPostsOfType(PERSONAL)
                 && databaseContainsEnoughBlogPostsOfType(COMPANY)
                 && databaseContainsEnoughBlogPostsOfType(PODCAST)
-                && databaseContainsEnoughBlogPostsOfType(PRESENTATION);
+                && databaseContainsEnoughBlogPostsOfType(PRESENTATION)
+                && databaseContainsEnoughBlogPostsOfType(MEETING);
         if (enoughPostsExistInDatabase) {
             log.info("There are enough posts for a dev issue.");
         } else {

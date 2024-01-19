@@ -111,6 +111,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         given:
         Blog companyBlog = aBlog(blogType: COMPANY)
         Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog meetingBlog = aBlog(blogType: MEETING)
         Blog presentationBlog = aBlog(blogType: PRESENTATION)
 
         List<BlogPost> blogPosts = [
@@ -119,12 +120,14 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 aBlogPost(approved: null, blog: presentationBlog),
                 aBlogPost(approved: APPROVED, blog: companyBlog),
                 aBlogPost(approved: null, blog: podcastBlog),
+                aBlogPost(approved: null, blog: meetingBlog),
                 aBlogPost(approved: null, blog: companyBlog),
                 aBlogPost(approved: null, blog: companyBlog)
         ]
 
         blogRepository.save(companyBlog)
         blogRepository.save(podcastBlog)
+        blogRepository.save(meetingBlog)
         blogRepository.save(presentationBlog)
         blogPostRepository.saveAll(blogPosts);
 
@@ -140,6 +143,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         COMPANY      || 3
         PRESENTATION || 1
         PODCAST      || 1
+        MEETING      || 1
     }
 
     @Unroll
@@ -147,6 +151,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         given:
         Blog companyBlog = aBlog(blogType: COMPANY)
         Blog podcastBlog = aBlog(blogType: PODCAST)
+        Blog meetingBlog = aBlog(blogType: MEETING)
         Blog presentationBlog = aBlog(blogType: PRESENTATION)
         Blog personalBlog = aBlog(blogType: PERSONAL)
 
@@ -157,6 +162,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
                 aBlogPost(blog: personalBlog),
                 aBlogPost(blog: companyBlog),
                 aBlogPost(blog: personalBlog),
+                aBlogPost(blog: meetingBlog),
                 aBlogPost(blog: companyBlog)
         ]
 
@@ -164,6 +170,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogRepository.save(presentationBlog)
         blogRepository.save(podcastBlog)
         blogRepository.save(personalBlog)
+        blogRepository.save(meetingBlog)
         blogPostRepository.saveAll(blogPosts);
 
         when:
@@ -177,7 +184,7 @@ class BlogPostRepositorySpec extends SpringContextAwareSpecification {
         blogType     || expectedBlogPostCount
         COMPANY      || 2
         PRESENTATION || 1
-        PRESENTATION || 1
+        MEETING      || 1
         PERSONAL     || 3
     }
 
