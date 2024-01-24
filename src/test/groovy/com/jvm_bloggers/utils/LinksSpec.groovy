@@ -11,8 +11,8 @@ class LinksSpec extends Specification {
     LinkUtils.getFullTwitterAccountUrl(twitterHandle) == fullUrl
     where:
     twitterHandle  | fullUrl
-    "@tnurkiewicz" | "https://twitter.com/@tnurkiewicz"
-    "@jkubrynski"  | "https://twitter.com/@jkubrynski"
+    "@tnurkiewicz" | "https://twitter.com/tnurkiewicz"
+    "@jkubrynski"  | "https://twitter.com/jkubrynski"
   }
 
 }
