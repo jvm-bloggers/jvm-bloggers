@@ -634,5 +634,8 @@
         <addForeignKeyConstraint baseTableName="POST_TAG" baseColumnNames="TAG_ID" constraintName="POST_TO_TAG" referencedTableName="TAG" referencedColumnNames="ID"/>
     </changeSet>
 
+    <changeSet id="054-add-meetings-to-mailing-template" author="jgardo.dev">
+        <sqlFile path="054-update_mailing_template_add_meetings.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

@@ -106,6 +106,8 @@ public class BlogSummaryMailGenerator {
             newBlogPostsByType.getOrElse(BlogType.PRESENTATION, empty());
         List<BlogPost> newPodcasts =
                 newBlogPostsByType.getOrElse(BlogType.PODCAST, empty());
+        List<BlogPost> newMeetings =
+                newBlogPostsByType.getOrElse(BlogType.MEETING, empty());
 
         String templateContent = getValueForSection(MetadataKeys.MAILING_TEMPLATE);
         ST template = new ST(templateContent, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
@@ -124,6 +126,10 @@ public class BlogSummaryMailGenerator {
         template.add(
                 "newPodcastPosts",
                 postsToMailItems(newPodcasts, newsletterIssue.getIssueNumber()).toJavaList()
+        );
+        template.add(
+                "newMeetingPosts",
+                postsToMailItems(newMeetings, newsletterIssue.getIssueNumber()).toJavaList()
         );
 
         template.add("newlyAddedBlogs",
