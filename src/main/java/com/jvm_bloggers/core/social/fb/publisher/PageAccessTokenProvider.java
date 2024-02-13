@@ -6,9 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.WebRequestor;
+
 import io.vavr.control.Try;
+
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -55,10 +58,10 @@ class PageAccessTokenProvider {
 
     private WebRequestor.Response queryForPageToken(String appSecretProof) throws IOException {
         return facebookClient.getWebRequestor().executeGet(
-            format(
+            new WebRequestor.Request(format(
                 PAGE_TOKEN_URL, facebookConfiguration.getPageId(),
                 facebookConfiguration.getUserToken(), appSecretProof
-            )
+            ), null)
         );
     }
 
@@ -80,7 +83,7 @@ class PageAccessTokenProvider {
         }
     }
 
-    class PageAccessTokenException extends RuntimeException {
+    static class PageAccessTokenException extends RuntimeException {
 
         PageAccessTokenException(String message, Throwable cause) {
             super(message, cause);
