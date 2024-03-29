@@ -217,6 +217,12 @@
       "name": "Glovo Engineering",
       "rss": "https://medium.com/feed/glovo-engineering/",
       "twitter": "@glovo"
+    },
+    {
+      "bookmarkableId": "hvb-software",
+      "name": "HVB.software",
+      "rss": "https://hvb.software/feed.xml",
+      "twitter": "@HVB_software"
     }
   ]
 }
