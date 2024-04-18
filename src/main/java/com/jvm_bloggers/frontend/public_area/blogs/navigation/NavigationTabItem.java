@@ -28,7 +28,8 @@ public class NavigationTabItem extends Panel {
         MALE("fa-male"),
         USERS("fa-black-tie"),
         PODCAST("fa-podcast"),
-        YOUTUBE("fa-youtube-play");
+        YOUTUBE("fa-youtube-play"),
+        MEETING("fa-meetup");
         private String value;
     }
 

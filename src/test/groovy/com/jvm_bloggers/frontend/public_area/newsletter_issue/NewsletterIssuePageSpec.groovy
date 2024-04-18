@@ -51,6 +51,7 @@ class NewsletterIssuePageSpec extends MockSpringContextAwareSpecification {
                 empty(),
                 empty(),
                 empty(),
+                empty(),
                 empty()
         )
     }
