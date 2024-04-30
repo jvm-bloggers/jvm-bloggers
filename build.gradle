@@ -8,20 +8,20 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.6"
-        classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.18"
+        classpath "com.bmuschko:gradle-docker-plugin:8.6.0"
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.7.6'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.1'
-    id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
+    id 'io.freefair.lombok' version '8.6'
+    id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
     id 'jacoco'
 }
 
