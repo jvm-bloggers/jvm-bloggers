@@ -92,7 +92,7 @@ dependencies {
     implementation "org.glassfish.jersey.inject:jersey-hk2:$jerseyVersion"
     implementation 'net.jcip:jcip-annotations:1.0'
     implementation 'org.objenesis:objenesis:3.3'
-    implementation 'commons-validator:commons-validator:1.7'
+    implementation 'commons-validator:commons-validator:1.8.0'
     implementation 'io.vavr:vavr:0.10.4'
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.2'
@@ -110,12 +110,12 @@ dependencies {
 
     // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
-    testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    testImplementation 'org.spockframework:spock-spring:2.3-groovy-4.0'
     testImplementation 'org.springframework:spring-test'
     testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.21'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.21'
+    testImplementation 'org.apache.groovy:groovy:4.0.21'
+    testImplementation 'org.apache.groovy:groovy-json:4.0.21'
     testRuntimeOnly 'com.h2database:h2'
 
 }

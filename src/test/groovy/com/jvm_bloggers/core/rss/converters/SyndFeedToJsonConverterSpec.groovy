@@ -4,6 +4,8 @@ import com.jvm_bloggers.utils.DateTimeUtilities
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import com.rometools.rome.feed.synd.*
 import groovy.json.JsonSlurper
+import org.apache.groovy.json.internal.LazyMap
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -43,35 +45,35 @@ class SyndFeedToJsonConverterSpec extends Specification {
 
     def "Should convert RSS feed to a JSON content"() {
         when:
-        String jsonString = converter.convert(feed).toString()
-        Object json = new JsonSlurper().parseText(jsonString)
+        def jsonString = converter.convert(feed).toString()
+        def json = new JsonSlurper().parseText(jsonString) //as LazyMap
 
         then:
-        with(json) {
-            title == FEED_TITLE
-            link == FEED_LINK
-            generator == BASE_URL
+        json.with {
+            title == this.FEED_TITLE
+            link == this.FEED_LINK
+            generator == this.BASE_URL
 
             entries != null
             entries.size() == 2
         }
 
         and:
-        with(json.entries[0]) {
-            author == AUTHOR_1
-            link == BASE_URL
-            description == DESCRIPTION_1
-            title == TITLE_1
-            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
+        json.entries[0].with {
+            author == this.AUTHOR_1
+            link == this.BASE_URL
+            description == this.DESCRIPTION_1
+            title == this.TITLE_1
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(this.DATE)
         }
 
         and:
-        with(json.entries[1]) {
-            author == AUTHOR_2
-            link == BASE_URL
+        json.entries[1].with {
+            author == this.AUTHOR_2
+            link == this.BASE_URL
             description == null
-            title == TITLE_2
-            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
+            title == this.TITLE_2
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(this.DATE)
         }
     }
 
