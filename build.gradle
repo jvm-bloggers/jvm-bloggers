@@ -1,3 +1,7 @@
+import com.jvm_bloggers.validation.JsonValidationTask
+
+import java.nio.file.Paths
+
 buildscript {
     repositories {
         mavenCentral()
@@ -126,8 +130,8 @@ docker {
 
     dockerBuildImage {
         images = [
-            'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
-            'jvmbloggers/jvm-bloggers:latest'
+                'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
+                'jvmbloggers/jvm-bloggers:latest'
         ]
     }
 
@@ -157,6 +161,7 @@ test {
     systemProperty 'file.encoding', 'utf-8'
     dependsOn 'validateBlogsData'
     useJUnitPlatform()
+    jvmArgs = ['--add-opens', 'java.base/jdk.internal.loader=ALL-UNNAMED', '--add-opens', 'java.base/java.lang=ALL-UNNAMED']
 }
 
 String getTimestampWithGitHash() {
