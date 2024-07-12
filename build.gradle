@@ -1,6 +1,7 @@
 import com.jvm_bloggers.validation.JsonValidationTask
 
 import java.nio.file.Paths
+import java.time.Duration
 
 buildscript {
     repositories {
@@ -14,10 +15,12 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.18"
         classpath "com.bmuschko:gradle-docker-plugin:9.4.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.51.0"
     }
 }
 
 plugins {
+    id 'application'
     id 'org.springframework.boot' version '2.7.18'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
@@ -27,11 +30,15 @@ plugins {
     id 'io.freefair.lombok' version '8.6'
     id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
     id 'jacoco'
+    id "com.github.ben-manes.versions" version "0.51.0"
 }
 
 group = 'com.jvm-bloggers'
 version = '3.0.0'
-sourceCompatibility = '17'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenLocal()
@@ -42,6 +49,8 @@ ext {
     wicketVersion = '9.17.0'
     jerseyVersion = '2.43'
 }
+
+sourceSets.main.resources.srcDir 'src/main/java'
 
 dependencies {
     // Spring Boot stuff
@@ -142,19 +151,15 @@ docker {
     }
 
     springBootApplication {
-        baseImage = 'eclipse-temurin:17.0.5_8-jre-alpine'
+        baseImage = 'eclipse-temurin:17.0.11_9-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
         jvmArgs = ['-Dwicket.ioc.useByteBuddy=true']
     }
 }
 
-String getConfigurationProperty(String envVar, String sysProp) {
-    System.getenv(envVar) ?: project.findProperty(sysProp)
-}
-
 bootRun {
-    systemProperties = System.properties
+    systemProperties = System.properties as Map<String, ?>
 }
 
 test {
@@ -179,9 +184,6 @@ jacocoTestReport {
     }
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
-
 idea {
     module {
         downloadJavadoc = true
@@ -189,8 +191,12 @@ idea {
     }
 }
 
+tasks.named("dependencyUpdates").configure {
+    timeout Duration.ofMillis(10000)
+}
+
 task validateBlogsData() {
-    def blogsDir = java.nio.file.Paths.get("${projectDir}", "src", "main", "resources", "blogs")
+    def blogsDir = Paths.get("${projectDir}", "src", "main", "resources", "blogs")
     def schema = blogsDir.resolve("schema.json")
 
     def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts']
@@ -199,12 +205,24 @@ task validateBlogsData() {
         def taskName = 'validate' + fileName.capitalize()
         def json = blogsDir.resolve("${fileName}.json")
 
-        tasks.create(taskName, com.jvm_bloggers.validation.JsonValidationTask, schema, json)
-
-        dependsOn taskName
+        tasks.register(taskName, JsonValidationTask.class, schema, json)
+        dependsOn(taskName)
     }
 }
 
-sourceSets.main.resources.srcDir 'src/main/java'
+tasks.register('stage') {
+    dependsOn('build', 'clean')
+    mustRunAfter('clean')
+}
 
-apply plugin: 'application'
+String getConfigurationProperty(String envVar, String sysProp) {
+    System.getenv(envVar) ?: project.findProperty(sysProp)
+}
+
+static String getTimestampWithGitHash() {
+    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
+    String cmd = "git log --pretty=format:%h -n 1"
+    def proc = cmd.execute()
+    proc.waitFor()
+    return timeStamp + '-' + proc.in.text
+}
