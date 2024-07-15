@@ -46,7 +46,7 @@ class SyndFeedToJsonConverterSpec extends Specification {
     def "Should convert RSS feed to a JSON content"() {
         when:
         def jsonString = converter.convert(feed).toString()
-        def json = new JsonSlurper().parseText(jsonString) //as LazyMap
+        def json = new JsonSlurper().parseText(jsonString)
 
         then:
         json.with {

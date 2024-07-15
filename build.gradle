@@ -131,8 +131,8 @@ dependencies {
     testImplementation 'org.spockframework:spock-spring:2.3-groovy-4.0'
     testImplementation 'org.springframework:spring-test'
     testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
-    testImplementation 'org.apache.groovy:groovy:4.0.21'
-    testImplementation 'org.apache.groovy:groovy-json:4.0.21'
+    testImplementation 'org.apache.groovy:groovy:4.0.22'
+    testImplementation 'org.apache.groovy:groovy-json:4.0.22'
     testRuntimeOnly 'com.h2database:h2'
 }
 
