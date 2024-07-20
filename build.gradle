@@ -137,28 +137,25 @@ dependencies {
 }
 
 docker {
-    dockerCreateDockerfile {
-        instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
-    }
-
-    dockerBuildImage {
+    springBootApplication {
+        baseImage = 'eclipse-temurin:21.0.3_9-jre-alpine'
+        maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
+        ports = [8080, 8080]
         images = [
                 'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
                 'jvmbloggers/jvm-bloggers:latest'
         ]
+        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED', '-Dwicket.ioc.useByteBuddy=true']
+    }
+
+    dockerCreateDockerfile {
+        instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
     }
 
     registryCredentials {
         username = getConfigurationProperty('DOCKER_USERNAME', 'docker.username')
         password = getConfigurationProperty('DOCKER_PASSWORD', 'docker.password')
         email = getConfigurationProperty('DOCKER_EMAIL', 'docker.email')
-    }
-
-    springBootApplication {
-        baseImage = 'eclipse-temurin:21.0.3_9-jre-alpine'
-        maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
-        ports = [8080, 8080]
-        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED', '-Dwicket.ioc.useByteBuddy=true']
     }
 }
 
