@@ -158,7 +158,7 @@ docker {
         baseImage = 'eclipse-temurin:21.0.3_9-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
-        jvmArgs = ['-Dwicket.ioc.useByteBuddy=true', '--add-opens', 'java.base/java.lang=ALL-UNNAMED']
+        jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED', '-Dwicket.ioc.useByteBuddy=true']
     }
 }
 
@@ -197,7 +197,7 @@ idea {
 }
 
 tasks.named("dependencyUpdates").configure {
-    timeout Duration.ofMillis(10000)
+    timeout.set(Duration.ofMillis(10000))
 }
 
 task validateBlogsData() {
