@@ -1356,6 +1356,12 @@
       "bookmarkableId": "core-dumps",
       "name": "Marcin Kłopotek",
       "rss": "https://blog.coredumps.io/posts/index.xml"
+    },
+    {
+      "bookmarkableId": "areczek",
+      "name": "Arkadiusz Wróbel",
+      "rss": "http://blog.softwareveteran.dev/feeds/posts/default?alt=rss",
+      "twitter": "@arwrobel"
     }
   ]
 }
