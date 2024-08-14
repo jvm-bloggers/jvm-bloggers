@@ -212,12 +212,6 @@
       "twitter": "@marpiec"
     },
     {
-      "bookmarkableId": "michal-piotrowski",
-      "name": "Michał Piotrowski",
-      "rss": "https://chlebik.wordpress.com/feed",
-      "twitter": "@Chlebosz"
-    },
-    {
       "bookmarkableId": "arek-borek",
       "name": "Arek Borek",
       "rss": "http://arekborek.blogspot.com/feeds/posts/default",
@@ -1358,10 +1352,16 @@
       "rss": "https://blog.coredumps.io/posts/index.xml"
     },
     {
+      "bookmarkableId": "michal-piotrowski-dev",
+      "name": "Michał Piotrowski Dev",
+      "rss": "https://michalpiotrowski.dev/feed",
+      "twitter": "@Chlebosz"
+    },
+    {
       "bookmarkableId": "areczek",
       "name": "Arkadiusz Wróbel",
       "rss": "http://blog.softwareveteran.dev/feeds/posts/default?alt=rss",
-      "twitter": "@arwrobel"
+      "twitter": "@arwrobel" 
     }
   ]
 }
