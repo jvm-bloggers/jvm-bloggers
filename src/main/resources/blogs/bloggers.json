@@ -1356,6 +1356,12 @@
       "name": "Michał Piotrowski Dev",
       "rss": "https://michalpiotrowski.dev/feed",
       "twitter": "@Chlebosz"
+    },
+    {
+      "bookmarkableId": "areczek",
+      "name": "Arkadiusz Wróbel",
+      "rss": "http://blog.softwareveteran.dev/feeds/posts/default?alt=rss",
+      "twitter": "@arwrobel" 
     }
   ]
 }
