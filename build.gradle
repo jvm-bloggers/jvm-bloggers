@@ -142,8 +142,8 @@ docker {
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
         images = [
-                'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
-                'jvmbloggers/jvm-bloggers:latest'
+            'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
+            'jvmbloggers/jvm-bloggers:latest'
         ]
         jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED', '-Dwicket.ioc.useByteBuddy=true']
     }

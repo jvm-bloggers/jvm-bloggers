@@ -4,8 +4,6 @@ import com.jvm_bloggers.utils.DateTimeUtilities
 import com.jvm_bloggers.utils.ZoneTimeProvider
 import com.rometools.rome.feed.synd.*
 import groovy.json.JsonSlurper
-import org.apache.groovy.json.internal.LazyMap
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 
