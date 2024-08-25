@@ -138,7 +138,7 @@ dependencies {
 
 docker {
     springBootApplication {
-        baseImage = 'eclipse-temurin:21.0.3_9-jre-alpine'
+        baseImage = 'eclipse-temurin:21.0.4_7-jre-alpine'
         maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
         ports = [8080, 8080]
         images = [
