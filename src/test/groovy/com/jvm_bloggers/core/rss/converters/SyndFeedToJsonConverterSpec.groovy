@@ -45,35 +45,35 @@ class SyndFeedToJsonConverterSpec extends Specification {
 
     def "Should convert RSS feed to a JSON content"() {
         when:
-        def jsonString = converter.convert(feed).toString()
-        def json = new JsonSlurper().parseText(jsonString)
+        String jsonString = converter.convert(feed).toString()
+        Object json = new JsonSlurper().parseText(jsonString)
 
         then:
-        json.with {
-            title == this.FEED_TITLE
-            link == this.FEED_LINK
-            generator == this.BASE_URL
+        with(json) {
+            title == FEED_TITLE
+            link == FEED_LINK
+            generator == BASE_URL
 
             entries != null
             entries.size() == 2
         }
 
         and:
-        json.entries[0].with {
-            author == this.AUTHOR_1
-            link == this.BASE_URL
-            description == this.DESCRIPTION_1
-            title == this.TITLE_1
-            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(this.DATE)
+        with(json.entries[0]) {
+            author == AUTHOR_1
+            link == BASE_URL
+            description == DESCRIPTION_1
+            title == TITLE_1
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
         }
 
         and:
-        json.entries[1].with {
-            author == this.AUTHOR_2
-            link == this.BASE_URL
+        with(json.entries[1]) {
+            author == AUTHOR_2
+            link == BASE_URL
             description == null
-            title == this.TITLE_2
-            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(this.DATE)
+            title == TITLE_2
+            date == DateTimeUtilities.DATE_TIME_FORMATTER.format(DATE)
         }
     }
 
