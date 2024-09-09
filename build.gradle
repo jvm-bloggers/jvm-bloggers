@@ -195,7 +195,7 @@ task validateBlogsData() {
     def blogsDir = java.nio.file.Paths.get("${projectDir}", "src", "main", "resources", "blogs")
     def schema = blogsDir.resolve("schema.json")
 
-    def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts']
+    def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts', 'meetings']
 
     blogsData.each { fileName ->
         def taskName = 'validate' + fileName.capitalize()
