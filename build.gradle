@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.6"
         classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
-        classpath 'com.ofg:uptodate-gradle-plugin:1.6.3'
     }
 }
 
@@ -24,7 +23,6 @@ plugins {
     id 'io.freefair.lombok' version '6.5.1'
     id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
     id 'jacoco'
-    id "com.ofg.uptodate" version "1.6.3"
 }
 
 group = 'com.jvm-bloggers'
@@ -160,10 +158,6 @@ test {
     systemProperty 'file.encoding', 'utf-8'
     dependsOn 'validateBlogsData'
     useJUnitPlatform()
-}
-
-uptodate {
-    connectionTimeout 10000
 }
 
 String getTimestampWithGitHash() {
