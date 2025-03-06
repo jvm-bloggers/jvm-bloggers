@@ -4,6 +4,7 @@ import io.vavr.collection.Seq;
 
 import io.vavr.control.Option;
 
+import java.time.LocalDate;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,7 @@ public interface NewsletterIssueRepository extends JpaRepository<NewsletterIssue
     Seq<NewsletterIssue> findAllByOrderByPublishedDateDesc();
 
     boolean existsByIssueNumber(Long issueNumber);
+
+    boolean existsByPublishedDate(LocalDate publicationDate);
 
 }

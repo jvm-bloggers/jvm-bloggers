@@ -24,4 +24,5 @@ public class PublishNewNewsletterIssueScheduler {
         log.info("Starting scheduler: generating new issue");
         newIssuePublisher.publishNewIssue(DAYS_IN_THE_PAST_TO_INCLUDE_IN_NEW_ISSUE);
     }
+
 }
