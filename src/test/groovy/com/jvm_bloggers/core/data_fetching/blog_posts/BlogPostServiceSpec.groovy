@@ -46,7 +46,7 @@ class BlogPostServiceSpec extends SpringContextAwareSpecification {
     def setup() {
         if (blogRepository.findByBookmarkableId(blogBookmarkableId).isEmpty()) {
             Blog blog = new Blog(null, blogBookmarkableId, "Test Author", "rss address", "blog url",
-                    "@twitterHandle", LocalDateTime.now(), BlogType.PERSONAL, true, false)
+                    "@twitterHandle", LocalDateTime.now(), BlogType.PERSONAL, true, false, LocalDateTime.parse("2022-03-10T16:00:00"))
             blogRepository.save(blog)
         }
     }
