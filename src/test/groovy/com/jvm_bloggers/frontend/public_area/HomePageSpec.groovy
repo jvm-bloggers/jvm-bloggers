@@ -55,6 +55,7 @@ class HomePageSpec extends MockSpringContextAwareSpecification {
                 empty(),
                 empty(),
                 empty(),
+                empty(),
                 empty()
         )
     }

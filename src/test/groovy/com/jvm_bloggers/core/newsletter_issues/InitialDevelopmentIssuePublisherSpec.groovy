@@ -15,6 +15,7 @@ import static com.jvm_bloggers.ObjectMother.aBlogPost
 import static com.jvm_bloggers.entities.blog.BlogType.COMPANY
 import static com.jvm_bloggers.entities.blog.BlogType.PERSONAL
 import static com.jvm_bloggers.entities.blog.BlogType.PODCAST
+import static com.jvm_bloggers.entities.blog.BlogType.MEETING
 import static com.jvm_bloggers.entities.blog.BlogType.PRESENTATION
 import static java.util.Collections.EMPTY_LIST
 
@@ -57,15 +58,18 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         def companyBlogPosts = prepareBlogPostListOfType(COMPANY, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def personalBlogPosts = prepareBlogPostListOfType(PERSONAL, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def podcastBlogPosts = prepareBlogPostListOfType(PODCAST, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def meetingBlogPosts = prepareBlogPostListOfType(MEETING, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def presentationBlogPosts = prepareBlogPostListOfType(PRESENTATION, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
 
         newsletterIssueRepository.count() >> 0
         blogPostRepository.findBlogPostsOfType(PERSONAL, _ as Pageable) >> personalBlogPosts
         blogPostRepository.findBlogPostsOfType(COMPANY, _ as Pageable) >> companyBlogPosts
         blogPostRepository.findBlogPostsOfType(PODCAST, _ as Pageable) >> podcastBlogPosts
+        blogPostRepository.findBlogPostsOfType(MEETING, _ as Pageable) >> meetingBlogPosts
         blogPostRepository.findBlogPostsOfType(PRESENTATION, _ as Pageable) >> presentationBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(COMPANY, _ as Pageable) >> companyBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(PODCAST, _ as Pageable) >> podcastBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(MEETING, _ as Pageable) >> meetingBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(PRESENTATION, _ as Pageable) >> presentationBlogPosts
 
         when:
@@ -80,15 +84,18 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         def unapprovedCompanyBlogPosts = prepareBlogPostListOfType(COMPANY, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def personalBlogPosts = prepareBlogPostListOfType(PERSONAL, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def unapprovedPodcastBlogPosts = prepareBlogPostListOfType(PODCAST, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
+        def unapprovedMeetingBlogPosts = prepareBlogPostListOfType(MEETING, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
         def unapprovedPresentationBlogPosts = prepareBlogPostListOfType(PRESENTATION, initialDevelopmentIssuePublisher.REQUIRED_NUMBER_OF_POSTS)
 
         newsletterIssueRepository.count() >> 0
         blogPostRepository.findBlogPostsOfType(COMPANY, _ as Pageable) >> unapprovedCompanyBlogPosts
         blogPostRepository.findBlogPostsOfType(PERSONAL, _ as Pageable) >> personalBlogPosts
         blogPostRepository.findBlogPostsOfType(PODCAST, _ as Pageable) >> unapprovedPodcastBlogPosts
+        blogPostRepository.findBlogPostsOfType(MEETING, _ as Pageable) >> unapprovedMeetingBlogPosts
         blogPostRepository.findBlogPostsOfType(PRESENTATION, _ as Pageable) >> unapprovedPresentationBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(COMPANY, _ as Pageable) >> unapprovedCompanyBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(PODCAST, _ as Pageable) >> unapprovedPodcastBlogPosts
+        blogPostRepository.findUnapprovedPostsByBlogType(MEETING, _ as Pageable) >> unapprovedMeetingBlogPosts
         blogPostRepository.findUnapprovedPostsByBlogType(PRESENTATION, _ as Pageable) >> unapprovedPresentationBlogPosts
 
         when:
@@ -100,6 +107,8 @@ class InitialDevelopmentIssuePublisherSpec extends SpringContextAwareSpecificati
         for (BlogPost post : unapprovedPresentationBlogPosts)
             assert post.isApproved()
         for (BlogPost post : unapprovedPodcastBlogPosts)
+            assert post.isApproved()
+        for (BlogPost post : unapprovedMeetingBlogPosts)
             assert post.isApproved()
     }
 
