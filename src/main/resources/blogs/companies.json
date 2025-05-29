@@ -223,6 +223,12 @@
       "name": "HVB.software",
       "rss": "https://hvb.software/feed.xml",
       "twitter": "@HVB_software"
+    },
+    {
+      "bookmarkableId": "noesis-vision",
+      "name": "Noesis.vision",
+      "rss": "https://noesisvision.substack.com/feed",
+      "twitter": "@noesisvision"
     }
   ]
 }
