@@ -29,9 +29,10 @@ class JsonBlogsDataFileValidationSpec extends Specification {
         File companiesJson = new File('src/main/resources/blogs/companies.json')
         File presentationsJson = new File('src/main/resources/blogs/presentations.json')
         File podcastsJson = new File('src/main/resources/blogs/podcasts.json')
+        File meetingsJson = new File('src/main/resources/blogs/meetings.json')
 
         JsonSlurper slurper = new JsonSlurper()
-        jsonEntries = [bloggersJson, companiesJson, presentationsJson, podcastsJson]
+        jsonEntries = [bloggersJson, companiesJson, presentationsJson, podcastsJson, meetingsJson]
             .collect({stream ->
                BloggersData data = slurper.parse(stream)
                data.getBloggers()
