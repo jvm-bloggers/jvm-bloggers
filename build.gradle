@@ -171,14 +171,6 @@ test {
     jvmArgs = ['--add-opens', 'java.base/jdk.internal.loader=ALL-UNNAMED', '--add-opens', 'java.base/java.lang=ALL-UNNAMED']
 }
 
-String getTimestampWithGitHash() {
-    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
-    String cmd = "git log --pretty=format:%h -n 1"
-    def proc = cmd.execute()
-    proc.waitFor()
-    return timeStamp + '-' + proc.in.text
-}
-
 jacocoTestReport {
     reports {
         xml.required.set(true)
