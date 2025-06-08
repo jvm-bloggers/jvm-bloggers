@@ -27,7 +27,7 @@ plugins {
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'io.freefair.lombok' version '8.6'
+    id 'io.freefair.lombok' version '8.13.1'
     id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
     id 'jacoco'
     id "com.github.ben-manes.versions" version "0.52.0"
