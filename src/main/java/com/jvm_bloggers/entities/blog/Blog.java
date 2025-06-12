@@ -1,6 +1,20 @@
 package com.jvm_bloggers.entities.blog;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
 import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,16 +22,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Table(name = "blog")
@@ -48,7 +52,7 @@ public class Blog {
 
     @NonNull
     @Column(name = "AUTHOR", nullable = false, length = 250)
-    @Field
+    @FullTextField
     private String author;
 
     @NonNull
@@ -57,22 +61,22 @@ public class Blog {
 
     @NonNull
     @Column(name = "URL", unique = true, nullable = false, length = 250)
-    @Field
+    @FullTextField
     private String url;
 
     @Column(name = "TWITTER", length = 100)
-    @Field
+    @FullTextField
     private String twitter;
 
     @NonNull
     @Column(name = "DATE_ADDED", nullable = false)
-    @Field
+    @GenericField
     private LocalDateTime dateAdded;
 
     @NonNull
     @Column(name = "BLOG_TYPE", nullable = false)
     @Enumerated(value = EnumType.STRING)
-    @Field
+    @GenericField
     private BlogType blogType;
 
     @Column(name = "ACTIVE")

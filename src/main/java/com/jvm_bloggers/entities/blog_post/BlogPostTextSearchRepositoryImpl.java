@@ -1,75 +1,49 @@
 package com.jvm_bloggers.entities.blog_post;
 
-import java.util.List;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.apache.lucene.search.BooleanClause;
-import org.apache.lucene.search.BooleanClause.Occur;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.SortField.Type;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
+
+import org.hibernate.search.engine.search.query.dsl.SearchQueryOptionsStep;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.search.loading.dsl.SearchLoadingOptionsStep;
+import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 @RequiredArgsConstructor
 class BlogPostTextSearchRepositoryImpl implements BlogPostTextSearchRepository {
 
-  private final EntityManager entityManager;
-  private static final Sort publishedDateSort = new Sort(new SortField("publishedDate", Type.STRING, true));
+    private final EntityManager entityManager;
 
-  @Override
-  @SuppressWarnings("unchecked")
-  public List<BlogPost> findApprovedPostsByTagOrTitle(String searchPhrase, int page, int pageSize) {
-    var fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+    @Transactional(readOnly = true)
+    @Override
+    public List<BlogPost> findApprovedPostsByTagOrTitle(final String searchPhrase, final int page,
+                                                        final int pageSize) {
+        final var session = Search.session(entityManager);
 
-    return (List<BlogPost>) fullTextEntityManager
-        .createFullTextQuery(createQuery(searchPhrase, fullTextEntityManager), BlogPost.class)
-        .setFirstResult(page * pageSize)
-        .setMaxResults(pageSize)
-        .setSort(publishedDateSort)
-        .getResultList();
-  }
+        return createQuery(searchPhrase, session)
+            .sort(f -> f.field("publishedDate").desc())
+            .fetchHits(page * pageSize, pageSize);
+    }
 
-  @Override
-  public int countApprovedPostsByTagOrTitle(String searchPhrase) {
-    var fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+    @Transactional(readOnly = true)
+    @Override
+    public long countApprovedPostsByTagOrTitle(final String searchPhrase) {
+        final var session = Search.session(entityManager);
 
-    return fullTextEntityManager
-        .createFullTextQuery(createQuery(searchPhrase, fullTextEntityManager), BlogPost.class)
-        .getResultSize();
-  }
+        return createQuery(searchPhrase, session)
+            .fetchTotalHitCount();
+    }
 
-  private Query createQuery(String searchPhrase, FullTextEntityManager fullTextEntityManager) {
-    return new BooleanQuery.Builder()
-        .add(new BooleanClause(keywordQuery(searchPhrase, fullTextEntityManager), Occur.MUST))
-        .add(new BooleanClause(approvedQuery(fullTextEntityManager), Occur.MUST))
-        .build();
-  }
+    private static SearchQueryOptionsStep<?, BlogPost, SearchLoadingOptionsStep, ?, ?> createQuery(
+        final String searchPhrase,
+        final SearchSession session) {
 
-  private Query approvedQuery(FullTextEntityManager fullTextEntityManager) {
-    return getQueryBuilder(fullTextEntityManager)
-        .keyword()
-        .onField("approved")
-        .matching(true)
-        .createQuery();
-  }
-
-  private Query keywordQuery(String searchPhrase, FullTextEntityManager fullTextEntityManager) {
-    return getQueryBuilder(fullTextEntityManager)
-        .keyword()
-        .onField("tags.tag").andField("title")
-        .matching(searchPhrase)
-        .createQuery();
-  }
-
-  private QueryBuilder getQueryBuilder(FullTextEntityManager fullTextEntityManager) {
-    return fullTextEntityManager
-        .getSearchFactory()
-        .buildQueryBuilder()
-        .forEntity(BlogPost.class)
-        .get();
-  }
+        return session.search(BlogPost.class)
+            .where(f -> f.bool(b -> b.must(f.matchAll())
+                .must(f.match().fields("tags.tag", "title").matching(searchPhrase))
+                .must(f.match().field("approved").matching(true))));
+    }
 }

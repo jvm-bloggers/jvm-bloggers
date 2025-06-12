@@ -9,9 +9,17 @@ spring:
   liquibase.change-log: classpath:db/changelog/db.changelog.xml
   jpa:
     hibernate.ddl-auto: validate
-    properties.hibernate.search.default:
-      directory_provider: filesystem
-      indexBase: ${user.home}/.jvm-bloggers/lucene
+    properties:
+      hibernate.search.backend:
+        type: "lucene"
+        lucene_version: "8.11.4"
+        directory:
+          type: local-filesystem
+          root: ${user.home}/.jvm-bloggers/lucene
+
+lucene:
+  index-builder:
+    enabled: false
 
 jasypt:
   encryptor:
