@@ -1,3 +1,8 @@
+import com.jvm_bloggers.validation.JsonValidationTask
+
+import java.nio.file.Paths
+import java.time.Duration
+
 buildscript {
     repositories {
         mavenCentral()
@@ -8,26 +13,34 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.6"
-        classpath "com.bmuschko:gradle-docker-plugin:7.4.0"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.7.18"
+        classpath "com.bmuschko:gradle-docker-plugin:9.4.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.52.0"
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.7.6'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'application'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.7'
     id 'java'
     id 'groovy'
     id 'idea'
     id 'eclipse'
-    id 'io.freefair.lombok' version '6.5.1'
-    id 'com.bmuschko.docker-spring-boot-application' version '7.4.0'
+    id 'io.freefair.lombok' version '8.13.1'
+    id 'com.bmuschko.docker-spring-boot-application' version '9.4.0'
     id 'jacoco'
+    id "com.github.ben-manes.versions" version "0.52.0"
 }
 
 group = 'com.jvm-bloggers'
 version = '3.0.0'
-sourceCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 repositories {
     mavenLocal()
@@ -35,9 +48,11 @@ repositories {
 }
 
 ext {
-    wicketVersion = '9.12.0'
-    jerseyVersion = '2.37'
+    wicketVersion = '9.18.0'
+    jerseyVersion = '2.43'
 }
+
+sourceSets.main.resources.srcDir 'src/main/java'
 
 dependencies {
     // Spring Boot stuff
@@ -45,11 +60,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.4'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot:3.0.5'
     implementation 'org.springframework.boot:spring-boot-devtools'
 
     // Logic
-    implementation 'com.rometools:rome:1.18.0'
+    implementation 'com.rometools:rome:2.1.0'
 
     // Facebook
     implementation 'com.restfb:restfb:3.24.0'
@@ -58,7 +73,7 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-core:4.0.7'
 
     // View
-    implementation 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:3.1.6'
+    implementation 'com.giffing.wicket.spring.boot.starter:wicket-spring-boot-starter:3.1.7'
     implementation "org.apache.wicket:wicket-core:$wicketVersion"
     implementation "org.apache.wicket:wicket-spring:$wicketVersion"
     implementation "org.apache.wicket:wicket-ioc:$wicketVersion"
@@ -66,12 +81,12 @@ dependencies {
     implementation "org.apache.wicket:wicket-auth-roles:$wicketVersion"
     implementation "org.apache.wicket:wicket-bean-validation:$wicketVersion"
     implementation "org.wicketstuff:wicketstuff-annotation:$wicketVersion"
-    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:9.11.0"
-    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:9.11.0"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui:9.18.0"
+    implementation "com.googlecode.wicket-jquery-ui:wicket-jquery-ui-plugins:9.18.0"
 
-    implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.6'
-    implementation 'org.webjars:jquery:3.6.1'
-    implementation 'org.webjars:webjars-locator:0.45'
+    implementation 'de.agilecoders.wicket.webjars:wicket-webjars:3.0.7'
+    implementation 'org.webjars:jquery:3.6.3'
+    implementation 'org.webjars:webjars-locator:0.52'
 
     implementation 'org.webjars:startbootstrap-sb-admin-2:3.3.7+1'
     implementation 'org.webjars:html5shiv:3.7.3-1'
@@ -83,20 +98,20 @@ dependencies {
 
 
     // Utils and helpers
-    implementation 'org.projectlombok:lombok'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'org.apache.commons:commons-text:1.10.0'
+    implementation 'org.projectlombok:lombok:1.18.38'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'org.apache.commons:commons-text:1.12.0'
     implementation 'org.antlr:ST4:4.3.4'
     implementation "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
     implementation "org.glassfish.jersey.inject:jersey-hk2:$jerseyVersion"
     implementation 'net.jcip:jcip-annotations:1.0'
-    implementation 'org.objenesis:objenesis:3.3'
-    implementation 'commons-validator:commons-validator:1.7'
+    implementation 'org.objenesis:objenesis:3.4'
+    implementation 'commons-validator:commons-validator:1.9.0'
     implementation 'io.vavr:vavr:0.10.4'
-    implementation 'org.jsoup:jsoup:1.15.3'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.2'
-    implementation 'org.json:json:20220924'
+    implementation 'org.jsoup:jsoup:1.18.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    implementation 'org.json:json:20240303'
     implementation('com.vdurmont:emoji-java:5.1.1') {
         exclude group: 'org.json', module: 'json'
     }
@@ -109,27 +124,34 @@ dependencies {
     implementation 'org.hibernate:hibernate-search-engine:5.11.11.Final'
 
     // Test dependencies
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
     testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
     testImplementation 'org.spockframework:spock-spring:2.3-groovy-3.0'
     testImplementation 'org.springframework:spring-test'
-    testImplementation 'com.jayway.jsonpath:json-path:2.7.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.13'
-    testImplementation 'org.codehaus.groovy:groovy-json:3.0.13'
+    testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.22'
+    testImplementation 'org.codehaus.groovy:groovy-json:3.0.22'
     testRuntimeOnly 'com.h2database:h2'
-
 }
 
 docker {
-    dockerCreateDockerfile {
-        instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
-    }
-
-    dockerBuildImage {
+    springBootApplication {
+        baseImage = 'eclipse-temurin:21.0.7_6-jre-alpine'
+        maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
+        ports = [8080, 8080]
         images = [
             'jvmbloggers/jvm-bloggers:' + project.version + "-" + getTimestampWithGitHash(),
             'jvmbloggers/jvm-bloggers:latest'
         ]
+        jvmArgs = ['-Dwicket.ioc.useByteBuddy=true',
+                   '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+                   '--add-opens', 'java.base/java.util=ALL-UNNAMED']
+    }
+
+    dockerCreateDockerfile {
+        instruction 'RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl'
     }
 
     registryCredentials {
@@ -137,35 +159,20 @@ docker {
         password = getConfigurationProperty('DOCKER_PASSWORD', 'docker.password')
         email = getConfigurationProperty('DOCKER_EMAIL', 'docker.email')
     }
-
-    springBootApplication {
-        baseImage = 'eclipse-temurin:17.0.5_8-jre-alpine'
-        maintainer = 'Tomasz Dziurko "tdziurko at gmail dottt com"'
-        ports = [8080, 8080]
-        jvmArgs = ['-Dwicket.ioc.useByteBuddy=true']
-    }
-}
-
-String getConfigurationProperty(String envVar, String sysProp) {
-    System.getenv(envVar) ?: project.findProperty(sysProp)
 }
 
 bootRun {
-    systemProperties = System.properties
+    systemProperties = System.properties as Map<String, ?>
+    jvmArgs = ['--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+               '--add-opens', 'java.base/java.util=ALL-UNNAMED']
 }
 
 test {
     systemProperty 'file.encoding', 'utf-8'
     dependsOn 'validateBlogsData'
     useJUnitPlatform()
-}
-
-String getTimestampWithGitHash() {
-    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
-    String cmd = "git log --pretty=format:%h -n 1"
-    def proc = cmd.execute()
-    proc.waitFor()
-    return timeStamp + '-' + proc.in.text
+    jvmArgs = ['--add-opens', 'java.base/jdk.internal.loader=ALL-UNNAMED',
+               '--add-opens', 'java.base/java.lang=ALL-UNNAMED']
 }
 
 jacocoTestReport {
@@ -175,9 +182,6 @@ jacocoTestReport {
     }
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
-
 idea {
     module {
         downloadJavadoc = true
@@ -185,8 +189,12 @@ idea {
     }
 }
 
+tasks.named("dependencyUpdates").configure {
+    timeout.set(Duration.ofMillis(10000))
+}
+
 task validateBlogsData() {
-    def blogsDir = java.nio.file.Paths.get("${projectDir}", "src", "main", "resources", "blogs")
+    def blogsDir = Paths.get("${projectDir}", "src", "main", "resources", "blogs")
     def schema = blogsDir.resolve("schema.json")
 
     def blogsData = ['bloggers', 'presentations', 'companies', 'podcasts']
@@ -195,12 +203,24 @@ task validateBlogsData() {
         def taskName = 'validate' + fileName.capitalize()
         def json = blogsDir.resolve("${fileName}.json")
 
-        tasks.create(taskName, com.jvm_bloggers.validation.JsonValidationTask, schema, json)
-
-        dependsOn taskName
+        tasks.register(taskName, JsonValidationTask.class, schema, json)
+        dependsOn(taskName)
     }
 }
 
-sourceSets.main.resources.srcDir 'src/main/java'
+tasks.register('stage') {
+    dependsOn('build', 'clean')
+    mustRunAfter('clean')
+}
 
-apply plugin: 'application'
+String getConfigurationProperty(String envVar, String sysProp) {
+    System.getenv(envVar) ?: project.findProperty(sysProp)
+}
+
+static String getTimestampWithGitHash() {
+    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
+    String cmd = "git log --pretty=format:%h -n 1"
+    def proc = cmd.execute()
+    proc.waitFor()
+    return timeStamp + '-' + proc.in.text
+}
