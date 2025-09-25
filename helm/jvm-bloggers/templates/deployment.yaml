@@ -73,19 +73,22 @@ spec:
             httpGet:
               path: /
               port: http
-            timeoutSeconds: 5
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: http
-            timeoutSeconds: 5
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
           startupProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 30
             failureThreshold: 30
-            timeoutSeconds: 5
-            periodSeconds: 10
+            timeoutSeconds: 10
+            periodSeconds: 15
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
