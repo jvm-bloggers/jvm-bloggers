@@ -1362,6 +1362,11 @@
       "name": "Arkadiusz Wróbel",
       "rss": "http://blog.softwareveteran.dev/feeds/posts/default?alt=rss",
       "twitter": "@arwrobel" 
+    },
+    {
+      "bookmarkableId": "ArturK",
+      "name": "Artur K",
+      "rss": "https://patodev.pl/feed.xml"
     }
   ]
 }
