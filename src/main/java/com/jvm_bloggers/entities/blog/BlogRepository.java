@@ -8,6 +8,7 @@ import io.vavr.control.Option;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -48,4 +49,14 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
         Pageable pageable);
 
     long countByBlogType(BlogType blogType);
+
+    @Modifying
+    @Query("""
+        UPDATE Blog b
+        SET b.dateLastRssFetched = :dateLastFetched
+        WHERE b.id = :id
+        """)
+    void updateDateLastFetched(
+        @Param("dateLastFetched") LocalDateTime dateLastFetched,
+        @Param("id") Long id);
 }
