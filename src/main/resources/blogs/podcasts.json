@@ -139,6 +139,11 @@
             "bookmarkableId": "iteracja-by-elpassion",
             "name": "ITeracja by EL Passion",
             "rss": "https://anchor.fm/s/c2ca0914/podcast/rss"
+        },
+        {
+            "bookmarkableId": "devstarter",
+            "name": "DevStarter",
+            "rss": "https://media.rss.com/devstarter/feed.xml"
         }
     ]
 }
