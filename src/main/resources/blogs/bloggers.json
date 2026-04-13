@@ -881,12 +881,6 @@
       "twitter": "@mmaciejow"
     },
     {
-      "bookmarkableId": "jdyszkiewicz",
-      "name": "Jakub Dyszkiewicz",
-      "rss": "http://dyszkiewicz.me/feed.xml",
-      "twitter": "@jdyszkiewicz"
-    },
-    {
       "bookmarkableId": "tfij",
       "name": "Tomasz Fijałkowski",
       "rss": "http://chi.pl/feed.xml",
@@ -1276,7 +1270,7 @@
     {
       "bookmarkableId": "effectivedev",
       "name": "EffectiveDev - Łukasz Monkiewicz",
-      "rss": "https://effectivedev.pl/blog/feed",
+      "rss": "https://effectivedev.pl/feed",
       "twitter": "@lmonkiewiczdev"
     },
     {
@@ -1362,6 +1356,11 @@
       "name": "Arkadiusz Wróbel",
       "rss": "http://blog.softwareveteran.dev/feeds/posts/default?alt=rss",
       "twitter": "@arwrobel" 
+    },
+    {
+      "bookmarkableId": "artur-k",
+      "name": "Artur K",
+      "rss": "https://patodev.pl/feed.xml"
     }
   ]
 }
