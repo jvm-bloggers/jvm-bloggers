@@ -1361,6 +1361,11 @@
       "bookmarkableId": "artur-k",
       "name": "Artur K",
       "rss": "https://patodev.pl/feed.xml"
+    },
+    {
+      "name": "Kamil Jędrzejuk",
+      "url": "https://camilyed.github.io/feed.xml",
+      "blogUrl": "https://camilyed.github.io"
     }
   ]
 }
