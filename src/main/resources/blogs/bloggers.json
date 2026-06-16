@@ -1361,6 +1361,11 @@
       "bookmarkableId": "artur-k",
       "name": "Artur K",
       "rss": "https://patodev.pl/feed.xml"
+    },
+    {
+      "bookmarkableId": "javasenior",
+      "name": "JavaSenior.pl",
+      "rss": "https://javasenior.pl/rss.xml"
     }
   ]
 }
