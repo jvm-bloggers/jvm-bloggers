@@ -1372,6 +1372,11 @@
       "name": "Arkadiusz Przychocki",
       "rss": "https://blog.arkstack.dev/en/rss.xml",
       "twitter": "@arkstack_dev"
+    },
+    {
+      "bookmarkableId": "javasenior",
+      "name": "JavaSenior.pl",
+      "rss": "https://javasenior.pl/rss.xml"
     }
   ]
 }
