@@ -1363,6 +1363,11 @@
       "rss": "https://patodev.pl/feed.xml"
     },
     {
+      "bookmarkableId": "kamil-j-camilyed",
+      "name": "Kamil Jędrzejuk",
+      "rss": "https://camilyed.github.io/feed.xml",
+    },
+    {
       "bookmarkableId": "arkstack",
       "name": "Arkadiusz Przychocki",
       "rss": "https://blog.arkstack.dev/en/rss.xml",
