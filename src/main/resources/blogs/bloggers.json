@@ -1275,8 +1275,8 @@
     },
     {
       "bookmarkableId": "jakubpradzynski",
-      "name": "Jakub Prądzyński's Blog",
-      "rss": "https://jakubpradzynski.pl/feed.xml",
+      "name": "Jakub Prądzyński",
+      "rss": "https://jakubpradzynski.substack.com/feed",
       "twitter": "@PradzynskiJakub"
     },
     {
@@ -1363,9 +1363,15 @@
       "rss": "https://patodev.pl/feed.xml"
     },
     {
+      "bookmarkableId": "kamil-j-camilyed",
       "name": "Kamil Jędrzejuk",
-      "url": "https://camilyed.github.io/feed.xml",
-      "blogUrl": "https://camilyed.github.io"
+      "rss": "https://camilyed.github.io/feed.xml",
+    },
+    {
+      "bookmarkableId": "arkstack",
+      "name": "Arkadiusz Przychocki",
+      "rss": "https://blog.arkstack.dev/en/rss.xml",
+      "twitter": "@arkstack_dev"
     }
   ]
 }
