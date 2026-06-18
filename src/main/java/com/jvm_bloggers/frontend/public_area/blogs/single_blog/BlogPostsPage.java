@@ -9,6 +9,7 @@ import com.jvm_bloggers.frontend.public_area.AbstractFrontendPage;
 import com.jvm_bloggers.frontend.public_area.blogs.CompanyBlogsPage;
 import com.jvm_bloggers.frontend.public_area.blogs.PersonalBlogsPage;
 import com.jvm_bloggers.frontend.public_area.blogs.PodcastBlogsPage;
+import com.jvm_bloggers.frontend.public_area.blogs.MeetingBlogsPage;
 import com.jvm_bloggers.frontend.public_area.blogs.VideoBlogsPage;
 import io.vavr.control.Option;
 
@@ -107,6 +108,8 @@ public class BlogPostsPage extends AbstractFrontendPage {
                 new BookmarkablePageLink(BACK_LINK, VideoBlogsPage.class)),
             Case($Some($(BlogType.PODCAST)),
                 new BookmarkablePageLink(BACK_LINK, PodcastBlogsPage.class)),
+            Case($Some($(BlogType.MEETING)),
+                new BookmarkablePageLink(BACK_LINK, MeetingBlogsPage.class)),
             Case($None(), new BookmarkablePageLink(BACK_LINK, PersonalBlogsPage.class))
         );
     }

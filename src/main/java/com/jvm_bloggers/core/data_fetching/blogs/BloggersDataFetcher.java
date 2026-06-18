@@ -29,6 +29,7 @@ public class BloggersDataFetcher {
     private Option<URL> companiesUrlOption;
     private Option<URL> presentationsUrlOption;
     private Option<URL> podcastsUrlString;
+    private Option<URL> meetingsUrlString;
     private BloggersDataUpdater bloggersDataUpdater;
     private ObjectMapper mapper;
     private MetadataRepository metadataRepository;
@@ -41,6 +42,7 @@ public class BloggersDataFetcher {
                                @Value("${companies.data.file.url}") String companiesDataUrlString,
                                @Value("${presentations.data.file.url}") String presentationsDataUrlString,
                                @Value("${podcasts.data.file.url}") String podcastsDataUrlString,
+                               @Value("${meetings.data.file.url}") String meetingsDataUrlString,
                                BloggersDataUpdater bloggersDataUpdater,
                                ObjectMapper mapper, MetadataRepository metadataRepository,
                                NowProvider nowProvider) {
@@ -48,6 +50,7 @@ public class BloggersDataFetcher {
         companiesUrlOption = convertToUrl(companiesDataUrlString);
         presentationsUrlOption = convertToUrl(presentationsDataUrlString);
         podcastsUrlString = convertToUrl(podcastsDataUrlString);
+        meetingsUrlString = convertToUrl(meetingsDataUrlString);
         this.bloggersDataUpdater = bloggersDataUpdater;
         this.mapper = mapper;
         this.metadataRepository = metadataRepository;
@@ -75,6 +78,7 @@ public class BloggersDataFetcher {
         refreshBloggersDataFor(companiesUrlOption, BlogType.COMPANY);
         refreshBloggersDataFor(presentationsUrlOption, BlogType.PRESENTATION);
         refreshBloggersDataFor(podcastsUrlString, BlogType.PODCAST);
+        refreshBloggersDataFor(meetingsUrlString, BlogType.MEETING);
 
         final Metadata dateOfLastFetch = metadataRepository
             .findByName(MetadataKeys.DATE_OF_LAST_FETCHING_BLOGGERS);

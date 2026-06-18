@@ -1,0 +1,10 @@
+{
+  "bloggers": [
+    {
+      "bookmarkableId": "poznan-jug-meetings",
+      "name": "Poznań JUG",
+      "rss": "https://raw.githubusercontent.com/PoznanJUG/meetings/master/rss.xml",
+      "twitter": "@PoznanJUG"
+    }
+  ]
+}

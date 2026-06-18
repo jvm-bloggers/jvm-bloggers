@@ -21,6 +21,7 @@ public class PublishedNewsletterIssue {
     private Seq<PublishedPost> companyPosts;
     private Seq<PublishedPost> podcasts;
     private Seq<PublishedPost> presentations;
+    private Seq<PublishedPost> meetings;
     private Seq<NewlyAddedBlog> newBlogs;
 
 }
