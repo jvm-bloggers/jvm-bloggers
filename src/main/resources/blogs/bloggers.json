@@ -1280,6 +1280,12 @@
       "twitter": "@PradzynskiJakub"
     },
     {
+      "bookmarkableId": "przegladai-news",
+      "name": "PrzegladAI.news",
+      "rss": "https://przegladai.substack.com/feed",
+      "twitter": "@PradzynskiJakub"
+    },
+    {
       "bookmarkableId": "mtalaga",
       "name": "Michał Talaga",
       "rss": "https://dev.to/feed/michaltalaga",
