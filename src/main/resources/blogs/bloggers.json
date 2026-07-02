@@ -1377,6 +1377,11 @@
       "bookmarkableId": "javasenior",
       "name": "JavaSenior.pl",
       "rss": "https://javasenior.pl/rss.xml"
+    },
+    {
+      "bookmarkableId": "piotr-prusinski",
+      "name": "Piotr Prusiński",
+      "rss": "https://piotrprusinski.substack.com/feed"
     }
   ]
 }
